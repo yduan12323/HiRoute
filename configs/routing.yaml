@@ -1,0 +1,69 @@
+backend: igraph
+default_cost: travel_time
+network_type: driving
+retain_all_components: true
+simplify: false
+speed_model:
+  # Estimated free-flow km/h, capped by numeric posted maxspeed when available.
+  # Research assumptions, not a statement of national legal limits.
+  class_kph:
+    motorway: 110
+    motorway_link: 50
+    trunk: 90
+    trunk_link: 45
+    primary: 70
+    primary_link: 40
+    secondary: 60
+    secondary_link: 35
+    tertiary: 50
+    tertiary_link: 30
+    unclassified: 40
+    residential: 30
+    living_street: 10
+    service: 15
+    road: 20
+  symbolic_maxspeed_kph:
+    SI:urban: 50
+    SI:rural: 90
+    SI:motorway: 130
+    SI:trunk: 110
+    walk: 5
+  mph_to_kph: 1.609344
+  min_kph: 1
+  max_kph: 140
+access:
+  # Explicit non-passenger-car classes found in the parser's exclusion-based filter.
+  excluded_highway: [busway, bus_guideway, escape, rest_area, services, via_ferrata, bus_stop, emergency_bay, ladder]
+  hierarchy: [motorcar, motor_vehicle, vehicle, access]
+  allowed: [yes, permissive, designated, official]
+  # Destination-only roads cannot be unrestricted through edges.
+  excluded: [no, private, destination, delivery, customers, agricultural, forestry]
+  exclude_conditional_access: true
+  exclude_conditional_oneway: true
+instances:
+  seed: 20260930
+  per_band: 10
+  bands_km: [[50, 100], [100, 200], [200, 400]]
+  max_attempts: 3000
+  jitter_km: 2
+  max_snap_m: 3000
+  # Fixed city anchors; no live geocoding. Coordinates are WGS84 city centres.
+  cities:
+    Ljubljana: [46.0569, 14.5058]
+    Maribor: [46.5547, 15.6459]
+    Celje: [46.2397, 15.2677]
+    Kranj: [46.2389, 14.3556]
+    Koper: [45.5481, 13.7302]
+    Piran: [45.5283, 13.5683]
+    Novo_mesto: [45.8011, 15.1710]
+    Murska_Sobota: [46.6625, 16.1664]
+    Nova_Gorica: [45.9560, 13.6484]
+    Bled: [46.3692, 14.1136]
+    Postojna: [45.7749, 14.2133]
+    Ptuj: [46.4199, 15.8697]
+    Velenje: [46.3592, 15.1103]
+    Slovenj_Gradec: [46.5103, 15.0803]
+benchmark:
+  seed: 20260930
+  repeats: 3
+  warmup_queries: 3

@@ -1,0 +1,11 @@
+dataset:
+  region: Slovenia
+  source_url: https://download.geofabrik.de/europe/slovenia-260929.osm.pbf
+  checksum_url: https://download.geofabrik.de/europe/slovenia-260929.osm.pbf.md5
+  raw_path: data/raw/osm/slovenia-260929.osm.pbf
+  manifest_path: data/raw/DATA_MANIFEST.yaml
+  sha256: 7fae267d1b5f691bcdf4d543dab907175dc77b740960042b48a751bf15a2d693
+graph_dir: data/processed/graphs/slovenia
+instances_path: data/processed/od_instances.parquet
+results_dir: results/milestone_1
+seed: 20260930

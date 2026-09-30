@@ -1,0 +1,16 @@
+schema_version: 1
+dataset:
+  region: Slovenia
+  source_url: https://download.geofabrik.de/europe/slovenia-260929.osm.pbf
+  checksum_url: https://download.geofabrik.de/europe/slovenia-260929.osm.pbf.md5
+  raw_path: data/raw/osm/slovenia-260929.osm.pbf
+  manifest_path: data/raw/DATA_MANIFEST.yaml
+  sha256: 7fae267d1b5f691bcdf4d543dab907175dc77b740960042b48a751bf15a2d693
+  file_name: slovenia-260929.osm.pbf
+  size_bytes: 313378108
+  downloaded_at_utc: '2026-09-30T13:22:03.572952+00:00'
+  osm_snapshot_timestamp: '2026-09-29T20:22:51+00:00'
+  geofabrik_md5: 0d598fc3aa0d5771178494390789f110
+  http_last_modified: Wed, 30 Sep 2026 01:39:11 GMT
+  license: ODbL-1.0
+  attribution: OpenStreetMap contributors; extract by Geofabrik

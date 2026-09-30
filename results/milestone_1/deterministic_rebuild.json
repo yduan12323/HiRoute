@@ -1,0 +1,313 @@
+{
+  "run": {
+    "timestamp_utc": "2026-09-30T13:43:55.117993+00:00",
+    "command": "verify_rebuild",
+    "argv": [
+      "scripts/verify_rebuild.py",
+      "data/cache/graph-rebuild"
+    ],
+    "git_commit": "2022de3b6db1aecd7eb2ba1e88767fcfa2262822",
+    "git_dirty": true,
+    "configuration": {
+      "data": {
+        "dataset": {
+          "region": "Slovenia",
+          "source_url": "https://download.geofabrik.de/europe/slovenia-260929.osm.pbf",
+          "checksum_url": "https://download.geofabrik.de/europe/slovenia-260929.osm.pbf.md5",
+          "raw_path": "data/raw/osm/slovenia-260929.osm.pbf",
+          "manifest_path": "data/raw/DATA_MANIFEST.yaml",
+          "sha256": "7fae267d1b5f691bcdf4d543dab907175dc77b740960042b48a751bf15a2d693"
+        },
+        "graph_dir": "data/processed/graphs/slovenia",
+        "instances_path": "data/processed/od_instances.parquet",
+        "results_dir": "results/milestone_1",
+        "seed": 20260930
+      },
+      "routing": {
+        "backend": "igraph",
+        "default_cost": "travel_time",
+        "network_type": "driving",
+        "retain_all_components": true,
+        "simplify": false,
+        "speed_model": {
+          "class_kph": {
+            "motorway": 110,
+            "motorway_link": 50,
+            "trunk": 90,
+            "trunk_link": 45,
+            "primary": 70,
+            "primary_link": 40,
+            "secondary": 60,
+            "secondary_link": 35,
+            "tertiary": 50,
+            "tertiary_link": 30,
+            "unclassified": 40,
+            "residential": 30,
+            "living_street": 10,
+            "service": 15,
+            "road": 20
+          },
+          "symbolic_maxspeed_kph": {
+            "SI:urban": 50,
+            "SI:rural": 90,
+            "SI:motorway": 130,
+            "SI:trunk": 110,
+            "walk": 5
+          },
+          "mph_to_kph": 1.609344,
+          "min_kph": 1,
+          "max_kph": 140
+        },
+        "access": {
+          "excluded_highway": [
+            "busway",
+            "bus_guideway",
+            "escape",
+            "rest_area",
+            "services",
+            "via_ferrata",
+            "bus_stop",
+            "emergency_bay",
+            "ladder"
+          ],
+          "hierarchy": [
+            "motorcar",
+            "motor_vehicle",
+            "vehicle",
+            "access"
+          ],
+          "allowed": [
+            true,
+            "permissive",
+            "designated",
+            "official"
+          ],
+          "excluded": [
+            false,
+            "private",
+            "destination",
+            "delivery",
+            "customers",
+            "agricultural",
+            "forestry"
+          ],
+          "exclude_conditional_access": true,
+          "exclude_conditional_oneway": true
+        },
+        "instances": {
+          "seed": 20260930,
+          "per_band": 10,
+          "bands_km": [
+            [
+              50,
+              100
+            ],
+            [
+              100,
+              200
+            ],
+            [
+              200,
+              400
+            ]
+          ],
+          "max_attempts": 3000,
+          "jitter_km": 2,
+          "max_snap_m": 3000,
+          "cities": {
+            "Ljubljana": [
+              46.0569,
+              14.5058
+            ],
+            "Maribor": [
+              46.5547,
+              15.6459
+            ],
+            "Celje": [
+              46.2397,
+              15.2677
+            ],
+            "Kranj": [
+              46.2389,
+              14.3556
+            ],
+            "Koper": [
+              45.5481,
+              13.7302
+            ],
+            "Piran": [
+              45.5283,
+              13.5683
+            ],
+            "Novo_mesto": [
+              45.8011,
+              15.171
+            ],
+            "Murska_Sobota": [
+              46.6625,
+              16.1664
+            ],
+            "Nova_Gorica": [
+              45.956,
+              13.6484
+            ],
+            "Bled": [
+              46.3692,
+              14.1136
+            ],
+            "Postojna": [
+              45.7749,
+              14.2133
+            ],
+            "Ptuj": [
+              46.4199,
+              15.8697
+            ],
+            "Velenje": [
+              46.3592,
+              15.1103
+            ],
+            "Slovenj_Gradec": [
+              46.5103,
+              15.0803
+            ]
+          }
+        },
+        "benchmark": {
+          "seed": 20260930,
+          "repeats": 3,
+          "warmup_queries": 3
+        }
+      }
+    },
+    "seed": 20260930,
+    "dataset_sha256": "7fae267d1b5f691bcdf4d543dab907175dc77b740960042b48a751bf15a2d693",
+    "python": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "Brotli": "1.2.0",
+      "Jinja2": "3.1.6",
+      "MarkupSafe": "3.0.3",
+      "PySide6": "6.11.2",
+      "PySocks": "1.7.1",
+      "PyYAML": "6.0.3",
+      "Pygments": "2.21.0",
+      "annotated-types": "0.8.0",
+      "backports.zstd": "1.7.0",
+      "branca": "0.8.2",
+      "certifi": "2026.7.22",
+      "charset-normalizer": "3.5.2",
+      "cloudpickle": "3.1.2",
+      "colorama": "0.4.6",
+      "contourpy": "1.3.3",
+      "cycler": "0.12.1",
+      "cykhash": "2.0.1",
+      "duckdb": "1.5.6",
+      "exceptiongroup": "1.3.1",
+      "folium": "0.20.0",
+      "fonttools": "4.66.1",
+      "geopandas": "1.2.0",
+      "h2": "4.4.1",
+      "hiroute": "0.1.0",
+      "hpack": "4.2.0",
+      "hyperframe": "6.1.0",
+      "idna": "3.20",
+      "igraph": "1.0.0",
+      "iniconfig": "2.3.0",
+      "joblib": "1.6.0",
+      "kiwisolver": "1.5.1",
+      "mapclassify": "2.10.0",
+      "matplotlib": "3.11.2",
+      "munkres": "1.1.4",
+      "narwhals": "2.26.0",
+      "networkit": "11.2",
+      "networkx": "3.6.1",
+      "numpy": "2.4.6",
+      "orjson": "3.12.0",
+      "packaging": "26.3",
+      "pandas": "3.0.6",
+      "pillow": "12.3.0",
+      "pip": "26.2.1",
+      "pluggy": "1.6.0",
+      "polars": "1.44.2",
+      "polars-runtime-32": "1.44.2",
+      "protobuf": "7.35.1",
+      "pyarrow": "25.0.0",
+      "pydantic": "2.13.5",
+      "pydantic_core": "2.46.5",
+      "pyogrio": "0.13.0",
+      "pyparsing": "3.3.3",
+      "pyproj": "3.7.2",
+      "pyrosm": "0.13.1",
+      "pytest": "9.1.1",
+      "python-dateutil": "2.9.0.post0",
+      "python-rapidjson": "1.25",
+      "requests": "2.34.2",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.17.1",
+      "setuptools": "84.0.0",
+      "shapely": "2.1.2",
+      "shiboken6": "6.11.2",
+      "six": "1.17.0",
+      "texttable": "1.7.0",
+      "threadpoolctl": "3.7.0",
+      "tomli": "2.4.1",
+      "tornado": "6.5.10",
+      "tqdm": "4.70.1",
+      "typing-inspection": "0.4.4",
+      "typing_extensions": "4.16.0",
+      "unicodedata2": "18.0.0",
+      "urllib3": "2.8.0",
+      "wheel": "0.48.0",
+      "xyzservices": "2026.9.1"
+    },
+    "research_spec_sha256": "d594f4ac78e1bfe8903c98d48bb20c4e9e3f2b15f1e8fed5fedde964be7ead04",
+    "source_sha256": {
+      "src/graph/__init__.py": "985c8cff4759fb0cee963387a5c683a32be01e02e11e30d89455d4de225e4bde",
+      "src/graph/preprocessing.py": "c87727b2b2e22b0aecd5a13f2ad6c8472f71f5beb3623d06348d1ede0ba500c3",
+      "src/graph/road_graph.py": "bbd159784f2ef90f164864d9300f359f2d1668358422366168000a818641e48e",
+      "src/graph/validation.py": "49fef0fd8d6d91703d2ceddf6717f5924928ee73f991cc1da90b00c67df251b7",
+      "scripts/_common.py": "9e681f49a318bb14b9e3ae1c89998d9350b1e6d9b6b3f3c49f44efa685c92aaa",
+      "scripts/build_graph.py": "5e63534334f34a985c200f75015f7b515a5d635aa169a2e29d1c068d54522f34",
+      "scripts/build_pois.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scripts/download_data.py": "a266aa7a0da9a4a988be0b48752e7901f5f87038b8d61617392751550f769a73",
+      "scripts/generate_instances.py": "aa0f8e8e620818a32eeed1b957482ba5c1ae7edd37c6c4a5843d831ec9f63313",
+      "scripts/run_benchmark.py": "eebeb9037de9fb0775dd81382912a80fb241e1ca068caa9394baf45e41c7afb6",
+      "scripts/verify_rebuild.py": "d93bd57531fc4549109cba2c56aed3223934f71625d4ef98c30c29bc40c3cf05",
+      "tests/conftest.py": "18261e9a71b13dbf8d8822494237a8edfe08e479be3dd5cd6216f63bf1a5ad6f",
+      "tests/test_download.py": "3133956f02d038d361b2fff1dac94c604d8e70022ced9d8a40c5b0b1d4658d56",
+      "tests/test_graph.py": "916bffd9b523ab183f52eebcdcb36e35412f210ddeaba440d8d1be53baf2575d",
+      "tests/test_preprocessing.py": "80191f9f28edf51abc6aec2c732d277921572c498bceb145f934d2c920fbe3ad",
+      "tests/test_real_graph.py": "a681b839a7141a6b8a2cadfe0f98d51cebbc8a298b98956c04034839f1ff8542"
+    },
+    "dataset_metadata": {
+      "region": "Slovenia",
+      "source_url": "https://download.geofabrik.de/europe/slovenia-260929.osm.pbf",
+      "checksum_url": "https://download.geofabrik.de/europe/slovenia-260929.osm.pbf.md5",
+      "raw_path": "data/raw/osm/slovenia-260929.osm.pbf",
+      "manifest_path": "data/raw/DATA_MANIFEST.yaml",
+      "sha256": "7fae267d1b5f691bcdf4d543dab907175dc77b740960042b48a751bf15a2d693",
+      "file_name": "slovenia-260929.osm.pbf",
+      "size_bytes": 313378108,
+      "downloaded_at_utc": "2026-09-30T13:22:03.572952+00:00",
+      "osm_snapshot_timestamp": "2026-09-29T20:22:51+00:00",
+      "geofabrik_md5": "0d598fc3aa0d5771178494390789f110",
+      "http_last_modified": "Wed, 30 Sep 2026 01:39:11 GMT",
+      "license": "ODbL-1.0",
+      "attribution": "OpenStreetMap contributors; extract by Geofabrik"
+    }
+  },
+  "comparisons": {
+    "nodes.parquet": {
+      "original_sha256": "923d90961262f4c4cc257099ce612a8470aa7f633416aef8d32c7ce75b0b6229",
+      "rebuilt_sha256": "923d90961262f4c4cc257099ce612a8470aa7f633416aef8d32c7ce75b0b6229",
+      "identical": true
+    },
+    "edges.parquet": {
+      "original_sha256": "58e10b01925eabb867e4d5c253fa01fc8c347bdeca028c5810736c1c15620c74",
+      "rebuilt_sha256": "58e10b01925eabb867e4d5c253fa01fc8c347bdeca028c5810736c1c15620c74",
+      "identical": true
+    }
+  },
+  "passed": true
+}
