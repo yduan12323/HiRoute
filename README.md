@@ -1,6 +1,6 @@
-# HiRoute research infrastructure — Milestone 1
+# HiRoute research infrastructure — Milestones 1–2
 
-The authoritative formulation is [RESEARCH_SPEC.md](RESEARCH_SPEC.md). This implementation covers a frozen OSM driving graph, typed routing, seeded OD instances and shortest-path validation. Research modules for later milestones remain empty.
+The authoritative formulation is [RESEARCH_SPEC.md](RESEARCH_SPEC.md). This implementation covers the frozen OSM driving graph and structurally validated Safe Detour Envelopes. Research modules beyond envelope infrastructure remain empty. Structural correctness is with respect to the frozen directed graph; full legal or real-world route feasibility is not certified.
 
 ## Environment
 
@@ -74,6 +74,61 @@ cost_s = graph.shortest_path_cost(origin, destination, cost="travel_time")
 distance_m = graph.shortest_path_cost(origin, destination, cost="distance")
 ```
 
-`RoadGraph` is a typed protocol independent of the concrete backend. `Route` retains the exact selected edge IDs. Unreachable paths raise `NoPathError`; unreachable scalar costs/distances are infinity. `single_source_distances(origin, direction="in")` computes costs to the origin on directed edges. `multi_source_distances` returns the minimum over sources with O(V) output memory and one query per source. These are graph primitives only; no detour envelope is implemented.
+`RoadGraph` is a typed protocol independent of the concrete backend. `Route` retains the exact selected edge IDs. Unreachable paths raise `NoPathError`; unreachable scalar costs/distances are infinity. `single_source_distances(origin, direction="in")` computes costs to the origin on directed edges. `multi_source_distances` returns the minimum over sources with O(V) output memory and one query per source.
 
 This static graph does not enforce turn-restriction relations, node barriers, vehicle dimensions or time-dependent rules. It supports structural research smoke tests; later hard-feasibility work must account for these limits. Extract boundaries also truncate cross-border alternatives. Read the report before using this graph for later Safe Detour Envelope experiments.
+
+## Milestone 2: Safe Detour Envelope
+
+Continue from the existing Milestone 1 artifacts; do not rerun `build_graph.py`, `generate_instances.py`, or the Milestone 1 benchmark to execute Milestone 2. No new environment dependencies are required. Install the extended local package in the existing `hiroute` environment:
+
+```bash
+python -m pip install --no-deps --no-build-isolation -e .
+
+# Check the original tests before starting the envelope experiment.
+pytest -q tests/test_graph.py tests/test_preprocessing.py tests/test_download.py tests/test_real_graph.py --require-real-data
+
+# For a new local run, capture a new checkpoint (exclusive write).
+python scripts/verify_milestone_1.py --capture --checkpoint results/milestone_2/local_preservation_before.json
+
+# Normally verifies the archived polygon already included in the repository.
+python scripts/download_extract_boundary.py
+python scripts/run_envelope_benchmark.py
+python scripts/plot_envelopes.py
+
+pytest -q --require-real-data --require-envelope-results --junitxml=results/milestone_2/tests.xml
+python scripts/verify_milestone_1.py --checkpoint results/milestone_2/local_preservation_before.json
+python scripts/write_envelope_report.py
+```
+
+If repeating a run with the same local checkpoint, omit `--capture` and verify it instead. The included `preservation_before.json`/`preservation_after.json` record the initial implementation run. If that checkpoint is present and your Milestone 1 artifacts are unchanged from the supplied run, use `python scripts/verify_milestone_1.py` directly. A checkpoint mismatch must be investigated, not overwritten. The independent `--require-envelope-results` test flag keeps the Milestone 1 reproduction workflow usable before Milestone 2 outputs exist; the final Milestone 2 command requires both graph data and envelope results.
+
+`configs/envelope.yaml` controls the cost (`travel_time` in seconds, or `distance` in metres), ratios, experimental cap, numerical tolerance, seed, path sampling, boundary margin and figures. Membership compares each bound against `B + absolute + relative*B`. Defaults add at most microseconds to the time budgets in this experiment. Changing speeds or cost dimensions can change envelope membership; graph/routing fingerprints and explicit units are included in the result tables.
+
+The precomputation computes `d(s,v)` using outgoing edges and `d(v,d)` using incoming edges from the destination. It caches node bounds `d_s+d_d` and edge bounds `d_s[source]+edge_cost+d_d[target]`. Each budget uses read-only NumPy masks over the original graph, preserving exact parallel-edge IDs. Distances are computed once per OD/cost, and ODs are processed sequentially. No full subgraph copies are written. Progressive iteration exposes views for future caller inspection without selecting a stopping budget or estimating utility.
+
+```python
+from envelope import NumericalTolerance, precompute_detour_distances, iter_progressive_envelopes
+
+distances = precompute_detour_distances(graph, origin, destination, cost="travel_time")
+budgets = [ratio * distances.baseline_cost for ratio in (1.0, 1.1, 1.4, 2.0)]
+for envelope in iter_progressive_envelopes(distances, budgets, NumericalTolerance()):
+    print(envelope.budget, envelope.unit, envelope.node_mask.sum(), envelope.edge_mask.sum())
+```
+
+Every path with total base cost at most B is retained. A route assembled from retained edges may still exceed B, so its total cost must be checked. The [Milestone 2 report](docs/MILESTONE_2_REPORT.md) gives the proof, numerical policy, synthetic tests, empirical path-containment checks, performance and envelope-growth tables.
+
+The separately archived [Geofabrik polygon](https://download.geofabrik.de/europe/slovenia.poly) is a geographic diagnostic proxy, not a PBF-date-matched certificate. Boundary risk flags any envelope vertex within 1 km of or outside its projected polygon. Flags do not change masks. The proxy-interior analysis subset remains separate from all 30 unchanged ODs; no global completeness claim is made. The frozen polygon and its metadata are included under `results/milestone_2/boundary/`, so the experiment requires no network access. The downloader can restore only the pinned content if the archive is missing.
+
+Outputs under `results/milestone_2/` include:
+
+- `envelope_stats.parquet`: 30 ODs × seven configured ratios, sizes, percentages, bounds, build time and memory.
+- `distance_benchmark.parquet`: forward/reverse timings once per OD, bounds preparation and fingerprints.
+- `path_containment_tests.parquet`: seeded paths/walks, exact path fingerprints and bounded/over-budget checks.
+- `boundary_diagnostics.parquet`, `boundary_safe_subset.parquet`, `envelope_growth.parquet`.
+- `benchmark.json`, `tests.xml`, preservation checks and reproducibility logs.
+- `figures/`: static growth and three OD diagnostics, editable SVG/PDF, PNG previews, aggregate source data and QA notes.
+
+Large tables, detailed logs and figures are generated locally and ignored by Git; compact summaries, configs and the frozen boundary are retained. To test the distance dimension in a separate output directory, copy `configs/envelope.yaml`, set `cost: distance` and a distinct `results_dir`, then run `python scripts/run_envelope_benchmark.py --config <copied-config>`. The APIs and real tests cover both dimensions; the default 30-OD benchmark uses travel time.
+
+No Opportunity Region, POI, charging, semantic/LLM, utility, acquisition or decision-driven stopping code is present. The authoritative order assigns Milestone 3 to Adaptive Envelope and Milestone 4 to Opportunity Regions; further research work requires explicit instruction.

@@ -1,0 +1,61 @@
+{
+  "timestamp_utc": "2026-10-01T00:59:39.242492+00:00",
+  "git_commit": "d865cd6f28eec3425c58b02c9051e5d6aa8549f3",
+  "git_status": "",
+  "dataset": {
+    "region": "Slovenia",
+    "source_url": "https://download.geofabrik.de/europe/slovenia-260929.osm.pbf",
+    "checksum_url": "https://download.geofabrik.de/europe/slovenia-260929.osm.pbf.md5",
+    "raw_path": "data/raw/osm/slovenia-260929.osm.pbf",
+    "manifest_path": "data/raw/DATA_MANIFEST.yaml",
+    "sha256": "7fae267d1b5f691bcdf4d543dab907175dc77b740960042b48a751bf15a2d693",
+    "file_name": "slovenia-260929.osm.pbf",
+    "size_bytes": 313378108,
+    "downloaded_at_utc": "2026-09-30T13:22:03.572952+00:00",
+    "osm_snapshot_timestamp": "2026-09-29T20:22:51+00:00",
+    "geofabrik_md5": "0d598fc3aa0d5771178494390789f110",
+    "http_last_modified": "Wed, 30 Sep 2026 01:39:11 GMT",
+    "license": "ODbL-1.0",
+    "attribution": "OpenStreetMap contributors; extract by Geofabrik"
+  },
+  "preserved_files": {
+    "RESEARCH_SPEC.md": "d594f4ac78e1bfe8903c98d48bb20c4e9e3f2b15f1e8fed5fedde964be7ead04",
+    "docs/MILESTONE_1_REPORT.md": "18a638cd239314565a8f096828c826f9e77ef20c1610e522825390209bfac70f",
+    "configs/routing.yaml": "373bc096448cdc507d5c00c27fc9560494f830151f5b976fd48b7ebb576c2024",
+    "configs/data.yaml": "a1d1ef2750bf30e0f9f014f98bfd110205e30b1cd95518a117754bbbabcdbe8e",
+    "data/processed/od_instances.parquet": "cc4d532031d8b49a2bf7090f5ab4c8693f9b28e9449ac04ec1b81bdaf48362b1",
+    "data/raw/DATA_MANIFEST.yaml": "d8020f87ed547e92d279bda9ce2d226c189b3f92556dec783329e7da09a2bcf8",
+    "data/processed/graphs/slovenia/edges.parquet": "58e10b01925eabb867e4d5c253fa01fc8c347bdeca028c5810736c1c15620c74",
+    "data/processed/graphs/slovenia/nodes.parquet": "923d90961262f4c4cc257099ce612a8470aa7f633416aef8d32c7ce75b0b6229",
+    "data/processed/graphs/slovenia/metadata.json": "b3e13d2bef710579dfe32b3f50686cfcbdeeeec968f57ee382a563553b1eaaf3",
+    "src/graph/road_graph.py": "bbd159784f2ef90f164864d9300f359f2d1668358422366168000a818641e48e",
+    "src/graph/preprocessing.py": "c87727b2b2e22b0aecd5a13f2ad6c8472f71f5beb3623d06348d1ede0ba500c3",
+    "src/graph/validation.py": "49fef0fd8d6d91703d2ceddf6717f5924928ee73f991cc1da90b00c67df251b7",
+    "src/graph/__init__.py": "985c8cff4759fb0cee963387a5c683a32be01e02e11e30d89455d4de225e4bde",
+    "results/milestone_1/tests.xml": "e7f8d78933fa35ec3e10068005d1b97bb2329ed92f4023969dcea7ac081e4de0",
+    "results/milestone_1/benchmark.json": "d087147b8d53dbcdd3bb192dd574a9c25992ac08f0d62ec5eda78ab761a2477a",
+    "results/milestone_1/query_timings.parquet": "b935f8908752ad3af7169ca6e796d7df3951111e4b107d48e6c9d7e0725ce052",
+    "results/milestone_1/deterministic_rebuild.json": "bb8df9c798e0e71a9fab141040e286fc462ffda873c31d8fbd04548e7b73494f",
+    "results/milestone_1/route_validation.parquet": "683b1433c4a5238eeb634237bbce2006c87696a20c1ec5ce697a6e267408766a",
+    "results/milestone_1/logs/benchmark-20260930T134741249732.json": "86f16d9a10218c23bc338a487494fcbad7d3a387eda606a6cfeefd673a198a8e",
+    "results/milestone_1/logs/build_graph-20260930T132344908199.json": "c64945dd5c4e4f1f99cbd06c0cfa317bd75d8bf5d64003879236a87ac4d6cfdc",
+    "results/milestone_1/logs/verify_rebuild-20260930T134355122553.json": "dceef79200774e8121218b9b8c516c139e616cd2b581391cfeb8f1aacfebcf2f",
+    "results/milestone_1/logs/generate_instances-20260930T133756221182.json": "3de5ed377d129500d9420a8c3942c8ddaf328bc6b75107b41d0a54e3b1e89882",
+    "results/milestone_1/logs/build_graph-20260930T133435247643.json": "9b6d61259fc5e8d88bd32d10b8be8cdcd4d47c7a6e4f4afaa0ed5ac5bd6cafb3",
+    "results/milestone_1/logs/download_verify-20260930T132345244948.json": "9f91568c2557ec8884447a5248adbfc93798cb8948508e408dd610b09839fc7e",
+    "results/milestone_1/logs/build_graph-20260930T132759879542.json": "287ef178333c8f6c3e918e8c0f60f0d4044f2518fd0899d43a17a698cb2f67bb",
+    "results/milestone_1/logs/download_start-20260930T124619435422.json": "109fa7f44a5e91695ba079e6a7ede3a9f15c83f11527eda352230299ba320ca1",
+    "results/milestone_1/logs/build_graph-20260930T133756753941.json": "eae7bcef317af2c9dbfc04846a46e95e6d0fd48a854c983caa1d6190be1fb6be",
+    "results/milestone_1/logs/download_complete-20260930T132203606200.json": "3b368e82c8af3490917b518b7397c9f1c4f185037dde3417e2ffc1d717971236"
+  },
+  "graph_files": {
+    "nodes.parquet": {
+      "sha256": "923d90961262f4c4cc257099ce612a8470aa7f633416aef8d32c7ce75b0b6229",
+      "size_bytes": 39725486
+    },
+    "edges.parquet": {
+      "sha256": "58e10b01925eabb867e4d5c253fa01fc8c347bdeca028c5810736c1c15620c74",
+      "size_bytes": 108146323
+    }
+  }
+}

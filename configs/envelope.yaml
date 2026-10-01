@@ -1,0 +1,49 @@
+cost: travel_time
+detour_ratios:
+- 1.0
+- 1.05
+- 1.1
+- 1.2
+- 1.4
+- 1.6
+- 2.0
+max_ratio: 2.0
+numerical_tolerance:
+  absolute: 1.0e-08
+  relative: 1.0e-10
+seed: 20261001
+results_dir: results/milestone_2
+boundary:
+  source_url: https://download.geofabrik.de/europe/slovenia.poly
+  path: results/milestone_2/boundary/slovenia.poly
+  sha256: f5813a8cda35bb54b0d3123e62701165e10068f532b0aa0fda70926f2d7ddc32
+  projection: EPSG:3035
+  interior_margin_m: 1000
+sampling:
+  waypoint_count: 12
+  waypoint_ratios:
+  - 1.05
+  - 1.1
+  - 1.2
+  - 1.4
+  - 1.6
+  - 2.0
+  - 2.2
+  - 3.0
+  reproducibility_od_ids:
+  - 0
+  - 1
+  - 2
+diagnostics:
+  excessive_node_fraction: 0.5
+  figure_od_ids:
+  - 0
+  - 9
+  - 21
+  figure_ratios:
+  - 1.1
+  - 1.4
+  - 2.0
+  map_grid_m: 1000
+benchmark:
+  mask_repeats: 3
