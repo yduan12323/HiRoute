@@ -1,0 +1,26 @@
+{
+  "timestamp_utc": "2026-10-01T07:45:25.107339+00:00",
+  "passed": true,
+  "checks": {
+    "previous_artifacts_and_research_spec_unchanged": true,
+    "frozen_poi_snapshot_byte_reproduced": true,
+    "compact_neighbor_cache_byte_reproduced": true,
+    "all_30_ods_and_seven_ratios": true,
+    "both_region_methods": true,
+    "compression_and_coherence": true,
+    "expansion_stability": true,
+    "parameter_sensitivity": true,
+    "report_and_reproduction_commands": true,
+    "acceptance_tests": true,
+    "figure_source_preflight": true
+  },
+  "tests": {
+    "tests": 64,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "scope": "Milestone 4A only; no microplans, preferences, semantic processors, utility/regret/acquisition evaluation",
+  "protected_file_count": 291,
+  "initial_git_commit": "e86a282025641e1fb22f541132f23955b0792002"
+}

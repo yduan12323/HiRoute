@@ -10,10 +10,13 @@ requires-python = ">=3.11,<3.12"
 dependencies = ["numpy", "scipy", "pandas", "pyarrow", "geopandas", "shapely", "pyproj", "pyrosm", "igraph", "pyyaml"]
 
 [tool.setuptools]
-packages = ["graph", "envelope"]
+packages = ["graph", "envelope", "opportunity"]
 package-dir = {"" = "src"}
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
 markers = ["integration: requires frozen processed Slovenia data"]
+
+[tool.setuptools.package-data]
+opportunity = ["*.cpp"]

@@ -1,0 +1,37 @@
+{
+  "spatial_seconds": 0.2888219760498032,
+  "network_seconds": 16.886295821983367,
+  "pair_count": 10053530,
+  "validated_pair_count": 7890792,
+  "native_peak_rss_mib": 1037.0,
+  "native_source_sha256": "c3b014fa403955f231fb51508dcc4c4c639283b23a0ac6511594a05dbc6e8697",
+  "compiler_command": [
+    "g++",
+    "-O3",
+    "-std=c++17",
+    "/home/dy/HiRoute/project/src/opportunity/local_network.cpp",
+    "-o",
+    "/home/dy/HiRoute/project/data/cache/opportunity_4a/network_compact_verification/local_network"
+  ],
+  "compiler_version": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "search_counts": "bounded_searches=83534 settled_nodes=169757466\n",
+  "serialization_seconds": 1.8656324469484389,
+  "pair_file_sha256": "d6764970f58b473af8820ebbe767147912eb29f58b35fd4d966b7c9c89d682de",
+  "original_pair_file_sha256": "d6764970f58b473af8820ebbe767147912eb29f58b35fd4d966b7c9c89d682de",
+  "byte_identical": true,
+  "process_peak_rss_mib": 5058.80078125,
+  "input_sha256": {
+    "inventory": "d467606df7061b05f87fbcbbc6c2e9dc8e25121bb64c86686cb54f82eb778fb7",
+    "attachment": "a87ac248049218428805a9cf2f985c2db5c588e4381286b9401a5829faa0e464",
+    "graph_metadata": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd"
+  },
+  "configuration": {
+    "maximum_candidate_radius_m": 1800,
+    "maximum_search_distance_m": 2500,
+    "compiler": "g++",
+    "compiler_flags": [
+      "-O3",
+      "-std=c++17"
+    ]
+  }
+}

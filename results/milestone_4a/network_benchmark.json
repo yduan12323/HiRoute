@@ -1,0 +1,20 @@
+{
+  "spatial_seconds": 0.2950500190490857,
+  "network_seconds": 38.81027752603404,
+  "pair_count": 10053530,
+  "validated_pair_count": 7890792,
+  "native_peak_rss_mib": 1037.2109375,
+  "native_source_sha256": "c3b014fa403955f231fb51508dcc4c4c639283b23a0ac6511594a05dbc6e8697",
+  "compiler_command": [
+    "g++",
+    "-O3",
+    "-std=c++17",
+    "/home/dy/HiRoute/project/src/opportunity/local_network.cpp",
+    "-o",
+    "/home/dy/HiRoute/project/data/cache/opportunity_4a/network/local_network"
+  ],
+  "compiler_version": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "search_counts": "bounded_searches=83534 settled_nodes=169757466\n",
+  "contract": "e3b3c3f1f7b2b5ad071ea91da9601f856cdffab631847e563cf15efdbb2de826",
+  "pair_file_sha256": "d6764970f58b473af8820ebbe767147912eb29f58b35fd4d966b7c9c89d682de"
+}

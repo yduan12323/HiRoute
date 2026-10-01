@@ -23,3 +23,12 @@ results/milestone_3a/**
 !results/milestone_3a/boundary/*
 !results/milestone_3a/extraction_logs/*.json
 !results/milestone_3a/figures/*.md
+data/raw/opportunities/**
+!data/raw/opportunities/**/
+!data/raw/opportunities/**/*.yaml
+!data/raw/opportunities/**/*.json
+results/milestone_4a/**
+!results/milestone_4a/**/
+!results/milestone_4a/*.json
+!results/milestone_4a/*.yaml
+!results/milestone_4a/figures/*.md

@@ -1,0 +1,1161 @@
+{
+  "run": {
+    "timestamp_utc": "2026-10-01T07:30:18.460333+00:00",
+    "command": "milestone_4a",
+    "argv": [
+      "scripts/run_opportunity_benchmark.py"
+    ],
+    "git_commit": "e86a282025641e1fb22f541132f23955b0792002",
+    "git_dirty": true,
+    "configuration": {
+      "data": {
+        "dataset": {
+          "region": "Slovenia cross-border 75 km research region",
+          "source_url": "derived:geofabrik-260929-regional-crop-original-model-domain",
+          "raw_path": "data/raw/osm/slovenia_extended_75km/slovenia_extended-modeled-260929.osm.pbf",
+          "sha256": "e10a5d4bb2a927d1bdcf21a41d30971a9301a82e08656c0419ef45e3f92de7a7",
+          "manifest_path": "results/milestone_3a/MODEL_DATA_MANIFEST.yaml"
+        },
+        "graph_dir": "data/processed/graphs/slovenia_extended",
+        "instances_path": "results/milestone_3a/od_remapping.parquet",
+        "results_dir": "results/milestone_4a",
+        "seed": 20260930
+      },
+      "routing": {
+        "backend": "igraph",
+        "default_cost": "travel_time",
+        "network_type": "driving",
+        "retain_all_components": true,
+        "simplify": false,
+        "speed_model": {
+          "class_kph": {
+            "motorway": 110,
+            "motorway_link": 50,
+            "trunk": 90,
+            "trunk_link": 45,
+            "primary": 70,
+            "primary_link": 40,
+            "secondary": 60,
+            "secondary_link": 35,
+            "tertiary": 50,
+            "tertiary_link": 30,
+            "unclassified": 40,
+            "residential": 30,
+            "living_street": 10,
+            "service": 15,
+            "road": 20
+          },
+          "symbolic_maxspeed_kph": {
+            "SI:urban": 50,
+            "SI:rural": 90,
+            "SI:motorway": 130,
+            "SI:trunk": 110,
+            "walk": 5
+          },
+          "mph_to_kph": 1.609344,
+          "min_kph": 1,
+          "max_kph": 140
+        },
+        "access": {
+          "excluded_highway": [
+            "busway",
+            "bus_guideway",
+            "escape",
+            "rest_area",
+            "services",
+            "via_ferrata",
+            "bus_stop",
+            "emergency_bay",
+            "ladder"
+          ],
+          "hierarchy": [
+            "motorcar",
+            "motor_vehicle",
+            "vehicle",
+            "access"
+          ],
+          "allowed": [
+            true,
+            "permissive",
+            "designated",
+            "official"
+          ],
+          "excluded": [
+            false,
+            "private",
+            "destination",
+            "delivery",
+            "customers",
+            "agricultural",
+            "forestry"
+          ],
+          "exclude_conditional_access": true,
+          "exclude_conditional_oneway": true
+        },
+        "instances": {
+          "seed": 20260930,
+          "per_band": 10,
+          "bands_km": [
+            [
+              50,
+              100
+            ],
+            [
+              100,
+              200
+            ],
+            [
+              200,
+              400
+            ]
+          ],
+          "max_attempts": 3000,
+          "jitter_km": 2,
+          "max_snap_m": 3000,
+          "cities": {
+            "Ljubljana": [
+              46.0569,
+              14.5058
+            ],
+            "Maribor": [
+              46.5547,
+              15.6459
+            ],
+            "Celje": [
+              46.2397,
+              15.2677
+            ],
+            "Kranj": [
+              46.2389,
+              14.3556
+            ],
+            "Koper": [
+              45.5481,
+              13.7302
+            ],
+            "Piran": [
+              45.5283,
+              13.5683
+            ],
+            "Novo_mesto": [
+              45.8011,
+              15.171
+            ],
+            "Murska_Sobota": [
+              46.6625,
+              16.1664
+            ],
+            "Nova_Gorica": [
+              45.956,
+              13.6484
+            ],
+            "Bled": [
+              46.3692,
+              14.1136
+            ],
+            "Postojna": [
+              45.7749,
+              14.2133
+            ],
+            "Ptuj": [
+              46.4199,
+              15.8697
+            ],
+            "Velenje": [
+              46.3592,
+              15.1103
+            ],
+            "Slovenj_Gradec": [
+              46.5103,
+              15.0803
+            ]
+          }
+        },
+        "benchmark": {
+          "seed": 20260930,
+          "repeats": 3,
+          "warmup_queries": 3
+        }
+      }
+    },
+    "seed": 20261001,
+    "dataset_sha256": "e10a5d4bb2a927d1bdcf21a41d30971a9301a82e08656c0419ef45e3f92de7a7",
+    "python": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "Brotli": "1.2.0",
+      "Jinja2": "3.1.6",
+      "MarkupSafe": "3.0.3",
+      "PySide6": "6.11.2",
+      "PySocks": "1.7.1",
+      "PyYAML": "6.0.3",
+      "Pygments": "2.21.0",
+      "annotated-types": "0.8.0",
+      "backports.zstd": "1.7.0",
+      "branca": "0.8.2",
+      "certifi": "2026.7.22",
+      "charset-normalizer": "3.5.2",
+      "cloudpickle": "3.1.2",
+      "colorama": "0.4.6",
+      "contourpy": "1.3.3",
+      "cycler": "0.12.1",
+      "cykhash": "2.0.1",
+      "duckdb": "1.5.6",
+      "exceptiongroup": "1.3.1",
+      "folium": "0.20.0",
+      "fonttools": "4.66.1",
+      "geopandas": "1.2.0",
+      "h2": "4.4.1",
+      "hiroute": "0.1.0",
+      "hpack": "4.2.0",
+      "hyperframe": "6.1.0",
+      "idna": "3.20",
+      "igraph": "1.0.0",
+      "iniconfig": "2.3.0",
+      "joblib": "1.6.0",
+      "kiwisolver": "1.5.1",
+      "mapclassify": "2.10.0",
+      "matplotlib": "3.11.2",
+      "munkres": "1.1.4",
+      "narwhals": "2.26.0",
+      "networkit": "11.2",
+      "networkx": "3.6.1",
+      "numpy": "2.4.6",
+      "orjson": "3.12.0",
+      "packaging": "26.3",
+      "pandas": "3.0.6",
+      "pillow": "12.3.0",
+      "pip": "26.2.1",
+      "pluggy": "1.6.0",
+      "polars": "1.44.2",
+      "polars-runtime-32": "1.44.2",
+      "protobuf": "7.35.1",
+      "pyarrow": "25.0.0",
+      "pydantic": "2.13.5",
+      "pydantic_core": "2.46.5",
+      "pyogrio": "0.13.0",
+      "pyparsing": "3.3.3",
+      "pyproj": "3.7.2",
+      "pyrosm": "0.13.1",
+      "pytest": "9.1.1",
+      "python-dateutil": "2.9.0.post0",
+      "python-rapidjson": "1.25",
+      "requests": "2.34.2",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.17.1",
+      "setuptools": "84.0.0",
+      "shapely": "2.1.2",
+      "shiboken6": "6.11.2",
+      "six": "1.17.0",
+      "texttable": "1.7.0",
+      "threadpoolctl": "3.7.0",
+      "tomli": "2.4.1",
+      "tornado": "6.5.10",
+      "tqdm": "4.70.1",
+      "typing-inspection": "0.4.4",
+      "typing_extensions": "4.16.0",
+      "unicodedata2": "18.0.0",
+      "urllib3": "2.8.0",
+      "wheel": "0.48.0",
+      "xyzservices": "2026.9.1"
+    },
+    "research_spec_sha256": "d594f4ac78e1bfe8903c98d48bb20c4e9e3f2b15f1e8fed5fedde964be7ead04",
+    "source_sha256": {
+      "src/envelope/__init__.py": "7606422b6841c7e1b741658fc0fa16f1653ac2808669c8e38cf900c24fd1e18f",
+      "src/envelope/boundary.py": "e4cb78eb5f91ddccaaf89c99a292b7e661548452cf17b74a6dcec8424e40a26f",
+      "src/envelope/expansion.py": "150773540e0de778687a5e67b9e6382d2aa5ff1fec400d951315789c5b1c632f",
+      "src/envelope/safe_detour.py": "fe326102b3c61922549843753e3429bedffffbff98f1b5e0260760370738113d",
+      "src/envelope/sampling.py": "e809984bd20da6c37240515a0681800bbad42a93ac2b1641d7d1969679582d2b",
+      "src/graph/__init__.py": "985c8cff4759fb0cee963387a5c683a32be01e02e11e30d89455d4de225e4bde",
+      "src/graph/preprocessing.py": "c87727b2b2e22b0aecd5a13f2ad6c8472f71f5beb3623d06348d1ede0ba500c3",
+      "src/graph/road_graph.py": "bbd159784f2ef90f164864d9300f359f2d1668358422366168000a818641e48e",
+      "src/graph/validation.py": "49fef0fd8d6d91703d2ceddf6717f5924928ee73f991cc1da90b00c67df251b7",
+      "src/opportunity/__init__.py": "f7f6f56ed9e61ecde262505728118a3ff09b65ed32c4c35f320c370370db2a61",
+      "src/opportunity/attachment.py": "9f101de92389d09a9290b2594ea4a50cab7983d03edd06d018800ee82e69bb67",
+      "src/opportunity/metrics.py": "9a2df0732571db173547b3b160eafe529ec4bb96d0f68e76c5d8b11f769b8222",
+      "src/opportunity/models.py": "383ae203e29416d12b7fd391f6d02049a44cf2e11859c9a2fd9539bfb597d70a",
+      "src/opportunity/network.py": "acc08acefcf2e4222e092e0cade6a6de4259976f708a4d610f6a04a07f5cb416",
+      "src/opportunity/regions.py": "093f695fe0125ec70f58bde989e5d56b7f42a5dc5c5624d4c5d0bf0188667db1",
+      "src/opportunity/sparse.py": "308cd3d8d46749c32228f74ee221512e4eab088456ec5ca1151ddc6f99882c03",
+      "src/opportunity/taxonomy.py": "f75bc71b92fe5bd8b83f11d361e5ff41bffe520bbc659b75b97295325789a2df",
+      "scripts/_common.py": "9e681f49a318bb14b9e3ae1c89998d9350b1e6d9b6b3f3c49f44efa685c92aaa",
+      "scripts/_envelope_common.py": "07c16e838813fafd56fbc5427b4aa19bbc221d30c764e3277e5919ea9293c60b",
+      "scripts/_regional_common.py": "244fd65849bcc66d4976e2cc8a803a64f8011e2c58c70cd3962c1052e992659b",
+      "scripts/build_graph.py": "5e63534334f34a985c200f75015f7b515a5d635aa169a2e29d1c068d54522f34",
+      "scripts/build_pois.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scripts/download_data.py": "a266aa7a0da9a4a988be0b48752e7901f5f87038b8d61617392751550f769a73",
+      "scripts/download_extract_boundary.py": "731ba116b57cd908eba9090811b8ac454dbb98e55f2493a6bd6dbd4707941d20",
+      "scripts/generate_instances.py": "aa0f8e8e620818a32eeed1b957482ba5c1ae7edd37c6c4a5843d831ec9f63313",
+      "scripts/plot_envelopes.py": "f71cc097c8cd297fd36e78381c1a88cdeb7ef329add4219e6d4327d7b3001f07",
+      "scripts/plot_opportunities.py": "c8a2e3e502291ada8f9971386ef3db32de3b0827c994179274a82cd951b374b2",
+      "scripts/plot_regional_growth.py": "b387fb52d410bfcb6d568cddd37df327086390017c5b194b7fc6d88deea05615",
+      "scripts/prepare_opportunity_data.py": "65f9f63d437f41cd3d554bf5279cad39e08356ff3438634bea357b5747c009fa",
+      "scripts/prepare_regional_data.py": "9b1cc252abf905d47a175ce8a0d51b0406f07c8e2a7e7fe72c0440107135656c",
+      "scripts/prepare_regional_model_input.py": "d8aeafe62a344cd985ca6bcada5136e34b8f9496615bda58d8d6241046f70f2c",
+      "scripts/run_benchmark.py": "eebeb9037de9fb0775dd81382912a80fb241e1ca068caa9394baf45e41c7afb6",
+      "scripts/run_envelope_benchmark.py": "f55ed5b08ab3816eb7fb9cf0ecaad224d5f038202413030ca60671f643de76b7",
+      "scripts/run_opportunity_benchmark.py": "15b9931d35ce1b355d11be5cc404b95d9871bbfee61347e277d348131fed5f95",
+      "scripts/run_regional_benchmark.py": "638f98906387775fe9568ac626c05f659e6ba4d00618f1c8a3859ee7e139d6d2",
+      "scripts/verify_milestone_1.py": "97cc9621b3c4105baafc58eb2ab2640d9e3d66fd1184ca93181874f1f9920332",
+      "scripts/verify_milestone_3a_preservation.py": "12c912cedc582598dae8cba3d54997bdb515ec0d5abc98276a17a80a4cbd222c",
+      "scripts/verify_milestone_4a_preservation.py": "9dbd19a3b8f90af649a20af0ea487e09e64381279d263f58f1ba4345f6ec9a71",
+      "scripts/verify_rebuild.py": "d93bd57531fc4549109cba2c56aed3223934f71625d4ef98c30c29bc40c3cf05",
+      "scripts/write_envelope_report.py": "f34b07063187de9727a2a9813a6a67df33db145bbe781fbc61b4b365bb060308",
+      "scripts/write_opportunity_report.py": "c4e3cdf48916dc572acd088ca9486d5b94e3117ea83e3a8ce7f47ecc808e3246",
+      "scripts/write_regional_report.py": "64a9f1fbff4507662b933eeae59412fe5c9ef3f35c223938eaca8936e86a56da",
+      "tests/conftest.py": "26e35682fb32ec92f02a385dbda7b718416c2e88846dbe6786a947e3e1d055c1",
+      "tests/test_download.py": "3133956f02d038d361b2fff1dac94c604d8e70022ced9d8a40c5b0b1d4658d56",
+      "tests/test_envelope.py": "feaebe26e14575572071c98d3ad6d061a9139b55edf7403d18a2ba6318b51fb9",
+      "tests/test_graph.py": "916bffd9b523ab183f52eebcdcb36e35412f210ddeaba440d8d1be53baf2575d",
+      "tests/test_opportunity.py": "8e0ba307fae47a57139c98879feba51f14de3e4a3551811143f8a5b643d5db22",
+      "tests/test_preprocessing.py": "80191f9f28edf51abc6aec2c732d277921572c498bceb145f934d2c920fbe3ad",
+      "tests/test_real_envelope.py": "ae99bdb1f13fe8fca3f95045f03a68a6d7fb46c97d6668e158e3e37c843a28ef",
+      "tests/test_real_graph.py": "a681b839a7141a6b8a2cadfe0f98d51cebbc8a298b98956c04034839f1ff8542",
+      "tests/test_regional.py": "4f79dc420241145c2faf60892e010565ac23d892027ce39e1af7246d2e6fe55b"
+    },
+    "dataset_metadata": {
+      "region": "Slovenia cross-border 75 km research region",
+      "source_url": "derived:geofabrik-260929-regional-crop-original-model-domain",
+      "raw_path": "data/raw/osm/slovenia_extended_75km/slovenia_extended-modeled-260929.osm.pbf",
+      "sha256": "e10a5d4bb2a927d1bdcf21a41d30971a9301a82e08656c0419ef45e3f92de7a7",
+      "manifest_path": "results/milestone_3a/MODEL_DATA_MANIFEST.yaml",
+      "size_bytes": 175103895,
+      "osm_snapshot_timestamp": "2026-09-29T20:22:51+00:00",
+      "extraction_provenance": "results/milestone_3a/extraction_provenance.json",
+      "model_input_provenance": "results/milestone_3a/model_input_provenance.json"
+    },
+    "opportunity_configuration": {
+      "seed": 20261001,
+      "results_dir": "results/milestone_4a",
+      "raw_dir": "data/raw/opportunities/slovenia_extended_75km",
+      "cache_dir": "data/cache/opportunity_4a",
+      "regional_config": "configs/regional.yaml",
+      "envelope_config": "configs/envelope.yaml",
+      "graph_data_config": "configs/data_extended.yaml",
+      "snapshot_timestamp": "2026-09-29T20:22:51Z",
+      "polygon_sha256": "6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4",
+      "extraction": {
+        "strategy": "smart",
+        "relation_types": "any",
+        "geometry_method": "projected_point_on_surface_or_line_midpoint",
+        "representative_must_be_in_polygon": true,
+        "taxonomy": {
+          "amenity": {
+            "charging_station": [
+              "charge"
+            ],
+            "restaurant": [
+              "meal"
+            ],
+            "cafe": [
+              "meal"
+            ],
+            "fast_food": [
+              "meal"
+            ],
+            "food_court": [
+              "meal"
+            ],
+            "pharmacy": [
+              "pharmacy"
+            ],
+            "toilets": [
+              "toilets"
+            ],
+            "parking": [
+              "parking"
+            ]
+          },
+          "tourism": {
+            "hotel": [
+              "sleep"
+            ],
+            "motel": [
+              "sleep"
+            ],
+            "hostel": [
+              "sleep"
+            ],
+            "guest_house": [
+              "sleep"
+            ]
+          },
+          "shop": {
+            "supermarket": [
+              "groceries"
+            ],
+            "convenience": [
+              "groceries"
+            ]
+          },
+          "highway": {
+            "rest_area": [
+              "rest"
+            ],
+            "services": [
+              "services",
+              "rest"
+            ]
+          }
+        },
+        "exclude_access": [
+          "private",
+          false
+        ],
+        "parking_min_explicit_capacity": 3
+      },
+      "attachment": {
+        "default_threshold_m": 250,
+        "diagnostic_thresholds_m": [
+          100,
+          250,
+          500,
+          1000
+        ],
+        "candidate_count": 4,
+        "require_in_and_out_edges": true,
+        "excluded_highway": [
+          "motorway",
+          "motorway_link",
+          "trunk",
+          "trunk_link"
+        ]
+      },
+      "regions": {
+        "geographic_baseline": {
+          "local_radius_m": 1200
+        },
+        "decision_aware": {
+          "progress_tolerance": 0.025,
+          "detour_tolerance_s": 180,
+          "local_radius_m": 1200,
+          "network_radius_m": 2500,
+          "max_geographic_diameter_m": 3000,
+          "min_cluster_size": 1
+        },
+        "sensitivity": [
+          {
+            "name": "progress_tight",
+            "progress_tolerance": 0.015
+          },
+          {
+            "name": "progress_loose",
+            "progress_tolerance": 0.04
+          },
+          {
+            "name": "detour_tight",
+            "detour_tolerance_s": 120
+          },
+          {
+            "name": "detour_loose",
+            "detour_tolerance_s": 300
+          },
+          {
+            "name": "radius_tight",
+            "local_radius_m": 750
+          },
+          {
+            "name": "radius_loose",
+            "local_radius_m": 1800
+          }
+        ],
+        "sensitivity_ratios": [
+          1.05,
+          1.1,
+          1.2,
+          1.4
+        ]
+      },
+      "network": {
+        "maximum_candidate_radius_m": 1800,
+        "maximum_search_distance_m": 2500,
+        "compiler": "g++",
+        "compiler_flags": [
+          "-O3",
+          "-std=c++17"
+        ]
+      },
+      "diagnostics": {
+        "figure_od_ids": [
+          0,
+          4,
+          21
+        ],
+        "figure_ratios": [
+          1.1,
+          1.4,
+          2.0
+        ],
+        "density_grid_m": 5000,
+        "audit_areas": [
+          {
+            "name": "Ljubljana",
+            "lat": 46.0569,
+            "lon": 14.5058,
+            "radius_m": 7000
+          },
+          {
+            "name": "Graz",
+            "lat": 47.0707,
+            "lon": 15.4395,
+            "radius_m": 7000
+          },
+          {
+            "name": "Trieste",
+            "lat": 45.6495,
+            "lon": 13.7768,
+            "radius_m": 7000
+          }
+        ]
+      }
+    }
+  },
+  "configuration": {
+    "seed": 20261001,
+    "results_dir": "results/milestone_4a",
+    "raw_dir": "data/raw/opportunities/slovenia_extended_75km",
+    "cache_dir": "data/cache/opportunity_4a",
+    "regional_config": "configs/regional.yaml",
+    "envelope_config": "configs/envelope.yaml",
+    "graph_data_config": "configs/data_extended.yaml",
+    "snapshot_timestamp": "2026-09-29T20:22:51Z",
+    "polygon_sha256": "6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4",
+    "extraction": {
+      "strategy": "smart",
+      "relation_types": "any",
+      "geometry_method": "projected_point_on_surface_or_line_midpoint",
+      "representative_must_be_in_polygon": true,
+      "taxonomy": {
+        "amenity": {
+          "charging_station": [
+            "charge"
+          ],
+          "restaurant": [
+            "meal"
+          ],
+          "cafe": [
+            "meal"
+          ],
+          "fast_food": [
+            "meal"
+          ],
+          "food_court": [
+            "meal"
+          ],
+          "pharmacy": [
+            "pharmacy"
+          ],
+          "toilets": [
+            "toilets"
+          ],
+          "parking": [
+            "parking"
+          ]
+        },
+        "tourism": {
+          "hotel": [
+            "sleep"
+          ],
+          "motel": [
+            "sleep"
+          ],
+          "hostel": [
+            "sleep"
+          ],
+          "guest_house": [
+            "sleep"
+          ]
+        },
+        "shop": {
+          "supermarket": [
+            "groceries"
+          ],
+          "convenience": [
+            "groceries"
+          ]
+        },
+        "highway": {
+          "rest_area": [
+            "rest"
+          ],
+          "services": [
+            "services",
+            "rest"
+          ]
+        }
+      },
+      "exclude_access": [
+        "private",
+        false
+      ],
+      "parking_min_explicit_capacity": 3
+    },
+    "attachment": {
+      "default_threshold_m": 250,
+      "diagnostic_thresholds_m": [
+        100,
+        250,
+        500,
+        1000
+      ],
+      "candidate_count": 4,
+      "require_in_and_out_edges": true,
+      "excluded_highway": [
+        "motorway",
+        "motorway_link",
+        "trunk",
+        "trunk_link"
+      ]
+    },
+    "regions": {
+      "geographic_baseline": {
+        "local_radius_m": 1200
+      },
+      "decision_aware": {
+        "progress_tolerance": 0.025,
+        "detour_tolerance_s": 180,
+        "local_radius_m": 1200,
+        "network_radius_m": 2500,
+        "max_geographic_diameter_m": 3000,
+        "min_cluster_size": 1
+      },
+      "sensitivity": [
+        {
+          "name": "progress_tight",
+          "progress_tolerance": 0.015
+        },
+        {
+          "name": "progress_loose",
+          "progress_tolerance": 0.04
+        },
+        {
+          "name": "detour_tight",
+          "detour_tolerance_s": 120
+        },
+        {
+          "name": "detour_loose",
+          "detour_tolerance_s": 300
+        },
+        {
+          "name": "radius_tight",
+          "local_radius_m": 750
+        },
+        {
+          "name": "radius_loose",
+          "local_radius_m": 1800
+        }
+      ],
+      "sensitivity_ratios": [
+        1.05,
+        1.1,
+        1.2,
+        1.4
+      ]
+    },
+    "network": {
+      "maximum_candidate_radius_m": 1800,
+      "maximum_search_distance_m": 2500,
+      "compiler": "g++",
+      "compiler_flags": [
+        "-O3",
+        "-std=c++17"
+      ]
+    },
+    "diagnostics": {
+      "figure_od_ids": [
+        0,
+        4,
+        21
+      ],
+      "figure_ratios": [
+        1.1,
+        1.4,
+        2.0
+      ],
+      "density_grid_m": 5000,
+      "audit_areas": [
+        {
+          "name": "Ljubljana",
+          "lat": 46.0569,
+          "lon": 14.5058,
+          "radius_m": 7000
+        },
+        {
+          "name": "Graz",
+          "lat": 47.0707,
+          "lon": 15.4395,
+          "radius_m": 7000
+        },
+        {
+          "name": "Trieste",
+          "lat": 45.6495,
+          "lon": 13.7768,
+          "radius_m": 7000
+        }
+      ]
+    }
+  },
+  "quality_audit": {
+    "total_opportunities": 105250,
+    "capability_counts": {
+      "charge": 2796,
+      "groceries": 7300,
+      "meal": 23432,
+      "parking": 58340,
+      "pharmacy": 1833,
+      "rest": 603,
+      "services": 253,
+      "sleep": 7624,
+      "toilets": 3916
+    },
+    "object_type_counts": {
+      "node": 37146,
+      "relation": 941,
+      "way": 67163
+    },
+    "missing_name_rate": 0.6118574821852731,
+    "attached_count": 102415,
+    "rejected_count": 2835,
+    "attachment_status_counts": {
+      "attached": 102415,
+      "excessive_snap": 2835
+    },
+    "snap_quantiles_m": {
+      "0": 0.0,
+      "0.25": 14.740151968721865,
+      "0.5": 23.942688685709935,
+      "0.75": 42.90826001482788,
+      "0.9": 84.50380539950436,
+      "0.95": 146.1640227679979,
+      "0.99": 629.953844058464,
+      "1": 10180.805960455264
+    },
+    "threshold_sensitivity": [
+      {
+        "threshold_m": 100,
+        "attached": 96712,
+        "rejected": 8538,
+        "attached_fraction": 0.9188788598574822
+      },
+      {
+        "threshold_m": 250,
+        "attached": 102415,
+        "rejected": 2835,
+        "attached_fraction": 0.9730641330166271
+      },
+      {
+        "threshold_m": 500,
+        "attached": 103930,
+        "rejected": 1320,
+        "attached_fraction": 0.987458432304038
+      },
+      {
+        "threshold_m": 1000,
+        "attached": 104584,
+        "rejected": 666,
+        "attached_fraction": 0.9936722090261283
+      }
+    ],
+    "source_membership_counts": {
+      "austria-260929": 27337,
+      "hungary-260929": 5427,
+      "slovenia-260929": 24361,
+      "nord-est-260929": 24705,
+      "croatia-260929": 24301,
+      "bosnia-herzegovina-260929": 109
+    },
+    "country_explicit_tag_counts": {
+      "AT": 5355,
+      "unknown": 98588,
+      "IT": 332,
+      "SI": 538,
+      "HR": 434,
+      "SL": 2,
+      "TT": 1
+    },
+    "occupied_density_cells": 3048,
+    "density_cell_area_km2": 25.0,
+    "density_cell_count_quantiles": {
+      "0.5": 11.0,
+      "0.95": 134.6500000000001,
+      "1": 1790.0
+    },
+    "deduplication": {
+      "raw_candidate_count": 106280,
+      "duplicate_count": 990,
+      "unique_candidate_count": 105290,
+      "final_located_in_polygon_count": 105250,
+      "exclusion_reasons": {
+        "no_exportable_geometry": 34,
+        "representative_outside_polygon": 6
+      }
+    },
+    "selected_threshold_m": 250,
+    "attachment_policy": {
+      "default_threshold_m": 250,
+      "diagnostic_thresholds_m": [
+        100,
+        250,
+        500,
+        1000
+      ],
+      "candidate_count": 4,
+      "require_in_and_out_edges": true,
+      "excluded_highway": [
+        "motorway",
+        "motorway_link",
+        "trunk",
+        "trunk_link"
+      ]
+    },
+    "interpretation": "Source memberships overlap and are not nationality. Node snapping approximates road access, not entrances."
+  },
+  "network": {
+    "spatial_seconds": 0.2950500190490857,
+    "network_seconds": 38.81027752603404,
+    "pair_count": 10053530,
+    "validated_pair_count": 7890792,
+    "native_peak_rss_mib": 1037.2109375,
+    "native_source_sha256": "c3b014fa403955f231fb51508dcc4c4c639283b23a0ac6511594a05dbc6e8697",
+    "compiler_command": [
+      "g++",
+      "-O3",
+      "-std=c++17",
+      "/home/dy/HiRoute/project/src/opportunity/local_network.cpp",
+      "-o",
+      "/home/dy/HiRoute/project/data/cache/opportunity_4a/network/local_network"
+    ],
+    "compiler_version": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "search_counts": "bounded_searches=83534 settled_nodes=169757466\n",
+    "contract": "e3b3c3f1f7b2b5ad071ea91da9601f856cdffab631847e563cf15efdbb2de826",
+    "pair_file_sha256": "d6764970f58b473af8820ebbe767147912eb29f58b35fd4d966b7c9c89d682de"
+  },
+  "region_kernel": {
+    "source_sha256": "37b3ebeba1eb011b595a56312f7e81ef70676eb0815aca17626c1a61d56f1fcb",
+    "compiler": "g++",
+    "flags": [
+      "-O3",
+      "-std=c++17"
+    ],
+    "parity_reference": "tests/test_opportunity.py::test_compact_sparse_and_native_kernel_match_python_reference"
+  },
+  "od_count": 30,
+  "ratio_count": 7,
+  "method_count": 2,
+  "region_experiment_seconds": 552.2267252170714,
+  "process_peak_rss_mib": 5344.296875,
+  "practical_budget_summary": [
+    {
+      "ratio": 1.05,
+      "method": "decision-aware",
+      "instance_id": 14.5,
+      "budget_s": 6636.849657790917,
+      "baseline_cost_s": 6320.809197896111,
+      "boundary_risk": 0.0,
+      "eligible_opportunities": 2571.0,
+      "region_count": 104.0,
+      "compression_ratio": 0.9594044049750077,
+      "mean_members": 24.638666622942218,
+      "median_members": 9.75,
+      "singleton_fraction": 0.11981318870523416,
+      "mean_capability_count": 3.443971803597472,
+      "mean_progress_spread": 0.007957137620307204,
+      "mean_detour_spread_s": 91.57921474288986,
+      "weighted_progress_variance": 1.684730358314175e-05,
+      "weighted_detour_variance_s2": 1502.8144915805733,
+      "mean_geographic_bbox_diagonal_m": 1030.8394035922572,
+      "network_disconnected_region_fraction": 0.0,
+      "maximum_geographic_bbox_diagonal_m": 2956.4807121679632,
+      "charge+meal_regions": 21.5,
+      "charge+parking_regions": 22.0,
+      "meal+parking_regions": 69.5,
+      "sleep+charge_regions": 13.0,
+      "services+meal_regions": 3.0
+    },
+    {
+      "ratio": 1.05,
+      "method": "geographic baseline",
+      "instance_id": 14.5,
+      "budget_s": 6636.849657790917,
+      "baseline_cost_s": 6320.809197896111,
+      "boundary_risk": 0.0,
+      "eligible_opportunities": 2571.0,
+      "region_count": 34.5,
+      "compression_ratio": 0.9866627263845612,
+      "mean_members": 74.97847399829497,
+      "median_members": 6.0,
+      "singleton_fraction": 0.16277258566978192,
+      "mean_capability_count": 3.402898550724638,
+      "mean_progress_spread": 0.013726372858132788,
+      "mean_detour_spread_s": 112.83089388481783,
+      "weighted_progress_variance": 0.00030787761474145947,
+      "weighted_detour_variance_s2": 3941.628920501786,
+      "mean_geographic_bbox_diagonal_m": 1859.538395100628,
+      "network_disconnected_region_fraction": 0.014095691880087354,
+      "maximum_geographic_bbox_diagonal_m": 17737.894479448063,
+      "charge+meal_regions": 9.0,
+      "charge+parking_regions": 10.0,
+      "meal+parking_regions": 22.0,
+      "sleep+charge_regions": 8.0,
+      "services+meal_regions": 3.0
+    },
+    {
+      "ratio": 1.1,
+      "method": "decision-aware",
+      "instance_id": 14.5,
+      "budget_s": 6952.8901176857225,
+      "baseline_cost_s": 6320.809197896111,
+      "boundary_risk": 0.0,
+      "eligible_opportunities": 5370.0,
+      "region_count": 239.5,
+      "compression_ratio": 0.9505499136346165,
+      "mean_members": 20.224242424242426,
+      "median_members": 7.0,
+      "singleton_fraction": 0.15389980591945657,
+      "mean_capability_count": 2.9801401869158877,
+      "mean_progress_spread": 0.006804693081454977,
+      "mean_detour_spread_s": 89.14446548151963,
+      "weighted_progress_variance": 1.4213446642574838e-05,
+      "weighted_detour_variance_s2": 1648.3167664464308,
+      "mean_geographic_bbox_diagonal_m": 938.0839972310914,
+      "network_disconnected_region_fraction": 0.0,
+      "maximum_geographic_bbox_diagonal_m": 2974.771246058628,
+      "charge+meal_regions": 36.0,
+      "charge+parking_regions": 41.0,
+      "meal+parking_regions": 150.5,
+      "sleep+charge_regions": 25.0,
+      "services+meal_regions": 6.5
+    },
+    {
+      "ratio": 1.1,
+      "method": "geographic baseline",
+      "instance_id": 14.5,
+      "budget_s": 6952.8901176857225,
+      "baseline_cost_s": 6320.809197896111,
+      "boundary_risk": 0.0,
+      "eligible_opportunities": 5370.0,
+      "region_count": 72.0,
+      "compression_ratio": 0.9851225728548738,
+      "mean_members": 67.2336568394067,
+      "median_members": 5.0,
+      "singleton_fraction": 0.20236220472440947,
+      "mean_capability_count": 3.073720259552992,
+      "mean_progress_spread": 0.011967986103360929,
+      "mean_detour_spread_s": 146.3285394601388,
+      "weighted_progress_variance": 0.00031951471820436866,
+      "weighted_detour_variance_s2": 13186.841622382686,
+      "mean_geographic_bbox_diagonal_m": 1831.736496387518,
+      "network_disconnected_region_fraction": 0.030209758321933424,
+      "maximum_geographic_bbox_diagonal_m": 24253.7916061933,
+      "charge+meal_regions": 14.5,
+      "charge+parking_regions": 16.0,
+      "meal+parking_regions": 40.0,
+      "sleep+charge_regions": 13.0,
+      "services+meal_regions": 5.5
+    },
+    {
+      "ratio": 1.2,
+      "method": "decision-aware",
+      "instance_id": 14.5,
+      "budget_s": 7584.971037475333,
+      "baseline_cost_s": 6320.809197896111,
+      "boundary_risk": 0.0,
+      "eligible_opportunities": 7976.5,
+      "region_count": 537.5,
+      "compression_ratio": 0.9314400942183343,
+      "mean_members": 14.585953074991648,
+      "median_members": 5.0,
+      "singleton_fraction": 0.21545792819556114,
+      "mean_capability_count": 2.629684906142255,
+      "mean_progress_spread": 0.005132815230001762,
+      "mean_detour_spread_s": 77.48009084692684,
+      "weighted_progress_variance": 1.2336920307919235e-05,
+      "weighted_detour_variance_s2": 1653.340472918621,
+      "mean_geographic_bbox_diagonal_m": 772.6971791390263,
+      "network_disconnected_region_fraction": 0.0,
+      "maximum_geographic_bbox_diagonal_m": 2979.4906276145493,
+      "charge+meal_regions": 61.5,
+      "charge+parking_regions": 71.5,
+      "meal+parking_regions": 278.5,
+      "sleep+charge_regions": 41.5,
+      "services+meal_regions": 12.5
+    },
+    {
+      "ratio": 1.2,
+      "method": "geographic baseline",
+      "instance_id": 14.5,
+      "budget_s": 7584.971037475333,
+      "baseline_cost_s": 6320.809197896111,
+      "boundary_risk": 0.0,
+      "eligible_opportunities": 7976.5,
+      "region_count": 183.0,
+      "compression_ratio": 0.9750196291249353,
+      "mean_members": 40.05161579243893,
+      "median_members": 3.0,
+      "singleton_fraction": 0.2676616915422886,
+      "mean_capability_count": 2.6726042354375092,
+      "mean_progress_spread": 0.009095595129393303,
+      "mean_detour_spread_s": 153.67588206845664,
+      "weighted_progress_variance": 0.0005021149346888386,
+      "weighted_detour_variance_s2": 40657.93058139112,
+      "mean_geographic_bbox_diagonal_m": 1419.8144569734854,
+      "network_disconnected_region_fraction": 0.05614973262032086,
+      "maximum_geographic_bbox_diagonal_m": 31276.17158649067,
+      "charge+meal_regions": 23.0,
+      "charge+parking_regions": 26.5,
+      "meal+parking_regions": 89.0,
+      "sleep+charge_regions": 19.0,
+      "services+meal_regions": 10.0
+    },
+    {
+      "ratio": 1.4,
+      "method": "decision-aware",
+      "instance_id": 14.5,
+      "budget_s": 8849.132877054555,
+      "baseline_cost_s": 6320.809197896111,
+      "boundary_risk": 0.0,
+      "eligible_opportunities": 12702.0,
+      "region_count": 1052.5,
+      "compression_ratio": 0.9133232639038825,
+      "mean_members": 11.5373752752256,
+      "median_members": 4.0,
+      "singleton_fraction": 0.2569621621113664,
+      "mean_capability_count": 2.441811755806826,
+      "mean_progress_spread": 0.0037713679746924403,
+      "mean_detour_spread_s": 70.972616525588,
+      "weighted_progress_variance": 9.921768176756819e-06,
+      "weighted_detour_variance_s2": 1642.7371940271905,
+      "mean_geographic_bbox_diagonal_m": 672.566958844279,
+      "network_disconnected_region_fraction": 0.0,
+      "maximum_geographic_bbox_diagonal_m": 2983.073715520434,
+      "charge+meal_regions": 103.5,
+      "charge+parking_regions": 114.0,
+      "meal+parking_regions": 494.0,
+      "sleep+charge_regions": 69.0,
+      "services+meal_regions": 21.5
+    },
+    {
+      "ratio": 1.4,
+      "method": "geographic baseline",
+      "instance_id": 14.5,
+      "budget_s": 8849.132877054555,
+      "baseline_cost_s": 6320.809197896111,
+      "boundary_risk": 0.0,
+      "eligible_opportunities": 12702.0,
+      "region_count": 441.0,
+      "compression_ratio": 0.9618016135506654,
+      "mean_members": 26.190414044622425,
+      "median_members": 3.0,
+      "singleton_fraction": 0.30333430483757984,
+      "mean_capability_count": 2.427378144654088,
+      "mean_progress_spread": 0.007333598524081605,
+      "mean_detour_spread_s": 148.7927507806755,
+      "weighted_progress_variance": 0.0005621675134209949,
+      "weighted_detour_variance_s2": 85460.63583653666,
+      "mean_geographic_bbox_diagonal_m": 1223.5314510068092,
+      "network_disconnected_region_fraction": 0.06498279637159837,
+      "maximum_geographic_bbox_diagonal_m": 42178.61475650272,
+      "charge+meal_regions": 45.5,
+      "charge+parking_regions": 46.5,
+      "meal+parking_regions": 196.5,
+      "sleep+charge_regions": 34.5,
+      "services+meal_regions": 15.0
+    }
+  ],
+  "stage_summary": [
+    {
+      "stage": "bounded_network_validation",
+      "method": "",
+      "count": 1,
+      "median": 38.81027752603404,
+      "p95": 38.81027752603404
+    },
+    {
+      "stage": "distance_precomputation",
+      "method": "",
+      "count": 30,
+      "median": 7.303218742541503,
+      "p95": 7.689449593803147
+    },
+    {
+      "stage": "global_spatial_neighbors",
+      "method": "",
+      "count": 1,
+      "median": 0.2950500190490857,
+      "p95": 0.2950500190490857
+    },
+    {
+      "stage": "graph_attachment",
+      "method": "",
+      "count": 1,
+      "median": 23.33081376797054,
+      "p95": 23.33081376797054
+    },
+    {
+      "stage": "graph_load",
+      "method": "",
+      "count": 1,
+      "median": 9.936643084976822,
+      "p95": 9.936643084976822
+    },
+    {
+      "stage": "od_features",
+      "method": "",
+      "count": 30,
+      "median": 0.3022469625575468,
+      "p95": 0.7541514089098199
+    },
+    {
+      "stage": "od_sparse_neighbors",
+      "method": "",
+      "count": 30,
+      "median": 0.2722200765274465,
+      "p95": 0.32989018975640644
+    },
+    {
+      "stage": "region_clustering",
+      "method": "decision-aware",
+      "count": 210,
+      "median": 0.04088201554259285,
+      "p95": 0.5104343376762699
+    },
+    {
+      "stage": "region_clustering",
+      "method": "geographic baseline",
+      "count": 210,
+      "median": 0.06614450953202322,
+      "p95": 0.48478726196335525
+    },
+    {
+      "stage": "snapshot_extraction",
+      "method": "",
+      "count": 1,
+      "median": 118.30068417196162,
+      "p95": 118.30068417196162
+    },
+    {
+      "stage": "snapshot_parsing",
+      "method": "",
+      "count": 1,
+      "median": 19.730843151919544,
+      "p95": 19.730843151919544
+    }
+  ],
+  "result_files": {
+    "attachment_sensitivity.parquet": "13bcc272dabc1aae0fa53525a7eb159bcbbf7b89942303871052450222d55cb0",
+    "expansion_stability.parquet": "4e534e9ff304fcb1aac01ffbc80a23b76dad057f2b89daca850b5ce992a060f1",
+    "extraction_exclusions.parquet": "c0de9995739eb9263ebe70f0404043ee400ec6425bc29b95a2f535f7cb218c5e",
+    "extraction_rebuild_exclusions.parquet": "c0de9995739eb9263ebe70f0404043ee400ec6425bc29b95a2f535f7cb218c5e",
+    "local_neighbor_pairs.parquet": "d6764970f58b473af8820ebbe767147912eb29f58b35fd4d966b7c9c89d682de",
+    "od_features.parquet": "be02c3bc750feb64dd5fc1df5a22f3862aa2d01aa26b4e30d0a53372b4a7894e",
+    "opportunity_attachment.parquet": "a87ac248049218428805a9cf2f985c2db5c588e4381286b9401a5829faa0e464",
+    "opportunity_density.parquet": "68c0be611998e0ca02a5c59b45555cdf7f93865f0153ec851eaf82d22736e55d",
+    "opportunity_inventory.parquet": "d467606df7061b05f87fbcbbc6c2e9dc8e25121bb64c86686cb54f82eb778fb7",
+    "parameter_sensitivity.parquet": "6a0f2d837f2c2ea39d54475eee7cc0a42620ed244b00349af6e6d6e5ef0e126e",
+    "performance.parquet": "017d8ff149ccc517ed77b69d313b895e3cd74564b67c66839bb651aa1e40ce34",
+    "region_membership.parquet": "e00641f2c372b12e8bb149b38b9774f9c3fb359705447400dbadd82f21a24da9",
+    "region_method_comparison.parquet": "ed3b92c884ab5572113deb5237aba601a428eebe4426cdce1e60e4c46b114c89",
+    "region_stats.parquet": "53b82d7e2d46dcd6d9d823eb6dfa634a367e7bc1fd18b4566f3bc84b524937c6",
+    "regions.parquet": "51bcf7f44e9b225929726e25b8663b1f3b7d623e78fcb9d044595f81046b6eb8"
+  }
+}

@@ -9,6 +9,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 
 def pytest_addoption(parser):
+    parser.addoption("--require-opportunity-results", action="store_true", help="Require completed Milestone 4A experiment artifacts")
     parser.addoption("--require-real-data", action="store_true", help="Fail rather than skip if Milestone 1 data is absent")
     parser.addoption("--require-envelope-results", action="store_true", help="Require completed Milestone 2 experiment artifacts")
     parser.addoption("--require-regional-results", action="store_true", help="Require completed Milestone 3A regional experiment")

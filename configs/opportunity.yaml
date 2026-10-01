@@ -1,0 +1,78 @@
+seed: 20261001
+results_dir: results/milestone_4a
+raw_dir: data/raw/opportunities/slovenia_extended_75km
+cache_dir: data/cache/opportunity_4a
+regional_config: configs/regional.yaml
+envelope_config: configs/envelope.yaml
+graph_data_config: configs/data_extended.yaml
+snapshot_timestamp: '2026-09-29T20:22:51Z'
+polygon_sha256: 6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4
+extraction:
+  strategy: smart
+  relation_types: any
+  geometry_method: projected_point_on_surface_or_line_midpoint
+  representative_must_be_in_polygon: true
+  # Retain all original tags, including unknown/uninterpreted attributes.
+  taxonomy:
+    amenity:
+      charging_station: [charge]
+      restaurant: [meal]
+      cafe: [meal]
+      fast_food: [meal]
+      food_court: [meal]
+      pharmacy: [pharmacy]
+      toilets: [toilets]
+      parking: [parking]
+    tourism:
+      hotel: [sleep]
+      motel: [sleep]
+      hostel: [sleep]
+      guest_house: [sleep]
+    shop:
+      supermarket: [groceries]
+      convenience: [groceries]
+    highway:
+      rest_area: [rest]
+      services: [services, rest]
+  exclude_access: [private, no]
+  # amenity=parking_space is never selected. Explicit one/two-space lots excluded.
+  parking_min_explicit_capacity: 3
+attachment:
+  default_threshold_m: 250
+  diagnostic_thresholds_m: [100, 250, 500, 1000]
+  candidate_count: 4
+  require_in_and_out_edges: true
+  # Never snap to motorway/trunk lanes or link ramps based only on proximity.
+  excluded_highway: [motorway, motorway_link, trunk, trunk_link]
+regions:
+  geographic_baseline:
+    local_radius_m: 1200
+  decision_aware:
+    progress_tolerance: 0.025
+    detour_tolerance_s: 180
+    local_radius_m: 1200
+    network_radius_m: 2500
+    max_geographic_diameter_m: 3000
+    # Range-constrained sparse agglomeration, every object retained (min size 1).
+    min_cluster_size: 1
+  sensitivity:
+    - {name: progress_tight, progress_tolerance: 0.015}
+    - {name: progress_loose, progress_tolerance: 0.04}
+    - {name: detour_tight, detour_tolerance_s: 120}
+    - {name: detour_loose, detour_tolerance_s: 300}
+    - {name: radius_tight, local_radius_m: 750}
+    - {name: radius_loose, local_radius_m: 1800}
+  sensitivity_ratios: [1.05, 1.10, 1.20, 1.40]
+network:
+  maximum_candidate_radius_m: 1800
+  maximum_search_distance_m: 2500
+  compiler: g++
+  compiler_flags: [-O3, -std=c++17]
+diagnostics:
+  figure_od_ids: [0, 4, 21]
+  figure_ratios: [1.10, 1.40, 2.00]
+  density_grid_m: 5000
+  audit_areas:
+    - {name: Ljubljana, lat: 46.0569, lon: 14.5058, radius_m: 7000}
+    - {name: Graz, lat: 47.0707, lon: 15.4395, radius_m: 7000}
+    - {name: Trieste, lat: 45.6495, lon: 13.7768, radius_m: 7000}

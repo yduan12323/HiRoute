@@ -1,0 +1,189 @@
+schema_version: 1
+snapshot_timestamp: '2026-09-29T20:22:51Z'
+polygon_sha256: 6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4
+extraction_config_fingerprint: 2d3935e563f488f7caeefa14f44c96fbf30f1e77a8882912644012034c62c13e
+source_records:
+- url: https://download.geofabrik.de/europe/austria-260929.osm.pbf
+  path: data/raw/osm/regional_source/austria-260929.osm.pbf
+  sha256: 50a6bd957d71a8e2e349ebd9f2cc1a1c523c78aaf61a84b7e15adeea29c7ed9a
+  size_bytes: 811274125
+  snapshot_timestamp: '2026-09-29T20:22:51+00:00'
+  publisher_md5: 5ad8c1ad5b261b0e1ef8394ce0956a0d
+  acquired_at_utc: '2026-10-01T04:53:04.443141+00:00'
+  download_command:
+  - curl
+  - --noproxy
+  - '*'
+  - --resolve
+  - download.geofabrik.de:443:95.217.63.98
+  - -fL
+  - --connect-timeout
+  - '10'
+  - --max-time
+  - '1200'
+  - https://download.geofabrik.de/europe/austria-260929.osm.pbf
+  - -o
+  - /tmp/austria-proxy11.pbf
+  acquisition_method: complete TLS-verified temporary download copied across filesystems;
+    publisher MD5, SHA256, size and snapshot checked before freeze
+- url: https://download.geofabrik.de/europe/italy/nord-est-260929.osm.pbf
+  path: data/raw/osm/regional_source/nord-est-260929.osm.pbf
+  sha256: 44926be7e4274116d90a061e3f56b2a4c86017cb764c23913116456a1e1aaf50
+  size_bytes: 624289999
+  snapshot_timestamp: '2026-09-29T20:22:51+00:00'
+  publisher_md5: 30d1494efac86ccdbf9507ce26bcd47d
+  acquired_at_utc: '2026-10-01T05:04:17.945066+00:00'
+  download_command:
+  - curl
+  - --fail
+  - --location
+  - --retry
+  - '8'
+  - --retry-all-errors
+  - --connect-timeout
+  - '20'
+  - --max-time
+  - '1800'
+  - --speed-time
+  - '90'
+  - --speed-limit
+  - '1024'
+  - --continue-at
+  - '-'
+  - --output
+  - /home/dy/HiRoute/project/data/raw/osm/regional_source/nord-est-260929.osm.partial
+  - https://download.geofabrik.de/europe/italy/nord-est-260929.osm.pbf
+  acquisition_method: curl transfer
+- url: https://download.geofabrik.de/europe/croatia-260929.osm.pbf
+  path: data/raw/osm/regional_source/croatia-260929.osm.pbf
+  sha256: 14b54c8e644e25f9ce6e1b8275010ef9d1ee425c0b3fcd71c166d49ea69b310c
+  size_bytes: 200023570
+  snapshot_timestamp: '2026-09-29T20:22:51+00:00'
+  publisher_md5: f729852f490b2ce50a01e938beb95d4a
+  acquired_at_utc: '2026-10-01T05:09:20.797646+00:00'
+  download_command:
+  - curl
+  - --fail
+  - --location
+  - --retry
+  - '8'
+  - --retry-all-errors
+  - --connect-timeout
+  - '20'
+  - --max-time
+  - '1800'
+  - --speed-time
+  - '90'
+  - --speed-limit
+  - '1024'
+  - --continue-at
+  - '-'
+  - --output
+  - /home/dy/HiRoute/project/data/raw/osm/regional_source/croatia-260929.osm.partial
+  - https://download.geofabrik.de/europe/croatia-260929.osm.pbf
+  acquisition_method: curl transfer
+- url: https://download.geofabrik.de/europe/hungary-260929.osm.pbf
+  path: data/raw/osm/regional_source/hungary-260929.osm.pbf
+  sha256: 4e95fcf34b9650d229f99567b0653a5ead0f061f3fbaa52731bf8d7efbb98379
+  size_bytes: 325903232
+  snapshot_timestamp: '2026-09-29T20:22:51+00:00'
+  publisher_md5: deab5306d5161faa226926f688951903
+  acquired_at_utc: '2026-10-01T05:18:28.890837+00:00'
+  download_command:
+  - curl
+  - --noproxy
+  - '*'
+  - --resolve
+  - download.geofabrik.de:443:95.216.245.233
+  - --fail
+  - --location
+  - --retry
+  - '8'
+  - --retry-all-errors
+  - --connect-timeout
+  - '20'
+  - --max-time
+  - '1800'
+  - --speed-time
+  - '90'
+  - --speed-limit
+  - '1024'
+  - --continue-at
+  - '-'
+  - --output
+  - /home/dy/HiRoute/project/data/raw/osm/regional_source/hungary-260929.osm.partial
+  - https://download.geofabrik.de/europe/hungary-260929.osm.pbf
+  acquisition_method: curl transfer
+- url: https://download.geofabrik.de/europe/bosnia-herzegovina-260929.osm.pbf
+  path: data/raw/osm/regional_source/bosnia-herzegovina-260929.osm.pbf
+  sha256: 21833bea54029392d668e8e633648e6c581a225fe9bbf4a8e5e6b7c80c63d9e8
+  size_bytes: 161358110
+  snapshot_timestamp: '2026-09-29T20:22:51+00:00'
+  publisher_md5: 31bbbdffaeac2f7234489b7a7486b145
+  acquired_at_utc: '2026-10-01T05:21:37.733313+00:00'
+  download_command:
+  - curl
+  - --noproxy
+  - '*'
+  - --resolve
+  - download.geofabrik.de:443:95.216.245.233
+  - --fail
+  - --location
+  - --retry
+  - '8'
+  - --retry-all-errors
+  - --connect-timeout
+  - '20'
+  - --max-time
+  - '1800'
+  - --speed-time
+  - '90'
+  - --speed-limit
+  - '1024'
+  - --continue-at
+  - '-'
+  - --output
+  - /home/dy/HiRoute/project/data/raw/osm/regional_source/bosnia-herzegovina-260929.osm.partial
+  - https://download.geofabrik.de/europe/bosnia-herzegovina-260929.osm.pbf
+  acquisition_method: curl transfer
+- url: https://download.geofabrik.de/europe/slovenia-260929.osm.pbf
+  path: data/raw/osm/slovenia-260929.osm.pbf
+  sha256: 7fae267d1b5f691bcdf4d543dab907175dc77b740960042b48a751bf15a2d693
+  size_bytes: 313378108
+  snapshot_timestamp: '2026-09-29T20:22:51+00:00'
+  publisher_md5: 0d598fc3aa0d5771178494390789f110
+tool_version: 'osmium version 1.18.0
+
+  libosmium version 2.21.0
+
+  Supported PBF compression types: none zlib lz4
+
+
+  Copyright (C) 2013-2025  Jochen Topf <jochen@topf.org>
+
+  License: GNU GENERAL PUBLIC LICENSE Version 3 <https://gnu.org/licenses/gpl.html>.
+
+  This is free software: you are free to change and redistribute it.
+
+  There is NO WARRANTY, to the extent permitted by law.
+
+  '
+files:
+  opportunities-260929.osm.pbf: ad646f1e5e211ddf32464638a638f0821d33bf274a2ed5c89ba5a7685a0eedbe
+  inventory.parquet: d467606df7061b05f87fbcbbc6c2e9dc8e25121bb64c86686cb54f82eb778fb7
+raw_candidate_count: 106280
+duplicate_count: 990
+unique_candidate_count: 105290
+final_located_in_polygon_count: 105250
+excluded_count: 40
+exclusion_reasons:
+  no_exportable_geometry: 34
+  representative_outside_polygon: 6
+geometry_errors: {}
+extraction_seconds: 118.30068417196162
+parsing_seconds: 19.730843151919544
+maximum_command_rss_mib: 3784.5234375
+license: ODbL-1.0
+attribution: OpenStreetMap contributors; Geofabrik
+method: taxonomy-filter with references; smart polygon extraction; same-snapshot merge;
+  projected point-on-surface; representative-in-polygon

@@ -1,6 +1,6 @@
-# HiRoute research infrastructure — Milestones 1–3A
+# HiRoute research infrastructure — Milestones 1–4A
 
-The authoritative formulation is [RESEARCH_SPEC.md](RESEARCH_SPEC.md). This implementation covers the frozen OSM driving graph and structurally validated Safe Detour Envelopes. Research modules beyond envelope infrastructure remain empty. Structural correctness is with respect to the frozen directed graph; full legal or real-world route feasibility is not certified.
+The authoritative formulation is [RESEARCH_SPEC.md](RESEARCH_SPEC.md). This implementation covers the frozen OSM driving graph and structurally validated Safe Detour Envelopes. Milestone 4A adds frozen structured opportunities and user-agnostic route-attached regions; later decision and semantic modules remain empty. Structural correctness is with respect to the frozen directed graph; full legal or real-world route feasibility is not certified.
 
 ## Environment
 
@@ -217,3 +217,84 @@ support, not continuous reachable area.
 `iter_policy_envelopes` enforces a caller-provided cap. It does not estimate
 utility, use graph saturation to stop, or implement the future scientific
 decision-value rule. Opportunity Region generation still requires explicit instruction.
+
+
+## Milestone 4A: opportunities and route-attached regions
+
+Read [the measured report](docs/MILESTONE_4A_REPORT.md). This stage adds a separate
+same-snapshot opportunity PBF/inventory, leaving every M1–3A artifact unchanged.
+The road-only regional PBF is **not** the opportunity source. All six original
+260929 sources and the exact 75 km polygon are required. No live OSM queries,
+Pyrosm country union, user preferences, semantic models, microplans or utilities.
+
+Run from the repository root in the existing `hiroute` environment. The original
+Python and osmium locks stay unchanged; the native local-distance helper needs a
+C++17 compiler (`g++`, validated 15.2.0). Compiler/version/source hash are logged.
+The local package now includes `opportunity` and its native source:
+
+```bash
+python -m pip install --no-deps --no-build-isolation -e .
+
+# Run previous acceptance tests without writing inside previous results.
+HIROUTE_OSMIUM=../osmium-env/bin/osmium pytest -q \
+  --require-real-data --require-envelope-results --require-regional-results
+
+# On the supplied frozen workspace, verify the existing M4A checkpoint.
+python scripts/verify_milestone_4a_preservation.py
+# On a newly reproduced workspace with no M4A checkpoint, capture once instead:
+# python scripts/verify_milestone_4a_preservation.py --capture
+
+python scripts/prepare_opportunity_data.py --osmium ../osmium-env/bin/osmium
+# Independent verification must start with a fresh cache.
+if [ -d data/cache/opportunity_4a/rebuild ]; then
+  mv data/cache/opportunity_4a/rebuild "data/cache/opportunity_4a/rebuild-$(date -u +%Y%m%dT%H%M%S%N)"
+fi
+python scripts/prepare_opportunity_data.py --verify --osmium ../osmium-env/bin/osmium
+python scripts/run_opportunity_benchmark.py
+python scripts/verify_opportunity_neighbors.py
+python scripts/plot_opportunities.py
+
+HIROUTE_OSMIUM=../osmium-env/bin/osmium pytest -q \
+  --require-real-data --require-envelope-results --require-regional-results \
+  --require-opportunity-results --junitxml=results/milestone_4a/tests.xml
+python scripts/verify_milestone_4a_preservation.py
+python scripts/write_opportunity_report.py
+```
+
+An existing frozen opportunity dataset is verified rather than overwritten.
+Independent re-extraction uses `data/cache/opportunity_4a/rebuild/`; this directory
+must be absent for a fresh verification. Archive a previous verification cache
+before repeating it. Do not erase or replace the raw frozen snapshot. The optional cold compact neighbor verification rebuilds only the sparse POI
+pair table in a separate cache, checks byte identity and records time/RAM. The final
+benchmark reuses `local_neighbor_pairs.parquet` only when its inventory, graph,
+attachment/network configuration and pair checksum match; other results can be
+regenerated in M4A's directory. For a different taxonomy, geometry contract or
+snapshot, copy the configuration and choose distinct raw/cache/results paths.
+For a new region-builder experiment, choose a distinct results directory.
+
+`configs/opportunity.yaml` contains the explicit tag taxonomy/exclusions,
+250 m initial attachment cutoff, 100/250/500/1000 m diagnostics, region thresholds,
+seven sensitivity configurations, local-network cutoff, seed and result paths.
+Geographic baseline: radius connected components. Decision-aware: sparse
+agglomeration with local two-direction road access and whole-region progress,
+detour and geographic-span bounds. Every object is retained as a member or
+singleton. Region anchors are **not gateways**. Capabilities summarize observed
+structured tags only; missing quality/reliability/availability remains unknown.
+
+The benchmark visits all 30 original remapped ODs and all seven envelope ratios,
+with sequential distance precomputation reused within each OD. The four practical
+ratios 1.05–1.40 are primary; nine 2.00 boundary-risk cases remain flagged.
+It reports per-region membership/topology references, compression, decision and
+geographic spread, local road connectivity, capability co-location, consecutive
+expansion stability and a modest parameter grid. Bounded native Dijkstra checks
+only spatially screened pairs; no full POI-pair distance matrix or graph copy is
+saved. Representation compression is **not** abstraction-regret validation.
+
+Machine-readable outputs are under `results/milestone_4a/`: inventory,
+attachment/sensitivity/density, extraction exclusions, OD features, sparse local
+neighbor distances, region membership/detail/statistics/comparison, expansion
+stability, parameter sensitivity, performance, benchmark/quality/provenance,
+logs, acceptance tests and static figures. Independently checksummed read-only
+raw PBF/inventory and manifest/provenance are under
+`data/raw/opportunities/slovenia_extended_75km/`. Compact metadata is tracked;
+large reproducible tables and figures remain local. No graph is duplicated.

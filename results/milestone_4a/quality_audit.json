@@ -1,0 +1,115 @@
+{
+  "total_opportunities": 105250,
+  "capability_counts": {
+    "charge": 2796,
+    "groceries": 7300,
+    "meal": 23432,
+    "parking": 58340,
+    "pharmacy": 1833,
+    "rest": 603,
+    "services": 253,
+    "sleep": 7624,
+    "toilets": 3916
+  },
+  "object_type_counts": {
+    "node": 37146,
+    "relation": 941,
+    "way": 67163
+  },
+  "missing_name_rate": 0.6118574821852731,
+  "attached_count": 102415,
+  "rejected_count": 2835,
+  "attachment_status_counts": {
+    "attached": 102415,
+    "excessive_snap": 2835
+  },
+  "snap_quantiles_m": {
+    "0": 0.0,
+    "0.25": 14.740151968721865,
+    "0.5": 23.942688685709935,
+    "0.75": 42.90826001482788,
+    "0.9": 84.50380539950436,
+    "0.95": 146.1640227679979,
+    "0.99": 629.953844058464,
+    "1": 10180.805960455264
+  },
+  "threshold_sensitivity": [
+    {
+      "threshold_m": 100,
+      "attached": 96712,
+      "rejected": 8538,
+      "attached_fraction": 0.9188788598574822
+    },
+    {
+      "threshold_m": 250,
+      "attached": 102415,
+      "rejected": 2835,
+      "attached_fraction": 0.9730641330166271
+    },
+    {
+      "threshold_m": 500,
+      "attached": 103930,
+      "rejected": 1320,
+      "attached_fraction": 0.987458432304038
+    },
+    {
+      "threshold_m": 1000,
+      "attached": 104584,
+      "rejected": 666,
+      "attached_fraction": 0.9936722090261283
+    }
+  ],
+  "source_membership_counts": {
+    "austria-260929": 27337,
+    "hungary-260929": 5427,
+    "slovenia-260929": 24361,
+    "nord-est-260929": 24705,
+    "croatia-260929": 24301,
+    "bosnia-herzegovina-260929": 109
+  },
+  "country_explicit_tag_counts": {
+    "AT": 5355,
+    "unknown": 98588,
+    "IT": 332,
+    "SI": 538,
+    "HR": 434,
+    "SL": 2,
+    "TT": 1
+  },
+  "occupied_density_cells": 3048,
+  "density_cell_area_km2": 25.0,
+  "density_cell_count_quantiles": {
+    "0.5": 11.0,
+    "0.95": 134.6500000000001,
+    "1": 1790.0
+  },
+  "deduplication": {
+    "raw_candidate_count": 106280,
+    "duplicate_count": 990,
+    "unique_candidate_count": 105290,
+    "final_located_in_polygon_count": 105250,
+    "exclusion_reasons": {
+      "no_exportable_geometry": 34,
+      "representative_outside_polygon": 6
+    }
+  },
+  "selected_threshold_m": 250,
+  "attachment_policy": {
+    "default_threshold_m": 250,
+    "diagnostic_thresholds_m": [
+      100,
+      250,
+      500,
+      1000
+    ],
+    "candidate_count": 4,
+    "require_in_and_out_edges": true,
+    "excluded_highway": [
+      "motorway",
+      "motorway_link",
+      "trunk",
+      "trunk_link"
+    ]
+  },
+  "interpretation": "Source memberships overlap and are not nationality. Node snapping approximates road access, not entrances."
+}

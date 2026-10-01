@@ -1,0 +1,13 @@
+{
+  "existing_tests": {
+    "tests": 36,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "elapsed_seconds": 96.99
+  },
+  "command": "HIROUTE_OSMIUM=../osmium-env/bin/osmium python -m pytest -q --require-real-data --require-envelope-results --require-regional-results",
+  "initial_git_commit": "e86a282025641e1fb22f541132f23955b0792002",
+  "initial_git_dirty": false,
+  "preservation_before": "preservation_before.json"
+}
