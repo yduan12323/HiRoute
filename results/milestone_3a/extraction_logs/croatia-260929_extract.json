@@ -1,0 +1,28 @@
+{
+  "command": [
+    "/home/dy/HiRoute/osmium-env/bin/osmium",
+    "extract",
+    "-p",
+    "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson",
+    "-s",
+    "complete_ways",
+    "/home/dy/HiRoute/project/data/raw/osm/regional_source/croatia-260929.osm.pbf",
+    "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+    "-o",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/croatia-260929.crop.partial.pbf"
+  ],
+  "elapsed_seconds": 11.011358574032784,
+  "exit_code": 0,
+  "sampled_tree_peak_rss_mib": 3681.26171875,
+  "minimum_available_gib": 45.94606018066406,
+  "aborted": null,
+  "osmium_pool_threads": 1,
+  "stdout": "results/milestone_3a/extraction_logs/croatia-260929_extract.stdout.txt",
+  "process_peak_rss_mib": 3678.6875,
+  "input_sha256": {
+    "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson": "6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4",
+    "/home/dy/HiRoute/project/data/raw/osm/regional_source/croatia-260929.osm.pbf": "14b54c8e644e25f9ce6e1b8275010ef9d1ee425c0b3fcd71c166d49ea69b310c"
+  },
+  "artifact_sha256": "2266f542a5e865909653935dd60b26d98b0f28cc1be09f6d61f1d8a75884abe0",
+  "artifact_size_bytes": 115754709
+}

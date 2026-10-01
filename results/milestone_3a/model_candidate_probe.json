@@ -1,0 +1,11 @@
+{
+  "candidate_pbf_sha256": "bfabee368e42dec2dc16a3062f45c04614b6a7b527b1ecc5a909a17ba3abb001",
+  "parsed_highway_segments": {
+    "traffic_calming": 97,
+    "yes": 21,
+    "square": 4,
+    "crossing": 3
+  },
+  "node_count": 130,
+  "process_peak_rss_mib": 219.34375
+}

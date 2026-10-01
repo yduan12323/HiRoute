@@ -1,0 +1,114 @@
+[
+  {
+    "url": "europe/alps.poly",
+    "headers": {
+      "Date": "Thu, 01 Oct 2026 04:21:05 GMT",
+      "Server": "Apache",
+      "Last-Modified": "Thu, 01 Oct 2026 01:28:33 GMT",
+      "ETag": "\"b33-65cbd55852344\"",
+      "Accept-Ranges": "bytes",
+      "Content-Length": "2867",
+      "Cache-Control": "max-age=604800, public",
+      "Cache-Status": "download-proxy9;detail=mismatch",
+      "Via": "1.1 download-proxy9 (squid/6.14)",
+      "Connection": "close"
+    }
+  },
+  {
+    "url": "europe/austria.poly",
+    "headers": {
+      "Date": "Sun, 27 Sep 2026 12:23:35 GMT",
+      "Server": "Apache",
+      "Last-Modified": "Sun, 27 Sep 2026 01:25:37 GMT",
+      "ETag": "\"3c7c-65c6cd3ac0c13\"",
+      "Accept-Ranges": "bytes",
+      "Content-Length": "15484",
+      "Cache-Control": "max-age=604800, public",
+      "Age": "316650",
+      "Cache-Status": "download-proxy9;hit;detail=match",
+      "Via": "1.1 download-proxy9 (squid/6.14)",
+      "Connection": "close"
+    }
+  },
+  {
+    "url": "europe/croatia.poly",
+    "headers": {
+      "Date": "Wed, 30 Sep 2026 02:29:37 GMT",
+      "Server": "Apache",
+      "Last-Modified": "Mon, 28 Sep 2026 22:52:05 GMT",
+      "ETag": "\"44f6-65c92ea49e6f3\"",
+      "Accept-Ranges": "bytes",
+      "Content-Length": "17654",
+      "Cache-Control": "max-age=604800, public",
+      "Age": "93088",
+      "Cache-Status": "download-proxy9;hit;detail=match",
+      "Via": "1.1 download-proxy9 (squid/6.14)",
+      "Connection": "close"
+    }
+  },
+  {
+    "url": "europe/hungary.poly",
+    "headers": {
+      "Date": "Tue, 29 Sep 2026 20:52:24 GMT",
+      "Server": "Apache",
+      "Last-Modified": "Mon, 28 Sep 2026 22:50:28 GMT",
+      "ETag": "\"2d1b-65c92e47bcdd7\"",
+      "Accept-Ranges": "bytes",
+      "Content-Length": "11547",
+      "Cache-Control": "max-age=604800, public",
+      "Age": "113338",
+      "Cache-Status": "download-proxy9;hit;detail=match",
+      "Via": "1.1 download-proxy9 (squid/6.14)",
+      "Connection": "close"
+    }
+  },
+  {
+    "url": "europe/bosnia-herzegovina.poly",
+    "headers": {
+      "Date": "Wed, 30 Sep 2026 12:48:22 GMT",
+      "Server": "Apache",
+      "Last-Modified": "Wed, 30 Sep 2026 03:39:55 GMT",
+      "ETag": "\"2f87-65cab0d79df9b\"",
+      "Accept-Ranges": "bytes",
+      "Content-Length": "12167",
+      "Cache-Control": "max-age=604800, public",
+      "Age": "55969",
+      "Cache-Status": "download-proxy9;hit;detail=match",
+      "Via": "1.1 download-proxy9 (squid/6.14)",
+      "Connection": "close"
+    }
+  },
+  {
+    "url": "europe/italy/nord-est.poly",
+    "headers": {
+      "Date": "Sun, 27 Sep 2026 13:42:31 GMT",
+      "Server": "Apache",
+      "Last-Modified": "Sun, 27 Sep 2026 02:36:50 GMT",
+      "ETag": "\"6e41-65c6dd2564952\"",
+      "Accept-Ranges": "bytes",
+      "Content-Length": "28225",
+      "Cache-Control": "max-age=604800, public",
+      "Age": "311972",
+      "Cache-Status": "download-proxy9;hit;detail=match",
+      "Via": "1.1 download-proxy9 (squid/6.14)",
+      "Connection": "close"
+    }
+  },
+  {
+    "url": "europe/croatia-260929.osm.pbf",
+    "headers": {
+      "Date": "Wed, 30 Sep 2026 04:01:02 GMT",
+      "Server": "Apache",
+      "Last-Modified": "Wed, 30 Sep 2026 02:59:38 GMT",
+      "ETag": "\"bec1e12-65caa7d6ed525\"",
+      "Accept-Ranges": "bytes",
+      "Content-Length": "200023570",
+      "Cache-Control": "max-age=63072000, public",
+      "Content-Type": "application/octet-stream",
+      "Age": "87604",
+      "Cache-Status": "download-proxy9;hit;detail=match",
+      "Via": "1.1 download-proxy9 (squid/6.14)",
+      "Connection": "close"
+    }
+  }
+]

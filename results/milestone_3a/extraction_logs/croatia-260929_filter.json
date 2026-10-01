@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/home/dy/HiRoute/osmium-env/bin/osmium",
+    "tags-filter",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/croatia-260929.crop.pbf",
+    "w/highway",
+    "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+    "-o",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/croatia-260929.highways.partial.pbf"
+  ],
+  "elapsed_seconds": 5.006319239037111,
+  "exit_code": 0,
+  "sampled_tree_peak_rss_mib": 1967.06640625,
+  "minimum_available_gib": 47.74197769165039,
+  "aborted": null,
+  "osmium_pool_threads": 1,
+  "stdout": "results/milestone_3a/extraction_logs/croatia-260929_filter.stdout.txt",
+  "process_peak_rss_mib": 1965.41015625,
+  "input_sha256": {
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/croatia-260929.crop.pbf": "2266f542a5e865909653935dd60b26d98b0f28cc1be09f6d61f1d8a75884abe0"
+  },
+  "artifact_sha256": "852d5941766e4c5c74dd876a47e2401252dc2e379622a7795687872f88a94c35",
+  "artifact_size_bytes": 32263515
+}

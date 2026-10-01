@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/home/dy/HiRoute/osmium-env/bin/osmium",
+    "tags-filter",
+    "/home/dy/HiRoute/project/data/raw/osm/slovenia_extended_75km/slovenia_extended-260929.osm.pbf",
+    "w/highway=crossing,disused,emergency_access_point,square,traffic_calming,traffic_island,yes",
+    "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+    "-o",
+    "/home/dy/HiRoute/project/data/cache/regional_unmodeled_candidates.partial.pbf"
+  ],
+  "elapsed_seconds": 4.004681967082433,
+  "exit_code": 0,
+  "sampled_tree_peak_rss_mib": 198.9453125,
+  "minimum_available_gib": 49.66865158081055,
+  "aborted": null,
+  "monitor_interval_s": 0.5,
+  "osmium_pool_threads": 1,
+  "stdout": "results/milestone_3a/model_candidate_filter.stdout.txt",
+  "process_peak_rss_mib": 197.28125,
+  "input_sha256": {
+    "/home/dy/HiRoute/project/data/raw/osm/slovenia_extended_75km/slovenia_extended-260929.osm.pbf": "af94c57d06b62dc0c53900eaf64c0d7d496c0cc14e14b7ebf8d8f030182097b2"
+  },
+  "artifact_sha256": "bfabee368e42dec2dc16a3062f45c04614b6a7b527b1ecc5a909a17ba3abb001",
+  "artifact_size_bytes": 4504
+}

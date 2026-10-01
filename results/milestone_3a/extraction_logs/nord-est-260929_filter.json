@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/home/dy/HiRoute/osmium-env/bin/osmium",
+    "tags-filter",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/nord-est-260929.crop.pbf",
+    "w/highway",
+    "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+    "-o",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/nord-est-260929.highways.partial.pbf"
+  ],
+  "elapsed_seconds": 4.504954588948749,
+  "exit_code": 0,
+  "sampled_tree_peak_rss_mib": 1973.5078125,
+  "minimum_available_gib": 47.889461517333984,
+  "aborted": null,
+  "osmium_pool_threads": 1,
+  "stdout": "results/milestone_3a/extraction_logs/nord-est-260929_filter.stdout.txt",
+  "process_peak_rss_mib": 1971.0703125,
+  "input_sha256": {
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/nord-est-260929.crop.pbf": "d5976edce3f2fa28feb3227f081ded9103578b732f194e7c78ebc83819bd62ef"
+  },
+  "artifact_sha256": "9168044c44295a6ffe1283cdfa1166cbf83373da6b566636a2eb8f943f0ef56a",
+  "artifact_size_bytes": 26446943
+}

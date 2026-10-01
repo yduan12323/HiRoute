@@ -1,0 +1,87 @@
+{
+  "all_passed": true,
+  "checks": {
+    "original_artifacts_and_specification_preserved": true,
+    "previous_and_new_tests_pass": true,
+    "geographic_crop_reproduces_exact_bytes": true,
+    "model_input_reproduces_exact_bytes": true,
+    "provenance_and_checksums_recorded": true,
+    "routing_semantics_identical": true,
+    "all_30_original_ods_mapped": true,
+    "baseline_route_changes_quantified": true,
+    "all_configured_envelopes_computed": true,
+    "containment_checks_pass": true,
+    "practical_boundary_risk_substantially_reduced": true,
+    "runtime_ram_and_guard_measured": true,
+    "expansion_policy_interface_exists": true,
+    "opportunity_semantic_acquisition_modules_untouched": true,
+    "no_utility_stopping_rule": true
+  },
+  "tests": {
+    "tests": 36,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "preserved_files": 71,
+  "material_baseline_change_ods": [
+    4,
+    21
+  ],
+  "boundary_risk_by_ratio": [
+    {
+      "ratio": 1.0,
+      "si_boundary_risk_ods": 4,
+      "boundary_risk_ods": 0
+    },
+    {
+      "ratio": 1.05,
+      "si_boundary_risk_ods": 10,
+      "boundary_risk_ods": 0
+    },
+    {
+      "ratio": 1.1,
+      "si_boundary_risk_ods": 14,
+      "boundary_risk_ods": 0
+    },
+    {
+      "ratio": 1.2,
+      "si_boundary_risk_ods": 16,
+      "boundary_risk_ods": 0
+    },
+    {
+      "ratio": 1.4,
+      "si_boundary_risk_ods": 24,
+      "boundary_risk_ods": 0
+    },
+    {
+      "ratio": 1.6,
+      "si_boundary_risk_ods": 27,
+      "boundary_risk_ods": 0
+    },
+    {
+      "ratio": 2.0,
+      "si_boundary_risk_ods": 29,
+      "boundary_risk_ods": 9
+    }
+  ],
+  "unmodeled_ways_explicitly_archived": 21,
+  "source_gap_projection_check": {
+    "old_wgs84_overlay_then_project_area_km2": 36.41158864742219,
+    "projection_first_area_km2": 38.209351381157624,
+    "checked_graph_vertices": 5892498,
+    "old_risk_nodes": 0,
+    "projection_first_risk_nodes": 0,
+    "differing_risk_nodes": 0,
+    "graph_nodes_sha256": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+    "polygon_sha256": "6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4",
+    "interpretation": "Projection-first overlay matches design geometry; all vertex-risk bits are identical, so every saved envelope diagnostic and path/distance result is unchanged."
+  },
+  "final_projection_consistency_test": {
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "final_preservation_check": true
+}

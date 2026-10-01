@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/home/dy/miniconda3/envs/hiroute/bin/python",
+    "scripts/build_graph.py",
+    "--data-config",
+    "configs/data_extended.yaml"
+  ],
+  "elapsed_seconds": 92.08838302001823,
+  "exit_code": 1,
+  "sampled_tree_peak_rss_mib": 15503.2734375,
+  "minimum_available_gib": 34.76728820800781,
+  "aborted": null,
+  "monitor_interval_s": 0.5,
+  "osmium_pool_threads": 1,
+  "stdout": "results/milestone_3a/preprocessing_benchmark.stdout.txt",
+  "process_peak_rss_mib": 15829.75
+}

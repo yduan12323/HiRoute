@@ -1,0 +1,11 @@
+{
+  "old_wgs84_overlay_then_project_area_km2": 36.41158864742219,
+  "projection_first_area_km2": 38.209351381157624,
+  "checked_graph_vertices": 5892498,
+  "old_risk_nodes": 0,
+  "projection_first_risk_nodes": 0,
+  "differing_risk_nodes": 0,
+  "graph_nodes_sha256": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+  "polygon_sha256": "6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4",
+  "interpretation": "Projection-first overlay matches design geometry; all vertex-risk bits are identical, so every saved envelope diagnostic and path/distance result is unchanged."
+}

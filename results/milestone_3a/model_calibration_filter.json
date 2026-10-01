@@ -1,0 +1,26 @@
+{
+  "command": [
+    "/home/dy/HiRoute/osmium-env/bin/osmium",
+    "tags-filter",
+    "-i",
+    "/home/dy/HiRoute/project/data/raw/osm/slovenia_extended/slovenia_highways_calibration.osm.pbf",
+    "w/highway=crossing,square,traffic_calming,yes",
+    "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+    "-o",
+    "/home/dy/HiRoute/project/data/cache/regional_model_calibration.osm.partial.pbf"
+  ],
+  "elapsed_seconds": 4.505420706002042,
+  "exit_code": 0,
+  "sampled_tree_peak_rss_mib": 1986.26953125,
+  "minimum_available_gib": 47.896366119384766,
+  "aborted": null,
+  "monitor_interval_s": 0.5,
+  "osmium_pool_threads": 1,
+  "stdout": "results/milestone_3a/model_calibration_filter.stdout.txt",
+  "process_peak_rss_mib": 1983.9140625,
+  "input_sha256": {
+    "/home/dy/HiRoute/project/data/raw/osm/slovenia_extended/slovenia_highways_calibration.osm.pbf": "2d3d08417dcca5477af6829d77bf0ae3f6f2080bc507c2a7ae6e733b9e20d227"
+  },
+  "artifact_sha256": "2d3d08417dcca5477af6829d77bf0ae3f6f2080bc507c2a7ae6e733b9e20d227",
+  "artifact_size_bytes": 53047053
+}

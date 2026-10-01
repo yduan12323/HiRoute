@@ -1,0 +1,22 @@
+[
+  {
+    "source": "hungary-260929.osm.pbf",
+    "header_snapshot_timestamp": "2026-09-29T20:22:51+00:00"
+  },
+  {
+    "source": "austria-260929.osm.pbf",
+    "header_snapshot_timestamp": "2026-09-29T20:22:51+00:00"
+  },
+  {
+    "source": "croatia-260929.osm.pbf",
+    "header_snapshot_timestamp": "2026-09-29T20:22:51+00:00"
+  },
+  {
+    "source": "bosnia-herzegovina-260929.osm.pbf",
+    "header_snapshot_timestamp": "2026-09-29T20:22:51+00:00"
+  },
+  {
+    "source": "nord-est-260929.osm.pbf",
+    "header_snapshot_timestamp": "2026-09-29T20:22:51+00:00"
+  }
+]

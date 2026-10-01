@@ -1,0 +1,28 @@
+{
+  "command": [
+    "/home/dy/HiRoute/osmium-env/bin/osmium",
+    "extract",
+    "-p",
+    "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson",
+    "-s",
+    "complete_ways",
+    "/home/dy/HiRoute/project/data/raw/osm/regional_source/bosnia-herzegovina-260929.osm.pbf",
+    "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+    "-o",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/bosnia-herzegovina-260929.crop.partial.pbf"
+  ],
+  "elapsed_seconds": 5.005597925046459,
+  "exit_code": 0,
+  "sampled_tree_peak_rss_mib": 2824.609375,
+  "minimum_available_gib": 47.09122848510742,
+  "aborted": null,
+  "osmium_pool_threads": 1,
+  "stdout": "results/milestone_3a/extraction_logs/bosnia-herzegovina-260929_extract.stdout.txt",
+  "process_peak_rss_mib": 2822.5546875,
+  "input_sha256": {
+    "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson": "6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4",
+    "/home/dy/HiRoute/project/data/raw/osm/regional_source/bosnia-herzegovina-260929.osm.pbf": "21833bea54029392d668e8e633648e6c581a225fe9bbf4a8e5e6b7c80c63d9e8"
+  },
+  "artifact_sha256": "ac96c90d29d8273b8bdf2f18f999a6153148c7c903606c54d35c7cc0983862ef",
+  "artifact_size_bytes": 3991750
+}

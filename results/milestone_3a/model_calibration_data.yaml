@@ -1,0 +1,10 @@
+dataset:
+  region: Slovenia model-domain control
+  source_url: derived:slovenia-model-domain-260929
+  raw_path: data/cache/regional_model_calibration.osm.pbf
+  sha256: 2d3d08417dcca5477af6829d77bf0ae3f6f2080bc507c2a7ae6e733b9e20d227
+  manifest_path: results/milestone_3a/model_calibration_manifest.yaml
+graph_dir: data/cache/regional_model_calibration_graph
+instances_path: data/processed/od_instances.parquet
+results_dir: results/milestone_3a
+seed: 20260930

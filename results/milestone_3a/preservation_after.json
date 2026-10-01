@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "changed_files": [],
+  "verified_files": 71,
+  "timestamp_utc": "2026-10-01T06:11:37.852446+00:00",
+  "git_commit": "c70c1760c20b255e374da594d6ab6161e3f2a817",
+  "git_status": " M .gitignore\n M README.md\n M tests/conftest.py\n?? configs/data_extended.yaml\n?? configs/regional.yaml\n?? configs/regional_100km_candidate.yaml\n?? docs/MILESTONE_3A_DATA_DESIGN.md\n?? docs/MILESTONE_3A_REPORT.md\n?? environment-osmium-linux-64.lock\n?? results/milestone_3a/\n?? scripts/_regional_common.py\n?? scripts/plot_regional_growth.py\n?? scripts/prepare_regional_data.py\n?? scripts/prepare_regional_model_input.py\n?? scripts/run_regional_benchmark.py\n?? scripts/verify_milestone_3a_preservation.py\n?? scripts/write_regional_report.py\n?? src/envelope/expansion.py\n?? tests/test_regional.py\n",
+  "dataset_sha256": "7fae267d1b5f691bcdf4d543dab907175dc77b740960042b48a751bf15a2d693"
+}

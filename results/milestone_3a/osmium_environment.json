@@ -1,0 +1,60 @@
+{
+  "tool_version": "osmium version 1.18.0\nlibosmium version 2.21.0\nSupported PBF compression types: none zlib lz4\n\nCopyright (C) 2013-2025  Jochen Topf <jochen@topf.org>\nLicense: GNU GENERAL PUBLIC LICENSE Version 3 <https://gnu.org/licenses/gpl.html>.\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n",
+  "binary_sha256": "7b2f1bdc7ab882aed918c3f850f4da3a549056aea63c1c8e75fd40dca0d43a3f",
+  "ldd": "\tlinux-vdso.so.1 (0x000070fad7bbe000)\n\tlibboost_program_options.so.1.88.0 => /home/dy/HiRoute/osmium-env/bin/../lib/libboost_program_options.so.1.88.0 (0x000070fad7b57000)\n\tlibz.so.1 => /usr/lib/x86_64-linux-gnu/libz.so.1 (0x000070fad7b29000)\n\tlibpthread.so.0 => /usr/lib/x86_64-linux-gnu/libpthread.so.0 (0x000070fad7b24000)\n\tlibexpat.so.1 => /usr/lib/x86_64-linux-gnu/libexpat.so.1 (0x000070fad7af6000)\n\tlibbz2.so.1.0 => /usr/lib/x86_64-linux-gnu/libbz2.so.1.0 (0x000070fad7ae1000)\n\tliblz4.so.1 => /usr/lib/x86_64-linux-gnu/liblz4.so.1 (0x000070fad7ab6000)\n\tlibstdc++.so.6 => /usr/lib/x86_64-linux-gnu/libstdc++.so.6 (0x000070fad7400000)\n\tlibm.so.6 => /usr/lib/x86_64-linux-gnu/libm.so.6 (0x000070fad76da000)\n\tlibgcc_s.so.1 => /usr/lib/x86_64-linux-gnu/libgcc_s.so.1 (0x000070fad7a88000)\n\tlibc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x000070fad7000000)\n\t/lib64/ld-linux-x86-64.so.2 (0x000070fad7bc0000)\n\tlibrt.so.1 => /usr/lib/x86_64-linux-gnu/librt.so.1 (0x000070fad7a81000)\n\tlibxxhash.so.0 => /usr/lib/x86_64-linux-gnu/libxxhash.so.0 (0x000070fad7a6e000)\n",
+  "libraries": {
+    "/home/dy/HiRoute/osmium-env/bin/../lib/libboost_program_options.so.1.88.0": {
+      "sha256": "6b8b71cde6ec7ce396ece658ae657bba1a64cd7b6c9cce0f482843f7bd5d25a3",
+      "resolved_path": "/home/dy/HiRoute/osmium-env/lib/libboost_program_options.so.1.88.0"
+    },
+    "/usr/lib/x86_64-linux-gnu/libz.so.1": {
+      "sha256": "47b61967895b30e8c0c6818dd633ffeb87711cf637c688f981896f0dd84ce23b",
+      "resolved_path": "/usr/lib/x86_64-linux-gnu/libz.so.1.3.1"
+    },
+    "/usr/lib/x86_64-linux-gnu/libpthread.so.0": {
+      "sha256": "1327fc40710691dbd94e88b6cf4efce27fefe8fbb93f7d1164a75b4dccaea696",
+      "resolved_path": "/usr/lib/x86_64-linux-gnu/libpthread.so.0"
+    },
+    "/usr/lib/x86_64-linux-gnu/libexpat.so.1": {
+      "sha256": "2e5f66e2784c2746775567ff9916f6e7503182a8f1f2deb8ca729dfc1463849f",
+      "resolved_path": "/usr/lib/x86_64-linux-gnu/libexpat.so.1.11.2"
+    },
+    "/usr/lib/x86_64-linux-gnu/libbz2.so.1.0": {
+      "sha256": "7138aeb748f73c150b1d34d67de69139a441910cd7b269076ba3c8b986dea9a7",
+      "resolved_path": "/usr/lib/x86_64-linux-gnu/libbz2.so.1.0.4"
+    },
+    "/usr/lib/x86_64-linux-gnu/liblz4.so.1": {
+      "sha256": "45729d07db6c43e524c2e69d0c4aef81148a66e272c4f4e0e64b787e17fe1731",
+      "resolved_path": "/usr/lib/x86_64-linux-gnu/liblz4.so.1.10.0"
+    },
+    "/usr/lib/x86_64-linux-gnu/libstdc++.so.6": {
+      "sha256": "5bb0d21308f123b6ad46c6f35b42cedfcb8d6d439a53aa3dae04d880aaffdde3",
+      "resolved_path": "/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.35"
+    },
+    "/usr/lib/x86_64-linux-gnu/libm.so.6": {
+      "sha256": "1c488db6f4fe8cecb72456bc018de000b7a9b539c2994864b0416b5e8371b3d8",
+      "resolved_path": "/usr/lib/x86_64-linux-gnu/libm.so.6"
+    },
+    "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1": {
+      "sha256": "9d339ecb409578d6a5d587e6c537a8f9589b8a13fefba30d167433a4b5758bee",
+      "resolved_path": "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1"
+    },
+    "/usr/lib/x86_64-linux-gnu/libc.so.6": {
+      "sha256": "85e64f97e348786a8fb4d9f3d52fec289e2fb86bba20f0731dfe61990525e0f7",
+      "resolved_path": "/usr/lib/x86_64-linux-gnu/libc.so.6"
+    },
+    "/lib64/ld-linux-x86-64.so.2": {
+      "sha256": "bda779ea9e9ad234f60315477d7cfd0bdde861cd8ddd9df8cdaf62f18c4cec14",
+      "resolved_path": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2"
+    },
+    "/usr/lib/x86_64-linux-gnu/librt.so.1": {
+      "sha256": "9f3cc59207bcaaac74aaf7aca961f4816f0f4d945e4bd1c3cb98ec516becf161",
+      "resolved_path": "/usr/lib/x86_64-linux-gnu/librt.so.1"
+    },
+    "/usr/lib/x86_64-linux-gnu/libxxhash.so.0": {
+      "sha256": "eae56344ba81fd5d25c6976028b33a53d3303848c382b04f3d5746549fb25228",
+      "resolved_path": "/usr/lib/x86_64-linux-gnu/libxxhash.so.0.8.3"
+    }
+  },
+  "system_packages": "libbz2-1.0:amd64\t1.0.8-6ubuntu0.1\nlibc6:amd64\t2.43-2ubuntu2.4\nlibexpat1:amd64\t2.7.4-1ubuntu0.2\nlibgcc-s1:amd64\t16-20260322-1ubuntu1\nliblz4-1:amd64\t1.10.0-8\nlibstdc++6:amd64\t16-20260322-1ubuntu1\nlibxxhash0:amd64\t0.8.3-2build1\nzlib1g:amd64\t1:1.3.dfsg+really1.3.1-1ubuntu3.1\n"
+}

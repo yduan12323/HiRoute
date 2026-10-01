@@ -1,0 +1,22 @@
+{
+  "canonical_host": "download.geofabrik.de",
+  "verified_dns_ipv4": [
+    "95.216.245.233",
+    "95.217.45.61",
+    "95.217.63.98",
+    "95.216.245.185"
+  ],
+  "dns_reference": "https://dns.google/resolve?name=download.geofabrik.de&type=A",
+  "successful_austria_transport": [
+    "curl",
+    "--noproxy",
+    "*",
+    "--resolve",
+    "download.geofabrik.de:443:95.217.63.98",
+    "https://download.geofabrik.de/europe/austria-260929.osm.pbf"
+  ],
+  "checks": "TLS hostname verification unchanged; publisher MD5 and SHA256 required before adoption",
+  "note": "Transport retries and partial files are not accepted scientific artifacts.",
+  "hungary_transport": "Verified TLS to canonical hostname using 95.216.245.233; see frozen source record",
+  "bosnia_fallback": "Range transfer was probed but not adopted; the final source uses an ordinary full HTTPS transfer to the same canonical dated URL. Only verified full artifacts are accepted."
+}

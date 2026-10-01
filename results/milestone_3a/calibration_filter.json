@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/home/dy/HiRoute/osmium-env/bin/osmium",
+    "tags-filter",
+    "/home/dy/HiRoute/project/data/raw/osm/slovenia-260929.osm.pbf",
+    "w/highway",
+    "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+    "-o",
+    "/home/dy/HiRoute/project/data/raw/osm/slovenia_extended/slovenia_highways_calibration.osm.partial.pbf"
+  ],
+  "elapsed_seconds": 10.01037081994582,
+  "exit_code": 0,
+  "sampled_tree_peak_rss_mib": 1994.16015625,
+  "minimum_available_gib": 48.784271240234375,
+  "aborted": null,
+  "osmium_pool_threads": 1,
+  "stdout": "results/milestone_3a/calibration_filter.stdout.txt",
+  "process_peak_rss_mib": 1991.68359375
+}

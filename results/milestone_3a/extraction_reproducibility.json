@@ -1,0 +1,353 @@
+{
+  "resulting_pbf_sha256": "af94c57d06b62dc0c53900eaf64c0d7d496c0cc14e14b7ebf8d8f030182097b2",
+  "polygon_sha256": "6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4",
+  "byte_identical": true,
+  "commands": [
+    {
+      "command": [
+        "/home/dy/HiRoute/osmium-env/bin/osmium",
+        "extract",
+        "-p",
+        "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson",
+        "-s",
+        "complete_ways",
+        "/home/dy/HiRoute/project/data/raw/osm/regional_source/austria-260929.osm.pbf",
+        "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+        "-o",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/austria-260929.crop.partial.pbf"
+      ],
+      "elapsed_seconds": 29.027618124964647,
+      "exit_code": 0,
+      "sampled_tree_peak_rss_mib": 3709.1484375,
+      "minimum_available_gib": 46.219200134277344,
+      "aborted": null,
+      "osmium_pool_threads": 1,
+      "stdout": "results/milestone_3a/extraction_rebuild_logs/austria-260929_extract.stdout.txt",
+      "process_peak_rss_mib": 3710.30859375,
+      "input_sha256": {
+        "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson": "6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4",
+        "/home/dy/HiRoute/project/data/raw/osm/regional_source/austria-260929.osm.pbf": "50a6bd957d71a8e2e349ebd9f2cc1a1c523c78aaf61a84b7e15adeea29c7ed9a"
+      },
+      "artifact_sha256": "317dc9aad9848a2f2a58db79c7cae6bb21a409753f45d13e85f4370f670f4dc5",
+      "artifact_size_bytes": 185681633
+    },
+    {
+      "command": [
+        "/home/dy/HiRoute/osmium-env/bin/osmium",
+        "tags-filter",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/austria-260929.crop.pbf",
+        "w/highway",
+        "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+        "-o",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/austria-260929.highways.partial.pbf"
+      ],
+      "elapsed_seconds": 7.507837531971745,
+      "exit_code": 0,
+      "sampled_tree_peak_rss_mib": 1975.78125,
+      "minimum_available_gib": 47.94213104248047,
+      "aborted": null,
+      "osmium_pool_threads": 1,
+      "stdout": "results/milestone_3a/extraction_rebuild_logs/austria-260929_filter.stdout.txt",
+      "process_peak_rss_mib": 1995.11328125,
+      "input_sha256": {
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/austria-260929.crop.pbf": "317dc9aad9848a2f2a58db79c7cae6bb21a409753f45d13e85f4370f670f4dc5"
+      },
+      "artifact_sha256": "c5b57baeeae13cddb8040b05a254295aebc755607b6afbe4087b001fa633f329",
+      "artifact_size_bytes": 56735583
+    },
+    {
+      "command": [
+        "/home/dy/HiRoute/osmium-env/bin/osmium",
+        "extract",
+        "-p",
+        "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson",
+        "-s",
+        "complete_ways",
+        "/home/dy/HiRoute/project/data/raw/osm/regional_source/nord-est-260929.osm.pbf",
+        "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+        "-o",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/nord-est-260929.crop.partial.pbf"
+      ],
+      "elapsed_seconds": 22.02117555506993,
+      "exit_code": 0,
+      "sampled_tree_peak_rss_mib": 3648.28515625,
+      "minimum_available_gib": 46.26072311401367,
+      "aborted": null,
+      "osmium_pool_threads": 1,
+      "stdout": "results/milestone_3a/extraction_rebuild_logs/nord-est-260929_extract.stdout.txt",
+      "process_peak_rss_mib": 3652.0,
+      "input_sha256": {
+        "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson": "6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4",
+        "/home/dy/HiRoute/project/data/raw/osm/regional_source/nord-est-260929.osm.pbf": "44926be7e4274116d90a061e3f56b2a4c86017cb764c23913116456a1e1aaf50"
+      },
+      "artifact_sha256": "d5976edce3f2fa28feb3227f081ded9103578b732f194e7c78ebc83819bd62ef",
+      "artifact_size_bytes": 106608686
+    },
+    {
+      "command": [
+        "/home/dy/HiRoute/osmium-env/bin/osmium",
+        "tags-filter",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/nord-est-260929.crop.pbf",
+        "w/highway",
+        "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+        "-o",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/nord-est-260929.highways.partial.pbf"
+      ],
+      "elapsed_seconds": 4.505204059067182,
+      "exit_code": 0,
+      "sampled_tree_peak_rss_mib": 1973.43359375,
+      "minimum_available_gib": 47.95649337768555,
+      "aborted": null,
+      "osmium_pool_threads": 1,
+      "stdout": "results/milestone_3a/extraction_rebuild_logs/nord-est-260929_filter.stdout.txt",
+      "process_peak_rss_mib": 1971.359375,
+      "input_sha256": {
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/nord-est-260929.crop.pbf": "d5976edce3f2fa28feb3227f081ded9103578b732f194e7c78ebc83819bd62ef"
+      },
+      "artifact_sha256": "9168044c44295a6ffe1283cdfa1166cbf83373da6b566636a2eb8f943f0ef56a",
+      "artifact_size_bytes": 26446943
+    },
+    {
+      "command": [
+        "/home/dy/HiRoute/osmium-env/bin/osmium",
+        "extract",
+        "-p",
+        "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson",
+        "-s",
+        "complete_ways",
+        "/home/dy/HiRoute/project/data/raw/osm/regional_source/croatia-260929.osm.pbf",
+        "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+        "-o",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/croatia-260929.crop.partial.pbf"
+      ],
+      "elapsed_seconds": 11.012164955027401,
+      "exit_code": 0,
+      "sampled_tree_peak_rss_mib": 3682.40234375,
+      "minimum_available_gib": 46.28317642211914,
+      "aborted": null,
+      "osmium_pool_threads": 1,
+      "stdout": "results/milestone_3a/extraction_rebuild_logs/croatia-260929_extract.stdout.txt",
+      "process_peak_rss_mib": 3680.01171875,
+      "input_sha256": {
+        "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson": "6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4",
+        "/home/dy/HiRoute/project/data/raw/osm/regional_source/croatia-260929.osm.pbf": "14b54c8e644e25f9ce6e1b8275010ef9d1ee425c0b3fcd71c166d49ea69b310c"
+      },
+      "artifact_sha256": "2266f542a5e865909653935dd60b26d98b0f28cc1be09f6d61f1d8a75884abe0",
+      "artifact_size_bytes": 115754709
+    },
+    {
+      "command": [
+        "/home/dy/HiRoute/osmium-env/bin/osmium",
+        "tags-filter",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/croatia-260929.crop.pbf",
+        "w/highway",
+        "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+        "-o",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/croatia-260929.highways.partial.pbf"
+      ],
+      "elapsed_seconds": 5.005298307980411,
+      "exit_code": 0,
+      "sampled_tree_peak_rss_mib": 1967.89453125,
+      "minimum_available_gib": 47.99025344848633,
+      "aborted": null,
+      "osmium_pool_threads": 1,
+      "stdout": "results/milestone_3a/extraction_rebuild_logs/croatia-260929_filter.stdout.txt",
+      "process_peak_rss_mib": 1966.87109375,
+      "input_sha256": {
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/croatia-260929.crop.pbf": "2266f542a5e865909653935dd60b26d98b0f28cc1be09f6d61f1d8a75884abe0"
+      },
+      "artifact_sha256": "852d5941766e4c5c74dd876a47e2401252dc2e379622a7795687872f88a94c35",
+      "artifact_size_bytes": 32263515
+    },
+    {
+      "command": [
+        "/home/dy/HiRoute/osmium-env/bin/osmium",
+        "extract",
+        "-p",
+        "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson",
+        "-s",
+        "complete_ways",
+        "/home/dy/HiRoute/project/data/raw/osm/regional_source/hungary-260929.osm.pbf",
+        "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+        "-o",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/hungary-260929.crop.partial.pbf"
+      ],
+      "elapsed_seconds": 11.011511664022692,
+      "exit_code": 0,
+      "sampled_tree_peak_rss_mib": 3619.234375,
+      "minimum_available_gib": 46.09724426269531,
+      "aborted": null,
+      "osmium_pool_threads": 1,
+      "stdout": "results/milestone_3a/extraction_rebuild_logs/hungary-260929_extract.stdout.txt",
+      "process_peak_rss_mib": 3630.2578125,
+      "input_sha256": {
+        "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson": "6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4",
+        "/home/dy/HiRoute/project/data/raw/osm/regional_source/hungary-260929.osm.pbf": "4e95fcf34b9650d229f99567b0653a5ead0f061f3fbaa52731bf8d7efbb98379"
+      },
+      "artifact_sha256": "c036b6cf892974a6cb6b00f03be62120d03509c7a6ee43f8ecb4ddf9deb22cfb",
+      "artifact_size_bytes": 32377710
+    },
+    {
+      "command": [
+        "/home/dy/HiRoute/osmium-env/bin/osmium",
+        "tags-filter",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/hungary-260929.crop.pbf",
+        "w/highway",
+        "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+        "-o",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/hungary-260929.highways.partial.pbf"
+      ],
+      "elapsed_seconds": 2.0027164469938725,
+      "exit_code": 0,
+      "sampled_tree_peak_rss_mib": 1934.3515625,
+      "minimum_available_gib": 47.908294677734375,
+      "aborted": null,
+      "osmium_pool_threads": 1,
+      "stdout": "results/milestone_3a/extraction_rebuild_logs/hungary-260929_filter.stdout.txt",
+      "process_peak_rss_mib": 1932.26953125,
+      "input_sha256": {
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/hungary-260929.crop.pbf": "c036b6cf892974a6cb6b00f03be62120d03509c7a6ee43f8ecb4ddf9deb22cfb"
+      },
+      "artifact_sha256": "eb6a362e3e583c2c74fa92051921cdc13a9854bc2fae29f510e565a80e3fe400",
+      "artifact_size_bytes": 7958716
+    },
+    {
+      "command": [
+        "/home/dy/HiRoute/osmium-env/bin/osmium",
+        "extract",
+        "-p",
+        "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson",
+        "-s",
+        "complete_ways",
+        "/home/dy/HiRoute/project/data/raw/osm/regional_source/bosnia-herzegovina-260929.osm.pbf",
+        "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+        "-o",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/bosnia-herzegovina-260929.crop.partial.pbf"
+      ],
+      "elapsed_seconds": 5.005170778022148,
+      "exit_code": 0,
+      "sampled_tree_peak_rss_mib": 2806.39453125,
+      "minimum_available_gib": 47.09195327758789,
+      "aborted": null,
+      "osmium_pool_threads": 1,
+      "stdout": "results/milestone_3a/extraction_rebuild_logs/bosnia-herzegovina-260929_extract.stdout.txt",
+      "process_peak_rss_mib": 2824.26171875,
+      "input_sha256": {
+        "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson": "6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4",
+        "/home/dy/HiRoute/project/data/raw/osm/regional_source/bosnia-herzegovina-260929.osm.pbf": "21833bea54029392d668e8e633648e6c581a225fe9bbf4a8e5e6b7c80c63d9e8"
+      },
+      "artifact_sha256": "ac96c90d29d8273b8bdf2f18f999a6153148c7c903606c54d35c7cc0983862ef",
+      "artifact_size_bytes": 3991750
+    },
+    {
+      "command": [
+        "/home/dy/HiRoute/osmium-env/bin/osmium",
+        "tags-filter",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/bosnia-herzegovina-260929.crop.pbf",
+        "w/highway",
+        "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+        "-o",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/bosnia-herzegovina-260929.highways.partial.pbf"
+      ],
+      "elapsed_seconds": 1.0018324760021642,
+      "exit_code": 0,
+      "sampled_tree_peak_rss_mib": 1202.44921875,
+      "minimum_available_gib": 48.680511474609375,
+      "aborted": null,
+      "osmium_pool_threads": 1,
+      "stdout": "results/milestone_3a/extraction_rebuild_logs/bosnia-herzegovina-260929_filter.stdout.txt",
+      "process_peak_rss_mib": 1274.75390625,
+      "input_sha256": {
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/bosnia-herzegovina-260929.crop.pbf": "ac96c90d29d8273b8bdf2f18f999a6153148c7c903606c54d35c7cc0983862ef"
+      },
+      "artifact_sha256": "51236fce7f7e7c6c35244c21768425470a9eec5d36d53ff520fd4f286387cf9f",
+      "artifact_size_bytes": 1030184
+    },
+    {
+      "command": [
+        "/home/dy/HiRoute/osmium-env/bin/osmium",
+        "extract",
+        "-p",
+        "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson",
+        "-s",
+        "complete_ways",
+        "/home/dy/HiRoute/project/data/raw/osm/slovenia-260929.osm.pbf",
+        "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+        "-o",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/slovenia-260929.crop.partial.pbf"
+      ],
+      "elapsed_seconds": 21.521475487970747,
+      "exit_code": 0,
+      "sampled_tree_peak_rss_mib": 3733.69140625,
+      "minimum_available_gib": 46.161903381347656,
+      "aborted": null,
+      "osmium_pool_threads": 1,
+      "stdout": "results/milestone_3a/extraction_rebuild_logs/slovenia-260929_extract.stdout.txt",
+      "process_peak_rss_mib": 3732.1953125,
+      "input_sha256": {
+        "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson": "6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4",
+        "/home/dy/HiRoute/project/data/raw/osm/slovenia-260929.osm.pbf": "7fae267d1b5f691bcdf4d543dab907175dc77b740960042b48a751bf15a2d693"
+      },
+      "artifact_sha256": "50c29116c2e76bc7ce68504174432ef6127637353ed410841c5c0f4f11e3cc0a",
+      "artifact_size_bytes": 313378014
+    },
+    {
+      "command": [
+        "/home/dy/HiRoute/osmium-env/bin/osmium",
+        "tags-filter",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/slovenia-260929.crop.pbf",
+        "w/highway",
+        "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+        "-o",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/slovenia-260929.highways.partial.pbf"
+      ],
+      "elapsed_seconds": 10.00975524506066,
+      "exit_code": 0,
+      "sampled_tree_peak_rss_mib": 1993.8125,
+      "minimum_available_gib": 47.94229507446289,
+      "aborted": null,
+      "osmium_pool_threads": 1,
+      "stdout": "results/milestone_3a/extraction_rebuild_logs/slovenia-260929_filter.stdout.txt",
+      "process_peak_rss_mib": 1991.56640625,
+      "input_sha256": {
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/slovenia-260929.crop.pbf": "50c29116c2e76bc7ce68504174432ef6127637353ed410841c5c0f4f11e3cc0a"
+      },
+      "artifact_sha256": "928cd45db772a45f735a703a5fd47a4c58e5e8158922a093c6c1f1ee74029e9d",
+      "artifact_size_bytes": 53046959
+    },
+    {
+      "command": [
+        "/home/dy/HiRoute/osmium-env/bin/osmium",
+        "merge",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/austria-260929.highways.pbf",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/nord-est-260929.highways.pbf",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/croatia-260929.highways.pbf",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/hungary-260929.highways.pbf",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/bosnia-herzegovina-260929.highways.pbf",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/slovenia-260929.highways.pbf",
+        "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+        "-o",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/final/slovenia_extended-260929.osm.partial.pbf"
+      ],
+      "elapsed_seconds": 10.01037836400792,
+      "exit_code": 0,
+      "sampled_tree_peak_rss_mib": 350.55078125,
+      "minimum_available_gib": 49.352691650390625,
+      "aborted": null,
+      "osmium_pool_threads": 1,
+      "stdout": "results/milestone_3a/extraction_rebuild_logs/merge.stdout.txt",
+      "process_peak_rss_mib": 348.58203125,
+      "input_sha256": {
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/austria-260929.highways.pbf": "c5b57baeeae13cddb8040b05a254295aebc755607b6afbe4087b001fa633f329",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/nord-est-260929.highways.pbf": "9168044c44295a6ffe1283cdfa1166cbf83373da6b566636a2eb8f943f0ef56a",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/croatia-260929.highways.pbf": "852d5941766e4c5c74dd876a47e2401252dc2e379622a7795687872f88a94c35",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/hungary-260929.highways.pbf": "eb6a362e3e583c2c74fa92051921cdc13a9854bc2fae29f510e565a80e3fe400",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/bosnia-herzegovina-260929.highways.pbf": "51236fce7f7e7c6c35244c21768425470a9eec5d36d53ff520fd4f286387cf9f",
+        "/home/dy/HiRoute/project/data/cache/regional_extraction_75km_rebuild/stages/slovenia-260929.highways.pbf": "928cd45db772a45f735a703a5fd47a4c58e5e8158922a093c6c1f1ee74029e9d"
+      },
+      "artifact_sha256": "af94c57d06b62dc0c53900eaf64c0d7d496c0cc14e14b7ebf8d8f030182097b2",
+      "artifact_size_bytes": 175103959
+    }
+  ],
+  "tool_version": "osmium version 1.18.0\nlibosmium version 2.21.0\nSupported PBF compression types: none zlib lz4\n\nCopyright (C) 2013-2025  Jochen Topf <jochen@topf.org>\nLicense: GNU GENERAL PUBLIC LICENSE Version 3 <https://gnu.org/licenses/gpl.html>.\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n"
+}

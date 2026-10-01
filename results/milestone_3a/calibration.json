@@ -1,0 +1,27 @@
+{
+  "parquet_byte_identical": true,
+  "original_files": {
+    "nodes.parquet": {
+      "sha256": "923d90961262f4c4cc257099ce612a8470aa7f633416aef8d32c7ce75b0b6229",
+      "size_bytes": 39725486
+    },
+    "edges.parquet": {
+      "sha256": "58e10b01925eabb867e4d5c253fa01fc8c347bdeca028c5810736c1c15620c74",
+      "size_bytes": 108146323
+    }
+  },
+  "filtered_files": {
+    "nodes.parquet": {
+      "sha256": "923d90961262f4c4cc257099ce612a8470aa7f633416aef8d32c7ce75b0b6229",
+      "size_bytes": 39725486
+    },
+    "edges.parquet": {
+      "sha256": "58e10b01925eabb867e4d5c253fa01fc8c347bdeca028c5810736c1c15620c74",
+      "size_bytes": 108146323
+    }
+  },
+  "filtered_pbf_sha256": "2d3d08417dcca5477af6829d77bf0ae3f6f2080bc507c2a7ae6e733b9e20d227",
+  "filtered_pbf_size_bytes": 53047053,
+  "preprocessing_peak_rss_mib": 8036.98828125,
+  "preprocessing_seconds": 49.68268802703824
+}

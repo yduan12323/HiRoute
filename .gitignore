@@ -15,3 +15,11 @@ results/milestone_2/**
 !results/milestone_2/**/
 !results/milestone_2/*.json
 !results/milestone_2/boundary/*
+results/milestone_3a/**
+!results/milestone_3a/**/
+!results/milestone_3a/*.json
+!results/milestone_3a/*.yaml
+!results/milestone_3a/*.csv
+!results/milestone_3a/boundary/*
+!results/milestone_3a/extraction_logs/*.json
+!results/milestone_3a/figures/*.md

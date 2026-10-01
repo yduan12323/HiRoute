@@ -1,0 +1,4 @@
+# Linux x86-64; validated Ubuntu 26.04.1 runtime libraries recorded separately.
+@EXPLICIT
+https://conda.anaconda.org/conda-forge/linux-64/libboost-1.88.0-hd24cca6_7.conda#dd489228e1916c7720c925248d0ba12803d1dc8b9898be0c51f4ab37bab6ffa5
+https://conda.anaconda.org/conda-forge/linux-64/osmium-tool-1.18.0-hbe0e379_1.conda#6b54ad7c2a58bb2a1da17ce41d0b3b78b0363c650a92d1586ffdf85a3874d4f8

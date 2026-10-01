@@ -1,0 +1,15 @@
+{
+  "raw_size_bytes": 175103895,
+  "original_rss_amplification": 55.767942641353876,
+  "filtered_rss_amplification": 159.47397583047638,
+  "safety_factor": 1.35,
+  "estimated_rss_gib": 35.10908627018386,
+  "available_ram_gib": 49.891075134277344,
+  "permitted": true,
+  "limits": {
+    "safety_factor": 1.35,
+    "maximum_rss_gib": 38,
+    "minimum_reserve_gib": 10,
+    "monitor_interval_s": 0.5
+  }
+}

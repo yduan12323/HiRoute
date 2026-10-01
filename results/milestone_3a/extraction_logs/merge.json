@@ -1,0 +1,33 @@
+{
+  "command": [
+    "/home/dy/HiRoute/osmium-env/bin/osmium",
+    "merge",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/austria-260929.highways.pbf",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/nord-est-260929.highways.pbf",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/croatia-260929.highways.pbf",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/hungary-260929.highways.pbf",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/bosnia-herzegovina-260929.highways.pbf",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/slovenia-260929.highways.pbf",
+    "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+    "-o",
+    "/home/dy/HiRoute/project/data/raw/osm/slovenia_extended_75km/slovenia_extended-260929.osm.partial.pbf"
+  ],
+  "elapsed_seconds": 10.010182042024098,
+  "exit_code": 0,
+  "sampled_tree_peak_rss_mib": 351.875,
+  "minimum_available_gib": 49.46400451660156,
+  "aborted": null,
+  "osmium_pool_threads": 1,
+  "stdout": "results/milestone_3a/extraction_logs/merge.stdout.txt",
+  "process_peak_rss_mib": 349.38671875,
+  "input_sha256": {
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/austria-260929.highways.pbf": "c5b57baeeae13cddb8040b05a254295aebc755607b6afbe4087b001fa633f329",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/nord-est-260929.highways.pbf": "9168044c44295a6ffe1283cdfa1166cbf83373da6b566636a2eb8f943f0ef56a",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/croatia-260929.highways.pbf": "852d5941766e4c5c74dd876a47e2401252dc2e379622a7795687872f88a94c35",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/hungary-260929.highways.pbf": "eb6a362e3e583c2c74fa92051921cdc13a9854bc2fae29f510e565a80e3fe400",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/bosnia-herzegovina-260929.highways.pbf": "51236fce7f7e7c6c35244c21768425470a9eec5d36d53ff520fd4f286387cf9f",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/slovenia-260929.highways.pbf": "928cd45db772a45f735a703a5fd47a4c58e5e8158922a093c6c1f1ee74029e9d"
+  },
+  "artifact_sha256": "af94c57d06b62dc0c53900eaf64c0d7d496c0cc14e14b7ebf8d8f030182097b2",
+  "artifact_size_bytes": 175103959
+}

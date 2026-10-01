@@ -1,0 +1,10 @@
+dataset:
+  region: Slovenia cross-border 75 km research region
+  source_url: derived:geofabrik-260929-regional-crop-original-model-domain
+  raw_path: data/raw/osm/slovenia_extended_75km/slovenia_extended-modeled-260929.osm.pbf
+  sha256: e10a5d4bb2a927d1bdcf21a41d30971a9301a82e08656c0419ef45e3f92de7a7
+  manifest_path: results/milestone_3a/MODEL_DATA_MANIFEST.yaml
+graph_dir: data/processed/graphs/slovenia_extended
+instances_path: results/milestone_3a/od_remapping.parquet
+results_dir: results/milestone_3a
+seed: 20260930

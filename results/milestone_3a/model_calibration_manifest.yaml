@@ -1,0 +1,8 @@
+dataset:
+  region: Slovenia model-domain control
+  source_url: derived:slovenia-model-domain-260929
+  raw_path: data/cache/regional_model_calibration.osm.pbf
+  sha256: 2d3d08417dcca5477af6829d77bf0ae3f6f2080bc507c2a7ae6e733b9e20d227
+  manifest_path: results/milestone_3a/model_calibration_manifest.yaml
+  size_bytes: 53047053
+  osm_snapshot_timestamp: '2026-09-29T20:22:51+00:00'

@@ -1,0 +1,10 @@
+schema_version: 1
+dataset:
+  region: Slovenia cross-border 75 km research region
+  source_url: derived:geofabrik-same-snapshot-regional-crop-260929
+  raw_path: data/raw/osm/slovenia_extended_75km/slovenia_extended-260929.osm.pbf
+  sha256: af94c57d06b62dc0c53900eaf64c0d7d496c0cc14e14b7ebf8d8f030182097b2
+  manifest_path: results/milestone_3a/DATA_MANIFEST.yaml
+  size_bytes: 175103959
+  osm_snapshot_timestamp: '2026-09-29T20:22:51+00:00'
+  extraction_provenance: results/milestone_3a/extraction_provenance.json

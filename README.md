@@ -1,4 +1,4 @@
-# HiRoute research infrastructure — Milestones 1–2
+# HiRoute research infrastructure — Milestones 1–3A
 
 The authoritative formulation is [RESEARCH_SPEC.md](RESEARCH_SPEC.md). This implementation covers the frozen OSM driving graph and structurally validated Safe Detour Envelopes. Research modules beyond envelope infrastructure remain empty. Structural correctness is with respect to the frozen directed graph; full legal or real-world route feasibility is not certified.
 
@@ -132,3 +132,88 @@ Outputs under `results/milestone_2/` include:
 Large tables, detailed logs and figures are generated locally and ignored by Git; compact summaries, configs and the frozen boundary are retained. To test the distance dimension in a separate output directory, copy `configs/envelope.yaml`, set `cost: distance` and a distinct `results_dir`, then run `python scripts/run_envelope_benchmark.py --config <copied-config>`. The APIs and real tests cover both dimensions; the default 30-OD benchmark uses travel time.
 
 No Opportunity Region, POI, charging, semantic/LLM, utility, acquisition or decision-driven stopping code is present. The authoritative order assigns Milestone 3 to Adaptive Envelope and Milestone 4 to Opportunity Regions; further research work requires explicit instruction.
+
+## Milestone 3A: cross-border data substrate
+
+Slovenia remains the original smoke-test dataset. The additional graph uses the
+same graph builder and unchanged `configs/routing.yaml`. Read the
+[data design](docs/MILESTONE_3A_DATA_DESIGN.md) and
+[measured report](docs/MILESTONE_3A_REPORT.md) before drawing geographic conclusions.
+The selected 75 km EPSG:3035 buffer is configurable in `configs/regional.yaml`.
+The measured 100 km candidate exceeded the preprocessing RAM estimate and was
+retained separately without being parsed by Pyrosm.
+To study another extent, copy the regional configuration and give it separate
+polygon, raw, graph, result and cache paths; copy the archived source-coverage
+polygons into its boundary directory. A frozen region's configuration is checked
+before its polygon or raw artifact can be reused.
+Frozen 260929 sources cover Austria, northeast Italy, Croatia, Hungary,
+Bosnia-Herzegovina and the original Slovenia extract. Streaming extraction keeps
+complete ways, then all highway ways and referenced nodes, before Pyrosm.
+This is a road PBF; POI data are not part of this artifact.
+
+Use a separate environment for osmium-tool, leaving the M1 Python lock unchanged:
+
+```bash
+mamba create -p ../osmium-env --file environment-osmium-linux-64.lock -y
+# Run the following in the original hiroute Python environment.
+pytest -q --require-real-data --require-envelope-results
+python scripts/verify_milestone_3a_preservation.py
+python scripts/prepare_regional_data.py polygon
+python scripts/prepare_regional_data.py download
+python scripts/prepare_regional_data.py calibrate --osmium ../osmium-env/bin/osmium
+python scripts/prepare_regional_data.py extract --osmium ../osmium-env/bin/osmium
+python scripts/prepare_regional_data.py verify-extraction --osmium ../osmium-env/bin/osmium
+python scripts/prepare_regional_model_input.py --osmium ../osmium-env/bin/osmium
+python scripts/prepare_regional_model_input.py --verify --osmium ../osmium-env/bin/osmium
+python scripts/prepare_regional_data.py build
+python scripts/run_regional_benchmark.py
+python scripts/plot_regional_growth.py
+HIROUTE_OSMIUM=../osmium-env/bin/osmium pytest -q --require-real-data --require-envelope-results --require-regional-results --junitxml=results/milestone_3a/tests.xml
+python scripts/verify_milestone_3a_preservation.py
+python scripts/write_regional_report.py
+```
+
+The source and crop checksums, exact commands, polygon hash, snapshot times and
+tool versions are recorded under `results/milestone_3a/`. Downloads restore dated,
+pinned sources and refuse changed checksums. Raw files are read-only and never
+replace Slovenia. The independent calibration rebuild must reproduce the original
+Slovenia graph Parquet files byte for byte. `build` evaluates a conservative RAM
+estimate before launching Pyrosm; a live monitor enforces a 38 GiB RSS ceiling and
+10 GiB available-memory reserve. Do not bypass a failed guard.
+
+Neighboring data contain four way classes rejected by the original cost model.
+The model-input stage audits them in a tiny driving-network probe, archives all
+quarantined ways and tags, and removes only those unmodelled classes from a
+separate PBF. The complete geographic road crop remains frozen. No speed or
+access rule is added; a second Slovenia control must preserve both graph files
+byte for byte. Its PBF checksum and reproducibility check are recorded separately
+in `model_input_provenance.json` and `MODEL_DATA_MANIFEST.yaml`.
+
+The osmium lock reproduces the two added binary packages on the validated Ubuntu
+26.04.1 host; `osmium_environment.json` records exact host library versions and
+hashes. No system package or original Python environment is replaced.
+`extract` verifies an existing frozen crop; `verify-extraction` rebuilds it in a
+separate cache and checks byte identity. Intermediate cache paths must be absent
+for a fresh extraction verification; archive a prior cache before repeating.
+For a locally rebuilt M1–M2 experiment with different run-log timestamps, capture
+an exclusive local checkpoint after its initial tests and use that checkpoint
+for both preservation checks:
+
+```bash
+python scripts/verify_milestone_3a_preservation.py --capture --checkpoint results/milestone_3a/local_preservation_before.json
+python scripts/verify_milestone_3a_preservation.py --checkpoint results/milestone_3a/local_preservation_before.json
+```
+
+ODs are remapped by original OSM node ID with coordinate and original snapping
+checks. New baseline routes, fastest-path and distance-optimal distances,
+OSM-node overlap, absolute envelope sizes, occupied 1 km² cells, spatial extent,
+boundary risk and timings are saved separately. Each dataset's ratio uses its
+own baseline C*; comparisons retain both absolute budgets. The original 2C* cap
+and all seven configured ratios remain unchanged. Occupied cells describe vertex
+support, not continuous reachable area.
+
+`envelope.expansion.EnvelopeExpansionPolicy` exposes `next_budget` and
+`should_stop`; `FixedSchedulePolicy` visits the configured schedule, and
+`iter_policy_envelopes` enforces a caller-provided cap. It does not estimate
+utility, use graph saturation to stop, or implement the future scientific
+decision-value rule. Opportunity Region generation still requires explicit instruction.

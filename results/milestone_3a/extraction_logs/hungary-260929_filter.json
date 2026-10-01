@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/home/dy/HiRoute/osmium-env/bin/osmium",
+    "tags-filter",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/hungary-260929.crop.pbf",
+    "w/highway",
+    "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+    "-o",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/hungary-260929.highways.partial.pbf"
+  ],
+  "elapsed_seconds": 2.0025013380218297,
+  "exit_code": 0,
+  "sampled_tree_peak_rss_mib": 1935.921875,
+  "minimum_available_gib": 47.81669616699219,
+  "aborted": null,
+  "osmium_pool_threads": 1,
+  "stdout": "results/milestone_3a/extraction_logs/hungary-260929_filter.stdout.txt",
+  "process_peak_rss_mib": 1933.41015625,
+  "input_sha256": {
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/hungary-260929.crop.pbf": "c036b6cf892974a6cb6b00f03be62120d03509c7a6ee43f8ecb4ddf9deb22cfb"
+  },
+  "artifact_sha256": "eb6a362e3e583c2c74fa92051921cdc13a9854bc2fae29f510e565a80e3fe400",
+  "artifact_size_bytes": 7958716
+}

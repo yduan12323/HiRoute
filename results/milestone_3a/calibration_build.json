@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/home/dy/miniconda3/envs/hiroute/bin/python",
+    "scripts/build_graph.py",
+    "--data-config",
+    "/home/dy/HiRoute/project/results/milestone_3a/calibration_data.yaml"
+  ],
+  "elapsed_seconds": 51.54890469100792,
+  "exit_code": 0,
+  "sampled_tree_peak_rss_mib": 8005.52734375,
+  "minimum_available_gib": 42.785335540771484,
+  "aborted": null,
+  "osmium_pool_threads": 1,
+  "stdout": "results/milestone_3a/calibration_build.stdout.txt",
+  "process_peak_rss_mib": 8036.98828125
+}

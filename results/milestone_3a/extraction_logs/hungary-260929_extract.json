@@ -1,0 +1,28 @@
+{
+  "command": [
+    "/home/dy/HiRoute/osmium-env/bin/osmium",
+    "extract",
+    "-p",
+    "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson",
+    "-s",
+    "complete_ways",
+    "/home/dy/HiRoute/project/data/raw/osm/regional_source/hungary-260929.osm.pbf",
+    "--output-header=osmosis_replication_timestamp=2026-09-29T20:22:51Z",
+    "-o",
+    "/home/dy/HiRoute/project/data/cache/regional_extraction_75km/hungary-260929.crop.partial.pbf"
+  ],
+  "elapsed_seconds": 11.010966697940603,
+  "exit_code": 0,
+  "sampled_tree_peak_rss_mib": 3621.37109375,
+  "minimum_available_gib": 46.127471923828125,
+  "aborted": null,
+  "osmium_pool_threads": 1,
+  "stdout": "results/milestone_3a/extraction_logs/hungary-260929_extract.stdout.txt",
+  "process_peak_rss_mib": 3634.97265625,
+  "input_sha256": {
+    "/home/dy/HiRoute/project/results/milestone_3a/boundary/research_region_75km.geojson": "6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4",
+    "/home/dy/HiRoute/project/data/raw/osm/regional_source/hungary-260929.osm.pbf": "4e95fcf34b9650d229f99567b0653a5ead0f061f3fbaa52731bf8d7efbb98379"
+  },
+  "artifact_sha256": "c036b6cf892974a6cb6b00f03be62120d03509c7a6ee43f8ecb4ddf9deb22cfb",
+  "artifact_size_bytes": 32377710
+}

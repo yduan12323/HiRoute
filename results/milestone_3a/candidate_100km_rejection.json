@@ -1,0 +1,17 @@
+{
+  "candidate_margin_km": 100,
+  "decision": "Reject before Pyrosm; select evaluated 75 km candidate",
+  "partial_sources": [
+    "austria",
+    "slovenia",
+    "nord-est",
+    "croatia"
+  ],
+  "merged_partial_pbf_bytes": 202660509,
+  "maximum_rss_gib": 38,
+  "pyrosm_started": false,
+  "probe_measurement": "results/milestone_3a/partial_size_probe.json",
+  "candidate_config": "configs/regional_100km_candidate.yaml",
+  "candidate_polygon_sha256": "c78418f55650bf9286fcecb6a45afed200a4b55d84870b65044188864c8f1d49",
+  "partial_estimated_rss_gib": 40.47948831359854
+}

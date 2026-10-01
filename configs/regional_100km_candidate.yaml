@@ -1,0 +1,35 @@
+seed: 20261001
+results_dir: results/milestone_3a
+snapshot_timestamp: '2026-09-29T20:22:51+00:00'
+source_dir: data/raw/osm/regional_source
+raw_dir: data/raw/osm/slovenia_extended
+graph_dir: data/processed/graphs/slovenia_extended
+sources:
+  - europe/austria-260929.osm.pbf
+  - europe/italy/nord-est-260929.osm.pbf
+  - europe/croatia-260929.osm.pbf
+  - europe/hungary-260929.osm.pbf
+  - europe/bosnia-herzegovina-260929.osm.pbf
+source_sizes_bytes:
+  austria-260929.osm.pbf: 811274125
+  nord-est-260929.osm.pbf: 624289999
+  croatia-260929.osm.pbf: 200023570
+  hungary-260929.osm.pbf: 325903232
+  bosnia-herzegovina-260929.osm.pbf: 161358110
+slovenia_source: data/raw/osm/slovenia-260929.osm.pbf
+base_polygon: results/milestone_2/boundary/slovenia.poly
+base_polygon_sha256: f5813a8cda35bb54b0d3123e62701165e10068f532b0aa0fda70926f2d7ddc32
+projection: EPSG:3035
+candidate_margins_km: [50, 75, 100, 150, 200]
+buffer_km: 100
+buffer_quad_segs: 16
+polygon_path: results/milestone_3a/boundary/research_region.geojson
+boundary_margin_m: 1000
+map_grid_m: 1000
+coordinate_tolerance_m: 0.5
+material_route_change_relative: 0.01
+memory:
+  safety_factor: 1.35
+  maximum_rss_gib: 38
+  minimum_reserve_gib: 10
+  monitor_interval_s: 0.5

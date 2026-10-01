@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/home/dy/miniconda3/envs/hiroute/bin/python",
+    "/home/dy/HiRoute/project/scripts/prepare_regional_model_input.py",
+    "--probe",
+    "/home/dy/HiRoute/project/data/cache/regional_unmodeled_candidates.pbf",
+    "/home/dy/HiRoute/project/results/milestone_3a/model_candidate_probe.json"
+  ],
+  "elapsed_seconds": 1.5024977430002764,
+  "exit_code": 0,
+  "sampled_tree_peak_rss_mib": 221.55859375,
+  "minimum_available_gib": 49.76032638549805,
+  "aborted": null,
+  "monitor_interval_s": 0.5,
+  "osmium_pool_threads": 1,
+  "stdout": "results/milestone_3a/model_candidate_probe_benchmark.stdout.txt",
+  "process_peak_rss_mib": 223.80078125
+}
