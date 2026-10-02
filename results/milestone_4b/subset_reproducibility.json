@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "contexts": 45,
+  "method_utility_evaluations": 8640,
+  "seconds": 98.83085959707387,
+  "scope": "Independent subsets regenerated from stored flat partitions, including worst/early unstable ODs; complete count and all sixteen utility checks in these contexts."
+}

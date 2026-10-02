@@ -1,0 +1,65 @@
+seed: 20261001
+results_dir: results/milestone_4b
+cache_dir: data/cache/microplan_4b
+opportunity_config: configs/opportunity.yaml
+graph_data_config: configs/data_extended.yaml
+envelope_config: configs/envelope.yaml
+frozen_region_dir: results/milestone_4a
+maximum_stops: 2
+tasks:
+  charge: {required_capabilities: [charge], primary: true}
+  meal: {required_capabilities: [meal], primary: true}
+  sleep: {required_capabilities: [sleep], primary: true}
+  charge_meal: {required_capabilities: [charge, meal], primary: true}
+  charge_parking: {required_capabilities: [charge, parking], primary: true}
+  sleep_charge: {required_capabilities: [sleep, charge], primary: true}
+  meal_parking: {required_capabilities: [meal, parking], primary: true}
+  parking: {required_capabilities: [parking], primary: false}
+# Explicit local-task definition, independent of region membership.
+# Single tasks use one stop. Compound pairs: both objects contribute a required
+# capability; union satisfies the task. Both ordered visits are tested.
+bundles:
+  geographic_radius_m: 1800
+  directed_shortest_distance_cutoff_m: 2500
+  directed_shortest_time_cutoff_s: 600
+concurrency:
+  potential_network_distance_m: 100
+  require_both_directions: true
+activity_duration_s: {charge: 1800, meal: 2700, sleep: 28800, parking: 0}
+dwell_scenarios: [without_dwell, structural_concurrency]
+access:
+  low_risk_snap_m: 50
+  low_risk_geometry_types: [Point]
+  scenarios: [all_attached, conservative]
+  risk_penalty: {low_access_risk: 0, uncertain_access: 1}
+# Weak-distance radius includes each <=2500m member-link path used in 4A.
+# Interfaces are tested with directed internal paths through an eligible member.
+gateways:
+  local_radius_m: 2500
+  deduplication: identical_inside_boundary_node
+  methods: [decision-aware]
+pareto_dimensions: [detour_time_s, detour_distance_m, stop_count, dwell_time_s, access_penalty]
+normalization_scales: [600, 10000, 2, 28800, 1]
+epsilon_covers:
+  exact: [0, 0, 0, 0, 0]
+  tight: [0.02, 0.02, 0, 0, 0]
+  medium: [0.10, 0.10, 0, 0.05, 0]
+  loose: [0.25, 0.25, 0.5, 0.10, 0]
+evaluation:
+  archetypes:
+    time_sensitive: [0.65, 0.10, 0.10, 0.10, 0.05]
+    balanced: [0.20, 0.20, 0.20, 0.20, 0.20]
+    distance_sensitive: [0.10, 0.65, 0.10, 0.10, 0.05]
+    stop_minimizing: [0.10, 0.10, 0.65, 0.10, 0.05]
+  simplex_samples: 12
+  dirichlet_alpha: 1.0
+  normalized_regret_eta: 0.01
+  top_k: [1, 3, 5]
+  absolute_regret_tolerances: [0, 0.01, 0.05, 0.10]
+  bound_check_tolerance: 1.0e-10
+compiler: g++
+compiler_flags: [-O3, -std=c++17]
+diagnostics:
+  early_unstable_od_ids: [14, 16, 29, 7]
+  map_radius_m: 6000
+  dpi: 300

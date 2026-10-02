@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "cold_pair_byte_identical": true,
+  "independent_directed_cost_checks": 153,
+  "maximum_time_difference_s": 1.7053025658242404e-13,
+  "maximum_igraph_equal_time_length_difference_m": 1.8189894035458565e-12,
+  "seconds_including_cold_routing_if_requested": 228.73162762494758,
+  "peak_rss_mib": 5290.76171875
+}

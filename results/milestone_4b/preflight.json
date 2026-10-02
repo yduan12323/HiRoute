@@ -1,0 +1,9 @@
+{
+  "tests": {
+    "tests": 64,
+    "failed": 0,
+    "skipped": 0
+  },
+  "seconds": 102.55,
+  "command": "HIROUTE_OSMIUM=../osmium-env/bin/osmium python -m pytest -q --require-real-data --require-envelope-results --require-regional-results --require-opportunity-results"
+}

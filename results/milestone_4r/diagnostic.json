@@ -1,0 +1,326 @@
+{
+  "command": "scripts/run_stopplan_4r_diagnostic.py",
+  "configuration": {
+    "results_dir": "results/milestone_4r",
+    "inventory": "results/milestone_4a/opportunity_inventory.parquet",
+    "attachments": "results/milestone_4a/opportunity_attachment.parquet",
+    "graph_data_config": "configs/data_extended.yaml",
+    "development_ods": "results/milestone_3a/od_remapping.parquet",
+    "support": {
+      "radii_m": [
+        250,
+        500,
+        750
+      ],
+      "primary_radius_m": 500,
+      "meal_threshold": 1,
+      "method": "spherical_geographic_distance_proxy"
+    },
+    "ev": {
+      "capacity_kwh": 60,
+      "consumption_kwh_km": 0.16,
+      "reserve_fraction": 0.1,
+      "robust_margin_kwh": 0,
+      "minimum_energy_kwh": 0
+    },
+    "charging": {
+      "label": "synthetic_experimental_canonical_EV_not_measured_vehicle_performance",
+      "bands": [
+        [
+          0.5,
+          100
+        ],
+        [
+          0.8,
+          60
+        ],
+        [
+          1.0,
+          30
+        ]
+      ]
+    },
+    "planner": {
+      "overhead_s": 300,
+      "lambda_stop_s": 600,
+      "distance_penalty_s_per_km": 0,
+      "maximum_stops": 1
+    },
+    "diagnostics": {
+      "envelope_ratios": [
+        1.05,
+        1.1,
+        1.2,
+        1.4
+      ],
+      "initial_soc": [
+        0.3,
+        0.76
+      ],
+      "window_baseline_fraction": [
+        0.4,
+        0.7
+      ],
+      "scheduled_duration_s": 2700,
+      "scheduled_hard": true,
+      "miss_penalty_s": 7200,
+      "time_penalty_per_s": 2,
+      "compatible_with_charging": true,
+      "real_multi_stop": "deferred_no_feasibility_restriction_or_candidate_cap",
+      "epsilon_dec_s": 60
+    },
+    "memory": {
+      "maximum_rss_gib": 38,
+      "minimum_available_gib": 10
+    },
+    "compiler": "g++",
+    "compiler_flags": [
+      "-O3",
+      "-std=c++17"
+    ]
+  },
+  "scope": "development only; not holdout or revised Go-1; no multi-stop real experiment",
+  "assumptions": [
+    "all attached charger anchors usable under synthetic canonical curve",
+    "fixed time-optimal directed legs; alternative time/energy road paths not enumerated",
+    "geographic local support does not certify walkability or legal stopping access"
+  ],
+  "exactness": "all eligible Sites, zero/one-stop, continuous minimum charging, analytical schedule starts; no candidate caps",
+  "multi_stop": "not run; continuous exhaustive small-world reference and synthetic tests only",
+  "uninstantiated_semantics": "future-stop coupling and two-stop nuisance tradeoffs not instantiated by this one-stop domain; unknown-availability queries synthetic only",
+  "development_od_count": 30,
+  "case_count": 480,
+  "envelope_case_count": 120,
+  "graph_load_seconds": 11.162210767855868,
+  "runtime_seconds": 162.29114993102849,
+  "peak_rss_mib": 4141.18359375,
+  "memory_preflight": {
+    "peak_rss_gib": 0.8293876647949219,
+    "available_gib": 49.27483367919922,
+    "projected_additional_gib": 7
+  },
+  "summary": [
+    {
+      "scenario": "energy_and_scheduled",
+      "initial_soc": 0.3,
+      "cases": 120,
+      "feasible_cases": 120,
+      "cannot_instantiate_cases": 0,
+      "zero_stop_cases": 0,
+      "one_stop_cases": 120,
+      "charging_cases": 104,
+      "median_clock_s_feasible": 9445.128044961037
+    },
+    {
+      "scenario": "energy_and_scheduled",
+      "initial_soc": 0.76,
+      "cases": 120,
+      "feasible_cases": 120,
+      "cannot_instantiate_cases": 0,
+      "zero_stop_cases": 0,
+      "one_stop_cases": 120,
+      "charging_cases": 12,
+      "median_clock_s_feasible": 9343.643151896102
+    },
+    {
+      "scenario": "energy_only",
+      "initial_soc": 0.3,
+      "cases": 120,
+      "feasible_cases": 120,
+      "cannot_instantiate_cases": 0,
+      "zero_stop_cases": 12,
+      "one_stop_cases": 108,
+      "charging_cases": 108,
+      "median_clock_s_feasible": 7134.786319496107
+    },
+    {
+      "scenario": "energy_only",
+      "initial_soc": 0.76,
+      "cases": 120,
+      "feasible_cases": 120,
+      "cannot_instantiate_cases": 0,
+      "zero_stop_cases": 108,
+      "one_stop_cases": 12,
+      "charging_cases": 12,
+      "median_clock_s_feasible": 6320.809197896111
+    }
+  ],
+  "independent_route_checks": [
+    {
+      "instance_id": 0,
+      "source": 243891,
+      "target": 4120521,
+      "time_s": 12315.284800376647,
+      "distance_m": 319259.84300000087,
+      "passed": true
+    },
+    {
+      "instance_id": 0,
+      "source": 4120521,
+      "target": 5556363,
+      "time_s": 5195.83212845455,
+      "distance_m": 115923.67699999984,
+      "passed": true
+    },
+    {
+      "instance_id": 0,
+      "source": 243891,
+      "target": 221226,
+      "time_s": 13841.31404022081,
+      "distance_m": 362630.69300000014,
+      "passed": true
+    },
+    {
+      "instance_id": 0,
+      "source": 221226,
+      "target": 5556363,
+      "time_s": 4994.900943909098,
+      "distance_m": 95954.3659999999,
+      "passed": true
+    },
+    {
+      "instance_id": 0,
+      "source": 243891,
+      "target": 3099370,
+      "time_s": 9446.101286857142,
+      "distance_m": 233049.33099999992,
+      "passed": true
+    },
+    {
+      "instance_id": 0,
+      "source": 3099370,
+      "target": 5556363,
+      "time_s": 4977.404870259731,
+      "distance_m": 110255.14000000014,
+      "passed": true
+    },
+    {
+      "instance_id": 10,
+      "source": 1545144,
+      "target": 4120521,
+      "time_s": 5092.361776246754,
+      "distance_m": 113861.73300000007,
+      "passed": true
+    },
+    {
+      "instance_id": 10,
+      "source": 4120521,
+      "target": 4165149,
+      "time_s": 8088.713641402612,
+      "distance_m": 216468.14399999988,
+      "passed": true
+    },
+    {
+      "instance_id": 10,
+      "source": 1545144,
+      "target": 221226,
+      "time_s": 5045.408428753245,
+      "distance_m": 99542.0699999999,
+      "passed": true
+    },
+    {
+      "instance_id": 10,
+      "source": 221226,
+      "target": 4165149,
+      "time_s": 10015.554681818185,
+      "distance_m": 278588.143,
+      "passed": true
+    },
+    {
+      "instance_id": 10,
+      "source": 1545144,
+      "target": 3099370,
+      "time_s": 4819.016498259733,
+      "distance_m": 108031.10100000023,
+      "passed": true
+    },
+    {
+      "instance_id": 10,
+      "source": 3099370,
+      "target": 4165149,
+      "time_s": 7035.63738257142,
+      "distance_m": 151502.2820000002,
+      "passed": true
+    },
+    {
+      "instance_id": 20,
+      "source": 5124034,
+      "target": 4120521,
+      "time_s": 7972.8995655194785,
+      "distance_m": 197579.2969999997,
+      "passed": true
+    },
+    {
+      "instance_id": 20,
+      "source": 4120521,
+      "target": 2669144,
+      "time_s": 9745.607835077906,
+      "distance_m": 194377.75699999972,
+      "passed": true
+    },
+    {
+      "instance_id": 20,
+      "source": 5124034,
+      "target": 221226,
+      "time_s": 9498.92880536364,
+      "distance_m": 240950.14699999982,
+      "passed": true
+    },
+    {
+      "instance_id": 20,
+      "source": 221226,
+      "target": 2669144,
+      "time_s": 11358.304540610387,
+      "distance_m": 238543.35899999953,
+      "passed": true
+    },
+    {
+      "instance_id": 20,
+      "source": 5124034,
+      "target": 3099370,
+      "time_s": 5103.716051999989,
+      "distance_m": 111368.78500000009,
+      "passed": true
+    },
+    {
+      "instance_id": 20,
+      "source": 3099370,
+      "target": 2669144,
+      "time_s": 4225.934585844151,
+      "distance_m": 72294.7180000001,
+      "passed": true
+    }
+  ],
+  "native_routing": {
+    "source_sha256": "2fc38a835cee766464714866edd07e117da430226bae1937108f6e26319d2788",
+    "compiler_command": [
+      "g++",
+      "-O3",
+      "-std=c++17",
+      "-shared",
+      "-fPIC",
+      "/home/dy/HiRoute/project/src/microplan/routing.cpp",
+      "-o",
+      "/home/dy/HiRoute/project/results/milestone_4r/native_cache/routing.so"
+    ],
+    "compiler_version": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+  },
+  "inputs": {
+    "results/milestone_4a/opportunity_inventory.parquet": "d467606df7061b05f87fbcbbc6c2e9dc8e25121bb64c86686cb54f82eb778fb7",
+    "results/milestone_4a/opportunity_attachment.parquet": "a87ac248049218428805a9cf2f985c2db5c588e4381286b9401a5829faa0e464",
+    "results/milestone_3a/od_remapping.parquet": "f38c0a81f42564e4f220d5c82de43d4454abfd8e962b09979d3dbdc8a447dcea",
+    "configs/data_extended.yaml": "71bd7ed2fcd007f75e85c5b72652ff77d23ee28b24ec325f712fc073db0d20bf",
+    "configs/routing.yaml": "373bc096448cdc507d5c00c27fc9560494f830151f5b976fd48b7ebb576c2024",
+    "RESEARCH_SPEC_v0.2.md": "2ad0b9666646bd4d7ebea6e601422a02720b186c3302f604b23bfffa80c5226f",
+    "configs/stopplan_4r.yaml": "d23ffe78fcc0d7bbed53c46e6610022d63b13803f4613dbc91cf3c84d69c294a",
+    "data/processed/graphs/slovenia_extended/nodes.parquet": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+    "data/processed/graphs/slovenia_extended/edges.parquet": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+    "data/processed/graphs/slovenia_extended/metadata.json": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd"
+  },
+  "outputs": {
+    "one_stop_diagnostics.parquet": "ec0ca04ab0604fb16c8e916fcfed4421b675b0c551318a6464632cb2fbc47d3a",
+    "one_stop_diagnostics.csv": "ae62afdca76275b0a3cbe93183d466b648e1061c6eafa3b84c7191a970571fd7",
+    "envelope_site_counts.parquet": "78645ae1fd5e331b1baf7bd1bd854a91d052ed4cc6fb2978de73b74bc54f34dc",
+    "diagnostic_runtime.csv": "b2ff40738074a5bab0162130879ca2e1ecc2d7f3730f82a1a786e7563b2e7fdb"
+  }
+}

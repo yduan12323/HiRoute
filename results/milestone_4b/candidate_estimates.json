@@ -1,0 +1,9 @@
+{
+  "seconds": 17.007832029019482,
+  "attached_objects": 102415,
+  "low_access_risk_objects": 29040,
+  "sparse_compound_pairs": 2641975,
+  "sum_od_task_max_budget_upper": 68720149,
+  "largest_od_task_budget_upper": 3968774,
+  "scope": "Complete explicit local-task upper counts; no region restriction, no time-cost pruning yet."
+}

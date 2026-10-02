@@ -1,6 +1,6 @@
-# HiRoute research infrastructure — Milestones 1–4A
+# HiRoute research infrastructure — Milestones 1–4R-A
 
-The authoritative formulation is [RESEARCH_SPEC.md](RESEARCH_SPEC.md). This implementation covers the frozen OSM driving graph and structurally validated Safe Detour Envelopes. Milestone 4A adds frozen structured opportunities and user-agnostic route-attached regions; later decision and semantic modules remain empty. Structural correctness is with respect to the frozen directed graph; full legal or real-world route feasibility is not certified.
+The authoritative formulation is [RESEARCH_SPEC_v0.2.md](RESEARCH_SPEC_v0.2.md); [RESEARCH_SPEC.md](RESEARCH_SPEC.md) preserves the earlier formulation. This implementation covers the frozen OSM driving graph and structurally validated Safe Detour Envelopes. Milestone 4A adds frozen structured opportunities and route-attached regions. Milestone 4B preserves its topology gateway and local microplan diagnostic. Milestone 4R-A adds a separate vehicle-stop substrate, continuous charging/stop planning reference and minimal uncertainty/query contracts. Structural correctness is with respect to the frozen directed graph; full legal or real-world route feasibility is not certified.
 
 ## Environment
 
@@ -298,3 +298,146 @@ logs, acceptance tests and static figures. Independently checksummed read-only
 raw PBF/inventory and manifest/provenance are under
 `data/raw/opportunities/slovenia_extended_75km/`. Compact metadata is tracked;
 large reproducible tables and figures remain local. No graph is duplicated.
+
+
+## Milestone 4B: exact local microplans and structural Go-1
+
+Read [the measured scientific report](docs/MILESTONE_4B_REPORT.md). This experiment
+uses the completed frozen M1–4A artifacts, including the full opportunity inventory,
+attachments, sparse directed distances and both default region partitions. Do not
+rerun any earlier extraction, graph builder, report or benchmark to execute 4B.
+All earlier results and `RESEARCH_SPEC.md` remain protected.
+
+Run in the original `hiroute` Python environment, from the repository root;
+C++17 `g++` remains the only added native runtime requirement. The original Python
+and osmium environment locks are unchanged. On this workstation the Python binary
+is `/home/dy/miniconda3/envs/hiroute/bin/python`; the environment activation commands
+above make the following `python` and `pytest` commands exact equivalents.
+
+```bash
+python -m pip install --no-deps --no-build-isolation -e .
+
+# The unchanged previous acceptance suite (64 tests), with no earlier result writes.
+HIROUTE_OSMIUM=../osmium-env/bin/osmium pytest -q \
+  --require-real-data --require-envelope-results --require-regional-results \
+  --require-opportunity-results \
+  --ignore=tests/test_microplan.py --ignore=tests/test_microplan_results.py
+
+# Supplied frozen workspace: verify the recorded checkpoint and input fingerprints.
+python scripts/verify_milestone_4b_preservation.py
+# A completed prior-stage workspace without a 4B checkpoint: capture exclusively.
+# python scripts/verify_milestone_4b_preservation.py --capture
+
+python scripts/estimate_microplan_candidates.py
+python scripts/run_microplan_benchmark.py --prepare-only
+python scripts/run_microplan_benchmark.py
+python scripts/analyze_microplan_results.py
+python scripts/benchmark_microplan_filters.py
+
+# Independent sparse cost rebuild; requires a fresh routing_rebuild directory.
+# If repeating this verification, archive its previous directory first.
+if [ -d results/milestone_4b/routing_rebuild ]; then
+  mv results/milestone_4b/routing_rebuild "results/milestone_4b/routing_rebuild-$(date -u +%Y%m%dT%H%M%S%N)"
+fi
+python scripts/verify_microplan_routing.py --cold
+python scripts/rebuild_microplan_subset.py --verify
+python scripts/plot_microplans.py
+
+HIROUTE_OSMIUM=../osmium-env/bin/osmium pytest -q \
+  --require-real-data --require-envelope-results --require-regional-results \
+  --require-opportunity-results --require-microplan-results \
+  --junitxml=results/milestone_4b/tests.xml
+python scripts/verify_milestone_4b_preservation.py
+python scripts/write_microplan_report.py
+python scripts/accept_milestone_4b.py
+```
+
+On a separate completed prior-stage workspace, an optional exclusive local
+checkpoint can be used with `--capture --checkpoint
+results/milestone_4b/local_preservation_before.json`; pass the same checkpoint to
+both subsequent preservation checks. Checkpoint mismatches must be investigated,
+never overwritten. The supplied checkpoint records this implementation's initial
+clean commit and all 493 protected files; independent earlier-stage run logs must
+match their own verified preservation checkpoints.
+
+`configs/microplan.yaml` fixes tasks, maximum two visits, local bundle screening,
+directed gateways, access diagnostics, structural concurrency/dwell scenarios,
+objective scales, exact/three nonzero epsilon covers, sixteen positive evaluation
+vectors, Top-K values, regret tolerances, seed and paths. These task requirements
+and evaluation vectors are not learned user profiles. No 4A region parameter is
+retuned using regret. Parking-only is secondary and task summaries are balanced.
+
+The flat oracle exhausts the explicitly declared one/two-stop local tasks; ordered
+compound pairs require projected distance <=1800 m, minimum directed road distance
+<=2500 m and fastest directed time <=600 s. Both orders receive exact route-cost
+checks. Single-object tasks have no local-pair cutoff. Every complete mobility
+route must satisfy the unchanged budget tolerance. Objective distances are actual
+lengths of deterministic fastest-segment routes, not independently optimized
+shortest distances. This oracle does not enumerate arbitrary tours or all
+multi-objective road-route alternatives.
+
+Gateway neighborhoods use bounded road views around all region member nodes;
+interface feasibility is directed and tested through a member. Distinct valid
+exits are preserved. Gateways are diagnostics in this first experiment and do not
+prune alternatives; no routing savings are asserted. Road snap access and the
+100 m two-direction concurrency proxy are structural approximations, not certified
+entrances or walking/opening-hour compatibility.
+
+Large flat microplans are partitioned once by OD/task at maximum budget, storing
+identities through `opportunity_index.parquet`, ordered visits, exact time/length,
+objective components and concurrency/access evidence. Smaller budgets are exact
+filters. Frozen membership plus deterministic Pareto/epsilon kernels provides
+reproducible region and representative subsets without duplicating millions of
+rows per scenario. To reconstruct a compact representative table without routing:
+
+```bash
+python scripts/rebuild_microplan_subset.py \
+  --od 14 --ratio 1.05 --task charge_meal --method epsilon_medium \
+  --access all_attached --dwell without_dwell \
+  --output results/milestone_4b/example_representatives.parquet
+```
+
+`--verify` regenerates all methods and checks counts/every evaluation utility in
+45 representative contexts, including ODs 0/7/14/16/29. The cold routing verifier
+checks byte identity of all sparse time/length costs and independently validates
+real directed routes. Unit tests also exhaust tiny flat oracles and verify exact
+Pareto ties, cover witnesses/bounds, directed gateways and deterministic controls.
+For an exploratory subset, `run_microplan_benchmark.py --od 14` is available;
+it writes only 4B results and cannot pass the complete 30-OD acceptance. Use a
+copied configuration with separate result/cache paths for such runs after acceptance.
+
+Machine-readable outputs under `results/milestone_4b/` include gateways and bindings,
+region/local topology statistics and pair usage, all flat partitions, candidate
+counts at every reduction stage, fixed utility weights, raw/paired/TopK regret,
+multiple-tolerance coverage, task/access/dwell summaries, expansion/failure
+analysis, exact feasibility rates, performance/RAM, checksums/reproducibility,
+acceptance records and static SVG/PDF/PNG diagnostics with source data. There is
+no duplicate road graph. Positive-linear epsilon bounds apply above the region
+optimum; region-induced loss is measured separately against the flat oracle.
+Top-1/3/5 best-in-set regret coincides when the same known utility ranks each set.
+No uncertainty, minimax, semantic/LLM or active acquisition work is included.
+# Milestone 4R-A — vehicle-stop semantics
+
+The revised formulation is `RESEARCH_SPEC_v0.2.md`. The isolated `stopplan4r`
+package builds transportation anchors from the frozen M4A inventory, aggregates
+raw local support with a spherical geographic-distance proxy, and jointly plans
+charging and one independent scheduled activity. It preserves M1–M4B outputs.
+The exhaustive continuous reference is for small bounded stop-order problems;
+the 30-OD development diagnostic exhausts zero/one-stop plans on fastest road
+legs. It does not establish revised Go-1 or implement a new Region hierarchy/Go-2.
+
+```bash
+/home/dy/miniconda3/envs/hiroute/bin/python scripts/build_stop_sites_4r.py
+/home/dy/miniconda3/envs/hiroute/bin/python -m pytest tests/test_stopplan4r.py -q --junitxml=results/milestone_4r/semantic_tests.xml
+/home/dy/miniconda3/envs/hiroute/bin/python scripts/run_stopplan_4r_diagnostic.py
+/home/dy/miniconda3/envs/hiroute/bin/python -m pytest --require-real-data --require-envelope-results --require-regional-results --require-opportunity-results --require-microplan-results --junitxml=results/milestone_4r/tests.xml
+/home/dy/miniconda3/envs/hiroute/bin/python scripts/accept_stopplan_4r.py
+```
+
+Config: `configs/stopplan_4r.yaml`; report: `docs/MILESTONE_4R_REPORT.md`.
+Static datasets, diagnostic CSV/Parquet, JUnit logs, input hashes, runtime/memory
+records and preservation manifests are under `results/milestone_4r/`.
+Trip/preferences and support thresholds do not alter Site IDs or static facts.
+Changing static input/radius contracts requires a new static build. To reproduce
+against another checkout, use its Python 3.11 `hiroute` environment and first
+capture a protection manifest using the verifier's `--capture` option.

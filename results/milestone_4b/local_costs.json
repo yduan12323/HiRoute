@@ -1,0 +1,73 @@
+{
+  "contract": {
+    "bundles": {
+      "geographic_radius_m": 1800,
+      "directed_shortest_distance_cutoff_m": 2500,
+      "directed_shortest_time_cutoff_s": 600
+    },
+    "tasks": {
+      "charge": {
+        "required_capabilities": [
+          "charge"
+        ],
+        "primary": true
+      },
+      "meal": {
+        "required_capabilities": [
+          "meal"
+        ],
+        "primary": true
+      },
+      "sleep": {
+        "required_capabilities": [
+          "sleep"
+        ],
+        "primary": true
+      },
+      "charge_meal": {
+        "required_capabilities": [
+          "charge",
+          "meal"
+        ],
+        "primary": true
+      },
+      "charge_parking": {
+        "required_capabilities": [
+          "charge",
+          "parking"
+        ],
+        "primary": true
+      },
+      "sleep_charge": {
+        "required_capabilities": [
+          "sleep",
+          "charge"
+        ],
+        "primary": true
+      },
+      "meal_parking": {
+        "required_capabilities": [
+          "meal",
+          "parking"
+        ],
+        "primary": true
+      },
+      "parking": {
+        "required_capabilities": [
+          "parking"
+        ],
+        "primary": false
+      }
+    },
+    "source_pair_sha256": "d6764970f58b473af8820ebbe767147912eb29f58b35fd4d966b7c9c89d682de",
+    "inventory_sha256": "a87ac248049218428805a9cf2f985c2db5c588e4381286b9401a5829faa0e464",
+    "native": "2fc38a835cee766464714866edd07e117da430226bae1937108f6e26319d2788"
+  },
+  "sha256": "9d08d5c876796efb6736b459838cee9be282d90ced3fdac27c87b67654b5ae7e",
+  "pair_count": 2641975,
+  "ordered_queries": 4967648,
+  "finite_ordered_local_costs": 4967648,
+  "screening_seconds": 2.3713262419914827,
+  "exact_local_routing_seconds": 125.15255785000045,
+  "distinct_query_access_nodes": 69153
+}

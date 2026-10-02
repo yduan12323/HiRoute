@@ -32,3 +32,12 @@ results/milestone_4a/**
 !results/milestone_4a/*.json
 !results/milestone_4a/*.yaml
 !results/milestone_4a/figures/*.md
+
+results/milestone_4b/**
+!results/milestone_4b/**/
+!results/milestone_4b/*.json
+!results/milestone_4b/figures/*.md
+
+results/milestone_4r/**
+!results/milestone_4r/**/
+!results/milestone_4r/*.json

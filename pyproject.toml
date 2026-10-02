@@ -10,7 +10,7 @@ requires-python = ">=3.11,<3.12"
 dependencies = ["numpy", "scipy", "pandas", "pyarrow", "geopandas", "shapely", "pyproj", "pyrosm", "igraph", "pyyaml"]
 
 [tool.setuptools]
-packages = ["graph", "envelope", "opportunity"]
+packages = ["graph", "envelope", "opportunity", "microplan", "stopplan4r"]
 package-dir = {"" = "src"}
 
 [tool.pytest.ini_options]
@@ -20,3 +20,4 @@ markers = ["integration: requires frozen processed Slovenia data"]
 
 [tool.setuptools.package-data]
 opportunity = ["*.cpp"]
+microplan = ["*.cpp"]

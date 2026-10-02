@@ -1,0 +1,207 @@
+{
+  "command": "scripts/build_stop_sites_4r.py",
+  "configuration": {
+    "results_dir": "results/milestone_4r",
+    "inventory": "results/milestone_4a/opportunity_inventory.parquet",
+    "attachments": "results/milestone_4a/opportunity_attachment.parquet",
+    "graph_data_config": "configs/data_extended.yaml",
+    "development_ods": "results/milestone_3a/od_remapping.parquet",
+    "support": {
+      "radii_m": [
+        250,
+        500,
+        750
+      ],
+      "primary_radius_m": 500,
+      "meal_threshold": 1,
+      "method": "spherical_geographic_distance_proxy"
+    },
+    "ev": {
+      "capacity_kwh": 60,
+      "consumption_kwh_km": 0.16,
+      "reserve_fraction": 0.1,
+      "robust_margin_kwh": 0,
+      "minimum_energy_kwh": 0
+    },
+    "charging": {
+      "label": "synthetic_experimental_canonical_EV_not_measured_vehicle_performance",
+      "bands": [
+        [
+          0.5,
+          100
+        ],
+        [
+          0.8,
+          60
+        ],
+        [
+          1.0,
+          30
+        ]
+      ]
+    },
+    "planner": {
+      "overhead_s": 300,
+      "lambda_stop_s": 600,
+      "distance_penalty_s_per_km": 0,
+      "maximum_stops": 1
+    },
+    "diagnostics": {
+      "envelope_ratios": [
+        1.05,
+        1.1,
+        1.2,
+        1.4
+      ],
+      "initial_soc": [
+        0.3,
+        0.76
+      ],
+      "window_baseline_fraction": [
+        0.4,
+        0.7
+      ],
+      "scheduled_duration_s": 2700,
+      "scheduled_hard": true,
+      "miss_penalty_s": 7200,
+      "time_penalty_per_s": 2,
+      "compatible_with_charging": true,
+      "real_multi_stop": "deferred_no_feasibility_restriction_or_candidate_cap",
+      "epsilon_dec_s": 60
+    },
+    "memory": {
+      "maximum_rss_gib": 38,
+      "minimum_available_gib": 10
+    },
+    "compiler": "g++",
+    "compiler_flags": [
+      "-O3",
+      "-std=c++17"
+    ]
+  },
+  "static_contract": {
+    "inventory_sha256": "d467606df7061b05f87fbcbbc6c2e9dc8e25121bb64c86686cb54f82eb778fb7",
+    "attachments_sha256": "a87ac248049218428805a9cf2f985c2db5c588e4381286b9401a5829faa0e464",
+    "radii_m": [
+      250,
+      500,
+      750
+    ],
+    "primary_radius_m": 500,
+    "method": "spherical_geographic_distance_proxy"
+  },
+  "inputs": {
+    "results/milestone_4a/opportunity_inventory.parquet": "d467606df7061b05f87fbcbbc6c2e9dc8e25121bb64c86686cb54f82eb778fb7",
+    "results/milestone_4a/opportunity_attachment.parquet": "a87ac248049218428805a9cf2f985c2db5c588e4381286b9401a5829faa0e464",
+    "configs/stopplan_4r.yaml": "d23ffe78fcc0d7bbed53c46e6610022d63b13803f4613dbc91cf3c84d69c294a"
+  },
+  "raw_opportunity_count": 105250,
+  "site_count": 61714,
+  "attached_site_count": 60498,
+  "counts_by_transport_capability_nonexclusive": {
+    "charge": 2796,
+    "parking": 58340,
+    "rest": 603,
+    "services": 253
+  },
+  "capability_rule": "exact intersection with existing M4A charge/parking/rest/services; one Site per raw OSM identity",
+  "attachment_status_counts": {
+    "attached": 60498,
+    "excessive_snap": 1216
+  },
+  "support_coverage": [
+    {
+      "radius_m": 250.0,
+      "site_count": 61714,
+      "meal_supported_count": 36910,
+      "meal_support_fraction": 0.5980814725994101,
+      "toilet_support_fraction": 0.17482256862300288,
+      "lodging_support_fraction": 0.22641540007129662,
+      "charger_count": 2796,
+      "charger_meal_support_fraction": 0.8011444921316166
+    },
+    {
+      "radius_m": 500.0,
+      "site_count": 61714,
+      "meal_supported_count": 48112,
+      "meal_support_fraction": 0.7795962018342677,
+      "toilet_support_fraction": 0.32433483488349485,
+      "lodging_support_fraction": 0.40313381080467964,
+      "charger_count": 2796,
+      "charger_meal_support_fraction": 0.8962804005722461
+    },
+    {
+      "radius_m": 750.0,
+      "site_count": 61714,
+      "meal_supported_count": 52546,
+      "meal_support_fraction": 0.8514437566840587,
+      "toilet_support_fraction": 0.431425608451891,
+      "lodging_support_fraction": 0.5255695628220501,
+      "charger_count": 2796,
+      "charger_meal_support_fraction": 0.9345493562231759
+    }
+  ],
+  "support_runtime": {
+    "seconds": 1.2243543539661914,
+    "indexes": {
+      "meal": {
+        "raw_evidence_count": 23432,
+        "index_build_s": 0.006496021989732981,
+        "queries_s": 0.1860410689841956,
+        "coordinate_storage_bytes": 562368
+      },
+      "toilet": {
+        "raw_evidence_count": 3916,
+        "index_build_s": 0.0013914359733462334,
+        "queries_s": 0.11140546691603959,
+        "coordinate_storage_bytes": 93984
+      },
+      "lodging": {
+        "raw_evidence_count": 7624,
+        "index_build_s": 0.002230223035439849,
+        "queries_s": 0.1335539750289172,
+        "coordinate_storage_bytes": 182976
+      }
+    },
+    "method": "cKDTree_on_unit_sphere; great_circle_proxy; raw_identity_counts"
+  },
+  "first_build_seconds": 2.07041836110875,
+  "rebuild_seconds": 1.9962465721182525,
+  "peak_rss_mib": 849.29296875,
+  "memory_preflight": {
+    "peak_rss_gib": 0.8293876647949219,
+    "available_gib": 49.1516227722168,
+    "projected_additional_gib": 1
+  },
+  "byte_identical_reordered_rebuild": true,
+  "static_columns": [
+    "access_distance_m",
+    "access_node",
+    "access_osm_node_id",
+    "attachment_status",
+    "geometry_method",
+    "geometry_type",
+    "lat",
+    "lodging_count",
+    "lon",
+    "meal_count",
+    "nearest_lodging_m",
+    "nearest_meal_m",
+    "nearest_toilet_m",
+    "original_tags",
+    "osm_id",
+    "osm_type",
+    "site_id",
+    "snapshot_timestamp",
+    "source_datasets",
+    "support_method",
+    "support_radius_m",
+    "toilet_count",
+    "transport_capabilities"
+  ],
+  "outputs": {
+    "stop_sites.parquet": "e3e7d6d6667f7ab684ff83eb2646920516b01aef2e6ceb8170c689e71f6afd38",
+    "local_support.parquet": "64d76dd39c27622b8e68e82d4f7a93966cb1d25c369d1cf264c72afef8022e39",
+    "support_coverage.csv": "c1c0a964489a17e33b31673f7177f570fa590dbc043961ccb74c0260a3c6d0c7"
+  }
+}

@@ -1,0 +1,40 @@
+results_dir: results/milestone_4r
+inventory: results/milestone_4a/opportunity_inventory.parquet
+attachments: results/milestone_4a/opportunity_attachment.parquet
+graph_data_config: configs/data_extended.yaml
+development_ods: results/milestone_3a/od_remapping.parquet
+support:
+  radii_m: [250, 500, 750]
+  primary_radius_m: 500
+  meal_threshold: 1
+  method: spherical_geographic_distance_proxy
+ev:
+  capacity_kwh: 60
+  consumption_kwh_km: 0.16
+  reserve_fraction: 0.10
+  robust_margin_kwh: 0
+  minimum_energy_kwh: 0
+charging:
+  label: synthetic_experimental_canonical_EV_not_measured_vehicle_performance
+  bands: [[0.5, 100], [0.8, 60], [1.0, 30]]
+planner:
+  overhead_s: 300
+  lambda_stop_s: 600
+  distance_penalty_s_per_km: 0
+  maximum_stops: 1
+diagnostics:
+  envelope_ratios: [1.05, 1.10, 1.20, 1.40]
+  initial_soc: [0.30, 0.76]
+  window_baseline_fraction: [0.40, 0.70]
+  scheduled_duration_s: 2700
+  scheduled_hard: true
+  miss_penalty_s: 7200
+  time_penalty_per_s: 2
+  compatible_with_charging: true
+  real_multi_stop: deferred_no_feasibility_restriction_or_candidate_cap
+  epsilon_dec_s: 60
+memory:
+  maximum_rss_gib: 38
+  minimum_available_gib: 10
+compiler: g++
+compiler_flags: [-O3, -std=c++17]
