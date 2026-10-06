@@ -1,0 +1,1479 @@
+[
+  {
+    "case_id": "coattached_distinct_C_then_S",
+    "fixture_class": "mock_immutable_primitives_not_accepted_road_export",
+    "query": {
+      "H_ref": 2,
+      "start_time_s": 0,
+      "initial_energy_kwh": 2,
+      "capacity_kwh": 5,
+      "minimum_energy_kwh": 0,
+      "reserve_kwh": 0,
+      "consumption_kwh_per_m": 1,
+      "overhead_s": 1,
+      "lambda_stop_s": 1,
+      "schedule": {
+        "a": 10,
+        "b": 20,
+        "D": 1
+      },
+      "charging_segments": [
+        [
+          0,
+          5,
+          1,
+          0
+        ]
+      ],
+      "origin": "road:o",
+      "destination": "road:z"
+    },
+    "table": {
+      "schema": "hiroute.immutable_selected_legs.v1",
+      "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+      "anchors": [
+        "road:o",
+        "road:x",
+        "road:z"
+      ],
+      "origin_anchor": "road:o",
+      "destination_anchor": "road:z",
+      "sites": [
+        {
+          "site_id": "A",
+          "anchor_id": "road:x",
+          "effects": [
+            "C"
+          ]
+        },
+        {
+          "site_id": "B",
+          "anchor_id": "road:x",
+          "effects": [
+            "S"
+          ]
+        }
+      ],
+      "backend": {
+        "name": "mock_immutable_primitives_for_adapter_tests",
+        "tie_policy": "min_time_then_actual_length_then_first_discovery",
+        "direction_policy": "forward_per_source_v1",
+        "source_sha256": {
+          "mock/backend.txt": "7167708410ecdc2876a574d8b7c549e7320e7ed0f23b8cbc4b18cdde4f0ec6e9"
+        }
+      },
+      "source_sha256": {
+        "mock/physical-primitives.txt": "53d3a1403ddc46e3be404ad222c3e604113eaf3cfcd5a5c94773250905cb639a"
+      },
+      "selection_certificate_sha256": "7d31fbc27a7d7dc5892396a6eb30e7f5ddbb101773f653f31cf0b5e321bdd429",
+      "hierarchy_sha256": "e638f64704116da4487ae8c4337b2f2b483061f4971c2515c010c272d3be928d",
+      "legs": [
+        {
+          "source_anchor": "road:o",
+          "target_anchor": "road:o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "road:o",
+          "target_anchor": "road:x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:o",
+          "target_anchor": "road:z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:x",
+          "target_anchor": "road:o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:x",
+          "target_anchor": "road:x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "road:x",
+          "target_anchor": "road:z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+1",
+            "ratio": [
+              "2",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:z",
+          "target_anchor": "road:o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:z",
+          "target_anchor": "road:x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:z",
+          "target_anchor": "road:z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        }
+      ]
+    },
+    "table_sha256": "924c02f94519dc7b21fbfc36cc61ce138f84da098ddc8c826b7ba05762abd91a",
+    "original_tree": {
+      "site_ids": [
+        "A",
+        "B"
+      ],
+      "regions": [
+        {
+          "parent": -1,
+          "children": [
+            1,
+            2
+          ],
+          "members": [
+            0,
+            1
+          ]
+        },
+        {
+          "parent": 0,
+          "children": [],
+          "members": [
+            0
+          ]
+        },
+        {
+          "parent": 0,
+          "children": [],
+          "members": [
+            1
+          ]
+        }
+      ]
+    },
+    "original_tree_sha256": "e638f64704116da4487ae8c4337b2f2b483061f4971c2515c010c272d3be928d",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "14",
+      "Q_total": "1",
+      "H": 2,
+      "site_action_tuple": [
+        [
+          "A",
+          "C"
+        ],
+        [
+          "B",
+          "S"
+        ]
+      ]
+    }
+  },
+  {
+    "case_id": "nonmetric_outgoing_bound_must_be_zero",
+    "fixture_class": "mock_immutable_primitives_not_accepted_road_export",
+    "query": {
+      "H_ref": 2,
+      "start_time_s": 0,
+      "initial_energy_kwh": 2,
+      "capacity_kwh": 5,
+      "minimum_energy_kwh": 0,
+      "reserve_kwh": 0,
+      "consumption_kwh_per_m": 1,
+      "overhead_s": 1,
+      "lambda_stop_s": 0,
+      "schedule": null,
+      "charging_segments": [
+        [
+          0,
+          5,
+          1,
+          0
+        ]
+      ],
+      "origin": "road:o",
+      "destination": "road:z"
+    },
+    "table": {
+      "schema": "hiroute.immutable_selected_legs.v1",
+      "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+      "anchors": [
+        "road:o",
+        "road:x",
+        "road:b",
+        "road:z"
+      ],
+      "origin_anchor": "road:o",
+      "destination_anchor": "road:z",
+      "sites": [
+        {
+          "site_id": "A",
+          "anchor_id": "road:x",
+          "effects": [
+            "C"
+          ]
+        },
+        {
+          "site_id": "B",
+          "anchor_id": "road:b",
+          "effects": [
+            "C"
+          ]
+        }
+      ],
+      "backend": {
+        "name": "mock_immutable_primitives_for_adapter_tests",
+        "tie_policy": "min_time_then_actual_length_then_first_discovery",
+        "direction_policy": "forward_per_source_v1",
+        "source_sha256": {
+          "mock/backend.txt": "7167708410ecdc2876a574d8b7c549e7320e7ed0f23b8cbc4b18cdde4f0ec6e9"
+        }
+      },
+      "source_sha256": {
+        "mock/physical-primitives.txt": "53d3a1403ddc46e3be404ad222c3e604113eaf3cfcd5a5c94773250905cb639a"
+      },
+      "selection_certificate_sha256": "fc9ed0b55d1b64a06ae1a061037aeacba964fe5bacd9934954c86a527f62171d",
+      "hierarchy_sha256": "e638f64704116da4487ae8c4337b2f2b483061f4971c2515c010c272d3be928d",
+      "legs": [
+        {
+          "source_anchor": "road:o",
+          "target_anchor": "road:o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "road:o",
+          "target_anchor": "road:x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:o",
+          "target_anchor": "road:b",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:o",
+          "target_anchor": "road:z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:x",
+          "target_anchor": "road:o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:x",
+          "target_anchor": "road:x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "road:x",
+          "target_anchor": "road:b",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:x",
+          "target_anchor": "road:z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:b",
+          "target_anchor": "road:o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:b",
+          "target_anchor": "road:x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:b",
+          "target_anchor": "road:b",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "road:b",
+          "target_anchor": "road:z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:z",
+          "target_anchor": "road:o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:z",
+          "target_anchor": "road:x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:z",
+          "target_anchor": "road:b",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:z",
+          "target_anchor": "road:z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        }
+      ]
+    },
+    "table_sha256": "e3c22c1c04debc7e8527f546244f4cf3036993c3eaeff8e72dc95c9e567a3e89",
+    "original_tree": {
+      "site_ids": [
+        "A",
+        "B"
+      ],
+      "regions": [
+        {
+          "parent": -1,
+          "children": [
+            1,
+            2
+          ],
+          "members": [
+            0,
+            1
+          ]
+        },
+        {
+          "parent": 0,
+          "children": [],
+          "members": [
+            0
+          ]
+        },
+        {
+          "parent": 0,
+          "children": [],
+          "members": [
+            1
+          ]
+        }
+      ]
+    },
+    "original_tree_sha256": "e638f64704116da4487ae8c4337b2f2b483061f4971c2515c010c272d3be928d",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "6",
+      "Q_total": "1",
+      "H": 2,
+      "site_action_tuple": [
+        [
+          "A",
+          "C"
+        ],
+        [
+          "B",
+          "C"
+        ]
+      ]
+    }
+  },
+  {
+    "case_id": "site_text_matches_destination_but_anchor_differs",
+    "fixture_class": "mock_immutable_primitives_not_accepted_road_export",
+    "query": {
+      "H_ref": 2,
+      "start_time_s": 0,
+      "initial_energy_kwh": 2,
+      "capacity_kwh": 5,
+      "minimum_energy_kwh": 0,
+      "reserve_kwh": 0,
+      "consumption_kwh_per_m": 1,
+      "overhead_s": 1,
+      "lambda_stop_s": 0,
+      "schedule": null,
+      "charging_segments": [
+        [
+          0,
+          5,
+          1,
+          0
+        ]
+      ],
+      "origin": "road:o",
+      "destination": "road:z"
+    },
+    "table": {
+      "schema": "hiroute.immutable_selected_legs.v1",
+      "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+      "anchors": [
+        "road:o",
+        "road:x",
+        "road:z"
+      ],
+      "origin_anchor": "road:o",
+      "destination_anchor": "road:z",
+      "sites": [
+        {
+          "site_id": "road:z",
+          "anchor_id": "road:x",
+          "effects": [
+            "C"
+          ]
+        }
+      ],
+      "backend": {
+        "name": "mock_immutable_primitives_for_adapter_tests",
+        "tie_policy": "min_time_then_actual_length_then_first_discovery",
+        "direction_policy": "forward_per_source_v1",
+        "source_sha256": {
+          "mock/backend.txt": "7167708410ecdc2876a574d8b7c549e7320e7ed0f23b8cbc4b18cdde4f0ec6e9"
+        }
+      },
+      "source_sha256": {
+        "mock/physical-primitives.txt": "53d3a1403ddc46e3be404ad222c3e604113eaf3cfcd5a5c94773250905cb639a"
+      },
+      "selection_certificate_sha256": "05a810e0cd66eb8d5eacd062b88801799ab3171921b81e2cc90f674d77548b05",
+      "hierarchy_sha256": "6a488cc953e0a8ba64f7ff1b2ce2f368cded70674c680399f92e16bdf4b4d0b3",
+      "legs": [
+        {
+          "source_anchor": "road:o",
+          "target_anchor": "road:o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "road:o",
+          "target_anchor": "road:x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:o",
+          "target_anchor": "road:z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:x",
+          "target_anchor": "road:o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:x",
+          "target_anchor": "road:x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "road:x",
+          "target_anchor": "road:z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+1",
+            "ratio": [
+              "2",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:z",
+          "target_anchor": "road:o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:z",
+          "target_anchor": "road:x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:z",
+          "target_anchor": "road:z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        }
+      ]
+    },
+    "table_sha256": "8a7a0611653ca9be5681864fa6e49e8f45f3443623c2f64b98fb5012bfc28461",
+    "original_tree": {
+      "site_ids": [
+        "road:z"
+      ],
+      "regions": [
+        {
+          "parent": -1,
+          "children": [
+            1,
+            2
+          ],
+          "members": [
+            0
+          ]
+        },
+        {
+          "parent": 0,
+          "children": [],
+          "members": []
+        },
+        {
+          "parent": 0,
+          "children": [],
+          "members": [
+            0
+          ]
+        }
+      ]
+    },
+    "original_tree_sha256": "6a488cc953e0a8ba64f7ff1b2ce2f368cded70674c680399f92e16bdf4b4d0b3",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "4",
+      "Q_total": "1",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "road:z",
+          "C"
+        ]
+      ]
+    }
+  },
+  {
+    "case_id": "destination_coattached_S_is_terminal",
+    "fixture_class": "mock_immutable_primitives_not_accepted_road_export",
+    "query": {
+      "H_ref": 2,
+      "start_time_s": 0,
+      "initial_energy_kwh": 2,
+      "capacity_kwh": 5,
+      "minimum_energy_kwh": 0,
+      "reserve_kwh": 0,
+      "consumption_kwh_per_m": 1,
+      "overhead_s": 1,
+      "lambda_stop_s": 0,
+      "schedule": {
+        "a": 0,
+        "b": 100,
+        "D": 1
+      },
+      "charging_segments": [],
+      "origin": "road:o",
+      "destination": "road:z"
+    },
+    "table": {
+      "schema": "hiroute.immutable_selected_legs.v1",
+      "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+      "anchors": [
+        "road:o",
+        "road:z"
+      ],
+      "origin_anchor": "road:o",
+      "destination_anchor": "road:z",
+      "sites": [
+        {
+          "site_id": "different_site_id",
+          "anchor_id": "road:z",
+          "effects": [
+            "S"
+          ]
+        }
+      ],
+      "backend": {
+        "name": "mock_immutable_primitives_for_adapter_tests",
+        "tie_policy": "min_time_then_actual_length_then_first_discovery",
+        "direction_policy": "forward_per_source_v1",
+        "source_sha256": {
+          "mock/backend.txt": "7167708410ecdc2876a574d8b7c549e7320e7ed0f23b8cbc4b18cdde4f0ec6e9"
+        }
+      },
+      "source_sha256": {
+        "mock/physical-primitives.txt": "53d3a1403ddc46e3be404ad222c3e604113eaf3cfcd5a5c94773250905cb639a"
+      },
+      "selection_certificate_sha256": "91aa66b064463f5f679b507d8f4afd6f7a00bba6971a33185c91d871e1873741",
+      "hierarchy_sha256": "7fc57c9827e61e390eac08319583e70fdc646da37b4b1389ba0e0c58028d9063",
+      "legs": [
+        {
+          "source_anchor": "road:o",
+          "target_anchor": "road:o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "road:o",
+          "target_anchor": "road:z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:z",
+          "target_anchor": "road:o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:z",
+          "target_anchor": "road:z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        }
+      ]
+    },
+    "table_sha256": "93e34bf744b1e5d027cbd5e448d481c31c643f750421c7ca42897447fb789c94",
+    "original_tree": {
+      "site_ids": [
+        "different_site_id"
+      ],
+      "regions": [
+        {
+          "parent": -1,
+          "children": [
+            1,
+            2
+          ],
+          "members": [
+            0
+          ]
+        },
+        {
+          "parent": 0,
+          "children": [],
+          "members": []
+        },
+        {
+          "parent": 0,
+          "children": [],
+          "members": [
+            0
+          ]
+        }
+      ]
+    },
+    "original_tree_sha256": "7fc57c9827e61e390eac08319583e70fdc646da37b4b1389ba0e0c58028d9063",
+    "independent_expected": {
+      "status": "infeasible_within_H_ref"
+    }
+  },
+  {
+    "case_id": "terminal_origin_identity",
+    "fixture_class": "mock_immutable_primitives_not_accepted_road_export",
+    "query": {
+      "H_ref": 0,
+      "start_time_s": 0,
+      "initial_energy_kwh": 2,
+      "capacity_kwh": 5,
+      "minimum_energy_kwh": 0,
+      "reserve_kwh": 0,
+      "consumption_kwh_per_m": 1,
+      "overhead_s": 1,
+      "lambda_stop_s": 0,
+      "schedule": null,
+      "charging_segments": [
+        [
+          0,
+          5,
+          1,
+          0
+        ]
+      ],
+      "origin": "road:z",
+      "destination": "road:z"
+    },
+    "table": {
+      "schema": "hiroute.immutable_selected_legs.v1",
+      "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+      "anchors": [
+        "road:o",
+        "road:x",
+        "road:z"
+      ],
+      "origin_anchor": "road:z",
+      "destination_anchor": "road:z",
+      "sites": [
+        {
+          "site_id": "A",
+          "anchor_id": "road:x",
+          "effects": [
+            "C"
+          ]
+        }
+      ],
+      "backend": {
+        "name": "mock_immutable_primitives_for_adapter_tests",
+        "tie_policy": "min_time_then_actual_length_then_first_discovery",
+        "direction_policy": "forward_per_source_v1",
+        "source_sha256": {
+          "mock/backend.txt": "7167708410ecdc2876a574d8b7c549e7320e7ed0f23b8cbc4b18cdde4f0ec6e9"
+        }
+      },
+      "source_sha256": {
+        "mock/physical-primitives.txt": "53d3a1403ddc46e3be404ad222c3e604113eaf3cfcd5a5c94773250905cb639a"
+      },
+      "selection_certificate_sha256": "9b4e4506b99e961e972f8f2aa3bbfee9c80ea419ab358d8c7d22ca4ba56d83d7",
+      "hierarchy_sha256": "da825d61e06f04a7a208e7393c47b09c1b39a6b84eed711510b13b91ed158fa7",
+      "legs": [
+        {
+          "source_anchor": "road:o",
+          "target_anchor": "road:o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "road:o",
+          "target_anchor": "road:x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:o",
+          "target_anchor": "road:z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:x",
+          "target_anchor": "road:o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:x",
+          "target_anchor": "road:x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "road:x",
+          "target_anchor": "road:z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:z",
+          "target_anchor": "road:o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:z",
+          "target_anchor": "road:x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.9000000000000p+6",
+            "ratio": [
+              "100",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "road:z",
+          "target_anchor": "road:z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        }
+      ]
+    },
+    "table_sha256": "57b6529ab97b4e805d3479067d4114baab75b1db8a1211fa5e56407076a9a067",
+    "original_tree": {
+      "site_ids": [
+        "A"
+      ],
+      "regions": [
+        {
+          "parent": -1,
+          "children": [
+            1,
+            2
+          ],
+          "members": [
+            0
+          ]
+        },
+        {
+          "parent": 0,
+          "children": [],
+          "members": []
+        },
+        {
+          "parent": 0,
+          "children": [],
+          "members": [
+            0
+          ]
+        }
+      ]
+    },
+    "original_tree_sha256": "da825d61e06f04a7a208e7393c47b09c1b39a6b84eed711510b13b91ed158fa7",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "0",
+      "Q_total": "0",
+      "H": 0,
+      "site_action_tuple": []
+    }
+  }
+]

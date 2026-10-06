@@ -1,0 +1,45 @@
+[
+  {
+    "solver": "solve_bounded_real",
+    "dominance": false,
+    "result": {
+      "status": "secondary_unattained",
+      "J": "14",
+      "secondary_infimum": "0"
+    }
+  },
+  {
+    "solver": "solve_bounded_real",
+    "dominance": true,
+    "result": {
+      "status": "secondary_unattained",
+      "J": "14",
+      "secondary_infimum": "0"
+    }
+  },
+  {
+    "solver": "solve_hierarchical_real",
+    "dominance": false,
+    "result": {
+      "status": "secondary_unattained",
+      "J": "14",
+      "secondary_infimum": "0"
+    }
+  },
+  {
+    "solver": "solve_hierarchical_real",
+    "dominance": true,
+    "result": {
+      "status": "secondary_unattained",
+      "J": "14",
+      "secondary_infimum": "0"
+    }
+  },
+  {
+    "solver": "independent_REF",
+    "status": "secondary_unattained",
+    "J": "14",
+    "secondary_infimum": "0",
+    "all_regimes_certified": true
+  }
+]

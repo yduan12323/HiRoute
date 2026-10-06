@@ -1,0 +1,2450 @@
+[
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.2372389374bbep+18",
+      "ratio": [
+        "2563587673138655",
+        "8589934592"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.4ceb6639f386ap+13",
+      "ratio": [
+        "2928391142480949",
+        "274877906944"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 5556363,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD00_energy_only.json",
+      "sha256": "e3f0efcf8456d4e81ac9fdfb854304b1270b0c7ea21782a253cd03131d7f2f6c",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "18",
+    "initial_soc": "3/10",
+    "instance_id": 0,
+    "mode": "energy_only",
+    "origin_road_anchor": 243891,
+    "original_tree_restriction": {
+      "empty_region_count": 2013,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD00_energy_only.json",
+      "region_count": 2047,
+      "sha256": "4a12c150d4c2853504e3726e82ad39e6c6a30fde21a283f385ebcafbf8ecf3f2"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD00_energy_only",
+    "schedule": null,
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C01",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.2372389374bbep+18",
+      "ratio": [
+        "2563587673138655",
+        "8589934592"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.4ceb6639f386ap+13",
+      "ratio": [
+        "2928391142480949",
+        "274877906944"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 5556363,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD00_energy_and_scheduled.json",
+      "sha256": "487d8416266f80cf91ab356ad77c8673ccdccb9c7e470a5a4fd585ad5cded7b1",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "18",
+    "initial_soc": "3/10",
+    "instance_id": 0,
+    "mode": "energy_and_scheduled",
+    "origin_road_anchor": 243891,
+    "original_tree_restriction": {
+      "empty_region_count": 2029,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD00_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "0073a2d3e8bd913a3f583ccecbb34d58e600114d8386719a884a821a9a5f8b6f"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD00_energy_and_scheduled",
+    "schedule": {
+      "arithmetic": "rationalize accepted binary64 baseline with as_integer_ratio, then a=(2/5)*baseline and b=(7/10)*baseline exactly",
+      "baseline_binary64": {
+        "hex": "0x1.4ceb6639f386ap+13",
+        "ratio": [
+          "2928391142480949",
+          "274877906944"
+        ]
+      },
+      "baseline_time_s": "2928391142480949/274877906944",
+      "compatible_with_charging": true,
+      "duration_s": "2700",
+      "hard": true,
+      "meal_threshold": 1,
+      "support_radius_m": 500,
+      "window_end_s": "20498737997366643/2748779069440",
+      "window_start_s": "2928391142480949/687194767360"
+    },
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C02",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.2372389374bbep+18",
+      "ratio": [
+        "2563587673138655",
+        "8589934592"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.4ceb6639f386ap+13",
+      "ratio": [
+        "2928391142480949",
+        "274877906944"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 5556363,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD00_energy_only.json",
+      "sha256": "e3f0efcf8456d4e81ac9fdfb854304b1270b0c7ea21782a253cd03131d7f2f6c",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "228/5",
+    "initial_soc": "19/25",
+    "instance_id": 0,
+    "mode": "energy_only",
+    "origin_road_anchor": 243891,
+    "original_tree_restriction": {
+      "empty_region_count": 2013,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD00_energy_only.json",
+      "region_count": 2047,
+      "sha256": "4a12c150d4c2853504e3726e82ad39e6c6a30fde21a283f385ebcafbf8ecf3f2"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD00_energy_only",
+    "schedule": null,
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C03",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.2372389374bbep+18",
+      "ratio": [
+        "2563587673138655",
+        "8589934592"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.4ceb6639f386ap+13",
+      "ratio": [
+        "2928391142480949",
+        "274877906944"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 5556363,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD00_energy_and_scheduled.json",
+      "sha256": "487d8416266f80cf91ab356ad77c8673ccdccb9c7e470a5a4fd585ad5cded7b1",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "228/5",
+    "initial_soc": "19/25",
+    "instance_id": 0,
+    "mode": "energy_and_scheduled",
+    "origin_road_anchor": 243891,
+    "original_tree_restriction": {
+      "empty_region_count": 2029,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD00_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "0073a2d3e8bd913a3f583ccecbb34d58e600114d8386719a884a821a9a5f8b6f"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD00_energy_and_scheduled",
+    "schedule": {
+      "arithmetic": "rationalize accepted binary64 baseline with as_integer_ratio, then a=(2/5)*baseline and b=(7/10)*baseline exactly",
+      "baseline_binary64": {
+        "hex": "0x1.4ceb6639f386ap+13",
+        "ratio": [
+          "2928391142480949",
+          "274877906944"
+        ]
+      },
+      "baseline_time_s": "2928391142480949/274877906944",
+      "compatible_with_charging": true,
+      "duration_s": "2700",
+      "hard": true,
+      "meal_threshold": 1,
+      "support_radius_m": 500,
+      "window_end_s": "20498737997366643/2748779069440",
+      "window_start_s": "2928391142480949/687194767360"
+    },
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C04",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.193329cac082dp+18",
+      "ratio": [
+        "4946920190249005",
+        "17179869184"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.382c2f0f2168cp+13",
+      "ratio": [
+        "1372949583791523",
+        "137438953472"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 3350225,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD01_energy_only.json",
+      "sha256": "4ccdf434a9212e80f6d7bc05a6b58acdd27044043526692f787d0654bc18e246",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "18",
+    "initial_soc": "3/10",
+    "instance_id": 1,
+    "mode": "energy_only",
+    "origin_road_anchor": 1781315,
+    "original_tree_restriction": {
+      "empty_region_count": 2029,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD01_energy_only.json",
+      "region_count": 2047,
+      "sha256": "2e68ac682e7744fdb3311d353b60e357c7aedf35aa70f9ca68c2d219125e32ba"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD01_energy_only",
+    "schedule": null,
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C05",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.193329cac082dp+18",
+      "ratio": [
+        "4946920190249005",
+        "17179869184"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.382c2f0f2168cp+13",
+      "ratio": [
+        "1372949583791523",
+        "137438953472"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 3350225,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD01_energy_and_scheduled.json",
+      "sha256": "f47de11476b8f15c1c2e5336550121c75fc83229529c995ba09918c7faec60cb",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "18",
+    "initial_soc": "3/10",
+    "instance_id": 1,
+    "mode": "energy_and_scheduled",
+    "origin_road_anchor": 1781315,
+    "original_tree_restriction": {
+      "empty_region_count": 2015,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD01_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "cc024da8ce753870f13deea79477b805bef25813dbfd9a30c967c0ae809b063f"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD01_energy_and_scheduled",
+    "schedule": {
+      "arithmetic": "rationalize accepted binary64 baseline with as_integer_ratio, then a=(2/5)*baseline and b=(7/10)*baseline exactly",
+      "baseline_binary64": {
+        "hex": "0x1.382c2f0f2168cp+13",
+        "ratio": [
+          "1372949583791523",
+          "137438953472"
+        ]
+      },
+      "baseline_time_s": "1372949583791523/137438953472",
+      "compatible_with_charging": true,
+      "duration_s": "2700",
+      "hard": true,
+      "meal_threshold": 1,
+      "support_radius_m": 500,
+      "window_end_s": "9610647086540661/1374389534720",
+      "window_start_s": "1372949583791523/343597383680"
+    },
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C06",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.193329cac082dp+18",
+      "ratio": [
+        "4946920190249005",
+        "17179869184"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.382c2f0f2168cp+13",
+      "ratio": [
+        "1372949583791523",
+        "137438953472"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 3350225,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD01_energy_only.json",
+      "sha256": "4ccdf434a9212e80f6d7bc05a6b58acdd27044043526692f787d0654bc18e246",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "228/5",
+    "initial_soc": "19/25",
+    "instance_id": 1,
+    "mode": "energy_only",
+    "origin_road_anchor": 1781315,
+    "original_tree_restriction": {
+      "empty_region_count": 2029,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD01_energy_only.json",
+      "region_count": 2047,
+      "sha256": "2e68ac682e7744fdb3311d353b60e357c7aedf35aa70f9ca68c2d219125e32ba"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD01_energy_only",
+    "schedule": null,
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C07",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.193329cac082dp+18",
+      "ratio": [
+        "4946920190249005",
+        "17179869184"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.382c2f0f2168cp+13",
+      "ratio": [
+        "1372949583791523",
+        "137438953472"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 3350225,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD01_energy_and_scheduled.json",
+      "sha256": "f47de11476b8f15c1c2e5336550121c75fc83229529c995ba09918c7faec60cb",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "228/5",
+    "initial_soc": "19/25",
+    "instance_id": 1,
+    "mode": "energy_and_scheduled",
+    "origin_road_anchor": 1781315,
+    "original_tree_restriction": {
+      "empty_region_count": 2015,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD01_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "cc024da8ce753870f13deea79477b805bef25813dbfd9a30c967c0ae809b063f"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD01_energy_and_scheduled",
+    "schedule": {
+      "arithmetic": "rationalize accepted binary64 baseline with as_integer_ratio, then a=(2/5)*baseline and b=(7/10)*baseline exactly",
+      "baseline_binary64": {
+        "hex": "0x1.382c2f0f2168cp+13",
+        "ratio": [
+          "1372949583791523",
+          "137438953472"
+        ]
+      },
+      "baseline_time_s": "1372949583791523/137438953472",
+      "compatible_with_charging": true,
+      "duration_s": "2700",
+      "hard": true,
+      "meal_threshold": 1,
+      "support_radius_m": 500,
+      "window_end_s": "9610647086540661/1374389534720",
+      "window_start_s": "1372949583791523/343597383680"
+    },
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C08",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.a1a805e353f8cp+16",
+      "ratio": [
+        "1836872008290275",
+        "17179869184"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.23f96071788c4p+12",
+      "ratio": [
+        "1284115794354737",
+        "274877906944"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 2552065,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD02_energy_only.json",
+      "sha256": "12a53fd398e05c631630444fac1c70aaef9cf072f1c07a1fab7db78880191e78",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "18",
+    "initial_soc": "3/10",
+    "instance_id": 2,
+    "mode": "energy_only",
+    "origin_road_anchor": 710949,
+    "original_tree_restriction": {
+      "empty_region_count": 2030,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD02_energy_only.json",
+      "region_count": 2047,
+      "sha256": "401fd53ba9974514489beaa4239fbd2910cdb66290161c6de2ca88b6e826cf26"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD02_energy_only",
+    "schedule": null,
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C09",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.a1a805e353f8cp+16",
+      "ratio": [
+        "1836872008290275",
+        "17179869184"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.23f96071788c4p+12",
+      "ratio": [
+        "1284115794354737",
+        "274877906944"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 2552065,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD02_energy_and_scheduled.json",
+      "sha256": "531a39fabefcf05b4436f8d7fcdc9428836560c53726af89583768c5c90dc8de",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "18",
+    "initial_soc": "3/10",
+    "instance_id": 2,
+    "mode": "energy_and_scheduled",
+    "origin_road_anchor": 710949,
+    "original_tree_restriction": {
+      "empty_region_count": 2026,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD02_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "6c218dbdcb4b4d030d308d1b820f0ec804b3764d7d8bc1ff46e680b3d5528ec8"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD02_energy_and_scheduled",
+    "schedule": {
+      "arithmetic": "rationalize accepted binary64 baseline with as_integer_ratio, then a=(2/5)*baseline and b=(7/10)*baseline exactly",
+      "baseline_binary64": {
+        "hex": "0x1.23f96071788c4p+12",
+        "ratio": [
+          "1284115794354737",
+          "274877906944"
+        ]
+      },
+      "baseline_time_s": "1284115794354737/274877906944",
+      "compatible_with_charging": true,
+      "duration_s": "2700",
+      "hard": true,
+      "meal_threshold": 1,
+      "support_radius_m": 500,
+      "window_end_s": "8988810560483159/2748779069440",
+      "window_start_s": "1284115794354737/687194767360"
+    },
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C10",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.a1a805e353f8cp+16",
+      "ratio": [
+        "1836872008290275",
+        "17179869184"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.23f96071788c4p+12",
+      "ratio": [
+        "1284115794354737",
+        "274877906944"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 2552065,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD02_energy_only.json",
+      "sha256": "12a53fd398e05c631630444fac1c70aaef9cf072f1c07a1fab7db78880191e78",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "228/5",
+    "initial_soc": "19/25",
+    "instance_id": 2,
+    "mode": "energy_only",
+    "origin_road_anchor": 710949,
+    "original_tree_restriction": {
+      "empty_region_count": 2030,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD02_energy_only.json",
+      "region_count": 2047,
+      "sha256": "401fd53ba9974514489beaa4239fbd2910cdb66290161c6de2ca88b6e826cf26"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD02_energy_only",
+    "schedule": null,
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C11",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.a1a805e353f8cp+16",
+      "ratio": [
+        "1836872008290275",
+        "17179869184"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.23f96071788c4p+12",
+      "ratio": [
+        "1284115794354737",
+        "274877906944"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 2552065,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD02_energy_and_scheduled.json",
+      "sha256": "531a39fabefcf05b4436f8d7fcdc9428836560c53726af89583768c5c90dc8de",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "228/5",
+    "initial_soc": "19/25",
+    "instance_id": 2,
+    "mode": "energy_and_scheduled",
+    "origin_road_anchor": 710949,
+    "original_tree_restriction": {
+      "empty_region_count": 2026,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD02_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "6c218dbdcb4b4d030d308d1b820f0ec804b3764d7d8bc1ff46e680b3d5528ec8"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD02_energy_and_scheduled",
+    "schedule": {
+      "arithmetic": "rationalize accepted binary64 baseline with as_integer_ratio, then a=(2/5)*baseline and b=(7/10)*baseline exactly",
+      "baseline_binary64": {
+        "hex": "0x1.23f96071788c4p+12",
+        "ratio": [
+          "1284115794354737",
+          "274877906944"
+        ]
+      },
+      "baseline_time_s": "1284115794354737/274877906944",
+      "compatible_with_charging": true,
+      "duration_s": "2700",
+      "hard": true,
+      "meal_threshold": 1,
+      "support_radius_m": 500,
+      "window_end_s": "8988810560483159/2748779069440",
+      "window_start_s": "1284115794354737/687194767360"
+    },
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C12",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.5602424dd2f1dp+16",
+      "ratio": [
+        "6016682864488221",
+        "68719476736"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.043687b787e29p+12",
+      "ratio": [
+        "4577715654524457",
+        "1099511627776"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 1992663,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD03_energy_only.json",
+      "sha256": "878c8fafeae52a7bfd6ba5db36355f7fc0b26905996ec168c1700c064e64fd95",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "18",
+    "initial_soc": "3/10",
+    "instance_id": 3,
+    "mode": "energy_only",
+    "origin_road_anchor": 2453932,
+    "original_tree_restriction": {
+      "empty_region_count": 2021,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD03_energy_only.json",
+      "region_count": 2047,
+      "sha256": "2f14bbc0be44c63a7b49d88d4eda7112dd71d7e5ac10a57b4c05b5f754f959e0"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD03_energy_only",
+    "schedule": null,
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C13",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.5602424dd2f1dp+16",
+      "ratio": [
+        "6016682864488221",
+        "68719476736"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.043687b787e29p+12",
+      "ratio": [
+        "4577715654524457",
+        "1099511627776"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 1992663,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD03_energy_and_scheduled.json",
+      "sha256": "c47642304c523f58473abfd472dd3103c8dabb7ecd52e17c4847b400b1051dbe",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "18",
+    "initial_soc": "3/10",
+    "instance_id": 3,
+    "mode": "energy_and_scheduled",
+    "origin_road_anchor": 2453932,
+    "original_tree_restriction": {
+      "empty_region_count": 2025,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD03_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "7456a621a70923de86f8bb78f0cf08907d9397f0fdb99b081a56404f7d71163f"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD03_energy_and_scheduled",
+    "schedule": {
+      "arithmetic": "rationalize accepted binary64 baseline with as_integer_ratio, then a=(2/5)*baseline and b=(7/10)*baseline exactly",
+      "baseline_binary64": {
+        "hex": "0x1.043687b787e29p+12",
+        "ratio": [
+          "4577715654524457",
+          "1099511627776"
+        ]
+      },
+      "baseline_time_s": "4577715654524457/1099511627776",
+      "compatible_with_charging": true,
+      "duration_s": "2700",
+      "hard": true,
+      "meal_threshold": 1,
+      "support_radius_m": 500,
+      "window_end_s": "32044009581671199/10995116277760",
+      "window_start_s": "4577715654524457/2748779069440"
+    },
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C14",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.5602424dd2f1dp+16",
+      "ratio": [
+        "6016682864488221",
+        "68719476736"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.043687b787e29p+12",
+      "ratio": [
+        "4577715654524457",
+        "1099511627776"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 1992663,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD03_energy_only.json",
+      "sha256": "878c8fafeae52a7bfd6ba5db36355f7fc0b26905996ec168c1700c064e64fd95",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "228/5",
+    "initial_soc": "19/25",
+    "instance_id": 3,
+    "mode": "energy_only",
+    "origin_road_anchor": 2453932,
+    "original_tree_restriction": {
+      "empty_region_count": 2021,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD03_energy_only.json",
+      "region_count": 2047,
+      "sha256": "2f14bbc0be44c63a7b49d88d4eda7112dd71d7e5ac10a57b4c05b5f754f959e0"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD03_energy_only",
+    "schedule": null,
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C15",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.5602424dd2f1dp+16",
+      "ratio": [
+        "6016682864488221",
+        "68719476736"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.043687b787e29p+12",
+      "ratio": [
+        "4577715654524457",
+        "1099511627776"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 1992663,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD03_energy_and_scheduled.json",
+      "sha256": "c47642304c523f58473abfd472dd3103c8dabb7ecd52e17c4847b400b1051dbe",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "228/5",
+    "initial_soc": "19/25",
+    "instance_id": 3,
+    "mode": "energy_and_scheduled",
+    "origin_road_anchor": 2453932,
+    "original_tree_restriction": {
+      "empty_region_count": 2025,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD03_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "7456a621a70923de86f8bb78f0cf08907d9397f0fdb99b081a56404f7d71163f"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD03_energy_and_scheduled",
+    "schedule": {
+      "arithmetic": "rationalize accepted binary64 baseline with as_integer_ratio, then a=(2/5)*baseline and b=(7/10)*baseline exactly",
+      "baseline_binary64": {
+        "hex": "0x1.043687b787e29p+12",
+        "ratio": [
+          "4577715654524457",
+          "1099511627776"
+        ]
+      },
+      "baseline_time_s": "4577715654524457/1099511627776",
+      "compatible_with_charging": true,
+      "duration_s": "2700",
+      "hard": true,
+      "meal_threshold": 1,
+      "support_radius_m": 500,
+      "window_end_s": "32044009581671199/10995116277760",
+      "window_start_s": "4577715654524457/2748779069440"
+    },
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C16",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.830e72f1a9fa5p+17",
+      "ratio": [
+        "6809168926908325",
+        "34359738368"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.f835743c14ca8p+12",
+      "ratio": [
+        "1108766887520661",
+        "137438953472"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 2929476,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD04_energy_only.json",
+      "sha256": "6296b60392ea5e92b769a0afb0b9ce5c8e311d2eee8a43b96caf6cf318816b7c",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "18",
+    "initial_soc": "3/10",
+    "instance_id": 4,
+    "mode": "energy_only",
+    "origin_road_anchor": 3935053,
+    "original_tree_restriction": {
+      "empty_region_count": 2031,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD04_energy_only.json",
+      "region_count": 2047,
+      "sha256": "9918c65c75fe88ddbd4dfb5fd02cff72cf5bc550642eda31adf98a20e0ab0c3f"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD04_energy_only",
+    "schedule": null,
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C17",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.830e72f1a9fa5p+17",
+      "ratio": [
+        "6809168926908325",
+        "34359738368"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.f835743c14ca8p+12",
+      "ratio": [
+        "1108766887520661",
+        "137438953472"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 2929476,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD04_energy_and_scheduled.json",
+      "sha256": "e4f0181412219aa09ce80f1b9d5ce5798cb8aa617f1be0e48f158c30ec1fcc83",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "18",
+    "initial_soc": "3/10",
+    "instance_id": 4,
+    "mode": "energy_and_scheduled",
+    "origin_road_anchor": 3935053,
+    "original_tree_restriction": {
+      "empty_region_count": 2033,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD04_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "f50e0136d13f77740f55f5ff818b447bcd3d82ae4094b6c9d07d5a05913f1304"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD04_energy_and_scheduled",
+    "schedule": {
+      "arithmetic": "rationalize accepted binary64 baseline with as_integer_ratio, then a=(2/5)*baseline and b=(7/10)*baseline exactly",
+      "baseline_binary64": {
+        "hex": "0x1.f835743c14ca8p+12",
+        "ratio": [
+          "1108766887520661",
+          "137438953472"
+        ]
+      },
+      "baseline_time_s": "1108766887520661/137438953472",
+      "compatible_with_charging": true,
+      "duration_s": "2700",
+      "hard": true,
+      "meal_threshold": 1,
+      "support_radius_m": 500,
+      "window_end_s": "7761368212644627/1374389534720",
+      "window_start_s": "1108766887520661/343597383680"
+    },
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C18",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.830e72f1a9fa5p+17",
+      "ratio": [
+        "6809168926908325",
+        "34359738368"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.f835743c14ca8p+12",
+      "ratio": [
+        "1108766887520661",
+        "137438953472"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 2929476,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD04_energy_only.json",
+      "sha256": "6296b60392ea5e92b769a0afb0b9ce5c8e311d2eee8a43b96caf6cf318816b7c",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "228/5",
+    "initial_soc": "19/25",
+    "instance_id": 4,
+    "mode": "energy_only",
+    "origin_road_anchor": 3935053,
+    "original_tree_restriction": {
+      "empty_region_count": 2031,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD04_energy_only.json",
+      "region_count": 2047,
+      "sha256": "9918c65c75fe88ddbd4dfb5fd02cff72cf5bc550642eda31adf98a20e0ab0c3f"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD04_energy_only",
+    "schedule": null,
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C19",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.830e72f1a9fa5p+17",
+      "ratio": [
+        "6809168926908325",
+        "34359738368"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.f835743c14ca8p+12",
+      "ratio": [
+        "1108766887520661",
+        "137438953472"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 2929476,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD04_energy_and_scheduled.json",
+      "sha256": "e4f0181412219aa09ce80f1b9d5ce5798cb8aa617f1be0e48f158c30ec1fcc83",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "228/5",
+    "initial_soc": "19/25",
+    "instance_id": 4,
+    "mode": "energy_and_scheduled",
+    "origin_road_anchor": 3935053,
+    "original_tree_restriction": {
+      "empty_region_count": 2033,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD04_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "f50e0136d13f77740f55f5ff818b447bcd3d82ae4094b6c9d07d5a05913f1304"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD04_energy_and_scheduled",
+    "schedule": {
+      "arithmetic": "rationalize accepted binary64 baseline with as_integer_ratio, then a=(2/5)*baseline and b=(7/10)*baseline exactly",
+      "baseline_binary64": {
+        "hex": "0x1.f835743c14ca8p+12",
+        "ratio": [
+          "1108766887520661",
+          "137438953472"
+        ]
+      },
+      "baseline_time_s": "1108766887520661/137438953472",
+      "compatible_with_charging": true,
+      "duration_s": "2700",
+      "hard": true,
+      "meal_threshold": 1,
+      "support_radius_m": 500,
+      "window_end_s": "7761368212644627/1374389534720",
+      "window_start_s": "1108766887520661/343597383680"
+    },
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C20",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.4485583126e86p+17",
+      "ratio": [
+        "2854515821328195",
+        "17179869184"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.a293f9546d938p+12",
+      "ratio": [
+        "920462807325479",
+        "137438953472"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 4774404,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD05_energy_only.json",
+      "sha256": "cf5223a3e0b07a40a94742f41c573aa13bb306bb18adaa8c249197d0d49888e3",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "18",
+    "initial_soc": "3/10",
+    "instance_id": 5,
+    "mode": "energy_only",
+    "origin_road_anchor": 2828743,
+    "original_tree_restriction": {
+      "empty_region_count": 2030,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD05_energy_only.json",
+      "region_count": 2047,
+      "sha256": "d0a73c0f057773e4bb59b5534826fdc96a7e68005f7fd6b3eb167756601ea966"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD05_energy_only",
+    "schedule": null,
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C21",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.4485583126e86p+17",
+      "ratio": [
+        "2854515821328195",
+        "17179869184"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.a293f9546d938p+12",
+      "ratio": [
+        "920462807325479",
+        "137438953472"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 4774404,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD05_energy_and_scheduled.json",
+      "sha256": "e9ca73c3b9a0f1c0240260283a3771a370259cf2f70c4ac8a39ee9dda9d42881",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "18",
+    "initial_soc": "3/10",
+    "instance_id": 5,
+    "mode": "energy_and_scheduled",
+    "origin_road_anchor": 2828743,
+    "original_tree_restriction": {
+      "empty_region_count": 2032,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD05_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "2d1c74169675b6fe162b0e2af29618738ceb16d150b9651de1dcad247ef57a0c"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD05_energy_and_scheduled",
+    "schedule": {
+      "arithmetic": "rationalize accepted binary64 baseline with as_integer_ratio, then a=(2/5)*baseline and b=(7/10)*baseline exactly",
+      "baseline_binary64": {
+        "hex": "0x1.a293f9546d938p+12",
+        "ratio": [
+          "920462807325479",
+          "137438953472"
+        ]
+      },
+      "baseline_time_s": "920462807325479/137438953472",
+      "compatible_with_charging": true,
+      "duration_s": "2700",
+      "hard": true,
+      "meal_threshold": 1,
+      "support_radius_m": 500,
+      "window_end_s": "6443239651278353/1374389534720",
+      "window_start_s": "920462807325479/343597383680"
+    },
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C22",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.4485583126e86p+17",
+      "ratio": [
+        "2854515821328195",
+        "17179869184"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.a293f9546d938p+12",
+      "ratio": [
+        "920462807325479",
+        "137438953472"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 4774404,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD05_energy_only.json",
+      "sha256": "cf5223a3e0b07a40a94742f41c573aa13bb306bb18adaa8c249197d0d49888e3",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "228/5",
+    "initial_soc": "19/25",
+    "instance_id": 5,
+    "mode": "energy_only",
+    "origin_road_anchor": 2828743,
+    "original_tree_restriction": {
+      "empty_region_count": 2030,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD05_energy_only.json",
+      "region_count": 2047,
+      "sha256": "d0a73c0f057773e4bb59b5534826fdc96a7e68005f7fd6b3eb167756601ea966"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD05_energy_only",
+    "schedule": null,
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C23",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.4485583126e86p+17",
+      "ratio": [
+        "2854515821328195",
+        "17179869184"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.a293f9546d938p+12",
+      "ratio": [
+        "920462807325479",
+        "137438953472"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 4774404,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD05_energy_and_scheduled.json",
+      "sha256": "e9ca73c3b9a0f1c0240260283a3771a370259cf2f70c4ac8a39ee9dda9d42881",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "228/5",
+    "initial_soc": "19/25",
+    "instance_id": 5,
+    "mode": "energy_and_scheduled",
+    "origin_road_anchor": 2828743,
+    "original_tree_restriction": {
+      "empty_region_count": 2032,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD05_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "2d1c74169675b6fe162b0e2af29618738ceb16d150b9651de1dcad247ef57a0c"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD05_energy_and_scheduled",
+    "schedule": {
+      "arithmetic": "rationalize accepted binary64 baseline with as_integer_ratio, then a=(2/5)*baseline and b=(7/10)*baseline exactly",
+      "baseline_binary64": {
+        "hex": "0x1.a293f9546d938p+12",
+        "ratio": [
+          "920462807325479",
+          "137438953472"
+        ]
+      },
+      "baseline_time_s": "920462807325479/137438953472",
+      "compatible_with_charging": true,
+      "duration_s": "2700",
+      "hard": true,
+      "meal_threshold": 1,
+      "support_radius_m": 500,
+      "window_end_s": "6443239651278353/1374389534720",
+      "window_start_s": "920462807325479/343597383680"
+    },
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C24",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.336f676c8b437p+16",
+      "ratio": [
+        "5408456740222007",
+        "68719476736"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.6fc3729a41f83p+11",
+      "ratio": [
+        "6469763339657091",
+        "2199023255552"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 71017,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD06_energy_only.json",
+      "sha256": "fde64258a2cd1e4f97a0655b9389a6586ca8d472461f38c10ae87b84541b3b7e",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "18",
+    "initial_soc": "3/10",
+    "instance_id": 6,
+    "mode": "energy_only",
+    "origin_road_anchor": 4234444,
+    "original_tree_restriction": {
+      "empty_region_count": 2020,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD06_energy_only.json",
+      "region_count": 2047,
+      "sha256": "0072b2243018e3dd4b75d65bead62f131cfb132b7c3d4581ce9971a22430695a"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD06_energy_only",
+    "schedule": null,
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C25",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.336f676c8b437p+16",
+      "ratio": [
+        "5408456740222007",
+        "68719476736"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.6fc3729a41f83p+11",
+      "ratio": [
+        "6469763339657091",
+        "2199023255552"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 71017,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD06_energy_and_scheduled.json",
+      "sha256": "2dcd41422a393b736402fd58b8195ab000488aacaab8c82650f137f6b6f39512",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "18",
+    "initial_soc": "3/10",
+    "instance_id": 6,
+    "mode": "energy_and_scheduled",
+    "origin_road_anchor": 4234444,
+    "original_tree_restriction": {
+      "empty_region_count": 2029,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD06_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "55fbbd736a21a488af7faece5ae7281f3abd1248fe66b2176fde07e464bfd433"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD06_energy_and_scheduled",
+    "schedule": {
+      "arithmetic": "rationalize accepted binary64 baseline with as_integer_ratio, then a=(2/5)*baseline and b=(7/10)*baseline exactly",
+      "baseline_binary64": {
+        "hex": "0x1.6fc3729a41f83p+11",
+        "ratio": [
+          "6469763339657091",
+          "2199023255552"
+        ]
+      },
+      "baseline_time_s": "6469763339657091/2199023255552",
+      "compatible_with_charging": true,
+      "duration_s": "2700",
+      "hard": true,
+      "meal_threshold": 1,
+      "support_radius_m": 500,
+      "window_end_s": "45288343377599637/21990232555520",
+      "window_start_s": "6469763339657091/5497558138880"
+    },
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C26",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.336f676c8b437p+16",
+      "ratio": [
+        "5408456740222007",
+        "68719476736"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.6fc3729a41f83p+11",
+      "ratio": [
+        "6469763339657091",
+        "2199023255552"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 71017,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD06_energy_only.json",
+      "sha256": "fde64258a2cd1e4f97a0655b9389a6586ca8d472461f38c10ae87b84541b3b7e",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "228/5",
+    "initial_soc": "19/25",
+    "instance_id": 6,
+    "mode": "energy_only",
+    "origin_road_anchor": 4234444,
+    "original_tree_restriction": {
+      "empty_region_count": 2020,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD06_energy_only.json",
+      "region_count": 2047,
+      "sha256": "0072b2243018e3dd4b75d65bead62f131cfb132b7c3d4581ce9971a22430695a"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD06_energy_only",
+    "schedule": null,
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C27",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.336f676c8b437p+16",
+      "ratio": [
+        "5408456740222007",
+        "68719476736"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.6fc3729a41f83p+11",
+      "ratio": [
+        "6469763339657091",
+        "2199023255552"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 71017,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD06_energy_and_scheduled.json",
+      "sha256": "2dcd41422a393b736402fd58b8195ab000488aacaab8c82650f137f6b6f39512",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "228/5",
+    "initial_soc": "19/25",
+    "instance_id": 6,
+    "mode": "energy_and_scheduled",
+    "origin_road_anchor": 4234444,
+    "original_tree_restriction": {
+      "empty_region_count": 2029,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD06_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "55fbbd736a21a488af7faece5ae7281f3abd1248fe66b2176fde07e464bfd433"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD06_energy_and_scheduled",
+    "schedule": {
+      "arithmetic": "rationalize accepted binary64 baseline with as_integer_ratio, then a=(2/5)*baseline and b=(7/10)*baseline exactly",
+      "baseline_binary64": {
+        "hex": "0x1.6fc3729a41f83p+11",
+        "ratio": [
+          "6469763339657091",
+          "2199023255552"
+        ]
+      },
+      "baseline_time_s": "6469763339657091/2199023255552",
+      "compatible_with_charging": true,
+      "duration_s": "2700",
+      "hard": true,
+      "meal_threshold": 1,
+      "support_radius_m": 500,
+      "window_end_s": "45288343377599637/21990232555520",
+      "window_start_s": "6469763339657091/5497558138880"
+    },
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C28",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.02077ced91684p+17",
+      "ratio": [
+        "1134824642725281",
+        "8589934592"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.23b1b0bf60162p+12",
+      "ratio": [
+        "2565768465809585",
+        "549755813888"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 3977195,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD07_energy_only.json",
+      "sha256": "6e28af414efc17036cf7ab5b896f12c1b19d87494f6e30b7be0e73dd5c530a9e",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "18",
+    "initial_soc": "3/10",
+    "instance_id": 7,
+    "mode": "energy_only",
+    "origin_road_anchor": 4235492,
+    "original_tree_restriction": {
+      "empty_region_count": 2018,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD07_energy_only.json",
+      "region_count": 2047,
+      "sha256": "369d6ef0f32ca51bff3b2238b3292a94d04ad8e1204b032968dde18da7b45350"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD07_energy_only",
+    "schedule": null,
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C29",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.02077ced91684p+17",
+      "ratio": [
+        "1134824642725281",
+        "8589934592"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.23b1b0bf60162p+12",
+      "ratio": [
+        "2565768465809585",
+        "549755813888"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 3977195,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD07_energy_and_scheduled.json",
+      "sha256": "fac66f574edbfce0096377da46b3c0a5dcf2522e75180178064e36a3fc1c10f5",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "18",
+    "initial_soc": "3/10",
+    "instance_id": 7,
+    "mode": "energy_and_scheduled",
+    "origin_road_anchor": 4235492,
+    "original_tree_restriction": {
+      "empty_region_count": 2030,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD07_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "2361360684d6af8d450ccb043c828c5c4ddf3cea81d00cfc2a68082f7e350110"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD07_energy_and_scheduled",
+    "schedule": {
+      "arithmetic": "rationalize accepted binary64 baseline with as_integer_ratio, then a=(2/5)*baseline and b=(7/10)*baseline exactly",
+      "baseline_binary64": {
+        "hex": "0x1.23b1b0bf60162p+12",
+        "ratio": [
+          "2565768465809585",
+          "549755813888"
+        ]
+      },
+      "baseline_time_s": "2565768465809585/549755813888",
+      "compatible_with_charging": true,
+      "duration_s": "2700",
+      "hard": true,
+      "meal_threshold": 1,
+      "support_radius_m": 500,
+      "window_end_s": "3592075852133419/1099511627776",
+      "window_start_s": "513153693161917/274877906944"
+    },
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C30",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.02077ced91684p+17",
+      "ratio": [
+        "1134824642725281",
+        "8589934592"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.23b1b0bf60162p+12",
+      "ratio": [
+        "2565768465809585",
+        "549755813888"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 3977195,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD07_energy_only.json",
+      "sha256": "6e28af414efc17036cf7ab5b896f12c1b19d87494f6e30b7be0e73dd5c530a9e",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "228/5",
+    "initial_soc": "19/25",
+    "instance_id": 7,
+    "mode": "energy_only",
+    "origin_road_anchor": 4235492,
+    "original_tree_restriction": {
+      "empty_region_count": 2018,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD07_energy_only.json",
+      "region_count": 2047,
+      "sha256": "369d6ef0f32ca51bff3b2238b3292a94d04ad8e1204b032968dde18da7b45350"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD07_energy_only",
+    "schedule": null,
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C31",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  },
+  {
+    "H_ref": 4,
+    "accepted_baseline_actual_length_m": {
+      "hex": "0x1.02077ced91684p+17",
+      "ratio": [
+        "1134824642725281",
+        "8589934592"
+      ]
+    },
+    "accepted_baseline_time_s": {
+      "hex": "0x1.23b1b0bf60162p+12",
+      "ratio": [
+        "2565768465809585",
+        "549755813888"
+      ]
+    },
+    "capacity_kwh": "60",
+    "charging_primitive": {
+      "energy_breakpoints_kwh": [
+        "0",
+        "30",
+        "48",
+        "60"
+      ],
+      "intercepts_s": [
+        "0",
+        "-720",
+        "-3600"
+      ],
+      "label": "canonical_synthetic_PWA_cumulative",
+      "slopes_s_per_kwh": [
+        "36",
+        "60",
+        "120"
+      ]
+    },
+    "consumption_kwh_per_m": "1/6250",
+    "destination_road_anchor": 3977195,
+    "energy_floor_kwh": "0",
+    "immutable_direct_leg_table": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD07_energy_and_scheduled.json",
+      "sha256": "fac66f574edbfce0096377da46b3c0a5dcf2522e75180178064e36a3fc1c10f5",
+      "site_count": 8
+    },
+    "immutable_direct_leg_table_status": "exported_hash_verified_preparation_only",
+    "initial_energy_kwh": "228/5",
+    "initial_soc": "19/25",
+    "instance_id": 7,
+    "mode": "energy_and_scheduled",
+    "origin_road_anchor": 4235492,
+    "original_tree_restriction": {
+      "empty_region_count": 2030,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD07_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "2361360684d6af8d450ccb043c828c5c4ddf3cea81d00cfc2a68082f7e350110"
+    },
+    "overhead_s": "300",
+    "pool_id": "OD07_energy_and_scheduled",
+    "schedule": {
+      "arithmetic": "rationalize accepted binary64 baseline with as_integer_ratio, then a=(2/5)*baseline and b=(7/10)*baseline exactly",
+      "baseline_binary64": {
+        "hex": "0x1.23b1b0bf60162p+12",
+        "ratio": [
+          "2565768465809585",
+          "549755813888"
+        ]
+      },
+      "baseline_time_s": "2565768465809585/549755813888",
+      "compatible_with_charging": true,
+      "duration_s": "2700",
+      "hard": true,
+      "meal_threshold": 1,
+      "support_radius_m": 500,
+      "window_end_s": "3592075852133419/1099511627776",
+      "window_start_s": "513153693161917/274877906944"
+    },
+    "solve_status": "not_run_preparation_only",
+    "start_time_s": "0",
+    "state_id": "C32",
+    "stop_penalty_s": "600",
+    "terminal_reserve_kwh": "6"
+  }
+]

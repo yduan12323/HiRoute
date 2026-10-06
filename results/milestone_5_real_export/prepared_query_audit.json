@@ -1,0 +1,329 @@
+{
+  "elapsed_seconds": 8.985217981997266,
+  "export_manifest_sha256": "f846eb37219a34dea74aa9a79e7673b8cdae03ae281de189cb9b602a98ac380d",
+  "optimization_run": false,
+  "scope": "read_only_compact_input_preparation",
+  "selection_sha256": "0e39ad906c01e05b4a4b764b3270360e309c24d1ae67d7a2e3533b6dca8af06a",
+  "states": [
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "f3ec15cf0ddf97aee004bb4bf0a948773974c40bd5bd87f0747b7c50cd52a32e",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C01",
+      "table_sha256": "e3f0efcf8456d4e81ac9fdfb854304b1270b0c7ea21782a253cd03131d7f2f6c"
+    },
+    {
+      "anchor_count": 10,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "c0a004b7e2f82b350b9e2c269d6d7b066509c0f6b8be36db205b0b9a9f8b6b25",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C02",
+      "table_sha256": "487d8416266f80cf91ab356ad77c8673ccdccb9c7e470a5a4fd585ad5cded7b1"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "fd1be97436643131d2b511dc44500bc222502c712bedb32a314389e561a0cd52",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C03",
+      "table_sha256": "e3f0efcf8456d4e81ac9fdfb854304b1270b0c7ea21782a253cd03131d7f2f6c"
+    },
+    {
+      "anchor_count": 10,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "c887e5eeff279b107263d935a08b90644094ee146025f160782ec8de867fe334",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C04",
+      "table_sha256": "487d8416266f80cf91ab356ad77c8673ccdccb9c7e470a5a4fd585ad5cded7b1"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "b5926cb8be06232f446859bdb1a5d38cbc7f7ce7796882294ef866b402d24bf7",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C05",
+      "table_sha256": "4ccdf434a9212e80f6d7bc05a6b58acdd27044043526692f787d0654bc18e246"
+    },
+    {
+      "anchor_count": 10,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "1d45b8cc81414899fc63607c6ca75eef6a007da878bc817c9f6b6dd2dc64d1ff",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C06",
+      "table_sha256": "f47de11476b8f15c1c2e5336550121c75fc83229529c995ba09918c7faec60cb"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "a521e943beb047c1baab84eec3f27d2175125fa34defc64dcd9b216564af5feb",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C07",
+      "table_sha256": "4ccdf434a9212e80f6d7bc05a6b58acdd27044043526692f787d0654bc18e246"
+    },
+    {
+      "anchor_count": 10,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "8abeaa653b92234ffd0b9749e1067d7bd1c3943c11201b1cdf9136b78522aff8",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C08",
+      "table_sha256": "f47de11476b8f15c1c2e5336550121c75fc83229529c995ba09918c7faec60cb"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "b49be57e16e1850069ae56e6fe93c5ca76aae58a7f2af68a7cfada027a2f15a8",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C09",
+      "table_sha256": "12a53fd398e05c631630444fac1c70aaef9cf072f1c07a1fab7db78880191e78"
+    },
+    {
+      "anchor_count": 10,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "47061595e79435a5d5fbff6065f2ae63765fbaed30cc950ef7da444a93867049",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C10",
+      "table_sha256": "531a39fabefcf05b4436f8d7fcdc9428836560c53726af89583768c5c90dc8de"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "2dbe297ecb7f473aa84855bd13e77b3c0d5253fca5ec2e48464595b75648fcc3",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C11",
+      "table_sha256": "12a53fd398e05c631630444fac1c70aaef9cf072f1c07a1fab7db78880191e78"
+    },
+    {
+      "anchor_count": 10,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "8d90704131f8d191e4151d15a1c9c2bfaec01ddb500c5bdbd2f0b85403ca9161",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C12",
+      "table_sha256": "531a39fabefcf05b4436f8d7fcdc9428836560c53726af89583768c5c90dc8de"
+    },
+    {
+      "anchor_count": 10,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "c70826cb6bb9b2882eb00caaf9af0dc195b871db77c28dd0997b6940c1aa4c5c",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C13",
+      "table_sha256": "878c8fafeae52a7bfd6ba5db36355f7fc0b26905996ec168c1700c064e64fd95"
+    },
+    {
+      "anchor_count": 10,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "41239d63c7055f3227ef7d3cc085e149769b5516fadd309aba8618de02638205",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C14",
+      "table_sha256": "c47642304c523f58473abfd472dd3103c8dabb7ecd52e17c4847b400b1051dbe"
+    },
+    {
+      "anchor_count": 10,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "a440318016cd07d8dc1607480b606e605bf783d4991a4a1a04a1af4edc0c23ee",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C15",
+      "table_sha256": "878c8fafeae52a7bfd6ba5db36355f7fc0b26905996ec168c1700c064e64fd95"
+    },
+    {
+      "anchor_count": 10,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "299705c21514eb0ca3d0fded6929a21682f32d6dd8fa97b3ad2341cf8061fb17",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C16",
+      "table_sha256": "c47642304c523f58473abfd472dd3103c8dabb7ecd52e17c4847b400b1051dbe"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "784d30747818cc5b1b2550a2b212c996cef3a06c9b1bd9ec1cd038f0141ed48c",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C17",
+      "table_sha256": "6296b60392ea5e92b769a0afb0b9ce5c8e311d2eee8a43b96caf6cf318816b7c"
+    },
+    {
+      "anchor_count": 10,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "edf926209527aca1355f1449386fc6bb81bb7ce7c3073a2205ee10b08642694f",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C18",
+      "table_sha256": "e4f0181412219aa09ce80f1b9d5ce5798cb8aa617f1be0e48f158c30ec1fcc83"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "98f12813990bfdab3212f0a0677fd87160edabf1b207641d2ccc10981459598e",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C19",
+      "table_sha256": "6296b60392ea5e92b769a0afb0b9ce5c8e311d2eee8a43b96caf6cf318816b7c"
+    },
+    {
+      "anchor_count": 10,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "f314087a0ce520eb0c87d691991ac45a23dfaa09786b8dbf8ae5b29e5d88abc1",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C20",
+      "table_sha256": "e4f0181412219aa09ce80f1b9d5ce5798cb8aa617f1be0e48f158c30ec1fcc83"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "9b68135ee3aa44dd8963a415037b20366115fd54f1e3c282e7621b5d8d199f46",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C21",
+      "table_sha256": "cf5223a3e0b07a40a94742f41c573aa13bb306bb18adaa8c249197d0d49888e3"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "6e36b19b2248635091e958e457fb476de93866a4ce25bc21cdd2217efe28d039",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C22",
+      "table_sha256": "e9ca73c3b9a0f1c0240260283a3771a370259cf2f70c4ac8a39ee9dda9d42881"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "92f1ffb282615cd5f7754a5615cf6290097c70d686944d6817fa1edc026728bd",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C23",
+      "table_sha256": "cf5223a3e0b07a40a94742f41c573aa13bb306bb18adaa8c249197d0d49888e3"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "d271c0c514f588ff45c2563b594a0f7bb28094fada7335c6d39bf1bc640f5067",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C24",
+      "table_sha256": "e9ca73c3b9a0f1c0240260283a3771a370259cf2f70c4ac8a39ee9dda9d42881"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "b1dceeb256cbf4b8ff0ddb23e3fd511eaf1032ab121a1ce53293ba86d82012ca",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C25",
+      "table_sha256": "fde64258a2cd1e4f97a0655b9389a6586ca8d472461f38c10ae87b84541b3b7e"
+    },
+    {
+      "anchor_count": 10,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "8eed5ce43552de04757d65be500bdc7880aea08de8f4130e60166a1dd820f27e",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C26",
+      "table_sha256": "2dcd41422a393b736402fd58b8195ab000488aacaab8c82650f137f6b6f39512"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "adbe3a3b2d11f434fa07d66acdb9dfc17e732293553f8e88d3c742a47ace68db",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C27",
+      "table_sha256": "fde64258a2cd1e4f97a0655b9389a6586ca8d472461f38c10ae87b84541b3b7e"
+    },
+    {
+      "anchor_count": 10,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "3118c0f14b9c6a52d7ff09acdbee3cc06bb0879858c5ca711124d5bf0f2f6a6b",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C28",
+      "table_sha256": "2dcd41422a393b736402fd58b8195ab000488aacaab8c82650f137f6b6f39512"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "0a9312a74429e267e71c8d788021eb66f02a4c8ca5ef8445cbb8c88f19008248",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C29",
+      "table_sha256": "6e28af414efc17036cf7ab5b896f12c1b19d87494f6e30b7be0e73dd5c530a9e"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "bfa8f77ea95fcb38fcb12c63cfc223c76db514473a07d4591acaf15eb303deb7",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C30",
+      "table_sha256": "fac66f574edbfce0096377da46b3c0a5dcf2522e75180178064e36a3fc1c10f5"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "1b99d399fb0fb8a647666be5932ac8225b8dc344c04c8c37b95e5199849c8dbf",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C31",
+      "table_sha256": "6e28af414efc17036cf7ab5b896f12c1b19d87494f6e30b7be0e73dd5c530a9e"
+    },
+    {
+      "anchor_count": 9,
+      "onward_time_lower_bound": "0",
+      "optimization_run": false,
+      "query_sha256": "440c369e2dabe5963fdca480b21559e6a7f1dd632a184215d28a2043748a8c4e",
+      "region_count": 2047,
+      "site_count": 8,
+      "state_id": "C32",
+      "table_sha256": "fac66f574edbfce0096377da46b3c0a5dcf2522e75180178064e36a3fc1c10f5"
+    }
+  ]
+}

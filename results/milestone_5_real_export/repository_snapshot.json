@@ -1,0 +1,11 @@
+{
+  "excluded_original_export_entries": [
+    {
+      "path": "native_cache/routing.so",
+      "sha256": "c316bfa7e3fdc4e1a0d5f0d41ea9bc292f36c29ea9058557989fd3e70c963c72",
+      "size_bytes": 47072,
+      "reason": "Compiled native cache intentionally excluded; rebuild from reviewed source if needed."
+    }
+  ],
+  "note": "output_hashes.json preserves the original complete workspace index. All non-native entries are included byte-identically; no compiled binary is distributed."
+}

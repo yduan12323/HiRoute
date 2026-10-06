@@ -1,0 +1,102 @@
+{
+  "coattached_extra_site_instances": 9,
+  "complete_table_rows_checked": 1429,
+  "export_manifest_sha256": "f846eb37219a34dea74aa9a79e7673b8cdae03ae281de189cb9b602a98ac380d",
+  "historical_comparison_diagnostic_only": [
+    {
+      "accepted_actual_length_hex": "0x1.2372389374bbep+18",
+      "accepted_time_hex": "0x1.4ceb6639f386ap+13",
+      "actual_length_bitwise_equal": false,
+      "actual_length_difference_exact_m": "-9/17179869184",
+      "historical_actual_length_hex": "0x1.2372389374bc7p+18",
+      "historical_time_hex": "0x1.4ceb6639f3868p+13",
+      "instance_id": 0,
+      "time_bitwise_equal": false,
+      "time_difference_exact_s": "1/274877906944"
+    },
+    {
+      "accepted_actual_length_hex": "0x1.193329cac082dp+18",
+      "accepted_time_hex": "0x1.382c2f0f2168cp+13",
+      "actual_length_bitwise_equal": false,
+      "actual_length_difference_exact_m": "-5/17179869184",
+      "historical_actual_length_hex": "0x1.193329cac0832p+18",
+      "historical_time_hex": "0x1.382c2f0f2169ap+13",
+      "instance_id": 1,
+      "time_bitwise_equal": false,
+      "time_difference_exact_s": "-7/274877906944"
+    },
+    {
+      "accepted_actual_length_hex": "0x1.a1a805e353f8cp+16",
+      "accepted_time_hex": "0x1.23f96071788c4p+12",
+      "actual_length_bitwise_equal": false,
+      "actual_length_difference_exact_m": "15/68719476736",
+      "historical_actual_length_hex": "0x1.a1a805e353f7dp+16",
+      "historical_time_hex": "0x1.23f96071788d2p+12",
+      "instance_id": 2,
+      "time_bitwise_equal": false,
+      "time_difference_exact_s": "-7/549755813888"
+    },
+    {
+      "accepted_actual_length_hex": "0x1.5602424dd2f1dp+16",
+      "accepted_time_hex": "0x1.043687b787e29p+12",
+      "actual_length_bitwise_equal": false,
+      "actual_length_difference_exact_m": "3/68719476736",
+      "historical_actual_length_hex": "0x1.5602424dd2f1ap+16",
+      "historical_time_hex": "0x1.043687b787e2ap+12",
+      "instance_id": 3,
+      "time_bitwise_equal": false,
+      "time_difference_exact_s": "-1/1099511627776"
+    },
+    {
+      "accepted_actual_length_hex": "0x1.830e72f1a9fa5p+17",
+      "accepted_time_hex": "0x1.f835743c14ca8p+12",
+      "actual_length_bitwise_equal": false,
+      "actual_length_difference_exact_m": "-25/34359738368",
+      "historical_actual_length_hex": "0x1.830e72f1a9fbep+17",
+      "historical_time_hex": "0x1.f835743c14c8fp+12",
+      "instance_id": 4,
+      "time_bitwise_equal": false,
+      "time_difference_exact_s": "25/1099511627776"
+    },
+    {
+      "accepted_actual_length_hex": "0x1.4485583126e86p+17",
+      "accepted_time_hex": "0x1.a293f9546d938p+12",
+      "actual_length_bitwise_equal": false,
+      "actual_length_difference_exact_m": "-9/17179869184",
+      "historical_actual_length_hex": "0x1.4485583126e98p+17",
+      "historical_time_hex": "0x1.a293f9546d935p+12",
+      "instance_id": 5,
+      "time_bitwise_equal": false,
+      "time_difference_exact_s": "3/1099511627776"
+    },
+    {
+      "accepted_actual_length_hex": "0x1.336f676c8b437p+16",
+      "accepted_time_hex": "0x1.6fc3729a41f83p+11",
+      "actual_length_bitwise_equal": false,
+      "actual_length_difference_exact_m": "-3/68719476736",
+      "historical_actual_length_hex": "0x1.336f676c8b43ap+16",
+      "historical_time_hex": "0x1.6fc3729a41f8cp+11",
+      "instance_id": 6,
+      "time_bitwise_equal": false,
+      "time_difference_exact_s": "-9/2199023255552"
+    },
+    {
+      "accepted_actual_length_hex": "0x1.02077ced91684p+17",
+      "accepted_time_hex": "0x1.23b1b0bf60162p+12",
+      "actual_length_bitwise_equal": false,
+      "actual_length_difference_exact_m": "-3/34359738368",
+      "historical_actual_length_hex": "0x1.02077ced91687p+17",
+      "historical_time_hex": "0x1.23b1b0bf6015ep+12",
+      "instance_id": 7,
+      "time_bitwise_equal": false,
+      "time_difference_exact_s": "1/274877906944"
+    }
+  ],
+  "no_graph_load": true,
+  "no_optimization": true,
+  "original_region_rows_checked": 32752,
+  "passed": true,
+  "pool_tables_checked": 16,
+  "states_checked": 32,
+  "unique_ordered_pairs_checked": 1231
+}

@@ -1,0 +1,159 @@
+{
+  "created_utc": "2026-10-06T05:18:00.474247+00:00",
+  "cutoff_hex": "0x1.fffffffffffffp+1023",
+  "direction_policy": "forward_per_source_v1",
+  "edge_count": 11561067,
+  "memory": {
+    "available_bytes": 8512290816,
+    "cgroup_available_bytes": [],
+    "high_water_rss_bytes": 174157824,
+    "host_available_bytes": 8512290816,
+    "rss_bytes": 172978176
+  },
+  "memory_plan": {
+    "input_arrays_bytes": 369954144,
+    "native_constructor_offset_copies_bytes": 94279984,
+    "native_persistent_index_bytes": 422468440,
+    "one_full_calibration_output_bytes": 141419952,
+    "planned_peak_increment_bytes": 3175606168,
+    "queue_arrow_python_margin_bytes": 2147483648
+  },
+  "no_optimization": true,
+  "node_count": 5892498,
+  "passed": true,
+  "pool_count": 16,
+  "requested_pair_count": 1231,
+  "router_source_sha256": {
+    "configs/microplan.yaml": "1cebe88463668c9423dc89fcdffb71cb488af3bd0fb54fcc9152c96e3aa5b7ef",
+    "src/microplan/routing.cpp": "2fc38a835cee766464714866edd07e117da430226bae1937108f6e26319d2788",
+    "src/microplan/routing.py": "2d9b2f42affdb6011709239289cfe705768118dd636e93fd6c89a50947723380"
+  },
+  "runtime": {
+    "numpy": "2.4.6",
+    "pyarrow": "25.0.1",
+    "python": "3.11.16 (main, Sep 24 2026, 17:56:40) [Clang 22.1.3 ]"
+  },
+  "script_sha256": "e1d5aa21e3e241c6f27e1f05305b8bf3735846dcd122f76f4eca7e427e98b3b7",
+  "selection_certificate_sha256": "0e39ad906c01e05b4a4b764b3270360e309c24d1ae67d7a2e3533b6dca8af06a",
+  "selection_verification": [
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/chosen_site_catalog.json",
+      "sha256": "f091db99dd1a698ad50dcfe30f02f1f6d8aadb763e8d23f021b6148c320e2232",
+      "size_bytes": 104675
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/coattached_identity_audit.json",
+      "sha256": "948599c728ff2b9bd355d389d7b23a042e2f53827184a9c8cce4887c76d5dae4",
+      "size_bytes": 5820555
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/hierarchy_restrictions.parquet",
+      "sha256": "3711156c98fd9fa44fb1176a09eb1c2698146da717e8db26cc04fe0815e61d23",
+      "size_bytes": 116737
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/hierarchy_structure.json",
+      "sha256": "c9d059af7fbc96147c5b03e8488bd7d1eac8931e928fd3230f2fb9dca71254a5",
+      "size_bytes": 439824
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/missing_progress_audit.json",
+      "sha256": "63b4eed632afaaa1309178c2dc7de218b36bc220956bcc81d5bf810b565d89d7",
+      "size_bytes": 7178
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/od_anchors.json",
+      "sha256": "8dea9266bbc6cadf8c1b544ea34d3de02a1e062ca6d948c2d388269f4ee7f036",
+      "size_bytes": 9665
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/ordered_pools.parquet",
+      "sha256": "2bb79ffded2ffe370e20793d6279e5a7e4182523cd2ac0a6a6c2907f41e64d9c",
+      "size_bytes": 14286898
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/preflight_audit.json",
+      "sha256": "6afb570bfe0a86052c942d052dfc94b57ea36309cf8871dadcdac868c25d9856",
+      "size_bytes": 1217
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/preselection_freeze.json",
+      "sha256": "1d4cf6ed857c13dbc9e475983ca8cb71517a49a8760408f67958c0798c94774c",
+      "size_bytes": 5071
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/progress_duplicate_audit.json",
+      "sha256": "aca78932ead6462fc6eec0baca8aabac9b3f1965e3be8a7e04325e81fe60416a",
+      "size_bytes": 429
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/query_states.json",
+      "sha256": "264c49e99d498b554c1ba0ea41ca9005aa32fffedf2d04b1a0e7c1f7e6edf3f9",
+      "size_bytes": 38115
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/schema_interpretation.json",
+      "sha256": "62acd0445f33909e4deafdfc8c49862526a40679d00484bec23d4d3854d04956",
+      "size_bytes": 2159
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/selection_manifest.json",
+      "sha256": "0e39ad906c01e05b4a4b764b3270360e309c24d1ae67d7a2e3533b6dca8af06a",
+      "size_bytes": 147208
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/selector.py",
+      "sha256": "b7e9c9881fd56875da99d34682ba7a4504b5b1a166ad6b577b4f73515e95775a",
+      "size_bytes": 26023
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/source_schema.json",
+      "sha256": "d8525daf71bac7a1abf6a3e4704a08e5f0700993369589a0635d6cd3791556dd",
+      "size_bytes": 7811
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/static_site_facts.parquet",
+      "sha256": "b0d1899e7c56d8d74fa8b3244e692c222119af592268663cd196e40c7c4bc7f7",
+      "size_bytes": 2458918
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/terminal_exclusion_audit.json",
+      "sha256": "911d195e103d1a34561aa483e38d5a04cbee328ffeb17c828c18e29462374aff",
+      "size_bytes": 2230
+    }
+  ],
+  "source_verification": [
+    {
+      "path": "/workspace/shared/navigation_audit/drive_real_inputs/nodes.parquet",
+      "sha256": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+      "size_bytes": 104471506
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/drive_real_inputs/edges.parquet",
+      "sha256": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+      "size_bytes": 303022185
+    },
+    {
+      "path": "/workspace/scratch/c69664aea1c8/map_restore_verified_inputs/metadata.json",
+      "sha256": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd",
+      "size_bytes": 13978
+    },
+    {
+      "path": "/workspace/scratch/c69664aea1c8/map_restore_verified_inputs/od_remapping.parquet",
+      "sha256": "f38c0a81f42564e4f220d5c82de43d4454abfd8e962b09979d3dbdc8a447dcea",
+      "size_bytes": 448277
+    },
+    {
+      "path": "/workspace/scratch/c69664aea1c8/map_restore_verified_inputs/stop_sites.parquet",
+      "sha256": "e3e7d6d6667f7ab684ff83eb2646920516b01aef2e6ceb8170c689e71f6afd38",
+      "size_bytes": 4487653
+    },
+    {
+      "path": "/workspace/shared/navigation_audit/drive_real_inputs/od_features.parquet",
+      "sha256": "be02c3bc750feb64dd5fc1df5a22f3862aa2d01aa26b4e30d0a53372b4a7894e",
+      "size_bytes": 68808450
+    }
+  ],
+  "state_count": 32,
+  "unique_source_count": 105
+}

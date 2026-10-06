@@ -1,0 +1,85 @@
+{
+  "fixture_sha256": "c99602154efbde102374c50b507c1dec88e5383f39dc804e13fbaa38db6d3b9d",
+  "all_five_match": true,
+  "comparisons": [
+    {
+      "case_id": "coattached_distinct_C_then_S",
+      "matches": true,
+      "reference_result": {
+        "status": "attained_optimum",
+        "J": "14",
+        "Q_total": "1",
+        "H": 2,
+        "site_action_tuple": [
+          [
+            "A",
+            "C"
+          ],
+          [
+            "B",
+            "S"
+          ]
+        ]
+      },
+      "table_hash_matches": true
+    },
+    {
+      "case_id": "nonmetric_outgoing_bound_must_be_zero",
+      "matches": true,
+      "reference_result": {
+        "status": "attained_optimum",
+        "J": "6",
+        "Q_total": "1",
+        "H": 2,
+        "site_action_tuple": [
+          [
+            "A",
+            "C"
+          ],
+          [
+            "B",
+            "C"
+          ]
+        ]
+      },
+      "table_hash_matches": true
+    },
+    {
+      "case_id": "site_text_matches_destination_but_anchor_differs",
+      "matches": true,
+      "reference_result": {
+        "status": "attained_optimum",
+        "J": "4",
+        "Q_total": "1",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "road:z",
+            "C"
+          ]
+        ]
+      },
+      "table_hash_matches": true
+    },
+    {
+      "case_id": "destination_coattached_S_is_terminal",
+      "matches": true,
+      "reference_result": {
+        "status": "infeasible_within_H_ref"
+      },
+      "table_hash_matches": true
+    },
+    {
+      "case_id": "terminal_origin_identity",
+      "matches": true,
+      "reference_result": {
+        "status": "attained_optimum",
+        "J": "0",
+        "Q_total": "0",
+        "H": 0,
+        "site_action_tuple": []
+      },
+      "table_hash_matches": true
+    }
+  ]
+}

@@ -1,0 +1,290 @@
+{
+  "scope": "pre_export_combinatorial_upper_bound_only",
+  "selection_manifest_sha256": "0e39ad906c01e05b4a4b764b3270360e309c24d1ae67d7a2e3533b6dca8af06a",
+  "state_count": 32,
+  "pool_count": 16,
+  "regimes_upper_bound_all_states": 455507376,
+  "pools": [
+    {
+      "pool_id": "OD00_energy_only",
+      "C": 8,
+      "S": 0,
+      "CS": 0,
+      "H_ref": 4,
+      "segment_count": 3,
+      "regimes_by_depth": [
+        1,
+        72,
+        5184,
+        373248,
+        26873856
+      ],
+      "all_reachable_regime_upper_bound": 27252361,
+      "formula": "sum_h=0..H (C*m^2)^h"
+    },
+    {
+      "pool_id": "OD00_energy_and_scheduled",
+      "C": 2,
+      "S": 7,
+      "CS": 1,
+      "H_ref": 4,
+      "segment_count": 3,
+      "regimes_by_depth": [
+        0,
+        50,
+        1800,
+        48600,
+        1166400
+      ],
+      "all_reachable_regime_upper_bound": 1216850,
+      "formula": "sum_h=1..H h*(2*S+4*m^2*CS)*(C*m^2)^(h-1)"
+    },
+    {
+      "pool_id": "OD01_energy_only",
+      "C": 8,
+      "S": 0,
+      "CS": 0,
+      "H_ref": 4,
+      "segment_count": 3,
+      "regimes_by_depth": [
+        1,
+        72,
+        5184,
+        373248,
+        26873856
+      ],
+      "all_reachable_regime_upper_bound": 27252361,
+      "formula": "sum_h=0..H (C*m^2)^h"
+    },
+    {
+      "pool_id": "OD01_energy_and_scheduled",
+      "C": 2,
+      "S": 7,
+      "CS": 1,
+      "H_ref": 4,
+      "segment_count": 3,
+      "regimes_by_depth": [
+        0,
+        50,
+        1800,
+        48600,
+        1166400
+      ],
+      "all_reachable_regime_upper_bound": 1216850,
+      "formula": "sum_h=1..H h*(2*S+4*m^2*CS)*(C*m^2)^(h-1)"
+    },
+    {
+      "pool_id": "OD02_energy_only",
+      "C": 8,
+      "S": 0,
+      "CS": 0,
+      "H_ref": 4,
+      "segment_count": 3,
+      "regimes_by_depth": [
+        1,
+        72,
+        5184,
+        373248,
+        26873856
+      ],
+      "all_reachable_regime_upper_bound": 27252361,
+      "formula": "sum_h=0..H (C*m^2)^h"
+    },
+    {
+      "pool_id": "OD02_energy_and_scheduled",
+      "C": 2,
+      "S": 7,
+      "CS": 1,
+      "H_ref": 4,
+      "segment_count": 3,
+      "regimes_by_depth": [
+        0,
+        50,
+        1800,
+        48600,
+        1166400
+      ],
+      "all_reachable_regime_upper_bound": 1216850,
+      "formula": "sum_h=1..H h*(2*S+4*m^2*CS)*(C*m^2)^(h-1)"
+    },
+    {
+      "pool_id": "OD03_energy_only",
+      "C": 8,
+      "S": 0,
+      "CS": 0,
+      "H_ref": 4,
+      "segment_count": 3,
+      "regimes_by_depth": [
+        1,
+        72,
+        5184,
+        373248,
+        26873856
+      ],
+      "all_reachable_regime_upper_bound": 27252361,
+      "formula": "sum_h=0..H (C*m^2)^h"
+    },
+    {
+      "pool_id": "OD03_energy_and_scheduled",
+      "C": 2,
+      "S": 7,
+      "CS": 1,
+      "H_ref": 4,
+      "segment_count": 3,
+      "regimes_by_depth": [
+        0,
+        50,
+        1800,
+        48600,
+        1166400
+      ],
+      "all_reachable_regime_upper_bound": 1216850,
+      "formula": "sum_h=1..H h*(2*S+4*m^2*CS)*(C*m^2)^(h-1)"
+    },
+    {
+      "pool_id": "OD04_energy_only",
+      "C": 8,
+      "S": 0,
+      "CS": 0,
+      "H_ref": 4,
+      "segment_count": 3,
+      "regimes_by_depth": [
+        1,
+        72,
+        5184,
+        373248,
+        26873856
+      ],
+      "all_reachable_regime_upper_bound": 27252361,
+      "formula": "sum_h=0..H (C*m^2)^h"
+    },
+    {
+      "pool_id": "OD04_energy_and_scheduled",
+      "C": 2,
+      "S": 7,
+      "CS": 1,
+      "H_ref": 4,
+      "segment_count": 3,
+      "regimes_by_depth": [
+        0,
+        50,
+        1800,
+        48600,
+        1166400
+      ],
+      "all_reachable_regime_upper_bound": 1216850,
+      "formula": "sum_h=1..H h*(2*S+4*m^2*CS)*(C*m^2)^(h-1)"
+    },
+    {
+      "pool_id": "OD05_energy_only",
+      "C": 8,
+      "S": 0,
+      "CS": 0,
+      "H_ref": 4,
+      "segment_count": 3,
+      "regimes_by_depth": [
+        1,
+        72,
+        5184,
+        373248,
+        26873856
+      ],
+      "all_reachable_regime_upper_bound": 27252361,
+      "formula": "sum_h=0..H (C*m^2)^h"
+    },
+    {
+      "pool_id": "OD05_energy_and_scheduled",
+      "C": 2,
+      "S": 7,
+      "CS": 1,
+      "H_ref": 4,
+      "segment_count": 3,
+      "regimes_by_depth": [
+        0,
+        50,
+        1800,
+        48600,
+        1166400
+      ],
+      "all_reachable_regime_upper_bound": 1216850,
+      "formula": "sum_h=1..H h*(2*S+4*m^2*CS)*(C*m^2)^(h-1)"
+    },
+    {
+      "pool_id": "OD06_energy_only",
+      "C": 8,
+      "S": 0,
+      "CS": 0,
+      "H_ref": 4,
+      "segment_count": 3,
+      "regimes_by_depth": [
+        1,
+        72,
+        5184,
+        373248,
+        26873856
+      ],
+      "all_reachable_regime_upper_bound": 27252361,
+      "formula": "sum_h=0..H (C*m^2)^h"
+    },
+    {
+      "pool_id": "OD06_energy_and_scheduled",
+      "C": 2,
+      "S": 7,
+      "CS": 1,
+      "H_ref": 4,
+      "segment_count": 3,
+      "regimes_by_depth": [
+        0,
+        50,
+        1800,
+        48600,
+        1166400
+      ],
+      "all_reachable_regime_upper_bound": 1216850,
+      "formula": "sum_h=1..H h*(2*S+4*m^2*CS)*(C*m^2)^(h-1)"
+    },
+    {
+      "pool_id": "OD07_energy_only",
+      "C": 8,
+      "S": 0,
+      "CS": 0,
+      "H_ref": 4,
+      "segment_count": 3,
+      "regimes_by_depth": [
+        1,
+        72,
+        5184,
+        373248,
+        26873856
+      ],
+      "all_reachable_regime_upper_bound": 27252361,
+      "formula": "sum_h=0..H (C*m^2)^h"
+    },
+    {
+      "pool_id": "OD07_energy_and_scheduled",
+      "C": 2,
+      "S": 7,
+      "CS": 1,
+      "H_ref": 4,
+      "segment_count": 3,
+      "regimes_by_depth": [
+        0,
+        50,
+        1800,
+        48600,
+        1166400
+      ],
+      "all_reachable_regime_upper_bound": 1216850,
+      "formula": "sum_h=1..H h*(2*S+4*m^2*CS)*(C*m^2)^(h-1)"
+    }
+  ],
+  "no_real_graph_loaded": true,
+  "no_real_optimization_run": true,
+  "runtime_conclusion": "None. Reachability and exact physical energy exclusions await reviewed immutable pair exports.",
+  "post_export_exclusions": [
+    "road-unreachable immediate leg or destination",
+    "origin consumption > initial_energy - minimum_energy",
+    "inter-stop consumption > capacity - minimum_energy",
+    "terminal candidate consumption > capacity - reserve; this does not prune continuation subtree"
+  ]
+}

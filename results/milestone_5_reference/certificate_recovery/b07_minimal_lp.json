@@ -1,0 +1,55 @@
+{
+  "case_id": "B07_minimal_phase_I_recovery",
+  "source_case": "B07",
+  "source_rows": [
+    16,
+    18,
+    23
+  ],
+  "c": [
+    "0",
+    "0",
+    "1"
+  ],
+  "A": [
+    [
+      "60",
+      "0",
+      "-1"
+    ],
+    [
+      "-144",
+      "-120",
+      "-1"
+    ],
+    [
+      "1",
+      "1",
+      "-1"
+    ]
+  ],
+  "b": [
+    "13824/5",
+    "-34608/5",
+    "76/5"
+  ],
+  "rejected_primal": [
+    "141516/3035",
+    "4408/3035",
+    "32880329725/999998003"
+  ],
+  "valid_inequality_dual": [
+    "-2/607",
+    "-5/607",
+    "-600/607"
+  ],
+  "independent_expected": {
+    "x": [
+      "141516/3035",
+      "4408/3035",
+      "99792/3035"
+    ],
+    "objective": "99792/3035"
+  },
+  "analytic_certificate": "The three displayed active equalities uniquely determine q1,q2,s. Their nonpositive multipliers (-2,-5,-600)/607 certify stationarity for min s and exact objective99792/3035. The rejected slack undershoots this by1/3034993939105."
+}

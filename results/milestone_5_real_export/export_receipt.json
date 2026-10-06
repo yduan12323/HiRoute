@@ -1,0 +1,32 @@
+{
+  "compact_independent_audit_sha256": "a8585ca5647b0e6c69f9804ff0cdaeb5824af917598228983c251fe86eed06ff",
+  "export_manifest_sha256": "f846eb37219a34dea74aa9a79e7673b8cdae03ae281de189cb9b602a98ac380d",
+  "exporter_script_sha256": "e1d5aa21e3e241c6f27e1f05305b8bf3735846dcd122f76f4eca7e427e98b3b7",
+  "git_diff_check": "passed",
+  "new_repository_files": [
+    {
+      "path": "experiments/time_cut_v2/real_export/__init__.py",
+      "sha256": "d3784272d7a1eb964bc38831d2c367f3ea3a5668964f8bb1344350ff0b4f9799"
+    },
+    {
+      "path": "experiments/time_cut_v2/real_export/export.py",
+      "sha256": "e1d5aa21e3e241c6f27e1f05305b8bf3735846dcd122f76f4eca7e427e98b3b7"
+    },
+    {
+      "path": "experiments/time_cut_v2/real_export/verify_export.py",
+      "sha256": "afd9f64163b5502b43cba80ed5a4fed5f59fdd79a192bed4198dca1503082b1e"
+    },
+    {
+      "path": "experiments/time_cut_v2/real_export/README.md",
+      "sha256": "74ff9d9b47f0b3f4d1c9ea236bcef59b328400d009c8b4091224ccdb24af21f6"
+    },
+    {
+      "path": "tests/test_real_export_streaming.py",
+      "sha256": "1e9aef2e11b3485ee00b0ac6454d6133e1737da1680c08077424b45634851cfe"
+    }
+  ],
+  "no_optimization": true,
+  "py_compile": "passed",
+  "targeted_tests": "40 passed",
+  "test_results_sha256": "9d709d213998251ae3c7543dbca0ece88cdb14d4d83eaa382abc9be4ff736661"
+}

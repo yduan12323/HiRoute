@@ -1,0 +1,37 @@
+{
+  "scope": "two_mock_graphs_only_no_real_graph_load",
+  "direction": "forward_from_source",
+  "cutoff_hex": "0x1.fffffffffffffp+1023",
+  "cutoff_meaning": "largest finite binary64; no finite label excluded",
+  "compiler": "g++",
+  "compiler_flags": [
+    "-O3",
+    "-std=c++17"
+  ],
+  "router_py_sha256": "2d9b2f42affdb6011709239289cfe705768118dd636e93fd6c89a50947723380",
+  "results": [
+    {
+      "case": "equal_time_different_length",
+      "node_count": 5,
+      "pair_count": 25,
+      "pair_full_bitwise_equal": true,
+      "forward_reverse_differences": [],
+      "native_source_sha256": "2fc38a835cee766464714866edd07e117da430226bae1937108f6e26319d2788"
+    },
+    {
+      "case": "directional_binary64_accumulation",
+      "node_count": 4,
+      "pair_count": 16,
+      "pair_full_bitwise_equal": true,
+      "forward_reverse_differences": [
+        {
+          "source": 0,
+          "target": 3,
+          "forward_hex": "0x1.1c37937e08000p+53",
+          "reverse_hex": "0x1.1c37937e08001p+53"
+        }
+      ],
+      "native_source_sha256": "2fc38a835cee766464714866edd07e117da430226bae1937108f6e26319d2788"
+    }
+  ]
+}

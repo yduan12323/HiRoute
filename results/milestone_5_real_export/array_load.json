@@ -1,0 +1,16 @@
+{
+  "array_bytes": 369954144,
+  "edge_ids_contiguous": true,
+  "elapsed_seconds": 0.7530456620006589,
+  "endpoint_domain_checked": true,
+  "finite_nonnegative_weights_checked": true,
+  "memory": {
+    "available_bytes": 7527444480,
+    "cgroup_available_bytes": [],
+    "high_water_rss_bytes": 1095643136,
+    "host_available_bytes": 7527444480,
+    "rss_bytes": 1095643136
+  },
+  "node_ids_contiguous": true,
+  "original_order_preserved": true
+}

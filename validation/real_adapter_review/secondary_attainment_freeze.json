@@ -1,0 +1,8 @@
+{
+  "sha256": "1d20f03a38c18deeed9487c33f292808999f7c3f962039501aed43528e96461d",
+  "expected_before_run": {
+    "status": "secondary_unattained",
+    "J": "14",
+    "secondary_infimum": "0"
+  }
+}
