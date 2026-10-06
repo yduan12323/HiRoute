@@ -1,0 +1,17 @@
+{
+  "upstream": "cdf7fa7d41ad7c29e8d297c686dc1b20d2ac5c04",
+  "baseline": {
+    "passed": 191,
+    "failed": 29,
+    "skipped": 5,
+    "collection_errors": 1
+  },
+  "patched": {
+    "passed": 191,
+    "failed": 29,
+    "skipped": 5,
+    "collection_errors": 1
+  },
+  "changed_outcomes": {},
+  "scope": "Historical tests only; new timecut5/reference5 suites run separately"
+}

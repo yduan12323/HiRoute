@@ -1,0 +1,1398 @@
+{
+  "method": "independent analytic candidate arrangement; no production projection/reduction helpers",
+  "full_symbolic": {
+    "cases": 172,
+    "open_cells": 7991,
+    "singletons": 8163,
+    "witnesses": 46548
+  },
+  "point_fuzz_only": {
+    "cases": 180,
+    "energies": 1793,
+    "witnesses": 3761
+  },
+  "cases": [
+    {
+      "name": "historical_open_lower_endpoint",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 2,
+      "singletons": 3,
+      "witnesses": 12
+    },
+    {
+      "name": "negative_tau_minus_f",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 2,
+      "singletons": 3,
+      "witnesses": 14
+    },
+    {
+      "name": "zero_tau_minus_f",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 2,
+      "singletons": 3,
+      "witnesses": 16
+    },
+    {
+      "name": "positive_tau_minus_f",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 2,
+      "singletons": 3,
+      "witnesses": 16
+    },
+    {
+      "name": "open_input_zero_tau_minus_f",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 2,
+      "singletons": 3,
+      "witnesses": 12
+    },
+    {
+      "name": "right_excluded_optimizer",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 2,
+      "singletons": 3,
+      "witnesses": 12
+    },
+    {
+      "name": "singleton_positive_charge",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 2,
+      "singletons": 3,
+      "witnesses": 8
+    },
+    {
+      "name": "at_capacity_no_positive_charge",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "empty_input",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "charge_kinks",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 9,
+      "singletons": 10,
+      "witnesses": 70
+    },
+    {
+      "name": "attainment_tie_or",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 2,
+      "singletons": 3,
+      "witnesses": 16
+    },
+    {
+      "name": "same_value_open_then_closed",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 2,
+      "singletons": 3,
+      "witnesses": 16
+    },
+    {
+      "name": "deadline_equality_open",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "deadline_equality_closed",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 2,
+      "singletons": 3,
+      "witnesses": 16
+    },
+    {
+      "name": "plateau_open_input_boundary",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 3,
+      "singletons": 4,
+      "witnesses": 21
+    },
+    {
+      "name": "plateau_closed_endpoint",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 3,
+      "singletons": 4,
+      "witnesses": 24
+    },
+    {
+      "name": "deadline_crosses_energy_open",
+      "mode": "full_symbolic",
+      "production_pieces": 16,
+      "open_cells": 9,
+      "singletons": 10,
+      "witnesses": 54
+    },
+    {
+      "name": "deadline_crosses_energy_closed",
+      "mode": "full_symbolic",
+      "production_pieces": 16,
+      "open_cells": 9,
+      "singletons": 10,
+      "witnesses": 72
+    },
+    {
+      "name": "negative_time_slope_cs",
+      "mode": "full_symbolic",
+      "production_pieces": 18,
+      "open_cells": 15,
+      "singletons": 16,
+      "witnesses": 95
+    },
+    {
+      "name": "zero_service_duration_cs",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 4,
+      "singletons": 5,
+      "witnesses": 29
+    },
+    {
+      "name": "invalid_schedule",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "cs_arrival_and_departure_kinks",
+      "mode": "full_symbolic",
+      "production_pieces": 26,
+      "open_cells": 83,
+      "singletons": 84,
+      "witnesses": 664
+    },
+    {
+      "name": "random_0000",
+      "mode": "full_symbolic",
+      "production_pieces": 14,
+      "open_cells": 17,
+      "singletons": 18,
+      "witnesses": 78
+    },
+    {
+      "name": "random_0001",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "random_0002",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 3,
+      "singletons": 4,
+      "witnesses": 12
+    },
+    {
+      "name": "random_0003",
+      "mode": "full_symbolic",
+      "production_pieces": 10,
+      "open_cells": 19,
+      "singletons": 20,
+      "witnesses": 88
+    },
+    {
+      "name": "random_0004",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 3,
+      "singletons": 4,
+      "witnesses": 14
+    },
+    {
+      "name": "random_0005",
+      "mode": "full_symbolic",
+      "production_pieces": 48,
+      "open_cells": 206,
+      "singletons": 207,
+      "witnesses": 1116
+    },
+    {
+      "name": "random_0006",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 4,
+      "singletons": 5,
+      "witnesses": 12
+    },
+    {
+      "name": "random_0007",
+      "mode": "full_symbolic",
+      "production_pieces": 18,
+      "open_cells": 13,
+      "singletons": 14,
+      "witnesses": 90
+    },
+    {
+      "name": "random_0008",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 6,
+      "singletons": 7,
+      "witnesses": 28
+    },
+    {
+      "name": "random_0009",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 119,
+      "singletons": 120,
+      "witnesses": 636
+    },
+    {
+      "name": "random_0010",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 3,
+      "singletons": 4,
+      "witnesses": 12
+    },
+    {
+      "name": "random_0011",
+      "mode": "full_symbolic",
+      "production_pieces": 12,
+      "open_cells": 23,
+      "singletons": 24,
+      "witnesses": 120
+    },
+    {
+      "name": "random_0012",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 4,
+      "singletons": 5,
+      "witnesses": 18
+    },
+    {
+      "name": "random_0013",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "random_0014",
+      "mode": "full_symbolic",
+      "production_pieces": 10,
+      "open_cells": 16,
+      "singletons": 17,
+      "witnesses": 66
+    },
+    {
+      "name": "random_0015",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 116,
+      "singletons": 117,
+      "witnesses": 784
+    },
+    {
+      "name": "random_0016",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 23,
+      "singletons": 24,
+      "witnesses": 156
+    },
+    {
+      "name": "random_0017",
+      "mode": "full_symbolic",
+      "production_pieces": 32,
+      "open_cells": 38,
+      "singletons": 39,
+      "witnesses": 228
+    },
+    {
+      "name": "random_0018",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 5,
+      "singletons": 6,
+      "witnesses": 28
+    },
+    {
+      "name": "random_0019",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 11,
+      "singletons": 12,
+      "witnesses": 54
+    },
+    {
+      "name": "random_0020",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 8,
+      "singletons": 9,
+      "witnesses": 30
+    },
+    {
+      "name": "random_0021",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 9,
+      "singletons": 10,
+      "witnesses": 48
+    },
+    {
+      "name": "random_0022",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 10,
+      "singletons": 11,
+      "witnesses": 30
+    },
+    {
+      "name": "random_0023",
+      "mode": "full_symbolic",
+      "production_pieces": 16,
+      "open_cells": 136,
+      "singletons": 137,
+      "witnesses": 818
+    },
+    {
+      "name": "random_0024",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 5,
+      "singletons": 6,
+      "witnesses": 8
+    },
+    {
+      "name": "random_0025",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 34,
+      "singletons": 35,
+      "witnesses": 180
+    },
+    {
+      "name": "random_0026",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 6,
+      "singletons": 7,
+      "witnesses": 36
+    },
+    {
+      "name": "random_0027",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "random_0028",
+      "mode": "full_symbolic",
+      "production_pieces": 10,
+      "open_cells": 66,
+      "singletons": 67,
+      "witnesses": 360
+    },
+    {
+      "name": "random_0029",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 16,
+      "singletons": 17,
+      "witnesses": 24
+    },
+    {
+      "name": "random_0030",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 24,
+      "singletons": 25,
+      "witnesses": 120
+    },
+    {
+      "name": "random_0031",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 10,
+      "singletons": 11,
+      "witnesses": 54
+    },
+    {
+      "name": "random_0032",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 3,
+      "singletons": 4,
+      "witnesses": 12
+    },
+    {
+      "name": "random_0033",
+      "mode": "full_symbolic",
+      "production_pieces": 16,
+      "open_cells": 26,
+      "singletons": 27,
+      "witnesses": 168
+    },
+    {
+      "name": "random_0034",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 31,
+      "singletons": 32,
+      "witnesses": 126
+    },
+    {
+      "name": "random_0035",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "random_0036",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 9,
+      "singletons": 10,
+      "witnesses": 8
+    },
+    {
+      "name": "random_0037",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "random_0038",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 7,
+      "singletons": 8,
+      "witnesses": 22
+    },
+    {
+      "name": "random_0039",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 24,
+      "singletons": 25,
+      "witnesses": 136
+    },
+    {
+      "name": "random_0040",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 12,
+      "singletons": 13,
+      "witnesses": 72
+    },
+    {
+      "name": "random_0041",
+      "mode": "full_symbolic",
+      "production_pieces": 20,
+      "open_cells": 60,
+      "singletons": 61,
+      "witnesses": 342
+    },
+    {
+      "name": "random_0042",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 7,
+      "singletons": 8,
+      "witnesses": 50
+    },
+    {
+      "name": "random_0043",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 12,
+      "singletons": 13,
+      "witnesses": 56
+    },
+    {
+      "name": "random_0044",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 7,
+      "singletons": 8,
+      "witnesses": 6
+    },
+    {
+      "name": "random_0045",
+      "mode": "full_symbolic",
+      "production_pieces": 12,
+      "open_cells": 26,
+      "singletons": 27,
+      "witnesses": 156
+    },
+    {
+      "name": "random_0046",
+      "mode": "full_symbolic",
+      "production_pieces": 10,
+      "open_cells": 26,
+      "singletons": 27,
+      "witnesses": 164
+    },
+    {
+      "name": "random_0047",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "random_0048",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 2,
+      "singletons": 3,
+      "witnesses": 6
+    },
+    {
+      "name": "random_0049",
+      "mode": "full_symbolic",
+      "production_pieces": 28,
+      "open_cells": 64,
+      "singletons": 65,
+      "witnesses": 336
+    },
+    {
+      "name": "random_0050",
+      "mode": "full_symbolic",
+      "production_pieces": 10,
+      "open_cells": 62,
+      "singletons": 63,
+      "witnesses": 394
+    },
+    {
+      "name": "random_0051",
+      "mode": "full_symbolic",
+      "production_pieces": 24,
+      "open_cells": 132,
+      "singletons": 133,
+      "witnesses": 1046
+    },
+    {
+      "name": "random_0052",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 10,
+      "singletons": 11,
+      "witnesses": 60
+    },
+    {
+      "name": "random_0053",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 37,
+      "singletons": 38,
+      "witnesses": 222
+    },
+    {
+      "name": "random_0054",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 26,
+      "singletons": 27,
+      "witnesses": 120
+    },
+    {
+      "name": "random_0055",
+      "mode": "full_symbolic",
+      "production_pieces": 10,
+      "open_cells": 13,
+      "singletons": 14,
+      "witnesses": 96
+    },
+    {
+      "name": "random_0056",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 8,
+      "singletons": 9,
+      "witnesses": 48
+    },
+    {
+      "name": "random_0057",
+      "mode": "full_symbolic",
+      "production_pieces": 10,
+      "open_cells": 42,
+      "singletons": 43,
+      "witnesses": 96
+    },
+    {
+      "name": "random_0058",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 18,
+      "singletons": 19,
+      "witnesses": 108
+    },
+    {
+      "name": "random_0059",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 13,
+      "singletons": 14,
+      "witnesses": 48
+    },
+    {
+      "name": "random_0060",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 12,
+      "singletons": 13,
+      "witnesses": 72
+    },
+    {
+      "name": "random_0061",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "random_0062",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 5,
+      "singletons": 6,
+      "witnesses": 12
+    },
+    {
+      "name": "random_0063",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 29,
+      "singletons": 30,
+      "witnesses": 102
+    },
+    {
+      "name": "random_0064",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 11,
+      "singletons": 12,
+      "witnesses": 54
+    },
+    {
+      "name": "random_0065",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "random_0066",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 5,
+      "singletons": 6,
+      "witnesses": 30
+    },
+    {
+      "name": "random_0067",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 8,
+      "singletons": 9,
+      "witnesses": 42
+    },
+    {
+      "name": "random_0068",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 9,
+      "singletons": 10,
+      "witnesses": 42
+    },
+    {
+      "name": "random_0069",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 7,
+      "singletons": 8,
+      "witnesses": 40
+    },
+    {
+      "name": "random_0070",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 3,
+      "singletons": 4,
+      "witnesses": 12
+    },
+    {
+      "name": "random_0071",
+      "mode": "full_symbolic",
+      "production_pieces": 20,
+      "open_cells": 21,
+      "singletons": 22,
+      "witnesses": 83
+    },
+    {
+      "name": "random_0072",
+      "mode": "full_symbolic",
+      "production_pieces": 10,
+      "open_cells": 85,
+      "singletons": 86,
+      "witnesses": 504
+    },
+    {
+      "name": "random_0073",
+      "mode": "full_symbolic",
+      "production_pieces": 12,
+      "open_cells": 172,
+      "singletons": 173,
+      "witnesses": 1084
+    },
+    {
+      "name": "random_0074",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 6,
+      "singletons": 7,
+      "witnesses": 36
+    },
+    {
+      "name": "random_0075",
+      "mode": "full_symbolic",
+      "production_pieces": 24,
+      "open_cells": 76,
+      "singletons": 77,
+      "witnesses": 456
+    },
+    {
+      "name": "random_0076",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 126,
+      "singletons": 127,
+      "witnesses": 372
+    },
+    {
+      "name": "random_0077",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 8
+    },
+    {
+      "name": "random_0078",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 6,
+      "singletons": 7,
+      "witnesses": 36
+    },
+    {
+      "name": "random_0079",
+      "mode": "full_symbolic",
+      "production_pieces": 32,
+      "open_cells": 66,
+      "singletons": 67,
+      "witnesses": 396
+    },
+    {
+      "name": "random_0080",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 4,
+      "singletons": 5,
+      "witnesses": 18
+    },
+    {
+      "name": "random_0081",
+      "mode": "full_symbolic",
+      "production_pieces": 42,
+      "open_cells": 691,
+      "singletons": 692,
+      "witnesses": 2800
+    },
+    {
+      "name": "random_0082",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 11,
+      "singletons": 12,
+      "witnesses": 32
+    },
+    {
+      "name": "random_0083",
+      "mode": "full_symbolic",
+      "production_pieces": 12,
+      "open_cells": 121,
+      "singletons": 122,
+      "witnesses": 540
+    },
+    {
+      "name": "random_0084",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 3,
+      "singletons": 4,
+      "witnesses": 12
+    },
+    {
+      "name": "random_0085",
+      "mode": "full_symbolic",
+      "production_pieces": 32,
+      "open_cells": 31,
+      "singletons": 32,
+      "witnesses": 144
+    },
+    {
+      "name": "random_0086",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 4,
+      "singletons": 5,
+      "witnesses": 18
+    },
+    {
+      "name": "random_0087",
+      "mode": "full_symbolic",
+      "production_pieces": 18,
+      "open_cells": 38,
+      "singletons": 39,
+      "witnesses": 168
+    },
+    {
+      "name": "random_0088",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 9,
+      "singletons": 10,
+      "witnesses": 46
+    },
+    {
+      "name": "random_0089",
+      "mode": "full_symbolic",
+      "production_pieces": 34,
+      "open_cells": 200,
+      "singletons": 201,
+      "witnesses": 1200
+    },
+    {
+      "name": "random_0090",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 32,
+      "singletons": 33,
+      "witnesses": 180
+    },
+    {
+      "name": "random_0091",
+      "mode": "full_symbolic",
+      "production_pieces": 14,
+      "open_cells": 26,
+      "singletons": 27,
+      "witnesses": 156
+    },
+    {
+      "name": "random_0092",
+      "mode": "full_symbolic",
+      "production_pieces": 12,
+      "open_cells": 63,
+      "singletons": 64,
+      "witnesses": 378
+    },
+    {
+      "name": "random_0093",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "random_0094",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 18,
+      "singletons": 19,
+      "witnesses": 96
+    },
+    {
+      "name": "random_0095",
+      "mode": "full_symbolic",
+      "production_pieces": 10,
+      "open_cells": 10,
+      "singletons": 11,
+      "witnesses": 52
+    },
+    {
+      "name": "random_0096",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 23,
+      "singletons": 24,
+      "witnesses": 108
+    },
+    {
+      "name": "random_0097",
+      "mode": "full_symbolic",
+      "production_pieces": 22,
+      "open_cells": 45,
+      "singletons": 46,
+      "witnesses": 324
+    },
+    {
+      "name": "random_0098",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 29,
+      "singletons": 30,
+      "witnesses": 148
+    },
+    {
+      "name": "random_0099",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 66,
+      "singletons": 67,
+      "witnesses": 240
+    },
+    {
+      "name": "random_0100",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 32,
+      "singletons": 33,
+      "witnesses": 192
+    },
+    {
+      "name": "random_0101",
+      "mode": "full_symbolic",
+      "production_pieces": 36,
+      "open_cells": 518,
+      "singletons": 519,
+      "witnesses": 3928
+    },
+    {
+      "name": "random_0102",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 6,
+      "singletons": 7,
+      "witnesses": 22
+    },
+    {
+      "name": "random_0103",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "random_0104",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 11,
+      "singletons": 12,
+      "witnesses": 18
+    },
+    {
+      "name": "random_0105",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 33,
+      "singletons": 34,
+      "witnesses": 264
+    },
+    {
+      "name": "random_0106",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 13,
+      "singletons": 14,
+      "witnesses": 60
+    },
+    {
+      "name": "random_0107",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 40,
+      "singletons": 41,
+      "witnesses": 210
+    },
+    {
+      "name": "random_0108",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 8,
+      "singletons": 9,
+      "witnesses": 36
+    },
+    {
+      "name": "random_0109",
+      "mode": "full_symbolic",
+      "production_pieces": 12,
+      "open_cells": 149,
+      "singletons": 150,
+      "witnesses": 720
+    },
+    {
+      "name": "random_0110",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 3,
+      "singletons": 4,
+      "witnesses": 12
+    },
+    {
+      "name": "random_0111",
+      "mode": "full_symbolic",
+      "production_pieces": 14,
+      "open_cells": 104,
+      "singletons": 105,
+      "witnesses": 702
+    },
+    {
+      "name": "random_0112",
+      "mode": "full_symbolic",
+      "production_pieces": 10,
+      "open_cells": 27,
+      "singletons": 28,
+      "witnesses": 138
+    },
+    {
+      "name": "random_0113",
+      "mode": "full_symbolic",
+      "production_pieces": 22,
+      "open_cells": 236,
+      "singletons": 237,
+      "witnesses": 1416
+    },
+    {
+      "name": "random_0114",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 3,
+      "singletons": 4,
+      "witnesses": 12
+    },
+    {
+      "name": "random_0115",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "random_0116",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 30,
+      "singletons": 31,
+      "witnesses": 88
+    },
+    {
+      "name": "random_0117",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 15,
+      "singletons": 16,
+      "witnesses": 18
+    },
+    {
+      "name": "random_0118",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 6,
+      "singletons": 7,
+      "witnesses": 18
+    },
+    {
+      "name": "random_0119",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "random_0120",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 7,
+      "singletons": 8,
+      "witnesses": 26
+    },
+    {
+      "name": "random_0121",
+      "mode": "full_symbolic",
+      "production_pieces": 18,
+      "open_cells": 395,
+      "singletons": 396,
+      "witnesses": 2536
+    },
+    {
+      "name": "random_0122",
+      "mode": "full_symbolic",
+      "production_pieces": 10,
+      "open_cells": 9,
+      "singletons": 10,
+      "witnesses": 46
+    },
+    {
+      "name": "random_0123",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    },
+    {
+      "name": "random_0124",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 4,
+      "singletons": 5,
+      "witnesses": 12
+    },
+    {
+      "name": "random_0125",
+      "mode": "full_symbolic",
+      "production_pieces": 14,
+      "open_cells": 12,
+      "singletons": 13,
+      "witnesses": 66
+    },
+    {
+      "name": "random_0126",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 107,
+      "singletons": 108,
+      "witnesses": 276
+    },
+    {
+      "name": "random_0127",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 144,
+      "singletons": 145,
+      "witnesses": 764
+    },
+    {
+      "name": "random_0128",
+      "mode": "full_symbolic",
+      "production_pieces": 10,
+      "open_cells": 25,
+      "singletons": 26,
+      "witnesses": 176
+    },
+    {
+      "name": "random_0129",
+      "mode": "full_symbolic",
+      "production_pieces": 16,
+      "open_cells": 102,
+      "singletons": 103,
+      "witnesses": 504
+    },
+    {
+      "name": "random_0130",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 9,
+      "singletons": 10,
+      "witnesses": 36
+    },
+    {
+      "name": "random_0131",
+      "mode": "full_symbolic",
+      "production_pieces": 42,
+      "open_cells": 1030,
+      "singletons": 1031,
+      "witnesses": 6970
+    },
+    {
+      "name": "random_0132",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 70,
+      "singletons": 71,
+      "witnesses": 420
+    },
+    {
+      "name": "random_0133",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 7,
+      "singletons": 8,
+      "witnesses": 0
+    },
+    {
+      "name": "random_0134",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 10,
+      "singletons": 11,
+      "witnesses": 12
+    },
+    {
+      "name": "random_0135",
+      "mode": "full_symbolic",
+      "production_pieces": 54,
+      "open_cells": 106,
+      "singletons": 107,
+      "witnesses": 760
+    },
+    {
+      "name": "random_0136",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 34,
+      "singletons": 35,
+      "witnesses": 168
+    },
+    {
+      "name": "random_0137",
+      "mode": "full_symbolic",
+      "production_pieces": 14,
+      "open_cells": 36,
+      "singletons": 37,
+      "witnesses": 275
+    },
+    {
+      "name": "random_0138",
+      "mode": "full_symbolic",
+      "production_pieces": 2,
+      "open_cells": 3,
+      "singletons": 4,
+      "witnesses": 8
+    },
+    {
+      "name": "random_0139",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 6,
+      "singletons": 7,
+      "witnesses": 18
+    },
+    {
+      "name": "random_0140",
+      "mode": "full_symbolic",
+      "production_pieces": 10,
+      "open_cells": 27,
+      "singletons": 28,
+      "witnesses": 162
+    },
+    {
+      "name": "random_0141",
+      "mode": "full_symbolic",
+      "production_pieces": 16,
+      "open_cells": 529,
+      "singletons": 530,
+      "witnesses": 3947
+    },
+    {
+      "name": "random_0142",
+      "mode": "full_symbolic",
+      "production_pieces": 6,
+      "open_cells": 13,
+      "singletons": 14,
+      "witnesses": 54
+    },
+    {
+      "name": "random_0143",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 26,
+      "singletons": 27,
+      "witnesses": 104
+    },
+    {
+      "name": "random_0144",
+      "mode": "full_symbolic",
+      "production_pieces": 8,
+      "open_cells": 7,
+      "singletons": 8,
+      "witnesses": 36
+    },
+    {
+      "name": "random_0145",
+      "mode": "full_symbolic",
+      "production_pieces": 38,
+      "open_cells": 101,
+      "singletons": 102,
+      "witnesses": 620
+    },
+    {
+      "name": "random_0146",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 2,
+      "singletons": 3,
+      "witnesses": 12
+    },
+    {
+      "name": "random_0147",
+      "mode": "full_symbolic",
+      "production_pieces": 4,
+      "open_cells": 19,
+      "singletons": 20,
+      "witnesses": 80
+    },
+    {
+      "name": "random_0148",
+      "mode": "full_symbolic",
+      "production_pieces": 10,
+      "open_cells": 42,
+      "singletons": 43,
+      "witnesses": 252
+    },
+    {
+      "name": "random_0149",
+      "mode": "full_symbolic",
+      "production_pieces": 0,
+      "open_cells": 1,
+      "singletons": 2,
+      "witnesses": 0
+    }
+  ],
+  "mutation_sentinels": [
+    "value",
+    "attainment",
+    "missing_support"
+  ],
+  "seconds": 22.539
+}

@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "scope": "additional_bounded_reference_validation_only",
+  "historical_stage_a20_b64_c32_completed": false,
+  "tests": 87,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "original_expected_key": [
+    "44950",
+    "76",
+    3,
+    [
+      [
+        "4r:node/2",
+        "C"
+      ],
+      [
+        "4r:node/3",
+        "C"
+      ],
+      [
+        "4r:node/4",
+        "S"
+      ]
+    ]
+  ],
+  "original_new_enumeration": {
+    "reachable_prefixes": 41,
+    "terminal_sequences": 16,
+    "certified_regimes": 11072
+  },
+  "archived_enumeration": {
+    "static_sequences": 263,
+    "regimes": 11070,
+    "preserved": true
+  },
+  "count_difference": "Generic REF certifies the two schedule branches of the zero-charge-variable S-only sequence; archived probe pre-rejected it.",
+  "v1": "Preserved exploratory nonnegative-domain fixture and observed results; not production acceptance.",
+  "v2_fixture_sha256": "436a6e04023bfad632147fb2d3411a3c71d566ae8bb0c2def59116bf17a01293",
+  "v2_analytic_cases": 18,
+  "v2_status_counts": {
+    "attained_optimum": 12,
+    "infeasible_within_H_ref": 2,
+    "primary_unattained": 2,
+    "secondary_unattained": 2
+  },
+  "independence": "Reference imports no timecut5/stopplan4r code, and implements separate directed-leg semantics, regime constraints, original-semantics witness replay and LP certificates.",
+  "commands": [
+    "/workspace/shared/navigation_audit/venv-python311/bin/python -m pytest -q tests/test_reference5.py --junitxml=/tmp/reference5-final-tests.xml",
+    "/workspace/shared/navigation_audit/venv-python311/bin/python -m validation.reference5 results/milestone_5_reference/frozen_cases_v2.json --certificates --output /tmp/ref5-analytic-fresh.json",
+    "/workspace/shared/navigation_audit/venv-python311/bin/python -m validation.reference5 results/milestone_5_reference/audit_regression_cases.json --certificates --output /tmp/ref5-destination-fresh.json",
+    "/workspace/shared/navigation_audit/venv-python311/bin/python -m validation.reference5 results/milestone_5_reference/audit_route_grammar_cases.json --certificates --output /tmp/ref5-route-grammar-fresh.json"
+  ],
+  "limitations": [
+    "Bounded diagnostic H_ref, not unrestricted infeasibility or production completeness.",
+    "Finite small-graph reference, one shared continuous piecewise-linear charging primitive and one schedule.",
+    "Floating candidate failure or failed exact certificate returns unresolved globally.",
+    "No historical Stage A20/B64/C32, OSM, hierarchy pruning or performance acceptance claim."
+  ],
+  "audit_regression_cases": 4,
+  "audit_regression_status": "Post-discovery regressions, not holdout; destination stop prohibition and drive-waypoint grammar.",
+  "full_test_report": "reference5_tests_complete.xml",
+  "full_certificates": "original_case_certificates_final.json.gz",
+  "full_certificates_sha256": "d426362a9ad5b6eee15ffb18fb045dac959f7706554d85f6b154281fcd1de56f",
+  "source_hashes_verified": true,
+  "replay_hardening": "Externally supplied leg map must equal independently recomputed selected fastest routes; D not a semantic stop; H_ref and destination-stop prohibition enforced."
+}

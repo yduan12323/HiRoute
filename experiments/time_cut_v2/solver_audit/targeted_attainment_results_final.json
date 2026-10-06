@@ -1,0 +1,1324 @@
+[
+  {
+    "case_id": "open_primary_below_attained",
+    "reference": {
+      "status": "primary_unattained",
+      "primary_infimum": "3",
+      "unattained_component": "J"
+    },
+    "comparisons": [
+      {
+        "solver": "FLAT",
+        "dominance": false,
+        "result": {
+          "status": "primary_unattained",
+          "primary_infimum": "3"
+        }
+      },
+      {
+        "solver": "HIER",
+        "dominance": false,
+        "external_incumbent": false,
+        "result": {
+          "status": "primary_unattained",
+          "primary_infimum": "3"
+        },
+        "equality_nodes_retained": 0,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "HIER",
+        "dominance": false,
+        "external_incumbent": true,
+        "result": {
+          "status": "primary_unattained",
+          "primary_infimum": "3"
+        },
+        "equality_nodes_retained": 0,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "FLAT",
+        "dominance": true,
+        "result": {
+          "status": "primary_unattained",
+          "primary_infimum": "3"
+        }
+      },
+      {
+        "solver": "HIER",
+        "dominance": true,
+        "external_incumbent": false,
+        "result": {
+          "status": "primary_unattained",
+          "primary_infimum": "3"
+        },
+        "equality_nodes_retained": 0,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "HIER",
+        "dominance": true,
+        "external_incumbent": true,
+        "result": {
+          "status": "primary_unattained",
+          "primary_infimum": "3"
+        },
+        "equality_nodes_retained": 0,
+        "pruned_regions": 0
+      }
+    ],
+    "external_incumbent_key": [
+      "5",
+      "2",
+      1,
+      [
+        [
+          "b",
+          "C"
+        ]
+      ]
+    ]
+  },
+  {
+    "case_id": "open_secondary_equal_primary",
+    "reference": {
+      "status": "secondary_unattained",
+      "J": "13",
+      "primary_infimum": "13",
+      "secondary_infimum": "0",
+      "unattained_component": "Q"
+    },
+    "comparisons": [
+      {
+        "solver": "FLAT",
+        "dominance": false,
+        "result": {
+          "status": "secondary_unattained",
+          "J": "13",
+          "secondary_infimum": "0"
+        }
+      },
+      {
+        "solver": "HIER",
+        "dominance": false,
+        "external_incumbent": false,
+        "result": {
+          "status": "secondary_unattained",
+          "J": "13",
+          "secondary_infimum": "0"
+        },
+        "equality_nodes_retained": 1,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "HIER",
+        "dominance": false,
+        "external_incumbent": true,
+        "result": {
+          "status": "secondary_unattained",
+          "J": "13",
+          "secondary_infimum": "0"
+        },
+        "equality_nodes_retained": 3,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "FLAT",
+        "dominance": true,
+        "result": {
+          "status": "secondary_unattained",
+          "J": "13",
+          "secondary_infimum": "0"
+        }
+      },
+      {
+        "solver": "HIER",
+        "dominance": true,
+        "external_incumbent": false,
+        "result": {
+          "status": "secondary_unattained",
+          "J": "13",
+          "secondary_infimum": "0"
+        },
+        "equality_nodes_retained": 1,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "HIER",
+        "dominance": true,
+        "external_incumbent": true,
+        "result": {
+          "status": "secondary_unattained",
+          "J": "13",
+          "secondary_infimum": "0"
+        },
+        "equality_nodes_retained": 3,
+        "pruned_regions": 0
+      }
+    ],
+    "external_incumbent_key": [
+      "13",
+      "2",
+      1,
+      [
+        [
+          "a",
+          "CS"
+        ]
+      ]
+    ]
+  },
+  {
+    "case_id": "equal_primary_better_Q",
+    "reference": {
+      "status": "attained_optimum",
+      "primary_infimum": "13",
+      "secondary_infimum": "1",
+      "J": "13",
+      "Q_total": "1",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "b",
+          "CS"
+        ]
+      ],
+      "charges": [
+        "1"
+      ],
+      "events": [
+        {
+          "site": "b",
+          "effect": "CS",
+          "charge_kwh": "1",
+          "arrival_time_s": "1",
+          "arrival_kwh": "2",
+          "departure_kwh": "3",
+          "completion_s": "12",
+          "charge_completion_s": "3",
+          "schedule_start_s": "2",
+          "schedule_completion_s": "12",
+          "remaining_schedule": 0
+        }
+      ],
+      "terminal_energy_kwh": "0",
+      "terminal_time_s": "13",
+      "remaining_schedule": 0,
+      "route_legs": [
+        {
+          "time": "1",
+          "length": "1",
+          "energy": "1",
+          "nodes": [
+            "o",
+            "b"
+          ],
+          "edges": [
+            "input:00000003"
+          ]
+        },
+        {
+          "time": "1",
+          "length": "3",
+          "energy": "3",
+          "nodes": [
+            "b",
+            "z"
+          ],
+          "edges": [
+            "input:00000004"
+          ]
+        }
+      ],
+      "lex_key": [
+        "13",
+        "1",
+        1,
+        [
+          [
+            "b",
+            "CS"
+          ]
+        ]
+      ],
+      "witness_replayed": true
+    },
+    "comparisons": [
+      {
+        "solver": "FLAT",
+        "dominance": false,
+        "result": {
+          "status": "attained_optimum",
+          "J": "13",
+          "Q_total": "1",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "b",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "13",
+            "1",
+            1,
+            [
+              [
+                "b",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "1"
+          ],
+          "witness_replayed": true
+        }
+      },
+      {
+        "solver": "HIER",
+        "dominance": false,
+        "external_incumbent": false,
+        "result": {
+          "status": "attained_optimum",
+          "J": "13",
+          "Q_total": "1",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "b",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "13",
+            "1",
+            1,
+            [
+              [
+                "b",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "1"
+          ],
+          "witness_replayed": true
+        },
+        "equality_nodes_retained": 1,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "HIER",
+        "dominance": false,
+        "external_incumbent": true,
+        "result": {
+          "status": "attained_optimum",
+          "J": "13",
+          "Q_total": "1",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "b",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "13",
+            "1",
+            1,
+            [
+              [
+                "b",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "1"
+          ],
+          "witness_replayed": true
+        },
+        "equality_nodes_retained": 3,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "FLAT",
+        "dominance": true,
+        "result": {
+          "status": "attained_optimum",
+          "J": "13",
+          "Q_total": "1",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "b",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "13",
+            "1",
+            1,
+            [
+              [
+                "b",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "1"
+          ],
+          "witness_replayed": true
+        }
+      },
+      {
+        "solver": "HIER",
+        "dominance": true,
+        "external_incumbent": false,
+        "result": {
+          "status": "attained_optimum",
+          "J": "13",
+          "Q_total": "1",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "b",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "13",
+            "1",
+            1,
+            [
+              [
+                "b",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "1"
+          ],
+          "witness_replayed": true
+        },
+        "equality_nodes_retained": 1,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "HIER",
+        "dominance": true,
+        "external_incumbent": true,
+        "result": {
+          "status": "attained_optimum",
+          "J": "13",
+          "Q_total": "1",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "b",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "13",
+            "1",
+            1,
+            [
+              [
+                "b",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "1"
+          ],
+          "witness_replayed": true
+        },
+        "equality_nodes_retained": 3,
+        "pruned_regions": 0
+      }
+    ],
+    "external_incumbent_key": [
+      "13",
+      "2",
+      1,
+      [
+        [
+          "a",
+          "CS"
+        ]
+      ]
+    ]
+  },
+  {
+    "case_id": "equal_primary_equal_Q_better_pi",
+    "reference": {
+      "status": "attained_optimum",
+      "primary_infimum": "13",
+      "secondary_infimum": "2",
+      "J": "13",
+      "Q_total": "2",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "a",
+          "CS"
+        ]
+      ],
+      "charges": [
+        "2"
+      ],
+      "events": [
+        {
+          "site": "a",
+          "effect": "CS",
+          "charge_kwh": "2",
+          "arrival_time_s": "1",
+          "arrival_kwh": "2",
+          "departure_kwh": "4",
+          "completion_s": "12",
+          "charge_completion_s": "4",
+          "schedule_start_s": "2",
+          "schedule_completion_s": "12",
+          "remaining_schedule": 0
+        }
+      ],
+      "terminal_energy_kwh": "0",
+      "terminal_time_s": "13",
+      "remaining_schedule": 0,
+      "route_legs": [
+        {
+          "time": "1",
+          "length": "1",
+          "energy": "1",
+          "nodes": [
+            "o",
+            "a"
+          ],
+          "edges": [
+            "input:00000001"
+          ]
+        },
+        {
+          "time": "1",
+          "length": "4",
+          "energy": "4",
+          "nodes": [
+            "a",
+            "z"
+          ],
+          "edges": [
+            "input:00000002"
+          ]
+        }
+      ],
+      "lex_key": [
+        "13",
+        "2",
+        1,
+        [
+          [
+            "a",
+            "CS"
+          ]
+        ]
+      ],
+      "witness_replayed": true
+    },
+    "comparisons": [
+      {
+        "solver": "FLAT",
+        "dominance": false,
+        "result": {
+          "status": "attained_optimum",
+          "J": "13",
+          "Q_total": "2",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "a",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "13",
+            "2",
+            1,
+            [
+              [
+                "a",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "2"
+          ],
+          "witness_replayed": true
+        }
+      },
+      {
+        "solver": "HIER",
+        "dominance": false,
+        "external_incumbent": false,
+        "result": {
+          "status": "attained_optimum",
+          "J": "13",
+          "Q_total": "2",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "a",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "13",
+            "2",
+            1,
+            [
+              [
+                "a",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "2"
+          ],
+          "witness_replayed": true
+        },
+        "equality_nodes_retained": 1,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "HIER",
+        "dominance": false,
+        "external_incumbent": true,
+        "result": {
+          "status": "attained_optimum",
+          "J": "13",
+          "Q_total": "2",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "a",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "13",
+            "2",
+            1,
+            [
+              [
+                "a",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "2"
+          ],
+          "witness_replayed": true
+        },
+        "equality_nodes_retained": 3,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "FLAT",
+        "dominance": true,
+        "result": {
+          "status": "attained_optimum",
+          "J": "13",
+          "Q_total": "2",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "a",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "13",
+            "2",
+            1,
+            [
+              [
+                "a",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "2"
+          ],
+          "witness_replayed": true
+        }
+      },
+      {
+        "solver": "HIER",
+        "dominance": true,
+        "external_incumbent": false,
+        "result": {
+          "status": "attained_optimum",
+          "J": "13",
+          "Q_total": "2",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "a",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "13",
+            "2",
+            1,
+            [
+              [
+                "a",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "2"
+          ],
+          "witness_replayed": true
+        },
+        "equality_nodes_retained": 1,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "HIER",
+        "dominance": true,
+        "external_incumbent": true,
+        "result": {
+          "status": "attained_optimum",
+          "J": "13",
+          "Q_total": "2",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "a",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "13",
+            "2",
+            1,
+            [
+              [
+                "a",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "2"
+          ],
+          "witness_replayed": true
+        },
+        "equality_nodes_retained": 3,
+        "pruned_regions": 0
+      }
+    ],
+    "external_incumbent_key": [
+      "13",
+      "2",
+      1,
+      [
+        [
+          "b",
+          "CS"
+        ]
+      ]
+    ]
+  },
+  {
+    "case_id": "primary_open_equal_J_cannot_donate_Q",
+    "reference": {
+      "status": "attained_optimum",
+      "primary_infimum": "5",
+      "secondary_infimum": "2",
+      "J": "5",
+      "Q_total": "2",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "b",
+          "CS"
+        ]
+      ],
+      "charges": [
+        "2"
+      ],
+      "events": [
+        {
+          "site": "b",
+          "effect": "CS",
+          "charge_kwh": "2",
+          "arrival_time_s": "1",
+          "arrival_kwh": "2",
+          "departure_kwh": "4",
+          "completion_s": "4",
+          "charge_completion_s": "4",
+          "schedule_start_s": "2",
+          "schedule_completion_s": "2",
+          "remaining_schedule": 0
+        }
+      ],
+      "terminal_energy_kwh": "0",
+      "terminal_time_s": "5",
+      "remaining_schedule": 0,
+      "route_legs": [
+        {
+          "time": "1",
+          "length": "1",
+          "energy": "1",
+          "nodes": [
+            "o",
+            "b"
+          ],
+          "edges": [
+            "input:00000002"
+          ]
+        },
+        {
+          "time": "1",
+          "length": "4",
+          "energy": "4",
+          "nodes": [
+            "b",
+            "z"
+          ],
+          "edges": [
+            "input:00000003"
+          ]
+        }
+      ],
+      "lex_key": [
+        "5",
+        "2",
+        1,
+        [
+          [
+            "b",
+            "CS"
+          ]
+        ]
+      ],
+      "witness_replayed": true
+    },
+    "comparisons": [
+      {
+        "solver": "FLAT",
+        "dominance": false,
+        "result": {
+          "status": "attained_optimum",
+          "J": "5",
+          "Q_total": "2",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "b",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "5",
+            "2",
+            1,
+            [
+              [
+                "b",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "2"
+          ],
+          "witness_replayed": true
+        }
+      },
+      {
+        "solver": "HIER",
+        "dominance": false,
+        "external_incumbent": false,
+        "result": {
+          "status": "attained_optimum",
+          "J": "5",
+          "Q_total": "2",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "b",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "5",
+            "2",
+            1,
+            [
+              [
+                "b",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "2"
+          ],
+          "witness_replayed": true
+        },
+        "equality_nodes_retained": 1,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "HIER",
+        "dominance": false,
+        "external_incumbent": true,
+        "result": {
+          "status": "attained_optimum",
+          "J": "5",
+          "Q_total": "2",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "b",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "5",
+            "2",
+            1,
+            [
+              [
+                "b",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "2"
+          ],
+          "witness_replayed": true
+        },
+        "equality_nodes_retained": 1,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "FLAT",
+        "dominance": true,
+        "result": {
+          "status": "attained_optimum",
+          "J": "5",
+          "Q_total": "2",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "b",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "5",
+            "2",
+            1,
+            [
+              [
+                "b",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "2"
+          ],
+          "witness_replayed": true
+        }
+      },
+      {
+        "solver": "HIER",
+        "dominance": true,
+        "external_incumbent": false,
+        "result": {
+          "status": "attained_optimum",
+          "J": "5",
+          "Q_total": "2",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "b",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "5",
+            "2",
+            1,
+            [
+              [
+                "b",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "2"
+          ],
+          "witness_replayed": true
+        },
+        "equality_nodes_retained": 1,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "HIER",
+        "dominance": true,
+        "external_incumbent": true,
+        "result": {
+          "status": "attained_optimum",
+          "J": "5",
+          "Q_total": "2",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "b",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "5",
+            "2",
+            1,
+            [
+              [
+                "b",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "2"
+          ],
+          "witness_replayed": true
+        },
+        "equality_nodes_retained": 1,
+        "pruned_regions": 0
+      }
+    ],
+    "external_incumbent_key": [
+      "5",
+      "2",
+      1,
+      [
+        [
+          "b",
+          "CS"
+        ]
+      ]
+    ]
+  },
+  {
+    "case_id": "equal_J_Q_fewer_H_wins",
+    "reference": {
+      "status": "attained_optimum",
+      "primary_infimum": "12",
+      "secondary_infimum": "1",
+      "J": "12",
+      "Q_total": "1",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "c",
+          "CS"
+        ]
+      ],
+      "charges": [
+        "1"
+      ],
+      "events": [
+        {
+          "site": "c",
+          "effect": "CS",
+          "charge_kwh": "1",
+          "arrival_time_s": "1",
+          "arrival_kwh": "2",
+          "departure_kwh": "3",
+          "completion_s": "11",
+          "charge_completion_s": "3",
+          "schedule_start_s": "10",
+          "schedule_completion_s": "11",
+          "remaining_schedule": 0
+        }
+      ],
+      "terminal_energy_kwh": "1",
+      "terminal_time_s": "12",
+      "remaining_schedule": 0,
+      "route_legs": [
+        {
+          "time": "1",
+          "length": "1",
+          "energy": "1",
+          "nodes": [
+            "o",
+            "c"
+          ],
+          "edges": [
+            "input:00000003"
+          ]
+        },
+        {
+          "time": "1",
+          "length": "2",
+          "energy": "2",
+          "nodes": [
+            "c",
+            "z"
+          ],
+          "edges": [
+            "input:00000004"
+          ]
+        }
+      ],
+      "lex_key": [
+        "12",
+        "1",
+        1,
+        [
+          [
+            "c",
+            "CS"
+          ]
+        ]
+      ],
+      "witness_replayed": true
+    },
+    "comparisons": [
+      {
+        "solver": "FLAT",
+        "dominance": false,
+        "result": {
+          "status": "attained_optimum",
+          "J": "12",
+          "Q_total": "1",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "c",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "12",
+            "1",
+            1,
+            [
+              [
+                "c",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "1"
+          ],
+          "witness_replayed": true
+        }
+      },
+      {
+        "solver": "HIER",
+        "dominance": false,
+        "external_incumbent": false,
+        "result": {
+          "status": "attained_optimum",
+          "J": "12",
+          "Q_total": "1",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "c",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "12",
+            "1",
+            1,
+            [
+              [
+                "c",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "1"
+          ],
+          "witness_replayed": true
+        },
+        "equality_nodes_retained": 6,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "HIER",
+        "dominance": false,
+        "external_incumbent": true,
+        "result": {
+          "status": "attained_optimum",
+          "J": "12",
+          "Q_total": "1",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "c",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "12",
+            "1",
+            1,
+            [
+              [
+                "c",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "1"
+          ],
+          "witness_replayed": true
+        },
+        "equality_nodes_retained": 9,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "FLAT",
+        "dominance": true,
+        "result": {
+          "status": "attained_optimum",
+          "J": "12",
+          "Q_total": "1",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "c",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "12",
+            "1",
+            1,
+            [
+              [
+                "c",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "1"
+          ],
+          "witness_replayed": true
+        }
+      },
+      {
+        "solver": "HIER",
+        "dominance": true,
+        "external_incumbent": false,
+        "result": {
+          "status": "attained_optimum",
+          "J": "12",
+          "Q_total": "1",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "c",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "12",
+            "1",
+            1,
+            [
+              [
+                "c",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "1"
+          ],
+          "witness_replayed": true
+        },
+        "equality_nodes_retained": 6,
+        "pruned_regions": 0
+      },
+      {
+        "solver": "HIER",
+        "dominance": true,
+        "external_incumbent": true,
+        "result": {
+          "status": "attained_optimum",
+          "J": "12",
+          "Q_total": "1",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "c",
+              "CS"
+            ]
+          ],
+          "lex_key": [
+            "12",
+            "1",
+            1,
+            [
+              [
+                "c",
+                "CS"
+              ]
+            ]
+          ],
+          "charges": [
+            "1"
+          ],
+          "witness_replayed": true
+        },
+        "equality_nodes_retained": 9,
+        "pruned_regions": 0
+      }
+    ],
+    "external_incumbent_key": [
+      "12",
+      "1",
+      2,
+      [
+        [
+          "a",
+          "C"
+        ],
+        [
+          "b",
+          "S"
+        ]
+      ]
+    ]
+  }
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "case_id": "audit_zero_stop_cannot_shape_route_with_drive_waypoint",
+    "H_ref": 0,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {
+      "x": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 10
+      },
+      {
+        "source": "o",
+        "target": "x",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "x",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1
+      }
+    ],
+    "independent_expected": {
+      "status": "infeasible_within_H_ref"
+    },
+    "analytic_certificate": "The fixed selected fastest o\u2192z route is direct with energy10>2. Concatenating slower o\u2192x and x\u2192z drives would consume2, but x has no authorized semantic stop at H_ref0; that route-shaping drive grammar is not a zero-stop plan."
+  }
+]

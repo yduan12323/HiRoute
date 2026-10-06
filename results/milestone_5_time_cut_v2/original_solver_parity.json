@@ -1,0 +1,5232 @@
+{
+  "scope": "bounded_H_ref_diagnostic",
+  "cases": 1,
+  "comparisons": 4,
+  "mismatches": 0,
+  "fixture_sha256": "5e8f4b92bdbefdf5f35104b9430bbc2d0541517e0df41b4ecdb9ca67f85a5744",
+  "reference_sha256": "81a01d2c2b8f2960564cc2b3c74f53b2f7215c61934ab6d4972622fa71f6a525",
+  "source_sha256": {
+    "src/timecut5/bounded.py": "141642cb809112757e9c1c804785af44d7be506bf395870556ac0d74d389c246",
+    "src/timecut5/probe.py": "79226bd7dcf9ff9ceb326e2caf6cee1c471312a6e178ac024a77c27f2ea02b6d",
+    "src/timecut5/hierarchy.py": "d1f3d31a9f3155d6028e98cf906be3b921856f75ac682aa7b965e41c3f7fbe3b",
+    "src/timecut5/pwa.py": "717519aecb50bc4e45266b1179390a3f5d9ea6b2bd3ef3df3c926a55b122e3b9",
+    "src/timecut5/__init__.py": "4f4f9ddd72b02aeaca5a2c9a8e1b7f99cfa710144e0ac78a781ba98c216c8d76"
+  },
+  "rows": [
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "engine": "FLAT",
+      "dominance": false,
+      "equal": true,
+      "canonical": {
+        "scope": "bounded_H_ref_diagnostic",
+        "H_ref": 4,
+        "result": {
+          "status": "attained_optimum",
+          "J": "44950",
+          "Q_total": "76",
+          "H": 3,
+          "site_action_tuple": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "lex_key": [
+            "44950",
+            "76",
+            3,
+            [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ],
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ]
+          ],
+          "charges": [
+            "28",
+            "48"
+          ],
+          "witness_replayed": true
+        }
+      },
+      "expected_signature": [
+        "attained_optimum",
+        "44950",
+        "76",
+        3,
+        [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      ],
+      "actual_signature": [
+        "attained_optimum",
+        "44950",
+        "76",
+        3,
+        [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      ],
+      "seconds": 1.0010301580005034,
+      "evidence": {
+        "result": {
+          "status": "attained_optimum",
+          "primary_infimum": "44950",
+          "secondary_infimum": "76",
+          "unattained_component": null,
+          "key": [
+            "44950",
+            "76",
+            3,
+            [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ],
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ]
+          ],
+          "witness": {
+            "time": "43150",
+            "energy": "6",
+            "rho": "70",
+            "pi": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ],
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ],
+            "state": {
+              "anchor": "destination",
+              "remaining_schedule": 0,
+              "stop_count": 3
+            },
+            "events": [
+              {
+                "effect": "initial",
+                "site": "origin",
+                "arrival_time": "0",
+                "departure_time": "0",
+                "arrival_energy": "10",
+                "departure_energy": "10"
+              },
+              {
+                "effect": "D",
+                "site": "4r:node/2",
+                "arrival_time": "0",
+                "departure_time": "9300",
+                "arrival_energy": "10",
+                "departure_energy": "7"
+              },
+              {
+                "effect": "C",
+                "site": "4r:node/2",
+                "arrival_time": "9300",
+                "departure_time": "10728",
+                "arrival_energy": "7",
+                "departure_energy": "35"
+              },
+              {
+                "effect": "D",
+                "site": "4r:node/3",
+                "arrival_time": "10728",
+                "departure_time": "20028",
+                "arrival_energy": "35",
+                "departure_energy": "0"
+              },
+              {
+                "effect": "C",
+                "site": "4r:node/3",
+                "arrival_time": "20028",
+                "departure_time": "22488",
+                "arrival_energy": "0",
+                "departure_energy": "48"
+              },
+              {
+                "effect": "D",
+                "site": "4r:node/4",
+                "arrival_time": "22488",
+                "departure_time": "31488",
+                "arrival_energy": "48",
+                "departure_energy": "8"
+              },
+              {
+                "effect": "S",
+                "site": "4r:node/4",
+                "arrival_time": "31488",
+                "departure_time": "42700",
+                "arrival_energy": "8",
+                "departure_energy": "8"
+              },
+              {
+                "effect": "D",
+                "site": "destination",
+                "arrival_time": "42700",
+                "departure_time": "43150",
+                "arrival_energy": "8",
+                "departure_energy": "6"
+              }
+            ]
+          }
+        },
+        "H_ref": 4,
+        "dominance": false,
+        "attempted_extensions": 58,
+        "feasible_prefixes": 27,
+        "terminal_piece_count": 18,
+        "max_layer_piece_count": 92,
+        "scope": "bounded_H_ref_diagnostic"
+      }
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "engine": "FLAT",
+      "dominance": true,
+      "equal": true,
+      "canonical": {
+        "scope": "bounded_H_ref_diagnostic",
+        "H_ref": 4,
+        "result": {
+          "status": "attained_optimum",
+          "J": "44950",
+          "Q_total": "76",
+          "H": 3,
+          "site_action_tuple": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "lex_key": [
+            "44950",
+            "76",
+            3,
+            [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ],
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ]
+          ],
+          "charges": [
+            "28",
+            "48"
+          ],
+          "witness_replayed": true
+        }
+      },
+      "expected_signature": [
+        "attained_optimum",
+        "44950",
+        "76",
+        3,
+        [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      ],
+      "actual_signature": [
+        "attained_optimum",
+        "44950",
+        "76",
+        3,
+        [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      ],
+      "seconds": 1.047960592997697,
+      "evidence": {
+        "result": {
+          "status": "attained_optimum",
+          "primary_infimum": "44950",
+          "secondary_infimum": "76",
+          "unattained_component": null,
+          "key": [
+            "44950",
+            "76",
+            3,
+            [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ],
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ]
+          ],
+          "witness": {
+            "time": "43150",
+            "energy": "6",
+            "rho": "70",
+            "pi": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ],
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ],
+            "state": {
+              "anchor": "destination",
+              "remaining_schedule": 0,
+              "stop_count": 3
+            },
+            "events": [
+              {
+                "effect": "initial",
+                "site": "origin",
+                "arrival_time": "0",
+                "departure_time": "0",
+                "arrival_energy": "10",
+                "departure_energy": "10"
+              },
+              {
+                "effect": "D",
+                "site": "4r:node/2",
+                "arrival_time": "0",
+                "departure_time": "9300",
+                "arrival_energy": "10",
+                "departure_energy": "7"
+              },
+              {
+                "effect": "C",
+                "site": "4r:node/2",
+                "arrival_time": "9300",
+                "departure_time": "10728",
+                "arrival_energy": "7",
+                "departure_energy": "35"
+              },
+              {
+                "effect": "D",
+                "site": "4r:node/3",
+                "arrival_time": "10728",
+                "departure_time": "20028",
+                "arrival_energy": "35",
+                "departure_energy": "0"
+              },
+              {
+                "effect": "C",
+                "site": "4r:node/3",
+                "arrival_time": "20028",
+                "departure_time": "22488",
+                "arrival_energy": "0",
+                "departure_energy": "48"
+              },
+              {
+                "effect": "D",
+                "site": "4r:node/4",
+                "arrival_time": "22488",
+                "departure_time": "31488",
+                "arrival_energy": "48",
+                "departure_energy": "8"
+              },
+              {
+                "effect": "S",
+                "site": "4r:node/4",
+                "arrival_time": "31488",
+                "departure_time": "42700",
+                "arrival_energy": "8",
+                "departure_energy": "8"
+              },
+              {
+                "effect": "D",
+                "site": "destination",
+                "arrival_time": "42700",
+                "departure_time": "43150",
+                "arrival_energy": "8",
+                "departure_energy": "6"
+              }
+            ]
+          }
+        },
+        "H_ref": 4,
+        "dominance": true,
+        "attempted_extensions": 47,
+        "feasible_prefixes": 23,
+        "terminal_piece_count": 6,
+        "max_layer_piece_count": 45,
+        "scope": "bounded_H_ref_diagnostic"
+      }
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "engine": "HIER",
+      "dominance": false,
+      "equal": true,
+      "canonical": {
+        "scope": "bounded_H_ref_diagnostic",
+        "H_ref": 4,
+        "result": {
+          "status": "attained_optimum",
+          "J": "44950",
+          "Q_total": "76",
+          "H": 3,
+          "site_action_tuple": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "lex_key": [
+            "44950",
+            "76",
+            3,
+            [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ],
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ]
+          ],
+          "charges": [
+            "28",
+            "48"
+          ],
+          "witness_replayed": true
+        }
+      },
+      "expected_signature": [
+        "attained_optimum",
+        "44950",
+        "76",
+        3,
+        [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      ],
+      "actual_signature": [
+        "attained_optimum",
+        "44950",
+        "76",
+        3,
+        [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      ],
+      "seconds": 0.9990419269997801,
+      "evidence": {
+        "bounded": {
+          "result": {
+            "status": "attained_optimum",
+            "primary_infimum": "44950",
+            "secondary_infimum": "76",
+            "unattained_component": null,
+            "key": [
+              "44950",
+              "76",
+              3,
+              [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ]
+            ],
+            "witness": {
+              "time": "43150",
+              "energy": "6",
+              "rho": "70",
+              "pi": [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ],
+              "state": {
+                "anchor": "destination",
+                "remaining_schedule": 0,
+                "stop_count": 3
+              },
+              "events": [
+                {
+                  "effect": "initial",
+                  "site": "origin",
+                  "arrival_time": "0",
+                  "departure_time": "0",
+                  "arrival_energy": "10",
+                  "departure_energy": "10"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/2",
+                  "arrival_time": "0",
+                  "departure_time": "9300",
+                  "arrival_energy": "10",
+                  "departure_energy": "7"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/2",
+                  "arrival_time": "9300",
+                  "departure_time": "10728",
+                  "arrival_energy": "7",
+                  "departure_energy": "35"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/3",
+                  "arrival_time": "10728",
+                  "departure_time": "20028",
+                  "arrival_energy": "35",
+                  "departure_energy": "0"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/3",
+                  "arrival_time": "20028",
+                  "departure_time": "22488",
+                  "arrival_energy": "0",
+                  "departure_energy": "48"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/4",
+                  "arrival_time": "22488",
+                  "departure_time": "31488",
+                  "arrival_energy": "48",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "S",
+                  "site": "4r:node/4",
+                  "arrival_time": "31488",
+                  "departure_time": "42700",
+                  "arrival_energy": "8",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "D",
+                  "site": "destination",
+                  "arrival_time": "42700",
+                  "departure_time": "43150",
+                  "arrival_energy": "8",
+                  "departure_energy": "6"
+                }
+              ]
+            }
+          },
+          "H_ref": 4,
+          "dominance": false,
+          "attempted_extensions": 28,
+          "feasible_prefixes": 23,
+          "terminal_piece_count": 6,
+          "max_layer_piece_count": 72,
+          "scope": "bounded_H_ref_diagnostic"
+        },
+        "region_nodes": 81,
+        "leaf_actions": 28,
+        "bound_member_scans": 138,
+        "pruned_regions": 6,
+        "equality_nodes_retained": 6,
+        "coverage_groups": 15,
+        "missing_actions": 0,
+        "duplicate_actions": 0,
+        "incumbent_source": "own_search",
+        "pruning_audit": [
+          {
+            "reason": "unreachable",
+            "region": 4,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 3,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 4,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/1",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 1,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 3,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 1,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 4,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/1",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "strict_primary",
+            "lower_bound": "45550",
+            "incumbent_key": [
+              "44950",
+              "76",
+              3,
+              [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ]
+            ],
+            "incumbent_witness": {
+              "time": "43150",
+              "energy": "6",
+              "rho": "70",
+              "pi": [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ],
+              "state": {
+                "anchor": "destination",
+                "remaining_schedule": 0,
+                "stop_count": 3
+              },
+              "events": [
+                {
+                  "effect": "initial",
+                  "site": "origin",
+                  "arrival_time": "0",
+                  "departure_time": "0",
+                  "arrival_energy": "10",
+                  "departure_energy": "10"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/2",
+                  "arrival_time": "0",
+                  "departure_time": "9300",
+                  "arrival_energy": "10",
+                  "departure_energy": "7"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/2",
+                  "arrival_time": "9300",
+                  "departure_time": "10728",
+                  "arrival_energy": "7",
+                  "departure_energy": "35"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/3",
+                  "arrival_time": "10728",
+                  "departure_time": "20028",
+                  "arrival_energy": "35",
+                  "departure_energy": "0"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/3",
+                  "arrival_time": "20028",
+                  "departure_time": "22488",
+                  "arrival_energy": "0",
+                  "departure_energy": "48"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/4",
+                  "arrival_time": "22488",
+                  "departure_time": "31488",
+                  "arrival_energy": "48",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "S",
+                  "site": "4r:node/4",
+                  "arrival_time": "31488",
+                  "departure_time": "42700",
+                  "arrival_energy": "8",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "D",
+                  "site": "destination",
+                  "arrival_time": "42700",
+                  "departure_time": "43150",
+                  "arrival_energy": "8",
+                  "departure_energy": "6"
+                }
+              ]
+            },
+            "region": 0,
+            "region_members": [
+              "4r:node/1",
+              "4r:node/2",
+              "4r:node/3",
+              "4r:node/4"
+            ],
+            "state": {
+              "anchor": "4r:node/1",
+              "remaining_schedule": 1,
+              "stop_count": 3
+            },
+            "effect": "S",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/1",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ],
+            "current_frontier": [
+              [
+                "5",
+                "30",
+                false,
+                false,
+                "36",
+                "9720",
+                true,
+                "-5",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "30",
+                true,
+                true,
+                "36",
+                "9720",
+                true,
+                "-5",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "48",
+                false,
+                false,
+                "60",
+                "9000",
+                true,
+                "-5",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "48",
+                true,
+                true,
+                "60",
+                "9000",
+                true,
+                "-5",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "60",
+                false,
+                false,
+                "120",
+                "6120",
+                true,
+                "-5",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "60",
+                "60",
+                true,
+                true,
+                "120",
+                "6120",
+                true,
+                "-5",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ]
+                ]
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 1,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "strict_primary",
+            "lower_bound": "45550",
+            "incumbent_key": [
+              "44950",
+              "76",
+              3,
+              [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ]
+            ],
+            "incumbent_witness": {
+              "time": "43150",
+              "energy": "6",
+              "rho": "70",
+              "pi": [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ],
+              "state": {
+                "anchor": "destination",
+                "remaining_schedule": 0,
+                "stop_count": 3
+              },
+              "events": [
+                {
+                  "effect": "initial",
+                  "site": "origin",
+                  "arrival_time": "0",
+                  "departure_time": "0",
+                  "arrival_energy": "10",
+                  "departure_energy": "10"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/2",
+                  "arrival_time": "0",
+                  "departure_time": "9300",
+                  "arrival_energy": "10",
+                  "departure_energy": "7"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/2",
+                  "arrival_time": "9300",
+                  "departure_time": "10728",
+                  "arrival_energy": "7",
+                  "departure_energy": "35"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/3",
+                  "arrival_time": "10728",
+                  "departure_time": "20028",
+                  "arrival_energy": "35",
+                  "departure_energy": "0"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/3",
+                  "arrival_time": "20028",
+                  "departure_time": "22488",
+                  "arrival_energy": "0",
+                  "departure_energy": "48"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/4",
+                  "arrival_time": "22488",
+                  "departure_time": "31488",
+                  "arrival_energy": "48",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "S",
+                  "site": "4r:node/4",
+                  "arrival_time": "31488",
+                  "departure_time": "42700",
+                  "arrival_energy": "8",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "D",
+                  "site": "destination",
+                  "arrival_time": "42700",
+                  "departure_time": "43150",
+                  "arrival_energy": "8",
+                  "departure_energy": "6"
+                }
+              ]
+            },
+            "region": 0,
+            "region_members": [
+              "4r:node/1",
+              "4r:node/2",
+              "4r:node/3",
+              "4r:node/4"
+            ],
+            "state": {
+              "anchor": "4r:node/3",
+              "remaining_schedule": 1,
+              "stop_count": 3
+            },
+            "effect": "S",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ],
+            "current_frontier": [
+              [
+                "0",
+                "8",
+                false,
+                false,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "8",
+                "8",
+                true,
+                true,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "8",
+                "20",
+                false,
+                false,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "20",
+                "20",
+                true,
+                true,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "20",
+                "30",
+                false,
+                false,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "30",
+                true,
+                true,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "48",
+                false,
+                false,
+                "60",
+                "19680",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "48",
+                true,
+                true,
+                "60",
+                "19680",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "60",
+                false,
+                false,
+                "120",
+                "16800",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "60",
+                "60",
+                true,
+                true,
+                "120",
+                "16800",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 1,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "strict_primary",
+            "lower_bound": "45550",
+            "incumbent_key": [
+              "44950",
+              "76",
+              3,
+              [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ]
+            ],
+            "incumbent_witness": {
+              "time": "43150",
+              "energy": "6",
+              "rho": "70",
+              "pi": [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ],
+              "state": {
+                "anchor": "destination",
+                "remaining_schedule": 0,
+                "stop_count": 3
+              },
+              "events": [
+                {
+                  "effect": "initial",
+                  "site": "origin",
+                  "arrival_time": "0",
+                  "departure_time": "0",
+                  "arrival_energy": "10",
+                  "departure_energy": "10"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/2",
+                  "arrival_time": "0",
+                  "departure_time": "9300",
+                  "arrival_energy": "10",
+                  "departure_energy": "7"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/2",
+                  "arrival_time": "9300",
+                  "departure_time": "10728",
+                  "arrival_energy": "7",
+                  "departure_energy": "35"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/3",
+                  "arrival_time": "10728",
+                  "departure_time": "20028",
+                  "arrival_energy": "35",
+                  "departure_energy": "0"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/3",
+                  "arrival_time": "20028",
+                  "departure_time": "22488",
+                  "arrival_energy": "0",
+                  "departure_energy": "48"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/4",
+                  "arrival_time": "22488",
+                  "departure_time": "31488",
+                  "arrival_energy": "48",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "S",
+                  "site": "4r:node/4",
+                  "arrival_time": "31488",
+                  "departure_time": "42700",
+                  "arrival_energy": "8",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "D",
+                  "site": "destination",
+                  "arrival_time": "42700",
+                  "departure_time": "43150",
+                  "arrival_energy": "8",
+                  "departure_energy": "6"
+                }
+              ]
+            },
+            "region": 0,
+            "region_members": [
+              "4r:node/1",
+              "4r:node/2",
+              "4r:node/3",
+              "4r:node/4"
+            ],
+            "state": {
+              "anchor": "4r:node/3",
+              "remaining_schedule": 1,
+              "stop_count": 3
+            },
+            "effect": "S",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ],
+            "current_frontier": [
+              [
+                "0",
+                "8",
+                false,
+                false,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "8",
+                "8",
+                true,
+                true,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "8",
+                "20",
+                false,
+                false,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "20",
+                "20",
+                true,
+                true,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "20",
+                "30",
+                false,
+                false,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "30",
+                true,
+                true,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "48",
+                false,
+                false,
+                "60",
+                "19680",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "48",
+                true,
+                true,
+                "60",
+                "19680",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "60",
+                false,
+                false,
+                "120",
+                "16800",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "60",
+                "60",
+                true,
+                true,
+                "120",
+                "16800",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 0,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ],
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 3,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "strict_primary",
+            "lower_bound": "45550",
+            "incumbent_key": [
+              "44950",
+              "76",
+              3,
+              [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ]
+            ],
+            "incumbent_witness": {
+              "time": "43150",
+              "energy": "6",
+              "rho": "70",
+              "pi": [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ],
+              "state": {
+                "anchor": "destination",
+                "remaining_schedule": 0,
+                "stop_count": 3
+              },
+              "events": [
+                {
+                  "effect": "initial",
+                  "site": "origin",
+                  "arrival_time": "0",
+                  "departure_time": "0",
+                  "arrival_energy": "10",
+                  "departure_energy": "10"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/2",
+                  "arrival_time": "0",
+                  "departure_time": "9300",
+                  "arrival_energy": "10",
+                  "departure_energy": "7"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/2",
+                  "arrival_time": "9300",
+                  "departure_time": "10728",
+                  "arrival_energy": "7",
+                  "departure_energy": "35"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/3",
+                  "arrival_time": "10728",
+                  "departure_time": "20028",
+                  "arrival_energy": "35",
+                  "departure_energy": "0"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/3",
+                  "arrival_time": "20028",
+                  "departure_time": "22488",
+                  "arrival_energy": "0",
+                  "departure_energy": "48"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/4",
+                  "arrival_time": "22488",
+                  "departure_time": "31488",
+                  "arrival_energy": "48",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "S",
+                  "site": "4r:node/4",
+                  "arrival_time": "31488",
+                  "departure_time": "42700",
+                  "arrival_energy": "8",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "D",
+                  "site": "destination",
+                  "arrival_time": "42700",
+                  "departure_time": "43150",
+                  "arrival_energy": "8",
+                  "departure_energy": "6"
+                }
+              ]
+            },
+            "region": 0,
+            "region_members": [
+              "4r:node/1",
+              "4r:node/2",
+              "4r:node/3",
+              "4r:node/4"
+            ],
+            "state": {
+              "anchor": "4r:node/2",
+              "remaining_schedule": 1,
+              "stop_count": 3
+            },
+            "effect": "S",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ],
+            "current_frontier": [
+              [
+                "7",
+                "30",
+                false,
+                false,
+                "36",
+                "9948",
+                true,
+                "-7",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "30",
+                true,
+                true,
+                "36",
+                "9948",
+                true,
+                "-7",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "48",
+                false,
+                false,
+                "60",
+                "9228",
+                true,
+                "-7",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "48",
+                true,
+                true,
+                "60",
+                "9228",
+                true,
+                "-7",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "60",
+                false,
+                false,
+                "120",
+                "6348",
+                true,
+                "-7",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "60",
+                "60",
+                true,
+                true,
+                "120",
+                "6348",
+                true,
+                "-7",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ]
+                ]
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 1,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "strict_primary",
+            "lower_bound": "45550",
+            "incumbent_key": [
+              "44950",
+              "76",
+              3,
+              [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ]
+            ],
+            "incumbent_witness": {
+              "time": "43150",
+              "energy": "6",
+              "rho": "70",
+              "pi": [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ],
+              "state": {
+                "anchor": "destination",
+                "remaining_schedule": 0,
+                "stop_count": 3
+              },
+              "events": [
+                {
+                  "effect": "initial",
+                  "site": "origin",
+                  "arrival_time": "0",
+                  "departure_time": "0",
+                  "arrival_energy": "10",
+                  "departure_energy": "10"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/2",
+                  "arrival_time": "0",
+                  "departure_time": "9300",
+                  "arrival_energy": "10",
+                  "departure_energy": "7"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/2",
+                  "arrival_time": "9300",
+                  "departure_time": "10728",
+                  "arrival_energy": "7",
+                  "departure_energy": "35"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/3",
+                  "arrival_time": "10728",
+                  "departure_time": "20028",
+                  "arrival_energy": "35",
+                  "departure_energy": "0"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/3",
+                  "arrival_time": "20028",
+                  "departure_time": "22488",
+                  "arrival_energy": "0",
+                  "departure_energy": "48"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/4",
+                  "arrival_time": "22488",
+                  "departure_time": "31488",
+                  "arrival_energy": "48",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "S",
+                  "site": "4r:node/4",
+                  "arrival_time": "31488",
+                  "departure_time": "42700",
+                  "arrival_energy": "8",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "D",
+                  "site": "destination",
+                  "arrival_time": "42700",
+                  "departure_time": "43150",
+                  "arrival_energy": "8",
+                  "departure_energy": "6"
+                }
+              ]
+            },
+            "region": 0,
+            "region_members": [
+              "4r:node/1",
+              "4r:node/2",
+              "4r:node/3",
+              "4r:node/4"
+            ],
+            "state": {
+              "anchor": "4r:node/3",
+              "remaining_schedule": 1,
+              "stop_count": 3
+            },
+            "effect": "S",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ],
+            "current_frontier": [
+              [
+                "0",
+                "13",
+                false,
+                false,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "13",
+                "13",
+                true,
+                true,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "13",
+                "25",
+                false,
+                false,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "25",
+                "25",
+                true,
+                true,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "25",
+                "30",
+                false,
+                false,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "30",
+                true,
+                true,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "48",
+                false,
+                false,
+                "60",
+                "19908",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "48",
+                true,
+                true,
+                "60",
+                "19908",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "60",
+                false,
+                false,
+                "120",
+                "17028",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "60",
+                "60",
+                true,
+                true,
+                "120",
+                "17028",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 1,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "strict_primary",
+            "lower_bound": "45550",
+            "incumbent_key": [
+              "44950",
+              "76",
+              3,
+              [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ]
+            ],
+            "incumbent_witness": {
+              "time": "43150",
+              "energy": "6",
+              "rho": "70",
+              "pi": [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ],
+              "state": {
+                "anchor": "destination",
+                "remaining_schedule": 0,
+                "stop_count": 3
+              },
+              "events": [
+                {
+                  "effect": "initial",
+                  "site": "origin",
+                  "arrival_time": "0",
+                  "departure_time": "0",
+                  "arrival_energy": "10",
+                  "departure_energy": "10"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/2",
+                  "arrival_time": "0",
+                  "departure_time": "9300",
+                  "arrival_energy": "10",
+                  "departure_energy": "7"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/2",
+                  "arrival_time": "9300",
+                  "departure_time": "10728",
+                  "arrival_energy": "7",
+                  "departure_energy": "35"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/3",
+                  "arrival_time": "10728",
+                  "departure_time": "20028",
+                  "arrival_energy": "35",
+                  "departure_energy": "0"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/3",
+                  "arrival_time": "20028",
+                  "departure_time": "22488",
+                  "arrival_energy": "0",
+                  "departure_energy": "48"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/4",
+                  "arrival_time": "22488",
+                  "departure_time": "31488",
+                  "arrival_energy": "48",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "S",
+                  "site": "4r:node/4",
+                  "arrival_time": "31488",
+                  "departure_time": "42700",
+                  "arrival_energy": "8",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "D",
+                  "site": "destination",
+                  "arrival_time": "42700",
+                  "departure_time": "43150",
+                  "arrival_energy": "8",
+                  "departure_energy": "6"
+                }
+              ]
+            },
+            "region": 0,
+            "region_members": [
+              "4r:node/1",
+              "4r:node/2",
+              "4r:node/3",
+              "4r:node/4"
+            ],
+            "state": {
+              "anchor": "4r:node/3",
+              "remaining_schedule": 1,
+              "stop_count": 3
+            },
+            "effect": "S",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ],
+            "current_frontier": [
+              [
+                "0",
+                "13",
+                false,
+                false,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "13",
+                "13",
+                true,
+                true,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "13",
+                "25",
+                false,
+                false,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "25",
+                "25",
+                true,
+                true,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "25",
+                "30",
+                false,
+                false,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "30",
+                true,
+                true,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "48",
+                false,
+                false,
+                "60",
+                "19908",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "48",
+                true,
+                true,
+                "60",
+                "19908",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "60",
+                false,
+                false,
+                "120",
+                "17028",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "60",
+                "60",
+                true,
+                true,
+                "120",
+                "17028",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 0,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ],
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "engine": "HIER",
+      "dominance": true,
+      "equal": true,
+      "canonical": {
+        "scope": "bounded_H_ref_diagnostic",
+        "H_ref": 4,
+        "result": {
+          "status": "attained_optimum",
+          "J": "44950",
+          "Q_total": "76",
+          "H": 3,
+          "site_action_tuple": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "lex_key": [
+            "44950",
+            "76",
+            3,
+            [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ],
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ]
+          ],
+          "charges": [
+            "28",
+            "48"
+          ],
+          "witness_replayed": true
+        }
+      },
+      "expected_signature": [
+        "attained_optimum",
+        "44950",
+        "76",
+        3,
+        [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      ],
+      "actual_signature": [
+        "attained_optimum",
+        "44950",
+        "76",
+        3,
+        [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      ],
+      "seconds": 0.9966192749998299,
+      "evidence": {
+        "bounded": {
+          "result": {
+            "status": "attained_optimum",
+            "primary_infimum": "44950",
+            "secondary_infimum": "76",
+            "unattained_component": null,
+            "key": [
+              "44950",
+              "76",
+              3,
+              [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ]
+            ],
+            "witness": {
+              "time": "43150",
+              "energy": "6",
+              "rho": "70",
+              "pi": [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ],
+              "state": {
+                "anchor": "destination",
+                "remaining_schedule": 0,
+                "stop_count": 3
+              },
+              "events": [
+                {
+                  "effect": "initial",
+                  "site": "origin",
+                  "arrival_time": "0",
+                  "departure_time": "0",
+                  "arrival_energy": "10",
+                  "departure_energy": "10"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/2",
+                  "arrival_time": "0",
+                  "departure_time": "9300",
+                  "arrival_energy": "10",
+                  "departure_energy": "7"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/2",
+                  "arrival_time": "9300",
+                  "departure_time": "10728",
+                  "arrival_energy": "7",
+                  "departure_energy": "35"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/3",
+                  "arrival_time": "10728",
+                  "departure_time": "20028",
+                  "arrival_energy": "35",
+                  "departure_energy": "0"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/3",
+                  "arrival_time": "20028",
+                  "departure_time": "22488",
+                  "arrival_energy": "0",
+                  "departure_energy": "48"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/4",
+                  "arrival_time": "22488",
+                  "departure_time": "31488",
+                  "arrival_energy": "48",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "S",
+                  "site": "4r:node/4",
+                  "arrival_time": "31488",
+                  "departure_time": "42700",
+                  "arrival_energy": "8",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "D",
+                  "site": "destination",
+                  "arrival_time": "42700",
+                  "departure_time": "43150",
+                  "arrival_energy": "8",
+                  "departure_energy": "6"
+                }
+              ]
+            }
+          },
+          "H_ref": 4,
+          "dominance": true,
+          "attempted_extensions": 26,
+          "feasible_prefixes": 21,
+          "terminal_piece_count": 3,
+          "max_layer_piece_count": 45,
+          "scope": "bounded_H_ref_diagnostic"
+        },
+        "region_nodes": 73,
+        "leaf_actions": 26,
+        "bound_member_scans": 119,
+        "pruned_regions": 4,
+        "equality_nodes_retained": 6,
+        "coverage_groups": 12,
+        "missing_actions": 0,
+        "duplicate_actions": 0,
+        "incumbent_source": "own_search",
+        "pruning_audit": [
+          {
+            "reason": "unreachable",
+            "region": 4,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 3,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 4,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/1",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 1,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 1,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 3,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 4,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/1",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "strict_primary",
+            "lower_bound": "45550",
+            "incumbent_key": [
+              "44950",
+              "76",
+              3,
+              [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ]
+            ],
+            "incumbent_witness": {
+              "time": "43150",
+              "energy": "6",
+              "rho": "70",
+              "pi": [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ],
+              "state": {
+                "anchor": "destination",
+                "remaining_schedule": 0,
+                "stop_count": 3
+              },
+              "events": [
+                {
+                  "effect": "initial",
+                  "site": "origin",
+                  "arrival_time": "0",
+                  "departure_time": "0",
+                  "arrival_energy": "10",
+                  "departure_energy": "10"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/2",
+                  "arrival_time": "0",
+                  "departure_time": "9300",
+                  "arrival_energy": "10",
+                  "departure_energy": "7"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/2",
+                  "arrival_time": "9300",
+                  "departure_time": "10728",
+                  "arrival_energy": "7",
+                  "departure_energy": "35"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/3",
+                  "arrival_time": "10728",
+                  "departure_time": "20028",
+                  "arrival_energy": "35",
+                  "departure_energy": "0"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/3",
+                  "arrival_time": "20028",
+                  "departure_time": "22488",
+                  "arrival_energy": "0",
+                  "departure_energy": "48"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/4",
+                  "arrival_time": "22488",
+                  "departure_time": "31488",
+                  "arrival_energy": "48",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "S",
+                  "site": "4r:node/4",
+                  "arrival_time": "31488",
+                  "departure_time": "42700",
+                  "arrival_energy": "8",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "D",
+                  "site": "destination",
+                  "arrival_time": "42700",
+                  "departure_time": "43150",
+                  "arrival_energy": "8",
+                  "departure_energy": "6"
+                }
+              ]
+            },
+            "region": 0,
+            "region_members": [
+              "4r:node/1",
+              "4r:node/2",
+              "4r:node/3",
+              "4r:node/4"
+            ],
+            "state": {
+              "anchor": "4r:node/1",
+              "remaining_schedule": 1,
+              "stop_count": 3
+            },
+            "effect": "S",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/1",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ],
+            "current_frontier": [
+              [
+                "5",
+                "30",
+                false,
+                false,
+                "36",
+                "9720",
+                true,
+                "-5",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "30",
+                true,
+                true,
+                "36",
+                "9720",
+                true,
+                "-5",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "48",
+                false,
+                false,
+                "60",
+                "9000",
+                true,
+                "-5",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "48",
+                true,
+                true,
+                "60",
+                "9000",
+                true,
+                "-5",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "60",
+                false,
+                false,
+                "120",
+                "6120",
+                true,
+                "-5",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "60",
+                "60",
+                true,
+                true,
+                "120",
+                "6120",
+                true,
+                "-5",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ]
+                ]
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 1,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "strict_primary",
+            "lower_bound": "45550",
+            "incumbent_key": [
+              "44950",
+              "76",
+              3,
+              [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ]
+            ],
+            "incumbent_witness": {
+              "time": "43150",
+              "energy": "6",
+              "rho": "70",
+              "pi": [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ],
+              "state": {
+                "anchor": "destination",
+                "remaining_schedule": 0,
+                "stop_count": 3
+              },
+              "events": [
+                {
+                  "effect": "initial",
+                  "site": "origin",
+                  "arrival_time": "0",
+                  "departure_time": "0",
+                  "arrival_energy": "10",
+                  "departure_energy": "10"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/2",
+                  "arrival_time": "0",
+                  "departure_time": "9300",
+                  "arrival_energy": "10",
+                  "departure_energy": "7"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/2",
+                  "arrival_time": "9300",
+                  "departure_time": "10728",
+                  "arrival_energy": "7",
+                  "departure_energy": "35"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/3",
+                  "arrival_time": "10728",
+                  "departure_time": "20028",
+                  "arrival_energy": "35",
+                  "departure_energy": "0"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/3",
+                  "arrival_time": "20028",
+                  "departure_time": "22488",
+                  "arrival_energy": "0",
+                  "departure_energy": "48"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/4",
+                  "arrival_time": "22488",
+                  "departure_time": "31488",
+                  "arrival_energy": "48",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "S",
+                  "site": "4r:node/4",
+                  "arrival_time": "31488",
+                  "departure_time": "42700",
+                  "arrival_energy": "8",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "D",
+                  "site": "destination",
+                  "arrival_time": "42700",
+                  "departure_time": "43150",
+                  "arrival_energy": "8",
+                  "departure_energy": "6"
+                }
+              ]
+            },
+            "region": 0,
+            "region_members": [
+              "4r:node/1",
+              "4r:node/2",
+              "4r:node/3",
+              "4r:node/4"
+            ],
+            "state": {
+              "anchor": "4r:node/3",
+              "remaining_schedule": 1,
+              "stop_count": 3
+            },
+            "effect": "S",
+            "prefix": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ],
+            "current_frontier": [
+              [
+                "0",
+                "8",
+                false,
+                false,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "8",
+                "8",
+                true,
+                true,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "8",
+                "13",
+                false,
+                false,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "13",
+                "13",
+                true,
+                true,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "13",
+                "20",
+                false,
+                false,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "20",
+                "20",
+                true,
+                true,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "20",
+                "25",
+                false,
+                false,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "25",
+                "25",
+                true,
+                true,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "25",
+                "30",
+                false,
+                false,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "30",
+                true,
+                true,
+                "36",
+                "20400",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "48",
+                false,
+                false,
+                "60",
+                "19680",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "48",
+                true,
+                true,
+                "60",
+                "19680",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "60",
+                false,
+                false,
+                "120",
+                "16800",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "60",
+                "60",
+                true,
+                true,
+                "120",
+                "16800",
+                true,
+                "35",
+                [
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/1",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 1,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "strict_primary",
+            "lower_bound": "45550",
+            "incumbent_key": [
+              "44950",
+              "76",
+              3,
+              [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ]
+            ],
+            "incumbent_witness": {
+              "time": "43150",
+              "energy": "6",
+              "rho": "70",
+              "pi": [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ],
+              "state": {
+                "anchor": "destination",
+                "remaining_schedule": 0,
+                "stop_count": 3
+              },
+              "events": [
+                {
+                  "effect": "initial",
+                  "site": "origin",
+                  "arrival_time": "0",
+                  "departure_time": "0",
+                  "arrival_energy": "10",
+                  "departure_energy": "10"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/2",
+                  "arrival_time": "0",
+                  "departure_time": "9300",
+                  "arrival_energy": "10",
+                  "departure_energy": "7"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/2",
+                  "arrival_time": "9300",
+                  "departure_time": "10728",
+                  "arrival_energy": "7",
+                  "departure_energy": "35"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/3",
+                  "arrival_time": "10728",
+                  "departure_time": "20028",
+                  "arrival_energy": "35",
+                  "departure_energy": "0"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/3",
+                  "arrival_time": "20028",
+                  "departure_time": "22488",
+                  "arrival_energy": "0",
+                  "departure_energy": "48"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/4",
+                  "arrival_time": "22488",
+                  "departure_time": "31488",
+                  "arrival_energy": "48",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "S",
+                  "site": "4r:node/4",
+                  "arrival_time": "31488",
+                  "departure_time": "42700",
+                  "arrival_energy": "8",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "D",
+                  "site": "destination",
+                  "arrival_time": "42700",
+                  "departure_time": "43150",
+                  "arrival_energy": "8",
+                  "departure_energy": "6"
+                }
+              ]
+            },
+            "region": 0,
+            "region_members": [
+              "4r:node/1",
+              "4r:node/2",
+              "4r:node/3",
+              "4r:node/4"
+            ],
+            "state": {
+              "anchor": "4r:node/3",
+              "remaining_schedule": 1,
+              "stop_count": 3
+            },
+            "effect": "S",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ],
+            "current_frontier": [
+              [
+                "0",
+                "8",
+                false,
+                false,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "8",
+                "8",
+                true,
+                true,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "8",
+                "13",
+                false,
+                false,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "13",
+                "13",
+                true,
+                true,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "13",
+                "20",
+                false,
+                false,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "20",
+                "20",
+                true,
+                true,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "20",
+                "25",
+                false,
+                false,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "25",
+                "25",
+                true,
+                true,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "25",
+                "30",
+                false,
+                false,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "30",
+                true,
+                true,
+                "36",
+                "20628",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "48",
+                false,
+                false,
+                "60",
+                "19908",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "48",
+                true,
+                true,
+                "60",
+                "19908",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "60",
+                false,
+                false,
+                "120",
+                "17028",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "60",
+                "60",
+                true,
+                true,
+                "120",
+                "17028",
+                true,
+                "28",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/3",
+                    "C"
+                  ]
+                ]
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 0,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ],
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/3",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "unreachable",
+            "region": 3,
+            "effect": "C",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/1",
+                "C"
+              ]
+            ]
+          },
+          {
+            "reason": "strict_primary",
+            "lower_bound": "45550",
+            "incumbent_key": [
+              "44950",
+              "76",
+              3,
+              [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ]
+            ],
+            "incumbent_witness": {
+              "time": "43150",
+              "energy": "6",
+              "rho": "70",
+              "pi": [
+                [
+                  "4r:node/2",
+                  "C"
+                ],
+                [
+                  "4r:node/3",
+                  "C"
+                ],
+                [
+                  "4r:node/4",
+                  "S"
+                ]
+              ],
+              "state": {
+                "anchor": "destination",
+                "remaining_schedule": 0,
+                "stop_count": 3
+              },
+              "events": [
+                {
+                  "effect": "initial",
+                  "site": "origin",
+                  "arrival_time": "0",
+                  "departure_time": "0",
+                  "arrival_energy": "10",
+                  "departure_energy": "10"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/2",
+                  "arrival_time": "0",
+                  "departure_time": "9300",
+                  "arrival_energy": "10",
+                  "departure_energy": "7"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/2",
+                  "arrival_time": "9300",
+                  "departure_time": "10728",
+                  "arrival_energy": "7",
+                  "departure_energy": "35"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/3",
+                  "arrival_time": "10728",
+                  "departure_time": "20028",
+                  "arrival_energy": "35",
+                  "departure_energy": "0"
+                },
+                {
+                  "effect": "C",
+                  "site": "4r:node/3",
+                  "arrival_time": "20028",
+                  "departure_time": "22488",
+                  "arrival_energy": "0",
+                  "departure_energy": "48"
+                },
+                {
+                  "effect": "D",
+                  "site": "4r:node/4",
+                  "arrival_time": "22488",
+                  "departure_time": "31488",
+                  "arrival_energy": "48",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "S",
+                  "site": "4r:node/4",
+                  "arrival_time": "31488",
+                  "departure_time": "42700",
+                  "arrival_energy": "8",
+                  "departure_energy": "8"
+                },
+                {
+                  "effect": "D",
+                  "site": "destination",
+                  "arrival_time": "42700",
+                  "departure_time": "43150",
+                  "arrival_energy": "8",
+                  "departure_energy": "6"
+                }
+              ]
+            },
+            "region": 0,
+            "region_members": [
+              "4r:node/1",
+              "4r:node/2",
+              "4r:node/3",
+              "4r:node/4"
+            ],
+            "state": {
+              "anchor": "4r:node/2",
+              "remaining_schedule": 1,
+              "stop_count": 3
+            },
+            "effect": "S",
+            "prefix": [
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ],
+              [
+                "4r:node/2",
+                "C"
+              ]
+            ],
+            "actions": [
+              [
+                "4r:node/4",
+                "S"
+              ]
+            ],
+            "current_frontier": [
+              [
+                "7",
+                "30",
+                false,
+                false,
+                "36",
+                "9948",
+                true,
+                "-7",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "30",
+                true,
+                true,
+                "36",
+                "9948",
+                true,
+                "-7",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "30",
+                "48",
+                false,
+                false,
+                "60",
+                "9228",
+                true,
+                "-7",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "48",
+                true,
+                true,
+                "60",
+                "9228",
+                true,
+                "-7",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "48",
+                "60",
+                false,
+                false,
+                "120",
+                "6348",
+                true,
+                "-7",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ]
+                ]
+              ],
+              [
+                "60",
+                "60",
+                true,
+                true,
+                "120",
+                "6348",
+                true,
+                "-7",
+                [
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ],
+                  [
+                    "4r:node/2",
+                    "C"
+                  ]
+                ]
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="6" time="0.054" timestamp="2026-10-05T21:21:38.470018-06:00" hostname="469b9132fa5b"><testcase classname="results.milestone_5_b21_v1.test_closure_contract" name="test_frozen_charging_primitive_identity" time="0.003" /><testcase classname="results.milestone_5_b21_v1.test_closure_contract" name="test_same_energy_safe_input_reduction" time="0.000" /><testcase classname="results.milestone_5_b21_v1.test_closure_contract" name="test_strict_endpoints_and_exact_unattained_charge_infimum" time="0.000" /><testcase classname="results.milestone_5_b21_v1.test_closure_contract" name="test_no_earliest_attained_realization_in_A_output_family" time="0.000" /><testcase classname="results.milestone_5_b21_v1.test_closure_contract" name="test_noninfimal_attained_witness_becomes_attained_after_waiting" time="0.000" /><testcase classname="results.milestone_5_b21_v1.test_closure_contract" name="test_alg4_mandatory_charge_congruence" time="0.001"><failure message="AssertionError: Core v1 ALG-4 fails: safe input reduction removes B; branchwise C stores only unattained A infimum 1336, while C before reduction retains attained B 1349. Noninfimal attained A outputs are absent from the mandated branch summary.&#10;assert () == ((Fraction(13..., (3, 'C'))),)&#10;  &#10;  Right contains one more item: (Fraction(1349, 1), Fraction(1, 1), ((2, 'C'), (3, 'C')))&#10;  Use -v to get more diff">def test_alg4_mandatory_charge_congruence():
+        result = run()
+&gt;       assert attained_signature(result['left']) == attained_signature(result['right']), (
+            'Core v1 ALG-4 fails: safe input reduction removes B; branchwise C stores '
+            'only unattained A infimum 1336, while C before reduction retains attained B '
+            '1349. Noninfimal attained A outputs are absent from the mandated branch summary.')
+E       AssertionError: Core v1 ALG-4 fails: safe input reduction removes B; branchwise C stores only unattained A infimum 1336, while C before reduction retains attained B 1349. Noninfimal attained A outputs are absent from the mandated branch summary.
+E       assert () == ((Fraction(13..., (3, 'C'))),)
+E         
+E         Right contains one more item: (Fraction(1349, 1), Fraction(1, 1), ((2, 'C'), (3, 'C')))
+E         Use -v to get more diff
+
+results/milestone_5_b21_v1/test_closure_contract.py:43: AssertionError</failure></testcase></testsuite></testsuites>

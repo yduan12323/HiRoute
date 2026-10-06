@@ -1,0 +1,223 @@
+{
+  "fixture_sha256": "436a6e04023bfad632147fb2d3411a3c71d566ae8bb0c2def59116bf17a01293",
+  "reference_sha256": "237dfc09132b8a53ee8f95aa83ce3d32fd20b02c35d2e5f5334718e1ec4c6ada",
+  "scope": "bounded_H_ref_diagnostic",
+  "checks": [
+    {
+      "case_id": "cs_service_dominant_positive_v2",
+      "dominance": false,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "cs_service_dominant_positive_v2",
+      "dominance": true,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "cs_charge_dominant_positive_v2",
+      "dominance": false,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "cs_charge_dominant_positive_v2",
+      "dominance": true,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "cs_waiting_dominant_positive_v2",
+      "dominance": false,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "cs_waiting_dominant_positive_v2",
+      "dominance": true,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "cs_exact_max_boundary_positive_v2",
+      "dominance": false,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "cs_exact_max_boundary_positive_v2",
+      "dominance": true,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "cs_crosses_charging_breakpoint_positive_v2",
+      "dominance": false,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "cs_crosses_charging_breakpoint_positive_v2",
+      "dominance": true,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "cs_primary_unattained_positive_v2",
+      "dominance": false,
+      "status": "primary_unattained",
+      "mismatches": []
+    },
+    {
+      "case_id": "cs_primary_unattained_positive_v2",
+      "dominance": true,
+      "status": "primary_unattained",
+      "mismatches": []
+    },
+    {
+      "case_id": "cs_secondary_unattained_positive_v2",
+      "dominance": false,
+      "status": "secondary_unattained",
+      "mismatches": []
+    },
+    {
+      "case_id": "cs_secondary_unattained_positive_v2",
+      "dominance": true,
+      "status": "secondary_unattained",
+      "mismatches": []
+    },
+    {
+      "case_id": "c_primary_unattained_with_repeat_positive_v2",
+      "dominance": false,
+      "status": "primary_unattained",
+      "mismatches": []
+    },
+    {
+      "case_id": "c_primary_unattained_with_repeat_positive_v2",
+      "dominance": true,
+      "status": "primary_unattained",
+      "mismatches": []
+    },
+    {
+      "case_id": "c_s_secondary_unattained_with_repeat_positive_v2",
+      "dominance": false,
+      "status": "secondary_unattained",
+      "mismatches": []
+    },
+    {
+      "case_id": "c_s_secondary_unattained_with_repeat_positive_v2",
+      "dominance": true,
+      "status": "secondary_unattained",
+      "mismatches": []
+    },
+    {
+      "case_id": "zero_stop_no_station_positive_v2",
+      "dominance": false,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "zero_stop_no_station_positive_v2",
+      "dominance": true,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "empty_capability_site_positive_v2",
+      "dominance": false,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "empty_capability_site_positive_v2",
+      "dominance": true,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "service_only_no_charge_variables_positive_v2",
+      "dominance": false,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "service_only_no_charge_variables_positive_v2",
+      "dominance": true,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "already_satisfied_service_state_positive_v2",
+      "dominance": false,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "already_satisfied_service_state_positive_v2",
+      "dominance": true,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "unsatisfied_service_bound_zero_positive_v2",
+      "dominance": false,
+      "status": "infeasible_within_H_ref",
+      "mismatches": []
+    },
+    {
+      "case_id": "unsatisfied_service_bound_zero_positive_v2",
+      "dominance": true,
+      "status": "infeasible_within_H_ref",
+      "mismatches": []
+    },
+    {
+      "case_id": "deterministic_site_tuple_tie_positive_v2",
+      "dominance": false,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "deterministic_site_tuple_tie_positive_v2",
+      "dominance": true,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "fastest_leg_actual_length_positive_v2",
+      "dominance": false,
+      "status": "infeasible_within_H_ref",
+      "mismatches": []
+    },
+    {
+      "case_id": "fastest_leg_actual_length_positive_v2",
+      "dominance": true,
+      "status": "infeasible_within_H_ref",
+      "mismatches": []
+    },
+    {
+      "case_id": "deterministic_parallel_edge_tie_positive_v2",
+      "dominance": false,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "deterministic_parallel_edge_tie_positive_v2",
+      "dominance": true,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "cyclic_directed_graph_repeated_site_positive_v2",
+      "dominance": false,
+      "status": "attained_optimum",
+      "mismatches": []
+    },
+    {
+      "case_id": "cyclic_directed_graph_repeated_site_positive_v2",
+      "dominance": true,
+      "status": "attained_optimum",
+      "mismatches": []
+    }
+  ]
+}

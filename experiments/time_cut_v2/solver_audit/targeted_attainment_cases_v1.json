@@ -1,0 +1,544 @@
+[
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 10,
+    "capacity_kwh": 10,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        10,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 20
+      },
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 5
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 7
+      }
+    ],
+    "case_id": "open_primary_below_attained",
+    "independent_expected": {
+      "status": "primary_unattained",
+      "primary_infimum": "3"
+    },
+    "external_incumbent_sequence": [
+      [
+        "b",
+        "C"
+      ]
+    ],
+    "analytic_certificate": "At a, initial energy suffices for both road legs, so each q>0 gives J=3+q, infimum3 unattained. At b, total energy12 requires q>=2, giving attained J5; that incumbent cannot hide the lower open infimum."
+  },
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 10
+    },
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 20
+      },
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1
+      }
+    ],
+    "case_id": "open_secondary_equal_primary",
+    "independent_expected": {
+      "status": "secondary_unattained",
+      "J": "13",
+      "secondary_infimum": "0"
+    },
+    "external_incumbent_sequence": [
+      [
+        "a",
+        "CS"
+      ]
+    ],
+    "analytic_certificate": "Both CS branches have arrival1, h1, service D10, outgoing time1, hence attained primary13 for small feasible charge. Branch a requires q>=2; branch b allows all q>0 and therefore secondary infimum0 is unattained."
+  },
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 10
+    },
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 20
+      },
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3
+      }
+    ],
+    "case_id": "equal_primary_better_Q",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "13",
+      "Q_total": "1",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "b",
+          "CS"
+        ]
+      ],
+      "lex_key": [
+        "13",
+        "1",
+        1,
+        [
+          [
+            "b",
+            "CS"
+          ]
+        ]
+      ]
+    },
+    "external_incumbent_sequence": [
+      [
+        "a",
+        "CS"
+      ]
+    ],
+    "analytic_certificate": "Primary13 is attained for both service-dominant CS branches. Energy balance requires q>=2 at a and q>=1 at b. Equal-primary pruning must retain b and choose Q1."
+  },
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 10
+    },
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 20
+      },
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4
+      }
+    ],
+    "case_id": "equal_primary_equal_Q_better_pi",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "13",
+      "Q_total": "2",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "a",
+          "CS"
+        ]
+      ],
+      "lex_key": [
+        "13",
+        "2",
+        1,
+        [
+          [
+            "a",
+            "CS"
+          ]
+        ]
+      ]
+    },
+    "external_incumbent_sequence": [
+      [
+        "b",
+        "CS"
+      ]
+    ],
+    "analytic_certificate": "Both branches attain primary13 and secondaryQ2 with one stop. The final tuple chooses a:CS even when b:CS supplies the initial incumbent."
+  },
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 0
+    },
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4
+      }
+    ],
+    "case_id": "primary_open_equal_J_cannot_donate_Q",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "5",
+      "Q_total": "2",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "b",
+          "CS"
+        ]
+      ],
+      "lex_key": [
+        "5",
+        "2",
+        1,
+        [
+          [
+            "b",
+            "CS"
+          ]
+        ]
+      ]
+    },
+    "external_incumbent_sequence": [
+      [
+        "b",
+        "CS"
+      ]
+    ],
+    "analytic_certificate": "At a, q>0 implies J=5+q, so primary5 is unattained and its hypothetical Q0 is excluded. At b, energy balance q>=2 makes primary5 attained at Q2. Global result is attained(5,2,1,bCS)."
+  },
+  {
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 10,
+      "b": 100,
+      "D": 1
+    },
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "S"
+      ],
+      "c": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "o",
+        "target": "c",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "c",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2
+      }
+    ],
+    "case_id": "equal_J_Q_fewer_H_wins",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "12",
+      "Q_total": "1",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "c",
+          "CS"
+        ]
+      ],
+      "lex_key": [
+        "12",
+        "1",
+        1,
+        [
+          [
+            "c",
+            "CS"
+          ]
+        ]
+      ]
+    },
+    "external_incumbent_sequence": [
+      [
+        "a",
+        "C"
+      ],
+      [
+        "b",
+        "S"
+      ]
+    ],
+    "analytic_certificate": "Both aC,bS and cCS use total road energy3 and need Q1 for reserve1. Service starts10, ends11, terminal12. Single cCS wins H1 over H2 after equal J12,Q1. Service-only b is infeasible at reserve1."
+  }
+]

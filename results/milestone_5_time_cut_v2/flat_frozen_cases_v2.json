@@ -1,0 +1,958 @@
+[
+  {
+    "case_id": "cs_service_dominant_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "attained_optimum",
+        "J": "13",
+        "Q_total": "2",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "x",
+            "CS"
+          ]
+        ],
+        "lex_key": [
+          "13",
+          "2",
+          1,
+          [
+            [
+              "x",
+              "CS"
+            ]
+          ]
+        ],
+        "charges": [
+          "2"
+        ],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0030326270025398117
+  },
+  {
+    "case_id": "cs_service_dominant_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "attained_optimum",
+        "J": "13",
+        "Q_total": "2",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "x",
+            "CS"
+          ]
+        ],
+        "lex_key": [
+          "13",
+          "2",
+          1,
+          [
+            [
+              "x",
+              "CS"
+            ]
+          ]
+        ],
+        "charges": [
+          "2"
+        ],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.003357826000865316
+  },
+  {
+    "case_id": "cs_charge_dominant_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "attained_optimum",
+        "J": "23",
+        "Q_total": "2",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "x",
+            "CS"
+          ]
+        ],
+        "lex_key": [
+          "23",
+          "2",
+          1,
+          [
+            [
+              "x",
+              "CS"
+            ]
+          ]
+        ],
+        "charges": [
+          "2"
+        ],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.003049440998438513
+  },
+  {
+    "case_id": "cs_charge_dominant_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "attained_optimum",
+        "J": "23",
+        "Q_total": "2",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "x",
+            "CS"
+          ]
+        ],
+        "lex_key": [
+          "23",
+          "2",
+          1,
+          [
+            [
+              "x",
+              "CS"
+            ]
+          ]
+        ],
+        "charges": [
+          "2"
+        ],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0026167139985773247
+  },
+  {
+    "case_id": "cs_waiting_dominant_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "attained_optimum",
+        "J": "13",
+        "Q_total": "2",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "x",
+            "CS"
+          ]
+        ],
+        "lex_key": [
+          "13",
+          "2",
+          1,
+          [
+            [
+              "x",
+              "CS"
+            ]
+          ]
+        ],
+        "charges": [
+          "2"
+        ],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0026330370019422844
+  },
+  {
+    "case_id": "cs_waiting_dominant_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "attained_optimum",
+        "J": "13",
+        "Q_total": "2",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "x",
+            "CS"
+          ]
+        ],
+        "lex_key": [
+          "13",
+          "2",
+          1,
+          [
+            [
+              "x",
+              "CS"
+            ]
+          ]
+        ],
+        "charges": [
+          "2"
+        ],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0024081160008790903
+  },
+  {
+    "case_id": "cs_exact_max_boundary_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "attained_optimum",
+        "J": "13",
+        "Q_total": "2",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "x",
+            "CS"
+          ]
+        ],
+        "lex_key": [
+          "13",
+          "2",
+          1,
+          [
+            [
+              "x",
+              "CS"
+            ]
+          ]
+        ],
+        "charges": [
+          "2"
+        ],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.002331216997845331
+  },
+  {
+    "case_id": "cs_exact_max_boundary_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "attained_optimum",
+        "J": "13",
+        "Q_total": "2",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "x",
+            "CS"
+          ]
+        ],
+        "lex_key": [
+          "13",
+          "2",
+          1,
+          [
+            [
+              "x",
+              "CS"
+            ]
+          ]
+        ],
+        "charges": [
+          "2"
+        ],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0032138049973582383
+  },
+  {
+    "case_id": "cs_crosses_charging_breakpoint_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "attained_optimum",
+        "J": "7",
+        "Q_total": "2",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "x",
+            "CS"
+          ]
+        ],
+        "lex_key": [
+          "7",
+          "2",
+          1,
+          [
+            [
+              "x",
+              "CS"
+            ]
+          ]
+        ],
+        "charges": [
+          "2"
+        ],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.00708383699748083
+  },
+  {
+    "case_id": "cs_crosses_charging_breakpoint_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "attained_optimum",
+        "J": "7",
+        "Q_total": "2",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "x",
+            "CS"
+          ]
+        ],
+        "lex_key": [
+          "7",
+          "2",
+          1,
+          [
+            [
+              "x",
+              "CS"
+            ]
+          ]
+        ],
+        "charges": [
+          "2"
+        ],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.008689047001098515
+  },
+  {
+    "case_id": "cs_primary_unattained_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "primary_unattained",
+        "primary_infimum": "3"
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0018299910007044673
+  },
+  {
+    "case_id": "cs_primary_unattained_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "primary_unattained",
+        "primary_infimum": "3"
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.002122197998687625
+  },
+  {
+    "case_id": "cs_secondary_unattained_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "secondary_unattained",
+        "J": "13",
+        "secondary_infimum": "0"
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0015874450000410434
+  },
+  {
+    "case_id": "cs_secondary_unattained_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "secondary_unattained",
+        "J": "13",
+        "secondary_infimum": "0"
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0018582720003905706
+  },
+  {
+    "case_id": "c_primary_unattained_with_repeat_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 2,
+      "result": {
+        "status": "primary_unattained",
+        "primary_infimum": "4"
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.003160590000334196
+  },
+  {
+    "case_id": "c_primary_unattained_with_repeat_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 2,
+      "result": {
+        "status": "primary_unattained",
+        "primary_infimum": "4"
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0031362640002043918
+  },
+  {
+    "case_id": "c_s_secondary_unattained_with_repeat_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 3,
+      "result": {
+        "status": "secondary_unattained",
+        "J": "14",
+        "secondary_infimum": "0"
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.009105511002417188
+  },
+  {
+    "case_id": "c_s_secondary_unattained_with_repeat_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 3,
+      "result": {
+        "status": "secondary_unattained",
+        "J": "14",
+        "secondary_infimum": "0"
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.008657131998916157
+  },
+  {
+    "case_id": "zero_stop_no_station_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 0,
+      "result": {
+        "status": "attained_optimum",
+        "J": "4",
+        "Q_total": "0",
+        "H": 0,
+        "site_action_tuple": [],
+        "lex_key": [
+          "4",
+          "0",
+          0,
+          []
+        ],
+        "charges": [],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.00030318300196086057
+  },
+  {
+    "case_id": "zero_stop_no_station_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 0,
+      "result": {
+        "status": "attained_optimum",
+        "J": "4",
+        "Q_total": "0",
+        "H": 0,
+        "site_action_tuple": [],
+        "lex_key": [
+          "4",
+          "0",
+          0,
+          []
+        ],
+        "charges": [],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0002765640019788407
+  },
+  {
+    "case_id": "empty_capability_site_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 2,
+      "result": {
+        "status": "attained_optimum",
+        "J": "4",
+        "Q_total": "0",
+        "H": 0,
+        "site_action_tuple": [],
+        "lex_key": [
+          "4",
+          "0",
+          0,
+          []
+        ],
+        "charges": [],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0002647780020197388
+  },
+  {
+    "case_id": "empty_capability_site_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 2,
+      "result": {
+        "status": "attained_optimum",
+        "J": "4",
+        "Q_total": "0",
+        "H": 0,
+        "site_action_tuple": [],
+        "lex_key": [
+          "4",
+          "0",
+          0,
+          []
+        ],
+        "charges": [],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0003276269999332726
+  },
+  {
+    "case_id": "service_only_no_charge_variables_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "attained_optimum",
+        "J": "13",
+        "Q_total": "0",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "x",
+            "S"
+          ]
+        ],
+        "lex_key": [
+          "13",
+          "0",
+          1,
+          [
+            [
+              "x",
+              "S"
+            ]
+          ]
+        ],
+        "charges": [],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.001764537999406457
+  },
+  {
+    "case_id": "service_only_no_charge_variables_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "attained_optimum",
+        "J": "13",
+        "Q_total": "0",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "x",
+            "S"
+          ]
+        ],
+        "lex_key": [
+          "13",
+          "0",
+          1,
+          [
+            [
+              "x",
+              "S"
+            ]
+          ]
+        ],
+        "charges": [],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0012983630003873259
+  },
+  {
+    "case_id": "already_satisfied_service_state_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 0,
+      "result": {
+        "status": "attained_optimum",
+        "J": "3",
+        "Q_total": "0",
+        "H": 0,
+        "site_action_tuple": [],
+        "lex_key": [
+          "3",
+          "0",
+          0,
+          []
+        ],
+        "charges": [],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0002806410011544358
+  },
+  {
+    "case_id": "already_satisfied_service_state_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 0,
+      "result": {
+        "status": "attained_optimum",
+        "J": "3",
+        "Q_total": "0",
+        "H": 0,
+        "site_action_tuple": [],
+        "lex_key": [
+          "3",
+          "0",
+          0,
+          []
+        ],
+        "charges": [],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0003061160023207776
+  },
+  {
+    "case_id": "unsatisfied_service_bound_zero_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 0,
+      "result": {
+        "status": "infeasible_within_H_ref"
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0001009640000120271
+  },
+  {
+    "case_id": "unsatisfied_service_bound_zero_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 0,
+      "result": {
+        "status": "infeasible_within_H_ref"
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.00013874800060875714
+  },
+  {
+    "case_id": "deterministic_site_tuple_tie_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "attained_optimum",
+        "J": "13",
+        "Q_total": "2",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "a",
+            "CS"
+          ]
+        ],
+        "lex_key": [
+          "13",
+          "2",
+          1,
+          [
+            [
+              "a",
+              "CS"
+            ]
+          ]
+        ],
+        "charges": [
+          "2"
+        ],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0036508089979179204
+  },
+  {
+    "case_id": "deterministic_site_tuple_tie_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 1,
+      "result": {
+        "status": "attained_optimum",
+        "J": "13",
+        "Q_total": "2",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "a",
+            "CS"
+          ]
+        ],
+        "lex_key": [
+          "13",
+          "2",
+          1,
+          [
+            [
+              "a",
+              "CS"
+            ]
+          ]
+        ],
+        "charges": [
+          "2"
+        ],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.003974461000325391
+  },
+  {
+    "case_id": "fastest_leg_actual_length_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 0,
+      "result": {
+        "status": "infeasible_within_H_ref"
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0001101869966078084
+  },
+  {
+    "case_id": "fastest_leg_actual_length_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 0,
+      "result": {
+        "status": "infeasible_within_H_ref"
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.00010100399958901107
+  },
+  {
+    "case_id": "deterministic_parallel_edge_tie_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 0,
+      "result": {
+        "status": "attained_optimum",
+        "J": "1",
+        "Q_total": "0",
+        "H": 0,
+        "site_action_tuple": [],
+        "lex_key": [
+          "1",
+          "0",
+          0,
+          []
+        ],
+        "charges": [],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.00029059400185360573
+  },
+  {
+    "case_id": "deterministic_parallel_edge_tie_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 0,
+      "result": {
+        "status": "attained_optimum",
+        "J": "1",
+        "Q_total": "0",
+        "H": 0,
+        "site_action_tuple": [],
+        "lex_key": [
+          "1",
+          "0",
+          0,
+          []
+        ],
+        "charges": [],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.00025869900127872825
+  },
+  {
+    "case_id": "cyclic_directed_graph_repeated_site_positive_v2",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 2,
+      "result": {
+        "status": "attained_optimum",
+        "J": "13",
+        "Q_total": "2",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "x",
+            "CS"
+          ]
+        ],
+        "lex_key": [
+          "13",
+          "2",
+          1,
+          [
+            [
+              "x",
+              "CS"
+            ]
+          ]
+        ],
+        "charges": [
+          "2"
+        ],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.009957447000488173
+  },
+  {
+    "case_id": "cyclic_directed_graph_repeated_site_positive_v2",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 2,
+      "result": {
+        "status": "attained_optimum",
+        "J": "13",
+        "Q_total": "2",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "x",
+            "CS"
+          ]
+        ],
+        "lex_key": [
+          "13",
+          "2",
+          1,
+          [
+            [
+              "x",
+              "CS"
+            ]
+          ]
+        ],
+        "charges": [
+          "2"
+        ],
+        "witness_replayed": true
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.009771743003511801
+  }
+]

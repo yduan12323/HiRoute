@@ -1,0 +1,137 @@
+[
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 1
+    },
+    "sites": {
+      "z": [
+        "S"
+      ]
+    },
+    "charging_segments": [],
+    "edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1
+      }
+    ],
+    "case_id": "audit_destination_service_is_not_stop",
+    "independent_expected": {
+      "status": "infeasible_within_H_ref"
+    },
+    "analytic_certificate": "Frozen physical rule: destination arrival is terminal, not a semantic stop. A pending service cannot be fulfilled by a stop at z."
+  },
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {
+      "z": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1
+      }
+    ],
+    "case_id": "audit_destination_charging_is_not_stop",
+    "independent_expected": {
+      "status": "infeasible_within_H_ref"
+    },
+    "analytic_certificate": "Only direct arrival is permitted, with energy1<reserve2. Destination C is forbidden by the carried-forward physical rule."
+  },
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 5,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 1
+    },
+    "sites": {
+      "s": [
+        "S"
+      ]
+    },
+    "charging_segments": [],
+    "edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "z",
+        "target": "s",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "s",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1
+      }
+    ],
+    "case_id": "audit_destination_internal_road_transit_allowed",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "5",
+      "Q_total": "0",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "s",
+          "S"
+        ]
+      ]
+    },
+    "analytic_certificate": "No additional first-transit ban: selected o\u2192s leg passes through z internally. Arrival at s at2, overhead1, service1, then drive1 gives J5. The only semantic stop is s."
+  }
+]

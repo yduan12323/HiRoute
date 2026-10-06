@@ -1,0 +1,17 @@
+PASS rho_tradeoff_survives_then_plateau
+PASS strict_rho_overrides_pi
+PASS equal_rho_pi_still_matters
+PASS singleton_closed_beats_open
+PASS disjoint_domains_and_holes
+PASS affine_crossing_and_chi_tie
+PASS equivalent_duplicates_keep_one
+PASS excluded_deadline_face
+PASS rational_disjoint_singleton
+{
+  "frontiers": 9,
+  "checks": 216,
+  "open_cells": 2197,
+  "singletons": 2413,
+  "operator_witnesses": 1854,
+  "restricted_multistop_witnesses": 3
+}

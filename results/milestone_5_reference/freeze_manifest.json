@@ -1,0 +1,14 @@
+{
+  "schema": "original_hand_cases_plus_optional_initial_remaining_schedule_v1",
+  "fixture": "frozen_cases.json",
+  "sha256": "ecc57d3f53cf8928233554e6e15635381bc1acc0d0178f5a3185a297fafc786f",
+  "case_count": 18,
+  "construction": "Independent analytic arithmetic, before running new cases through REF or production.",
+  "comparison_started": false,
+  "expected_status_counts": {
+    "attained_optimum": 12,
+    "infeasible_within_H_ref": 2,
+    "primary_unattained": 2,
+    "secondary_unattained": 2
+  }
+}

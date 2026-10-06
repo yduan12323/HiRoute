@@ -1,0 +1,9 @@
+C randomized exact oracle: 4000 unions, 3021 nonempty; all passed
+S/CS sparse-family boundary checks: 8000 actions, 5240 feasible; all passed
+PASS primary tied open plus closed
+PASS secondary open beats worse attained
+PASS secondary tied singleton restores attainment
+PASS H tie breaks after J Q
+PASS Q beats H
+PASS open right reserve singleton is infeasible
+PASS 252 constructive dominated-witness replay checks
