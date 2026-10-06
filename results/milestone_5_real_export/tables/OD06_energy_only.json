@@ -1,0 +1,1755 @@
+{
+  "anchors": [
+    "road:17151",
+    "road:71017",
+    "road:1839331",
+    "road:1839344",
+    "road:1842187",
+    "road:2406513",
+    "road:4058971",
+    "road:4234444",
+    "road:5144090"
+  ],
+  "backend": {
+    "binary_sha256": "c316bfa7e3fdc4e1a0d5f0d41ea9bc292f36c29ea9058557989fd3e70c963c72",
+    "compiler_provenance": {
+      "compiler_command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "-shared",
+        "-fPIC",
+        "/workspace/shared/navigation_audit/worktrees/HiRoute-m5-time-cut/src/microplan/routing.cpp",
+        "-o",
+        "/workspace/shared/navigation_audit/real_leg_export/native_cache/routing.so"
+      ],
+      "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+      "source_sha256": "2fc38a835cee766464714866edd07e117da430226bae1937108f6e26319d2788"
+    },
+    "direction_policy": "forward_per_source_v1",
+    "name": "accepted_microplan_native_ExactRouter",
+    "pair_cutoff_hex": "0x1.fffffffffffffp+1023",
+    "real_calibration_sha256": "cc9ddc722e5b558a19ff95197df40c99e5977cb6679b5baaea2a12dd5913df07",
+    "source_sha256": {
+      "configs/microplan.yaml": "1cebe88463668c9423dc89fcdffb71cb488af3bd0fb54fcc9152c96e3aa5b7ef",
+      "src/microplan/routing.cpp": "2fc38a835cee766464714866edd07e117da430226bae1937108f6e26319d2788",
+      "src/microplan/routing.py": "2d9b2f42affdb6011709239289cfe705768118dd636e93fd6c89a50947723380"
+    },
+    "tie_policy": "min_time_then_actual_length_then_first_discovery"
+  },
+  "destination_anchor": "road:71017",
+  "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+  "legs": [
+    {
+      "actual_length_m": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      },
+      "label_direction": "identity",
+      "reachable": true,
+      "source_anchor": "road:17151",
+      "target_anchor": "road:17151",
+      "time_s": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.51462f1a9fbecp+16",
+        "ratio": [
+          "1483347426180859",
+          "17179869184"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:17151",
+      "target_anchor": "road:71017",
+      "time_s": {
+        "hex": "0x1.a7f718b25068ap+11",
+        "ratio": [
+          "3729237518484293",
+          "1099511627776"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.e07fe353f7cf2p+13",
+        "ratio": [
+          "4226518848880249",
+          "274877906944"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:17151",
+      "target_anchor": "road:1839331",
+      "time_s": {
+        "hex": "0x1.f574b07aa55d0p+9",
+        "ratio": [
+          "551356502549853",
+          "549755813888"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.e6a5d0e56041dp+13",
+        "ratio": [
+          "8561197206340637",
+          "549755813888"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:17151",
+      "target_anchor": "road:1839344",
+      "time_s": {
+        "hex": "0x1.fe4f254c08916p+9",
+        "ratio": [
+          "4488726866576523",
+          "4398046511104"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.af00c8b43957fp+13",
+        "ratio": [
+          "7582286061213055",
+          "549755813888"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:17151",
+      "target_anchor": "road:1842187",
+      "time_s": {
+        "hex": "0x1.c04d95ebadddap+9",
+        "ratio": [
+          "3943315495808749",
+          "4398046511104"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.84457ae147ae3p+13",
+        "ratio": [
+          "6830542814477027",
+          "549755813888"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:17151",
+      "target_anchor": "road:2406513",
+      "time_s": {
+        "hex": "0x1.8588a14654f31p+9",
+        "ratio": [
+          "6852749511970609",
+          "8796093022208"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.76e604189374dp+13",
+        "ratio": [
+          "6595284159772493",
+          "549755813888"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:17151",
+      "target_anchor": "road:4058971",
+      "time_s": {
+        "hex": "0x1.779c5d0d3ffe7p+9",
+        "ratio": [
+          "6607814983417831",
+          "8796093022208"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.b804a5e353f7dp+13",
+        "ratio": [
+          "7740881267670909",
+          "549755813888"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:17151",
+      "target_anchor": "road:4234444",
+      "time_s": {
+        "hex": "0x1.c7d8751a7cfdcp+9",
+        "ratio": [
+          "2004829872976887",
+          "2199023255552"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.89325a1cac084p+13",
+        "ratio": [
+          "1729297319637025",
+          "137438953472"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:17151",
+      "target_anchor": "road:5144090",
+      "time_s": {
+        "hex": "0x1.8b35278ed8f09p+9",
+        "ratio": [
+          "6952566238580489",
+          "8796093022208"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.516a2b4395803p+16",
+        "ratio": [
+          "5935862575093763",
+          "68719476736"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:71017",
+      "target_anchor": "road:17151",
+      "time_s": {
+        "hex": "0x1.a8eb8ce2d1f16p+11",
+        "ratio": [
+          "3737636889333643",
+          "1099511627776"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      },
+      "label_direction": "identity",
+      "reachable": true,
+      "source_anchor": "road:71017",
+      "target_anchor": "road:71017",
+      "time_s": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.1939cfdf3b64bp+16",
+        "ratio": [
+          "4947377088869963",
+          "68719476736"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:71017",
+      "target_anchor": "road:1839331",
+      "time_s": {
+        "hex": "0x1.6f7c441af589bp+11",
+        "ratio": [
+          "6464871775295643",
+          "2199023255552"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.1875122d0e565p+16",
+        "ratio": [
+          "4933857150297445",
+          "68719476736"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:71017",
+      "target_anchor": "road:1839344",
+      "time_s": {
+        "hex": "0x1.6d45a6e69cbc9p+11",
+        "ratio": [
+          "6425934352206793",
+          "2199023255552"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.2e682083126e0p+16",
+        "ratio": [
+          "166249866823991",
+          "2147483648"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:71017",
+      "target_anchor": "road:1842187",
+      "time_s": {
+        "hex": "0x1.67de147fac699p+11",
+        "ratio": [
+          "6330856016365209",
+          "2199023255552"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.2910b6c8b4393p+16",
+        "ratio": [
+          "5226027832525715",
+          "68719476736"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:71017",
+      "target_anchor": "road:2406513",
+      "time_s": {
+        "hex": "0x1.592cd756562edp+11",
+        "ratio": [
+          "6072385646453485",
+          "2199023255552"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.2764c7ef9db1ep+16",
+        "ratio": [
+          "2598310250343823",
+          "34359738368"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:71017",
+      "target_anchor": "road:4058971",
+      "time_s": {
+        "hex": "0x1.55b1c64810f1dp+11",
+        "ratio": [
+          "6011152014315293",
+          "2199023255552"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.2f889c28f5c23p+16",
+        "ratio": [
+          "5339820139174947",
+          "68719476736"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:71017",
+      "target_anchor": "road:4234444",
+      "time_s": {
+        "hex": "0x1.69c0cc4b6031cp+11",
+        "ratio": [
+          "1591007035359431",
+          "549755813888"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.29ae52b020c47p+16",
+        "ratio": [
+          "5236858640534599",
+          "68719476736"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:71017",
+      "target_anchor": "road:5144090",
+      "time_s": {
+        "hex": "0x1.5a97f8e8772e3p+11",
+        "ratio": [
+          "6097339828105955",
+          "2199023255552"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.e2006e978d502p+13",
+        "ratio": [
+          "4239731680111233",
+          "274877906944"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1839331",
+      "target_anchor": "road:17151",
+      "time_s": {
+        "hex": "0x1.f7eee7326c452p+9",
+        "ratio": [
+          "4432643438633513",
+          "4398046511104"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.198ebe76c8b48p+16",
+        "ratio": [
+          "619151696433513",
+          "8589934592"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1839331",
+      "target_anchor": "road:71017",
+      "time_s": {
+        "hex": "0x1.6f80b62735ad1p+11",
+        "ratio": [
+          "6465177267690193",
+          "2199023255552"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      },
+      "label_direction": "identity",
+      "reachable": true,
+      "source_anchor": "road:1839331",
+      "target_anchor": "road:1839331",
+      "time_s": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.897b645a1cac0p+7",
+        "ratio": [
+          "108159508580139",
+          "549755813888"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1839331",
+      "target_anchor": "road:1839344",
+      "time_s": {
+        "hex": "0x1.1b4e9a2c66906p+4",
+        "ratio": [
+          "2491995077686403",
+          "140737488355328"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.f5609374bc6acp+10",
+        "ratio": [
+          "2205080465109419",
+          "1099511627776"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1839331",
+      "target_anchor": "road:1842187",
+      "time_s": {
+        "hex": "0x1.5d29220ff5409p+7",
+        "ratio": [
+          "6142499571586057",
+          "35184372088832"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.8f764dd2f1a9fp+11",
+        "ratio": [
+          "7027412020697759",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1839331",
+      "target_anchor": "road:2406513",
+      "time_s": {
+        "hex": "0x1.e2d9bb6aa4b94p+7",
+        "ratio": [
+          "2123599027278565",
+          "8796093022208"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.ba5e3d70a3d6dp+11",
+        "ratio": [
+          "7782222355119469",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1839331",
+      "target_anchor": "road:4058971",
+      "time_s": {
+        "hex": "0x1.0d1abdc26dce1p+8",
+        "ratio": [
+          "4734135690517729",
+          "17592186044416"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.73de4dd2f1a9dp+11",
+        "ratio": [
+          "6541977637034653",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1839331",
+      "target_anchor": "road:4234444",
+      "time_s": {
+        "hex": "0x1.dcf038194c014p+7",
+        "ratio": [
+          "2097597072617477",
+          "8796093022208"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.a329cac083126p+11",
+        "ratio": [
+          "3686998938491027",
+          "1099511627776"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1839331",
+      "target_anchor": "road:5144090",
+      "time_s": {
+        "hex": "0x1.f98bd48cb4ae8p+7",
+        "ratio": [
+          "1111707876944221",
+          "4398046511104"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.e8265c28f5c2cp+13",
+        "ratio": [
+          "2146905717200651",
+          "137438953472"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1839344",
+      "target_anchor": "road:17151",
+      "time_s": {
+        "hex": "0x1.0064ae01e7bcdp+10",
+        "ratio": [
+          "4510518284811213",
+          "4398046511104"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.18ca00c49ba63p+16",
+        "ratio": [
+          "4939693632895587",
+          "68719476736"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1839344",
+      "target_anchor": "road:71017",
+      "time_s": {
+        "hex": "0x1.6d4a18f2dce00p+11",
+        "ratio": [
+          "12551249696487",
+          "4294967296"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.897b645a1cac0p+7",
+        "ratio": [
+          "108159508580139",
+          "549755813888"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1839344",
+      "target_anchor": "road:1839331",
+      "time_s": {
+        "hex": "0x1.1b4e9a2c66905p+4",
+        "ratio": [
+          "4983990155372805",
+          "281474976710656"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      },
+      "label_direction": "identity",
+      "reachable": true,
+      "source_anchor": "road:1839344",
+      "target_anchor": "road:1839344",
+      "time_s": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.1347fffffffffp+11",
+        "ratio": [
+          "4842798964539391",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1839344",
+      "target_anchor": "road:1842187",
+      "time_s": {
+        "hex": "0x1.8092f55582129p+7",
+        "ratio": [
+          "6765498341007657",
+          "35184372088832"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.a80e04189374bp+11",
+        "ratio": [
+          "7460050055018315",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1839344",
+      "target_anchor": "road:2406513",
+      "time_s": {
+        "hex": "0x1.0321c75818c5ap+8",
+        "ratio": [
+          "2279348719633965",
+          "8796093022208"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.d2f5f3b645a19p+11",
+        "ratio": [
+          "8214860389440025",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1839344",
+      "target_anchor": "road:4058971",
+      "time_s": {
+        "hex": "0x1.1ecfa76534371p+8",
+        "ratio": [
+          "5045635075228529",
+          "17592186044416"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.8c76041893746p+11",
+        "ratio": [
+          "3487307835677603",
+          "1099511627776"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1839344",
+      "target_anchor": "road:4234444",
+      "time_s": {
+        "hex": "0x1.002d05af6c69ap+8",
+        "ratio": [
+          "2253346764972877",
+          "8796093022208"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.bbc1810624dd2p+11",
+        "ratio": [
+          "3903317955651305",
+          "1099511627776"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1839344",
+      "target_anchor": "road:5144090",
+      "time_s": {
+        "hex": "0x1.0e7ad3e920c04p+8",
+        "ratio": [
+          "1189582723121921",
+          "4398046511104"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.b07a8d4fdf3bbp+13",
+        "ratio": [
+          "7608246080500667",
+          "549755813888"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1842187",
+      "target_anchor": "road:17151",
+      "time_s": {
+        "hex": "0x1.c24bb3251e7eep+9",
+        "ratio": [
+          "3960842884805623",
+          "4398046511104"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.320f083126e96p+16",
+        "ratio": [
+          "2692120960382795",
+          "34359738368"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1842187",
+      "target_anchor": "road:71017",
+      "time_s": {
+        "hex": "0x1.6d3074bfb6262p+11",
+        "ratio": [
+          "3212238890316081",
+          "1099511627776"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.fb12e147ae147p+10",
+        "ratio": [
+          "8920535748239687",
+          "4398046511104"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1842187",
+      "target_anchor": "road:1839331",
+      "time_s": {
+        "hex": "0x1.62796a26e5474p+7",
+        "ratio": [
+          "1558994352837917",
+          "8796093022208"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.162126e978d4fp+11",
+        "ratio": [
+          "4892905908440399",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1842187",
+      "target_anchor": "road:1839344",
+      "time_s": {
+        "hex": "0x1.85e33d6c72196p+7",
+        "ratio": [
+          "3429488090386635",
+          "17592186044416"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      },
+      "label_direction": "identity",
+      "reachable": true,
+      "source_anchor": "road:1842187",
+      "target_anchor": "road:1842187",
+      "time_s": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.92bd916872b03p+10",
+        "ratio": [
+          "7085085803621123",
+          "4398046511104"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1842187",
+      "target_anchor": "road:2406513",
+      "time_s": {
+        "hex": "0x1.0c4ceb356da02p+7",
+        "ratio": [
+          "2359995839245569",
+          "17592186044416"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.e88d70a3d70a6p+10",
+        "ratio": [
+          "4297353236232275",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1842187",
+      "target_anchor": "road:4058971",
+      "time_s": {
+        "hex": "0x1.43a8ab4fa4832p+7",
+        "ratio": [
+          "2846933475206169",
+          "17592186044416"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.1e43a5e353f7cp+10",
+        "ratio": [
+          "1259003485966303",
+          "1099511627776"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1842187",
+      "target_anchor": "road:4234444",
+      "time_s": {
+        "hex": "0x1.c9599029ae4f6p+6",
+        "ratio": [
+          "4022891877069435",
+          "35184372088832"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.ba248b4395812p+10",
+        "ratio": [
+          "3889128758094857",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:1842187",
+      "target_anchor": "road:5144090",
+      "time_s": {
+        "hex": "0x1.22ff04577d956p+7",
+        "ratio": [
+          "2559629292465323",
+          "17592186044416"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.81b7dd2f1aa01p+13",
+        "ratio": [
+          "6785626664970753",
+          "549755813888"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:2406513",
+      "target_anchor": "road:17151",
+      "time_s": {
+        "hex": "0x1.8358dd0190db1p+9",
+        "ratio": [
+          "6814282639019441",
+          "8796093022208"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.2c36b22d0e560p+16",
+        "ratio": [
+          "165044202932011",
+          "2147483648"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:2406513",
+      "target_anchor": "road:71017",
+      "time_s": {
+        "hex": "0x1.5d73bf36d2bd7p+11",
+        "ratio": [
+          "6147626997984215",
+          "2199023255552"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.92cd26e978d4dp+11",
+        "ratio": [
+          "7086156727946573",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:2406513",
+      "target_anchor": "road:1839331",
+      "time_s": {
+        "hex": "0x1.e6ba6fc58ab94p+7",
+        "ratio": [
+          "2140653560933093",
+          "8796093022208"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.ab64dd2f1a9f8p+11",
+        "ratio": [
+          "939849345283391",
+          "274877906944"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:2406513",
+      "target_anchor": "road:1839344",
+      "time_s": {
+        "hex": "0x1.051221858bc5ap+8",
+        "ratio": [
+          "2296403253288493",
+          "8796093022208"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.99a178d4fdf3bp+10",
+        "ratio": [
+          "7206300363513659",
+          "4398046511104"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:2406513",
+      "target_anchor": "road:1842187",
+      "time_s": {
+        "hex": "0x1.121e0589acbcbp+7",
+        "ratio": [
+          "4822322047011787",
+          "35184372088832"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      },
+      "label_direction": "identity",
+      "reachable": true,
+      "source_anchor": "road:2406513",
+      "target_anchor": "road:2406513",
+      "time_s": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.c9dfbe76c8b44p+8",
+        "ratio": [
+          "2013751148225233",
+          "4398046511104"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:2406513",
+      "target_anchor": "road:4058971",
+      "time_s": {
+        "hex": "0x1.1f754b05b7cfep+5",
+        "ratio": [
+          "2528508856090239",
+          "70368744177664"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.e1c0624dd2f1bp+10",
+        "ratio": [
+          "8475062015176475",
+          "4398046511104"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:2406513",
+      "target_anchor": "road:4234444",
+      "time_s": {
+        "hex": "0x1.30498244e93e2p+7",
+        "ratio": [
+          "2676538024086001",
+          "17592186044416"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.acb810624dd2fp+8",
+        "ratio": [
+          "7542104408775983",
+          "17592186044416"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:2406513",
+      "target_anchor": "road:5144090",
+      "time_s": {
+        "hex": "0x1.ede260b2c83edp+4",
+        "ratio": [
+          "8688504278909933",
+          "281474976710656"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.774551eb851efp+13",
+        "ratio": [
+          "6601833400783343",
+          "549755813888"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:4058971",
+      "target_anchor": "road:17151",
+      "time_s": {
+        "hex": "0x1.78cb5a4736d7ap+9",
+        "ratio": [
+          "3314318120171197",
+          "4398046511104"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.2ae860c49ba5ep+16",
+        "ratio": [
+          "2629220167900463",
+          "34359738368"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:4058971",
+      "target_anchor": "road:71017",
+      "time_s": {
+        "hex": "0x1.5ad05e883c3c9p+11",
+        "ratio": [
+          "6101215398314953",
+          "2199023255552"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.b5d947ae147adp+11",
+        "ratio": [
+          "7702716669314989",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:4058971",
+      "target_anchor": "road:1839331",
+      "time_s": {
+        "hex": "0x1.0a844ac6cdaf3p+8",
+        "ratio": [
+          "4688612531428083",
+          "17592186044416"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.ce70fdf3b6458p+11",
+        "ratio": [
+          "1016919337954443",
+          "274877906944"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:4058971",
+      "target_anchor": "road:1839344",
+      "time_s": {
+        "hex": "0x1.1c39346994185p+8",
+        "ratio": [
+          "5000111916138885",
+          "17592186044416"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.dfb9ba5e353f6p+10",
+        "ratio": [
+          "4219710123125243",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:4058971",
+      "target_anchor": "road:1842187",
+      "time_s": {
+        "hex": "0x1.406c2b51bd622p+7",
+        "ratio": [
+          "2818466433067793",
+          "17592186044416"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.13be978d4fdf3p+9",
+        "ratio": [
+          "4850948544724467",
+          "8796093022208"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:4058971",
+      "target_anchor": "road:2406513",
+      "time_s": {
+        "hex": "0x1.556162f166e00p+5",
+        "ratio": [
+          "11729741777719",
+          "274877906944"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      },
+      "label_direction": "identity",
+      "reachable": true,
+      "source_anchor": "road:4058971",
+      "target_anchor": "road:4058971",
+      "time_s": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.13ec51eb851ecp+11",
+        "ratio": [
+          "1213522737239163",
+          "549755813888"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:4058971",
+      "target_anchor": "road:4234444",
+      "time_s": {
+        "hex": "0x1.5e97a80cf9e34p+7",
+        "ratio": [
+          "1541921716823949",
+          "8796093022208"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.628c8b439580fp+9",
+        "ratio": [
+          "6237291969861647",
+          "8796093022208"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:4058971",
+      "target_anchor": "road:5144090",
+      "time_s": {
+        "hex": "0x1.b029c779a6b4fp+5",
+        "ratio": [
+          "7602695415950159",
+          "140737488355328"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.bb7d872b020cbp+13",
+        "ratio": [
+          "7801964636152011",
+          "549755813888"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:4234444",
+      "target_anchor": "road:17151",
+      "time_s": {
+        "hex": "0x1.cc97aa8f4dc78p+9",
+        "ratio": [
+          "1012853500713871",
+          "1099511627776"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.336f676c8b437p+16",
+        "ratio": [
+          "5408456740222007",
+          "68719476736"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:4234444",
+      "target_anchor": "road:71017",
+      "time_s": {
+        "hex": "0x1.6fc3729a41f83p+11",
+        "ratio": [
+          "6469763339657091",
+          "2199023255552"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.702cf5c28f5c3p+11",
+        "ratio": [
+          "6477014092019139",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:4234444",
+      "target_anchor": "road:1839331",
+      "time_s": {
+        "hex": "0x1.da45f3d7d3912p+7",
+        "ratio": [
+          "4171751642537097",
+          "17592186044416"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.88c4ac083126ep+11",
+        "ratio": [
+          "3454826063169847",
+          "1099511627776"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:4234444",
+      "target_anchor": "road:1839344",
+      "time_s": {
+        "hex": "0x1.fdafc71d60634p+7",
+        "ratio": [
+          "2241625513623949",
+          "8796093022208"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.17927ef9db22dp+10",
+        "ratio": [
+          "4918287034855981",
+          "4398046511104"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:4234444",
+      "target_anchor": "road:1842187",
+      "time_s": {
+        "hex": "0x1.c5465c70435f2p+6",
+        "ratio": [
+          "3987047727635193",
+          "35184372088832"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.ead5604189376p+10",
+        "ratio": [
+          "4317417124415931",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:4234444",
+      "target_anchor": "road:2406513",
+      "time_s": {
+        "hex": "0x1.357cc8de2ac31p+7",
+        "ratio": [
+          "5444560622890033",
+          "35184372088832"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.20529fbe76c8dp+11",
+        "ratio": [
+          "5072227458837645",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:4234444",
+      "target_anchor": "road:4058971",
+      "time_s": {
+        "hex": "0x1.6cd888f861a60p+7",
+        "ratio": [
+          "200576121712851",
+          "1099511627776"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      },
+      "label_direction": "identity",
+      "reachable": true,
+      "source_anchor": "road:4234444",
+      "target_anchor": "road:4234444",
+      "time_s": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.091e2d0e56043p+11",
+        "ratio": [
+          "4664002980700227",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:4234444",
+      "target_anchor": "road:5144090",
+      "time_s": {
+        "hex": "0x1.4c2ee2003ab85p+7",
+        "ratio": [
+          "5843827529329541",
+          "35184372088832"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.93d3f7ced916ep+13",
+        "ratio": [
+          "3552108652972215",
+          "274877906944"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:5144090",
+      "target_anchor": "road:17151",
+      "time_s": {
+        "hex": "0x1.9835a7b57eb3fp+9",
+        "ratio": [
+          "7181299057421119",
+          "8796093022208"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.2e7a35810624dp+16",
+        "ratio": [
+          "5321238323946061",
+          "68719476736"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:5144090",
+      "target_anchor": "road:71017",
+      "time_s": {
+        "hex": "0x1.62aaf1e3ce339p+11",
+        "ratio": [
+          "6239381102584633",
+          "2199023255552"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.9aa7e76c8b437p+11",
+        "ratio": [
+          "7224334553232439",
+          "2199023255552"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:5144090",
+      "target_anchor": "road:1839331",
+      "time_s": {
+        "hex": "0x1.00dab68cef673p+8",
+        "ratio": [
+          "4518629476333171",
+          "17592186044416"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.b33f9db22d0e2p+11",
+        "ratio": [
+          "3828486293776497",
+          "1099511627776"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:5144090",
+      "target_anchor": "road:1839344",
+      "time_s": {
+        "hex": "0x1.128fa02fb5d05p+8",
+        "ratio": [
+          "4830128861043973",
+          "17592186044416"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.965978d4fdf3bp+10",
+        "ratio": [
+          "7148576003055419",
+          "4398046511104"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:5144090",
+      "target_anchor": "road:1842187",
+      "time_s": {
+        "hex": "0x1.40e6950fc71d7p+7",
+        "ratio": [
+          "5645345027289559",
+          "35184372088832"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.21c1a9fbe76c7p+9",
+        "ratio": [
+          "5097450255578823",
+          "8796093022208"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:5144090",
+      "target_anchor": "road:2406513",
+      "time_s": {
+        "hex": "0x1.4dccab3edd8b6p+5",
+        "ratio": [
+          "2936131347213403",
+          "70368744177664"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.0358c49ba5e34p+10",
+        "ratio": [
+          "1140619069003661",
+          "1099511627776"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:5144090",
+      "target_anchor": "road:4058971",
+      "time_s": {
+        "hex": "0x1.36a0fb224aadbp+6",
+        "ratio": [
+          "5464640203303643",
+          "70368744177664"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x1.de78624dd2f1bp+10",
+        "ratio": [
+          "8417337654718235",
+          "4398046511104"
+        ]
+      },
+      "label_direction": "forward_from_source",
+      "reachable": true,
+      "source_anchor": "road:5144090",
+      "target_anchor": "road:4234444",
+      "time_s": {
+        "hex": "0x1.5f1211cb039eap+7",
+        "ratio": [
+          "3088049514224885",
+          "17592186044416"
+        ]
+      }
+    },
+    {
+      "actual_length_m": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      },
+      "label_direction": "identity",
+      "reachable": true,
+      "source_anchor": "road:5144090",
+      "target_anchor": "road:5144090",
+      "time_s": {
+        "hex": "0x0.0p+0",
+        "ratio": [
+          "0",
+          "1"
+        ]
+      }
+    }
+  ],
+  "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+  "origin_anchor": "road:4234444",
+  "schema": "hiroute.immutable_selected_legs.v1",
+  "selection_certificate_sha256": "0e39ad906c01e05b4a4b764b3270360e309c24d1ae67d7a2e3533b6dca8af06a",
+  "sites": [
+    {
+      "anchor_id": "road:1842187",
+      "effects": [
+        "C"
+      ],
+      "site_id": "4r:node/5133710950"
+    },
+    {
+      "anchor_id": "road:1842187",
+      "effects": [
+        "C"
+      ],
+      "site_id": "4r:node/5133710951"
+    },
+    {
+      "anchor_id": "road:2406513",
+      "effects": [
+        "C"
+      ],
+      "site_id": "4r:way/1181201586"
+    },
+    {
+      "anchor_id": "road:5144090",
+      "effects": [
+        "C"
+      ],
+      "site_id": "4r:node/5149671799"
+    },
+    {
+      "anchor_id": "road:4058971",
+      "effects": [
+        "C"
+      ],
+      "site_id": "4r:node/9213702042"
+    },
+    {
+      "anchor_id": "road:1839331",
+      "effects": [
+        "C"
+      ],
+      "site_id": "4r:node/4439579876"
+    },
+    {
+      "anchor_id": "road:1839344",
+      "effects": [
+        "C"
+      ],
+      "site_id": "4r:node/4439577828"
+    },
+    {
+      "anchor_id": "road:17151",
+      "effects": [
+        "C"
+      ],
+      "site_id": "4r:node/11632165900"
+    }
+  ],
+  "source_sha256": {
+    "acceptance_populations/stage_c/concrete_selection/chosen_site_catalog.json": "f091db99dd1a698ad50dcfe30f02f1f6d8aadb763e8d23f021b6148c320e2232",
+    "acceptance_populations/stage_c/concrete_selection/coattached_identity_audit.json": "948599c728ff2b9bd355d389d7b23a042e2f53827184a9c8cce4887c76d5dae4",
+    "acceptance_populations/stage_c/concrete_selection/hierarchy_restrictions.parquet": "3711156c98fd9fa44fb1176a09eb1c2698146da717e8db26cc04fe0815e61d23",
+    "acceptance_populations/stage_c/concrete_selection/hierarchy_structure.json": "c9d059af7fbc96147c5b03e8488bd7d1eac8931e928fd3230f2fb9dca71254a5",
+    "acceptance_populations/stage_c/concrete_selection/missing_progress_audit.json": "63b4eed632afaaa1309178c2dc7de218b36bc220956bcc81d5bf810b565d89d7",
+    "acceptance_populations/stage_c/concrete_selection/od_anchors.json": "8dea9266bbc6cadf8c1b544ea34d3de02a1e062ca6d948c2d388269f4ee7f036",
+    "acceptance_populations/stage_c/concrete_selection/ordered_pools.parquet": "2bb79ffded2ffe370e20793d6279e5a7e4182523cd2ac0a6a6c2907f41e64d9c",
+    "acceptance_populations/stage_c/concrete_selection/preflight_audit.json": "6afb570bfe0a86052c942d052dfc94b57ea36309cf8871dadcdac868c25d9856",
+    "acceptance_populations/stage_c/concrete_selection/preselection_freeze.json": "1d4cf6ed857c13dbc9e475983ca8cb71517a49a8760408f67958c0798c94774c",
+    "acceptance_populations/stage_c/concrete_selection/progress_duplicate_audit.json": "aca78932ead6462fc6eec0baca8aabac9b3f1965e3be8a7e04325e81fe60416a",
+    "acceptance_populations/stage_c/concrete_selection/query_states.json": "264c49e99d498b554c1ba0ea41ca9005aa32fffedf2d04b1a0e7c1f7e6edf3f9",
+    "acceptance_populations/stage_c/concrete_selection/schema_interpretation.json": "62acd0445f33909e4deafdfc8c49862526a40679d00484bec23d4d3854d04956",
+    "acceptance_populations/stage_c/concrete_selection/selection_manifest.json": "0e39ad906c01e05b4a4b764b3270360e309c24d1ae67d7a2e3533b6dca8af06a",
+    "acceptance_populations/stage_c/concrete_selection/selector.py": "b7e9c9881fd56875da99d34682ba7a4504b5b1a166ad6b577b4f73515e95775a",
+    "acceptance_populations/stage_c/concrete_selection/source_schema.json": "d8525daf71bac7a1abf6a3e4704a08e5f0700993369589a0635d6cd3791556dd",
+    "acceptance_populations/stage_c/concrete_selection/static_site_facts.parquet": "b0d1899e7c56d8d74fa8b3244e692c222119af592268663cd196e40c7c4bc7f7",
+    "acceptance_populations/stage_c/concrete_selection/terminal_exclusion_audit.json": "911d195e103d1a34561aa483e38d5a04cbee328ffeb17c828c18e29462374aff",
+    "configs/microplan.yaml": "1cebe88463668c9423dc89fcdffb71cb488af3bd0fb54fcc9152c96e3aa5b7ef",
+    "data/processed/graphs/slovenia_extended/edges.parquet": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+    "data/processed/graphs/slovenia_extended/metadata.json": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd",
+    "data/processed/graphs/slovenia_extended/nodes.parquet": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+    "results/milestone_3a/od_remapping.parquet": "f38c0a81f42564e4f220d5c82de43d4454abfd8e962b09979d3dbdc8a447dcea",
+    "results/milestone_4a/od_features.parquet": "be02c3bc750feb64dd5fc1df5a22f3862aa2d01aa26b4e30d0a53372b4a7894e",
+    "results/milestone_4r/stop_sites.parquet": "e3e7d6d6667f7ab684ff83eb2646920516b01aef2e6ceb8170c689e71f6afd38",
+    "results/milestone_4r_b1/hierarchy.json": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+    "src/microplan/routing.cpp": "2fc38a835cee766464714866edd07e117da430226bae1937108f6e26319d2788",
+    "src/microplan/routing.py": "2d9b2f42affdb6011709239289cfe705768118dd636e93fd6c89a50947723380"
+  }
+}

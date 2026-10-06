@@ -1,0 +1,992 @@
+[
+  {
+    "case_id": "coattached_distinct_C_then_S",
+    "table": {
+      "schema": "hiroute.immutable_selected_legs.v1",
+      "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+      "anchors": [
+        "o",
+        "x",
+        "z"
+      ],
+      "origin_anchor": "o",
+      "destination_anchor": "z",
+      "sites": [
+        {
+          "site_id": "A",
+          "anchor_id": "x",
+          "effects": [
+            "C"
+          ]
+        },
+        {
+          "site_id": "B",
+          "anchor_id": "x",
+          "effects": [
+            "S"
+          ]
+        }
+      ],
+      "backend": {
+        "name": "independent mock native export",
+        "tie_policy": "min_time_then_actual_length_then_first_discovery",
+        "direction_policy": "forward_per_source_v1",
+        "source_sha256": {
+          "router.cpp": "74c95604043427f0bee1d0e16bfa53afd537f736ad0073c4cc4e1ccb3a82b5dc"
+        }
+      },
+      "source_sha256": {
+        "graph.bin": "eef93e1d14482804277fca0172464032d1a4fdbcc338524059fa1e861454ad4d"
+      },
+      "selection_certificate_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "hierarchy_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "legs": [
+        {
+          "source_anchor": "o",
+          "target_anchor": "o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "o",
+          "target_anchor": "x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "o",
+          "target_anchor": "z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.4000000000000p+4",
+            "ratio": [
+              "20",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "x",
+          "target_anchor": "o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "x",
+          "target_anchor": "x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "x",
+          "target_anchor": "z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+2",
+            "ratio": [
+              "4",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "z",
+          "target_anchor": "o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "z",
+          "target_anchor": "x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "z",
+          "target_anchor": "z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        }
+      ]
+    },
+    "query": {
+      "case_id": "independent_colocation_mock",
+      "H_ref": 2,
+      "origin": "o",
+      "destination": "z",
+      "start_time_s": 0,
+      "initial_energy_kwh": 2,
+      "capacity_kwh": 10,
+      "minimum_energy_kwh": 0,
+      "reserve_kwh": 0,
+      "consumption_kwh_per_m": 1,
+      "overhead_s": 1,
+      "lambda_stop_s": 0,
+      "charging_segments": [
+        [
+          0,
+          10,
+          1,
+          0
+        ]
+      ],
+      "schedule": {
+        "a": 0,
+        "b": 100,
+        "D": 2
+      }
+    },
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "9",
+      "Q_total": "3",
+      "H": 2,
+      "site_action_tuple": [
+        [
+          "A",
+          "C"
+        ],
+        [
+          "B",
+          "S"
+        ]
+      ]
+    },
+    "table_sha256": "275cf49013ae11ada064f9ea42e41897506c8186d115fae4efe81a66c7ca1f01"
+  },
+  {
+    "case_id": "selected_equal_time_length_never_rerouted",
+    "table": {
+      "schema": "hiroute.immutable_selected_legs.v1",
+      "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+      "anchors": [
+        "o",
+        "x",
+        "z"
+      ],
+      "origin_anchor": "o",
+      "destination_anchor": "z",
+      "sites": [],
+      "backend": {
+        "name": "independent mock native export",
+        "tie_policy": "min_time_then_actual_length_then_first_discovery",
+        "direction_policy": "forward_per_source_v1",
+        "source_sha256": {
+          "router.cpp": "74c95604043427f0bee1d0e16bfa53afd537f736ad0073c4cc4e1ccb3a82b5dc"
+        }
+      },
+      "source_sha256": {
+        "graph.bin": "eef93e1d14482804277fca0172464032d1a4fdbcc338524059fa1e861454ad4d"
+      },
+      "selection_certificate_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "hierarchy_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "legs": [
+        {
+          "source_anchor": "o",
+          "target_anchor": "o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "o",
+          "target_anchor": "x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "o",
+          "target_anchor": "z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+1",
+            "ratio": [
+              "2",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.2000000000000p+3",
+            "ratio": [
+              "9",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "x",
+          "target_anchor": "o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "x",
+          "target_anchor": "x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "x",
+          "target_anchor": "z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "z",
+          "target_anchor": "o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "z",
+          "target_anchor": "x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "z",
+          "target_anchor": "z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        }
+      ]
+    },
+    "query": {
+      "case_id": "independent_colocation_mock",
+      "H_ref": 0,
+      "origin": "o",
+      "destination": "z",
+      "start_time_s": 0,
+      "initial_energy_kwh": 2,
+      "capacity_kwh": 10,
+      "minimum_energy_kwh": 0,
+      "reserve_kwh": 0,
+      "consumption_kwh_per_m": 1,
+      "overhead_s": 1,
+      "lambda_stop_s": 0,
+      "charging_segments": [],
+      "schedule": null
+    },
+    "independent_expected": {
+      "status": "infeasible_within_H_ref"
+    },
+    "table_sha256": "f3e9dd9e506a1ed6c8f4a56416a4dc682be0873559734f8cb4c872c728c61c77"
+  },
+  {
+    "case_id": "physical_terminal_not_textual_site_alias",
+    "table": {
+      "schema": "hiroute.immutable_selected_legs.v1",
+      "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+      "anchors": [
+        "o",
+        "x",
+        "z"
+      ],
+      "origin_anchor": "o",
+      "destination_anchor": "z",
+      "sites": [
+        {
+          "site_id": "at_z",
+          "anchor_id": "z",
+          "effects": [
+            "S"
+          ]
+        },
+        {
+          "site_id": "z",
+          "anchor_id": "x",
+          "effects": [
+            "S"
+          ]
+        }
+      ],
+      "backend": {
+        "name": "independent mock native export",
+        "tie_policy": "min_time_then_actual_length_then_first_discovery",
+        "direction_policy": "forward_per_source_v1",
+        "source_sha256": {
+          "router.cpp": "74c95604043427f0bee1d0e16bfa53afd537f736ad0073c4cc4e1ccb3a82b5dc"
+        }
+      },
+      "source_sha256": {
+        "graph.bin": "eef93e1d14482804277fca0172464032d1a4fdbcc338524059fa1e861454ad4d"
+      },
+      "selection_certificate_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "hierarchy_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "legs": [
+        {
+          "source_anchor": "o",
+          "target_anchor": "o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "o",
+          "target_anchor": "x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "o",
+          "target_anchor": "z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.4000000000000p+4",
+            "ratio": [
+              "20",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "x",
+          "target_anchor": "o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "x",
+          "target_anchor": "x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "x",
+          "target_anchor": "z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "z",
+          "target_anchor": "o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "z",
+          "target_anchor": "x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.4000000000000p+3",
+            "ratio": [
+              "10",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "z",
+          "target_anchor": "z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        }
+      ]
+    },
+    "query": {
+      "case_id": "independent_colocation_mock",
+      "H_ref": 2,
+      "origin": "o",
+      "destination": "z",
+      "start_time_s": 0,
+      "initial_energy_kwh": 2,
+      "capacity_kwh": 10,
+      "minimum_energy_kwh": 0,
+      "reserve_kwh": 0,
+      "consumption_kwh_per_m": 1,
+      "overhead_s": 1,
+      "lambda_stop_s": 0,
+      "charging_segments": [],
+      "schedule": {
+        "a": 0,
+        "b": 100,
+        "D": 2
+      }
+    },
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "5",
+      "Q_total": "0",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "z",
+          "S"
+        ]
+      ]
+    },
+    "table_sha256": "f433b65933ced298045d607c3f6e8b474c73f6908cb1fb7ef9314a23054395e8"
+  },
+  {
+    "case_id": "explicit_unreachable_reverse_rows",
+    "table": {
+      "schema": "hiroute.immutable_selected_legs.v1",
+      "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+      "anchors": [
+        "o",
+        "x",
+        "z"
+      ],
+      "origin_anchor": "o",
+      "destination_anchor": "z",
+      "sites": [
+        {
+          "site_id": "A",
+          "anchor_id": "x",
+          "effects": [
+            "C"
+          ]
+        },
+        {
+          "site_id": "B",
+          "anchor_id": "x",
+          "effects": [
+            "S"
+          ]
+        }
+      ],
+      "backend": {
+        "name": "independent mock native export",
+        "tie_policy": "min_time_then_actual_length_then_first_discovery",
+        "direction_policy": "forward_per_source_v1",
+        "source_sha256": {
+          "router.cpp": "74c95604043427f0bee1d0e16bfa53afd537f736ad0073c4cc4e1ccb3a82b5dc"
+        }
+      },
+      "source_sha256": {
+        "graph.bin": "eef93e1d14482804277fca0172464032d1a4fdbcc338524059fa1e861454ad4d"
+      },
+      "selection_certificate_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "hierarchy_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "legs": [
+        {
+          "source_anchor": "o",
+          "target_anchor": "o",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "o",
+          "target_anchor": "x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "o",
+          "target_anchor": "z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.4000000000000p+4",
+            "ratio": [
+              "20",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "x",
+          "target_anchor": "o",
+          "reachable": false,
+          "time_s": null,
+          "actual_length_m": null,
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "x",
+          "target_anchor": "x",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        },
+        {
+          "source_anchor": "x",
+          "target_anchor": "z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x1.0000000000000p+0",
+            "ratio": [
+              "1",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x1.0000000000000p+2",
+            "ratio": [
+              "4",
+              "1"
+            ]
+          },
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "z",
+          "target_anchor": "o",
+          "reachable": false,
+          "time_s": null,
+          "actual_length_m": null,
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "z",
+          "target_anchor": "x",
+          "reachable": false,
+          "time_s": null,
+          "actual_length_m": null,
+          "label_direction": "forward_from_source"
+        },
+        {
+          "source_anchor": "z",
+          "target_anchor": "z",
+          "reachable": true,
+          "time_s": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "actual_length_m": {
+            "hex": "0x0.0p+0",
+            "ratio": [
+              "0",
+              "1"
+            ]
+          },
+          "label_direction": "identity"
+        }
+      ]
+    },
+    "query": {
+      "case_id": "independent_colocation_mock",
+      "H_ref": 2,
+      "origin": "o",
+      "destination": "z",
+      "start_time_s": 0,
+      "initial_energy_kwh": 2,
+      "capacity_kwh": 10,
+      "minimum_energy_kwh": 0,
+      "reserve_kwh": 0,
+      "consumption_kwh_per_m": 1,
+      "overhead_s": 1,
+      "lambda_stop_s": 0,
+      "charging_segments": [
+        [
+          0,
+          10,
+          1,
+          0
+        ]
+      ],
+      "schedule": {
+        "a": 0,
+        "b": 100,
+        "D": 2
+      }
+    },
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "9",
+      "Q_total": "3",
+      "H": 2,
+      "site_action_tuple": [
+        [
+          "A",
+          "C"
+        ],
+        [
+          "B",
+          "S"
+        ]
+      ]
+    },
+    "table_sha256": "558ebc549b9a4ddc42751cfcbef37d39f3212c89053d3349a848673644b87013"
+  }
+]

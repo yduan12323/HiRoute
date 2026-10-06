@@ -1,0 +1,10 @@
+{
+  "role": "Post-discovery certificate recovery regression; original unresolved evidence retained",
+  "source_population": "/workspace/shared/navigation_audit/acceptance_populations",
+  "source_ref_commit": "28d64049f5ba8a63b0ba85a8f8c742e506a7623d",
+  "files": {
+    "b07_frozen_input.json": "7deb959d53f1a372743aa1483c78dc435abb4ce990b3bc709aeb62ac747650c8",
+    "b07_minimal_lp.json": "788db9d4c03a607abdc6b51633c82e292e4513c50b7ab1e3d6cbad04312993e9",
+    "b07_rejected_certificate.json": "03bfa85f38e06212240f525855b012bdf1d96c2c31aac1f3b100a33f77232300"
+  }
+}

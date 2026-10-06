@@ -1,0 +1,25 @@
+test_ids_topology_and_empty_children_are_retained (test_real_leg_contract.TestActualTreeRestriction.test_ids_topology_and_empty_children_are_retained) ... ok
+test_rejects_changed_hash_partition_and_unknown_selection (test_real_leg_contract.TestActualTreeRestriction.test_rejects_changed_hash_partition_and_unknown_selection) ... ok
+test_rejects_disconnected_regions_and_wrong_parent (test_real_leg_contract.TestActualTreeRestriction.test_rejects_disconnected_regions_and_wrong_parent) ... ok
+test_tree_arrays_and_scalar_types_are_explicit (test_real_leg_contract.TestActualTreeRestriction.test_tree_arrays_and_scalar_types_are_explicit) ... ok
+test_exact_roundtrip_and_subnormal (test_real_leg_contract.TestBinary64Contract.test_exact_roundtrip_and_subnormal) ... ok
+test_rejects_tampered_ratio_nonfinite_negative_and_bool (test_real_leg_contract.TestBinary64Contract.test_rejects_tampered_ratio_nonfinite_negative_and_bool) ... ok
+test_coattached_sites_remain_distinct_actions (test_real_leg_contract.TestImmutableSelectedLegs.test_coattached_sites_remain_distinct_actions) ... ok
+test_complete_rows_explicit_unreachable_and_consistency (test_real_leg_contract.TestImmutableSelectedLegs.test_complete_rows_explicit_unreachable_and_consistency) ... ok
+test_destination_policy_uses_road_anchor_not_site_text (test_real_leg_contract.TestImmutableSelectedLegs.test_destination_policy_uses_road_anchor_not_site_text) ... ok
+test_direct_terminal_energy_does_not_delete_charging_continuation (test_real_leg_contract.TestImmutableSelectedLegs.test_direct_terminal_energy_does_not_delete_charging_continuation) ... ok
+test_duplicate_json_keys_are_rejected (test_real_leg_contract.TestImmutableSelectedLegs.test_duplicate_json_keys_are_rejected) ... ok
+test_forward_reverse_direction_is_not_silently_mixed (test_real_leg_contract.TestImmutableSelectedLegs.test_forward_reverse_direction_is_not_silently_mixed) ... ok
+test_graph_shape_and_synthetic_tie_policy_rejected (test_real_leg_contract.TestImmutableSelectedLegs.test_graph_shape_and_synthetic_tie_policy_rejected) ... ok
+test_integrity_and_deep_immutability (test_real_leg_contract.TestImmutableSelectedLegs.test_integrity_and_deep_immutability) ... ok
+test_no_finite_unreachable_substitute_or_fake_zero_edge (test_real_leg_contract.TestImmutableSelectedLegs.test_no_finite_unreachable_substitute_or_fake_zero_edge) ... ok
+test_rounded_totals_need_not_obey_triangle_inequality (test_real_leg_contract.TestImmutableSelectedLegs.test_rounded_totals_need_not_obey_triangle_inequality) ... ok
+test_schedule_bound_is_weak_and_penalty_counts_next_action (test_real_leg_contract.TestImmutableSelectedLegs.test_schedule_bound_is_weak_and_penalty_counts_next_action) ... ok
+test_schema_arrays_cannot_silently_become_character_lists (test_real_leg_contract.TestImmutableSelectedLegs.test_schema_arrays_cannot_silently_become_character_lists) ... ok
+test_selected_length_is_preserved_without_graph_rerouting (test_real_leg_contract.TestImmutableSelectedLegs.test_selected_length_is_preserved_without_graph_rerouting) ... ok
+test_source_claims_are_not_verified_implicitly (test_real_leg_contract.TestImmutableSelectedLegs.test_source_claims_are_not_verified_implicitly) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.010s
+
+OK

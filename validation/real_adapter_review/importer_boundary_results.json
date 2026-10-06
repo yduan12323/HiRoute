@@ -1,0 +1,62 @@
+[
+  {
+    "name": "symlink_escape_export_manifest.json",
+    "status": "rejected",
+    "exception": "ValueError",
+    "message": "Artifact path escapes export directory"
+  },
+  {
+    "name": "symlink_escape_query_states_resolved.json",
+    "status": "rejected",
+    "exception": "ValueError",
+    "message": "Artifact path escapes export directory"
+  },
+  {
+    "name": "symlink_escape_table.json",
+    "status": "rejected",
+    "exception": "ValueError",
+    "message": "Artifact path escapes export directory"
+  },
+  {
+    "name": "symlink_escape_restriction.json",
+    "status": "rejected",
+    "exception": "ValueError",
+    "message": "Artifact path escapes export directory"
+  },
+  {
+    "name": "path_'/tmp/not_the_table.json'",
+    "status": "rejected",
+    "exception": "ValueError",
+    "message": "Relative artifact path required"
+  },
+  {
+    "name": "path_'../table.json'",
+    "status": "rejected",
+    "exception": "ValueError",
+    "message": "Artifact path escapes export directory"
+  },
+  {
+    "name": "path_'nested/../../table.json'",
+    "status": "rejected",
+    "exception": "ValueError",
+    "message": "Artifact path escapes export directory"
+  },
+  {
+    "name": "path_''",
+    "status": "rejected",
+    "exception": "ValueError",
+    "message": "Relative artifact path required"
+  },
+  {
+    "name": "duplicate_state_object_key",
+    "status": "rejected",
+    "exception": "ValueError",
+    "message": "Duplicate JSON key"
+  },
+  {
+    "name": "duplicate_selection_object_key",
+    "status": "rejected",
+    "exception": "ValueError",
+    "message": "Duplicate JSON key"
+  }
+]

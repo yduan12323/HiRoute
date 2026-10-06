@@ -58,14 +58,31 @@ def solve_case(source, *, keep_evidence=True, allow_nonnegative_extension=False)
         case = normalize_case(source, allow_nonnegative_extension=allow_nonnegative_extension)
     except (InvalidInput, TypeError, ValueError) as error:
         return dict(**envelope, result=dict(status="invalid_input", reason=str(error)))
+    try:
+        legs = selected_legs(case)
+    except Exception as error:
+        return dict(**envelope, result=dict(status="unresolved", reason=f"{type(error).__name__}: {error}"))
+    return solve_prepared_case(case, legs,
+        lambda sequence, charges: replay_witness(case, sequence, charges, legs,
+                                                 allow_nonnegative_extension=allow_nonnegative_extension),
+        envelope=envelope, keep_evidence=keep_evidence, started=started)
+
+
+def solve_prepared_case(case, legs, replay, *, envelope, keep_evidence=True, started=None, enumeration=None):
+    """Independent REF LP kernel over already verified immutable physical inputs.
+
+    The synthetic and immutable-real adapters own parsing, sequence admissibility
+    and full witness replay. No production routing or optimization is imported.
+    """
+    if started is None:
+        started = perf_counter()
     sequence_records, evidence_records, contenders = [], [], []
     counts = dict(sequence_count=0, terminal_sequence_count=0, regime_count=0,
                   closed_infeasible_regime_count=0, empty_strict_regime_count=0,
                   strict_feasible_regime_count=0, certified_regime_count=0)
     context = {}
     try:
-        legs = selected_legs(case)
-        for sequence, remaining, current in sequences(case, legs):
+        for sequence, remaining, current in (sequences(case, legs) if enumeration is None else enumeration):
             counts["sequence_count"] += 1
             record = dict(sequence=sequence, remaining_schedule=remaining, regimes=0)
             sequence_records.append(record)
@@ -122,8 +139,7 @@ def solve_case(source, *, keep_evidence=True, allow_nonnegative_extension=False)
                             if not contender["secondary_attained"]:
                                 evidence.update(status="secondary_unattained", primary_infimum=J, secondary_infimum=Q)
                             else:
-                                witness = replay_witness(case, sequence, tie_face["x"][:-1], legs,
-                                                         allow_nonnegative_extension=allow_nonnegative_extension)
+                                witness = replay(sequence, tie_face["x"][:-1])
                                 if witness["J"] != J or witness["Q_total"] != Q:
                                     raise UncertifiedLP("Original-semantics replay disagrees with LP objective")
                                 contender["witness"] = witness

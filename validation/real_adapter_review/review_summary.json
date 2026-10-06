@@ -1,0 +1,32 @@
+{
+  "scope": "Independent mock-only review; no actual real-export optimization",
+  "source_sha256": {
+    "src/timecut5/bounded.py": "4a45498577c688b322357a1b9bd3b19fb4ab244af4c1ee22e8f7c493b7f60ce2",
+    "src/timecut5/hierarchy.py": "3de1495532d8bb1b68173c6d22a3539c90a6daeb7c5b0b866aac4eae22dd1386",
+    "src/timecut5/real_adapter.py": "daa25b6c9fdd2f48a567da2fb443c2672f32d7de6a1f2b26a5b857de9c492cb2",
+    "src/timecut5/real_export_input.py": "d79ce09a65e84087bb835f1a7ae8a70de9e4bb53af56a555e1e9c4c6c7bd7a4f",
+    "src/timecut5/real_legs.py": "c3ec4140bde1defb04faecdf2ab92dfa3f61c5f61bc3112d9b76f3d7914c5227"
+  },
+  "adversarial_mock_sha256": "9d3ac44550cb69a5a821960808ead7aee31a2d286871e6f161500ce6a1d53d61",
+  "production_variant_count": 80,
+  "independent_ref_cases": 16,
+  "ref_regimes_total": 322,
+  "ref_regimes_max": 144,
+  "all_ref_regimes_certified": true,
+  "status_counts": {
+    "attained_optimum": 8,
+    "infeasible_within_H_ref": 7,
+    "primary_unattained": 1
+  },
+  "additional_hand_secondary_case": true,
+  "additional_secondary_production_variants": 4,
+  "additional_secondary_independent_ref_cases": 1,
+  "malformed_query_tree_rejections": 23,
+  "inherited_domain_witnesses_replayed": 4,
+  "importer_boundary_rejections": 10,
+  "fixed_findings": [
+    "Replay asserts could be disabled with Python -O",
+    "Fixed export filenames lacked symlink containment checks"
+  ],
+  "unresolved_blocking_findings": []
+}

@@ -1,0 +1,91 @@
+{
+  "H_ref": 4,
+  "capacity_kwh": 60,
+  "case_id": "B07",
+  "charging_segments": [
+    [
+      0,
+      30,
+      36,
+      0
+    ],
+    [
+      30,
+      48,
+      60,
+      -720
+    ],
+    [
+      48,
+      60,
+      120,
+      -3600
+    ]
+  ],
+  "consumption_kwh_per_m": "1/6250",
+  "destination": "z",
+  "edges": [
+    {
+      "edge_id": "line:e00",
+      "length_m": 20000,
+      "source": "o",
+      "target": "u",
+      "time_s": 600
+    },
+    {
+      "edge_id": "line:e01",
+      "length_m": 20000,
+      "source": "u",
+      "target": "v",
+      "time_s": 600
+    },
+    {
+      "edge_id": "line:e02",
+      "length_m": 20000,
+      "source": "v",
+      "target": "z",
+      "time_s": 600
+    }
+  ],
+  "factor_levels": {
+    "capability": "mixed",
+    "energy": "slack",
+    "initial_soc": "low",
+    "schedule": "present",
+    "topology": "line"
+  },
+  "independent_expected": {
+    "H": 1,
+    "J": "6600",
+    "Q_total": "0",
+    "site_action_tuple": [
+      [
+        "v",
+        "S"
+      ]
+    ],
+    "status": "attained_optimum"
+  },
+  "initial_energy_kwh": 18,
+  "lambda_stop_s": 600,
+  "minimum_energy_kwh": 0,
+  "origin": "o",
+  "overhead_s": 300,
+  "reserve_kwh": 6,
+  "schedule": {
+    "D": 1800,
+    "a": 3600,
+    "b": 10800
+  },
+  "sites": {
+    "u": [
+      "C",
+      "S",
+      "CS"
+    ],
+    "v": [
+      "S"
+    ]
+  },
+  "start_time_s": 0
+}

@@ -1,0 +1,16 @@
+{"case_id": "adversarial_mock_00", "production_variants": 6, "signature": {"status": "attained_optimum", "J": "2", "Q_total": "0", "H": 0, "site_action_tuple": [], "lex_key": ["2", "0", 0, []]}, "seconds": 0.0055}
+{"case_id": "adversarial_mock_01", "production_variants": 6, "signature": {"status": "attained_optimum", "J": "23", "Q_total": "5", "H": 2, "site_action_tuple": [["road:z", "C"], ["A", "CS"]], "lex_key": ["23", "5", 2, [["road:z", "C"], ["A", "CS"]]]}, "seconds": 0.3064}
+{"case_id": "adversarial_mock_02", "production_variants": 6, "signature": {"status": "attained_optimum", "J": "111689270758788301/18014398509481984", "Q_total": "0", "H": 1, "site_action_tuple": [["A", "S"]], "lex_key": ["111689270758788301/18014398509481984", "0", 1, [["A", "S"]]]}, "seconds": 0.1004}
+{"case_id": "adversarial_mock_03", "production_variants": 4, "signature": {"status": "infeasible_within_H_ref"}, "seconds": 0.1318}
+{"case_id": "adversarial_mock_04", "production_variants": 4, "signature": {"status": "infeasible_within_H_ref"}, "seconds": 0.0016}
+{"case_id": "adversarial_mock_05", "production_variants": 4, "signature": {"status": "infeasible_within_H_ref"}, "seconds": 0.0011}
+{"case_id": "adversarial_mock_06", "production_variants": 6, "signature": {"status": "attained_optimum", "J": "399919646910500045/36028797018963968", "Q_total": "1", "H": 2, "site_action_tuple": [["A", "C"], ["road:z", "S"]], "lex_key": ["399919646910500045/36028797018963968", "1", 2, [["A", "C"], ["road:z", "S"]]]}, "seconds": 0.3046}
+{"case_id": "adversarial_mock_07", "production_variants": 4, "signature": {"status": "infeasible_within_H_ref"}, "seconds": 0.0721}
+{"case_id": "adversarial_mock_08", "production_variants": 4, "signature": {"status": "infeasible_within_H_ref"}, "seconds": 0.0014}
+{"case_id": "adversarial_mock_09", "production_variants": 4, "signature": {"status": "infeasible_within_H_ref"}, "seconds": 0.0013}
+{"case_id": "adversarial_mock_10", "production_variants": 6, "signature": {"status": "attained_optimum", "J": "4", "Q_total": "0", "H": 0, "site_action_tuple": [], "lex_key": ["4", "0", 0, []]}, "seconds": 0.0298}
+{"case_id": "adversarial_mock_11", "production_variants": 6, "signature": {"status": "attained_optimum", "J": "11", "Q_total": "0", "H": 1, "site_action_tuple": [["A", "S"]], "lex_key": ["11", "0", 1, [["A", "S"]]]}, "seconds": 0.1316}
+{"case_id": "adversarial_mock_12", "production_variants": 4, "signature": {"status": "infeasible_within_H_ref"}, "seconds": 0.0014}
+{"case_id": "adversarial_mock_13", "production_variants": 6, "signature": {"status": "attained_optimum", "J": "8", "Q_total": "2", "H": 1, "site_action_tuple": [["A", "CS"]], "lex_key": ["8", "2", 1, [["A", "CS"]]]}, "seconds": 0.2873}
+{"case_id": "adversarial_mock_14", "production_variants": 6, "signature": {"status": "attained_optimum", "J": "15", "Q_total": "0", "H": 1, "site_action_tuple": [["A", "S"]], "lex_key": ["15", "0", 1, [["A", "S"]]]}, "seconds": 0.1022}
+{"case_id": "adversarial_mock_15", "production_variants": 4, "signature": {"status": "primary_unattained", "primary_infimum": "84667672994565325/18014398509481984"}, "seconds": 0.0642}

@@ -1,0 +1,7 @@
+PASS rejection: string effects would split CS
+PASS rejection: string anchors would split IDs
+PASS rejection: duplicate JSON object keys
+PASS 500 seeded binary64 round trips (nonfinite skipped)
+PASS 1,800 seeded immediate-action bound cases across all retained actions
+PASS accepted 2,047-Region tree hash/topology/empty-child restriction
+{"actual_tree_regions": 2047, "binary64_trials": 500, "bound_cases": 1800, "parser_failures": []}

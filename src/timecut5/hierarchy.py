@@ -12,7 +12,7 @@ from fractions import Fraction as R
 import heapq
 from typing import Mapping
 
-from .bounded import BoundedResult, Problem, _groups, replay_witness
+from .bounded import BoundedResult, Problem, _groups, _replay_problem
 from .probe import Witness, terminal
 from .pwa import CutPiece, reduce_frontier
 
@@ -43,7 +43,7 @@ def actions(problem: Problem, region: Region, effect: str, remaining: int):
     if effect in ("S", "CS") and not remaining:
         return ()
     return tuple((site, effect) for site in region.members
-                 if site != problem.destination and effect in problem.sites[site])
+                 if problem.site_anchor(site) != problem.destination and effect in problem.sites[site])
 
 
 def region_bound(problem: Problem, pieces: tuple[CutPiece, ...], region: Region,
@@ -53,14 +53,14 @@ def region_bound(problem: Problem, pieces: tuple[CutPiece, ...], region: Region,
         return None, 0
     state = pieces[0].state
     candidates = actions(problem, region, effect, state.remaining_schedule)
-    reachable = [(problem.legs.get((state.anchor, site)),
-                  problem.legs.get((site, problem.destination))) for site, _ in candidates]
-    reachable = [(incoming, outgoing) for incoming, outgoing in reachable if incoming and outgoing]
+    reachable = [(problem.legs.get((state.anchor, problem.site_anchor(site))),
+                  problem.onward_time_lower_bound(problem.site_anchor(site))) for site, _ in candidates]
+    reachable = [(incoming, outgoing) for incoming, outgoing in reachable if incoming is not None and outgoing is not None]
     if not reachable:
         return None, len(candidates)
     lower_time = min(p.slope * p.domain.affine_infimum(p.slope)[0] + p.intercept for p in pieces)
     incoming = min(leg.time for leg, _ in reachable)
-    outgoing = min(leg.time for _, leg in reachable)
+    outgoing = min(time for _, time in reachable)
     time = lower_time + incoming + problem.overhead
     if effect in ("S", "CS"):
         a, _, duration = problem.schedule
@@ -92,13 +92,18 @@ def solve_hierarchical(case: Mapping, dominance: bool = True, leaf_size: int = 1
     """Own-search incumbent by default; never obtains the FLAT optimum as a seed."""
     problem = Problem(case)
     root = build_regions(problem.sites, leaf_size)
+    return _solve_hierarchical_problem(problem,dominance,root,incumbent)
+
+
+def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
+                                incumbent: Witness | None = None) -> HierarchyResult:
     incumbent_key = None
     incumbent_witness = None
     source = "none"
     if incumbent is not None:
         if incumbent.state.stop_count > problem.bound:
             raise ValueError("External incumbent lies outside H_ref")
-        incumbent_key = replay_witness(case, incumbent)
+        incumbent_key = _replay_problem(problem, incumbent)
         incumbent_witness = incumbent
         source = "externally_supplied_verified"
 
@@ -109,7 +114,7 @@ def solve_hierarchical(case: Mapping, dominance: bool = True, leaf_size: int = 1
             # optimization surrogate. The exact terminal frontier is retained.
             energy = piece.domain.approach_optimizer(piece.slope, R(1))
             witness = piece.at(energy).approach(R(1))
-            key = replay_witness(case, witness)
+            key = _replay_problem(problem, witness)
             if incumbent_key is None or key < incumbent_key:
                 incumbent_key = key
                 incumbent_witness = witness
@@ -209,7 +214,7 @@ def solve_hierarchical(case: Mapping, dominance: bool = True, leaf_size: int = 1
             break
     result = terminal(terminals, problem.destination, problem.reserve, problem.start, problem.penalty)
     if result.witness is not None:
-        replay_witness(case, result.witness)
+        _replay_problem(problem, result.witness)
     bounded = BoundedResult(result, problem.bound, dominance, attempted, feasible, len(terminals), maximum)
     return HierarchyResult(bounded, nodes, leaf_actions, scans, pruned, equality,
                            coverage_groups, 0, 0, source, tuple(audit))

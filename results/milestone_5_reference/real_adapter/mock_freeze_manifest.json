@@ -1,0 +1,9 @@
+{
+  "fixture": "frozen_mock_cases.json",
+  "sha256": "9b74b215d4630c96c46df20309f92aaea406fa7c9decdf0846c2f06da9e1aa64",
+  "cases": 4,
+  "scope": "independently_constructed_mock_adapters_only",
+  "no_real_export_or_solve": true,
+  "freeze": "Before any production comparison of these exact mock bytes; after independent reference unit tests.",
+  "expected_values": "Analytic energy and clock arithmetic, not production optimizer output"
+}

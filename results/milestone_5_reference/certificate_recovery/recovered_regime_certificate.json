@@ -1,0 +1,70 @@
+{
+  "case_id": "B07",
+  "only_one_regime_not_complete_case": true,
+  "original_constraints_identical": true,
+  "source_sha256": {
+    "validation/reference5/__init__.py": "d5a7490d2641f337e6f6c8e5e877b68727948ca2b429c4a7a684a55317681d73",
+    "validation/reference5/__main__.py": "76a4bbfebfb738429b77272fc79beb9f82e922ab7e918dfe4d1a4ca8aaab83bf",
+    "validation/reference5/lp.py": "c60a93ee484f381565f312b38b9ec9ae4e53147efa40b184d8b4a32a24e2900b",
+    "validation/reference5/model.py": "b8b2e0254426775638695f9c2db8317937a0326e93fed4698645e2883c1d51a2",
+    "validation/reference5/solver.py": "f163114360a54782bc408c368d5a3f636cada9b4f0cd4aa153fa1470e4e688f4"
+  },
+  "result": {
+    "status": "infeasible",
+    "phase_I_certificate": {
+      "status": "optimal",
+      "x": [
+        "141516/3035",
+        "4408/3035",
+        "0",
+        "99792/3035"
+      ],
+      "objective": "99792/3035",
+      "inequality_dual": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "-2/607",
+        "0",
+        "-5/607",
+        "0",
+        "0",
+        "0",
+        "0",
+        "-600/607",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "equality_dual": [],
+      "exact_primal_dual_verified": true,
+      "candidate_recovery": "exact_active_constraints",
+      "recovery_inequality_rows": [
+        16,
+        18,
+        23
+      ],
+      "recovery_dual_support": [
+        16,
+        18,
+        23
+      ],
+      "initial_candidate_failure": "Primal infeasible"
+    }
+  }
+}

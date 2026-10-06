@@ -1,0 +1,2446 @@
+{
+  "source_fixture_sha256": "c99602154efbde102374c50b507c1dec88e5383f39dc804e13fbaa38db6d3b9d",
+  "reports": [
+    {
+      "case_id": "coattached_distinct_C_then_S",
+      "reference": {
+        "scope": "bounded_H_ref_diagnostic",
+        "model_domain": "immutable_binary64_selected_leg_rationals",
+        "H_ref": 2,
+        "case_id": null,
+        "result": {
+          "status": "attained_optimum",
+          "primary_infimum": "14",
+          "secondary_infimum": "1",
+          "J": "14",
+          "Q_total": "1",
+          "H": 2,
+          "site_action_tuple": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "S"
+            ]
+          ],
+          "charges": [
+            "1"
+          ],
+          "lex_key": [
+            "14",
+            "1",
+            2,
+            [
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "S"
+              ]
+            ]
+          ],
+          "events": [
+            {
+              "site": "A",
+              "effect": "C",
+              "road_anchor": "road:x",
+              "arrival_time_s": "1",
+              "arrival_kwh": "1",
+              "departure_kwh": "2",
+              "completion_s": "3",
+              "charge_kwh": "1",
+              "charge_completion_s": "3",
+              "schedule_start_s": null,
+              "schedule_completion_s": null,
+              "remaining_schedule": 1
+            },
+            {
+              "site": "B",
+              "effect": "S",
+              "road_anchor": "road:x",
+              "arrival_time_s": "3",
+              "arrival_kwh": "2",
+              "departure_kwh": "2",
+              "completion_s": "11",
+              "charge_kwh": "0",
+              "charge_completion_s": null,
+              "schedule_start_s": "10",
+              "schedule_completion_s": "11",
+              "remaining_schedule": 0
+            }
+          ],
+          "route_legs": [
+            {
+              "source_road_anchor": "road:o",
+              "target_road_anchor": "road:x",
+              "time": "1",
+              "length": "1",
+              "energy": "1",
+              "time_hex": "0x1.0000000000000p+0",
+              "length_hex": "0x1.0000000000000p+0",
+              "label_direction": "forward_from_source",
+              "table_sha256": "924c02f94519dc7b21fbfc36cc61ce138f84da098ddc8c826b7ba05762abd91a"
+            },
+            {
+              "source_road_anchor": "road:x",
+              "target_road_anchor": "road:x",
+              "time": "0",
+              "length": "0",
+              "energy": "0",
+              "time_hex": "0x0.0p+0",
+              "length_hex": "0x0.0p+0",
+              "label_direction": "identity",
+              "table_sha256": "924c02f94519dc7b21fbfc36cc61ce138f84da098ddc8c826b7ba05762abd91a"
+            },
+            {
+              "source_road_anchor": "road:x",
+              "target_road_anchor": "road:z",
+              "time": "1",
+              "length": "2",
+              "energy": "2",
+              "time_hex": "0x1.0000000000000p+0",
+              "length_hex": "0x1.0000000000000p+1",
+              "label_direction": "forward_from_source",
+              "table_sha256": "924c02f94519dc7b21fbfc36cc61ce138f84da098ddc8c826b7ba05762abd91a"
+            }
+          ],
+          "terminal_time_s": "12",
+          "terminal_energy_kwh": "0",
+          "remaining_schedule": 0,
+          "terminal_road_anchor": "road:z",
+          "witness_replayed": true,
+          "replay_scope": "immutable_selected_leg_constants_and_semantic_events",
+          "immutable_input_provenance": {
+            "payload_sha256": "924c02f94519dc7b21fbfc36cc61ce138f84da098ddc8c826b7ba05762abd91a",
+            "schema": "hiroute.immutable_selected_legs.v1",
+            "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+            "backend_name": "mock_immutable_primitives_for_adapter_tests",
+            "tie_policy": "min_time_then_actual_length_then_first_discovery",
+            "direction_policy": "forward_per_source_v1",
+            "source_sha256": {
+              "mock/physical-primitives.txt": "53d3a1403ddc46e3be404ad222c3e604113eaf3cfcd5a5c94773250905cb639a"
+            },
+            "router_source_sha256": {
+              "mock/backend.txt": "7167708410ecdc2876a574d8b7c549e7320e7ed0f23b8cbc4b18cdde4f0ec6e9"
+            },
+            "selection_certificate_sha256": "7d31fbc27a7d7dc5892396a6eb30e7f5ddbb101773f653f31cf0b5e321bdd429",
+            "hierarchy_sha256": "e638f64704116da4487ae8c4337b2f2b483061f4971c2515c010c272d3be928d",
+            "payload_identity_verified": true,
+            "external_source_validity_not_implied": true
+          }
+        },
+        "sequence_count": 3,
+        "terminal_sequence_count": 3,
+        "regime_count": 6,
+        "closed_infeasible_regime_count": 4,
+        "empty_strict_regime_count": 0,
+        "strict_feasible_regime_count": 2,
+        "certified_regime_count": 6,
+        "sequences": [
+          {
+            "sequence": [
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "S"
+              ]
+            ],
+            "remaining_schedule": 0,
+            "regimes": 2
+          },
+          {
+            "sequence": [
+              [
+                "B",
+                "S"
+              ]
+            ],
+            "remaining_schedule": 0,
+            "regimes": 2
+          },
+          {
+            "sequence": [
+              [
+                "B",
+                "S"
+              ],
+              [
+                "A",
+                "C"
+              ]
+            ],
+            "remaining_schedule": 0,
+            "regimes": 2
+          }
+        ],
+        "regimes": [
+          {
+            "sequence": [
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "S"
+              ]
+            ],
+            "segments": [
+              0,
+              0
+            ],
+            "schedule_branch": "early",
+            "completion_branch": null,
+            "primary_certificate": {
+              "status": "optimal",
+              "x": [
+                "1"
+              ],
+              "objective": "0",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "equality_dual": [],
+              "exact_primal_dual_verified": true
+            },
+            "strict_feasibility_certificate": {
+              "status": "optimal",
+              "x": [
+                "4",
+                "1"
+              ],
+              "objective": "-1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [],
+              "exact_primal_dual_verified": true
+            },
+            "primary_face_certificate": {
+              "status": "optimal",
+              "x": [
+                "4",
+                "1"
+              ],
+              "objective": "-1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [
+                "0"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "secondary_certificate": {
+              "status": "optimal",
+              "x": [
+                "1"
+              ],
+              "objective": "1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [
+                "0"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "secondary_face_certificate": {
+              "status": "optimal",
+              "x": [
+                "1",
+                "1"
+              ],
+              "objective": "-1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [
+                "0",
+                "0"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "status": "attained_optimum",
+            "J": "14",
+            "Q_total": "1"
+          },
+          {
+            "sequence": [
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "S"
+              ]
+            ],
+            "segments": [
+              0,
+              0
+            ],
+            "schedule_branch": "late",
+            "completion_branch": null,
+            "primary_certificate": {
+              "status": "infeasible",
+              "phase_I_certificate": {
+                "status": "optimal",
+                "x": [
+                  "11/2",
+                  "3/2"
+                ],
+                "objective": "3/2",
+                "inequality_dual": [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "-1/2",
+                  "0",
+                  "0",
+                  "0",
+                  "-1/2",
+                  "0",
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "equality_dual": [],
+                "exact_primal_dual_verified": true
+              }
+            },
+            "status": "closed_regime_infeasible"
+          },
+          {
+            "sequence": [
+              [
+                "B",
+                "S"
+              ]
+            ],
+            "segments": [],
+            "schedule_branch": "early",
+            "completion_branch": null,
+            "primary_certificate": {
+              "status": "infeasible",
+              "constant_constraints_verified": true
+            },
+            "status": "closed_regime_infeasible"
+          },
+          {
+            "sequence": [
+              [
+                "B",
+                "S"
+              ]
+            ],
+            "segments": [],
+            "schedule_branch": "late",
+            "completion_branch": null,
+            "primary_certificate": {
+              "status": "infeasible",
+              "constant_constraints_verified": true
+            },
+            "status": "closed_regime_infeasible"
+          },
+          {
+            "sequence": [
+              [
+                "B",
+                "S"
+              ],
+              [
+                "A",
+                "C"
+              ]
+            ],
+            "segments": [
+              0,
+              0
+            ],
+            "schedule_branch": "early",
+            "completion_branch": null,
+            "primary_certificate": {
+              "status": "optimal",
+              "x": [
+                "1"
+              ],
+              "objective": "1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [],
+              "exact_primal_dual_verified": true
+            },
+            "strict_feasibility_certificate": {
+              "status": "optimal",
+              "x": [
+                "4",
+                "1"
+              ],
+              "objective": "-1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [],
+              "exact_primal_dual_verified": true
+            },
+            "primary_face_certificate": {
+              "status": "optimal",
+              "x": [
+                "1",
+                "1"
+              ],
+              "objective": "-1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [
+                "0"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "secondary_certificate": {
+              "status": "optimal",
+              "x": [
+                "1"
+              ],
+              "objective": "1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [
+                "0"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "secondary_face_certificate": {
+              "status": "optimal",
+              "x": [
+                "1",
+                "1"
+              ],
+              "objective": "-1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [
+                "0",
+                "0"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "status": "attained_optimum",
+            "J": "16",
+            "Q_total": "1"
+          },
+          {
+            "sequence": [
+              [
+                "B",
+                "S"
+              ],
+              [
+                "A",
+                "C"
+              ]
+            ],
+            "segments": [
+              0,
+              0
+            ],
+            "schedule_branch": "late",
+            "completion_branch": null,
+            "primary_certificate": {
+              "status": "infeasible",
+              "phase_I_certificate": {
+                "status": "optimal",
+                "x": [
+                  "-7",
+                  "8"
+                ],
+                "objective": "8",
+                "inequality_dual": [
+                  "0",
+                  "0",
+                  "0",
+                  "-1",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "equality_dual": [],
+                "exact_primal_dual_verified": true
+              }
+            },
+            "status": "closed_regime_infeasible"
+          }
+        ],
+        "all_regimes_certified": true,
+        "elapsed_seconds": 0.10506976400210988,
+        "preflight": {
+          "counts": {
+            "prefixes_retained": 6,
+            "terminal_sequences": 3,
+            "continuous_regimes": 6,
+            "excluded_subtree_branches": 0,
+            "excluded_terminal_candidates": 0,
+            "exclusions_by_reason": {}
+          },
+          "terminal_sequences": [
+            [
+              [
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "B",
+                  "S"
+                ]
+              ],
+              0,
+              "B"
+            ],
+            [
+              [
+                [
+                  "B",
+                  "S"
+                ]
+              ],
+              0,
+              "B"
+            ],
+            [
+              [
+                [
+                  "B",
+                  "S"
+                ],
+                [
+                  "A",
+                  "C"
+                ]
+              ],
+              0,
+              "A"
+            ]
+          ],
+          "prefixes": [
+            [
+              [],
+              1,
+              "@REF5:origin"
+            ],
+            [
+              [
+                [
+                  "A",
+                  "C"
+                ]
+              ],
+              1,
+              "A"
+            ],
+            [
+              [
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "A",
+                  "C"
+                ]
+              ],
+              1,
+              "A"
+            ],
+            [
+              [
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "B",
+                  "S"
+                ]
+              ],
+              0,
+              "B"
+            ],
+            [
+              [
+                [
+                  "B",
+                  "S"
+                ]
+              ],
+              0,
+              "B"
+            ],
+            [
+              [
+                [
+                  "B",
+                  "S"
+                ],
+                [
+                  "A",
+                  "C"
+                ]
+              ],
+              0,
+              "A"
+            ]
+          ],
+          "exclusions": [],
+          "terminal_excluded_sites": [],
+          "scope": "exact_physical_exclusions_before_continuous_regime_expansion",
+          "table_sha256": "924c02f94519dc7b21fbfc36cc61ce138f84da098ddc8c826b7ba05762abd91a",
+          "no_optimization_run": true
+        },
+        "immutable_input_provenance": {
+          "payload_sha256": "924c02f94519dc7b21fbfc36cc61ce138f84da098ddc8c826b7ba05762abd91a",
+          "schema": "hiroute.immutable_selected_legs.v1",
+          "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+          "backend_name": "mock_immutable_primitives_for_adapter_tests",
+          "tie_policy": "min_time_then_actual_length_then_first_discovery",
+          "direction_policy": "forward_per_source_v1",
+          "source_sha256": {
+            "mock/physical-primitives.txt": "53d3a1403ddc46e3be404ad222c3e604113eaf3cfcd5a5c94773250905cb639a"
+          },
+          "router_source_sha256": {
+            "mock/backend.txt": "7167708410ecdc2876a574d8b7c549e7320e7ed0f23b8cbc4b18cdde4f0ec6e9"
+          },
+          "selection_certificate_sha256": "7d31fbc27a7d7dc5892396a6eb30e7f5ddbb101773f653f31cf0b5e321bdd429",
+          "hierarchy_sha256": "e638f64704116da4487ae8c4337b2f2b483061f4971c2515c010c272d3be928d",
+          "payload_identity_verified": true,
+          "external_source_validity_not_implied": true
+        },
+        "tree_independent": true
+      },
+      "analytic_expected": null
+    },
+    {
+      "case_id": "nonmetric_outgoing_bound_must_be_zero",
+      "reference": {
+        "scope": "bounded_H_ref_diagnostic",
+        "model_domain": "immutable_binary64_selected_leg_rationals",
+        "H_ref": 2,
+        "case_id": null,
+        "result": {
+          "status": "attained_optimum",
+          "primary_infimum": "6",
+          "secondary_infimum": "1",
+          "J": "6",
+          "Q_total": "1",
+          "H": 2,
+          "site_action_tuple": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ],
+          "charges": [
+            "1/2",
+            "1/2"
+          ],
+          "lex_key": [
+            "6",
+            "1",
+            2,
+            [
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "C"
+              ]
+            ]
+          ],
+          "events": [
+            {
+              "site": "A",
+              "effect": "C",
+              "road_anchor": "road:x",
+              "arrival_time_s": "1",
+              "arrival_kwh": "1",
+              "departure_kwh": "3/2",
+              "completion_s": "5/2",
+              "charge_kwh": "1/2",
+              "charge_completion_s": "5/2",
+              "schedule_start_s": null,
+              "schedule_completion_s": null,
+              "remaining_schedule": 0
+            },
+            {
+              "site": "B",
+              "effect": "C",
+              "road_anchor": "road:b",
+              "arrival_time_s": "7/2",
+              "arrival_kwh": "1/2",
+              "departure_kwh": "1",
+              "completion_s": "5",
+              "charge_kwh": "1/2",
+              "charge_completion_s": "5",
+              "schedule_start_s": null,
+              "schedule_completion_s": null,
+              "remaining_schedule": 0
+            }
+          ],
+          "route_legs": [
+            {
+              "source_road_anchor": "road:o",
+              "target_road_anchor": "road:x",
+              "time": "1",
+              "length": "1",
+              "energy": "1",
+              "time_hex": "0x1.0000000000000p+0",
+              "length_hex": "0x1.0000000000000p+0",
+              "label_direction": "forward_from_source",
+              "table_sha256": "e3c22c1c04debc7e8527f546244f4cf3036993c3eaeff8e72dc95c9e567a3e89"
+            },
+            {
+              "source_road_anchor": "road:x",
+              "target_road_anchor": "road:b",
+              "time": "1",
+              "length": "1",
+              "energy": "1",
+              "time_hex": "0x1.0000000000000p+0",
+              "length_hex": "0x1.0000000000000p+0",
+              "label_direction": "forward_from_source",
+              "table_sha256": "e3c22c1c04debc7e8527f546244f4cf3036993c3eaeff8e72dc95c9e567a3e89"
+            },
+            {
+              "source_road_anchor": "road:b",
+              "target_road_anchor": "road:z",
+              "time": "1",
+              "length": "1",
+              "energy": "1",
+              "time_hex": "0x1.0000000000000p+0",
+              "length_hex": "0x1.0000000000000p+0",
+              "label_direction": "forward_from_source",
+              "table_sha256": "e3c22c1c04debc7e8527f546244f4cf3036993c3eaeff8e72dc95c9e567a3e89"
+            }
+          ],
+          "terminal_time_s": "6",
+          "terminal_energy_kwh": "0",
+          "remaining_schedule": 0,
+          "terminal_road_anchor": "road:z",
+          "witness_replayed": true,
+          "replay_scope": "immutable_selected_leg_constants_and_semantic_events",
+          "immutable_input_provenance": {
+            "payload_sha256": "e3c22c1c04debc7e8527f546244f4cf3036993c3eaeff8e72dc95c9e567a3e89",
+            "schema": "hiroute.immutable_selected_legs.v1",
+            "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+            "backend_name": "mock_immutable_primitives_for_adapter_tests",
+            "tie_policy": "min_time_then_actual_length_then_first_discovery",
+            "direction_policy": "forward_per_source_v1",
+            "source_sha256": {
+              "mock/physical-primitives.txt": "53d3a1403ddc46e3be404ad222c3e604113eaf3cfcd5a5c94773250905cb639a"
+            },
+            "router_source_sha256": {
+              "mock/backend.txt": "7167708410ecdc2876a574d8b7c549e7320e7ed0f23b8cbc4b18cdde4f0ec6e9"
+            },
+            "selection_certificate_sha256": "fc9ed0b55d1b64a06ae1a061037aeacba964fe5bacd9934954c86a527f62171d",
+            "hierarchy_sha256": "e638f64704116da4487ae8c4337b2f2b483061f4971c2515c010c272d3be928d",
+            "payload_identity_verified": true,
+            "external_source_validity_not_implied": true
+          }
+        },
+        "sequence_count": 3,
+        "terminal_sequence_count": 3,
+        "regime_count": 3,
+        "closed_infeasible_regime_count": 0,
+        "empty_strict_regime_count": 0,
+        "strict_feasible_regime_count": 3,
+        "certified_regime_count": 3,
+        "sequences": [
+          {
+            "sequence": [
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "C"
+              ]
+            ],
+            "remaining_schedule": 0,
+            "regimes": 1
+          },
+          {
+            "sequence": [
+              [
+                "B",
+                "C"
+              ]
+            ],
+            "remaining_schedule": 0,
+            "regimes": 1
+          },
+          {
+            "sequence": [
+              [
+                "B",
+                "C"
+              ],
+              [
+                "B",
+                "C"
+              ]
+            ],
+            "remaining_schedule": 0,
+            "regimes": 1
+          }
+        ],
+        "regimes": [
+          {
+            "sequence": [
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "C"
+              ]
+            ],
+            "segments": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "schedule_branch": null,
+            "completion_branch": null,
+            "primary_certificate": {
+              "status": "optimal",
+              "x": [
+                "0",
+                "1"
+              ],
+              "objective": "1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [],
+              "exact_primal_dual_verified": true
+            },
+            "strict_feasibility_certificate": {
+              "status": "optimal",
+              "x": [
+                "1",
+                "1",
+                "1"
+              ],
+              "objective": "-1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [],
+              "exact_primal_dual_verified": true
+            },
+            "primary_face_certificate": {
+              "status": "optimal",
+              "x": [
+                "1/2",
+                "1/2",
+                "1/2"
+              ],
+              "objective": "-1/2",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1/2",
+                "-1/2",
+                "0",
+                "0"
+              ],
+              "equality_dual": [
+                "-1/2"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "secondary_certificate": {
+              "status": "optimal",
+              "x": [
+                "1",
+                "0"
+              ],
+              "objective": "1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "equality_dual": [
+                "1"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "secondary_face_certificate": {
+              "status": "optimal",
+              "x": [
+                "1/2",
+                "1/2",
+                "1/2"
+              ],
+              "objective": "-1/2",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1/2",
+                "-1/2",
+                "0",
+                "0"
+              ],
+              "equality_dual": [
+                "-1/2",
+                "0"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "status": "attained_optimum",
+            "J": "6",
+            "Q_total": "1"
+          },
+          {
+            "sequence": [
+              [
+                "B",
+                "C"
+              ]
+            ],
+            "segments": [
+              0,
+              0
+            ],
+            "schedule_branch": null,
+            "completion_branch": null,
+            "primary_certificate": {
+              "status": "optimal",
+              "x": [
+                "0"
+              ],
+              "objective": "0",
+              "inequality_dual": [
+                "-1",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "equality_dual": [],
+              "exact_primal_dual_verified": true
+            },
+            "strict_feasibility_certificate": {
+              "status": "optimal",
+              "x": [
+                "4",
+                "1"
+              ],
+              "objective": "-1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [],
+              "exact_primal_dual_verified": true
+            },
+            "primary_face_certificate": {
+              "status": "optimal",
+              "x": [
+                "0",
+                "0"
+              ],
+              "objective": "0",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1",
+                "0",
+                "0"
+              ],
+              "equality_dual": [
+                "-1"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "status": "primary_unattained",
+            "primary_infimum": "12"
+          },
+          {
+            "sequence": [
+              [
+                "B",
+                "C"
+              ],
+              [
+                "B",
+                "C"
+              ]
+            ],
+            "segments": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "schedule_branch": null,
+            "completion_branch": null,
+            "primary_certificate": {
+              "status": "optimal",
+              "x": [
+                "0",
+                "0"
+              ],
+              "objective": "0",
+              "inequality_dual": [
+                "-1",
+                "-1",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "equality_dual": [],
+              "exact_primal_dual_verified": true
+            },
+            "strict_feasibility_certificate": {
+              "status": "optimal",
+              "x": [
+                "1",
+                "3",
+                "1"
+              ],
+              "objective": "-1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [],
+              "exact_primal_dual_verified": true
+            },
+            "primary_face_certificate": {
+              "status": "optimal",
+              "x": [
+                "0",
+                "0",
+                "0"
+              ],
+              "objective": "0",
+              "inequality_dual": [
+                "0",
+                "-1",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1",
+                "0",
+                "0",
+                "0"
+              ],
+              "equality_dual": [
+                "-1"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "status": "primary_unattained",
+            "primary_infimum": "13"
+          }
+        ],
+        "all_regimes_certified": true,
+        "elapsed_seconds": 0.04138205599883804,
+        "preflight": {
+          "counts": {
+            "prefixes_retained": 6,
+            "terminal_sequences": 3,
+            "continuous_regimes": 3,
+            "excluded_subtree_branches": 1,
+            "excluded_terminal_candidates": 3,
+            "exclusions_by_reason": {
+              "terminal_consumption_exceeds_reserve_budget": 3,
+              "inter_stop_consumption_exceeds_capacity_budget": 1
+            }
+          },
+          "terminal_sequences": [
+            [
+              [
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ],
+              0,
+              "B"
+            ],
+            [
+              [
+                [
+                  "B",
+                  "C"
+                ]
+              ],
+              0,
+              "B"
+            ],
+            [
+              [
+                [
+                  "B",
+                  "C"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ],
+              0,
+              "B"
+            ]
+          ],
+          "prefixes": [
+            [
+              [],
+              0,
+              "@REF5:origin"
+            ],
+            [
+              [
+                [
+                  "A",
+                  "C"
+                ]
+              ],
+              0,
+              "A"
+            ],
+            [
+              [
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "A",
+                  "C"
+                ]
+              ],
+              0,
+              "A"
+            ],
+            [
+              [
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ],
+              0,
+              "B"
+            ],
+            [
+              [
+                [
+                  "B",
+                  "C"
+                ]
+              ],
+              0,
+              "B"
+            ],
+            [
+              [
+                [
+                  "B",
+                  "C"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ],
+              0,
+              "B"
+            ]
+          ],
+          "exclusions": [
+            {
+              "reason": "terminal_consumption_exceeds_reserve_budget",
+              "prefix": [],
+              "source_road_anchor": "road:o",
+              "target_road_anchor": "road:z",
+              "candidate_site": null,
+              "effect": null,
+              "table_sha256": "e3c22c1c04debc7e8527f546244f4cf3036993c3eaeff8e72dc95c9e567a3e89",
+              "subtree_excluded": false,
+              "consumption_kwh": "100",
+              "capacity_limit_kwh": "2",
+              "exact_strict_excess": "98"
+            },
+            {
+              "reason": "terminal_consumption_exceeds_reserve_budget",
+              "prefix": [
+                [
+                  "A",
+                  "C"
+                ]
+              ],
+              "source_road_anchor": "road:x",
+              "target_road_anchor": "road:z",
+              "candidate_site": null,
+              "effect": null,
+              "table_sha256": "e3c22c1c04debc7e8527f546244f4cf3036993c3eaeff8e72dc95c9e567a3e89",
+              "subtree_excluded": false,
+              "consumption_kwh": "100",
+              "capacity_limit_kwh": "5",
+              "exact_strict_excess": "95"
+            },
+            {
+              "reason": "terminal_consumption_exceeds_reserve_budget",
+              "prefix": [
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "A",
+                  "C"
+                ]
+              ],
+              "source_road_anchor": "road:x",
+              "target_road_anchor": "road:z",
+              "candidate_site": null,
+              "effect": null,
+              "table_sha256": "e3c22c1c04debc7e8527f546244f4cf3036993c3eaeff8e72dc95c9e567a3e89",
+              "subtree_excluded": false,
+              "consumption_kwh": "100",
+              "capacity_limit_kwh": "5",
+              "exact_strict_excess": "95"
+            },
+            {
+              "reason": "inter_stop_consumption_exceeds_capacity_budget",
+              "prefix": [
+                [
+                  "B",
+                  "C"
+                ]
+              ],
+              "source_road_anchor": "road:b",
+              "target_road_anchor": "road:x",
+              "candidate_site": "A",
+              "effect": "C",
+              "table_sha256": "e3c22c1c04debc7e8527f546244f4cf3036993c3eaeff8e72dc95c9e567a3e89",
+              "subtree_excluded": true,
+              "consumption_kwh": "100",
+              "capacity_limit_kwh": "5",
+              "exact_strict_excess": "95"
+            }
+          ],
+          "terminal_excluded_sites": [],
+          "scope": "exact_physical_exclusions_before_continuous_regime_expansion",
+          "table_sha256": "e3c22c1c04debc7e8527f546244f4cf3036993c3eaeff8e72dc95c9e567a3e89",
+          "no_optimization_run": true
+        },
+        "immutable_input_provenance": {
+          "payload_sha256": "e3c22c1c04debc7e8527f546244f4cf3036993c3eaeff8e72dc95c9e567a3e89",
+          "schema": "hiroute.immutable_selected_legs.v1",
+          "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+          "backend_name": "mock_immutable_primitives_for_adapter_tests",
+          "tie_policy": "min_time_then_actual_length_then_first_discovery",
+          "direction_policy": "forward_per_source_v1",
+          "source_sha256": {
+            "mock/physical-primitives.txt": "53d3a1403ddc46e3be404ad222c3e604113eaf3cfcd5a5c94773250905cb639a"
+          },
+          "router_source_sha256": {
+            "mock/backend.txt": "7167708410ecdc2876a574d8b7c549e7320e7ed0f23b8cbc4b18cdde4f0ec6e9"
+          },
+          "selection_certificate_sha256": "fc9ed0b55d1b64a06ae1a061037aeacba964fe5bacd9934954c86a527f62171d",
+          "hierarchy_sha256": "e638f64704116da4487ae8c4337b2f2b483061f4971c2515c010c272d3be928d",
+          "payload_identity_verified": true,
+          "external_source_validity_not_implied": true
+        },
+        "tree_independent": true
+      },
+      "analytic_expected": null
+    },
+    {
+      "case_id": "site_text_matches_destination_but_anchor_differs",
+      "reference": {
+        "scope": "bounded_H_ref_diagnostic",
+        "model_domain": "immutable_binary64_selected_leg_rationals",
+        "H_ref": 2,
+        "case_id": null,
+        "result": {
+          "status": "attained_optimum",
+          "primary_infimum": "4",
+          "secondary_infimum": "1",
+          "J": "4",
+          "Q_total": "1",
+          "H": 1,
+          "site_action_tuple": [
+            [
+              "road:z",
+              "C"
+            ]
+          ],
+          "charges": [
+            "1"
+          ],
+          "lex_key": [
+            "4",
+            "1",
+            1,
+            [
+              [
+                "road:z",
+                "C"
+              ]
+            ]
+          ],
+          "events": [
+            {
+              "site": "road:z",
+              "effect": "C",
+              "road_anchor": "road:x",
+              "arrival_time_s": "1",
+              "arrival_kwh": "1",
+              "departure_kwh": "2",
+              "completion_s": "3",
+              "charge_kwh": "1",
+              "charge_completion_s": "3",
+              "schedule_start_s": null,
+              "schedule_completion_s": null,
+              "remaining_schedule": 0
+            }
+          ],
+          "route_legs": [
+            {
+              "source_road_anchor": "road:o",
+              "target_road_anchor": "road:x",
+              "time": "1",
+              "length": "1",
+              "energy": "1",
+              "time_hex": "0x1.0000000000000p+0",
+              "length_hex": "0x1.0000000000000p+0",
+              "label_direction": "forward_from_source",
+              "table_sha256": "8a7a0611653ca9be5681864fa6e49e8f45f3443623c2f64b98fb5012bfc28461"
+            },
+            {
+              "source_road_anchor": "road:x",
+              "target_road_anchor": "road:z",
+              "time": "1",
+              "length": "2",
+              "energy": "2",
+              "time_hex": "0x1.0000000000000p+0",
+              "length_hex": "0x1.0000000000000p+1",
+              "label_direction": "forward_from_source",
+              "table_sha256": "8a7a0611653ca9be5681864fa6e49e8f45f3443623c2f64b98fb5012bfc28461"
+            }
+          ],
+          "terminal_time_s": "4",
+          "terminal_energy_kwh": "0",
+          "remaining_schedule": 0,
+          "terminal_road_anchor": "road:z",
+          "witness_replayed": true,
+          "replay_scope": "immutable_selected_leg_constants_and_semantic_events",
+          "immutable_input_provenance": {
+            "payload_sha256": "8a7a0611653ca9be5681864fa6e49e8f45f3443623c2f64b98fb5012bfc28461",
+            "schema": "hiroute.immutable_selected_legs.v1",
+            "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+            "backend_name": "mock_immutable_primitives_for_adapter_tests",
+            "tie_policy": "min_time_then_actual_length_then_first_discovery",
+            "direction_policy": "forward_per_source_v1",
+            "source_sha256": {
+              "mock/physical-primitives.txt": "53d3a1403ddc46e3be404ad222c3e604113eaf3cfcd5a5c94773250905cb639a"
+            },
+            "router_source_sha256": {
+              "mock/backend.txt": "7167708410ecdc2876a574d8b7c549e7320e7ed0f23b8cbc4b18cdde4f0ec6e9"
+            },
+            "selection_certificate_sha256": "05a810e0cd66eb8d5eacd062b88801799ab3171921b81e2cc90f674d77548b05",
+            "hierarchy_sha256": "6a488cc953e0a8ba64f7ff1b2ce2f368cded70674c680399f92e16bdf4b4d0b3",
+            "payload_identity_verified": true,
+            "external_source_validity_not_implied": true
+          }
+        },
+        "sequence_count": 2,
+        "terminal_sequence_count": 2,
+        "regime_count": 2,
+        "closed_infeasible_regime_count": 0,
+        "empty_strict_regime_count": 0,
+        "strict_feasible_regime_count": 2,
+        "certified_regime_count": 2,
+        "sequences": [
+          {
+            "sequence": [
+              [
+                "road:z",
+                "C"
+              ]
+            ],
+            "remaining_schedule": 0,
+            "regimes": 1
+          },
+          {
+            "sequence": [
+              [
+                "road:z",
+                "C"
+              ],
+              [
+                "road:z",
+                "C"
+              ]
+            ],
+            "remaining_schedule": 0,
+            "regimes": 1
+          }
+        ],
+        "regimes": [
+          {
+            "sequence": [
+              [
+                "road:z",
+                "C"
+              ]
+            ],
+            "segments": [
+              0,
+              0
+            ],
+            "schedule_branch": null,
+            "completion_branch": null,
+            "primary_certificate": {
+              "status": "optimal",
+              "x": [
+                "1"
+              ],
+              "objective": "1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [],
+              "exact_primal_dual_verified": true
+            },
+            "strict_feasibility_certificate": {
+              "status": "optimal",
+              "x": [
+                "4",
+                "1"
+              ],
+              "objective": "-1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [],
+              "exact_primal_dual_verified": true
+            },
+            "primary_face_certificate": {
+              "status": "optimal",
+              "x": [
+                "1",
+                "1"
+              ],
+              "objective": "-1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [
+                "0"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "secondary_certificate": {
+              "status": "optimal",
+              "x": [
+                "1"
+              ],
+              "objective": "1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [
+                "0"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "secondary_face_certificate": {
+              "status": "optimal",
+              "x": [
+                "1",
+                "1"
+              ],
+              "objective": "-1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [
+                "0",
+                "0"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "status": "attained_optimum",
+            "J": "4",
+            "Q_total": "1"
+          },
+          {
+            "sequence": [
+              [
+                "road:z",
+                "C"
+              ],
+              [
+                "road:z",
+                "C"
+              ]
+            ],
+            "segments": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "schedule_branch": null,
+            "completion_branch": null,
+            "primary_certificate": {
+              "status": "optimal",
+              "x": [
+                "0",
+                "1"
+              ],
+              "objective": "1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [],
+              "exact_primal_dual_verified": true
+            },
+            "strict_feasibility_certificate": {
+              "status": "optimal",
+              "x": [
+                "1",
+                "1",
+                "1"
+              ],
+              "objective": "-1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [],
+              "exact_primal_dual_verified": true
+            },
+            "primary_face_certificate": {
+              "status": "optimal",
+              "x": [
+                "1/2",
+                "1/2",
+                "1/2"
+              ],
+              "objective": "-1/2",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1/2",
+                "-1/2",
+                "0",
+                "0"
+              ],
+              "equality_dual": [
+                "-1/2"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "secondary_certificate": {
+              "status": "optimal",
+              "x": [
+                "1",
+                "0"
+              ],
+              "objective": "1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "equality_dual": [
+                "1"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "secondary_face_certificate": {
+              "status": "optimal",
+              "x": [
+                "1/2",
+                "1/2",
+                "1/2"
+              ],
+              "objective": "-1/2",
+              "inequality_dual": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "-1/2",
+                "-1/2",
+                "0",
+                "0"
+              ],
+              "equality_dual": [
+                "-1/2",
+                "0"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "status": "attained_optimum",
+            "J": "5",
+            "Q_total": "1"
+          }
+        ],
+        "all_regimes_certified": true,
+        "elapsed_seconds": 0.08641679500215105,
+        "preflight": {
+          "counts": {
+            "prefixes_retained": 3,
+            "terminal_sequences": 2,
+            "continuous_regimes": 2,
+            "excluded_subtree_branches": 0,
+            "excluded_terminal_candidates": 1,
+            "exclusions_by_reason": {
+              "terminal_consumption_exceeds_reserve_budget": 1
+            }
+          },
+          "terminal_sequences": [
+            [
+              [
+                [
+                  "road:z",
+                  "C"
+                ]
+              ],
+              0,
+              "road:z"
+            ],
+            [
+              [
+                [
+                  "road:z",
+                  "C"
+                ],
+                [
+                  "road:z",
+                  "C"
+                ]
+              ],
+              0,
+              "road:z"
+            ]
+          ],
+          "prefixes": [
+            [
+              [],
+              0,
+              "@REF5:origin"
+            ],
+            [
+              [
+                [
+                  "road:z",
+                  "C"
+                ]
+              ],
+              0,
+              "road:z"
+            ],
+            [
+              [
+                [
+                  "road:z",
+                  "C"
+                ],
+                [
+                  "road:z",
+                  "C"
+                ]
+              ],
+              0,
+              "road:z"
+            ]
+          ],
+          "exclusions": [
+            {
+              "reason": "terminal_consumption_exceeds_reserve_budget",
+              "prefix": [],
+              "source_road_anchor": "road:o",
+              "target_road_anchor": "road:z",
+              "candidate_site": null,
+              "effect": null,
+              "table_sha256": "8a7a0611653ca9be5681864fa6e49e8f45f3443623c2f64b98fb5012bfc28461",
+              "subtree_excluded": false,
+              "consumption_kwh": "100",
+              "capacity_limit_kwh": "2",
+              "exact_strict_excess": "98"
+            }
+          ],
+          "terminal_excluded_sites": [],
+          "scope": "exact_physical_exclusions_before_continuous_regime_expansion",
+          "table_sha256": "8a7a0611653ca9be5681864fa6e49e8f45f3443623c2f64b98fb5012bfc28461",
+          "no_optimization_run": true
+        },
+        "immutable_input_provenance": {
+          "payload_sha256": "8a7a0611653ca9be5681864fa6e49e8f45f3443623c2f64b98fb5012bfc28461",
+          "schema": "hiroute.immutable_selected_legs.v1",
+          "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+          "backend_name": "mock_immutable_primitives_for_adapter_tests",
+          "tie_policy": "min_time_then_actual_length_then_first_discovery",
+          "direction_policy": "forward_per_source_v1",
+          "source_sha256": {
+            "mock/physical-primitives.txt": "53d3a1403ddc46e3be404ad222c3e604113eaf3cfcd5a5c94773250905cb639a"
+          },
+          "router_source_sha256": {
+            "mock/backend.txt": "7167708410ecdc2876a574d8b7c549e7320e7ed0f23b8cbc4b18cdde4f0ec6e9"
+          },
+          "selection_certificate_sha256": "05a810e0cd66eb8d5eacd062b88801799ab3171921b81e2cc90f674d77548b05",
+          "hierarchy_sha256": "6a488cc953e0a8ba64f7ff1b2ce2f368cded70674c680399f92e16bdf4b4d0b3",
+          "payload_identity_verified": true,
+          "external_source_validity_not_implied": true
+        },
+        "tree_independent": true
+      },
+      "analytic_expected": null
+    },
+    {
+      "case_id": "destination_coattached_S_is_terminal",
+      "reference": {
+        "scope": "bounded_H_ref_diagnostic",
+        "model_domain": "immutable_binary64_selected_leg_rationals",
+        "H_ref": 2,
+        "case_id": null,
+        "result": {
+          "status": "infeasible_within_H_ref"
+        },
+        "sequence_count": 0,
+        "terminal_sequence_count": 0,
+        "regime_count": 0,
+        "closed_infeasible_regime_count": 0,
+        "empty_strict_regime_count": 0,
+        "strict_feasible_regime_count": 0,
+        "certified_regime_count": 0,
+        "sequences": [],
+        "regimes": [],
+        "all_regimes_certified": true,
+        "elapsed_seconds": 0.0001162349981314037,
+        "preflight": {
+          "counts": {
+            "prefixes_retained": 1,
+            "terminal_sequences": 0,
+            "continuous_regimes": 0,
+            "excluded_subtree_branches": 0,
+            "excluded_terminal_candidates": 0,
+            "exclusions_by_reason": {}
+          },
+          "terminal_sequences": [],
+          "prefixes": [
+            [
+              [],
+              1,
+              "@REF5:origin"
+            ]
+          ],
+          "exclusions": [],
+          "terminal_excluded_sites": [
+            "different_site_id"
+          ],
+          "scope": "exact_physical_exclusions_before_continuous_regime_expansion",
+          "table_sha256": "93e34bf744b1e5d027cbd5e448d481c31c643f750421c7ca42897447fb789c94",
+          "no_optimization_run": true
+        },
+        "immutable_input_provenance": {
+          "payload_sha256": "93e34bf744b1e5d027cbd5e448d481c31c643f750421c7ca42897447fb789c94",
+          "schema": "hiroute.immutable_selected_legs.v1",
+          "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+          "backend_name": "mock_immutable_primitives_for_adapter_tests",
+          "tie_policy": "min_time_then_actual_length_then_first_discovery",
+          "direction_policy": "forward_per_source_v1",
+          "source_sha256": {
+            "mock/physical-primitives.txt": "53d3a1403ddc46e3be404ad222c3e604113eaf3cfcd5a5c94773250905cb639a"
+          },
+          "router_source_sha256": {
+            "mock/backend.txt": "7167708410ecdc2876a574d8b7c549e7320e7ed0f23b8cbc4b18cdde4f0ec6e9"
+          },
+          "selection_certificate_sha256": "91aa66b064463f5f679b507d8f4afd6f7a00bba6971a33185c91d871e1873741",
+          "hierarchy_sha256": "7fc57c9827e61e390eac08319583e70fdc646da37b4b1389ba0e0c58028d9063",
+          "payload_identity_verified": true,
+          "external_source_validity_not_implied": true
+        },
+        "tree_independent": true
+      },
+      "analytic_expected": null
+    },
+    {
+      "case_id": "terminal_origin_identity",
+      "reference": {
+        "scope": "bounded_H_ref_diagnostic",
+        "model_domain": "immutable_binary64_selected_leg_rationals",
+        "H_ref": 0,
+        "case_id": null,
+        "result": {
+          "status": "attained_optimum",
+          "primary_infimum": "0",
+          "secondary_infimum": "0",
+          "J": "0",
+          "Q_total": "0",
+          "H": 0,
+          "site_action_tuple": [],
+          "charges": [],
+          "lex_key": [
+            "0",
+            "0",
+            0,
+            []
+          ],
+          "events": [],
+          "route_legs": [
+            {
+              "source_road_anchor": "road:z",
+              "target_road_anchor": "road:z",
+              "time": "0",
+              "length": "0",
+              "energy": "0",
+              "time_hex": "0x0.0p+0",
+              "length_hex": "0x0.0p+0",
+              "label_direction": "identity",
+              "table_sha256": "57b6529ab97b4e805d3479067d4114baab75b1db8a1211fa5e56407076a9a067"
+            }
+          ],
+          "terminal_time_s": "0",
+          "terminal_energy_kwh": "2",
+          "remaining_schedule": 0,
+          "terminal_road_anchor": "road:z",
+          "witness_replayed": true,
+          "replay_scope": "immutable_selected_leg_constants_and_semantic_events",
+          "immutable_input_provenance": {
+            "payload_sha256": "57b6529ab97b4e805d3479067d4114baab75b1db8a1211fa5e56407076a9a067",
+            "schema": "hiroute.immutable_selected_legs.v1",
+            "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+            "backend_name": "mock_immutable_primitives_for_adapter_tests",
+            "tie_policy": "min_time_then_actual_length_then_first_discovery",
+            "direction_policy": "forward_per_source_v1",
+            "source_sha256": {
+              "mock/physical-primitives.txt": "53d3a1403ddc46e3be404ad222c3e604113eaf3cfcd5a5c94773250905cb639a"
+            },
+            "router_source_sha256": {
+              "mock/backend.txt": "7167708410ecdc2876a574d8b7c549e7320e7ed0f23b8cbc4b18cdde4f0ec6e9"
+            },
+            "selection_certificate_sha256": "9b4e4506b99e961e972f8f2aa3bbfee9c80ea419ab358d8c7d22ca4ba56d83d7",
+            "hierarchy_sha256": "da825d61e06f04a7a208e7393c47b09c1b39a6b84eed711510b13b91ed158fa7",
+            "payload_identity_verified": true,
+            "external_source_validity_not_implied": true
+          }
+        },
+        "sequence_count": 1,
+        "terminal_sequence_count": 1,
+        "regime_count": 1,
+        "closed_infeasible_regime_count": 0,
+        "empty_strict_regime_count": 0,
+        "strict_feasible_regime_count": 1,
+        "certified_regime_count": 1,
+        "sequences": [
+          {
+            "sequence": [],
+            "remaining_schedule": 0,
+            "regimes": 1
+          }
+        ],
+        "regimes": [
+          {
+            "sequence": [],
+            "segments": [],
+            "schedule_branch": null,
+            "completion_branch": null,
+            "primary_certificate": {
+              "status": "optimal",
+              "x": [],
+              "objective": "0",
+              "inequality_dual": [
+                "0"
+              ],
+              "equality_dual": [],
+              "exact_primal_dual_verified": true
+            },
+            "strict_feasibility_certificate": {
+              "status": "optimal",
+              "x": [
+                "1"
+              ],
+              "objective": "-1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [],
+              "exact_primal_dual_verified": true
+            },
+            "primary_face_certificate": {
+              "status": "optimal",
+              "x": [
+                "1"
+              ],
+              "objective": "-1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [
+                "0"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "secondary_certificate": {
+              "status": "optimal",
+              "x": [],
+              "objective": "0",
+              "inequality_dual": [
+                "0"
+              ],
+              "equality_dual": [
+                "0"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "secondary_face_certificate": {
+              "status": "optimal",
+              "x": [
+                "1"
+              ],
+              "objective": "-1",
+              "inequality_dual": [
+                "0",
+                "0",
+                "-1"
+              ],
+              "equality_dual": [
+                "0",
+                "0"
+              ],
+              "exact_primal_dual_verified": true
+            },
+            "status": "attained_optimum",
+            "J": "0",
+            "Q_total": "0"
+          }
+        ],
+        "all_regimes_certified": true,
+        "elapsed_seconds": 0.03324224000243703,
+        "preflight": {
+          "counts": {
+            "prefixes_retained": 1,
+            "terminal_sequences": 1,
+            "continuous_regimes": 1,
+            "excluded_subtree_branches": 0,
+            "excluded_terminal_candidates": 0,
+            "exclusions_by_reason": {}
+          },
+          "terminal_sequences": [
+            [
+              [],
+              0,
+              "@REF5:origin"
+            ]
+          ],
+          "prefixes": [
+            [
+              [],
+              0,
+              "@REF5:origin"
+            ]
+          ],
+          "exclusions": [],
+          "terminal_excluded_sites": [
+            "A"
+          ],
+          "scope": "exact_physical_exclusions_before_continuous_regime_expansion",
+          "table_sha256": "57b6529ab97b4e805d3479067d4114baab75b1db8a1211fa5e56407076a9a067",
+          "no_optimization_run": true
+        },
+        "immutable_input_provenance": {
+          "payload_sha256": "57b6529ab97b4e805d3479067d4114baab75b1db8a1211fa5e56407076a9a067",
+          "schema": "hiroute.immutable_selected_legs.v1",
+          "numerical_contract": "binary64_totals_as_exact_rationals_v1",
+          "backend_name": "mock_immutable_primitives_for_adapter_tests",
+          "tie_policy": "min_time_then_actual_length_then_first_discovery",
+          "direction_policy": "forward_per_source_v1",
+          "source_sha256": {
+            "mock/physical-primitives.txt": "53d3a1403ddc46e3be404ad222c3e604113eaf3cfcd5a5c94773250905cb639a"
+          },
+          "router_source_sha256": {
+            "mock/backend.txt": "7167708410ecdc2876a574d8b7c549e7320e7ed0f23b8cbc4b18cdde4f0ec6e9"
+          },
+          "selection_certificate_sha256": "9b4e4506b99e961e972f8f2aa3bbfee9c80ea419ab358d8c7d22ca4ba56d83d7",
+          "hierarchy_sha256": "da825d61e06f04a7a208e7393c47b09c1b39a6b84eed711510b13b91ed158fa7",
+          "payload_identity_verified": true,
+          "external_source_validity_not_implied": true
+        },
+        "tree_independent": true
+      },
+      "analytic_expected": null
+    }
+  ]
+}

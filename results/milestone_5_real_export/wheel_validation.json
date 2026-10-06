@@ -1,0 +1,17 @@
+{
+  "installed_standard_library_tests": 117,
+  "modules": {
+    "hierarchy4r/__init__.py": "0f5e697145974f649b849c4110a5725c506576d95f69cb20f1cdc3afdf332334",
+    "timecut5/bounded.py": "4a45498577c688b322357a1b9bd3b19fb4ab244af4c1ee22e8f7c493b7f60ce2",
+    "timecut5/hierarchy.py": "3de1495532d8bb1b68173c6d22a3539c90a6daeb7c5b0b866aac4eae22dd1386",
+    "timecut5/real_adapter.py": "daa25b6c9fdd2f48a567da2fb443c2672f32d7de6a1f2b26a5b857de9c492cb2",
+    "timecut5/real_export_input.py": "d79ce09a65e84087bb835f1a7ae8a70de9e4bb53af56a555e1e9c4c6c7bd7a4f"
+  },
+  "notes": [
+    "Installed -I parent interpreter loaded site-packages modules.",
+    "Dedicated optimized-runtime child regression sets source PYTHONPATH explicitly; it separately validates the same verifier source bytes.",
+    "Exporter PyArrow/native tests ran in the declared project test environment, not this dependency-free wheel venv."
+  ],
+  "source_bytes_equal": true,
+  "wheel_sha256": "d0c79dc49147b70e086378932a0da916a0a1e4db6d3979ebcb6059e5ac85108a"
+}

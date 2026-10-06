@@ -1,0 +1,1521 @@
+{
+  "calibration_sha256": "cc9ddc722e5b558a19ff95197df40c99e5977cb6679b5baaea2a12dd5913df07",
+  "completed_utc": "2026-10-06T05:20:50.158690+00:00",
+  "elapsed_seconds": 174.45036656900265,
+  "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+  "identity_pair_count": 105,
+  "limitations": [
+    "Preparation only; no REF, FLAT, HIER or Stage C optimization has run.",
+    "Frozen binary64 selected totals are exact rational constants, not exact edge-sum reals or a metric guarantee.",
+    "Real pair/full calibration establishes equality only for its reported subset.",
+    "Canonical rational physical model is explicitly frozen; no bitwise old evaluator equivalence is claimed.",
+    "Leg export records selected totals and accepted router provenance; no full road-path edge witness is serialized."
+  ],
+  "memory": {
+    "available_bytes": 7130288128,
+    "cgroup_available_bytes": [],
+    "high_water_rss_bytes": 1659973632,
+    "host_available_bytes": 7130288128,
+    "rss_bytes": 1518796800
+  },
+  "native_router_sha256": "fb261029d9ddefa9cb72e5e313a1ee1a82502a126c15fb6b394d1d56a9159371",
+  "no_optimization": true,
+  "original_hierarchy_path": "/workspace/shared/navigation_audit/ref5_work/results/milestone_4r_b1/hierarchy.json",
+  "preflight_sha256": "b41fe88a1d84d21068f7c0e917a542a5c037af00ea57ef5a02aa2787dcd8a041",
+  "query_states_resolved_sha256": "d4bd50215c8035552ca47a9bf4e175d580eb265a2e9acbeff5d574c60b08b57c",
+  "requested_pair_count": 1231,
+  "restrictions": {
+    "OD00_energy_and_scheduled": {
+      "empty_region_count": 2029,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD00_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "0073a2d3e8bd913a3f583ccecbb34d58e600114d8386719a884a821a9a5f8b6f"
+    },
+    "OD00_energy_only": {
+      "empty_region_count": 2013,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD00_energy_only.json",
+      "region_count": 2047,
+      "sha256": "4a12c150d4c2853504e3726e82ad39e6c6a30fde21a283f385ebcafbf8ecf3f2"
+    },
+    "OD01_energy_and_scheduled": {
+      "empty_region_count": 2015,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD01_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "cc024da8ce753870f13deea79477b805bef25813dbfd9a30c967c0ae809b063f"
+    },
+    "OD01_energy_only": {
+      "empty_region_count": 2029,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD01_energy_only.json",
+      "region_count": 2047,
+      "sha256": "2e68ac682e7744fdb3311d353b60e357c7aedf35aa70f9ca68c2d219125e32ba"
+    },
+    "OD02_energy_and_scheduled": {
+      "empty_region_count": 2026,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD02_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "6c218dbdcb4b4d030d308d1b820f0ec804b3764d7d8bc1ff46e680b3d5528ec8"
+    },
+    "OD02_energy_only": {
+      "empty_region_count": 2030,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD02_energy_only.json",
+      "region_count": 2047,
+      "sha256": "401fd53ba9974514489beaa4239fbd2910cdb66290161c6de2ca88b6e826cf26"
+    },
+    "OD03_energy_and_scheduled": {
+      "empty_region_count": 2025,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD03_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "7456a621a70923de86f8bb78f0cf08907d9397f0fdb99b081a56404f7d71163f"
+    },
+    "OD03_energy_only": {
+      "empty_region_count": 2021,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD03_energy_only.json",
+      "region_count": 2047,
+      "sha256": "2f14bbc0be44c63a7b49d88d4eda7112dd71d7e5ac10a57b4c05b5f754f959e0"
+    },
+    "OD04_energy_and_scheduled": {
+      "empty_region_count": 2033,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD04_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "f50e0136d13f77740f55f5ff818b447bcd3d82ae4094b6c9d07d5a05913f1304"
+    },
+    "OD04_energy_only": {
+      "empty_region_count": 2031,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD04_energy_only.json",
+      "region_count": 2047,
+      "sha256": "9918c65c75fe88ddbd4dfb5fd02cff72cf5bc550642eda31adf98a20e0ab0c3f"
+    },
+    "OD05_energy_and_scheduled": {
+      "empty_region_count": 2032,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD05_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "2d1c74169675b6fe162b0e2af29618738ceb16d150b9651de1dcad247ef57a0c"
+    },
+    "OD05_energy_only": {
+      "empty_region_count": 2030,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD05_energy_only.json",
+      "region_count": 2047,
+      "sha256": "d0a73c0f057773e4bb59b5534826fdc96a7e68005f7fd6b3eb167756601ea966"
+    },
+    "OD06_energy_and_scheduled": {
+      "empty_region_count": 2029,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD06_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "55fbbd736a21a488af7faece5ae7281f3abd1248fe66b2176fde07e464bfd433"
+    },
+    "OD06_energy_only": {
+      "empty_region_count": 2020,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD06_energy_only.json",
+      "region_count": 2047,
+      "sha256": "0072b2243018e3dd4b75d65bead62f131cfb132b7c3d4581ce9971a22430695a"
+    },
+    "OD07_energy_and_scheduled": {
+      "empty_region_count": 2030,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD07_energy_and_scheduled.json",
+      "region_count": 2047,
+      "sha256": "2361360684d6af8d450ccb043c828c5c4ddf3cea81d00cfc2a68082f7e350110"
+    },
+    "OD07_energy_only": {
+      "empty_region_count": 2018,
+      "original_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "path": "restrictions/OD07_energy_only.json",
+      "region_count": 2047,
+      "sha256": "369d6ef0f32ca51bff3b2238b3292a94d04ad8e1204b032968dde18da7b45350"
+    }
+  },
+  "selection_certificate_sha256": "0e39ad906c01e05b4a4b764b3270360e309c24d1ae67d7a2e3533b6dca8af06a",
+  "source_count": 105,
+  "source_timings": [
+    {
+      "elapsed_seconds": 1.479772987000615,
+      "memory": {
+        "available_bytes": 7148654592,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7148654592,
+        "rss_bytes": 1518784512
+      },
+      "pair_count": 10,
+      "source": 34
+    },
+    {
+      "elapsed_seconds": 1.4031881090013485,
+      "memory": {
+        "available_bytes": 7151882240,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7151882240,
+        "rss_bytes": 1518784512
+      },
+      "pair_count": 9,
+      "source": 17151
+    },
+    {
+      "elapsed_seconds": 1.4611859920005372,
+      "memory": {
+        "available_bytes": 7174615040,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7174615040,
+        "rss_bytes": 1518784512
+      },
+      "pair_count": 10,
+      "source": 68132
+    },
+    {
+      "elapsed_seconds": 1.6144374509967747,
+      "memory": {
+        "available_bytes": 7166447616,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7166447616,
+        "rss_bytes": 1518788608
+      },
+      "pair_count": 15,
+      "source": 71017
+    },
+    {
+      "elapsed_seconds": 1.3838936749998538,
+      "memory": {
+        "available_bytes": 7175548928,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7175548928,
+        "rss_bytes": 1518788608
+      },
+      "pair_count": 10,
+      "source": 196383
+    },
+    {
+      "elapsed_seconds": 1.311971151997568,
+      "memory": {
+        "available_bytes": 7168458752,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7168458752,
+        "rss_bytes": 1518788608
+      },
+      "pair_count": 10,
+      "source": 243889
+    },
+    {
+      "elapsed_seconds": 1.519571658998757,
+      "memory": {
+        "available_bytes": 7035277312,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7035277312,
+        "rss_bytes": 1518788608
+      },
+      "pair_count": 15,
+      "source": 243891
+    },
+    {
+      "elapsed_seconds": 1.7919664259970887,
+      "memory": {
+        "available_bytes": 7084662784,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7084662784,
+        "rss_bytes": 1518788608
+      },
+      "pair_count": 9,
+      "source": 265697
+    },
+    {
+      "elapsed_seconds": 1.4561899569998786,
+      "memory": {
+        "available_bytes": 7110377472,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7110377472,
+        "rss_bytes": 1518788608
+      },
+      "pair_count": 17,
+      "source": 266193
+    },
+    {
+      "elapsed_seconds": 1.4403776139988622,
+      "memory": {
+        "available_bytes": 7110156288,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7110156288,
+        "rss_bytes": 1518788608
+      },
+      "pair_count": 10,
+      "source": 660176
+    },
+    {
+      "elapsed_seconds": 1.5060122180002509,
+      "memory": {
+        "available_bytes": 7131041792,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7131041792,
+        "rss_bytes": 1518788608
+      },
+      "pair_count": 16,
+      "source": 710949
+    },
+    {
+      "elapsed_seconds": 1.6972022490008385,
+      "memory": {
+        "available_bytes": 7137095680,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7137095680,
+        "rss_bytes": 1518788608
+      },
+      "pair_count": 9,
+      "source": 710967
+    },
+    {
+      "elapsed_seconds": 1.6521715330018196,
+      "memory": {
+        "available_bytes": 7144632320,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7144632320,
+        "rss_bytes": 1518788608
+      },
+      "pair_count": 9,
+      "source": 889946
+    },
+    {
+      "elapsed_seconds": 1.6670446680000168,
+      "memory": {
+        "available_bytes": 7161671680,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7161671680,
+        "rss_bytes": 1518788608
+      },
+      "pair_count": 18,
+      "source": 1055372
+    },
+    {
+      "elapsed_seconds": 1.4369577020006545,
+      "memory": {
+        "available_bytes": 7147913216,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7147913216,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 1440305
+    },
+    {
+      "elapsed_seconds": 1.3802787989989156,
+      "memory": {
+        "available_bytes": 7163002880,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7163002880,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 1537522
+    },
+    {
+      "elapsed_seconds": 1.324317604998214,
+      "memory": {
+        "available_bytes": 7161884672,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7161884672,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 1537523
+    },
+    {
+      "elapsed_seconds": 1.314018799999758,
+      "memory": {
+        "available_bytes": 7163527168,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7163527168,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 1781314
+    },
+    {
+      "elapsed_seconds": 1.3620265459976508,
+      "memory": {
+        "available_bytes": 7195615232,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7195615232,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 16,
+      "source": 1781315
+    },
+    {
+      "elapsed_seconds": 1.4373787490003451,
+      "memory": {
+        "available_bytes": 7085039616,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7085039616,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 12,
+      "source": 1839331
+    },
+    {
+      "elapsed_seconds": 1.483157595001103,
+      "memory": {
+        "available_bytes": 7127183360,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7127183360,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 12,
+      "source": 1839344
+    },
+    {
+      "elapsed_seconds": 1.6886949990002904,
+      "memory": {
+        "available_bytes": 7109214208,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7109214208,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 22,
+      "source": 1842187
+    },
+    {
+      "elapsed_seconds": 1.589902126997913,
+      "memory": {
+        "available_bytes": 7122014208,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7122014208,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 1871076
+    },
+    {
+      "elapsed_seconds": 1.613473014000192,
+      "memory": {
+        "available_bytes": 7136948224,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7136948224,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 1871078
+    },
+    {
+      "elapsed_seconds": 1.4348258460013312,
+      "memory": {
+        "available_bytes": 7150002176,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7150002176,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 1927033
+    },
+    {
+      "elapsed_seconds": 1.4458181409972894,
+      "memory": {
+        "available_bytes": 7130091520,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7130091520,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 1929650
+    },
+    {
+      "elapsed_seconds": 1.423882147999393,
+      "memory": {
+        "available_bytes": 7144771584,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7144771584,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 1937693
+    },
+    {
+      "elapsed_seconds": 1.5190945200010901,
+      "memory": {
+        "available_bytes": 7141175296,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7141175296,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 16,
+      "source": 1992663
+    },
+    {
+      "elapsed_seconds": 1.401900595999905,
+      "memory": {
+        "available_bytes": 7129821184,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7129821184,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 23,
+      "source": 2081226
+    },
+    {
+      "elapsed_seconds": 1.3573091069993097,
+      "memory": {
+        "available_bytes": 7132762112,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7132762112,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 2126082
+    },
+    {
+      "elapsed_seconds": 1.4019698000010976,
+      "memory": {
+        "available_bytes": 7142531072,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7142531072,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 2158084
+    },
+    {
+      "elapsed_seconds": 1.4370594829997572,
+      "memory": {
+        "available_bytes": 7157473280,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7157473280,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 2175746
+    },
+    {
+      "elapsed_seconds": 1.3851056079984119,
+      "memory": {
+        "available_bytes": 7152484352,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7152484352,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 12,
+      "source": 2406513
+    },
+    {
+      "elapsed_seconds": 1.4278747770003974,
+      "memory": {
+        "available_bytes": 7165038592,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7165038592,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 16,
+      "source": 2453932
+    },
+    {
+      "elapsed_seconds": 1.5549667790000967,
+      "memory": {
+        "available_bytes": 7159111680,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7159111680,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 16,
+      "source": 2552065
+    },
+    {
+      "elapsed_seconds": 1.4078139109988115,
+      "memory": {
+        "available_bytes": 7185596416,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7185596416,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 2669137
+    },
+    {
+      "elapsed_seconds": 1.3934982520004269,
+      "memory": {
+        "available_bytes": 7161274368,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7161274368,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 2673142
+    },
+    {
+      "elapsed_seconds": 1.438884846997098,
+      "memory": {
+        "available_bytes": 7165034496,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7165034496,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 2673148
+    },
+    {
+      "elapsed_seconds": 1.4695874760000152,
+      "memory": {
+        "available_bytes": 7176683520,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7176683520,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 14,
+      "source": 2828743
+    },
+    {
+      "elapsed_seconds": 1.3976762480015168,
+      "memory": {
+        "available_bytes": 7168630784,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7168630784,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 2883908
+    },
+    {
+      "elapsed_seconds": 1.4034248149982886,
+      "memory": {
+        "available_bytes": 7170646016,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7170646016,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 15,
+      "source": 2929476
+    },
+    {
+      "elapsed_seconds": 1.566784001999622,
+      "memory": {
+        "available_bytes": 7162880000,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7162880000,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 2930904
+    },
+    {
+      "elapsed_seconds": 1.4204920880001737,
+      "memory": {
+        "available_bytes": 7171633152,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7171633152,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 2953214
+    },
+    {
+      "elapsed_seconds": 1.5587840440020955,
+      "memory": {
+        "available_bytes": 7156068352,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7156068352,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 3275243
+    },
+    {
+      "elapsed_seconds": 1.4976405979978153,
+      "memory": {
+        "available_bytes": 7166599168,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7166599168,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 16,
+      "source": 3350225
+    },
+    {
+      "elapsed_seconds": 1.611512044997653,
+      "memory": {
+        "available_bytes": 7165140992,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7165140992,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 3581127
+    },
+    {
+      "elapsed_seconds": 1.3605030280014034,
+      "memory": {
+        "available_bytes": 7171842048,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7171842048,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 3752544
+    },
+    {
+      "elapsed_seconds": 1.5019493759973557,
+      "memory": {
+        "available_bytes": 7167827968,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7167827968,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 3760449
+    },
+    {
+      "elapsed_seconds": 1.5298703810003644,
+      "memory": {
+        "available_bytes": 7177244672,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7177244672,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 3876618
+    },
+    {
+      "elapsed_seconds": 1.4183223330001056,
+      "memory": {
+        "available_bytes": 7148564480,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7148564480,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 15,
+      "source": 3935053
+    },
+    {
+      "elapsed_seconds": 1.4273064919980243,
+      "memory": {
+        "available_bytes": 7154417664,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7154417664,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 14,
+      "source": 3977195
+    },
+    {
+      "elapsed_seconds": 1.4112457689989242,
+      "memory": {
+        "available_bytes": 7156396032,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7156396032,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 4023527
+    },
+    {
+      "elapsed_seconds": 1.483434132002003,
+      "memory": {
+        "available_bytes": 7152881664,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7152881664,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 22,
+      "source": 4058971
+    },
+    {
+      "elapsed_seconds": 1.7381493549983134,
+      "memory": {
+        "available_bytes": 7163867136,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7163867136,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 4091861
+    },
+    {
+      "elapsed_seconds": 1.564680221999879,
+      "memory": {
+        "available_bytes": 7162552320,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7162552320,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 16,
+      "source": 4094657
+    },
+    {
+      "elapsed_seconds": 1.381779674000427,
+      "memory": {
+        "available_bytes": 7163375616,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7163375616,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 15,
+      "source": 4234444
+    },
+    {
+      "elapsed_seconds": 1.5432401710022532,
+      "memory": {
+        "available_bytes": 7169486848,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7169486848,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 16,
+      "source": 4234551
+    },
+    {
+      "elapsed_seconds": 1.449835802999587,
+      "memory": {
+        "available_bytes": 7159894016,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7159894016,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 4234560
+    },
+    {
+      "elapsed_seconds": 1.473907383999176,
+      "memory": {
+        "available_bytes": 7156203520,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7156203520,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 4234562
+    },
+    {
+      "elapsed_seconds": 1.4474825489996874,
+      "memory": {
+        "available_bytes": 7147147264,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7147147264,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 4234629
+    },
+    {
+      "elapsed_seconds": 1.36718314600148,
+      "memory": {
+        "available_bytes": 7149744128,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7149744128,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 4234630
+    },
+    {
+      "elapsed_seconds": 1.3959202229998482,
+      "memory": {
+        "available_bytes": 7149387776,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7149387776,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 14,
+      "source": 4235492
+    },
+    {
+      "elapsed_seconds": 1.3880623059994832,
+      "memory": {
+        "available_bytes": 7150825472,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7150825472,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 12,
+      "source": 4287936
+    },
+    {
+      "elapsed_seconds": 1.3920600609999383,
+      "memory": {
+        "available_bytes": 7163146240,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7163146240,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 12,
+      "source": 4287939
+    },
+    {
+      "elapsed_seconds": 1.4089572120028606,
+      "memory": {
+        "available_bytes": 7155585024,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7155585024,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 4356898
+    },
+    {
+      "elapsed_seconds": 1.4586766289976367,
+      "memory": {
+        "available_bytes": 7146528768,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7146528768,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 4422379
+    },
+    {
+      "elapsed_seconds": 1.5735182560019894,
+      "memory": {
+        "available_bytes": 7153410048,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7153410048,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 15,
+      "source": 4458141
+    },
+    {
+      "elapsed_seconds": 1.4501802009981475,
+      "memory": {
+        "available_bytes": 7162241024,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7162241024,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 16,
+      "source": 4525471
+    },
+    {
+      "elapsed_seconds": 1.3894892160024028,
+      "memory": {
+        "available_bytes": 7151869952,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7151869952,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 4685118
+    },
+    {
+      "elapsed_seconds": 2.0494344390026527,
+      "memory": {
+        "available_bytes": 7155974144,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7155974144,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 14,
+      "source": 4774404
+    },
+    {
+      "elapsed_seconds": 1.3942120539977623,
+      "memory": {
+        "available_bytes": 7156244480,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7156244480,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 4843236
+    },
+    {
+      "elapsed_seconds": 1.5906798579999304,
+      "memory": {
+        "available_bytes": 7152078848,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7152078848,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 4866527
+    },
+    {
+      "elapsed_seconds": 1.4115796539990697,
+      "memory": {
+        "available_bytes": 7144325120,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7144325120,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 4885800
+    },
+    {
+      "elapsed_seconds": 1.4035972189994936,
+      "memory": {
+        "available_bytes": 7155916800,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7155916800,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 4894082
+    },
+    {
+      "elapsed_seconds": 1.4687775220008916,
+      "memory": {
+        "available_bytes": 7149846528,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7149846528,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 16,
+      "source": 4945434
+    },
+    {
+      "elapsed_seconds": 1.4784846160000598,
+      "memory": {
+        "available_bytes": 7152418816,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7152418816,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 4960432
+    },
+    {
+      "elapsed_seconds": 1.426793473001453,
+      "memory": {
+        "available_bytes": 7154200576,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7154200576,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 4962949
+    },
+    {
+      "elapsed_seconds": 1.4717627170030028,
+      "memory": {
+        "available_bytes": 7163392000,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7163392000,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 5012698
+    },
+    {
+      "elapsed_seconds": 1.5463135919999331,
+      "memory": {
+        "available_bytes": 7156600832,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7156600832,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 5032603
+    },
+    {
+      "elapsed_seconds": 1.4542882630012173,
+      "memory": {
+        "available_bytes": 7115010048,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7115010048,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 5035589
+    },
+    {
+      "elapsed_seconds": 1.6736691770020116,
+      "memory": {
+        "available_bytes": 6942576640,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 6942576640,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 5078045
+    },
+    {
+      "elapsed_seconds": 1.7648099190009816,
+      "memory": {
+        "available_bytes": 7092228096,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7092228096,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 5099965
+    },
+    {
+      "elapsed_seconds": 1.4899472670003888,
+      "memory": {
+        "available_bytes": 7109799936,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7109799936,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 5121085
+    },
+    {
+      "elapsed_seconds": 1.356700180000189,
+      "memory": {
+        "available_bytes": 7115837440,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7115837440,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 5123934
+    },
+    {
+      "elapsed_seconds": 1.5810123339979327,
+      "memory": {
+        "available_bytes": 7122096128,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7122096128,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 5128926
+    },
+    {
+      "elapsed_seconds": 1.6278632579997065,
+      "memory": {
+        "available_bytes": 7130345472,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7130345472,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 5141250
+    },
+    {
+      "elapsed_seconds": 1.6241208289975475,
+      "memory": {
+        "available_bytes": 7147659264,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7147659264,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 5144037
+    },
+    {
+      "elapsed_seconds": 1.589682575999177,
+      "memory": {
+        "available_bytes": 7143014400,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7143014400,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 12,
+      "source": 5144090
+    },
+    {
+      "elapsed_seconds": 1.5063333149992104,
+      "memory": {
+        "available_bytes": 7173537792,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7173537792,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 16,
+      "source": 5155910
+    },
+    {
+      "elapsed_seconds": 1.3320994720015733,
+      "memory": {
+        "available_bytes": 7156477952,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7156477952,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 5158290
+    },
+    {
+      "elapsed_seconds": 1.3445380490011303,
+      "memory": {
+        "available_bytes": 7166418944,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7166418944,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 22,
+      "source": 5170267
+    },
+    {
+      "elapsed_seconds": 1.320904531999986,
+      "memory": {
+        "available_bytes": 7162806272,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7162806272,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 23,
+      "source": 5277443
+    },
+    {
+      "elapsed_seconds": 1.439562855000986,
+      "memory": {
+        "available_bytes": 7164538880,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7164538880,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 12,
+      "source": 5306914
+    },
+    {
+      "elapsed_seconds": 1.5048274920009135,
+      "memory": {
+        "available_bytes": 7153922048,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7153922048,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 5342765
+    },
+    {
+      "elapsed_seconds": 1.5681113780010492,
+      "memory": {
+        "available_bytes": 7159537664,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7159537664,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 5344351
+    },
+    {
+      "elapsed_seconds": 1.3964642370010552,
+      "memory": {
+        "available_bytes": 7167451136,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7167451136,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 5346218
+    },
+    {
+      "elapsed_seconds": 1.5330124699976295,
+      "memory": {
+        "available_bytes": 7159377920,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7159377920,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 5347344
+    },
+    {
+      "elapsed_seconds": 1.6116610050012241,
+      "memory": {
+        "available_bytes": 7167152128,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7167152128,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 5376718
+    },
+    {
+      "elapsed_seconds": 1.5794216340000276,
+      "memory": {
+        "available_bytes": 7159836672,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7159836672,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 5447687
+    },
+    {
+      "elapsed_seconds": 1.6348225100009586,
+      "memory": {
+        "available_bytes": 7131709440,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7131709440,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 15,
+      "source": 5556363
+    },
+    {
+      "elapsed_seconds": 2.0778314259987383,
+      "memory": {
+        "available_bytes": 7066431488,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7066431488,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 5630715
+    },
+    {
+      "elapsed_seconds": 1.9813788159990509,
+      "memory": {
+        "available_bytes": 7130562560,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7130562560,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 5631607
+    },
+    {
+      "elapsed_seconds": 1.9051887839996198,
+      "memory": {
+        "available_bytes": 7116931072,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7116931072,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 9,
+      "source": 5644627
+    },
+    {
+      "elapsed_seconds": 1.9856765719996474,
+      "memory": {
+        "available_bytes": 7122563072,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7122563072,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 5644927
+    },
+    {
+      "elapsed_seconds": 1.8506056280020857,
+      "memory": {
+        "available_bytes": 7130640384,
+        "cgroup_available_bytes": [],
+        "high_water_rss_bytes": 1659973632,
+        "host_available_bytes": 7130640384,
+        "rss_bytes": 1518792704
+      },
+      "pair_count": 10,
+      "source": 5703315
+    }
+  ],
+  "status": "export_complete_preparation_only",
+  "tables": {
+    "OD00_energy_and_scheduled": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD00_energy_and_scheduled.json",
+      "sha256": "487d8416266f80cf91ab356ad77c8673ccdccb9c7e470a5a4fd585ad5cded7b1",
+      "site_count": 8
+    },
+    "OD00_energy_only": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD00_energy_only.json",
+      "sha256": "e3f0efcf8456d4e81ac9fdfb854304b1270b0c7ea21782a253cd03131d7f2f6c",
+      "site_count": 8
+    },
+    "OD01_energy_and_scheduled": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD01_energy_and_scheduled.json",
+      "sha256": "f47de11476b8f15c1c2e5336550121c75fc83229529c995ba09918c7faec60cb",
+      "site_count": 8
+    },
+    "OD01_energy_only": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD01_energy_only.json",
+      "sha256": "4ccdf434a9212e80f6d7bc05a6b58acdd27044043526692f787d0654bc18e246",
+      "site_count": 8
+    },
+    "OD02_energy_and_scheduled": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD02_energy_and_scheduled.json",
+      "sha256": "531a39fabefcf05b4436f8d7fcdc9428836560c53726af89583768c5c90dc8de",
+      "site_count": 8
+    },
+    "OD02_energy_only": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD02_energy_only.json",
+      "sha256": "12a53fd398e05c631630444fac1c70aaef9cf072f1c07a1fab7db78880191e78",
+      "site_count": 8
+    },
+    "OD03_energy_and_scheduled": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD03_energy_and_scheduled.json",
+      "sha256": "c47642304c523f58473abfd472dd3103c8dabb7ecd52e17c4847b400b1051dbe",
+      "site_count": 8
+    },
+    "OD03_energy_only": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD03_energy_only.json",
+      "sha256": "878c8fafeae52a7bfd6ba5db36355f7fc0b26905996ec168c1700c064e64fd95",
+      "site_count": 8
+    },
+    "OD04_energy_and_scheduled": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD04_energy_and_scheduled.json",
+      "sha256": "e4f0181412219aa09ce80f1b9d5ce5798cb8aa617f1be0e48f158c30ec1fcc83",
+      "site_count": 8
+    },
+    "OD04_energy_only": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD04_energy_only.json",
+      "sha256": "6296b60392ea5e92b769a0afb0b9ce5c8e311d2eee8a43b96caf6cf318816b7c",
+      "site_count": 8
+    },
+    "OD05_energy_and_scheduled": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD05_energy_and_scheduled.json",
+      "sha256": "e9ca73c3b9a0f1c0240260283a3771a370259cf2f70c4ac8a39ee9dda9d42881",
+      "site_count": 8
+    },
+    "OD05_energy_only": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD05_energy_only.json",
+      "sha256": "cf5223a3e0b07a40a94742f41c573aa13bb306bb18adaa8c249197d0d49888e3",
+      "site_count": 8
+    },
+    "OD06_energy_and_scheduled": {
+      "anchor_count": 10,
+      "ordered_pair_count": 100,
+      "path": "tables/OD06_energy_and_scheduled.json",
+      "sha256": "2dcd41422a393b736402fd58b8195ab000488aacaab8c82650f137f6b6f39512",
+      "site_count": 8
+    },
+    "OD06_energy_only": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD06_energy_only.json",
+      "sha256": "fde64258a2cd1e4f97a0655b9389a6586ca8d472461f38c10ae87b84541b3b7e",
+      "site_count": 8
+    },
+    "OD07_energy_and_scheduled": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD07_energy_and_scheduled.json",
+      "sha256": "fac66f574edbfce0096377da46b3c0a5dcf2522e75180178064e36a3fc1c10f5",
+      "site_count": 8
+    },
+    "OD07_energy_only": {
+      "anchor_count": 9,
+      "ordered_pair_count": 81,
+      "path": "tables/OD07_energy_only.json",
+      "sha256": "6e28af414efc17036cf7ab5b896f12c1b19d87494f6e30b7be0e73dd5c530a9e",
+      "site_count": 8
+    }
+  },
+  "unreachable_pair_count": 0
+}

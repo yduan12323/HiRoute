@@ -33,37 +33,8 @@ class Leg:
 class Problem:
     """Validated exact physical hand-case and deterministic fastest route table."""
     def __init__(self, case: Mapping):
-        self.case = case
-        self.origin, self.destination = case["origin"], case["destination"]
-        self.start = _rational(case["start_time_s"])
-        self.initial = _rational(case["initial_energy_kwh"])
-        self.capacity = _rational(case["capacity_kwh"])
-        self.floor = _rational(case["minimum_energy_kwh"])
-        self.reserve = _rational(case["reserve_kwh"])
-        self.overhead = _rational(case["overhead_s"])
-        self.penalty = _rational(case["lambda_stop_s"])
-        self.rate = _rational(case["consumption_kwh_per_m"])
-        self.bound = case["H_ref"]
-        self.sites = {str(site): tuple(effects) for site, effects in case["sites"].items()}
-        self.schedule = tuple(_rational(case["schedule"][key]) for key in ("a", "b", "D")) if case.get("schedule") else None
-        self.initial_remaining = case.get("initial_remaining_schedule", int(self.schedule is not None))
-        rows = tuple(tuple(_rational(v) for v in row) for row in case["charging_segments"])
-        self.curve = ChargingCurve(rows) if rows else None
-        charging_available = any(set(effects) & {"C", "CS"} for effects in self.sites.values())
-        if (type(self.bound) is not int or self.bound < 0 or self.overhead <= 0
-                or self.penalty < 0 or self.rate < 0 or self.floor < 0 or self.capacity <= 0
-                or not self.floor <= self.initial <= self.capacity
-                or not self.floor <= self.reserve <= self.capacity
-                or self.curve is not None and self.curve.segments[-1][1] != self.capacity
-                or charging_available and self.curve is None):
-            raise ValueError("Invalid bounded physical query")
-        if (type(self.initial_remaining) is not int or self.initial_remaining not in (0, 1)
-                or self.initial_remaining and self.schedule is None):
-            raise ValueError("Invalid initial schedule state")
-        if self.schedule and self.schedule[2] < 0:
-            raise ValueError("Negative scheduled duration")
-        if any(not set(effects) <= {"C", "S", "CS"} for effects in self.sites.values()):
-            raise ValueError("Unknown Site effect")
+        self._configure_query(case)
+        self.site_anchors = {site:site for site in self.sites}
         self.adjacency = defaultdict(list)
         nodes = {self.origin, self.destination, *self.sites}
         seen_edge_ids = set()
@@ -95,6 +66,46 @@ class Problem:
                         best[target] = candidate
                         heapq.heappush(queue, (*candidate, length + dl, target))
 
+    def _configure_query(self, case: Mapping):
+        """Common exact physical query only; subclasses supply routing primitives."""
+        self.case = case
+        self.origin, self.destination = case["origin"], case["destination"]
+        self.start = _rational(case["start_time_s"])
+        self.initial = _rational(case["initial_energy_kwh"])
+        self.capacity = _rational(case["capacity_kwh"])
+        self.floor = _rational(case["minimum_energy_kwh"])
+        self.reserve = _rational(case["reserve_kwh"])
+        self.overhead = _rational(case["overhead_s"])
+        self.penalty = _rational(case["lambda_stop_s"])
+        self.rate = _rational(case["consumption_kwh_per_m"])
+        self.bound = case["H_ref"]
+        self.sites = {str(site): tuple(effects) for site, effects in case["sites"].items()}
+        self.schedule = tuple(_rational(case["schedule"][key]) for key in ("a", "b", "D")) if case.get("schedule") else None
+        self.initial_remaining = case.get("initial_remaining_schedule", int(self.schedule is not None))
+        rows = tuple(tuple(_rational(v) for v in row) for row in case["charging_segments"])
+        self.curve = ChargingCurve(rows) if rows else None
+        charging_available = any(set(effects) & {"C", "CS"} for effects in self.sites.values())
+        if (type(self.bound) is not int or self.bound < 0 or self.overhead <= 0
+                or self.penalty < 0 or self.rate < 0 or self.floor < 0 or self.capacity <= 0
+                or not self.floor <= self.initial <= self.capacity
+                or not self.floor <= self.reserve <= self.capacity
+                or self.curve is not None and self.curve.segments[-1][1] != self.capacity
+                or charging_available and self.curve is None):
+            raise ValueError("Invalid bounded physical query")
+        if (type(self.initial_remaining) is not int or self.initial_remaining not in (0, 1)
+                or self.initial_remaining and self.schedule is None):
+            raise ValueError("Invalid initial schedule state")
+        if self.schedule and self.schedule[2] < 0:
+            raise ValueError("Negative scheduled duration")
+        if any(not set(effects) <= {"C", "S", "CS"} for effects in self.sites.values()):
+            raise ValueError("Unknown Site effect")
+    def site_anchor(self, site: str) -> str:
+        return self.site_anchors[site]
+
+    def onward_time_lower_bound(self, anchor: str) -> R | None:
+        leg=self.legs.get((anchor,self.destination))
+        return None if leg is None else leg.time
+
     def initial_piece(self) -> CutPiece:
         state = State(self.origin, self.initial_remaining, 0)
         witness = Witness(self.start, self.initial, -self.initial, (), state,
@@ -110,22 +121,24 @@ class Problem:
         # Carried-forward physical rule: destination arrival is terminal,
         # never a semantic stop. This does not ban transit through z inside
         # a selected concrete road leg whose stop anchor is elsewhere.
-        if site == self.destination or pieces[0].state.anchor == self.destination:
-            return ()
         if effect not in self.sites.get(site, ()):
             raise ValueError("Effect is not statically available at this Site")
+        anchor=self.site_anchor(site)
+        if anchor == self.destination or pieces[0].state.anchor == self.destination:
+            return ()
         if effect in ("S", "CS") and (not self.schedule or pieces[0].state.remaining_schedule != 1):
             return ()
-        leg = self.legs.get((pieces[0].state.anchor, site))
+        leg = self.legs.get((pieces[0].state.anchor, anchor))
         if leg is None:
             return ()
-        incoming = drive_pwa(pieces, site, leg.time, leg.energy, self.floor)
+        incoming = drive_pwa(pieces, anchor, leg.time, leg.energy, self.floor)
         if effect == "C":
-            return charge_pwa(incoming, self.curve, self.overhead, site)
-        a, b, duration = self.schedule
-        if effect == "S":
-            return schedule_pwa(incoming, site, a, b, duration, self.overhead)
-        return combined_pwa(incoming, self.curve, site, a, b, duration, self.overhead)
+            output=charge_pwa(incoming, self.curve, self.overhead, site)
+        else:
+            a, b, duration = self.schedule
+            output=(schedule_pwa(incoming,site,a,b,duration,self.overhead) if effect=="S" else
+                    combined_pwa(incoming,self.curve,site,a,b,duration,self.overhead))
+        return _retag_anchor(output,anchor)
 
     def finish(self, pieces: tuple[CutPiece, ...]) -> tuple[CutPiece, ...]:
         if not pieces or pieces[0].state.remaining_schedule:
@@ -145,7 +158,10 @@ class Problem:
 
 def evaluate_sequence(case: Mapping, sequence: tuple[tuple[str, str], ...]) -> TerminalResult:
     """Optimize continuous decisions for one explicit original-fixture sequence."""
-    problem = Problem(case)
+    return _evaluate_sequence_problem(Problem(case),sequence)
+
+
+def _evaluate_sequence_problem(problem: Problem, sequence) -> TerminalResult:
     if len(sequence) > problem.bound:
         raise ValueError("Sequence exceeds the explicitly supplied diagnostic bound")
     pieces = (problem.initial_piece(),)
@@ -153,6 +169,20 @@ def evaluate_sequence(case: Mapping, sequence: tuple[tuple[str, str], ...]) -> T
         pieces = problem.advance(pieces, site, effect)
     return terminal(problem.finish(pieces), problem.destination, problem.reserve,
                     problem.start, problem.penalty)
+
+
+def _retag_anchor(pieces: tuple[CutPiece,...], anchor: str) -> tuple[CutPiece,...]:
+    """Physical state uses road anchor; pi and semantic event retain Site ID."""
+    result=[]
+    for piece in pieces:
+        if piece.state.anchor==anchor:
+            result.append(piece);continue
+        state=State(anchor,piece.state.remaining_schedule,piece.state.stop_count)
+        def at(energy,piece=piece,state=state):
+            old=piece.at(energy)
+            return replace(old,state=state,_approach=lambda eps:replace(old.approach(eps),state=state))
+        result.append(replace(piece,state=state,_point=at))
+    return tuple(result)
 
 
 @dataclass(frozen=True)
@@ -202,7 +232,10 @@ def solve_bounded(case: Mapping, dominance: bool = True) -> BoundedResult:
     schedule-infeasible extensions are removed; there is no heuristic cap.
     TerminalResult.status is meaningful only inside this returned bound/scope.
     """
-    problem = Problem(case)
+    return _solve_problem(Problem(case),dominance)
+
+
+def _solve_problem(problem: Problem, dominance: bool = True) -> BoundedResult:
     layer = ((problem.initial_piece(),),)
     terminals = []
     attempted = 0
@@ -218,7 +251,7 @@ def solve_bounded(case: Mapping, dominance: bool = True) -> BoundedResult:
             if group[0].state.anchor == problem.destination:
                 continue
             for site, effects in sorted(problem.sites.items()):
-                if site == problem.destination:
+                if problem.site_anchor(site) == problem.destination:
                     continue
                 for effect in sorted(set(effects)):
                     if effect in ("S", "CS") and not group[0].state.remaining_schedule:
@@ -239,7 +272,7 @@ def solve_bounded(case: Mapping, dominance: bool = True) -> BoundedResult:
             break
     result = terminal(terminals, problem.destination, problem.reserve, problem.start, problem.penalty)
     if result.witness is not None:
-        replay_witness(case, result.witness)
+        _replay_problem(problem, result.witness)
     return BoundedResult(result, problem.bound, dominance, attempted, feasible, len(terminals), maximum)
 
 
@@ -249,12 +282,15 @@ def replay_witness(case: Mapping, witness: Witness) -> tuple:
     This checks the returned physical plan without reading PWA/FM internals.
     It is a witness verifier, not an independent optimization reference.
     """
+    return _replay_problem(Problem(case),witness)
+
+
+def _replay_problem(problem: Problem, witness: Witness) -> tuple:
     # Incumbents affect pruning: legality checks must survive Python -O.
     def _require(condition, message):
         if not condition:
             raise AssertionError(message)
 
-    problem = Problem(case)
     time, energy, anchor = problem.start, problem.initial, problem.origin
     remaining, total_charge, pi = problem.initial_remaining, R(0), ()
     events = witness.events
@@ -287,7 +323,8 @@ def replay_witness(case: Mapping, witness: Witness) -> tuple:
             anchor = event.site
         else:
             _require(anchor != problem.destination, "Destination is not a semantic stop")
-            _require(event.site == anchor and event.effect in problem.sites[anchor], 'Witness violates the physical query or event equations')
+            _require(event.site in problem.sites and problem.site_anchor(event.site)==anchor, 'Witness violates the physical query or event equations')
+            _require(event.effect in problem.sites[event.site], 'Witness violates the physical query or event equations')
             release = time + problem.overhead
             charge_done = schedule_done = release
             if event.effect in ("C", "CS"):
@@ -304,7 +341,7 @@ def replay_witness(case: Mapping, witness: Witness) -> tuple:
                 schedule_done = start + duration
                 remaining = 0
             time = max(charge_done, schedule_done)
-            pi += ((anchor, event.effect),)
+            pi += ((event.site, event.effect),)
         _require(problem.floor <= energy <= problem.capacity, 'Witness violates the physical query or event equations')
         _require((event.departure_time, event.departure_energy) == (time, energy), 'Witness violates the physical query or event equations')
     _require(len(pi) <= problem.bound, "Witness exceeds the explicit diagnostic stop bound")

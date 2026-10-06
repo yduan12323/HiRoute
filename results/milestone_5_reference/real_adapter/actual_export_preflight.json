@@ -1,0 +1,2209 @@
+{
+  "scope": "independent_immutable_parser_and_exact_physical_preflight_only",
+  "no_real_optimization_run": true,
+  "no_graph_loaded": true,
+  "no_native_router_run": true,
+  "no_tree_optimizer_or_parser_used": true,
+  "export_manifest_sha256": "f846eb37219a34dea74aa9a79e7673b8cdae03ae281de189cb9b602a98ac380d",
+  "selection_manifest_sha256": "0e39ad906c01e05b4a4b764b3270360e309c24d1ae67d7a2e3533b6dca8af06a",
+  "query_states_sha256": "d4bd50215c8035552ca47a9bf4e175d580eb265a2e9acbeff5d574c60b08b57c",
+  "native_binary_sha256": "c316bfa7e3fdc4e1a0d5f0d41ea9bc292f36c29ea9058557989fd3e70c963c72",
+  "auxiliary_hashes": {
+    "preflight.json": "b41fe88a1d84d21068f7c0e917a542a5c037af00ea57ef5a02aa2787dcd8a041",
+    "native_router.json": "fb261029d9ddefa9cb72e5e313a1ee1a82502a126c15fb6b394d1d56a9159371",
+    "real_pair_full_calibration.json": "cc9ddc722e5b558a19ff95197df40c99e5977cb6679b5baaea2a12dd5913df07",
+    "query_states_resolved.json": "d4bd50215c8035552ca47a9bf4e175d580eb265a2e9acbeff5d574c60b08b57c"
+  },
+  "verified_sources": [
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/chosen_site_catalog.json",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/chosen_site_catalog.json",
+      "sha256": "f091db99dd1a698ad50dcfe30f02f1f6d8aadb763e8d23f021b6148c320e2232",
+      "size_bytes": 104675
+    },
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/coattached_identity_audit.json",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/coattached_identity_audit.json",
+      "sha256": "948599c728ff2b9bd355d389d7b23a042e2f53827184a9c8cce4887c76d5dae4",
+      "size_bytes": 5820555
+    },
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/hierarchy_restrictions.parquet",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/hierarchy_restrictions.parquet",
+      "sha256": "3711156c98fd9fa44fb1176a09eb1c2698146da717e8db26cc04fe0815e61d23",
+      "size_bytes": 116737
+    },
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/hierarchy_structure.json",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/hierarchy_structure.json",
+      "sha256": "c9d059af7fbc96147c5b03e8488bd7d1eac8931e928fd3230f2fb9dca71254a5",
+      "size_bytes": 439824
+    },
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/missing_progress_audit.json",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/missing_progress_audit.json",
+      "sha256": "63b4eed632afaaa1309178c2dc7de218b36bc220956bcc81d5bf810b565d89d7",
+      "size_bytes": 7178
+    },
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/od_anchors.json",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/od_anchors.json",
+      "sha256": "8dea9266bbc6cadf8c1b544ea34d3de02a1e062ca6d948c2d388269f4ee7f036",
+      "size_bytes": 9665
+    },
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/ordered_pools.parquet",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/ordered_pools.parquet",
+      "sha256": "2bb79ffded2ffe370e20793d6279e5a7e4182523cd2ac0a6a6c2907f41e64d9c",
+      "size_bytes": 14286898
+    },
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/preflight_audit.json",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/preflight_audit.json",
+      "sha256": "6afb570bfe0a86052c942d052dfc94b57ea36309cf8871dadcdac868c25d9856",
+      "size_bytes": 1217
+    },
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/preselection_freeze.json",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/preselection_freeze.json",
+      "sha256": "1d4cf6ed857c13dbc9e475983ca8cb71517a49a8760408f67958c0798c94774c",
+      "size_bytes": 5071
+    },
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/progress_duplicate_audit.json",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/progress_duplicate_audit.json",
+      "sha256": "aca78932ead6462fc6eec0baca8aabac9b3f1965e3be8a7e04325e81fe60416a",
+      "size_bytes": 429
+    },
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/query_states.json",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/query_states.json",
+      "sha256": "264c49e99d498b554c1ba0ea41ca9005aa32fffedf2d04b1a0e7c1f7e6edf3f9",
+      "size_bytes": 38115
+    },
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/schema_interpretation.json",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/schema_interpretation.json",
+      "sha256": "62acd0445f33909e4deafdfc8c49862526a40679d00484bec23d4d3854d04956",
+      "size_bytes": 2159
+    },
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/selection_manifest.json",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/selection_manifest.json",
+      "sha256": "0e39ad906c01e05b4a4b764b3270360e309c24d1ae67d7a2e3533b6dca8af06a",
+      "size_bytes": 147208
+    },
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/selector.py",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/selector.py",
+      "sha256": "b7e9c9881fd56875da99d34682ba7a4504b5b1a166ad6b577b4f73515e95775a",
+      "size_bytes": 26023
+    },
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/source_schema.json",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/source_schema.json",
+      "sha256": "d8525daf71bac7a1abf6a3e4704a08e5f0700993369589a0635d6cd3791556dd",
+      "size_bytes": 7811
+    },
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/static_site_facts.parquet",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/static_site_facts.parquet",
+      "sha256": "b0d1899e7c56d8d74fa8b3244e692c222119af592268663cd196e40c7c4bc7f7",
+      "size_bytes": 2458918
+    },
+    {
+      "name": "acceptance_populations/stage_c/concrete_selection/terminal_exclusion_audit.json",
+      "path": "/workspace/shared/navigation_audit/acceptance_populations/stage_c/concrete_selection/terminal_exclusion_audit.json",
+      "sha256": "911d195e103d1a34561aa483e38d5a04cbee328ffeb17c828c18e29462374aff",
+      "size_bytes": 2230
+    },
+    {
+      "name": "configs/microplan.yaml",
+      "path": "/workspace/shared/navigation_audit/worktrees/HiRoute-m5-time-cut/configs/microplan.yaml",
+      "sha256": "1cebe88463668c9423dc89fcdffb71cb488af3bd0fb54fcc9152c96e3aa5b7ef",
+      "size_bytes": 2611
+    },
+    {
+      "name": "data/processed/graphs/slovenia_extended/edges.parquet",
+      "path": "/workspace/shared/navigation_audit/drive_real_inputs/edges.parquet",
+      "sha256": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+      "size_bytes": 303022185
+    },
+    {
+      "name": "data/processed/graphs/slovenia_extended/metadata.json",
+      "path": "/workspace/scratch/c69664aea1c8/map_restore_verified_inputs/metadata.json",
+      "sha256": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd",
+      "size_bytes": 13978
+    },
+    {
+      "name": "data/processed/graphs/slovenia_extended/nodes.parquet",
+      "path": "/workspace/shared/navigation_audit/drive_real_inputs/nodes.parquet",
+      "sha256": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+      "size_bytes": 104471506
+    },
+    {
+      "name": "results/milestone_3a/od_remapping.parquet",
+      "path": "/workspace/scratch/c69664aea1c8/map_restore_verified_inputs/od_remapping.parquet",
+      "sha256": "f38c0a81f42564e4f220d5c82de43d4454abfd8e962b09979d3dbdc8a447dcea",
+      "size_bytes": 448277
+    },
+    {
+      "name": "results/milestone_4a/od_features.parquet",
+      "path": "/workspace/shared/navigation_audit/drive_real_inputs/od_features.parquet",
+      "sha256": "be02c3bc750feb64dd5fc1df5a22f3862aa2d01aa26b4e30d0a53372b4a7894e",
+      "size_bytes": 68808450
+    },
+    {
+      "name": "results/milestone_4r/stop_sites.parquet",
+      "path": "/workspace/scratch/c69664aea1c8/map_restore_verified_inputs/stop_sites.parquet",
+      "sha256": "e3e7d6d6667f7ab684ff83eb2646920516b01aef2e6ceb8170c689e71f6afd38",
+      "size_bytes": 4487653
+    },
+    {
+      "name": "results/milestone_4r_b1/hierarchy.json",
+      "path": "/workspace/shared/navigation_audit/ref5_work/results/milestone_4r_b1/hierarchy.json",
+      "sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "size_bytes": 5271372
+    },
+    {
+      "name": "src/microplan/routing.cpp",
+      "path": "/workspace/shared/navigation_audit/worktrees/HiRoute-m5-time-cut/src/microplan/routing.cpp",
+      "sha256": "2fc38a835cee766464714866edd07e117da430226bae1937108f6e26319d2788",
+      "size_bytes": 7288
+    },
+    {
+      "name": "src/microplan/routing.py",
+      "path": "/workspace/shared/navigation_audit/worktrees/HiRoute-m5-time-cut/src/microplan/routing.py",
+      "sha256": "2d9b2f42affdb6011709239289cfe705768118dd636e93fd6c89a50947723380",
+      "size_bytes": 4854
+    }
+  ],
+  "tables": [
+    {
+      "pool_id": "OD00_energy_and_scheduled",
+      "payload_sha256": "487d8416266f80cf91ab356ad77c8673ccdccb9c7e470a5a4fd585ad5cded7b1",
+      "sites": 8,
+      "physical_anchors": 10,
+      "ordered_pairs": 100,
+      "identity_pairs": 10,
+      "unreachable_pairs": 0,
+      "restriction_hash_verified_only": true
+    },
+    {
+      "pool_id": "OD00_energy_only",
+      "payload_sha256": "e3f0efcf8456d4e81ac9fdfb854304b1270b0c7ea21782a253cd03131d7f2f6c",
+      "sites": 8,
+      "physical_anchors": 9,
+      "ordered_pairs": 81,
+      "identity_pairs": 9,
+      "unreachable_pairs": 0,
+      "restriction_hash_verified_only": true
+    },
+    {
+      "pool_id": "OD01_energy_and_scheduled",
+      "payload_sha256": "f47de11476b8f15c1c2e5336550121c75fc83229529c995ba09918c7faec60cb",
+      "sites": 8,
+      "physical_anchors": 10,
+      "ordered_pairs": 100,
+      "identity_pairs": 10,
+      "unreachable_pairs": 0,
+      "restriction_hash_verified_only": true
+    },
+    {
+      "pool_id": "OD01_energy_only",
+      "payload_sha256": "4ccdf434a9212e80f6d7bc05a6b58acdd27044043526692f787d0654bc18e246",
+      "sites": 8,
+      "physical_anchors": 9,
+      "ordered_pairs": 81,
+      "identity_pairs": 9,
+      "unreachable_pairs": 0,
+      "restriction_hash_verified_only": true
+    },
+    {
+      "pool_id": "OD02_energy_and_scheduled",
+      "payload_sha256": "531a39fabefcf05b4436f8d7fcdc9428836560c53726af89583768c5c90dc8de",
+      "sites": 8,
+      "physical_anchors": 10,
+      "ordered_pairs": 100,
+      "identity_pairs": 10,
+      "unreachable_pairs": 0,
+      "restriction_hash_verified_only": true
+    },
+    {
+      "pool_id": "OD02_energy_only",
+      "payload_sha256": "12a53fd398e05c631630444fac1c70aaef9cf072f1c07a1fab7db78880191e78",
+      "sites": 8,
+      "physical_anchors": 9,
+      "ordered_pairs": 81,
+      "identity_pairs": 9,
+      "unreachable_pairs": 0,
+      "restriction_hash_verified_only": true
+    },
+    {
+      "pool_id": "OD03_energy_and_scheduled",
+      "payload_sha256": "c47642304c523f58473abfd472dd3103c8dabb7ecd52e17c4847b400b1051dbe",
+      "sites": 8,
+      "physical_anchors": 10,
+      "ordered_pairs": 100,
+      "identity_pairs": 10,
+      "unreachable_pairs": 0,
+      "restriction_hash_verified_only": true
+    },
+    {
+      "pool_id": "OD03_energy_only",
+      "payload_sha256": "878c8fafeae52a7bfd6ba5db36355f7fc0b26905996ec168c1700c064e64fd95",
+      "sites": 8,
+      "physical_anchors": 10,
+      "ordered_pairs": 100,
+      "identity_pairs": 10,
+      "unreachable_pairs": 0,
+      "restriction_hash_verified_only": true
+    },
+    {
+      "pool_id": "OD04_energy_and_scheduled",
+      "payload_sha256": "e4f0181412219aa09ce80f1b9d5ce5798cb8aa617f1be0e48f158c30ec1fcc83",
+      "sites": 8,
+      "physical_anchors": 10,
+      "ordered_pairs": 100,
+      "identity_pairs": 10,
+      "unreachable_pairs": 0,
+      "restriction_hash_verified_only": true
+    },
+    {
+      "pool_id": "OD04_energy_only",
+      "payload_sha256": "6296b60392ea5e92b769a0afb0b9ce5c8e311d2eee8a43b96caf6cf318816b7c",
+      "sites": 8,
+      "physical_anchors": 9,
+      "ordered_pairs": 81,
+      "identity_pairs": 9,
+      "unreachable_pairs": 0,
+      "restriction_hash_verified_only": true
+    },
+    {
+      "pool_id": "OD05_energy_and_scheduled",
+      "payload_sha256": "e9ca73c3b9a0f1c0240260283a3771a370259cf2f70c4ac8a39ee9dda9d42881",
+      "sites": 8,
+      "physical_anchors": 9,
+      "ordered_pairs": 81,
+      "identity_pairs": 9,
+      "unreachable_pairs": 0,
+      "restriction_hash_verified_only": true
+    },
+    {
+      "pool_id": "OD05_energy_only",
+      "payload_sha256": "cf5223a3e0b07a40a94742f41c573aa13bb306bb18adaa8c249197d0d49888e3",
+      "sites": 8,
+      "physical_anchors": 9,
+      "ordered_pairs": 81,
+      "identity_pairs": 9,
+      "unreachable_pairs": 0,
+      "restriction_hash_verified_only": true
+    },
+    {
+      "pool_id": "OD06_energy_and_scheduled",
+      "payload_sha256": "2dcd41422a393b736402fd58b8195ab000488aacaab8c82650f137f6b6f39512",
+      "sites": 8,
+      "physical_anchors": 10,
+      "ordered_pairs": 100,
+      "identity_pairs": 10,
+      "unreachable_pairs": 0,
+      "restriction_hash_verified_only": true
+    },
+    {
+      "pool_id": "OD06_energy_only",
+      "payload_sha256": "fde64258a2cd1e4f97a0655b9389a6586ca8d472461f38c10ae87b84541b3b7e",
+      "sites": 8,
+      "physical_anchors": 9,
+      "ordered_pairs": 81,
+      "identity_pairs": 9,
+      "unreachable_pairs": 0,
+      "restriction_hash_verified_only": true
+    },
+    {
+      "pool_id": "OD07_energy_and_scheduled",
+      "payload_sha256": "fac66f574edbfce0096377da46b3c0a5dcf2522e75180178064e36a3fc1c10f5",
+      "sites": 8,
+      "physical_anchors": 9,
+      "ordered_pairs": 81,
+      "identity_pairs": 9,
+      "unreachable_pairs": 0,
+      "restriction_hash_verified_only": true
+    },
+    {
+      "pool_id": "OD07_energy_only",
+      "payload_sha256": "6e28af414efc17036cf7ab5b896f12c1b19d87494f6e30b7be0e73dd5c530a9e",
+      "sites": 8,
+      "physical_anchors": 9,
+      "ordered_pairs": 81,
+      "identity_pairs": 9,
+      "unreachable_pairs": 0,
+      "restriction_hash_verified_only": true
+    }
+  ],
+  "unique_pair_count": 1231,
+  "states": [
+    {
+      "state_id": "C01",
+      "pool_id": "OD00_energy_only",
+      "query": {
+        "case_id": "C01",
+        "pool_id": "OD00_energy_only",
+        "H_ref": 4,
+        "origin": "road:243891",
+        "destination": "road:5556363",
+        "start_time_s": "0",
+        "initial_energy_kwh": "18",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": null
+      },
+      "counts": {
+        "prefixes_retained": 4681,
+        "terminal_sequences": 4680,
+        "continuous_regimes": 27252360,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 1,
+        "exclusions_by_reason": {
+          "terminal_consumption_exceeds_reserve_budget": 1
+        }
+      },
+      "exclusions": [
+        {
+          "reason": "terminal_consumption_exceeds_reserve_budget",
+          "prefix": [],
+          "source_road_anchor": "road:243891",
+          "target_road_anchor": "road:5556363",
+          "candidate_site": null,
+          "effect": null,
+          "table_sha256": "e3f0efcf8456d4e81ac9fdfb854304b1270b0c7ea21782a253cd03131d7f2f6c",
+          "subtree_excluded": false,
+          "consumption_kwh": "512717534627731/10737418240000",
+          "capacity_limit_kwh": "12",
+          "exact_strict_excess": "383868515747731/10737418240000"
+        }
+      ],
+      "terminal_excluded_sites": [],
+      "table_sha256": "e3f0efcf8456d4e81ac9fdfb854304b1270b0c7ea21782a253cd03131d7f2f6c"
+    },
+    {
+      "state_id": "C02",
+      "pool_id": "OD00_energy_and_scheduled",
+      "query": {
+        "case_id": "C02",
+        "pool_id": "OD00_energy_and_scheduled",
+        "H_ref": 4,
+        "origin": "road:243891",
+        "destination": "road:5556363",
+        "start_time_s": "0",
+        "initial_energy_kwh": "18",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": {
+          "a": "2928391142480949/687194767360",
+          "b": "20498737997366643/2748779069440",
+          "D": "2700"
+        }
+      },
+      "counts": {
+        "prefixes_retained": 423,
+        "terminal_sequences": 392,
+        "continuous_regimes": 1216850,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "487d8416266f80cf91ab356ad77c8673ccdccb9c7e470a5a4fd585ad5cded7b1"
+    },
+    {
+      "state_id": "C03",
+      "pool_id": "OD00_energy_only",
+      "query": {
+        "case_id": "C03",
+        "pool_id": "OD00_energy_only",
+        "H_ref": 4,
+        "origin": "road:243891",
+        "destination": "road:5556363",
+        "start_time_s": "0",
+        "initial_energy_kwh": "228/5",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": null
+      },
+      "counts": {
+        "prefixes_retained": 4681,
+        "terminal_sequences": 4680,
+        "continuous_regimes": 27252360,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 1,
+        "exclusions_by_reason": {
+          "terminal_consumption_exceeds_reserve_budget": 1
+        }
+      },
+      "exclusions": [
+        {
+          "reason": "terminal_consumption_exceeds_reserve_budget",
+          "prefix": [],
+          "source_road_anchor": "road:243891",
+          "target_road_anchor": "road:5556363",
+          "candidate_site": null,
+          "effect": null,
+          "table_sha256": "e3f0efcf8456d4e81ac9fdfb854304b1270b0c7ea21782a253cd03131d7f2f6c",
+          "subtree_excluded": false,
+          "consumption_kwh": "512717534627731/10737418240000",
+          "capacity_limit_kwh": "198/5",
+          "exact_strict_excess": "87515772323731/10737418240000"
+        }
+      ],
+      "terminal_excluded_sites": [],
+      "table_sha256": "e3f0efcf8456d4e81ac9fdfb854304b1270b0c7ea21782a253cd03131d7f2f6c"
+    },
+    {
+      "state_id": "C04",
+      "pool_id": "OD00_energy_and_scheduled",
+      "query": {
+        "case_id": "C04",
+        "pool_id": "OD00_energy_and_scheduled",
+        "H_ref": 4,
+        "origin": "road:243891",
+        "destination": "road:5556363",
+        "start_time_s": "0",
+        "initial_energy_kwh": "228/5",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": {
+          "a": "2928391142480949/687194767360",
+          "b": "20498737997366643/2748779069440",
+          "D": "2700"
+        }
+      },
+      "counts": {
+        "prefixes_retained": 423,
+        "terminal_sequences": 392,
+        "continuous_regimes": 1216850,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "487d8416266f80cf91ab356ad77c8673ccdccb9c7e470a5a4fd585ad5cded7b1"
+    },
+    {
+      "state_id": "C05",
+      "pool_id": "OD01_energy_only",
+      "query": {
+        "case_id": "C05",
+        "pool_id": "OD01_energy_only",
+        "H_ref": 4,
+        "origin": "road:1781315",
+        "destination": "road:3350225",
+        "start_time_s": "0",
+        "initial_energy_kwh": "18",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": null
+      },
+      "counts": {
+        "prefixes_retained": 4681,
+        "terminal_sequences": 4680,
+        "continuous_regimes": 27252360,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 1,
+        "exclusions_by_reason": {
+          "terminal_consumption_exceeds_reserve_budget": 1
+        }
+      },
+      "exclusions": [
+        {
+          "reason": "terminal_consumption_exceeds_reserve_budget",
+          "prefix": [],
+          "source_road_anchor": "road:1781315",
+          "target_road_anchor": "road:3350225",
+          "candidate_site": null,
+          "effect": null,
+          "table_sha256": "4ccdf434a9212e80f6d7bc05a6b58acdd27044043526692f787d0654bc18e246",
+          "subtree_excluded": false,
+          "consumption_kwh": "989384038049801/21474836480000",
+          "capacity_limit_kwh": "12",
+          "exact_strict_excess": "731686000289801/21474836480000"
+        }
+      ],
+      "terminal_excluded_sites": [],
+      "table_sha256": "4ccdf434a9212e80f6d7bc05a6b58acdd27044043526692f787d0654bc18e246"
+    },
+    {
+      "state_id": "C06",
+      "pool_id": "OD01_energy_and_scheduled",
+      "query": {
+        "case_id": "C06",
+        "pool_id": "OD01_energy_and_scheduled",
+        "H_ref": 4,
+        "origin": "road:1781315",
+        "destination": "road:3350225",
+        "start_time_s": "0",
+        "initial_energy_kwh": "18",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": {
+          "a": "1372949583791523/343597383680",
+          "b": "9610647086540661/1374389534720",
+          "D": "2700"
+        }
+      },
+      "counts": {
+        "prefixes_retained": 423,
+        "terminal_sequences": 392,
+        "continuous_regimes": 1216850,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "f47de11476b8f15c1c2e5336550121c75fc83229529c995ba09918c7faec60cb"
+    },
+    {
+      "state_id": "C07",
+      "pool_id": "OD01_energy_only",
+      "query": {
+        "case_id": "C07",
+        "pool_id": "OD01_energy_only",
+        "H_ref": 4,
+        "origin": "road:1781315",
+        "destination": "road:3350225",
+        "start_time_s": "0",
+        "initial_energy_kwh": "228/5",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": null
+      },
+      "counts": {
+        "prefixes_retained": 4681,
+        "terminal_sequences": 4680,
+        "continuous_regimes": 27252360,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 1,
+        "exclusions_by_reason": {
+          "terminal_consumption_exceeds_reserve_budget": 1
+        }
+      },
+      "exclusions": [
+        {
+          "reason": "terminal_consumption_exceeds_reserve_budget",
+          "prefix": [],
+          "source_road_anchor": "road:1781315",
+          "target_road_anchor": "road:3350225",
+          "candidate_site": null,
+          "effect": null,
+          "table_sha256": "4ccdf434a9212e80f6d7bc05a6b58acdd27044043526692f787d0654bc18e246",
+          "subtree_excluded": false,
+          "consumption_kwh": "989384038049801/21474836480000",
+          "capacity_limit_kwh": "198/5",
+          "exact_strict_excess": "138980513441801/21474836480000"
+        }
+      ],
+      "terminal_excluded_sites": [],
+      "table_sha256": "4ccdf434a9212e80f6d7bc05a6b58acdd27044043526692f787d0654bc18e246"
+    },
+    {
+      "state_id": "C08",
+      "pool_id": "OD01_energy_and_scheduled",
+      "query": {
+        "case_id": "C08",
+        "pool_id": "OD01_energy_and_scheduled",
+        "H_ref": 4,
+        "origin": "road:1781315",
+        "destination": "road:3350225",
+        "start_time_s": "0",
+        "initial_energy_kwh": "228/5",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": {
+          "a": "1372949583791523/343597383680",
+          "b": "9610647086540661/1374389534720",
+          "D": "2700"
+        }
+      },
+      "counts": {
+        "prefixes_retained": 423,
+        "terminal_sequences": 392,
+        "continuous_regimes": 1216850,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "f47de11476b8f15c1c2e5336550121c75fc83229529c995ba09918c7faec60cb"
+    },
+    {
+      "state_id": "C09",
+      "pool_id": "OD02_energy_only",
+      "query": {
+        "case_id": "C09",
+        "pool_id": "OD02_energy_only",
+        "H_ref": 4,
+        "origin": "road:710949",
+        "destination": "road:2552065",
+        "start_time_s": "0",
+        "initial_energy_kwh": "18",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": null
+      },
+      "counts": {
+        "prefixes_retained": 4681,
+        "terminal_sequences": 4680,
+        "continuous_regimes": 27252360,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 1,
+        "exclusions_by_reason": {
+          "terminal_consumption_exceeds_reserve_budget": 1
+        }
+      },
+      "exclusions": [
+        {
+          "reason": "terminal_consumption_exceeds_reserve_budget",
+          "prefix": [],
+          "source_road_anchor": "road:710949",
+          "target_road_anchor": "road:2552065",
+          "candidate_site": null,
+          "effect": null,
+          "table_sha256": "12a53fd398e05c631630444fac1c70aaef9cf072f1c07a1fab7db78880191e78",
+          "subtree_excluded": false,
+          "consumption_kwh": "73474880331611/4294967296000",
+          "capacity_limit_kwh": "12",
+          "exact_strict_excess": "21935272779611/4294967296000"
+        }
+      ],
+      "terminal_excluded_sites": [],
+      "table_sha256": "12a53fd398e05c631630444fac1c70aaef9cf072f1c07a1fab7db78880191e78"
+    },
+    {
+      "state_id": "C10",
+      "pool_id": "OD02_energy_and_scheduled",
+      "query": {
+        "case_id": "C10",
+        "pool_id": "OD02_energy_and_scheduled",
+        "H_ref": 4,
+        "origin": "road:710949",
+        "destination": "road:2552065",
+        "start_time_s": "0",
+        "initial_energy_kwh": "18",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": {
+          "a": "1284115794354737/687194767360",
+          "b": "8988810560483159/2748779069440",
+          "D": "2700"
+        }
+      },
+      "counts": {
+        "prefixes_retained": 423,
+        "terminal_sequences": 392,
+        "continuous_regimes": 1216850,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "531a39fabefcf05b4436f8d7fcdc9428836560c53726af89583768c5c90dc8de"
+    },
+    {
+      "state_id": "C11",
+      "pool_id": "OD02_energy_only",
+      "query": {
+        "case_id": "C11",
+        "pool_id": "OD02_energy_only",
+        "H_ref": 4,
+        "origin": "road:710949",
+        "destination": "road:2552065",
+        "start_time_s": "0",
+        "initial_energy_kwh": "228/5",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": null
+      },
+      "counts": {
+        "prefixes_retained": 4681,
+        "terminal_sequences": 4681,
+        "continuous_regimes": 27252361,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "12a53fd398e05c631630444fac1c70aaef9cf072f1c07a1fab7db78880191e78"
+    },
+    {
+      "state_id": "C12",
+      "pool_id": "OD02_energy_and_scheduled",
+      "query": {
+        "case_id": "C12",
+        "pool_id": "OD02_energy_and_scheduled",
+        "H_ref": 4,
+        "origin": "road:710949",
+        "destination": "road:2552065",
+        "start_time_s": "0",
+        "initial_energy_kwh": "228/5",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": {
+          "a": "1284115794354737/687194767360",
+          "b": "8988810560483159/2748779069440",
+          "D": "2700"
+        }
+      },
+      "counts": {
+        "prefixes_retained": 423,
+        "terminal_sequences": 392,
+        "continuous_regimes": 1216850,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "531a39fabefcf05b4436f8d7fcdc9428836560c53726af89583768c5c90dc8de"
+    },
+    {
+      "state_id": "C13",
+      "pool_id": "OD03_energy_only",
+      "query": {
+        "case_id": "C13",
+        "pool_id": "OD03_energy_only",
+        "H_ref": 4,
+        "origin": "road:2453932",
+        "destination": "road:1992663",
+        "start_time_s": "0",
+        "initial_energy_kwh": "18",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": null
+      },
+      "counts": {
+        "prefixes_retained": 4681,
+        "terminal_sequences": 4680,
+        "continuous_regimes": 27252360,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 1,
+        "exclusions_by_reason": {
+          "terminal_consumption_exceeds_reserve_budget": 1
+        }
+      },
+      "exclusions": [
+        {
+          "reason": "terminal_consumption_exceeds_reserve_budget",
+          "prefix": [],
+          "source_road_anchor": "road:2453932",
+          "target_road_anchor": "road:1992663",
+          "candidate_site": null,
+          "effect": null,
+          "table_sha256": "878c8fafeae52a7bfd6ba5db36355f7fc0b26905996ec168c1700c064e64fd95",
+          "subtree_excluded": false,
+          "consumption_kwh": "6016682864488221/429496729600000",
+          "capacity_limit_kwh": "12",
+          "exact_strict_excess": "862722109288221/429496729600000"
+        }
+      ],
+      "terminal_excluded_sites": [],
+      "table_sha256": "878c8fafeae52a7bfd6ba5db36355f7fc0b26905996ec168c1700c064e64fd95"
+    },
+    {
+      "state_id": "C14",
+      "pool_id": "OD03_energy_and_scheduled",
+      "query": {
+        "case_id": "C14",
+        "pool_id": "OD03_energy_and_scheduled",
+        "H_ref": 4,
+        "origin": "road:2453932",
+        "destination": "road:1992663",
+        "start_time_s": "0",
+        "initial_energy_kwh": "18",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": {
+          "a": "4577715654524457/2748779069440",
+          "b": "32044009581671199/10995116277760",
+          "D": "2700"
+        }
+      },
+      "counts": {
+        "prefixes_retained": 423,
+        "terminal_sequences": 392,
+        "continuous_regimes": 1216850,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "c47642304c523f58473abfd472dd3103c8dabb7ecd52e17c4847b400b1051dbe"
+    },
+    {
+      "state_id": "C15",
+      "pool_id": "OD03_energy_only",
+      "query": {
+        "case_id": "C15",
+        "pool_id": "OD03_energy_only",
+        "H_ref": 4,
+        "origin": "road:2453932",
+        "destination": "road:1992663",
+        "start_time_s": "0",
+        "initial_energy_kwh": "228/5",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": null
+      },
+      "counts": {
+        "prefixes_retained": 4681,
+        "terminal_sequences": 4681,
+        "continuous_regimes": 27252361,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "878c8fafeae52a7bfd6ba5db36355f7fc0b26905996ec168c1700c064e64fd95"
+    },
+    {
+      "state_id": "C16",
+      "pool_id": "OD03_energy_and_scheduled",
+      "query": {
+        "case_id": "C16",
+        "pool_id": "OD03_energy_and_scheduled",
+        "H_ref": 4,
+        "origin": "road:2453932",
+        "destination": "road:1992663",
+        "start_time_s": "0",
+        "initial_energy_kwh": "228/5",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": {
+          "a": "4577715654524457/2748779069440",
+          "b": "32044009581671199/10995116277760",
+          "D": "2700"
+        }
+      },
+      "counts": {
+        "prefixes_retained": 423,
+        "terminal_sequences": 392,
+        "continuous_regimes": 1216850,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "c47642304c523f58473abfd472dd3103c8dabb7ecd52e17c4847b400b1051dbe"
+    },
+    {
+      "state_id": "C17",
+      "pool_id": "OD04_energy_only",
+      "query": {
+        "case_id": "C17",
+        "pool_id": "OD04_energy_only",
+        "H_ref": 4,
+        "origin": "road:3935053",
+        "destination": "road:2929476",
+        "start_time_s": "0",
+        "initial_energy_kwh": "18",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": null
+      },
+      "counts": {
+        "prefixes_retained": 4681,
+        "terminal_sequences": 4680,
+        "continuous_regimes": 27252360,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 1,
+        "exclusions_by_reason": {
+          "terminal_consumption_exceeds_reserve_budget": 1
+        }
+      },
+      "exclusions": [
+        {
+          "reason": "terminal_consumption_exceeds_reserve_budget",
+          "prefix": [],
+          "source_road_anchor": "road:3935053",
+          "target_road_anchor": "road:2929476",
+          "candidate_site": null,
+          "effect": null,
+          "table_sha256": "6296b60392ea5e92b769a0afb0b9ce5c8e311d2eee8a43b96caf6cf318816b7c",
+          "subtree_excluded": false,
+          "consumption_kwh": "272366757076333/8589934592000",
+          "capacity_limit_kwh": "12",
+          "exact_strict_excess": "169287541972333/8589934592000"
+        }
+      ],
+      "terminal_excluded_sites": [],
+      "table_sha256": "6296b60392ea5e92b769a0afb0b9ce5c8e311d2eee8a43b96caf6cf318816b7c"
+    },
+    {
+      "state_id": "C18",
+      "pool_id": "OD04_energy_and_scheduled",
+      "query": {
+        "case_id": "C18",
+        "pool_id": "OD04_energy_and_scheduled",
+        "H_ref": 4,
+        "origin": "road:3935053",
+        "destination": "road:2929476",
+        "start_time_s": "0",
+        "initial_energy_kwh": "18",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": {
+          "a": "1108766887520661/343597383680",
+          "b": "7761368212644627/1374389534720",
+          "D": "2700"
+        }
+      },
+      "counts": {
+        "prefixes_retained": 423,
+        "terminal_sequences": 392,
+        "continuous_regimes": 1216850,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "e4f0181412219aa09ce80f1b9d5ce5798cb8aa617f1be0e48f158c30ec1fcc83"
+    },
+    {
+      "state_id": "C19",
+      "pool_id": "OD04_energy_only",
+      "query": {
+        "case_id": "C19",
+        "pool_id": "OD04_energy_only",
+        "H_ref": 4,
+        "origin": "road:3935053",
+        "destination": "road:2929476",
+        "start_time_s": "0",
+        "initial_energy_kwh": "228/5",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": null
+      },
+      "counts": {
+        "prefixes_retained": 4681,
+        "terminal_sequences": 4681,
+        "continuous_regimes": 27252361,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "6296b60392ea5e92b769a0afb0b9ce5c8e311d2eee8a43b96caf6cf318816b7c"
+    },
+    {
+      "state_id": "C20",
+      "pool_id": "OD04_energy_and_scheduled",
+      "query": {
+        "case_id": "C20",
+        "pool_id": "OD04_energy_and_scheduled",
+        "H_ref": 4,
+        "origin": "road:3935053",
+        "destination": "road:2929476",
+        "start_time_s": "0",
+        "initial_energy_kwh": "228/5",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": {
+          "a": "1108766887520661/343597383680",
+          "b": "7761368212644627/1374389534720",
+          "D": "2700"
+        }
+      },
+      "counts": {
+        "prefixes_retained": 423,
+        "terminal_sequences": 392,
+        "continuous_regimes": 1216850,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "e4f0181412219aa09ce80f1b9d5ce5798cb8aa617f1be0e48f158c30ec1fcc83"
+    },
+    {
+      "state_id": "C21",
+      "pool_id": "OD05_energy_only",
+      "query": {
+        "case_id": "C21",
+        "pool_id": "OD05_energy_only",
+        "H_ref": 4,
+        "origin": "road:2828743",
+        "destination": "road:4774404",
+        "start_time_s": "0",
+        "initial_energy_kwh": "18",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": null
+      },
+      "counts": {
+        "prefixes_retained": 4681,
+        "terminal_sequences": 4680,
+        "continuous_regimes": 27252360,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 1,
+        "exclusions_by_reason": {
+          "terminal_consumption_exceeds_reserve_budget": 1
+        }
+      },
+      "exclusions": [
+        {
+          "reason": "terminal_consumption_exceeds_reserve_budget",
+          "prefix": [],
+          "source_road_anchor": "road:2828743",
+          "target_road_anchor": "road:4774404",
+          "candidate_site": null,
+          "effect": null,
+          "table_sha256": "cf5223a3e0b07a40a94742f41c573aa13bb306bb18adaa8c249197d0d49888e3",
+          "subtree_excluded": false,
+          "consumption_kwh": "570903164265639/21474836480000",
+          "capacity_limit_kwh": "12",
+          "exact_strict_excess": "313205126505639/21474836480000"
+        }
+      ],
+      "terminal_excluded_sites": [],
+      "table_sha256": "cf5223a3e0b07a40a94742f41c573aa13bb306bb18adaa8c249197d0d49888e3"
+    },
+    {
+      "state_id": "C22",
+      "pool_id": "OD05_energy_and_scheduled",
+      "query": {
+        "case_id": "C22",
+        "pool_id": "OD05_energy_and_scheduled",
+        "H_ref": 4,
+        "origin": "road:2828743",
+        "destination": "road:4774404",
+        "start_time_s": "0",
+        "initial_energy_kwh": "18",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": {
+          "a": "920462807325479/343597383680",
+          "b": "6443239651278353/1374389534720",
+          "D": "2700"
+        }
+      },
+      "counts": {
+        "prefixes_retained": 423,
+        "terminal_sequences": 392,
+        "continuous_regimes": 1216850,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "e9ca73c3b9a0f1c0240260283a3771a370259cf2f70c4ac8a39ee9dda9d42881"
+    },
+    {
+      "state_id": "C23",
+      "pool_id": "OD05_energy_only",
+      "query": {
+        "case_id": "C23",
+        "pool_id": "OD05_energy_only",
+        "H_ref": 4,
+        "origin": "road:2828743",
+        "destination": "road:4774404",
+        "start_time_s": "0",
+        "initial_energy_kwh": "228/5",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": null
+      },
+      "counts": {
+        "prefixes_retained": 4681,
+        "terminal_sequences": 4681,
+        "continuous_regimes": 27252361,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "cf5223a3e0b07a40a94742f41c573aa13bb306bb18adaa8c249197d0d49888e3"
+    },
+    {
+      "state_id": "C24",
+      "pool_id": "OD05_energy_and_scheduled",
+      "query": {
+        "case_id": "C24",
+        "pool_id": "OD05_energy_and_scheduled",
+        "H_ref": 4,
+        "origin": "road:2828743",
+        "destination": "road:4774404",
+        "start_time_s": "0",
+        "initial_energy_kwh": "228/5",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": {
+          "a": "920462807325479/343597383680",
+          "b": "6443239651278353/1374389534720",
+          "D": "2700"
+        }
+      },
+      "counts": {
+        "prefixes_retained": 423,
+        "terminal_sequences": 392,
+        "continuous_regimes": 1216850,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "e9ca73c3b9a0f1c0240260283a3771a370259cf2f70c4ac8a39ee9dda9d42881"
+    },
+    {
+      "state_id": "C25",
+      "pool_id": "OD06_energy_only",
+      "query": {
+        "case_id": "C25",
+        "pool_id": "OD06_energy_only",
+        "H_ref": 4,
+        "origin": "road:4234444",
+        "destination": "road:71017",
+        "start_time_s": "0",
+        "initial_energy_kwh": "18",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": null
+      },
+      "counts": {
+        "prefixes_retained": 4681,
+        "terminal_sequences": 4680,
+        "continuous_regimes": 27252360,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 1,
+        "exclusions_by_reason": {
+          "terminal_consumption_exceeds_reserve_budget": 1
+        }
+      },
+      "exclusions": [
+        {
+          "reason": "terminal_consumption_exceeds_reserve_budget",
+          "prefix": [],
+          "source_road_anchor": "road:4234444",
+          "target_road_anchor": "road:71017",
+          "candidate_site": null,
+          "effect": null,
+          "table_sha256": "fde64258a2cd1e4f97a0655b9389a6586ca8d472461f38c10ae87b84541b3b7e",
+          "subtree_excluded": false,
+          "consumption_kwh": "5408456740222007/429496729600000",
+          "capacity_limit_kwh": "12",
+          "exact_strict_excess": "254495985022007/429496729600000"
+        }
+      ],
+      "terminal_excluded_sites": [],
+      "table_sha256": "fde64258a2cd1e4f97a0655b9389a6586ca8d472461f38c10ae87b84541b3b7e"
+    },
+    {
+      "state_id": "C26",
+      "pool_id": "OD06_energy_and_scheduled",
+      "query": {
+        "case_id": "C26",
+        "pool_id": "OD06_energy_and_scheduled",
+        "H_ref": 4,
+        "origin": "road:4234444",
+        "destination": "road:71017",
+        "start_time_s": "0",
+        "initial_energy_kwh": "18",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": {
+          "a": "6469763339657091/5497558138880",
+          "b": "45288343377599637/21990232555520",
+          "D": "2700"
+        }
+      },
+      "counts": {
+        "prefixes_retained": 423,
+        "terminal_sequences": 392,
+        "continuous_regimes": 1216850,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "2dcd41422a393b736402fd58b8195ab000488aacaab8c82650f137f6b6f39512"
+    },
+    {
+      "state_id": "C27",
+      "pool_id": "OD06_energy_only",
+      "query": {
+        "case_id": "C27",
+        "pool_id": "OD06_energy_only",
+        "H_ref": 4,
+        "origin": "road:4234444",
+        "destination": "road:71017",
+        "start_time_s": "0",
+        "initial_energy_kwh": "228/5",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": null
+      },
+      "counts": {
+        "prefixes_retained": 4681,
+        "terminal_sequences": 4681,
+        "continuous_regimes": 27252361,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "fde64258a2cd1e4f97a0655b9389a6586ca8d472461f38c10ae87b84541b3b7e"
+    },
+    {
+      "state_id": "C28",
+      "pool_id": "OD06_energy_and_scheduled",
+      "query": {
+        "case_id": "C28",
+        "pool_id": "OD06_energy_and_scheduled",
+        "H_ref": 4,
+        "origin": "road:4234444",
+        "destination": "road:71017",
+        "start_time_s": "0",
+        "initial_energy_kwh": "228/5",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": {
+          "a": "6469763339657091/5497558138880",
+          "b": "45288343377599637/21990232555520",
+          "D": "2700"
+        }
+      },
+      "counts": {
+        "prefixes_retained": 423,
+        "terminal_sequences": 392,
+        "continuous_regimes": 1216850,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "2dcd41422a393b736402fd58b8195ab000488aacaab8c82650f137f6b6f39512"
+    },
+    {
+      "state_id": "C29",
+      "pool_id": "OD07_energy_only",
+      "query": {
+        "case_id": "C29",
+        "pool_id": "OD07_energy_only",
+        "H_ref": 4,
+        "origin": "road:4235492",
+        "destination": "road:3977195",
+        "start_time_s": "0",
+        "initial_energy_kwh": "18",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": null
+      },
+      "counts": {
+        "prefixes_retained": 4681,
+        "terminal_sequences": 4680,
+        "continuous_regimes": 27252360,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 1,
+        "exclusions_by_reason": {
+          "terminal_consumption_exceeds_reserve_budget": 1
+        }
+      },
+      "exclusions": [
+        {
+          "reason": "terminal_consumption_exceeds_reserve_budget",
+          "prefix": [],
+          "source_road_anchor": "road:4235492",
+          "target_road_anchor": "road:3977195",
+          "candidate_site": null,
+          "effect": null,
+          "table_sha256": "6e28af414efc17036cf7ab5b896f12c1b19d87494f6e30b7be0e73dd5c530a9e",
+          "subtree_excluded": false,
+          "consumption_kwh": "1134824642725281/53687091200000",
+          "capacity_limit_kwh": "12",
+          "exact_strict_excess": "490579548325281/53687091200000"
+        }
+      ],
+      "terminal_excluded_sites": [],
+      "table_sha256": "6e28af414efc17036cf7ab5b896f12c1b19d87494f6e30b7be0e73dd5c530a9e"
+    },
+    {
+      "state_id": "C30",
+      "pool_id": "OD07_energy_and_scheduled",
+      "query": {
+        "case_id": "C30",
+        "pool_id": "OD07_energy_and_scheduled",
+        "H_ref": 4,
+        "origin": "road:4235492",
+        "destination": "road:3977195",
+        "start_time_s": "0",
+        "initial_energy_kwh": "18",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": {
+          "a": "513153693161917/274877906944",
+          "b": "3592075852133419/1099511627776",
+          "D": "2700"
+        }
+      },
+      "counts": {
+        "prefixes_retained": 423,
+        "terminal_sequences": 392,
+        "continuous_regimes": 1216850,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "fac66f574edbfce0096377da46b3c0a5dcf2522e75180178064e36a3fc1c10f5"
+    },
+    {
+      "state_id": "C31",
+      "pool_id": "OD07_energy_only",
+      "query": {
+        "case_id": "C31",
+        "pool_id": "OD07_energy_only",
+        "H_ref": 4,
+        "origin": "road:4235492",
+        "destination": "road:3977195",
+        "start_time_s": "0",
+        "initial_energy_kwh": "228/5",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": null
+      },
+      "counts": {
+        "prefixes_retained": 4681,
+        "terminal_sequences": 4681,
+        "continuous_regimes": 27252361,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "6e28af414efc17036cf7ab5b896f12c1b19d87494f6e30b7be0e73dd5c530a9e"
+    },
+    {
+      "state_id": "C32",
+      "pool_id": "OD07_energy_and_scheduled",
+      "query": {
+        "case_id": "C32",
+        "pool_id": "OD07_energy_and_scheduled",
+        "H_ref": 4,
+        "origin": "road:4235492",
+        "destination": "road:3977195",
+        "start_time_s": "0",
+        "initial_energy_kwh": "228/5",
+        "capacity_kwh": "60",
+        "minimum_energy_kwh": "0",
+        "reserve_kwh": "6",
+        "consumption_kwh_per_m": "1/6250",
+        "overhead_s": "300",
+        "lambda_stop_s": "600",
+        "charging_segments": [
+          [
+            "0",
+            "30",
+            "36",
+            "0"
+          ],
+          [
+            "30",
+            "48",
+            "60",
+            "-720"
+          ],
+          [
+            "48",
+            "60",
+            "120",
+            "-3600"
+          ]
+        ],
+        "schedule": {
+          "a": "513153693161917/274877906944",
+          "b": "3592075852133419/1099511627776",
+          "D": "2700"
+        }
+      },
+      "counts": {
+        "prefixes_retained": 423,
+        "terminal_sequences": 392,
+        "continuous_regimes": 1216850,
+        "excluded_subtree_branches": 0,
+        "excluded_terminal_candidates": 0,
+        "exclusions_by_reason": {}
+      },
+      "exclusions": [],
+      "terminal_excluded_sites": [],
+      "table_sha256": "fac66f574edbfce0096377da46b3c0a5dcf2522e75180178064e36a3fc1c10f5"
+    }
+  ],
+  "regimes_after_exact_physical_exclusions": 455507366,
+  "limitations": [
+    "Payload/source identity is independently checked; native route optimality is not re-proved.",
+    "Full road-edge path witnesses are not supplied by the selected-pair format.",
+    "Hierarchy restriction hashes are checked, but REF does not consume tree topology.",
+    "No runtime estimate or Stage C acceptance claim; resource plan required before large LP run."
+  ]
+}

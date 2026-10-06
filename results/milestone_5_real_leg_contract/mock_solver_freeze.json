@@ -1,0 +1,7 @@
+{
+  "fixture": "mock_solver_cases.json",
+  "sha256": "c99602154efbde102374c50b507c1dec88e5383f39dc804e13fbaa38db6d3b9d",
+  "cases": 5,
+  "scope": "mock-only adapter regressions; nonmetric stress tables are not certified road graph exports",
+  "expectations": "independent hand arithmetic frozen before solver runs"
+}

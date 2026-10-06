@@ -1,0 +1,2 @@
+rejected AssertionError Noncanonical physical leg/stop structure
+without_external_incumbent {'status': 'attained_optimum', 'J': Fraction(6, 1), 'Q_total': Fraction(1, 1), 'H': 2, 'site_action_tuple': (('A', 'C'), ('B', 'C')), 'lex_key': (Fraction(6, 1), Fraction(1, 1), 2, (('A', 'C'), ('B', 'C'))), 'charges': (Fraction(1, 2), Fraction(1, 2)), 'witness_replayed': True}

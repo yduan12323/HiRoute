@@ -53,6 +53,108 @@ def verify_certificate(c, A, b, equalities, certificate):
     return True
 
 
+
+def solve_rational_equalities(rows, rhs, seed):
+    """Recover an affine point by exact elimination, retaining free seed values.
+
+    This is candidate reconstruction, not an LP feasibility or optimality
+    decision. Its output must still pass the complete certificate verifier.
+    """
+    n = len(seed)
+    matrix = [list(map(R, row)) + [R(value)] for row, value in zip(rows, rhs)]
+    require(len(rows) == len(rhs) and all(len(row) == n + 1 for row in matrix),
+            "Invalid recovery equality shape")
+    pivots = []
+    for column in range(n):
+        pivot = next((i for i in range(len(pivots), len(matrix)) if matrix[i][column]), None)
+        if pivot is None:
+            continue
+        target = len(pivots)
+        matrix[target], matrix[pivot] = matrix[pivot], matrix[target]
+        scale = matrix[target][column]
+        matrix[target] = [value / scale for value in matrix[target]]
+        for i, row in enumerate(matrix):
+            if i != target and row[column]:
+                scale = row[column]
+                matrix[i] = [a - scale * b for a, b in zip(row, matrix[target])]
+        pivots.append(column)
+    require(all(any(row[:-1]) or not row[-1] for row in matrix),
+            "Inconsistent candidate active equalities")
+    values = list(map(R, seed))
+    free = [j for j in range(n) if j not in pivots]
+    for i, column in enumerate(pivots):
+        values[column] = matrix[i][-1] - sum((matrix[i][j] * values[j] for j in free), R(0))
+    return tuple(values), len(pivots)
+
+
+def recover_certificate(c, A, b, equalities, candidate, dual_support=None):
+    """Reconstruct an exact primal/dual pair from candidate active constraints.
+
+    Independent coordinate rationalization can move an apparently optimal
+    point slightly off its common rational face. Recover the primal from exact
+    active rows and recover dual multipliers from exact stationarity. Solver
+    support and residual order are hints only. Every candidate is subjected to
+    the unchanged full rational feasibility, sign and strong-duality checks.
+    Failure is still UncertifiedLP, never a tolerance-based acceptance.
+    """
+    n = len(c)
+    support = tuple(dual_support if dual_support is not None else
+                    (i for i, value in enumerate(candidate["inequality_dual"]) if value))
+    rows = [row for row, _ in equalities] + [A[i] for i in support]
+    rhs = [value for _, value in equalities] + [b[i] for i in support]
+    # Reconstruct duals as well: a small floating error in a multiplier must
+    # not force a spurious high-denominator rational stationarity violation.
+    dual_columns = [A[i] for i in support] + [row for row, _ in equalities]
+    stationarity = [tuple(column[j] for column in dual_columns) for j in range(n)]
+    dual_seed = tuple(candidate["inequality_dual"][i] for i in support) + candidate["equality_dual"]
+    dual, _ = solve_rational_equalities(stationarity, c, dual_seed)
+    y = [R(0)] * len(A)
+    for i, value in zip(support, dual):
+        y[i] = value
+    require(all(value <= 0 for value in y), "Recovered dual sign invalid")
+    z = dual[len(support):]
+    seed = candidate["x"]
+    selected_rows = list(support)
+
+    def check(values):
+        certificate = dict(status="optimal", x=values, objective=dot(c, values),
+                           inequality_dual=tuple(y), equality_dual=z)
+        verify_certificate(c, A, b, equalities, certificate)
+        certificate.update(exact_primal_dual_verified=True,
+                           candidate_recovery="exact_active_constraints",
+                           recovery_inequality_rows=tuple(selected_rows),
+                           recovery_dual_support=support)
+        return certificate
+
+    values, rank = solve_rational_equalities(rows, rhs, seed)
+    try:
+        return check(values)
+    except UncertifiedLP:
+        pass
+    # A degenerate/zero-objective face may leave free seed coordinates slightly
+    # outside the polyhedron. Add independent nearby rows as candidate equalities.
+    # There is no threshold in the verifier, or in this residual ordering.
+    remaining = sorted((i for i in range(len(A)) if i not in support),
+                       key=lambda i: (abs(dot(A[i], seed) - b[i]) /
+                                      (R(1) + abs(b[i]) + sum((abs(a * x) for a, x in zip(A[i], seed)), R(0))), i))
+    for i in remaining:
+        try:
+            trial, new_rank = solve_rational_equalities(rows + [A[i]], rhs + [b[i]], seed)
+        except UncertifiedLP:
+            continue
+        if new_rank == rank:
+            continue
+        rows.append(A[i])
+        rhs.append(b[i])
+        selected_rows.append(i)
+        rank = new_rank
+        try:
+            return check(trial)
+        except UncertifiedLP:
+            pass
+    raise UncertifiedLP("Exact active-constraint recovery did not certify the candidate")
+
+
 def exact_lp(c, A, b, equalities=(), *, _phase=False):
     """Minimize c*x on A*x<=b with exact primal/dual or Phase-I evidence.
 
@@ -106,7 +208,15 @@ def exact_lp(c, A, b, equalities=(), *, _phase=False):
     certificate = dict(status="optimal", x=x, objective=dot(c, x),
                        inequality_dual=tuple(map(rational, result.ineqlin.marginals)),
                        equality_dual=tuple(map(rational, result.eqlin.marginals)))
-    verify_certificate(c, A, b, equalities, certificate)
+    try:
+        verify_certificate(c, A, b, equalities, certificate)
+    except UncertifiedLP as error:
+        # Keep the ordinary fast path. Recovery changes only how a candidate
+        # certificate is obtained, never any LP row or exact acceptance check.
+        support = tuple(i for i, value in enumerate(result.ineqlin.marginals) if value != 0)
+        recovered = recover_certificate(c, A, b, equalities, certificate, support)
+        recovered["initial_candidate_failure"] = str(error)
+        return recovered
     certificate["exact_primal_dual_verified"] = True
     return certificate
 
