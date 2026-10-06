@@ -11,6 +11,8 @@ from fractions import Fraction as R
 from itertools import combinations
 from typing import Callable, Iterable
 
+from . import provenance as prov
+
 from .probe import (
     AffineFamily, ChargingCurve, Cut, Interval, State, Witness, _event,
     drive, exact, reduce_cuts,
@@ -166,6 +168,7 @@ class CutPiece:
     pi: tuple[tuple[str, str], ...]
     state: State
     _point: Callable[[R], Cut] = field(repr=False, compare=False)
+    _family: prov.FamilyRef | None = field(default=None, repr=False, compare=False)
 
     def __post_init__(self):
         for name in ("slope", "intercept", "rho"):
@@ -181,6 +184,8 @@ class CutPiece:
                    family.rho, family.pi, family.state, family.at)
 
     def at(self, energy: R) -> Cut:
+        if self._family is not None:
+            self._family.check_binding(self)
         energy = exact(energy)
         if not self.domain.contains(energy):
             raise ValueError("Energy outside represented predecessor subfamily")
@@ -190,6 +195,13 @@ class CutPiece:
         actual = cut.tau, cut.chi, cut.energy, cut.rho, cut.pi, cut.state
         if expected != actual:
             raise AssertionError("Point witness disagrees with the PWA piece")
+        if self._family is not None:
+            base = cut
+            def observed(epsilon):
+                witness = base.approach(epsilon)
+                prov.observe_witness(self, witness, epsilon, energy)
+                return witness
+            return replace(cut, _approach=observed)
         return cut
 
 
@@ -241,7 +253,8 @@ def lower_envelope(pieces: Iterable[CutPiece]) -> tuple[CutPiece, ...]:
         minimum = min(p.slope * e + p.intercept for p in candidates)
         tied = [p for p in candidates if p.slope * e + p.intercept == minimum]
         chosen = next((p for p in tied if p.chi), tied[0])
-        result.append(replace(chosen, domain=cell))
+        result.append(prov.select(chosen, pieces, cell, next(i for i, p in enumerate(pieces) if p is chosen), "union"))
+    prov.batch("union", pieces, result)
     return tuple(result)
 
 
@@ -258,7 +271,8 @@ def reduce_frontier(pieces: Iterable[CutPiece]) -> tuple[CutPiece, ...]:
         kept = reduce_cuts(cuts)
         for p, cut in zip(candidates, cuts):
             if any(cut is winner for winner in kept):
-                result.append(replace(p, domain=cell))
+                result.append(prov.select(p, pieces, cell, next(i for i, candidate in enumerate(pieces) if candidate is p), "reduction"))
+    prov.batch("reduction", pieces, result)
     return tuple(result)
 
 
@@ -271,7 +285,8 @@ def _interval_rows(domain: Interval, variable: int) -> tuple[Row, Row]:
 
 def _extract(projection: Projection, source: CutPiece, effect: str, site: str,
              overhead: R, curve: ChargingCurve | None = None,
-             a: R = R(0), b: R = R(0), duration: R = R(0)) -> tuple[CutPiece, ...]:
+             a: R = R(0), b: R = R(0), duration: R = R(0),
+             in_segment=None, out_segment=None) -> tuple[CutPiece, ...]:
     lower = upper = None
     lc = rc = True
     lines = []
@@ -340,7 +355,11 @@ def _extract(projection: Projection, source: CutPiece, effect: str, site: str,
 
             return Cut(value, chi, energy, source.rho, pi, state, approach)
 
-        result.append(CutPiece(cell, slope, intercept, chi, source.rho, pi, state, at))
+        output = CutPiece(cell, slope, intercept, chi, source.rho, pi, state, at)
+        result.append(prov.bind(output, "stop", (source,), effect=effect, site=site,
+                                h=overhead, a=a, b=b, D=duration,
+                                curve=curve.segments if curve else [],
+                                in_segment=in_segment, out_segment=out_segment))
     return tuple(result)
 
 
@@ -356,6 +375,8 @@ def _stop(pieces: Iterable[CutPiece], effect: str, site: str, overhead: R,
         if any(p.state.remaining_schedule != 1 for p in pieces):
             raise ValueError("Schedule has already been satisfied")
         if a > b:
+            prov.batch("stop", pieces, (), effect=effect, site=site, h=overhead,
+                       a=a, b=b, D=duration, curve=curve.segments if curve else [])
             return ()
     result = []
     for source in pieces:
@@ -381,7 +402,10 @@ def _stop(pieces: Iterable[CutPiece], effect: str, site: str, overhead: R,
                     projected = Projection.build(rows, (1, 0))
                     if projected is not None:
                         result.extend(_extract(projected, source, effect, site, overhead,
-                                               curve, a, b, duration))
+                                               curve, a, b, duration,
+                                               (il, ih, im, ic), (ol, oh, om, oc)))
+    prov.batch("stop", pieces, result, effect=effect, site=site, h=overhead,
+               a=a, b=b, D=duration, curve=curve.segments if curve else [])
     return lower_envelope(result)
 
 
@@ -402,6 +426,7 @@ def schedule_pwa(pieces: Iterable[CutPiece], site: str, a: R, b: R,
 
 def drive_pwa(pieces: Iterable[CutPiece], anchor: str, duration: R,
               consumption: R, floor: R = R(0)) -> tuple[CutPiece, ...]:
+    pieces = tuple(pieces)
     duration, consumption, floor = map(exact, (duration, consumption, floor))
     if duration < 0 or consumption < 0:
         raise ValueError("Negative drive duration or consumption")
@@ -416,10 +441,14 @@ def drive_pwa(pieces: Iterable[CutPiece], anchor: str, duration: R,
         if domain is None:
             continue
         state = State(anchor, source.state.remaining_schedule, source.state.stop_count)
-        result.append(CutPiece(
+        output = CutPiece(
             domain, source.slope, source.intercept + source.slope * consumption + duration,
             source.chi, source.rho + consumption, source.pi, state,
             lambda energy, source=source: drive(source.at(energy + consumption), anchor,
                                                 duration, consumption, floor),
-        ))
+        )
+        result.append(prov.bind(output, "drive", (source,), site=anchor,
+                                duration=duration, consumption=consumption, floor=floor))
+    prov.batch("drive", pieces, result, site=anchor, duration=duration,
+               consumption=consumption, floor=floor)
     return tuple(result)

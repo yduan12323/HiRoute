@@ -1,0 +1,90 @@
+[
+  {
+    "case_id": "SUP_A06_physical_quotient_intersection",
+    "H_ref": 4,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": "0",
+    "initial_energy_kwh": "5",
+    "capacity_kwh": "10",
+    "minimum_energy_kwh": "0",
+    "reserve_kwh": "1",
+    "consumption_kwh_per_m": "1",
+    "overhead_s": "1",
+    "lambda_stop_s": "0",
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        "0",
+        "5",
+        "1",
+        "0"
+      ],
+      [
+        "5",
+        "10",
+        "2",
+        "-5"
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": "1",
+        "length_m": "4"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": "5",
+        "length_m": "1"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": "3",
+        "length_m": "1"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": "1",
+        "length_m": "4"
+      }
+    ],
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "6",
+      "Q_total": "1",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "b",
+          "C"
+        ]
+      ],
+      "terminal_energy_kwh": "1",
+      "destination_arrival_s": "6",
+      "one_valid_charge_vector": [
+        "1"
+      ]
+    },
+    "stage_a_kind": "physical_graph",
+    "frozen_theorem_themes": [
+      6
+    ],
+    "population_role": "post_original_run_additive_development_supplement",
+    "not_a_holdout": true,
+    "comparison_status": "not_started",
+    "comparison_domain": "Same explicit H_ref=4 and unchanged declared C-only capabilities in REF, FLAT D-off, FLAT D-on, HIER D-off, HIER D-on."
+  }
+]

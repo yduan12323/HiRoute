@@ -12,6 +12,7 @@ from fractions import Fraction as R
 import heapq
 from typing import Mapping
 
+from . import provenance as prov
 from .probe import ChargingCurve, Cut, Event, Interval, State, TerminalResult, Witness, terminal
 from .pwa import CutPiece, charge_pwa, combined_pwa, drive_pwa, reduce_frontier, schedule_pwa
 
@@ -112,8 +113,9 @@ class Problem:
                           (Event("initial", self.origin, self.start, self.start,
                                  self.initial, self.initial),))
         cut = Cut(self.start, True, self.initial, -self.initial, (), state, lambda eps: witness)
-        return CutPiece(Interval(self.initial, self.initial), 0, self.start, True,
-                        -self.initial, (), state, lambda energy: cut)
+        piece = CutPiece(Interval(self.initial, self.initial), 0, self.start, True,
+                         -self.initial, (), state, lambda energy: cut)
+        return prov.bind(piece, "initial", case=self.case)
 
     def advance(self, pieces: tuple[CutPiece, ...], site: str, effect: str) -> tuple[CutPiece, ...]:
         if not pieces:
@@ -150,7 +152,7 @@ class Problem:
                     continue
                 domain = piece.domain.intersect(Interval(self.reserve, max(self.reserve, piece.domain.hi)))
                 if domain is not None:
-                    result.append(replace(piece, domain=domain))
+                    result.append(prov.restrict(piece, domain, "terminal_reserve"))
             return tuple(result)
         leg = self.legs.get((pieces[0].state.anchor, self.destination))
         return drive_pwa(pieces, self.destination, leg.time, leg.energy, self.reserve) if leg else ()
@@ -181,7 +183,8 @@ def _retag_anchor(pieces: tuple[CutPiece,...], anchor: str) -> tuple[CutPiece,..
         def at(energy,piece=piece,state=state):
             old=piece.at(energy)
             return replace(old,state=state,_approach=lambda eps:replace(old.approach(eps),state=state))
-        result.append(replace(piece,state=state,_point=at))
+        output = replace(piece,state=state,_point=at,_family=None)
+        result.append(prov.bind(output,"retag",(piece,),anchor=anchor))
     return tuple(result)
 
 
