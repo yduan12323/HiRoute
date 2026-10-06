@@ -1,0 +1,14 @@
+{
+  "files_verified": 11332,
+  "archives_verified": 9,
+  "changes": [],
+  "protected": {
+    "passed": true,
+    "verified_files": 840,
+    "changed_files": [],
+    "verified_accepted_source_files": 56,
+    "changed_accepted_source_files": [],
+    "accepted_source_manifest": "results/milestone_4b/acceptance.json"
+  },
+  "tracked_diff": ""
+}

@@ -1,0 +1,21 @@
+{
+  "ingress_reads": 36925357,
+  "egress_reads": 37322427,
+  "total_reads": 74247784,
+  "reads_per_visited_region": {
+    "defined": 95304,
+    "median": 360.0,
+    "p25": 185.0,
+    "p75": 924.0,
+    "p95": 2993.0,
+    "minimum": 0.0,
+    "maximum": 6905.0
+  },
+  "boundary_lookup_seconds": 2.9570876355282962,
+  "fraction_bound_time": 0.15786029671833407,
+  "artifact_storage_bytes": 29708212,
+  "preprocessing_seconds": 9.778803681023419,
+  "preprocessing_peak_rss_mib": 1033.6640625,
+  "reads_per_envelope_avoided": 198.02313405966208,
+  "reads_per_exact_avoided": 615.5971180074786
+}

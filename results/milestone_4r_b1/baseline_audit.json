@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "verified_files": 840,
+  "changed_files": [],
+  "verified_accepted_source_files": 56,
+  "changed_accepted_source_files": [],
+  "accepted_source_manifest": "results/milestone_4b/acceptance.json",
+  "changed_4ra_sources": [],
+  "report_matches": true,
+  "config_matches": true,
+  "artifact_mismatches": [],
+  "git_status": "?? MILESTONE_4R_B0_FORMAL_SPEC.md\n?? MILESTONE_4R_B1_CODEX_PROMPT.md\n?? MILESTONE_4R_B1_EXPERIMENT_PROTOCOL.md\n?? results/milestone_4r_b1/\n",
+  "git_commit": "20b658257fb67655e09229411783935e17084fa4"
+}

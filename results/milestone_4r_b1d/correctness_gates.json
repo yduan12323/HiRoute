@@ -1,0 +1,23 @@
+{
+  "cases": 480,
+  "violations": {
+    "D1": 0,
+    "D2": 0,
+    "D3": 0,
+    "D4": 0,
+    "D5": 0
+  },
+  "passed": true,
+  "visited_region_buckets": 191849,
+  "internal_region_buckets": 146439,
+  "semantic_populated_buckets": 52405,
+  "false_positive_only_buckets": 139444,
+  "coverage_semantic_actions": 286567,
+  "static_paths_preserved": true,
+  "precomparison_D2": {
+    "audited": 1296,
+    "violations": 0,
+    "selection": "OD 0, every 17th Region including all root buckets, both metrics/directions",
+    "offline_only": true
+  }
+}

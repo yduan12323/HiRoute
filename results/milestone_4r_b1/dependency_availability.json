@@ -1,0 +1,12 @@
+{
+  "available": {
+    "igraph": true,
+    "networkit": true,
+    "networkx": true,
+    "pymetis": false,
+    "metis": false,
+    "scipy": true
+  },
+  "partition_mechanism": "not selected: action-coverage contract audit precedes construction",
+  "packages_installed": false
+}

@@ -1,0 +1,3738 @@
+{
+  "git_commit": "20b658257fb67655e09229411783935e17084fa4",
+  "files": {
+    ".env.example": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    ".gitignore": {
+      "sha256": "68bfbdb7f03c9fdaf30bb55bb4e1d10e15055ee87214125e5ded8aaeb93d8b26",
+      "size_bytes": 1031
+    },
+    ".vscode/settings.json": {
+      "sha256": "fb68765dabb197cac60376c803ac61894961b835ca8760705eb89a09e2177551",
+      "size_bytes": 132
+    },
+    "MILESTONE_4R_CODEX_PROMPT.md": {
+      "sha256": "e3fd5b1e67c28ff1fda5525ea8cb3eeb273241f3fb80b9d091b70a879d9c9e10",
+      "size_bytes": 13311
+    },
+    "MILESTONE_4R_IMPLEMENTATION_PLAN.md": {
+      "sha256": "cda273aeb56a9f409334492bd3c979c48110c919bbaf4cc91480aa62cffd1e7b",
+      "size_bytes": 12502
+    },
+    "README.md": {
+      "sha256": "f7f508cce72a0aa7445a53dd444be9f09f17722f9e0c9cbee3f90df59b54c738",
+      "size_bytes": 31328
+    },
+    "RESEARCH_SPEC.md": {
+      "sha256": "d594f4ac78e1bfe8903c98d48bb20c4e9e3f2b15f1e8fed5fedde964be7ead04",
+      "size_bytes": 33018
+    },
+    "RESEARCH_SPEC_v0.2.md": {
+      "sha256": "2ad0b9666646bd4d7ebea6e601422a02720b186c3302f604b23bfffa80c5226f",
+      "size_bytes": 27328
+    },
+    "configs/data.yaml": {
+      "sha256": "a1d1ef2750bf30e0f9f014f98bfd110205e30b1cd95518a117754bbbabcdbe8e",
+      "size_bytes": 495
+    },
+    "configs/data_extended.yaml": {
+      "sha256": "71bd7ed2fcd007f75e85c5b72652ff77d23ee28b24ec325f712fc073db0d20bf",
+      "size_bytes": 523
+    },
+    "configs/envelope.yaml": {
+      "sha256": "a96c4744eb7f56a7ae6414874ac0e8c2ccca635cde47e70866111eccfba5bb68",
+      "size_bytes": 779
+    },
+    "configs/experiment.yaml": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "configs/microplan.yaml": {
+      "sha256": "1cebe88463668c9423dc89fcdffb71cb488af3bd0fb54fcc9152c96e3aa5b7ef",
+      "size_bytes": 2611
+    },
+    "configs/opportunity.yaml": {
+      "sha256": "7911a6d595295913d4f09b31bd49498ab963700442488c5ebcd23bc9129694cf",
+      "size_bytes": 2672
+    },
+    "configs/regional.yaml": {
+      "sha256": "d59a0b23797ad5f4f80477f411c91a6d8c017893a5febb7cfd1ad3fe38944f8c",
+      "size_bytes": 1432
+    },
+    "configs/regional_100km_candidate.yaml": {
+      "sha256": "7ba54743cafb68dd6b40eb1feb49782773ca6c69c86874508caa58cace56e8d1",
+      "size_bytes": 1217
+    },
+    "configs/routing.yaml": {
+      "sha256": "373bc096448cdc507d5c00c27fc9560494f830151f5b976fd48b7ebb576c2024",
+      "size_bytes": 2015
+    },
+    "configs/semantic.yaml": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "configs/stopplan_4r.yaml": {
+      "sha256": "d23ffe78fcc0d7bbed53c46e6610022d63b13803f4613dbc91cf3c84d69c294a",
+      "size_bytes": 1200
+    },
+    "data/cache/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "data/processed/chargers/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "data/processed/graphs/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "data/processed/graphs/slovenia/edges.parquet": {
+      "sha256": "58e10b01925eabb867e4d5c253fa01fc8c347bdeca028c5810736c1c15620c74",
+      "size_bytes": 108146323
+    },
+    "data/processed/graphs/slovenia/metadata.json": {
+      "sha256": "b3e13d2bef710579dfe32b3f50686cfcbdeeeec968f57ee382a563553b1eaaf3",
+      "size_bytes": 11917
+    },
+    "data/processed/graphs/slovenia/nodes.parquet": {
+      "sha256": "923d90961262f4c4cc257099ce612a8470aa7f633416aef8d32c7ce75b0b6229",
+      "size_bytes": 39725486
+    },
+    "data/processed/graphs/slovenia_extended/edges.parquet": {
+      "sha256": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+      "size_bytes": 303022185
+    },
+    "data/processed/graphs/slovenia_extended/metadata.json": {
+      "sha256": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd",
+      "size_bytes": 13978
+    },
+    "data/processed/graphs/slovenia_extended/nodes.parquet": {
+      "sha256": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+      "size_bytes": 104471506
+    },
+    "data/processed/od_instances.metadata.json": {
+      "sha256": "08a1fe895137c1187d894478dc18702ee8f40a85afdec23531f9fb40e0f06f08",
+      "size_bytes": 9870
+    },
+    "data/processed/od_instances.parquet": {
+      "sha256": "cc4d532031d8b49a2bf7090f5ab4c8693f9b28e9449ac04ec1b81bdaf48362b1",
+      "size_bytes": 427427
+    },
+    "data/processed/pois/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "data/raw/DATA_MANIFEST.yaml": {
+      "sha256": "d8020f87ed547e92d279bda9ce2d226c189b3f92556dec783329e7da09a2bcf8",
+      "size_bytes": 728
+    },
+    "data/raw/chargers/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "data/raw/external/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "data/raw/opportunities/slovenia_extended_75km/MANIFEST.yaml": {
+      "sha256": "ac239f43fab55a34f604f140bd67d9d059df35bc967a45bd80260cd14ecdd56f",
+      "size_bytes": 6004
+    },
+    "data/raw/opportunities/slovenia_extended_75km/PROVENANCE.json": {
+      "sha256": "64cfee604b5122ca4fdffa62905bb95239d8ef02764e8717935adb3737c46edc",
+      "size_bytes": 22505
+    },
+    "data/raw/opportunities/slovenia_extended_75km/inventory.parquet": {
+      "sha256": "d467606df7061b05f87fbcbbc6c2e9dc8e25121bb64c86686cb54f82eb778fb7",
+      "size_bytes": 16943237
+    },
+    "data/raw/opportunities/slovenia_extended_75km/opportunities-260929.osm.pbf": {
+      "sha256": "ad646f1e5e211ddf32464638a638f0821d33bf274a2ed5c89ba5a7685a0eedbe",
+      "size_bytes": 8845047
+    },
+    "data/raw/osm/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "data/raw/osm/regional_source/austria-260929.osm.json": {
+      "sha256": "293066cea562af6f9f4f068f4d2dc124f9111f753c8a9db0cd9b3aeffc999eb5",
+      "size_bytes": 884
+    },
+    "data/raw/osm/regional_source/austria-260929.osm.pbf": {
+      "sha256": "50a6bd957d71a8e2e349ebd9f2cc1a1c523c78aaf61a84b7e15adeea29c7ed9a",
+      "size_bytes": 811274125
+    },
+    "data/raw/osm/regional_source/austria-260929.osm.pbf.md5": {
+      "sha256": "70779f8d9610b02dd97079ba636c205fc06ae96b3ed3abc82ca7e9a5bb95dd5b",
+      "size_bytes": 57
+    },
+    "data/raw/osm/regional_source/bosnia-herzegovina-260929.osm.json": {
+      "sha256": "6c8c7eb3cc81a5d777e5d499d9239eada45c0b3c666ca1273a70ee60eea50659",
+      "size_bytes": 1039
+    },
+    "data/raw/osm/regional_source/bosnia-herzegovina-260929.osm.pbf": {
+      "sha256": "21833bea54029392d668e8e633648e6c581a225fe9bbf4a8e5e6b7c80c63d9e8",
+      "size_bytes": 161358110
+    },
+    "data/raw/osm/regional_source/bosnia-herzegovina-260929.osm.pbf.md5": {
+      "sha256": "b5cc6a8310c93625066174dd06d6a8b3b7ee7e34dae77b97d665da8fa9736565",
+      "size_bytes": 68
+    },
+    "data/raw/osm/regional_source/croatia-260929.osm.json": {
+      "sha256": "88711f510da642b5f21fdbcd6014ea225dcf3bf98018b31d95a5db4057c1cbde",
+      "size_bytes": 904
+    },
+    "data/raw/osm/regional_source/croatia-260929.osm.pbf": {
+      "sha256": "14b54c8e644e25f9ce6e1b8275010ef9d1ee425c0b3fcd71c166d49ea69b310c",
+      "size_bytes": 200023570
+    },
+    "data/raw/osm/regional_source/croatia-260929.osm.pbf.md5": {
+      "sha256": "0e888e8fd1e1766ee161ff59f21302b5226e13163fc508e3c216a491133e0488",
+      "size_bytes": 57
+    },
+    "data/raw/osm/regional_source/hungary-260929.osm.json": {
+      "sha256": "a8978cc1528ea8b6b655b801bd525b1bf6005e1a9341ae01337b1905dbca17b1",
+      "size_bytes": 995
+    },
+    "data/raw/osm/regional_source/hungary-260929.osm.pbf": {
+      "sha256": "4e95fcf34b9650d229f99567b0653a5ead0f061f3fbaa52731bf8d7efbb98379",
+      "size_bytes": 325903232
+    },
+    "data/raw/osm/regional_source/hungary-260929.osm.pbf.md5": {
+      "sha256": "3b0db6d0f0f5f3423dedd29a7a19c25ad1a676d5f806544f87f87d5fc2fba444",
+      "size_bytes": 57
+    },
+    "data/raw/osm/regional_source/nord-est-260929.osm.json": {
+      "sha256": "8d352e8b7d8a84ea14cfb4f2a24d00668ebf65731a935e625d84c78782d22177",
+      "size_bytes": 920
+    },
+    "data/raw/osm/regional_source/nord-est-260929.osm.pbf": {
+      "sha256": "44926be7e4274116d90a061e3f56b2a4c86017cb764c23913116456a1e1aaf50",
+      "size_bytes": 624289999
+    },
+    "data/raw/osm/regional_source/nord-est-260929.osm.pbf.md5": {
+      "sha256": "29741be03731215b80041c840af9ca3f6f14153b461b53c0927b2dac9159b5e8",
+      "size_bytes": 58
+    },
+    "data/raw/osm/slovenia-260929.osm.pbf": {
+      "sha256": "7fae267d1b5f691bcdf4d543dab907175dc77b740960042b48a751bf15a2d693",
+      "size_bytes": 313378108
+    },
+    "data/raw/osm/slovenia_extended/slovenia_highways_calibration.osm.pbf": {
+      "sha256": "2d3d08417dcca5477af6829d77bf0ae3f6f2080bc507c2a7ae6e733b9e20d227",
+      "size_bytes": 53047053
+    },
+    "data/raw/osm/slovenia_extended_75km/slovenia_extended-260929.osm.pbf": {
+      "sha256": "af94c57d06b62dc0c53900eaf64c0d7d496c0cc14e14b7ebf8d8f030182097b2",
+      "size_bytes": 175103959
+    },
+    "data/raw/osm/slovenia_extended_75km/slovenia_extended-modeled-260929.osm.pbf": {
+      "sha256": "e10a5d4bb2a927d1bdcf21a41d30971a9301a82e08656c0419ef45e3f92de7a7",
+      "size_bytes": 175103895
+    },
+    "data/raw/osm/slovenia_extended_75km/unmodeled_highway_ways-260929.osm.pbf": {
+      "sha256": "e76597f67f8e49fdb53fef35c5ce802cbf547c35a851f4ddbb2eb9bc97f1ae40",
+      "size_bytes": 2979
+    },
+    "docs/MILESTONE_1_REPORT.md": {
+      "sha256": "18a638cd239314565a8f096828c826f9e77ef20c1610e522825390209bfac70f",
+      "size_bytes": 5880
+    },
+    "docs/MILESTONE_2_REPORT.md": {
+      "sha256": "1b8ab890d8b228c0a8a8cc5d4e75059a3728e6ec40c955b3ad075cfb5777dde2",
+      "size_bytes": 12631
+    },
+    "docs/MILESTONE_3A_DATA_DESIGN.md": {
+      "sha256": "5798e4f4db93654727de13ac4e69419275d688f623686052e9b6ccb4333cccc2",
+      "size_bytes": 9713
+    },
+    "docs/MILESTONE_3A_REPORT.md": {
+      "sha256": "4fe7ca339dca4c2e0ce990937ae4f72a2943325754e4feedd4a6efbde2276e8a",
+      "size_bytes": 19134
+    },
+    "docs/MILESTONE_4A_REPORT.md": {
+      "sha256": "bba235a6b38e1bac53bf7b9eea106b1e6f6748481cb59d260f57edd45c4a749c",
+      "size_bytes": 23491
+    },
+    "docs/MILESTONE_4B_REPORT.md": {
+      "sha256": "7eb1ce0499471bda80c389c744054c64e680b71ac61ca49f29b1f0ff7a37bf06",
+      "size_bytes": 30617
+    },
+    "docs/MILESTONE_4R_REPORT.md": {
+      "sha256": "d0fe034c04e44a624f8ed49a1714c3d3475c4740bf824200f18711e68b1165a7",
+      "size_bytes": 24731
+    },
+    "docs/SERVER_ENVIRONMENT.md": {
+      "sha256": "fdc2624d5df09a05482acaeb109e7c1834b3dcf93d40383a0f6306ee4ae1af16",
+      "size_bytes": 7014
+    },
+    "environment-linux-64.lock": {
+      "sha256": "8b2cd097efab6f11cbf316f6f55aec351aa00b74d20f7d4ecce6f47c2d0f0e0d",
+      "size_bytes": 42006
+    },
+    "environment-osmium-linux-64.lock": {
+      "sha256": "28d5305a1d961cb54894c1d1bcb4569dbd2dc49fdd41202dedb5a20a95705101",
+      "size_bytes": 385
+    },
+    "environment-resolved.yml": {
+      "sha256": "43b1d95373f8c9a64f236d97cbcdeb27d01f5d6bdbf0f00d513d62dc6506a5fa",
+      "size_bytes": 6058
+    },
+    "environment.yml": {
+      "sha256": "741529c150302ca6f4a806646d6e7308e5228ded7dbb511029bf367bd6541a35",
+      "size_bytes": 325
+    },
+    "experiments/go1_abstraction/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "experiments/go2_acquisition/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "experiments/go3_joint/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "pyproject.toml": {
+      "sha256": "f9b06133eb5b4b16778c86496fec610ab902b786764f17aaab07297a257c07d8",
+      "size_bytes": 693
+    },
+    "results/milestone_1/benchmark.json": {
+      "sha256": "d087147b8d53dbcdd3bb192dd574a9c25992ac08f0d62ec5eda78ab761a2477a",
+      "size_bytes": 10337
+    },
+    "results/milestone_1/deterministic_rebuild.json": {
+      "sha256": "bb8df9c798e0e71a9fab141040e286fc462ffda873c31d8fbd04548e7b73494f",
+      "size_bytes": 10056
+    },
+    "results/milestone_1/logs/benchmark-20260930T134741249732.json": {
+      "sha256": "86f16d9a10218c23bc338a487494fcbad7d3a387eda606a6cfeefd673a198a8e",
+      "size_bytes": 8892
+    },
+    "results/milestone_1/logs/build_graph-20260930T132344908199.json": {
+      "sha256": "c64945dd5c4e4f1f99cbd06c0cfa317bd75d8bf5d64003879236a87ac4d6cfdc",
+      "size_bytes": 8549
+    },
+    "results/milestone_1/logs/build_graph-20260930T132759879542.json": {
+      "sha256": "287ef178333c8f6c3e918e8c0f60f0d4044f2518fd0899d43a17a698cb2f67bb",
+      "size_bytes": 8798
+    },
+    "results/milestone_1/logs/build_graph-20260930T133435247643.json": {
+      "sha256": "9b6d61259fc5e8d88bd32d10b8be8cdcd4d47c7a6e4f4afaa0ed5ac5bd6cafb3",
+      "size_bytes": 8892
+    },
+    "results/milestone_1/logs/build_graph-20260930T133756753941.json": {
+      "sha256": "eae7bcef317af2c9dbfc04846a46e95e6d0fd48a854c983caa1d6190be1fb6be",
+      "size_bytes": 8944
+    },
+    "results/milestone_1/logs/download_complete-20260930T132203606200.json": {
+      "sha256": "3b368e82c8af3490917b518b7397c9f1c4f185037dde3417e2ffc1d717971236",
+      "size_bytes": 4025
+    },
+    "results/milestone_1/logs/download_start-20260930T124619435422.json": {
+      "sha256": "109fa7f44a5e91695ba079e6a7ede3a9f15c83f11527eda352230299ba320ca1",
+      "size_bytes": 3077
+    },
+    "results/milestone_1/logs/download_verify-20260930T132345244948.json": {
+      "sha256": "9f91568c2557ec8884447a5248adbfc93798cb8948508e408dd610b09839fc7e",
+      "size_bytes": 5531
+    },
+    "results/milestone_1/logs/generate_instances-20260930T133756221182.json": {
+      "sha256": "3de5ed377d129500d9420a8c3942c8ddaf328bc6b75107b41d0a54e3b1e89882",
+      "size_bytes": 8906
+    },
+    "results/milestone_1/logs/verify_rebuild-20260930T134355122553.json": {
+      "sha256": "dceef79200774e8121218b9b8c516c139e616cd2b581391cfeb8f1aacfebcf2f",
+      "size_bytes": 8930
+    },
+    "results/milestone_1/query_timings.parquet": {
+      "sha256": "b935f8908752ad3af7169ca6e796d7df3951111e4b107d48e6c9d7e0725ce052",
+      "size_bytes": 3352
+    },
+    "results/milestone_1/route_validation.parquet": {
+      "sha256": "683b1433c4a5238eeb634237bbce2006c87696a20c1ec5ce697a6e267408766a",
+      "size_bytes": 5110
+    },
+    "results/milestone_1/tests.xml": {
+      "sha256": "e7f8d78933fa35ec3e10068005d1b97bb2329ed92f4023969dcea7ac081e4de0",
+      "size_bytes": 1656
+    },
+    "results/milestone_2/benchmark.json": {
+      "sha256": "f045f02d106affa85ad12af6a3d774fec5034caee88226944d07083a80b2a4b7",
+      "size_bytes": 30287
+    },
+    "results/milestone_2/boundary/slovenia.metadata.json": {
+      "sha256": "48a0c22c14673850e165896df352c50a03c7c1c5c719e3c64077ab39b879000b",
+      "size_bytes": 12323
+    },
+    "results/milestone_2/boundary/slovenia.poly": {
+      "sha256": "f5813a8cda35bb54b0d3123e62701165e10068f532b0aa0fda70926f2d7ddc32",
+      "size_bytes": 10462
+    },
+    "results/milestone_2/boundary_diagnostics.parquet": {
+      "sha256": "e7d07f8a57d0f9e340ffbe7cc7218e8ed3e2e52b56bdb490f8624055d1a55108",
+      "size_bytes": 12337
+    },
+    "results/milestone_2/boundary_safe_subset.parquet": {
+      "sha256": "b3e42ed13dd613f9969008e4617ca76aaee98f1a5c776756a1db36d476282f4d",
+      "size_bytes": 1252
+    },
+    "results/milestone_2/distance_benchmark.parquet": {
+      "sha256": "c1de38f4281f1559ba88c0ee9a5a54a96443d8ae454c0670af8c0ac0a92fe602",
+      "size_bytes": 12509
+    },
+    "results/milestone_2/envelope_growth.parquet": {
+      "sha256": "f539c8e2ca30b5e2a723f81287d1ef0556cd9c6fe88a191655aa94daadff10bd",
+      "size_bytes": 4693
+    },
+    "results/milestone_2/envelope_stats.parquet": {
+      "sha256": "a82a11a830a6ff3cfc79862911b7cede22789c98bdcb618f27deaa9dd794fcdb",
+      "size_bytes": 31123
+    },
+    "results/milestone_2/figures/envelope_growth.pdf": {
+      "sha256": "04b30804aa56f200f5c5eda111e7c8f8b1bc122dea99a1c6c396e4b08472ec21",
+      "size_bytes": 19408
+    },
+    "results/milestone_2/figures/envelope_growth.png": {
+      "sha256": "a5442a28abd489a60de93f0a98107d8e9b790113dc3cc7fc2fbe29b8e4be8960",
+      "size_bytes": 329151
+    },
+    "results/milestone_2/figures/envelope_growth.svg": {
+      "sha256": "0a19ef2d57134da7e1bb5cfbc85f50efe8ddc78866485cc0afac84c5f11546c8",
+      "size_bytes": 36796
+    },
+    "results/milestone_2/figures/envelope_growth_source.csv": {
+      "sha256": "3a93f218a83954e699bfd28a59a01d8d7c0d46385e1ac6dd67c260a886d6d4e7",
+      "size_bytes": 117187
+    },
+    "results/milestone_2/figures/od_00_envelopes.pdf": {
+      "sha256": "95a52013a99508de64a4ac41830cb64a87989c1db1cf3e73095dcd0e13707ce7",
+      "size_bytes": 44050
+    },
+    "results/milestone_2/figures/od_00_envelopes.png": {
+      "sha256": "71cf06997c88dbeb3e6079c2de311ad9474e2a32823b95409e9e655a485139fa",
+      "size_bytes": 192574
+    },
+    "results/milestone_2/figures/od_00_envelopes.svg": {
+      "sha256": "72ce48354ffc7344299a288e31969f46ccd43d676b5fec5280f05ec5fdfd5157",
+      "size_bytes": 71268
+    },
+    "results/milestone_2/figures/od_00_source.npz": {
+      "sha256": "4715a360fc38ef7ac623d96d42988d6f2ebecfb1f45efc2f6ca92f7ad2ff890c",
+      "size_bytes": 121040
+    },
+    "results/milestone_2/figures/od_09_envelopes.pdf": {
+      "sha256": "98932dcd9eb592b38c848fb613f2c53116fec0a5c3801cca08f0070f9d9a58aa",
+      "size_bytes": 40522
+    },
+    "results/milestone_2/figures/od_09_envelopes.png": {
+      "sha256": "e5eb54096480560faa041e786bad2877207a5c0535ac95973802e300b44bb9cb",
+      "size_bytes": 184318
+    },
+    "results/milestone_2/figures/od_09_envelopes.svg": {
+      "sha256": "7d2f5eba1b614ee3b686cde356b7bf339c0e7f764c4f08e6c5f0c990bbee2b3f",
+      "size_bytes": 64597
+    },
+    "results/milestone_2/figures/od_09_source.npz": {
+      "sha256": "c10c973e89a7bfbe14526d3cc0c6e97e20b3be8e9dc73b3fd29ca8ddbc632937",
+      "size_bytes": 101578
+    },
+    "results/milestone_2/figures/od_21_envelopes.pdf": {
+      "sha256": "50a59395914fb7aae3b6a472292b4f90259cc6e69acd7e985db8414e06af4c3d",
+      "size_bytes": 36832
+    },
+    "results/milestone_2/figures/od_21_envelopes.png": {
+      "sha256": "6d951ab1f1e60d5caa7a1ea93c58151e1c547ed05500af6c510cc16c8cfd0630",
+      "size_bytes": 170093
+    },
+    "results/milestone_2/figures/od_21_envelopes.svg": {
+      "sha256": "1d822b708e9a7bb15090ee65fdc00809cabb7ff016e97f8c094e484c636d68d6",
+      "size_bytes": 59084
+    },
+    "results/milestone_2/figures/od_21_source.npz": {
+      "sha256": "201381abfc1d094e53330f3b898f8fa83fa56e2b10b8d16d712028d3d9187464",
+      "size_bytes": 66632
+    },
+    "results/milestone_2/figures/qa.json": {
+      "sha256": "2811551cb0f351efc4c09541adadbd282115ebd835a91666de345a6c1a5e397e",
+      "size_bytes": 2630
+    },
+    "results/milestone_2/logs/boundary_download-20261001T012359405191.json": {
+      "sha256": "1be043b551a416c52067cba3bbb348520e24aa93472b3fae6f2ada42ccc4e11f",
+      "size_bytes": 11227
+    },
+    "results/milestone_2/logs/boundary_download-20261001T034212822433.json": {
+      "sha256": "d4fd26eac761d4edafa89033495c958eca3c18617d5a94a73ae3acf176ddf95e",
+      "size_bytes": 11913
+    },
+    "results/milestone_2/logs/boundary_download_complete-20261001T012400607031.json": {
+      "sha256": "a6d3cbe507f6f3113d98332102c86a0e424d73adb752c63cac9dd439a2ed0b4b",
+      "size_bytes": 11298
+    },
+    "results/milestone_2/logs/envelope_benchmark-20261001T013725302899.json": {
+      "sha256": "8ccd932ec3b7af0a6006747298b21033d1647deec26280123e0d89976ba7aee8",
+      "size_bytes": 11494
+    },
+    "results/milestone_2/logs/envelope_report-20261001T033923146150.json": {
+      "sha256": "e01df061e108808541362f91ddbc2aaf6d3c6d67296753451cf98f4c877d66b3",
+      "size_bytes": 11907
+    },
+    "results/milestone_2/logs/envelope_report-20261001T034531543567.json": {
+      "sha256": "da6681215b00ec1c7389eed18c5c02b3154854b02770a8d9eca0e9873922af4a",
+      "size_bytes": 11907
+    },
+    "results/milestone_2/logs/milestone_1_preservation-20261001T033059878898.json": {
+      "sha256": "8bba79461195f8229c62e2b32e3998d1869644ac2f4dd672eb9d69d20657f6cf",
+      "size_bytes": 11913
+    },
+    "results/milestone_2/logs/milestone_1_preservation-20261001T034530763581.json": {
+      "sha256": "b01aade7dce9777f1bd0d51fd0bd46cc9d6316ae2382a57b5c6a4d7f8104baa0",
+      "size_bytes": 11913
+    },
+    "results/milestone_2/logs/milestone_1_tests_before.log": {
+      "sha256": "1f821a6da3cfa73340bb581b8768d198490a85fa37ecd9167ca7ca119c396715",
+      "size_bytes": 110
+    },
+    "results/milestone_2/logs/plot_envelopes-20261001T015715950618.json": {
+      "sha256": "8c1908c0b124cda489c1b07fed993a18d56379081184416045f5525cd0065597",
+      "size_bytes": 11686
+    },
+    "results/milestone_2/path_containment_tests.parquet": {
+      "sha256": "0893a4a35d7bc97aa9bfb232f8795ab19f841167bc0247623788dfec7029df97",
+      "size_bytes": 57528
+    },
+    "results/milestone_2/preservation_after.json": {
+      "sha256": "5ec5499ddaf0ef361bc1b53d4934008ef67554172ba3cae6afdc68f43fbdd9bd",
+      "size_bytes": 12894
+    },
+    "results/milestone_2/preservation_before.json": {
+      "sha256": "6b3910fdf5a98f1c9b26c273a8198f3f96b32a3788d00504f4b7cb2e7cfdce7f",
+      "size_bytes": 4626
+    },
+    "results/milestone_2/tests.xml": {
+      "sha256": "718ac5a1901dfbd15d89c3b78adc4a63fbe4d84382bd87182ea7b21c804f1c9f",
+      "size_bytes": 3002
+    },
+    "results/milestone_3a/DATA_MANIFEST.yaml": {
+      "sha256": "fdd39219c1bd6d9039604fb3338c27583eba8fbe88b7328ac73dc56e59337297",
+      "size_bytes": 512
+    },
+    "results/milestone_3a/MODEL_DATA_MANIFEST.yaml": {
+      "sha256": "1240ce27623f01bbfb411c323cbd222bb91bb70a4a082ba4296dab180bd82fa0",
+      "size_bytes": 609
+    },
+    "results/milestone_3a/acceptance.json": {
+      "sha256": "99b56f0f8a01f67d7dbdcb2ef515bde051195659d7cb21a9f60a04bfffa605eb",
+      "size_bytes": 2484
+    },
+    "results/milestone_3a/acquisition_transport.json": {
+      "sha256": "724fa2ad842bbbfddd00a3ef524df068c5df780cca0b55bfd3bff9fb2b10a490",
+      "size_bytes": 947
+    },
+    "results/milestone_3a/baseline_comparison.csv": {
+      "sha256": "50dc29b86cd39456b9bd9028648871c4d1e80a622ea662507a963d14b2c96187",
+      "size_bytes": 17980
+    },
+    "results/milestone_3a/baseline_comparison.parquet": {
+      "sha256": "af803074c7c5ce28c6eca9be8b503a443e431e7ab37ec9331c2c6283bbecd848",
+      "size_bytes": 25084
+    },
+    "results/milestone_3a/benchmark.json": {
+      "sha256": "7461263a2d673e7f22a824161bc7ab44890a16007eeefb2a9102277516f24b96",
+      "size_bytes": 22377
+    },
+    "results/milestone_3a/boundary/alps.poly": {
+      "sha256": "f84eadb7f1e87e5befdd0bd228b457ef54b1e2463763514ca25f7cd5359b30e9",
+      "size_bytes": 2867
+    },
+    "results/milestone_3a/boundary/austria.poly": {
+      "sha256": "88873792ab48a4cc1a85a9d74ca39ff12c73a0d941b4bf2705cf4be66f546634",
+      "size_bytes": 15484
+    },
+    "results/milestone_3a/boundary/bosnia-herzegovina.poly": {
+      "sha256": "c3e69fbb289a3211d0d981d3b6f25a2422520a4b0d6ed7d22913f222c10168be",
+      "size_bytes": 12167
+    },
+    "results/milestone_3a/boundary/croatia.poly": {
+      "sha256": "ea8602553dd37ebcd37098e6b27923cb6a976a8f604f72efff576e7ad565ee6e",
+      "size_bytes": 17654
+    },
+    "results/milestone_3a/boundary/hungary.poly": {
+      "sha256": "3fd8d98b47628081d72e1f55c297c14a498347af70be73a4a52fc4fdb2e4572c",
+      "size_bytes": 11547
+    },
+    "results/milestone_3a/boundary/nord-est.poly": {
+      "sha256": "a7fb592a32b68e07f34a6fc90f04ad3566f8e73e346acc76d1d6ef36faac5e13",
+      "size_bytes": 28225
+    },
+    "results/milestone_3a/boundary/research_region.geojson": {
+      "sha256": "c78418f55650bf9286fcecb6a45afed200a4b55d84870b65044188864c8f1d49",
+      "size_bytes": 6800
+    },
+    "results/milestone_3a/boundary/research_region_75km.geojson": {
+      "sha256": "6c9a928b81e9f356e9963f68819f878b34687b9659b42c863c2d9c5b23b21ce4",
+      "size_bytes": 7810
+    },
+    "results/milestone_3a/boundary_diagnostics.parquet": {
+      "sha256": "533f321a4cb41c4bbd6f330b9094b56a2dc552e88d7c5cee5c764c92c5998525",
+      "size_bytes": 10452
+    },
+    "results/milestone_3a/calibration.json": {
+      "sha256": "f94900953b158522738d75c4f7ea774faf509ae13fb048d15ed5b3af97305702",
+      "size_bytes": 888
+    },
+    "results/milestone_3a/calibration_build.json": {
+      "sha256": "5769bd0707cd5ac9626013f8037564adf552c24ba6f2d8208e6b97faa2cd1887",
+      "size_bytes": 503
+    },
+    "results/milestone_3a/calibration_build.stdout.txt": {
+      "sha256": "6a1ba68d69c1b96239a706192d14272a352e9d523f6011e917dab95babc46bf9",
+      "size_bytes": 871
+    },
+    "results/milestone_3a/calibration_build.time.txt": {
+      "sha256": "cde691f6122e8423da9e5e01f8dccf622e339a99b432e175d21d6a6563b5aa3a",
+      "size_bytes": 879
+    },
+    "results/milestone_3a/calibration_data.yaml": {
+      "sha256": "15d7a8bfb1684c12ee537524007e7145f76ec9d036c1ab1ef07fad70b2d3777a",
+      "size_bytes": 466
+    },
+    "results/milestone_3a/calibration_filter.json": {
+      "sha256": "ec4d1014392354d3c60bf9454f31446ab90d7fa5a75fdbd5452b81439cca9fe8",
+      "size_bytes": 671
+    },
+    "results/milestone_3a/calibration_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/calibration_filter.time.txt": {
+      "sha256": "0b95bdf20a75c49b2de1a543096e1119a4d66ce45537417c6bd5dfd5b26ea821",
+      "size_bytes": 1026
+    },
+    "results/milestone_3a/calibration_manifest.yaml": {
+      "sha256": "c72c4441f220b76e9c07f67c91d83f6ffaa3955c9fac2bd4507500820d7af585",
+      "size_bytes": 399
+    },
+    "results/milestone_3a/candidate_100km_design.json": {
+      "sha256": "255bb47d144857bd6596e6be6c23649483e8e556fa717a5fd77c864a2565baf1",
+      "size_bytes": 4266
+    },
+    "results/milestone_3a/candidate_100km_rejection.json": {
+      "sha256": "05acbbe5cf18f21f58d7f5313f3e95d72e121c9e91a7fb4ba9eddaa10d0964b1",
+      "size_bytes": 569
+    },
+    "results/milestone_3a/distance_benchmark.csv": {
+      "sha256": "28c4266e19edd656702fc3cace35f632210976bf27b8ede46e4cff0399e3ac66",
+      "size_bytes": 12016
+    },
+    "results/milestone_3a/distance_benchmark.parquet": {
+      "sha256": "a7719b6f8ffff6e46ff4d02614935c972ab8868cb9fa094a961e5dbb46c02545",
+      "size_bytes": 8959
+    },
+    "results/milestone_3a/envelope_comparison.csv": {
+      "sha256": "7dbbd26a772e8a49103dcc1b72e4932104ebfacc039e9a24f8cff9ba758a1edb",
+      "size_bytes": 321760
+    },
+    "results/milestone_3a/envelope_comparison.parquet": {
+      "sha256": "09c92bc0dc5a80e6ea7036e1505b369bb77c170ffbc29df524906d58745cc254",
+      "size_bytes": 85559
+    },
+    "results/milestone_3a/envelope_growth.csv": {
+      "sha256": "bf380b41451d5df023e90a326ef9818f7d978ef5559d3edbfb5c57de3900432f",
+      "size_bytes": 1030
+    },
+    "results/milestone_3a/envelope_growth.parquet": {
+      "sha256": "62c4d65a1dc057f7f2a78c1a52445c365580bdbc095139288d6c738dd4cfda6e",
+      "size_bytes": 10104
+    },
+    "results/milestone_3a/envelope_stats.parquet": {
+      "sha256": "e77f26f7679af4b5d19789333f0546e5359f5b6f0327b6acc659426b48af6d55",
+      "size_bytes": 42750
+    },
+    "results/milestone_3a/extraction_logs/austria-260929_extract.json": {
+      "sha256": "c44003f5dd3790dd391d6088add046697061e370325e64662b6bc82683336781",
+      "size_bytes": 1267
+    },
+    "results/milestone_3a/extraction_logs/austria-260929_extract.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_logs/austria-260929_extract.time.txt": {
+      "sha256": "6c175cda15673e1b12bbdbb4a5ee0c918dfcb906980990df9eba89b0c714bff0",
+      "size_bytes": 1123
+    },
+    "results/milestone_3a/extraction_logs/austria-260929_filter.json": {
+      "sha256": "d1605f3f87ae818033f434f1bd98aca5ab03a3b760ec206cad9a5d3c790ed1f3",
+      "size_bytes": 1014
+    },
+    "results/milestone_3a/extraction_logs/austria-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_logs/austria-260929_filter.time.txt": {
+      "sha256": "0ce2fe1ede55b4fe9a693585702381a2440b8cb54c52cdcb75803dae2bcdcedd",
+      "size_bytes": 1043
+    },
+    "results/milestone_3a/extraction_logs/bosnia-herzegovina-260929_extract.json": {
+      "sha256": "a7ce6e29b3a3cb6be61ab294a24699d97e916e906b9f8ffd2d0de1913e24425b",
+      "size_bytes": 1306
+    },
+    "results/milestone_3a/extraction_logs/bosnia-herzegovina-260929_extract.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_logs/bosnia-herzegovina-260929_extract.time.txt": {
+      "sha256": "aa3cfab09df49b798f3e57b7d5501801c7a58e3756eeee789448b2f35974ae6c",
+      "size_bytes": 1141
+    },
+    "results/milestone_3a/extraction_logs/bosnia-herzegovina-260929_filter.json": {
+      "sha256": "f48d2b77700b4002b6c9a0bc6a089f2e490d609ca8f3f00b374be44f338b258e",
+      "size_bytes": 1059
+    },
+    "results/milestone_3a/extraction_logs/bosnia-herzegovina-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_logs/bosnia-herzegovina-260929_filter.time.txt": {
+      "sha256": "840c29d9415a528ff46b0e62e0ae97c7cd3c7dc6087b4505e56376c1399f47d2",
+      "size_bytes": 1060
+    },
+    "results/milestone_3a/extraction_logs/croatia-260929_extract.json": {
+      "sha256": "3464440e9e58ca5dfaba6deef576662e9be4934407f7c453d2e9592def4d0b63",
+      "size_bytes": 1264
+    },
+    "results/milestone_3a/extraction_logs/croatia-260929_extract.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_logs/croatia-260929_extract.time.txt": {
+      "sha256": "6e2dcc48428569748df60670d2705a89e906a679a2fc9d8723dc93a6082fab48",
+      "size_bytes": 1123
+    },
+    "results/milestone_3a/extraction_logs/croatia-260929_filter.json": {
+      "sha256": "27f9e92baff120f33719da1f0db8fa9345da682ba0f1b59a47748319b0c372e7",
+      "size_bytes": 1015
+    },
+    "results/milestone_3a/extraction_logs/croatia-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_logs/croatia-260929_filter.time.txt": {
+      "sha256": "446b7c745a97e93d983569623ce93db4de02cb1bd9fbf2c10865a5b00fb7500e",
+      "size_bytes": 1041
+    },
+    "results/milestone_3a/extraction_logs/hungary-260929_extract.json": {
+      "sha256": "b69f88b52412b1972d85d715bc5f230099d6ed27bbc6de51479ed7d5b6bb2bca",
+      "size_bytes": 1268
+    },
+    "results/milestone_3a/extraction_logs/hungary-260929_extract.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_logs/hungary-260929_extract.time.txt": {
+      "sha256": "452ee400682cebafc5ecc18ffbc5f4fc055275ac0a1305c4c414ae06ba69333a",
+      "size_bytes": 1121
+    },
+    "results/milestone_3a/extraction_logs/hungary-260929_filter.json": {
+      "sha256": "640c0fea1fe6bd678de26e1f8c27dc29114a4492b5c021c59a5f2ea831580efe",
+      "size_bytes": 1013
+    },
+    "results/milestone_3a/extraction_logs/hungary-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_logs/hungary-260929_filter.time.txt": {
+      "sha256": "ecd1c8ab7653c9a25300d8bc3f29b83cb093691042d5b8c890a2704e28e2d13f",
+      "size_bytes": 1040
+    },
+    "results/milestone_3a/extraction_logs/merge.json": {
+      "sha256": "165e70ed69563a960e25a321d556fa054cb4a180e7593d82c05cfc1587385fed",
+      "size_bytes": 2310
+    },
+    "results/milestone_3a/extraction_logs/merge.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_logs/merge.time.txt": {
+      "sha256": "84d8adc1b343a258a7efd27af92b6729c412ec7807c9aa03e2ea02e7358155eb",
+      "size_bytes": 1493
+    },
+    "results/milestone_3a/extraction_logs/nord-est-260929_extract.json": {
+      "sha256": "c8faeb78687fc96e4e034158821188ec99228f85efdfac58bf8450a5c64b6bfd",
+      "size_bytes": 1271
+    },
+    "results/milestone_3a/extraction_logs/nord-est-260929_extract.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_logs/nord-est-260929_extract.time.txt": {
+      "sha256": "8eec36ec648f3e2b0a18c51e601a4499f62ab17ffc6eca8ca03cf17573645a7e",
+      "size_bytes": 1125
+    },
+    "results/milestone_3a/extraction_logs/nord-est-260929_filter.json": {
+      "sha256": "34ce8a251c1afc87d45c593e5cfb16a6ef28bdcfcbaca1286d8806354e5299b5",
+      "size_bytes": 1018
+    },
+    "results/milestone_3a/extraction_logs/nord-est-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_logs/nord-est-260929_filter.time.txt": {
+      "sha256": "415a5b8116b8012d33dd0ba6bf167e94fa1f5b9a3602019ac05fa5448fd41746",
+      "size_bytes": 1042
+    },
+    "results/milestone_3a/extraction_logs/slovenia-260929_extract.json": {
+      "sha256": "c52690814eb7d1910cbabdf5c0feb4cc488fd8aac57605b567d6628f0010d701",
+      "size_bytes": 1239
+    },
+    "results/milestone_3a/extraction_logs/slovenia-260929_extract.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_logs/slovenia-260929_extract.time.txt": {
+      "sha256": "3769790329882ac701c0f974b6c70019b0b7ee06b038d697b51c545546cdf3a7",
+      "size_bytes": 1109
+    },
+    "results/milestone_3a/extraction_logs/slovenia-260929_filter.json": {
+      "sha256": "b82dccbc3b2f45c14edaf5364ccba60345cbeea527e227a1e259d45852535c7a",
+      "size_bytes": 1016
+    },
+    "results/milestone_3a/extraction_logs/slovenia-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_logs/slovenia-260929_filter.time.txt": {
+      "sha256": "23cd7fcc2a92690b3eda49aa019ff331409e236cb827cd8814cd08320637d31f",
+      "size_bytes": 1046
+    },
+    "results/milestone_3a/extraction_provenance.json": {
+      "sha256": "efa5fd88f801a8fc207232f0018c9c8cc39527c70beb1ec9fd5483a0e2935fd5",
+      "size_bytes": 25987
+    },
+    "results/milestone_3a/extraction_rebuild_logs/austria-260929_extract.json": {
+      "sha256": "c33f455f7186a49652dbc0d0a6c9d22203b9f3f62adfa15b36ace16bd7c042f9",
+      "size_bytes": 1291
+    },
+    "results/milestone_3a/extraction_rebuild_logs/austria-260929_extract.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_rebuild_logs/austria-260929_extract.time.txt": {
+      "sha256": "5720171c5e87a9427d212d165494dc8a2766b2cfbd5cd29531c0c78c84ca2089",
+      "size_bytes": 1138
+    },
+    "results/milestone_3a/extraction_rebuild_logs/austria-260929_filter.json": {
+      "sha256": "3219b53e9a496f9d51c9dbf425f33124188e6b7e16a7720973e7d9474d8045c5",
+      "size_bytes": 1065
+    },
+    "results/milestone_3a/extraction_rebuild_logs/austria-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_rebuild_logs/austria-260929_filter.time.txt": {
+      "sha256": "3396a67d1bf813099369dc265d92344d6e9af79fa7df9f4a93bb824583091a18",
+      "size_bytes": 1073
+    },
+    "results/milestone_3a/extraction_rebuild_logs/bosnia-herzegovina-260929_extract.json": {
+      "sha256": "b3f1623560bf4a0944139b93ed00d459b658ec059f999e0d6439231f4524b7c6",
+      "size_bytes": 1332
+    },
+    "results/milestone_3a/extraction_rebuild_logs/bosnia-herzegovina-260929_extract.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_rebuild_logs/bosnia-herzegovina-260929_extract.time.txt": {
+      "sha256": "6ca7db13402b9b942d0cea2982b183d4368b11d0620d48bc85f7ccc788d8da37",
+      "size_bytes": 1156
+    },
+    "results/milestone_3a/extraction_rebuild_logs/bosnia-herzegovina-260929_filter.json": {
+      "sha256": "a417450d492af6484722ababb29ab87bdec59a2244979d6a9b22c3f932b8bf4d",
+      "size_bytes": 1113
+    },
+    "results/milestone_3a/extraction_rebuild_logs/bosnia-herzegovina-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_rebuild_logs/bosnia-herzegovina-260929_filter.time.txt": {
+      "sha256": "1950c529a7d24cb0208670b589d7f8b91cdfd51480d88e0edb7d107c8fe18fc6",
+      "size_bytes": 1090
+    },
+    "results/milestone_3a/extraction_rebuild_logs/croatia-260929_extract.json": {
+      "sha256": "2f6682a28a4ae1cf220b2432affd1f65021dfb885f2201da871eb625d71b61f5",
+      "size_bytes": 1291
+    },
+    "results/milestone_3a/extraction_rebuild_logs/croatia-260929_extract.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_rebuild_logs/croatia-260929_extract.time.txt": {
+      "sha256": "226499d59ff608ba4f7c7330725f02e11ce3ab5a0f8e9fcb53be8a98e24b3828",
+      "size_bytes": 1138
+    },
+    "results/milestone_3a/extraction_rebuild_logs/croatia-260929_filter.json": {
+      "sha256": "4c3799a0ed727bfc48f78473a3e23a43c25159e256341aff55259f8584f3b0a4",
+      "size_bytes": 1068
+    },
+    "results/milestone_3a/extraction_rebuild_logs/croatia-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_rebuild_logs/croatia-260929_filter.time.txt": {
+      "sha256": "cc6b7aee7a520ba73da39b8252aff02608c2e14c18d78c28d52ce5b55b8424b2",
+      "size_bytes": 1070
+    },
+    "results/milestone_3a/extraction_rebuild_logs/hungary-260929_extract.json": {
+      "sha256": "3aa7d149d650ab96af34965acb8b016d7096189a1ba0205b2d9be6aff19f042d",
+      "size_bytes": 1287
+    },
+    "results/milestone_3a/extraction_rebuild_logs/hungary-260929_extract.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_rebuild_logs/hungary-260929_extract.time.txt": {
+      "sha256": "d13c4663329beeffe8bf6f4ccbf0ccab181908f08c7d88c925679c767665073a",
+      "size_bytes": 1137
+    },
+    "results/milestone_3a/extraction_rebuild_logs/hungary-260929_filter.json": {
+      "sha256": "80c2a48f0b3ea0fc630b744343dfabe1d8351549c0134400935637053995667d",
+      "size_bytes": 1068
+    },
+    "results/milestone_3a/extraction_rebuild_logs/hungary-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_rebuild_logs/hungary-260929_filter.time.txt": {
+      "sha256": "933e07b9f617ae18519b2183eb7f74e2ba592bc20b5574bb25ddc62abf0ba589",
+      "size_bytes": 1070
+    },
+    "results/milestone_3a/extraction_rebuild_logs/merge.json": {
+      "sha256": "742f11547c734da61a41c5eae1937faa215d38ac6330fe7f27ba721ef2f79b69",
+      "size_bytes": 2517
+    },
+    "results/milestone_3a/extraction_rebuild_logs/merge.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_rebuild_logs/merge.time.txt": {
+      "sha256": "78695f8da546af062b10b143b0cf19a02ccd76a7cdd82af38a4825ebbe1fe77b",
+      "size_bytes": 1597
+    },
+    "results/milestone_3a/extraction_rebuild_logs/nord-est-260929_extract.json": {
+      "sha256": "5b71a6519390394f5c66083076ea0dfdb88085dd5485eaab18a0380d9f6987b5",
+      "size_bytes": 1287
+    },
+    "results/milestone_3a/extraction_rebuild_logs/nord-est-260929_extract.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_rebuild_logs/nord-est-260929_extract.time.txt": {
+      "sha256": "1ad45074a450f393760447080cc6ab4455c29a6c91943e4e0b48ce8e35aa8160",
+      "size_bytes": 1140
+    },
+    "results/milestone_3a/extraction_rebuild_logs/nord-est-260929_filter.json": {
+      "sha256": "952b4034304e39e1c36108ef3cffe4c9868a21a55158875a4601d427ebd8943f",
+      "size_bytes": 1070
+    },
+    "results/milestone_3a/extraction_rebuild_logs/nord-est-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_rebuild_logs/nord-est-260929_filter.time.txt": {
+      "sha256": "4dc9bd00da831a7faaa4f986837298555c3760a7ed9714490d8db8f7e3d91389",
+      "size_bytes": 1073
+    },
+    "results/milestone_3a/extraction_rebuild_logs/slovenia-260929_extract.json": {
+      "sha256": "a30b7764e771e81538af1157f15c3b24aa1ef00cf9a497fccca04700bd6509dc",
+      "size_bytes": 1263
+    },
+    "results/milestone_3a/extraction_rebuild_logs/slovenia-260929_extract.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_rebuild_logs/slovenia-260929_extract.time.txt": {
+      "sha256": "903a64a5603ac3acda6839398e8d5f40cf34d21cf4f58c49f8f4bae661dfa1ff",
+      "size_bytes": 1124
+    },
+    "results/milestone_3a/extraction_rebuild_logs/slovenia-260929_filter.json": {
+      "sha256": "c205768d5a7817f5c2e20b1bafc0ef991ccc8215e8cef93ea618967ff6561abf",
+      "size_bytes": 1068
+    },
+    "results/milestone_3a/extraction_rebuild_logs/slovenia-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/extraction_rebuild_logs/slovenia-260929_filter.time.txt": {
+      "sha256": "e200610dc9f0ed35bc1c808155359795a7a4729241d9c45a0d58cb6c99961252",
+      "size_bytes": 1076
+    },
+    "results/milestone_3a/extraction_reproducibility.json": {
+      "sha256": "2c6a5d48ad81e6431b5c111c31ae0c6b32f3e6bdd0ac3dde308d518984b168b1",
+      "size_bytes": 18728
+    },
+    "results/milestone_3a/figure_source_preflight.json": {
+      "sha256": "ba0c406af45d9721f818dbc34ac2f9524692c9ae1154c61d1e439d00de519825",
+      "size_bytes": 2521
+    },
+    "results/milestone_3a/figures/QA.md": {
+      "sha256": "66e31ede217f32923a5d5935aac8dd9b11b89cc36361eab2785f72cd2485149b",
+      "size_bytes": 1467
+    },
+    "results/milestone_3a/figures/absolute_marginal_growth.pdf": {
+      "sha256": "17dcd078d635a011b5a861ab362475e50f5c9818d024b8cc86b7dcd77cb4ba29",
+      "size_bytes": 30151
+    },
+    "results/milestone_3a/figures/absolute_marginal_growth.png": {
+      "sha256": "4b0c26a795216b7a13a149f1f8c68a789d81ec0ff598c9a956e3a284dd237158",
+      "size_bytes": 1410338
+    },
+    "results/milestone_3a/figures/absolute_marginal_growth.svg": {
+      "sha256": "82305bbd761346b3530aab2001b8aa77bffed488e0d296d1f4a59964552ecbc1",
+      "size_bytes": 77728
+    },
+    "results/milestone_3a/figures/boundary_risk.pdf": {
+      "sha256": "434a9562d5d9a693d9307efa064bf9dbcec1843b00b9ea4cd85026fbc044a003",
+      "size_bytes": 17809
+    },
+    "results/milestone_3a/figures/boundary_risk.png": {
+      "sha256": "dba8e5051b7ba76b223e27ad6afd7cd2c046dc33b03481a67aadfc90b26c1311",
+      "size_bytes": 127788
+    },
+    "results/milestone_3a/figures/boundary_risk.svg": {
+      "sha256": "30509ccdf33986b6a0dc66efdceb5eaaa0e7e02240f052943192aff72c1026f0",
+      "size_bytes": 12173
+    },
+    "results/milestone_3a/figures/growth_source_data.csv": {
+      "sha256": "595a297b0b7cd7813d316b36371d5229c400a2e21a0364def49ee0c026073996",
+      "size_bytes": 143449
+    },
+    "results/milestone_3a/logs/build_graph-20261001T043522547065.json": {
+      "sha256": "c8a629d961a1fe2171e54253f92ce590a5fbccddf4cbb3368b623a501c4d6d41",
+      "size_bytes": 10577
+    },
+    "results/milestone_3a/logs/build_graph-20261001T052546339548.json": {
+      "sha256": "4c466ddc65c0bcd2a37019211bebc17d25c9d6a90c6840ddea07f2b94b233931",
+      "size_bytes": 10781
+    },
+    "results/milestone_3a/logs/build_graph-20261001T053256450436.json": {
+      "sha256": "b0c6489befb53706324653ecf560267b1e7fc9ee5333199596b3f1d2429830ce",
+      "size_bytes": 10780
+    },
+    "results/milestone_3a/logs/build_graph-20261001T053524689534.json": {
+      "sha256": "a5cd434c507e3965b2f547fc269695376f5dfa15040325bcdc4d93f8b4379f1f",
+      "size_bytes": 11022
+    },
+    "results/milestone_3a/logs/regional_benchmark-20261001T053914736471.json": {
+      "sha256": "df69c62f6b6d941921e5c052d378529dd8e44ae4076504a8ad87b9cf2c44b3c6",
+      "size_bytes": 14735
+    },
+    "results/milestone_3a/logs/regional_benchmark-20261001T054113130558.json": {
+      "sha256": "ce0c30e321f19b2c665ca7dcb2c5df4d97c14752480dd9ad72d434db1b543269",
+      "size_bytes": 14735
+    },
+    "results/milestone_3a/memory_guard.json": {
+      "sha256": "ce6e9c04a48658e2c9d897779b20acbcd5c50fa0cfb2d59f16a7ed7d8e7a0145",
+      "size_bytes": 403
+    },
+    "results/milestone_3a/model_calibration.json": {
+      "sha256": "b851eaaf7972f13811c065724b06fe6e1ed4e6919f594070121f714326dadbc5",
+      "size_bytes": 887
+    },
+    "results/milestone_3a/model_calibration_build.json": {
+      "sha256": "ca794266f13cfd2d6b8fdc1ed5e5a561386ffeba99595cd94281ba10bfa57cb2",
+      "size_bytes": 542
+    },
+    "results/milestone_3a/model_calibration_build.stdout.txt": {
+      "sha256": "824dc900812a36acafc727198783e02d30986bb4ab116522526af3e889cc22c4",
+      "size_bytes": 870
+    },
+    "results/milestone_3a/model_calibration_build.time.txt": {
+      "sha256": "dd2766377ee4e748e45d20b2748fa260d9ecac6df844e10a096f7bffdc8f8d8b",
+      "size_bytes": 885
+    },
+    "results/milestone_3a/model_calibration_data.yaml": {
+      "sha256": "7f583a028bf841e41eea8024f5466136ef02f11f8e885d5c49550bf16305e5a4",
+      "size_bytes": 459
+    },
+    "results/milestone_3a/model_calibration_filter.json": {
+      "sha256": "a586f77eddb96a62a29847005f15f77ca63444a1549b41f4a77e55a74cdcffcb",
+      "size_bytes": 1077
+    },
+    "results/milestone_3a/model_calibration_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/model_calibration_filter.time.txt": {
+      "sha256": "0bd23466577ee7949360d9397610b38c8c0f753158db154e40fdb744d3f9280e",
+      "size_bytes": 1072
+    },
+    "results/milestone_3a/model_calibration_manifest.yaml": {
+      "sha256": "d46c945fe87ccb72980d568522e9b7d4ab9d32c17558bb4a4ed0227b4e10814a",
+      "size_bytes": 380
+    },
+    "results/milestone_3a/model_candidate_filter.json": {
+      "sha256": "c3b25413d762f3d6c26609a8ed1db06e482ec317f5ccb6e9e536fb14367cfbcf",
+      "size_bytes": 1100
+    },
+    "results/milestone_3a/model_candidate_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/model_candidate_filter.time.txt": {
+      "sha256": "e57a5cf1c7feac117a4c645e9b75a78126b8f30e3ce23670ab3e2f30ef7b59be",
+      "size_bytes": 1109
+    },
+    "results/milestone_3a/model_candidate_probe.json": {
+      "sha256": "6ff3bf1fa0f9a0865e800a997aa2695a5a46e114adb068eefa3481fc8e06deba",
+      "size_bytes": 268
+    },
+    "results/milestone_3a/model_candidate_probe_benchmark.json": {
+      "sha256": "6e0c1dc1d9a9286d597ef1d39e6f8cba1b517a1ed138f13b7fc7ec0da0a52421",
+      "size_bytes": 662
+    },
+    "results/milestone_3a/model_candidate_probe_benchmark.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/model_candidate_probe_benchmark.time.txt": {
+      "sha256": "dc2eda42d072ffd1adf8fc2e7e6d9c82a1d3cdd0be552dcf630f5aeaaf7b5a5a",
+      "size_bytes": 979
+    },
+    "results/milestone_3a/model_input_filter.json": {
+      "sha256": "888b4db43517e2ea0598a8333784eef9a16dfe4003013734e58559505cb07c68",
+      "size_bytes": 1102
+    },
+    "results/milestone_3a/model_input_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/model_input_filter.time.txt": {
+      "sha256": "380da5024cfbc93022ba201ead1288bd16b44ee749776cf1b80503119b40a81c",
+      "size_bytes": 1105
+    },
+    "results/milestone_3a/model_input_provenance.json": {
+      "sha256": "1e9fa3d0d608f7e99d251a1b18375e32ae17a5a7b1fa53dfb41da9f0b9194944",
+      "size_bytes": 14031
+    },
+    "results/milestone_3a/model_input_rebuild.json": {
+      "sha256": "485034bd4d7616915b7a8848ef1dde1adc284be9151fd8a8fa9332b5b69f5d22",
+      "size_bytes": 1070
+    },
+    "results/milestone_3a/model_input_rebuild.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/model_input_rebuild.time.txt": {
+      "sha256": "1b445e40652995ef0d8dff6ea73694e906636568cf9b3eb5c03d21475856df9d",
+      "size_bytes": 1074
+    },
+    "results/milestone_3a/model_input_reproducibility.json": {
+      "sha256": "fcfa557783fbc364ffbe9fd7fc4d427283ca3704ec649d20ed970eab6e000266",
+      "size_bytes": 1096
+    },
+    "results/milestone_3a/model_quarantine_filter.json": {
+      "sha256": "08063f66bde50e42ac3e4d81ec59c92e6b0b5533b57f9fca3bb27db23a70b0f4",
+      "size_bytes": 1086
+    },
+    "results/milestone_3a/model_quarantine_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/model_quarantine_filter.time.txt": {
+      "sha256": "081011a5dcd2a96b4eb0f972375ecd9e8d8cc27db50dd9ef1dd2dad1c792a49a",
+      "size_bytes": 1090
+    },
+    "results/milestone_3a/node_remapping.parquet": {
+      "sha256": "9ca8c730e2c021ea2dade2c1f23bbcf08960c01264b0e0f600cab74e2ff9b7ee",
+      "size_bytes": 4367
+    },
+    "results/milestone_3a/od_remapping.parquet": {
+      "sha256": "f38c0a81f42564e4f220d5c82de43d4454abfd8e962b09979d3dbdc8a447dcea",
+      "size_bytes": 448277
+    },
+    "results/milestone_3a/osmium_environment.json": {
+      "sha256": "0da2492974cec8717c0de852d75f1681487fddd718d20de4fb7e19a60d597e9a",
+      "size_bytes": 4634
+    },
+    "results/milestone_3a/partial_size_probe.json": {
+      "sha256": "ef51646685412edc95f9ed3b804d7e678026445289686f4c36761e9f4e045afb",
+      "size_bytes": 1695
+    },
+    "results/milestone_3a/partial_size_probe.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_3a/partial_size_probe.time.txt": {
+      "sha256": "17cde4d749de9d340d10eb37101201c57b1da19185f9cfc4c101bff645cacd7b",
+      "size_bytes": 1250
+    },
+    "results/milestone_3a/path_containment_tests.parquet": {
+      "sha256": "85dcce098a58093a70070be22a5907369b7f6d64230eaa78a7284c4ea9a4b288",
+      "size_bytes": 35082
+    },
+    "results/milestone_3a/preprocessing_benchmark.json": {
+      "sha256": "9c2b5e42497f955b9c865b3049cc59d5241adabb067d0a5ecb42a7eb970c3698",
+      "size_bytes": 500
+    },
+    "results/milestone_3a/preprocessing_benchmark.stdout.txt": {
+      "sha256": "b6322a7b83b8793fc171218eafd82a6070894980aa663109e761f49a03988f60",
+      "size_bytes": 881
+    },
+    "results/milestone_3a/preprocessing_benchmark.time.txt": {
+      "sha256": "b4daa7223792d3ad64cb44d124edbb85b47fba3820ad38e3547063fbde985275",
+      "size_bytes": 843
+    },
+    "results/milestone_3a/preservation_after.json": {
+      "sha256": "8724642922bdec3039622463924dd38706c3c3ec5cec0cb98fd263b524ca0ba1",
+      "size_bytes": 902
+    },
+    "results/milestone_3a/preservation_before.json": {
+      "sha256": "7d3f5a21b8f0721967db01908bd1fe5f671752ee36a2d1cd0affdfeba14321c9",
+      "size_bytes": 9243
+    },
+    "results/milestone_3a/projection_check_tests.xml": {
+      "sha256": "8c3dcdaaad96eccc46fe1e2002c4602e0dcaf669c2499b1190f9f93d28e00d85",
+      "size_bytes": 369
+    },
+    "results/milestone_3a/region_candidates.csv": {
+      "sha256": "c732bb9af9d6dd758692a25d948564c1d71856160aa91c74548aeac30457de36",
+      "size_bytes": 490
+    },
+    "results/milestone_3a/region_design.json": {
+      "sha256": "874fac5262ddf3e4d3b44e4e726e58863e1513e990e1316802fbd67d09948a07",
+      "size_bytes": 4514
+    },
+    "results/milestone_3a/source_gap_projection_check.json": {
+      "sha256": "5e6c1f2657940c08427b516c920337033267ee0296ca4ae93d3ffdebc56752b5",
+      "size_bytes": 606
+    },
+    "results/milestone_3a/source_header_inspection.json": {
+      "sha256": "385a234d81dbf13c9fca3eb1da67e6c305f1f1f4d054c68e59d39a4e5be99ede",
+      "size_bytes": 565
+    },
+    "results/milestone_3a/source_inspection.json": {
+      "sha256": "da1189469a7b8b7af8641886cb96a6d06f669d478ac02eb60595e8b4a100651b",
+      "size_bytes": 3606
+    },
+    "results/milestone_3a/sources.json": {
+      "sha256": "64b00fdb028f6a1c1ef3bfbd8e9ea0fb086c377e4e931fcef70a3c311da6cb08",
+      "size_bytes": 5866
+    },
+    "results/milestone_3a/tests.xml": {
+      "sha256": "0216877ad265e37eae9b043c12e9993409a37bafcae07251df8d7401951cb489",
+      "size_bytes": 4128
+    },
+    "results/milestone_3a/unsupported_input_probe.json": {
+      "sha256": "2615f7929c58e044a340ccbc1ae394f81e9e6c040b57ea21ed77ab2c55ff5fd9",
+      "size_bytes": 491
+    },
+    "results/milestone_3a/unsupported_input_probe.stdout.txt": {
+      "sha256": "1dcea48f36b4529a8273a9932233fe2db64ac4f7c294b1d95c1107d32eba3186",
+      "size_bytes": 1456
+    },
+    "results/milestone_3a/unsupported_input_probe.time.txt": {
+      "sha256": "bfd614e0ec47dda0e455f4ded3b040111b6e60b9b04b7a69a72da1647f7f8f17",
+      "size_bytes": 873
+    },
+    "results/milestone_4a/acceptance.json": {
+      "sha256": "0edd6088743abf7da6ff5d413e1078c034152e5fbb06649551af2e3765218909",
+      "size_bytes": 856
+    },
+    "results/milestone_4a/attachment_sensitivity.parquet": {
+      "sha256": "13bcc272dabc1aae0fa53525a7eb159bcbbf7b89942303871052450222d55cb0",
+      "size_bytes": 3104
+    },
+    "results/milestone_4a/benchmark.json": {
+      "sha256": "f92c4a5114959e1f48705924923b9325ee487d9c51cf95fcb7c5a16aa0dad6d0",
+      "size_bytes": 38031
+    },
+    "results/milestone_4a/expansion_stability.parquet": {
+      "sha256": "4e534e9ff304fcb1aac01ffbc80a23b76dad057f2b89daca850b5ce992a060f1",
+      "size_bytes": 25377
+    },
+    "results/milestone_4a/extraction.json": {
+      "sha256": "64cfee604b5122ca4fdffa62905bb95239d8ef02764e8717935adb3737c46edc",
+      "size_bytes": 22505
+    },
+    "results/milestone_4a/extraction_exclusions.parquet": {
+      "sha256": "c0de9995739eb9263ebe70f0404043ee400ec6425bc29b95a2f535f7cb218c5e",
+      "size_bytes": 2614
+    },
+    "results/milestone_4a/extraction_logs/austria-260929_crop.json": {
+      "sha256": "09851a28af6ef9c1ec4513195e1af9c1e81a6e974ef9ceed3c929c12db84f65d",
+      "size_bytes": 853
+    },
+    "results/milestone_4a/extraction_logs/austria-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_logs/austria-260929_crop.time.txt": {
+      "sha256": "354d6d96f915038c5f4408b54fc7b469f8e06dd946f173dd4a989876ebec24b8",
+      "size_bytes": 1122
+    },
+    "results/milestone_4a/extraction_logs/austria-260929_filter.json": {
+      "sha256": "85c7f7e922ec1bdddbd88217f4c362b6c19546de8f8c3a71b9215db5b92109c4",
+      "size_bytes": 921
+    },
+    "results/milestone_4a/extraction_logs/austria-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_logs/austria-260929_filter.time.txt": {
+      "sha256": "6d2a79295f133dc2d4cddce32b9f5297333dd1c4b4cae647d1178728cd48aa09",
+      "size_bytes": 1213
+    },
+    "results/milestone_4a/extraction_logs/bosnia-herzegovina-260929_crop.json": {
+      "sha256": "046c77502f1fcac4425e758670cc9b0a728781c9dac80560878f67e639024c28",
+      "size_bytes": 878
+    },
+    "results/milestone_4a/extraction_logs/bosnia-herzegovina-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_logs/bosnia-herzegovina-260929_crop.time.txt": {
+      "sha256": "7239fa832c4326272b12c660dbbacdae5df08be5265db043cbc82a4d8b4f4cca",
+      "size_bytes": 1138
+    },
+    "results/milestone_4a/extraction_logs/bosnia-herzegovina-260929_filter.json": {
+      "sha256": "63edce370646e397996290a6e088372f86ff6a34478343dd530e5abe83ad758b",
+      "size_bytes": 957
+    },
+    "results/milestone_4a/extraction_logs/bosnia-herzegovina-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_logs/bosnia-herzegovina-260929_filter.time.txt": {
+      "sha256": "14bea01f916b98bfc2e1dfde0298f064df5897690dc997064e0a5ca3292df05a",
+      "size_bytes": 1233
+    },
+    "results/milestone_4a/extraction_logs/croatia-260929_crop.json": {
+      "sha256": "e2ba91b7fa5fac1746e7c2bd1c20e08ee9081d6437aa2437ef410391b8fe8a5e",
+      "size_bytes": 850
+    },
+    "results/milestone_4a/extraction_logs/croatia-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_logs/croatia-260929_crop.time.txt": {
+      "sha256": "ea81d4a7e3c68cbea593379c938c5de87d022b51e3aab62e3f550135e58a78dc",
+      "size_bytes": 1121
+    },
+    "results/milestone_4a/extraction_logs/croatia-260929_filter.json": {
+      "sha256": "5d55d1a392fc7112bdcf851441ccc7417ff334a663114e020eb0b5b89ddfa025",
+      "size_bytes": 927
+    },
+    "results/milestone_4a/extraction_logs/croatia-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_logs/croatia-260929_filter.time.txt": {
+      "sha256": "cc2bbd2cd3e08b9aa4e792c25dfc92a4711cb71e5694863499a7ad988015a8cc",
+      "size_bytes": 1211
+    },
+    "results/milestone_4a/extraction_logs/export.json": {
+      "sha256": "b96b81a31194d1aada4c74cf53b8faec83b1b597e936e029b67e65eb43f1fbc2",
+      "size_bytes": 679
+    },
+    "results/milestone_4a/extraction_logs/export.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_logs/export.time.txt": {
+      "sha256": "919a9e63d4d5c7b16837eb9097dc9c9365b32ee87d6addc5d14723eda68f0d9d",
+      "size_bytes": 979
+    },
+    "results/milestone_4a/extraction_logs/hungary-260929_crop.json": {
+      "sha256": "baa4518d1aa1e1e0abec9af61d7a52cbe780c2162c9f3968eaf47a685a9f8b45",
+      "size_bytes": 853
+    },
+    "results/milestone_4a/extraction_logs/hungary-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_logs/hungary-260929_crop.time.txt": {
+      "sha256": "0a07b9183ad20f34be278d0cdef5617678804340a4f743ae60e76cb89dd8c7f6",
+      "size_bytes": 1120
+    },
+    "results/milestone_4a/extraction_logs/hungary-260929_filter.json": {
+      "sha256": "117b664fd8ba12cb84ab0bdd95b0d81079aa2e52fecf26e55c3f1b1438852708",
+      "size_bytes": 927
+    },
+    "results/milestone_4a/extraction_logs/hungary-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_logs/hungary-260929_filter.time.txt": {
+      "sha256": "c3801912e174b891a8599ccf7c6e48fc2d288cf23e10d7fb5a109204910f84f9",
+      "size_bytes": 1212
+    },
+    "results/milestone_4a/extraction_logs/merge.json": {
+      "sha256": "5cbfe29ccd24e737c998ebfeb60658933c436d8b67269eb9468ea9eb091b6dca",
+      "size_bytes": 1142
+    },
+    "results/milestone_4a/extraction_logs/merge.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_logs/merge.time.txt": {
+      "sha256": "3441a58f1e2673d309491c59d7e3b5eb019bb3e4b585a6dfcfc6da420c54424d",
+      "size_bytes": 1437
+    },
+    "results/milestone_4a/extraction_logs/nord-est-260929_crop.json": {
+      "sha256": "14f2eaa8f51d56a28deb8cca3ef8f03ad1233e2d7d56b498cdaca831574dd29d",
+      "size_bytes": 854
+    },
+    "results/milestone_4a/extraction_logs/nord-est-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_logs/nord-est-260929_crop.time.txt": {
+      "sha256": "96a227bdf5f233926fb14d1ac27438fc5be71a4aa93375110c015827ca727007",
+      "size_bytes": 1124
+    },
+    "results/milestone_4a/extraction_logs/nord-est-260929_filter.json": {
+      "sha256": "c3f916a073c279c49aeecb21ddeca7acc45828fff62e16ef28fc590e4e9adf82",
+      "size_bytes": 929
+    },
+    "results/milestone_4a/extraction_logs/nord-est-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_logs/nord-est-260929_filter.time.txt": {
+      "sha256": "6f9412bbf5c58b76c8e6a332755a36a4066a882e9de0c88af0c8f545426bccfc",
+      "size_bytes": 1215
+    },
+    "results/milestone_4a/extraction_logs/slovenia-260929_crop.json": {
+      "sha256": "6801c47b964e27e29898df3238e7843bccd7e066fe20314def5cb5135439f1af",
+      "size_bytes": 854
+    },
+    "results/milestone_4a/extraction_logs/slovenia-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_logs/slovenia-260929_crop.time.txt": {
+      "sha256": "3a2991d7bbb01b52f4ac474a45297101a105f949e96717b0eca17f4b23539ef8",
+      "size_bytes": 1123
+    },
+    "results/milestone_4a/extraction_logs/slovenia-260929_filter.json": {
+      "sha256": "f4604643054dd9c6fe01caa9ecf46a37d0693d132f1dc0b5b86ec1268638bc9d",
+      "size_bytes": 915
+    },
+    "results/milestone_4a/extraction_logs/slovenia-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_logs/slovenia-260929_filter.time.txt": {
+      "sha256": "2d77ffee1c03d26d0243254a5937d89e360a2862f8f18ac78d5bfe292fdc52ed",
+      "size_bytes": 1198
+    },
+    "results/milestone_4a/extraction_rebuild_exclusions.parquet": {
+      "sha256": "c0de9995739eb9263ebe70f0404043ee400ec6425bc29b95a2f535f7cb218c5e",
+      "size_bytes": 2614
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/austria-260929_crop.json": {
+      "sha256": "33c86250f008fcbf04ae2db6ff5a5637931b676b268b82d940444b8b681cea86",
+      "size_bytes": 860
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/austria-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/austria-260929_crop.time.txt": {
+      "sha256": "f9b0fa71135e61b47d2b797a3773bc2fc9176c2057db7b6fcbff8bf5e4eb3425",
+      "size_bytes": 1122
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/austria-260929_filter.json": {
+      "sha256": "a82c1e3db3176780a635bd76a95cda8e63dc9f8a3d930581799ea0056117b417",
+      "size_bytes": 935
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/austria-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/austria-260929_filter.time.txt": {
+      "sha256": "860a3a73a062018eab09cbf288aa8afe8650d0fd46f727eaa759305ffde9a76e",
+      "size_bytes": 1213
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/bosnia-herzegovina-260929_crop.json": {
+      "sha256": "41d2d047f4d3110998c897657b80d94377e473540104f01a29d8982514f0a059",
+      "size_bytes": 890
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/bosnia-herzegovina-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/bosnia-herzegovina-260929_crop.time.txt": {
+      "sha256": "1c1c07f48043ba9c221014d47263cab52a5f5c2e2ec15c6c44392401d9cae5e2",
+      "size_bytes": 1138
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/bosnia-herzegovina-260929_filter.json": {
+      "sha256": "aee9c03585e6edb185a0de03f31881939dd6591379c004eba5fa9adef818c4d1",
+      "size_bytes": 967
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/bosnia-herzegovina-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/bosnia-herzegovina-260929_filter.time.txt": {
+      "sha256": "2c459f7d762f2c14a64b047ad9840c8349cc08c41f9c1a5c6c2cba98849aa22f",
+      "size_bytes": 1233
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/croatia-260929_crop.json": {
+      "sha256": "328f34e4cf8fb8b9254c5ec53cfc686f14e3fc59d9cf6878951550d3f9968f9c",
+      "size_bytes": 860
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/croatia-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/croatia-260929_crop.time.txt": {
+      "sha256": "9a404a6ff09808d148aa8ee64dcaa37495782867ec8ebd2c3d5ed68a257263b9",
+      "size_bytes": 1121
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/croatia-260929_filter.json": {
+      "sha256": "0bd3fdb6d17cd320b40b00f087dba0b786ce0296e786c3c2695d483f7b755dbb",
+      "size_bytes": 934
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/croatia-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/croatia-260929_filter.time.txt": {
+      "sha256": "9ff59d253790bceccae1de079e49449dbe5c3b02c96632f9f46c1bd64819c680",
+      "size_bytes": 1210
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/export.json": {
+      "sha256": "bec23491531acbb679eef24f667311c9b0e91ca044b6c526ffd02f7d6e63e864",
+      "size_bytes": 684
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/export.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/export.time.txt": {
+      "sha256": "094d6961ddf818cf8918ae5cfa5242dd8d9d6266b84aed35f58447b3db2848cd",
+      "size_bytes": 978
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/hungary-260929_crop.json": {
+      "sha256": "256b3c34c2b6962a4a3a2095c08dcdf76728f5b03a5b5592d3bb8d27e6428ae2",
+      "size_bytes": 860
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/hungary-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/hungary-260929_crop.time.txt": {
+      "sha256": "6eee9a336926d4606969b1ec7ce853f6a9751121b9f55af60dad2780737fc744",
+      "size_bytes": 1120
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/hungary-260929_filter.json": {
+      "sha256": "e7bacd9f5abf8d02233d18474578c3800bc5d282201eeac11519f1448a676e20",
+      "size_bytes": 934
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/hungary-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/hungary-260929_filter.time.txt": {
+      "sha256": "5e377b8aa9958e99ce377a012f48c8f2ce6a80e1c1a19301806769e529bfd8b1",
+      "size_bytes": 1212
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/merge.json": {
+      "sha256": "1cee64349b05c21a8b058e889d8e66745f13da01e3183a888ee6ac35d8cdeb92",
+      "size_bytes": 1152
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/merge.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/merge.time.txt": {
+      "sha256": "14caca8af246a8716578bc31aea766579a01588d2d64aec04cb46b78c6225bb7",
+      "size_bytes": 1436
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/nord-est-260929_crop.json": {
+      "sha256": "383c48f3868c25bf4aa2dc781f5aba3e81f74fefe4506af9982067f60fb01f9e",
+      "size_bytes": 860
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/nord-est-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/nord-est-260929_crop.time.txt": {
+      "sha256": "f12e872d90f25abad73aac33aa5b8133499fbf3c86ad698651c3edcf9ca1203d",
+      "size_bytes": 1124
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/nord-est-260929_filter.json": {
+      "sha256": "1dc6f008344c7bf519044208be68821f97a465852fd5865ec691faf640ca216a",
+      "size_bytes": 937
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/nord-est-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/nord-est-260929_filter.time.txt": {
+      "sha256": "47750e2eaffca57d33782f21c2727de68f81f3b74b4b96e82e115fc5a785e48f",
+      "size_bytes": 1215
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/slovenia-260929_crop.json": {
+      "sha256": "8eb814e950a2f4e9aa390f707716ea4af4a795a6a19a26bf8bc2d51f1af96cc3",
+      "size_bytes": 863
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/slovenia-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/slovenia-260929_crop.time.txt": {
+      "sha256": "f4b7f16211d079f8ce2a9c01e295c3b70cc7a24caa17c922ddd442d78dbfdadc",
+      "size_bytes": 1123
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/slovenia-260929_filter.json": {
+      "sha256": "374922393ebd18ff15923363c5722b799dab5d9cf0196b4b137a01b34ce3663e",
+      "size_bytes": 922
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/slovenia-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_initial_logs/slovenia-260929_filter.time.txt": {
+      "sha256": "bdd103fa636a10e9cf891bc7b4cc4989375d2f0a4d7fa20fc5ab1c10ce6d3690",
+      "size_bytes": 1198
+    },
+    "results/milestone_4a/extraction_rebuild_logs/austria-260929_crop.json": {
+      "sha256": "cb58f87f2ba38554e2b2edd3cfd36b6e77e075380986d427341820276bc44834",
+      "size_bytes": 859
+    },
+    "results/milestone_4a/extraction_rebuild_logs/austria-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_logs/austria-260929_crop.time.txt": {
+      "sha256": "a2cae689eb08115de5d6d8fe2b97a9b139f33976f0ff3d1cf1284febd0f7128c",
+      "size_bytes": 1122
+    },
+    "results/milestone_4a/extraction_rebuild_logs/austria-260929_filter.json": {
+      "sha256": "1906925dac374f1ea915da7b0dc99c90ffed9d4e504969af79911bd434356803",
+      "size_bytes": 936
+    },
+    "results/milestone_4a/extraction_rebuild_logs/austria-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_logs/austria-260929_filter.time.txt": {
+      "sha256": "63f3e2ac7fade855be81121543ca8d6d04dcb0b2faf52f19bdef11931ce038b5",
+      "size_bytes": 1213
+    },
+    "results/milestone_4a/extraction_rebuild_logs/bosnia-herzegovina-260929_crop.json": {
+      "sha256": "929ff9a19f6875df36f2a1bf38cbd7fd52ccad0acd9eeda61ab1b839042d827e",
+      "size_bytes": 890
+    },
+    "results/milestone_4a/extraction_rebuild_logs/bosnia-herzegovina-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_logs/bosnia-herzegovina-260929_crop.time.txt": {
+      "sha256": "91bdae7722124a2f8d67efae353ffff09557295d558b0c0c022d4b9f2005f930",
+      "size_bytes": 1138
+    },
+    "results/milestone_4a/extraction_rebuild_logs/bosnia-herzegovina-260929_filter.json": {
+      "sha256": "e72cdf584191a8d8b3bb52e1438a4ae77558ac3db8f4d128c0a7534d1ac99939",
+      "size_bytes": 967
+    },
+    "results/milestone_4a/extraction_rebuild_logs/bosnia-herzegovina-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_logs/bosnia-herzegovina-260929_filter.time.txt": {
+      "sha256": "014fbf8fc9dceec7df0cd4834656d16198c84e228476d5a35312292c835ee01f",
+      "size_bytes": 1233
+    },
+    "results/milestone_4a/extraction_rebuild_logs/croatia-260929_crop.json": {
+      "sha256": "c976db4872c9cbdc9dd2724dfff0d6392eb6445c743f5ebed333927c921728cb",
+      "size_bytes": 858
+    },
+    "results/milestone_4a/extraction_rebuild_logs/croatia-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_logs/croatia-260929_crop.time.txt": {
+      "sha256": "d86ff31af6e062da04a77656f7eb22949da6896e16803566bfb17c324c22dabc",
+      "size_bytes": 1121
+    },
+    "results/milestone_4a/extraction_rebuild_logs/croatia-260929_filter.json": {
+      "sha256": "10b358507da227929e880a6b22b4999346ead46a64285d5f7599fc2c0b24e973",
+      "size_bytes": 931
+    },
+    "results/milestone_4a/extraction_rebuild_logs/croatia-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_logs/croatia-260929_filter.time.txt": {
+      "sha256": "a8090fc74e45598f511d0b933d86d6dd0de1162908526e622dbae93bf6cfa740",
+      "size_bytes": 1210
+    },
+    "results/milestone_4a/extraction_rebuild_logs/export.json": {
+      "sha256": "1d3b93fbb1c4e9a054668a6ea3ce6f7df804ed8f7a6f4e754db0185dd7fe6c3c",
+      "size_bytes": 688
+    },
+    "results/milestone_4a/extraction_rebuild_logs/export.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_logs/export.time.txt": {
+      "sha256": "8150a06a7d1d9a6aee0abe0d9a815259c839780dfd16ac1c5d4d17245a16d870",
+      "size_bytes": 979
+    },
+    "results/milestone_4a/extraction_rebuild_logs/hungary-260929_crop.json": {
+      "sha256": "8599af9dc1e03bf85b3afe4b5aa49a4f80aee3f48343ca9650cb4375ffbf74a0",
+      "size_bytes": 860
+    },
+    "results/milestone_4a/extraction_rebuild_logs/hungary-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_logs/hungary-260929_crop.time.txt": {
+      "sha256": "54e217eb5df888e3eb762cb4277c2394e9ea1ebc50dc50475b430401e4765602",
+      "size_bytes": 1119
+    },
+    "results/milestone_4a/extraction_rebuild_logs/hungary-260929_filter.json": {
+      "sha256": "af5d45c80215610151cc78929bf27fa8338c43c19808d3273d116d80545f054b",
+      "size_bytes": 934
+    },
+    "results/milestone_4a/extraction_rebuild_logs/hungary-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_logs/hungary-260929_filter.time.txt": {
+      "sha256": "76efcf1b88807717eff69a6615f7efe69585e22564d48fa07ae61df031e65284",
+      "size_bytes": 1212
+    },
+    "results/milestone_4a/extraction_rebuild_logs/merge.json": {
+      "sha256": "756801f6be0820f4b9ea80fa620dd99cd1fee6431463b35dad42cff872ac219d",
+      "size_bytes": 1148
+    },
+    "results/milestone_4a/extraction_rebuild_logs/merge.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_logs/merge.time.txt": {
+      "sha256": "b2cca131aeb17cb4abe5913dff76be083e3fef2a34c2902e9a5ae52d88e5db9f",
+      "size_bytes": 1437
+    },
+    "results/milestone_4a/extraction_rebuild_logs/nord-est-260929_crop.json": {
+      "sha256": "03448203c114cd325b96bb3d74db3ec33e9d6e1e418c98e61ef32394994f5478",
+      "size_bytes": 865
+    },
+    "results/milestone_4a/extraction_rebuild_logs/nord-est-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_logs/nord-est-260929_crop.time.txt": {
+      "sha256": "605f9a597778d07ccb7e7c90f335fb437e7d419680e6a2553c3b4611da904fbc",
+      "size_bytes": 1124
+    },
+    "results/milestone_4a/extraction_rebuild_logs/nord-est-260929_filter.json": {
+      "sha256": "39b401dc33d7028fa81b17ba70444119c8e67271fbfa46c44f68774273411b73",
+      "size_bytes": 937
+    },
+    "results/milestone_4a/extraction_rebuild_logs/nord-est-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_logs/nord-est-260929_filter.time.txt": {
+      "sha256": "956aad0f71d86627868d9dc805ac0164aef4a10e5c5821869679d3630dcdf9e6",
+      "size_bytes": 1215
+    },
+    "results/milestone_4a/extraction_rebuild_logs/slovenia-260929_crop.json": {
+      "sha256": "dec3173637cbafb35704e8f858cacb4c16b8b756fe7652ab0bf04bed67c1f48a",
+      "size_bytes": 860
+    },
+    "results/milestone_4a/extraction_rebuild_logs/slovenia-260929_crop.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_logs/slovenia-260929_crop.time.txt": {
+      "sha256": "189465768792f99c98bd082bfd85a5d99c6166f0d0c7f1fca2a5f423b744f55f",
+      "size_bytes": 1123
+    },
+    "results/milestone_4a/extraction_rebuild_logs/slovenia-260929_filter.json": {
+      "sha256": "08c886636f84dfb809791459b29bb89a2b38a51ad7b42caa765ef9400faa17c5",
+      "size_bytes": 923
+    },
+    "results/milestone_4a/extraction_rebuild_logs/slovenia-260929_filter.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/extraction_rebuild_logs/slovenia-260929_filter.time.txt": {
+      "sha256": "9d71a7d3c1ce0b7cf31456bbc028c897fdc21817b0d15dcdb2c353004ba30674",
+      "size_bytes": 1198
+    },
+    "results/milestone_4a/extraction_rebuild_logs/way_node_references.txt": {
+      "sha256": "bfe517de9783464a1f337101046cf0d188050233bbdad15e9a22556827bf511c",
+      "size_bytes": 94
+    },
+    "results/milestone_4a/extraction_reproducibility.json": {
+      "sha256": "50a443b9ebbcad01461b7c6ceb9a10ed8492c337877a607821d4d4395709aac1",
+      "size_bytes": 22647
+    },
+    "results/milestone_4a/figures/QA.md": {
+      "sha256": "5aba367811bbdc1f9843e8a510f32246905b76593756a7e8c853cdfd4c0eaa06",
+      "size_bytes": 2166
+    },
+    "results/milestone_4a/figures/attachment_audit.pdf": {
+      "sha256": "1d7e9761498a8b19e34516a2dc7cd512b488781e8467b88e6126171c47d7a3ae",
+      "size_bytes": 42967
+    },
+    "results/milestone_4a/figures/attachment_audit.png": {
+      "sha256": "073f2163e79d828c597a1b005576790214487dcc042553bb470d7dc1392eb4be",
+      "size_bytes": 217176
+    },
+    "results/milestone_4a/figures/attachment_audit.svg": {
+      "sha256": "c41dda1f9ed7165a94e202506065941f52ab4deb1274317859eba4e92e173dcf",
+      "size_bytes": 63735
+    },
+    "results/milestone_4a/figures/compression_coherence.pdf": {
+      "sha256": "4c2d82978ab77a9fd0095cf87a39d1b05edc552707214fb944f01b1e56ff3012",
+      "size_bytes": 28253
+    },
+    "results/milestone_4a/figures/compression_coherence.png": {
+      "sha256": "62ca5ce6a2f6b1bf535bfb40e935def86dbd16096ff93f9893ca51f32889f86d",
+      "size_bytes": 294482
+    },
+    "results/milestone_4a/figures/compression_coherence.svg": {
+      "sha256": "af2dd1ae677f6a40f6e9f6f665a5439a2c50ef24940b6b93f75d5a8d1acf4d38",
+      "size_bytes": 47709
+    },
+    "results/milestone_4a/figures/diagnostic_counts.csv": {
+      "sha256": "b677dbd6d0add6d9e2fcdf1068f4e12facc27112328c5f455dfefb7c381b4c48",
+      "size_bytes": 668
+    },
+    "results/milestone_4a/figures/od_00_regions.pdf": {
+      "sha256": "99b9488b1e58642c57092b9524bf6f1880c317c3235d04e1915b50f7f1621ed4",
+      "size_bytes": 510986
+    },
+    "results/milestone_4a/figures/od_00_regions.png": {
+      "sha256": "01342b03ad020ec040d8c0a10b977ab6ec5a9209b96de241ef4b1d537ca99d1a",
+      "size_bytes": 677535
+    },
+    "results/milestone_4a/figures/od_00_regions.svg": {
+      "sha256": "08efed3dafdec43e141c6f8dcc1380b2e76d2567c95fafad4b416b78b1901029",
+      "size_bytes": 3492336
+    },
+    "results/milestone_4a/figures/od_04_regions.pdf": {
+      "sha256": "f77abddd28766a9b1d1b4f44106d9622c0188d00716a7a50fd6f71d4be5baa86",
+      "size_bytes": 387083
+    },
+    "results/milestone_4a/figures/od_04_regions.png": {
+      "sha256": "6261c3cba2e4fc9fdad88289b39c74065fd54aa103e8aa55514c9bd2837cf156",
+      "size_bytes": 791345
+    },
+    "results/milestone_4a/figures/od_04_regions.svg": {
+      "sha256": "78c13d0da7ba3fe12e9ea091c2bd9a1eaca334edc014a6f4e38bc08a9f8688fb",
+      "size_bytes": 2376434
+    },
+    "results/milestone_4a/figures/od_21_regions.pdf": {
+      "sha256": "710321d157a719299ed60bb4119c69473b32a20a56e3366253235128ddce3032",
+      "size_bytes": 269729
+    },
+    "results/milestone_4a/figures/od_21_regions.png": {
+      "sha256": "4d1c6fddafeee29ffa050f0177db14b91b12ca7cbe2ee1cfb4f7718392cf0fb9",
+      "size_bytes": 721948
+    },
+    "results/milestone_4a/figures/od_21_regions.svg": {
+      "sha256": "7cd60eca69444d5a61f1221afbb860e6fce1af82310f082d62edeecd9686d149",
+      "size_bytes": 1519173
+    },
+    "results/milestone_4a/figures/region_stats_source.csv": {
+      "sha256": "6ed058142c6cd728f18e927a5b81307052741635e40792a6064ec07bef1c1285",
+      "size_bytes": 177197
+    },
+    "results/milestone_4a/figures/source_preflight.json": {
+      "sha256": "db948d7c5ebd3fde729a250ef2a1f68f135bf950127918ec75475e2858744ba0",
+      "size_bytes": 2535
+    },
+    "results/milestone_4a/local_neighbor_pairs.parquet": {
+      "sha256": "d6764970f58b473af8820ebbe767147912eb29f58b35fd4d966b7c9c89d682de",
+      "size_bytes": 236827665
+    },
+    "results/milestone_4a/logs/benchmark.stdout.txt": {
+      "sha256": "8a0e346b9afa5bec9ef5457fb15516447330046689e90377d93ce7856b0aafc0",
+      "size_bytes": 12578
+    },
+    "results/milestone_4a/logs/benchmark_initial_bottleneck.stdout.txt": {
+      "sha256": "10ffc7f611230cd14c0054859a83e6145d03dd254048a0df2415759fed79707c",
+      "size_bytes": 2948
+    },
+    "results/milestone_4a/logs/benchmark_python_union.stdout.txt": {
+      "sha256": "1ab4a2f6fd499e6915a3e258043ce1c7653dfefe7ffb69f9f000b11383f329dd",
+      "size_bytes": 3183
+    },
+    "results/milestone_4a/logs/extraction_rebuild.stdout.txt": {
+      "sha256": "a94f661a9f4474bf03e8adb8130b986e6a607cf0a3473ee1ec581db1b8e7d6f2",
+      "size_bytes": 245
+    },
+    "results/milestone_4a/logs/extraction_rebuild_final.stdout.txt": {
+      "sha256": "a94f661a9f4474bf03e8adb8130b986e6a607cf0a3473ee1ec581db1b8e7d6f2",
+      "size_bytes": 245
+    },
+    "results/milestone_4a/logs/figures.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4a/logs/milestone_4a-20261001T072203500180.json": {
+      "sha256": "2cfaf451f3ebda281db46132164d05896fad23bf01619cea261ec5b47d1b26e6",
+      "size_bytes": 12042
+    },
+    "results/milestone_4a/logs/milestone_4a-20261001T072528128954.json": {
+      "sha256": "bf3f5c19584cdc08cd6ba8c9acb89e32f200cc1f7ead05a4642794921d7df453",
+      "size_bytes": 12248
+    },
+    "results/milestone_4a/logs/milestone_4a-20261001T073018465747.json": {
+      "sha256": "da9692477fd494957e52dc480fa1956112c6435deba874a5bc041da76547ed2b",
+      "size_bytes": 12460
+    },
+    "results/milestone_4a/logs/network_compact_verification.stdout.txt": {
+      "sha256": "23f1fb49cbef656df83af5cc2e2015e4ca90dec8723734c99a9b82ac4eb66158",
+      "size_bytes": 1162
+    },
+    "results/milestone_4a/logs/package_install.txt": {
+      "sha256": "15c7df3d8933565cbe5e426a911ef4de0bf982214ce252affd1f71b6d7839366",
+      "size_bytes": 1047
+    },
+    "results/milestone_4a/network_benchmark.json": {
+      "sha256": "80fd78f74105895580bcba49aabebb5d3a1191dda9c6ec88c1e4814acea1774d",
+      "size_bytes": 1015
+    },
+    "results/milestone_4a/network_compact_reproducibility.json": {
+      "sha256": "1500e0ce7bf3a15c28030acfa34949a5bee4ef6d6aca29d62d680e0a80146f45",
+      "size_bytes": 1637
+    },
+    "results/milestone_4a/od_features.parquet": {
+      "sha256": "be02c3bc750feb64dd5fc1df5a22f3862aa2d01aa26b4e30d0a53372b4a7894e",
+      "size_bytes": 68808450
+    },
+    "results/milestone_4a/opportunity_attachment.parquet": {
+      "sha256": "a87ac248049218428805a9cf2f985c2db5c588e4381286b9401a5829faa0e464",
+      "size_bytes": 3196141
+    },
+    "results/milestone_4a/opportunity_density.parquet": {
+      "sha256": "68c0be611998e0ca02a5c59b45555cdf7f93865f0153ec851eaf82d22736e55d",
+      "size_bytes": 8768
+    },
+    "results/milestone_4a/opportunity_inventory.parquet": {
+      "sha256": "d467606df7061b05f87fbcbbc6c2e9dc8e25121bb64c86686cb54f82eb778fb7",
+      "size_bytes": 16943237
+    },
+    "results/milestone_4a/parameter_sensitivity.parquet": {
+      "sha256": "6a0f2d837f2c2ea39d54475eee7cc0a42620ed244b00349af6e6d6e5ef0e126e",
+      "size_bytes": 116710
+    },
+    "results/milestone_4a/performance.parquet": {
+      "sha256": "017d8ff149ccc517ed77b69d313b895e3cd74564b67c66839bb651aa1e40ce34",
+      "size_bytes": 8311
+    },
+    "results/milestone_4a/preflight.json": {
+      "sha256": "734c2a4e7857efe61df190abdb23597920dc22aea593634e290d2ea094915026",
+      "size_bytes": 431
+    },
+    "results/milestone_4a/preservation_after.json": {
+      "sha256": "507c457368b74338075213afcfc5b804b235a3997848f741874098bbcf6301ac",
+      "size_bytes": 190
+    },
+    "results/milestone_4a/preservation_before.json": {
+      "sha256": "01128d844f4ed94992477dbff73568ea9101246a81fece0175a099b2f1111157",
+      "size_bytes": 37944
+    },
+    "results/milestone_4a/quality_audit.json": {
+      "sha256": "e6d9abfd626372c558a4f89e4b3f176ed1d778442a95be9735635576193d2729",
+      "size_bytes": 2651
+    },
+    "results/milestone_4a/region_membership.parquet": {
+      "sha256": "e00641f2c372b12e8bb149b38b9774f9c3fb359705447400dbadd82f21a24da9",
+      "size_bytes": 36412431
+    },
+    "results/milestone_4a/region_method_comparison.parquet": {
+      "sha256": "ed3b92c884ab5572113deb5237aba601a428eebe4426cdce1e60e4c46b114c89",
+      "size_bytes": 90624
+    },
+    "results/milestone_4a/region_stats.parquet": {
+      "sha256": "53b82d7e2d46dcd6d9d823eb6dfa634a367e7bc1fd18b4566f3bc84b524937c6",
+      "size_bytes": 66906
+    },
+    "results/milestone_4a/regions.parquet": {
+      "sha256": "51bcf7f44e9b225929726e25b8663b1f3b7d623e78fcb9d044595f81046b6eb8",
+      "size_bytes": 51008097
+    },
+    "results/milestone_4a/tests.xml": {
+      "sha256": "40a020c22ea0bdc3014e2be0ff7e8971f9c6ad1a8325cc1dba2f5c26fb5479f7",
+      "size_bytes": 7429
+    },
+    "results/milestone_4b/abstraction_regret.parquet": {
+      "sha256": "fe3a238b5d2b9ceed3a6c9570824af575d857ea1a78a05fb36181aec1290157a",
+      "size_bytes": 50058612
+    },
+    "results/milestone_4b/acceptance.json": {
+      "sha256": "dad25c6ed9f9dd56de1260242040ef78f103685ce2e66e948b738934341f64f6",
+      "size_bytes": 6992
+    },
+    "results/milestone_4b/benchmark.json": {
+      "sha256": "4d22595b90efb1db7552396103582ee64ecce1f6e0394f74a3d0df0653c63be9",
+      "size_bytes": 92568
+    },
+    "results/milestone_4b/candidate_counts.parquet": {
+      "sha256": "b660730eeaf39784fb8548ce6ba2b11003c979038750ac010ccd6fb373cfb21c",
+      "size_bytes": 24407194
+    },
+    "results/milestone_4b/candidate_estimates.json": {
+      "sha256": "5a5d79f8a60f69d1948ae8a90e73e54163b944f7649cd7dc41e5b17c67401af9",
+      "size_bytes": 331
+    },
+    "results/milestone_4b/candidate_estimates.parquet": {
+      "sha256": "90537ca5f487b92396968b87acc60d3ad904072144f19d0f30d60d4b5308b7bb",
+      "size_bytes": 22681
+    },
+    "results/milestone_4b/decision_expansion.parquet": {
+      "sha256": "ca708c986a96c2f62eb9ec19040437343c2b43519ed9fe03c68e5c4e07bf0d69",
+      "size_bytes": 755000
+    },
+    "results/milestone_4b/epsilon_cover_stats.parquet": {
+      "sha256": "9326535933fff8a35732b0232638b9e979815850c5b7a623e987b8372b1357e3",
+      "size_bytes": 24355677
+    },
+    "results/milestone_4b/epsilon_optimal_coverage.parquet": {
+      "sha256": "aec1dac01313b00f8b2a3caf978c52da89cf9f5dca256a2f6d8ec163c3656e47",
+      "size_bytes": 27663364
+    },
+    "results/milestone_4b/failure_analysis.parquet": {
+      "sha256": "31f624be94a9f4bab10030d407b043ea7139f2c596281fa5c052b9f8f1adcfb8",
+      "size_bytes": 9798430
+    },
+    "results/milestone_4b/figures/FIGURE_CONTRACT.md": {
+      "sha256": "85d79a1a4ff4716737c7eeab5b6934e557e77f5ddc0564a187e8d3062ac1635c",
+      "size_bytes": 1410
+    },
+    "results/milestone_4b/figures/QA_NOTES.md": {
+      "sha256": "5c52094e7001384e35f5464b4208031ce553640cd27561c07160d99dabf3196f",
+      "size_bytes": 1503
+    },
+    "results/milestone_4b/figures/cases.json": {
+      "sha256": "c18022ebffe59088fd049759fdfbdd0007facc5f2b602055cd133b8f7a665a43",
+      "size_bytes": 2295
+    },
+    "results/milestone_4b/figures/compression_regret_source.csv": {
+      "sha256": "fdb9e2cbe857559753a8b6d1cae4bea37191e1c0f4f0efea19b6e06acb4b1d71",
+      "size_bytes": 1411
+    },
+    "results/milestone_4b/figures/compression_vs_regret.pdf": {
+      "sha256": "c9766ac98e0a86a6dd72a1a90f30c0b12fc88061bcf4a917b6a83fbbe6fce93a",
+      "size_bytes": 21448
+    },
+    "results/milestone_4b/figures/compression_vs_regret.png": {
+      "sha256": "9a70387711585c17beca1fe296beb1d75b5f4fa8f1a6b36ccd27aed1c7d56870",
+      "size_bytes": 110771
+    },
+    "results/milestone_4b/figures/compression_vs_regret.svg": {
+      "sha256": "2b689ece46463dfafb80420dcb1882b73856dc53ae3c7d020cb7c38defc775e5",
+      "size_bytes": 25712
+    },
+    "results/milestone_4b/figures/microplan_diagnostics.pdf": {
+      "sha256": "58d59e5f9b2374c2ebd76ad1e587d321499ddbb1f3e7281368447319740aa4b9",
+      "size_bytes": 65080
+    },
+    "results/milestone_4b/figures/microplan_diagnostics.png": {
+      "sha256": "7a85b58159fabcd8b525c2d7221fb11dafbdd0fe0e4092f7679e1e18baca3c5e",
+      "size_bytes": 410271
+    },
+    "results/milestone_4b/figures/microplan_diagnostics.svg": {
+      "sha256": "845ac4899e885087b1610ff6ddda7a48f825ed1c68c5dd4882bf3b0cf2e94f0b",
+      "size_bytes": 175692
+    },
+    "results/milestone_4b/figures/retained_vs_topk_coverage.pdf": {
+      "sha256": "a35714bffd41f25a20d75ff269f1275a8e5da02f6eeb4d52290b0a13528b3d13",
+      "size_bytes": 19397
+    },
+    "results/milestone_4b/figures/retained_vs_topk_coverage.png": {
+      "sha256": "6c6b0d160e96614a5d1e9f2ef43837b7c377ddb9abf41b1fcefa0a88b984cb0c",
+      "size_bytes": 88265
+    },
+    "results/milestone_4b/figures/retained_vs_topk_coverage.svg": {
+      "sha256": "db5202d6603eb4e233523cf467e248e1f745e54c81639e070af9c0edfb5431c1",
+      "size_bytes": 28012
+    },
+    "results/milestone_4b/figures/source_preflight.json": {
+      "sha256": "34a7647d8332a3a541a04270c2cacec28e3d8074e4f607e747e1b748bb33458e",
+      "size_bytes": 2574
+    },
+    "results/milestone_4b/figures/task_compression_regret.pdf": {
+      "sha256": "130f13260e9b4cf177b51c406529011a8efb9a66d1588a0b5572f48b965a275f",
+      "size_bytes": 17127
+    },
+    "results/milestone_4b/figures/task_compression_regret.png": {
+      "sha256": "599dbb3738c5e672fbc41dd41e8939820e0412946cd4f10b2cc4f2e1dfce2fea",
+      "size_bytes": 62625
+    },
+    "results/milestone_4b/figures/task_compression_regret.svg": {
+      "sha256": "0aad965740593da7058d7a06e6d55f6ad9ae2011f990493dc90033e3012f11d8",
+      "size_bytes": 13723
+    },
+    "results/milestone_4b/figures/task_source.csv": {
+      "sha256": "366b330831bb9bbf01ef62c15f27e65bb2a5776552f2faa9fd0837c09593bdd5",
+      "size_bytes": 5746
+    },
+    "results/milestone_4b/filter_performance.parquet": {
+      "sha256": "94c84153816cb2f90dcbb3039c8aad7bd2ee990258a3be9b1f7e83aedbb96b67",
+      "size_bytes": 40650
+    },
+    "results/milestone_4b/gateway_bindings.parquet": {
+      "sha256": "e27dd20724b8dc9f8c253f8665ab17f8380bb8cb3c27f207634b233e753e7546",
+      "size_bytes": 33862855
+    },
+    "results/milestone_4b/gateway_expansion_stability.parquet": {
+      "sha256": "8c3e241c8a29f776b554f4faa98bd694c188af8fbecd4cf9307609ecc94798e9",
+      "size_bytes": 210253
+    },
+    "results/milestone_4b/gateway_microplan_usage.parquet": {
+      "sha256": "9082790ebbae57f9dfc49fa003feaa5c3ae29b4ea661a4354170d420c1972171",
+      "size_bytes": 21852641
+    },
+    "results/milestone_4b/gateway_stage_performance.parquet": {
+      "sha256": "3ee564f724a5458a90bd4354b58b7fa0ad37b920ecce484c9059b176efd9c637",
+      "size_bytes": 7213
+    },
+    "results/milestone_4b/gateways.parquet": {
+      "sha256": "f78bf2c1d336f0bcea16d2237f0ff98850d72332c7fcce815fa6557671811562",
+      "size_bytes": 31273955
+    },
+    "results/milestone_4b/local_costs.json": {
+      "sha256": "79a5811f585770d83b46e3ce082f8d7c03437645d46bd3bec7ebe87aa49b76ce",
+      "size_bytes": 1806
+    },
+    "results/milestone_4b/local_costs.parquet": {
+      "sha256": "9d08d5c876796efb6736b459838cee9be282d90ced3fdac27c87b67654b5ae7e",
+      "size_bytes": 106673902
+    },
+    "results/milestone_4b/logs/acceptance_tests.txt": {
+      "sha256": "08b49890e059e77d6bbe25c3795ee40eb90fb3e0f942c46133173f92a966eb67",
+      "size_bytes": 2962
+    },
+    "results/milestone_4b/logs/cold_routing_verification.txt": {
+      "sha256": "318f2e306af85f4014bde8a40e75292e83cd116d9b4032abe6e38cdc0587ec9a",
+      "size_bytes": 332
+    },
+    "results/milestone_4b/logs/figure_render.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4b/logs/figure_render_final.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "results/milestone_4b/logs/filter_benchmark.txt": {
+      "sha256": "5e168676d8063c806fe55ead0160ce6daf670e1e0e0d8c739d69cbb465b0715d",
+      "size_bytes": 216
+    },
+    "results/milestone_4b/logs/final_acceptance_tests.txt": {
+      "sha256": "a8a6d35682a58b23f053015f40b31047bb6347f8984d72e622bb0623ace72825",
+      "size_bytes": 191
+    },
+    "results/milestone_4b/logs/final_expansion_analysis.txt": {
+      "sha256": "d09aef81818c24f3ed7d7162da5e39db8ac7d0e0e809968aae7bd44b02200fbe",
+      "size_bytes": 3585
+    },
+    "results/milestone_4b/logs/final_preservation.txt": {
+      "sha256": "a726e8277863b0def3f5d744eb468920428c229c05e5d093b2557db61347ee7a",
+      "size_bytes": 228
+    },
+    "results/milestone_4b/logs/first_acceptance_tests.xml": {
+      "sha256": "2a10f241e1cc655345de3c2f26c09c2a2bc82f87d71e16952159bb38ceb63904",
+      "size_bytes": 12404
+    },
+    "results/milestone_4b/logs/full_analysis.txt": {
+      "sha256": "d09aef81818c24f3ed7d7162da5e39db8ac7d0e0e809968aae7bd44b02200fbe",
+      "size_bytes": 3585
+    },
+    "results/milestone_4b/logs/full_benchmark.txt": {
+      "sha256": "11f200cc1723dbad474ed4dc167216cc045d4e154defb13726fb93a411c61f54",
+      "size_bytes": 3423
+    },
+    "results/milestone_4b/logs/interim_preservation.txt": {
+      "sha256": "50b3329f5fa5f58037d880beef6086492c1d076904dbe72b9da1dd683e1eab27",
+      "size_bytes": 228
+    },
+    "results/milestone_4b/logs/microplan-benchmark-20261001T085213177864.json": {
+      "sha256": "6ae1db15f11def07295736c7e79340fdaade4f1f70cd2c04bd2866c9e74b78e7",
+      "size_bytes": 13760
+    },
+    "results/milestone_4b/logs/microplan-benchmark-20261001T085443222225.json": {
+      "sha256": "f20e9f5479a51be9c18756954b539d6d4d534ad419e33b10fc5f817dfcb9f6c1",
+      "size_bytes": 13760
+    },
+    "results/milestone_4b/logs/microplan-benchmark-20261001T085517127479.json": {
+      "sha256": "1140f4289549f36dd29495ed68c515258303beb4186dd9598dc83d4c17d975fc",
+      "size_bytes": 13760
+    },
+    "results/milestone_4b/logs/microplan-benchmark-20261001T085638907276.json": {
+      "sha256": "cb6bb4f3e86d13b517bd921fb5cd9c7c0cdc6d022ccb6d3291a9ed4659ca47c3",
+      "size_bytes": 13872
+    },
+    "results/milestone_4b/logs/microplan-benchmark-20261001T085718915357.json": {
+      "sha256": "b4f62a05e2c6817d6f75bb427873345a977a15ae67973b5f2d4844aa565c8318",
+      "size_bytes": 13850
+    },
+    "results/milestone_4b/logs/smoke_analysis.txt": {
+      "sha256": "8fe052a134fa97ddd065e121dc2f3d90c12849616de85830c5245e7df1dabd9c",
+      "size_bytes": 3553
+    },
+    "results/milestone_4b/logs/smoke_od14.txt": {
+      "sha256": "4e788f34f935018def26db9561e44987a3dd4086962c68e3363727b66dfc5107",
+      "size_bytes": 3056
+    },
+    "results/milestone_4b/logs/smoke_od14_complete.txt": {
+      "sha256": "42b9b3a02890df71a3624a4659f75655b7d967836015a53384a2ab21aed3f404",
+      "size_bytes": 553
+    },
+    "results/milestone_4b/logs/smoke_od14_fixed.txt": {
+      "sha256": "9929e0678f89180235448f3a12de362a1f019ed72dd12dc46248cfb6f89c9677",
+      "size_bytes": 828
+    },
+    "results/milestone_4b/logs/subset_verification.txt": {
+      "sha256": "c578c69555000172eceda751b9061c5af5f3c229f6eb08e752e3ae464ac2b99e",
+      "size_bytes": 285
+    },
+    "results/milestone_4b/microplan_feasibility.parquet": {
+      "sha256": "54be207a884a8c84505a5b58f45120c9641fc0dd926cbac94fa62a1b3124422d",
+      "size_bytes": 58244
+    },
+    "results/milestone_4b/microplans_flat/od_00_charge.parquet": {
+      "sha256": "6f17c0a2298d4fc12a4a435e472c5dd69987daf3534789759486d19c3504b407",
+      "size_bytes": 82675
+    },
+    "results/milestone_4b/microplans_flat/od_00_charge_meal.parquet": {
+      "sha256": "af28ce7ce6f07c096e31a3f14028bdcdee385f5d1dcbec846184449336aa65a8",
+      "size_bytes": 5605052
+    },
+    "results/milestone_4b/microplans_flat/od_00_charge_parking.parquet": {
+      "sha256": "0babcc24ab45442bc1dfea2b6ce978a74b82ed40df7bd8864321727fe8619e4a",
+      "size_bytes": 9862472
+    },
+    "results/milestone_4b/microplans_flat/od_00_meal.parquet": {
+      "sha256": "ebd8008118557b7da6c07411cc509a4e121ce971307749bcdcec02b0c4447074",
+      "size_bytes": 688274
+    },
+    "results/milestone_4b/microplans_flat/od_00_meal_parking.parquet": {
+      "sha256": "f17c91ba4501b05622f958c844a7dd4efe7e192e09133d2c8f07a3dcb2e6f259",
+      "size_bytes": 80871391
+    },
+    "results/milestone_4b/microplans_flat/od_00_parking.parquet": {
+      "sha256": "c160147b229ec2097ea194fc59cb1e5881787b8b946883b67fe5f038db95b7e9",
+      "size_bytes": 1808938
+    },
+    "results/milestone_4b/microplans_flat/od_00_sleep.parquet": {
+      "sha256": "b5d241544b415f8f8923f7277ddf9dd9629dda5294be3592c8d2594e6b9d58d9",
+      "size_bytes": 220514
+    },
+    "results/milestone_4b/microplans_flat/od_00_sleep_charge.parquet": {
+      "sha256": "35e36f1c5b8eb860fdc25d108e23b4a5967a837af65d9beaf4d95ced7c359811",
+      "size_bytes": 1194115
+    },
+    "results/milestone_4b/microplans_flat/od_01_charge.parquet": {
+      "sha256": "62b7f1135d258df875ca33cbd76f9ab93af44f919a1d800b00375c298a2b0979",
+      "size_bytes": 80350
+    },
+    "results/milestone_4b/microplans_flat/od_01_charge_meal.parquet": {
+      "sha256": "535b52eeb46297377c3785f180e004f1f4771d6a6831ecf3dd5b194d1a5722b7",
+      "size_bytes": 5487838
+    },
+    "results/milestone_4b/microplans_flat/od_01_charge_parking.parquet": {
+      "sha256": "045b0adbb45716bb082a9aba8beb7b156c7a57536a798bc98de6520e5c024555",
+      "size_bytes": 9685037
+    },
+    "results/milestone_4b/microplans_flat/od_01_meal.parquet": {
+      "sha256": "bb59545dfd12b9acc1f54576c24040c994c0b08b623fd2e91719a07d5980a3c0",
+      "size_bytes": 663073
+    },
+    "results/milestone_4b/microplans_flat/od_01_meal_parking.parquet": {
+      "sha256": "b390717b96dc13ecf9218ecd1a837b226567680a04a8e7bed215626343afd4b9",
+      "size_bytes": 79185721
+    },
+    "results/milestone_4b/microplans_flat/od_01_parking.parquet": {
+      "sha256": "cad7bbbeb52a01887424196bdea9368d55ba32f4b34d40c57a6c1051f9717c6e",
+      "size_bytes": 1744900
+    },
+    "results/milestone_4b/microplans_flat/od_01_sleep.parquet": {
+      "sha256": "02cb1b0ab987c3c218b5a66f94e633229442b8de0f16206c28daebb7cf15bc53",
+      "size_bytes": 204578
+    },
+    "results/milestone_4b/microplans_flat/od_01_sleep_charge.parquet": {
+      "sha256": "f13317afdac23a9f99e6a1bdbb28509fbbd3fdda26c4530159045779435c297a",
+      "size_bytes": 1136413
+    },
+    "results/milestone_4b/microplans_flat/od_02_charge.parquet": {
+      "sha256": "6f8eab01ca0a93b8c543bf9b5b8e752b042259271d21d7b7f19a11f929408643",
+      "size_bytes": 22964
+    },
+    "results/milestone_4b/microplans_flat/od_02_charge_meal.parquet": {
+      "sha256": "8e91f474500595e1c3e6eef1e28481e93ec1c8b96cd5aead9baed6f2167caeaf",
+      "size_bytes": 1403096
+    },
+    "results/milestone_4b/microplans_flat/od_02_charge_parking.parquet": {
+      "sha256": "3c89a4c579a1c6c6085a2e1d56d05c8253ee57ae18b40e5997802860552b618c",
+      "size_bytes": 2915810
+    },
+    "results/milestone_4b/microplans_flat/od_02_meal.parquet": {
+      "sha256": "a42504ce646155d429bf13b7ac08244974fe63015c0bddabd08124431a6f6a9f",
+      "size_bytes": 129861
+    },
+    "results/milestone_4b/microplans_flat/od_02_meal_parking.parquet": {
+      "sha256": "fae9046a111a4fb671ab686a2f2c7ae486db7acbc5a28416fe024632f540ade2",
+      "size_bytes": 17537582
+    },
+    "results/milestone_4b/microplans_flat/od_02_parking.parquet": {
+      "sha256": "6972d002be880e21934015d8cabccb660d95e3859e8f6479cccdaca429aea814",
+      "size_bytes": 402578
+    },
+    "results/milestone_4b/microplans_flat/od_02_sleep.parquet": {
+      "sha256": "516bfe5eec003f4ef7c0f71e3ea810b875bd801842a978fdf59454bd532d277e",
+      "size_bytes": 45302
+    },
+    "results/milestone_4b/microplans_flat/od_02_sleep_charge.parquet": {
+      "sha256": "195f6f43acb52ee2213dd803a4e35b00bf11b24087cbf9b7623632be10643833",
+      "size_bytes": 318965
+    },
+    "results/milestone_4b/microplans_flat/od_03_charge.parquet": {
+      "sha256": "b4ef0291fe113d4e2cf754b4fff66da6090604db1a5d813c8d7ae3a0272f2ec0",
+      "size_bytes": 16402
+    },
+    "results/milestone_4b/microplans_flat/od_03_charge_meal.parquet": {
+      "sha256": "2779f85b3122e721cbdec89d3191abba94f0a9767569501e669dccf3fbf53131",
+      "size_bytes": 362402
+    },
+    "results/milestone_4b/microplans_flat/od_03_charge_parking.parquet": {
+      "sha256": "75bfc2c7c26a874ec775d4090d40185b02302db37f05aed6629373058aae798c",
+      "size_bytes": 842201
+    },
+    "results/milestone_4b/microplans_flat/od_03_meal.parquet": {
+      "sha256": "40e2bf9635d49a73088bd43b5520ba0543182dfc4122c1113878e2fc9d6ce4b4",
+      "size_bytes": 77201
+    },
+    "results/milestone_4b/microplans_flat/od_03_meal_parking.parquet": {
+      "sha256": "29c30ba72d805d99b652d395525d5f37ceb62adfca7b90c9a1a5f57b90e336e1",
+      "size_bytes": 5299991
+    },
+    "results/milestone_4b/microplans_flat/od_03_parking.parquet": {
+      "sha256": "53cdc3c6cc46bc09d4b97fd6fd1ff61973291b359652a0ec359d32be17a45f22",
+      "size_bytes": 206152
+    },
+    "results/milestone_4b/microplans_flat/od_03_sleep.parquet": {
+      "sha256": "d0b7cec0cf570033e9d466e7063f46e9a0811a5ae1c237ce6c770004667efb72",
+      "size_bytes": 27258
+    },
+    "results/milestone_4b/microplans_flat/od_03_sleep_charge.parquet": {
+      "sha256": "07d222f7d853b535becc53383e4cf267673e2055cad2553669575d75024b8e5e",
+      "size_bytes": 72571
+    },
+    "results/milestone_4b/microplans_flat/od_04_charge.parquet": {
+      "sha256": "c4df255f753c58f887e1f03d9c025445f2b7095b58dca6fd27a7b944286ae7ea",
+      "size_bytes": 53261
+    },
+    "results/milestone_4b/microplans_flat/od_04_charge_meal.parquet": {
+      "sha256": "4da7c6e0412ebe7f8a685288236e06878eca0f810dfc40531d4de77fb97ac6b4",
+      "size_bytes": 4148334
+    },
+    "results/milestone_4b/microplans_flat/od_04_charge_parking.parquet": {
+      "sha256": "be488965099525bc07cbffea4eaa1419eacca8f6c8737cb3ea48f403489d88d7",
+      "size_bytes": 7511761
+    },
+    "results/milestone_4b/microplans_flat/od_04_meal.parquet": {
+      "sha256": "bc6422a0436000bbb0599d730a8daabfe43f2c9dda65534c304afb6df10c151f",
+      "size_bytes": 414828
+    },
+    "results/milestone_4b/microplans_flat/od_04_meal_parking.parquet": {
+      "sha256": "05df6cd6dcdded36f7a52eafbbd1abdc7264d3ca698952d32bc4694c40b076bb",
+      "size_bytes": 60913415
+    },
+    "results/milestone_4b/microplans_flat/od_04_parking.parquet": {
+      "sha256": "d446d7b6637f508433152408b7d1ef976b82c280dd114b3e1b748e65fda004ca",
+      "size_bytes": 1079546
+    },
+    "results/milestone_4b/microplans_flat/od_04_sleep.parquet": {
+      "sha256": "9a8e0dd7de2cbdafac89172f00107fd8d5bf8dfcec6e4be8466ad1553c0bfab8",
+      "size_bytes": 113617
+    },
+    "results/milestone_4b/microplans_flat/od_04_sleep_charge.parquet": {
+      "sha256": "5fe44c1ca0e6a77db108963c4a56623ebe979234dc2ff0a2e97f3e02ced6cede",
+      "size_bytes": 702146
+    },
+    "results/milestone_4b/microplans_flat/od_05_charge.parquet": {
+      "sha256": "4b502814c9307eedc5ceea0b4abacaefb639d56e8113fdba4262b91ed9209851",
+      "size_bytes": 37005
+    },
+    "results/milestone_4b/microplans_flat/od_05_charge_meal.parquet": {
+      "sha256": "f01d2b4e99ab71acbbfa1b8548b1ad7b1863ed4e2e428c61d9a6ad2fda6ddff8",
+      "size_bytes": 2614390
+    },
+    "results/milestone_4b/microplans_flat/od_05_charge_parking.parquet": {
+      "sha256": "6282e8861df836917bd39046fc115bd930cd6453d780b2f00664dfe13e4b18a6",
+      "size_bytes": 5407759
+    },
+    "results/milestone_4b/microplans_flat/od_05_meal.parquet": {
+      "sha256": "e1a70f7f7b3b9cf08d362497419e858ddd1d645279a7cbe7d418fd01a9fe72f6",
+      "size_bytes": 283473
+    },
+    "results/milestone_4b/microplans_flat/od_05_meal_parking.parquet": {
+      "sha256": "793c8024b1282099083e52b0ff9f3dcffdb1b7e50114721a73ba8a4807394e7e",
+      "size_bytes": 48125848
+    },
+    "results/milestone_4b/microplans_flat/od_05_parking.parquet": {
+      "sha256": "3e5a28f36d99b2ff31f986773ed7270ff7c75e2e6f37726dae5b4134b539d297",
+      "size_bytes": 755358
+    },
+    "results/milestone_4b/microplans_flat/od_05_sleep.parquet": {
+      "sha256": "72fec5de32c036cc4043bc84fa068a66a11be9e133bd0ca3d7f60324d2d5aa8a",
+      "size_bytes": 80343
+    },
+    "results/milestone_4b/microplans_flat/od_05_sleep_charge.parquet": {
+      "sha256": "8ce7e3eba6a8b7247ac6d13dc7fcdd6f0e3c63d2d2bf6ecc9715e444878702c6",
+      "size_bytes": 530256
+    },
+    "results/milestone_4b/microplans_flat/od_06_charge.parquet": {
+      "sha256": "8e4e73d64de06e3a312d58a179b981daac970191611bc5754d0cd00247d458ec",
+      "size_bytes": 11731
+    },
+    "results/milestone_4b/microplans_flat/od_06_charge_meal.parquet": {
+      "sha256": "43490a657123b58ca8b6b73ee9a639d7c4ee85f9a1202ca03bc29d2121d1570b",
+      "size_bytes": 490455
+    },
+    "results/milestone_4b/microplans_flat/od_06_charge_parking.parquet": {
+      "sha256": "c86742a0870ef62e61d7d9dd4079e77adddf7ec54abbaec185e97519e205ecdb",
+      "size_bytes": 1447777
+    },
+    "results/milestone_4b/microplans_flat/od_06_meal.parquet": {
+      "sha256": "bc465328bed4c14b7c9d208fc53cadcdb34835118e9c16122df541e6ccbb345a",
+      "size_bytes": 55637
+    },
+    "results/milestone_4b/microplans_flat/od_06_meal_parking.parquet": {
+      "sha256": "8aba92144047ea356ac41dba353dc43e910abe32733926a03429b2b2a13760d1",
+      "size_bytes": 10991202
+    },
+    "results/milestone_4b/microplans_flat/od_06_parking.parquet": {
+      "sha256": "40b206dd4584e93ab5a73cade06792865c19493af28794a21edd373b8edcf6fa",
+      "size_bytes": 208895
+    },
+    "results/milestone_4b/microplans_flat/od_06_sleep.parquet": {
+      "sha256": "de4da36a902a16427348d2f9f13c17e86dedf67007ade94ae7fbcb716123f5a0",
+      "size_bytes": 20463
+    },
+    "results/milestone_4b/microplans_flat/od_06_sleep_charge.parquet": {
+      "sha256": "d8f35947427cfce9059750847bda959187dc112368349aa159bc5779f5c77332",
+      "size_bytes": 143543
+    },
+    "results/milestone_4b/microplans_flat/od_07_charge.parquet": {
+      "sha256": "e0c4466a7c2c38df2b6699eb9eb32dc58680f852d504f0e0191da30e8469d9cf",
+      "size_bytes": 18718
+    },
+    "results/milestone_4b/microplans_flat/od_07_charge_meal.parquet": {
+      "sha256": "815361029d8c7502916689e1d7a85a1ae05a0fef936603c2e16176e486798258",
+      "size_bytes": 911393
+    },
+    "results/milestone_4b/microplans_flat/od_07_charge_parking.parquet": {
+      "sha256": "85e8f407f4e280c177390973bdff6e88e4f64c8f0e46d5d0883f38f20ff7a34d",
+      "size_bytes": 2307486
+    },
+    "results/milestone_4b/microplans_flat/od_07_meal.parquet": {
+      "sha256": "512d60750d4507537dcbe8aef2d97deff9da44261d3ca9d3e9400fc321e1c60b",
+      "size_bytes": 122541
+    },
+    "results/milestone_4b/microplans_flat/od_07_meal_parking.parquet": {
+      "sha256": "3f369aaf9b5e358d31a7c257f20549095929b7eacafa972fac6c732e6cd1fb6b",
+      "size_bytes": 17650432
+    },
+    "results/milestone_4b/microplans_flat/od_07_parking.parquet": {
+      "sha256": "142d7674b298bdc849abb7bf4a7b9b8b7f8fe7dd71c593c5b9ad6428f9ff05ef",
+      "size_bytes": 419651
+    },
+    "results/milestone_4b/microplans_flat/od_07_sleep.parquet": {
+      "sha256": "032a42930d82815df46b7a98ae82fd30740ba374e7e90584a1ecd0ae998b664d",
+      "size_bytes": 37652
+    },
+    "results/milestone_4b/microplans_flat/od_07_sleep_charge.parquet": {
+      "sha256": "14e5170c93e080e8d80644dff9d608672f18277d955231b075251f1afa67865d",
+      "size_bytes": 211173
+    },
+    "results/milestone_4b/microplans_flat/od_08_charge.parquet": {
+      "sha256": "729b95169c96c90f65551599e13f7397898417442705a9073c9a519b7350b415",
+      "size_bytes": 60608
+    },
+    "results/milestone_4b/microplans_flat/od_08_charge_meal.parquet": {
+      "sha256": "a1fe68d6a9a987115c370076df020bc59d2498e26e56539612edb41882ffa8ff",
+      "size_bytes": 4516324
+    },
+    "results/milestone_4b/microplans_flat/od_08_charge_parking.parquet": {
+      "sha256": "501ac4bebf4b35fa4827e3da6b6adac51af0df0ad631f25fdefb8c8124d23af1",
+      "size_bytes": 8126022
+    },
+    "results/milestone_4b/microplans_flat/od_08_meal.parquet": {
+      "sha256": "59252adcc48fbc9bf86835677171fca1c363ad32872f1656dc38cbc4eb0b3258",
+      "size_bytes": 482598
+    },
+    "results/milestone_4b/microplans_flat/od_08_meal_parking.parquet": {
+      "sha256": "af1dad2315ac2aa199cad436f810495cad1c33b1cac26ec46eb5f55c519310e8",
+      "size_bytes": 67248653
+    },
+    "results/milestone_4b/microplans_flat/od_08_parking.parquet": {
+      "sha256": "a8cf53538a0381e7ca5602a78afeab691f2871789466da0025d7af01b3af11f0",
+      "size_bytes": 1267993
+    },
+    "results/milestone_4b/microplans_flat/od_08_sleep.parquet": {
+      "sha256": "66244da841a474997894a58d4e457bb814b2bbdb26caf91c6329b74e56b934d1",
+      "size_bytes": 139678
+    },
+    "results/milestone_4b/microplans_flat/od_08_sleep_charge.parquet": {
+      "sha256": "d31782d1e79eab72b982b1f8e2d51955681f1f7412665eda6629619f2cd116e8",
+      "size_bytes": 812323
+    },
+    "results/milestone_4b/microplans_flat/od_09_charge.parquet": {
+      "sha256": "05a61fb59a2e5d02a1bbc60d4faddcf6594906126cfb95fccfd11f06511b1440",
+      "size_bytes": 70568
+    },
+    "results/milestone_4b/microplans_flat/od_09_charge_meal.parquet": {
+      "sha256": "6391413ff6d4003206c6a58fd5c36e823c4f6249ad2fa3dee39216885a7bedac",
+      "size_bytes": 5079434
+    },
+    "results/milestone_4b/microplans_flat/od_09_charge_parking.parquet": {
+      "sha256": "d585175aed7e34bfd90f3fb27de0c15baa196813f0f821bcfe2561a229f97a6d",
+      "size_bytes": 9094565
+    },
+    "results/milestone_4b/microplans_flat/od_09_meal.parquet": {
+      "sha256": "0e07d1bf0ec81a03c8c179e92649e8efb02114cafa75b31bd36284aef0d188cf",
+      "size_bytes": 565351
+    },
+    "results/milestone_4b/microplans_flat/od_09_meal_parking.parquet": {
+      "sha256": "a2d8542fecdedf824ce96b155c7096b97dad3b1eac88ba1dc9dd378ccddbf207",
+      "size_bytes": 74033513
+    },
+    "results/milestone_4b/microplans_flat/od_09_parking.parquet": {
+      "sha256": "1757a181837633227963d9a4bbab3f943555ed24a42b47e000651381b3e7893a",
+      "size_bytes": 1558898
+    },
+    "results/milestone_4b/microplans_flat/od_09_sleep.parquet": {
+      "sha256": "37d3f54fe19ed2b7c1ba96edf28315f2258c7a9ce30529a43172b7d9b7141df3",
+      "size_bytes": 163962
+    },
+    "results/milestone_4b/microplans_flat/od_09_sleep_charge.parquet": {
+      "sha256": "7e81255d8fad3b3d640c5252444ee6875f7fdba1f14f8353ee1eb63a50acecec",
+      "size_bytes": 1032512
+    },
+    "results/milestone_4b/microplans_flat/od_10_charge.parquet": {
+      "sha256": "d28c91b51769ec995c20dcf450af65b2d7e889c6349b63cc941040ad9af3e536",
+      "size_bytes": 60124
+    },
+    "results/milestone_4b/microplans_flat/od_10_charge_meal.parquet": {
+      "sha256": "e701b63a72c67b37414117022dac992b42f3d404fb8c35b18caec1198a1de07f",
+      "size_bytes": 4394962
+    },
+    "results/milestone_4b/microplans_flat/od_10_charge_parking.parquet": {
+      "sha256": "cd9a7dc68732768da23380beb535426980fc77e2324e9cfa36236712b3051cbc",
+      "size_bytes": 7948814
+    },
+    "results/milestone_4b/microplans_flat/od_10_meal.parquet": {
+      "sha256": "89d8b0b17a45a149c83d9b333c992029fc20d00c0ca1ee826a66d13f67ab5d8f",
+      "size_bytes": 454351
+    },
+    "results/milestone_4b/microplans_flat/od_10_meal_parking.parquet": {
+      "sha256": "e82bb57b2c96ef200d3304bbf3e9d82a653bba501ec4c8535da49276e6da13d5",
+      "size_bytes": 63185399
+    },
+    "results/milestone_4b/microplans_flat/od_10_parking.parquet": {
+      "sha256": "073ce9d32be6cecc96ba8093752a572c19f5d08a539ae6efebd13d975d9a10ac",
+      "size_bytes": 1182775
+    },
+    "results/milestone_4b/microplans_flat/od_10_sleep.parquet": {
+      "sha256": "5b4ab4b16320521482aca13181dc546ebeef83b9e2ca5b8a1997f72f1f4df01c",
+      "size_bytes": 138577
+    },
+    "results/milestone_4b/microplans_flat/od_10_sleep_charge.parquet": {
+      "sha256": "89a98075d3ad6a363dd4db0002b8e1b815ad6a146eb890b1645b34e42e8c6de2",
+      "size_bytes": 773407
+    },
+    "results/milestone_4b/microplans_flat/od_11_charge.parquet": {
+      "sha256": "fd9462a269c050913327b8982fe3a35d302ebce138b5fb3f5eafbca902fba33c",
+      "size_bytes": 64693
+    },
+    "results/milestone_4b/microplans_flat/od_11_charge_meal.parquet": {
+      "sha256": "eab652906ea03a068660f4b07eae0d4af7b5f8c3ac87bb5171165b71bca3e0fe",
+      "size_bytes": 4785938
+    },
+    "results/milestone_4b/microplans_flat/od_11_charge_parking.parquet": {
+      "sha256": "f938e4d417e248e77efa67c04aa390697b01ae1e7a7a4e3646c7c5741e3be145",
+      "size_bytes": 8493397
+    },
+    "results/milestone_4b/microplans_flat/od_11_meal.parquet": {
+      "sha256": "d25ef23713840334746a0a4727d2de4b2e226d4c014332940fd2941a02732134",
+      "size_bytes": 530351
+    },
+    "results/milestone_4b/microplans_flat/od_11_meal_parking.parquet": {
+      "sha256": "f23f2c869c7cb3072b989c38c6ad56156426857524de021d0acc0f4f73668f74",
+      "size_bytes": 70827299
+    },
+    "results/milestone_4b/microplans_flat/od_11_parking.parquet": {
+      "sha256": "f5eca8b641f8b80864ceaef6ff979b95c353807ae1277a5f969de8db4f8d31ee",
+      "size_bytes": 1399321
+    },
+    "results/milestone_4b/microplans_flat/od_11_sleep.parquet": {
+      "sha256": "e92f9b6a223bb8d991bff8606f402a3cd3160d9a1c50c618afac975ebcca956e",
+      "size_bytes": 149322
+    },
+    "results/milestone_4b/microplans_flat/od_11_sleep_charge.parquet": {
+      "sha256": "f6bbbee7d32aba8ac058115cbd1024892283634fea6496da60cb2e11ee88c5c4",
+      "size_bytes": 881071
+    },
+    "results/milestone_4b/microplans_flat/od_12_charge.parquet": {
+      "sha256": "0cfe3e67a42dc35a107a76dd6c2b2d2ece12af41f2db4ab07894857df403e25b",
+      "size_bytes": 13937
+    },
+    "results/milestone_4b/microplans_flat/od_12_charge_meal.parquet": {
+      "sha256": "5feed38160f7d3c2ee876f795529731a391569c19666ab7278583c1a8963d6cb",
+      "size_bytes": 537250
+    },
+    "results/milestone_4b/microplans_flat/od_12_charge_parking.parquet": {
+      "sha256": "2e787a0077c88b6b70bdc13dc19e9ef90a50f405bc40a59bde4301e52707fc30",
+      "size_bytes": 1658890
+    },
+    "results/milestone_4b/microplans_flat/od_12_meal.parquet": {
+      "sha256": "d4f5976bc3943b9eae135ca48e40c0cf01e34393eb95b08f398660d808757f27",
+      "size_bytes": 70457
+    },
+    "results/milestone_4b/microplans_flat/od_12_meal_parking.parquet": {
+      "sha256": "6d06fb47c0b6eb406aa6fabb0174b393a88ac18171c6bf1fa8668946f9da572a",
+      "size_bytes": 11446232
+    },
+    "results/milestone_4b/microplans_flat/od_12_parking.parquet": {
+      "sha256": "338a71cade76b0e530ef371aeb4caafdbfdb9f2edb961fbb8a00659b88e2379d",
+      "size_bytes": 258934
+    },
+    "results/milestone_4b/microplans_flat/od_12_sleep.parquet": {
+      "sha256": "559ed8114245c13a1a618e1756086e0e64f00649a4346cc7842740700b8fddb4",
+      "size_bytes": 30219
+    },
+    "results/milestone_4b/microplans_flat/od_12_sleep_charge.parquet": {
+      "sha256": "a086e0358b72e5057e3e6f0313742d0a4680d6ffff16573939d4611ca3132146",
+      "size_bytes": 164802
+    },
+    "results/milestone_4b/microplans_flat/od_13_charge.parquet": {
+      "sha256": "861a760aa7a30e3da3371f033c1e464f01730d48cd5537b514a261f5f866e1f6",
+      "size_bytes": 19774
+    },
+    "results/milestone_4b/microplans_flat/od_13_charge_meal.parquet": {
+      "sha256": "4baeec3e26711ebe57c0f8bb91e4a61a37194f4d00992e4ba7ce0586895eb45c",
+      "size_bytes": 1371876
+    },
+    "results/milestone_4b/microplans_flat/od_13_charge_parking.parquet": {
+      "sha256": "78ca81f4f3c0611dba9cf98b43044a8b68048aaa3c1a833a62e60fd4bcae5f5a",
+      "size_bytes": 3295592
+    },
+    "results/milestone_4b/microplans_flat/od_13_meal.parquet": {
+      "sha256": "604e39274b008ca2a6ffde62309ae8274e4bd121c85efcdca350393b5ef33148",
+      "size_bytes": 139623
+    },
+    "results/milestone_4b/microplans_flat/od_13_meal_parking.parquet": {
+      "sha256": "037ebab0d190750b76bfea6396a843fd1e9b49fb61003c9929f4ef54782d7301",
+      "size_bytes": 31949352
+    },
+    "results/milestone_4b/microplans_flat/od_13_parking.parquet": {
+      "sha256": "5e1879d5a9ea0865cda4c8a4ae38837c169c1839d5ab843806f48073e87ce83d",
+      "size_bytes": 437088
+    },
+    "results/milestone_4b/microplans_flat/od_13_sleep.parquet": {
+      "sha256": "9f19cf067d79f42ed9325cbb642daae9d8c63c7ed1f6a69b60540bb3e1f2f255",
+      "size_bytes": 31240
+    },
+    "results/milestone_4b/microplans_flat/od_13_sleep_charge.parquet": {
+      "sha256": "9b46b678d7274d0aefbc449977643ae624c711ff4fcbc7ffb9e5365d6eeda7a3",
+      "size_bytes": 245466
+    },
+    "results/milestone_4b/microplans_flat/od_14_charge.parquet": {
+      "sha256": "5617eb5051d6761993f04b68e66925e577289257394a5b06d5c0853bc7a3165e",
+      "size_bytes": 11136
+    },
+    "results/milestone_4b/microplans_flat/od_14_charge_meal.parquet": {
+      "sha256": "0b39b6ec89ebf2c5c81fa27b9ed6b4c5c17edf1a8da9af1fa447f06a5954d5d4",
+      "size_bytes": 298819
+    },
+    "results/milestone_4b/microplans_flat/od_14_charge_parking.parquet": {
+      "sha256": "d693f1f907bdc89c1d6390f8070966ddee25adce9235c7c2ffdb7cd3df952f6d",
+      "size_bytes": 675437
+    },
+    "results/milestone_4b/microplans_flat/od_14_meal.parquet": {
+      "sha256": "7ca6130be8dce7c1acc998e34f7d13cebd3de7fbfd0bae2f0be4a66ad36de26c",
+      "size_bytes": 41876
+    },
+    "results/milestone_4b/microplans_flat/od_14_meal_parking.parquet": {
+      "sha256": "cfa2c855d138db151b8af11bd57c92efeba51eab1a499bce45eee7ffc03c24a9",
+      "size_bytes": 4065096
+    },
+    "results/milestone_4b/microplans_flat/od_14_parking.parquet": {
+      "sha256": "f4997a5c999857d665419c885eff452dda0614acb91bea3fba0f126a5a682ff7",
+      "size_bytes": 102877
+    },
+    "results/milestone_4b/microplans_flat/od_14_sleep.parquet": {
+      "sha256": "7a577be97aa858b8dddd933003ac40a0635cdc59e782132ea6f981b5b1677709",
+      "size_bytes": 15491
+    },
+    "results/milestone_4b/microplans_flat/od_14_sleep_charge.parquet": {
+      "sha256": "91e2dffb215d17a222eee3234dba549bbb11c20defbf413216e7965fca14d06d",
+      "size_bytes": 54772
+    },
+    "results/milestone_4b/microplans_flat/od_15_charge.parquet": {
+      "sha256": "93093bd7929c20fa39244049edb111170b4d2c9789378dbf69364a48ec37d041",
+      "size_bytes": 28091
+    },
+    "results/milestone_4b/microplans_flat/od_15_charge_meal.parquet": {
+      "sha256": "a9ad9c06d0ab504af3482a2a9d5fe1663abeba5af2c8a5789af15bfb8e670c02",
+      "size_bytes": 1658663
+    },
+    "results/milestone_4b/microplans_flat/od_15_charge_parking.parquet": {
+      "sha256": "e7f54017947f529042d61cf5992e7686e01b215fbd6ca2d44d8832932f5d81de",
+      "size_bytes": 3398334
+    },
+    "results/milestone_4b/microplans_flat/od_15_meal.parquet": {
+      "sha256": "a738e1b8b4ff7539a746907eef1ddd4adc631ee3124325983eb936977b5abb90",
+      "size_bytes": 194928
+    },
+    "results/milestone_4b/microplans_flat/od_15_meal_parking.parquet": {
+      "sha256": "e142d8bb0efd9bc5263ff83bfe532257446963c199e018805ccd4b30e3f17a23",
+      "size_bytes": 25086780
+    },
+    "results/milestone_4b/microplans_flat/od_15_parking.parquet": {
+      "sha256": "977c345e8436f0991119a09093def8dab240d03128b16f446ff7231a057945e1",
+      "size_bytes": 584823
+    },
+    "results/milestone_4b/microplans_flat/od_15_sleep.parquet": {
+      "sha256": "123a3191bdabd6b2a51c18978b6f8d44f1c97b11e5cb4bdc80e028a89922cfcd",
+      "size_bytes": 69766
+    },
+    "results/milestone_4b/microplans_flat/od_15_sleep_charge.parquet": {
+      "sha256": "5d5dba1a7002cbb72de52bf534a531df0752dd6eef960f67740fb9ba268b8e2d",
+      "size_bytes": 392672
+    },
+    "results/milestone_4b/microplans_flat/od_16_charge.parquet": {
+      "sha256": "9923c6ce366a6278cdf9ae288c245f78150dd83c6733bb33ce08076665dbe491",
+      "size_bytes": 65406
+    },
+    "results/milestone_4b/microplans_flat/od_16_charge_meal.parquet": {
+      "sha256": "7ff671397d58a11ce2ced9df778fb33a44413981b0b47e2716b56aa9274e8122",
+      "size_bytes": 4761550
+    },
+    "results/milestone_4b/microplans_flat/od_16_charge_parking.parquet": {
+      "sha256": "9799f72e8b704f4d66db8dd908053f4c8b60af09bef25bc8fab86be9ca79c5ba",
+      "size_bytes": 8485170
+    },
+    "results/milestone_4b/microplans_flat/od_16_meal.parquet": {
+      "sha256": "9486886f0de3a200f5d2ae16aae2c022d782ddf10ae1df43fff9f84efe113177",
+      "size_bytes": 545822
+    },
+    "results/milestone_4b/microplans_flat/od_16_meal_parking.parquet": {
+      "sha256": "df27b25f9600639fd73ab46081c483349ec4ae080b5d5a3d11d5673c5c2b62d8",
+      "size_bytes": 71460954
+    },
+    "results/milestone_4b/microplans_flat/od_16_parking.parquet": {
+      "sha256": "d660b2626e8a5229c141c542f0a8c49721057031075c47cc004577facb309e09",
+      "size_bytes": 1439229
+    },
+    "results/milestone_4b/microplans_flat/od_16_sleep.parquet": {
+      "sha256": "61744e1042eaa6afa5905fa9a9b0d892d3867f01c7b04707fca32c6be6e61a04",
+      "size_bytes": 156093
+    },
+    "results/milestone_4b/microplans_flat/od_16_sleep_charge.parquet": {
+      "sha256": "394112895b4edd326bad80a8e7c138ba325ed5d2ebba10c67e0d5927f7de5749",
+      "size_bytes": 887738
+    },
+    "results/milestone_4b/microplans_flat/od_17_charge.parquet": {
+      "sha256": "cb417815212f8b51059c2cf1a65711e73c570e21fcbe150a49c648bf2e803ec0",
+      "size_bytes": 12657
+    },
+    "results/milestone_4b/microplans_flat/od_17_charge_meal.parquet": {
+      "sha256": "73cba2f14c0626fd1376fc850123f2b9edc7701429257203e366701d88c3ebac",
+      "size_bytes": 286460
+    },
+    "results/milestone_4b/microplans_flat/od_17_charge_parking.parquet": {
+      "sha256": "1b3a27e9f199f046ece5932bd26f7d964f61c17a7065e0a5c167dcbf42ad0c68",
+      "size_bytes": 675854
+    },
+    "results/milestone_4b/microplans_flat/od_17_meal.parquet": {
+      "sha256": "3dd3bd3ae73cf4d01747c9e88ff26014c97b0b559fd8038a0775fa572d449034",
+      "size_bytes": 55104
+    },
+    "results/milestone_4b/microplans_flat/od_17_meal_parking.parquet": {
+      "sha256": "27c9a2b48b627059a69d9c22ae7ecfeed3447b12320545d91417e959b4924970",
+      "size_bytes": 4381578
+    },
+    "results/milestone_4b/microplans_flat/od_17_parking.parquet": {
+      "sha256": "d5d1dccc985c271f2509b3a6b8a7f9933c9e1bdcb3bb78cd7472423c4ba7d245",
+      "size_bytes": 158033
+    },
+    "results/milestone_4b/microplans_flat/od_17_sleep.parquet": {
+      "sha256": "7a30eea400cb4bdf10b065ddbe925c37a41fec62624bda089160fadc46e82326",
+      "size_bytes": 20438
+    },
+    "results/milestone_4b/microplans_flat/od_17_sleep_charge.parquet": {
+      "sha256": "d91cf44d57594b5fbfd8dbebceb461e643eb0d832597b1409c4b08fed99c09b0",
+      "size_bytes": 53682
+    },
+    "results/milestone_4b/microplans_flat/od_18_charge.parquet": {
+      "sha256": "274a04cfa98ce7121ba8ef7122b02f510bae3cf01044aeacfd3824295d38679c",
+      "size_bytes": 38412
+    },
+    "results/milestone_4b/microplans_flat/od_18_charge_meal.parquet": {
+      "sha256": "7475cf06281ca0423df990f88f711ae1304a060ce1cbe983190e23fb35711393",
+      "size_bytes": 1823058
+    },
+    "results/milestone_4b/microplans_flat/od_18_charge_parking.parquet": {
+      "sha256": "25b54ea3907444b04e7bd7adb6351562640f8ab38f76d2f2a33b6206960ac2dc",
+      "size_bytes": 4321078
+    },
+    "results/milestone_4b/microplans_flat/od_18_meal.parquet": {
+      "sha256": "d13a1ac9be4fda5aa5aa3b011d59e3b6322b155e44d535ef1b7968cadfc889fd",
+      "size_bytes": 292468
+    },
+    "results/milestone_4b/microplans_flat/od_18_meal_parking.parquet": {
+      "sha256": "3c636c4acaa6de8dc7baa91807ab056512648dfe8b059f58c343c18f4fbd7e5f",
+      "size_bytes": 32871287
+    },
+    "results/milestone_4b/microplans_flat/od_18_parking.parquet": {
+      "sha256": "008abbd3e67eec650f1a805e3d7d2e3b8881150c23d43a9870f5a5608cb533d1",
+      "size_bytes": 935208
+    },
+    "results/milestone_4b/microplans_flat/od_18_sleep.parquet": {
+      "sha256": "1e5569378f9bf999bd36d2527965ea659492a84dfa8949fc09b73b1d2dc2908d",
+      "size_bytes": 100676
+    },
+    "results/milestone_4b/microplans_flat/od_18_sleep_charge.parquet": {
+      "sha256": "7f547956a4ec42cf198d5f5328d256cc7557bbbd380c3c45400467612ef9f573",
+      "size_bytes": 499153
+    },
+    "results/milestone_4b/microplans_flat/od_19_charge.parquet": {
+      "sha256": "ae71c5cdffe3a706b3324691231d93a2266b422bc349e69038ac4e95e85bae5c",
+      "size_bytes": 83665
+    },
+    "results/milestone_4b/microplans_flat/od_19_charge_meal.parquet": {
+      "sha256": "b493a15c939a635f9ac4e8f844269e340624166c5127100bff61886e722cafda",
+      "size_bytes": 5636987
+    },
+    "results/milestone_4b/microplans_flat/od_19_charge_parking.parquet": {
+      "sha256": "d00ddbdaf6e6903f226c79c645ce2f2d7c50196d2e3ae3cbfcc823d83c312fb2",
+      "size_bytes": 9905832
+    },
+    "results/milestone_4b/microplans_flat/od_19_meal.parquet": {
+      "sha256": "98ea7bdb0adb2bdc49112fad46c5eafa146d59ca0789439daf465ccbd92ed7bb",
+      "size_bytes": 697351
+    },
+    "results/milestone_4b/microplans_flat/od_19_meal_parking.parquet": {
+      "sha256": "88e6a69d3fcc88108c707904c2551a7da1301e43b689adc79e322d9751ab3bb0",
+      "size_bytes": 81195918
+    },
+    "results/milestone_4b/microplans_flat/od_19_parking.parquet": {
+      "sha256": "92b3891da64d85092ee8753d77f49196038886cb9871951f178ae0e3c86b9a87",
+      "size_bytes": 1835297
+    },
+    "results/milestone_4b/microplans_flat/od_19_sleep.parquet": {
+      "sha256": "629a17b26ca214ed2cc21c59a1e2e35d7095bc792752a24b943bd5f81641bca3",
+      "size_bytes": 223910
+    },
+    "results/milestone_4b/microplans_flat/od_19_sleep_charge.parquet": {
+      "sha256": "17803a8ba743bd96e6c8b7acfa44817b7769eaca79b6ac89b6a73c5c027812fa",
+      "size_bytes": 1211572
+    },
+    "results/milestone_4b/microplans_flat/od_20_charge.parquet": {
+      "sha256": "8e747dfc152721e7af27c0c070f78a2f94bd48b0380ea4801662c93d85872099",
+      "size_bytes": 10686
+    },
+    "results/milestone_4b/microplans_flat/od_20_charge_meal.parquet": {
+      "sha256": "a90a2d28c109cab8e6f8e61794b2bc887a284fb1ceb40e59d6972dba747c6861",
+      "size_bytes": 452507
+    },
+    "results/milestone_4b/microplans_flat/od_20_charge_parking.parquet": {
+      "sha256": "012b2c2f561c975a16d629cd3fbc8aa958f38746724450e9e4c8ddfc8ba76729",
+      "size_bytes": 1329836
+    },
+    "results/milestone_4b/microplans_flat/od_20_meal.parquet": {
+      "sha256": "519915f052051d6d2df733339144209461ed1ae34e0533763bc27a0ed80b6a04",
+      "size_bytes": 43420
+    },
+    "results/milestone_4b/microplans_flat/od_20_meal_parking.parquet": {
+      "sha256": "4091511b5ea9479fc969d47eaa0344113e0dc8251e25ba4808a1d3c0ed50785b",
+      "size_bytes": 10066207
+    },
+    "results/milestone_4b/microplans_flat/od_20_parking.parquet": {
+      "sha256": "4089f7bd7e97a489624448cd91d403eadeea810827b53773f5e4e7a3b78f3909",
+      "size_bytes": 162453
+    },
+    "results/milestone_4b/microplans_flat/od_20_sleep.parquet": {
+      "sha256": "4e85b621a85437af457bebdb259faaa91773f1a26e054d672d2b58022058d40a",
+      "size_bytes": 13852
+    },
+    "results/milestone_4b/microplans_flat/od_20_sleep_charge.parquet": {
+      "sha256": "c6518c94eb98fdf1108de412abd691e09ab3c589e9e03302a95fdfdb9c6847b1",
+      "size_bytes": 122621
+    },
+    "results/milestone_4b/microplans_flat/od_21_charge.parquet": {
+      "sha256": "4f5284b38f34b4cb743ce4e349c1af8560a99798e81de6c45fbad7f998ef279e",
+      "size_bytes": 36684
+    },
+    "results/milestone_4b/microplans_flat/od_21_charge_meal.parquet": {
+      "sha256": "c7ef0b3fc1557cdd5da6b1c717cc7444c905249c466e702624c87ca44ef2c62b",
+      "size_bytes": 1934476
+    },
+    "results/milestone_4b/microplans_flat/od_21_charge_parking.parquet": {
+      "sha256": "a0f1676a23cc63dde73aa2658394ed9e7e3b6b27cf1a6a0162f6ebc398fdc47b",
+      "size_bytes": 4069591
+    },
+    "results/milestone_4b/microplans_flat/od_21_meal.parquet": {
+      "sha256": "c8d6bd5ad4e1a42b87d914075501037bb0c5ebebe9a6740ae807eb4d4e6f4a51",
+      "size_bytes": 259653
+    },
+    "results/milestone_4b/microplans_flat/od_21_meal_parking.parquet": {
+      "sha256": "51a95effbb5f3c4391674a68ea5ff2c72ddfee344c276cd9c6ed1b8b4391ad7f",
+      "size_bytes": 29542832
+    },
+    "results/milestone_4b/microplans_flat/od_21_parking.parquet": {
+      "sha256": "ed52b4b47951f2a665019fdb8a15fb3aa60038cf717dfe0ed4fbc43b6902dcb6",
+      "size_bytes": 832731
+    },
+    "results/milestone_4b/microplans_flat/od_21_sleep.parquet": {
+      "sha256": "c5cc52a33f7808fee887599cf281f098349f13a0d2a2e27c605d2dc4e0e78c13",
+      "size_bytes": 97732
+    },
+    "results/milestone_4b/microplans_flat/od_21_sleep_charge.parquet": {
+      "sha256": "92956244b4aae159e44b9de750eda482f60b58db60de876279b358c0ee534207",
+      "size_bytes": 494330
+    },
+    "results/milestone_4b/microplans_flat/od_22_charge.parquet": {
+      "sha256": "4387a7867ff28705c5c9faa987e23dc434e1c651768fda4e974781ce33a9da2e",
+      "size_bytes": 73133
+    },
+    "results/milestone_4b/microplans_flat/od_22_charge_meal.parquet": {
+      "sha256": "1ef0695a9edce0fe055fe56a760f90a283381bfbfb448de596e5135f83d4d827",
+      "size_bytes": 5176893
+    },
+    "results/milestone_4b/microplans_flat/od_22_charge_parking.parquet": {
+      "sha256": "2fb75f9c7299e6af4daaa22edfd5f0ed10af97ee672218d56d50b998c7f2f050",
+      "size_bytes": 9214352
+    },
+    "results/milestone_4b/microplans_flat/od_22_meal.parquet": {
+      "sha256": "0ca9bb7288ef1a6023cbad965a1b566f877b98aa392317f3e786b52c05b4c089",
+      "size_bytes": 592577
+    },
+    "results/milestone_4b/microplans_flat/od_22_meal_parking.parquet": {
+      "sha256": "e1944ec7025e52f34b7b9e383da12c97ad9e36ddc2f4bb18b9a3bfd94302f69f",
+      "size_bytes": 75229311
+    },
+    "results/milestone_4b/microplans_flat/od_22_parking.parquet": {
+      "sha256": "f391956b53f22814c9a0d678f9d65669ae083c48b9f0f3598e0d190026e5e45c",
+      "size_bytes": 1626940
+    },
+    "results/milestone_4b/microplans_flat/od_22_sleep.parquet": {
+      "sha256": "83c25fd161776460bc9dbba30de18d2a4e7684456a0c428713bbf8b721a18dfc",
+      "size_bytes": 177323
+    },
+    "results/milestone_4b/microplans_flat/od_22_sleep_charge.parquet": {
+      "sha256": "611740346e490b264843e9e0b95ab02dc1f4e945ac4117aeb6aa7af57fa233ea",
+      "size_bytes": 1059966
+    },
+    "results/milestone_4b/microplans_flat/od_23_charge.parquet": {
+      "sha256": "c97bee8b566f2bf1ff7e1782e7c5a438cdcf0ed647243f7a44bf0823866a3168",
+      "size_bytes": 67487
+    },
+    "results/milestone_4b/microplans_flat/od_23_charge_meal.parquet": {
+      "sha256": "8f57f3014c1f694c3da20edca6a85a143c4f042ca436b9e6f12b99e749336842",
+      "size_bytes": 4846987
+    },
+    "results/milestone_4b/microplans_flat/od_23_charge_parking.parquet": {
+      "sha256": "faf10f6246eccc8920e7ca7d62f3598b1a9a9bffc7d0e62831f8a1c2c0eb2e6e",
+      "size_bytes": 8436908
+    },
+    "results/milestone_4b/microplans_flat/od_23_meal.parquet": {
+      "sha256": "e9c6d69c22e0edac8a22e37741a371a9dee5ae522a770fe21a998ffd139bee12",
+      "size_bytes": 549590
+    },
+    "results/milestone_4b/microplans_flat/od_23_meal_parking.parquet": {
+      "sha256": "2be6337cc8c8387dd1c77f8686fdab7ea2d84738123fcb816033fa019b2d69fa",
+      "size_bytes": 71189936
+    },
+    "results/milestone_4b/microplans_flat/od_23_parking.parquet": {
+      "sha256": "c5fe5135ae9568f0a493230624d15f27bcec6c74e72fed83ef276a4ef9ff3f57",
+      "size_bytes": 1449751
+    },
+    "results/milestone_4b/microplans_flat/od_23_sleep.parquet": {
+      "sha256": "a70c27980b5a834d3eadf6059b10559c05dec51c0dea167e64472db397ec4f69",
+      "size_bytes": 171761
+    },
+    "results/milestone_4b/microplans_flat/od_23_sleep_charge.parquet": {
+      "sha256": "a1a1719a0fd513c6846e687c37a4c19f3a87b0bedda4da2d17a26e88961fd432",
+      "size_bytes": 1023405
+    },
+    "results/milestone_4b/microplans_flat/od_24_charge.parquet": {
+      "sha256": "1708e1121e5b02c8475c37a3dedb2e55f38cce98af955478b5f53ad48d950b63",
+      "size_bytes": 33986
+    },
+    "results/milestone_4b/microplans_flat/od_24_charge_meal.parquet": {
+      "sha256": "e0be4296e8fbe20f8d76d21912a6e4775c475625af0c197c6b3fb6d9d2d2c29d",
+      "size_bytes": 1830614
+    },
+    "results/milestone_4b/microplans_flat/od_24_charge_parking.parquet": {
+      "sha256": "1e573ab1e90d772f91f5c722a6568b03d11cf7b10c849babe7cdef87a19ab0aa",
+      "size_bytes": 3889524
+    },
+    "results/milestone_4b/microplans_flat/od_24_meal.parquet": {
+      "sha256": "7f171e8ab8355346dc7e89bc3c11a6303fddbb3ffb918be0a74713ea586a6163",
+      "size_bytes": 229775
+    },
+    "results/milestone_4b/microplans_flat/od_24_meal_parking.parquet": {
+      "sha256": "273f40bffc9a0d1bff5bbe8617607cb8df78805d90bdb1b88d987c66fcfa1fc3",
+      "size_bytes": 26349330
+    },
+    "results/milestone_4b/microplans_flat/od_24_parking.parquet": {
+      "sha256": "c4dc75fc6cb5f6cbfbf399a2f1eb7f8ae655d283c52ad434da083aa67fb49cec",
+      "size_bytes": 673783
+    },
+    "results/milestone_4b/microplans_flat/od_24_sleep.parquet": {
+      "sha256": "8ac21a1732cddae3b50cadecb4949ea2e06b074ac31a436832970d08a3687913",
+      "size_bytes": 82635
+    },
+    "results/milestone_4b/microplans_flat/od_24_sleep_charge.parquet": {
+      "sha256": "6c59e0f5ae615d22f155a19e25d0565e39bdfb20395b15c90b01a0abd4a1906e",
+      "size_bytes": 435057
+    },
+    "results/milestone_4b/microplans_flat/od_25_charge.parquet": {
+      "sha256": "7e4f2e1f14cbefd134d10d5171fdc898ab0bb850ae922c26c90a39abad0c4a7e",
+      "size_bytes": 31765
+    },
+    "results/milestone_4b/microplans_flat/od_25_charge_meal.parquet": {
+      "sha256": "a0cedf8633ecb0843419f46708799b354685b8df26e6dcb690499631dede4012",
+      "size_bytes": 1642437
+    },
+    "results/milestone_4b/microplans_flat/od_25_charge_parking.parquet": {
+      "sha256": "e6c1580c2ea57349110c2f3c5d488bf761d7bc6b1db18508789e1c3340225822",
+      "size_bytes": 3545886
+    },
+    "results/milestone_4b/microplans_flat/od_25_meal.parquet": {
+      "sha256": "2dae874803f79cb8773558413246f923efdd7c9df0132265acb6f8b61709b693",
+      "size_bytes": 191652
+    },
+    "results/milestone_4b/microplans_flat/od_25_meal_parking.parquet": {
+      "sha256": "f430d150182cf3a4d09e8d4542e3de08d922a108e6f0e11ba94a0ae781b3cd02",
+      "size_bytes": 20057079
+    },
+    "results/milestone_4b/microplans_flat/od_25_parking.parquet": {
+      "sha256": "9dbfd3fe573ff16a7974aeafdf981624777476a25a517c132cf42197e0e3be32",
+      "size_bytes": 552866
+    },
+    "results/milestone_4b/microplans_flat/od_25_sleep.parquet": {
+      "sha256": "470489f4d56e9e13bca6e08b547d1b12573ded191676c5b60f55ddfed3f30f2a",
+      "size_bytes": 77096
+    },
+    "results/milestone_4b/microplans_flat/od_25_sleep_charge.parquet": {
+      "sha256": "286bb70224a4c7339cb4ac3772859e6cec4fd12742f63b50bec64d6b108f97c7",
+      "size_bytes": 409394
+    },
+    "results/milestone_4b/microplans_flat/od_26_charge.parquet": {
+      "sha256": "09957508585a4af3f8fdd20ce88d3cb14c1190d5aae24ddb0f2d4f2e663c6aeb",
+      "size_bytes": 24798
+    },
+    "results/milestone_4b/microplans_flat/od_26_charge_meal.parquet": {
+      "sha256": "d785fa9c9ee0e2e6e6838623eab4a975691b2465a3bdc6ad5c760eeeed172c18",
+      "size_bytes": 1474297
+    },
+    "results/milestone_4b/microplans_flat/od_26_charge_parking.parquet": {
+      "sha256": "b6eaf1ed7be1c479e29f7dc11fcd74c2539d07725789b51c3c17f2defd7348a9",
+      "size_bytes": 3364858
+    },
+    "results/milestone_4b/microplans_flat/od_26_meal.parquet": {
+      "sha256": "08e2c799a91304140e05744c8a427429b715970bf9405278348743dec94350fa",
+      "size_bytes": 223862
+    },
+    "results/milestone_4b/microplans_flat/od_26_meal_parking.parquet": {
+      "sha256": "c5f618c4ca00c6b1302650b0264c7ba0c22e33054d86a9cf67d864abba6f5816",
+      "size_bytes": 36993812
+    },
+    "results/milestone_4b/microplans_flat/od_26_parking.parquet": {
+      "sha256": "d6083c329ebcccfd8c976380ce119bd4772655ee47bf192d83eb1442358d5400",
+      "size_bytes": 615873
+    },
+    "results/milestone_4b/microplans_flat/od_26_sleep.parquet": {
+      "sha256": "a425611a9e00e4de13c4b0781eae8ea523e916c17a5c98720c12dda82c7ca076",
+      "size_bytes": 61240
+    },
+    "results/milestone_4b/microplans_flat/od_26_sleep_charge.parquet": {
+      "sha256": "f93ef00a5b56cc52eabf45584c9a00818ee12deed14417ed2852bc92c6161cf7",
+      "size_bytes": 317768
+    },
+    "results/milestone_4b/microplans_flat/od_27_charge.parquet": {
+      "sha256": "939838746ebdd3e8d5107aec564749513700eb4b98de1025d3f44bb716856a41",
+      "size_bytes": 11362
+    },
+    "results/milestone_4b/microplans_flat/od_27_charge_meal.parquet": {
+      "sha256": "6cf2c51f37bd4d6ffc3479ad43d10ea78a0f9b14cb4b02e5b381ac7f3d0b19f2",
+      "size_bytes": 490541
+    },
+    "results/milestone_4b/microplans_flat/od_27_charge_parking.parquet": {
+      "sha256": "add82c0ed343b4069c92fd2ea4c77ccce8d82ad5132ffc0f55c8be86b0200568",
+      "size_bytes": 1482641
+    },
+    "results/milestone_4b/microplans_flat/od_27_meal.parquet": {
+      "sha256": "53703429aeddf1f0c79bbe1506ccb09e3de2054bd0d9be0e5e9b4c2c14bf2928",
+      "size_bytes": 54020
+    },
+    "results/milestone_4b/microplans_flat/od_27_meal_parking.parquet": {
+      "sha256": "02bc577ef82647da3350398e49cc124d42b8bfe2a186e2fef3b07faa1568aec9",
+      "size_bytes": 11103959
+    },
+    "results/milestone_4b/microplans_flat/od_27_parking.parquet": {
+      "sha256": "0b8369dd87a15287aa40c4e9b0e33448e79b931fe86a3e5f295960c5a2172bcc",
+      "size_bytes": 211142
+    },
+    "results/milestone_4b/microplans_flat/od_27_sleep.parquet": {
+      "sha256": "d970e356ebd3c1c24fe823e062a3ef27162c05ffa4405f40e71ac39a230d4797",
+      "size_bytes": 15595
+    },
+    "results/milestone_4b/microplans_flat/od_27_sleep_charge.parquet": {
+      "sha256": "ce537ce81ea6eff4b522d870d5197990d591bc2bfc8e61cc01e422e15f59f39e",
+      "size_bytes": 124556
+    },
+    "results/milestone_4b/microplans_flat/od_28_charge.parquet": {
+      "sha256": "ae58f3671eac9ba96a1004b9fe89ec89ec4cab03101ffc3e150d87f9df7abefb",
+      "size_bytes": 10620
+    },
+    "results/milestone_4b/microplans_flat/od_28_charge_meal.parquet": {
+      "sha256": "ce9aae3a4128f829f36ac5bff29d326ea13ba5c905bccaaf13bf879fc3c8ac9b",
+      "size_bytes": 272605
+    },
+    "results/milestone_4b/microplans_flat/od_28_charge_parking.parquet": {
+      "sha256": "81067c7b6ee1f7252d39506cc1a40bef8f32561bc53b5c57d3f9eff60deb9504",
+      "size_bytes": 622395
+    },
+    "results/milestone_4b/microplans_flat/od_28_meal.parquet": {
+      "sha256": "7860c3f13ae77386fd9cf273b92cdbe263fb33c3a8f4b29edbdb7c03ef65634c",
+      "size_bytes": 38172
+    },
+    "results/milestone_4b/microplans_flat/od_28_meal_parking.parquet": {
+      "sha256": "7ac58d57dbe5e16160222665327e9d8e486d8a89df38c49b50fcc99b2951f549",
+      "size_bytes": 3849189
+    },
+    "results/milestone_4b/microplans_flat/od_28_parking.parquet": {
+      "sha256": "9e56d5e8e9e2153a6cf44390620cf25f935b78fc97697e320303d1f41345fa29",
+      "size_bytes": 113190
+    },
+    "results/milestone_4b/microplans_flat/od_28_sleep.parquet": {
+      "sha256": "623d7c67428cad7c1b5f79f260dd2d8790974926fa6071be18cd621e68b6519c",
+      "size_bytes": 14607
+    },
+    "results/milestone_4b/microplans_flat/od_28_sleep_charge.parquet": {
+      "sha256": "cc3f2613e0576da8a87d1cbf16f22169d5658b7b60b7ea8a7180fa64744b2ca1",
+      "size_bytes": 46167
+    },
+    "results/milestone_4b/microplans_flat/od_29_charge.parquet": {
+      "sha256": "45c800cfffb90e5378bbf22873f74cf03384385d7680ac13f28bd1679d0c169b",
+      "size_bytes": 28518
+    },
+    "results/milestone_4b/microplans_flat/od_29_charge_meal.parquet": {
+      "sha256": "b68c256874403d7ed2e1a601147e71a90de83b68b8c4fb9a75184ab0f7b71d08",
+      "size_bytes": 1295855
+    },
+    "results/milestone_4b/microplans_flat/od_29_charge_parking.parquet": {
+      "sha256": "45703bffd57a93548301dd18d555c27f72328bd07a12c4222cf68e96e0d1ecb9",
+      "size_bytes": 3144867
+    },
+    "results/milestone_4b/microplans_flat/od_29_meal.parquet": {
+      "sha256": "2398268f7786b0677f73c7a67871aaf0642f31920bf483d5284424887f59e511",
+      "size_bytes": 224042
+    },
+    "results/milestone_4b/microplans_flat/od_29_meal_parking.parquet": {
+      "sha256": "ff1a1565f47536ac0f01e174be3900b44c6e13d46814b7157e959a5c90de1629",
+      "size_bytes": 26095718
+    },
+    "results/milestone_4b/microplans_flat/od_29_parking.parquet": {
+      "sha256": "ba08a3e54d784e3b3b19666e63442525a5c5b5389f801e51872939c7648779eb",
+      "size_bytes": 677792
+    },
+    "results/milestone_4b/microplans_flat/od_29_sleep.parquet": {
+      "sha256": "06c257c08c1a318468b9e49e4d3360d9daa0e401e8c1d98b3fb70dff522a6721",
+      "size_bytes": 72237
+    },
+    "results/milestone_4b/microplans_flat/od_29_sleep_charge.parquet": {
+      "sha256": "804a1bfc06fdd1722645f483d19b2778e6a0ba510766134b4e312058439c80a8",
+      "size_bytes": 334962
+    },
+    "results/milestone_4b/opportunity_index.parquet": {
+      "sha256": "014f1d13b986952ae51a92d4229bf392bbf598643c97754c139f5ab17a58a536",
+      "size_bytes": 5836569
+    },
+    "results/milestone_4b/pareto_stats.parquet": {
+      "sha256": "b6a1d769c14ca804ca00eaf8deb62a6f4c87aa719da491b2bbb29b3999b60356",
+      "size_bytes": 23243681
+    },
+    "results/milestone_4b/performance.parquet": {
+      "sha256": "5a538e79002d424913b3bb13756424e7be9fc98886c26c5cf97390b18f4ef7e5",
+      "size_bytes": 215223
+    },
+    "results/milestone_4b/preflight.json": {
+      "sha256": "ce41fef08c8a0fa68bb2e83ce80977268bd9f5b39e7bf82116a6b749bf727875",
+      "size_bytes": 273
+    },
+    "results/milestone_4b/preservation_after.json": {
+      "sha256": "a726e8277863b0def3f5d744eb468920428c229c05e5d093b2557db61347ee7a",
+      "size_bytes": 228
+    },
+    "results/milestone_4b/preservation_before.json": {
+      "sha256": "22058672365aaa7b8be245aaec873bce085290b35218ba25580a783ef9d7d5bd",
+      "size_bytes": 65988
+    },
+    "results/milestone_4b/region_gateway_stats.parquet": {
+      "sha256": "b92b5ec795509955bb323bb2f1ea7962e99effe86ec3c4f106568538f5b9163a",
+      "size_bytes": 10514759
+    },
+    "results/milestone_4b/routing_rebuild/local_costs.json": {
+      "sha256": "f462084a6c35a7afe123b948fb8a0d40b4c7dd13029f05f984bd5b7e859968c3",
+      "size_bytes": 1805
+    },
+    "results/milestone_4b/routing_rebuild/local_costs.parquet": {
+      "sha256": "9d08d5c876796efb6736b459838cee9be282d90ced3fdac27c87b67654b5ae7e",
+      "size_bytes": 106673902
+    },
+    "results/milestone_4b/routing_reproducibility.json": {
+      "sha256": "318f2e306af85f4014bde8a40e75292e83cd116d9b4032abe6e38cdc0587ec9a",
+      "size_bytes": 332
+    },
+    "results/milestone_4b/stage_regret.parquet": {
+      "sha256": "8ef17c4bf2b28982bc8de1392420e8f706906ce2429b6bb63c76269ca643986d",
+      "size_bytes": 210212
+    },
+    "results/milestone_4b/subset_reproducibility.json": {
+      "sha256": "c578c69555000172eceda751b9061c5af5f3c229f6eb08e752e3ae464ac2b99e",
+      "size_bytes": 285
+    },
+    "results/milestone_4b/summary.json": {
+      "sha256": "4a8f3d50445e9ea950e77eec90789288ccb17d04f9d73eeb616228cee6b3fb90",
+      "size_bytes": 250838
+    },
+    "results/milestone_4b/task_regret_summary.parquet": {
+      "sha256": "3d514f944da1df2eab32d2d8463529724d9e263a0535ddac33326b376909dce0",
+      "size_bytes": 21170
+    },
+    "results/milestone_4b/tests.xml": {
+      "sha256": "ca43ce847eb7fe3b5d7c0f686b12dceaefe651ddd8cc96de4204c8716979f92d",
+      "size_bytes": 9686
+    },
+    "results/milestone_4b/topk_regret.parquet": {
+      "sha256": "e3ec1d80e18f03f831189db2542ca696e80673f54d45807f9a424474b30c56c6",
+      "size_bytes": 31923030
+    },
+    "results/milestone_4b/utility_weights.parquet": {
+      "sha256": "29aa466d6ef1cb2888746ec1f86a7b167d70aac13cc4eb17dbcf989cd0970fbb",
+      "size_bytes": 4940
+    },
+    "results/milestone_4r/acceptance.json": {
+      "sha256": "029283d8d5cc7dc236056304d466cfe0bcae7d31026ecbc4cdb497a5d18905c6",
+      "size_bytes": 6729
+    },
+    "results/milestone_4r/acceptance.log": {
+      "sha256": "4ddc37499300a30fcb64b153e75f5ff95c917486856e9f3598f4c3ff7d229e02",
+      "size_bytes": 737
+    },
+    "results/milestone_4r/diagnostic.json": {
+      "sha256": "82b586fb5a3dbe506277c73a90538084979773462a779c0c2239b0a90b3e3a16",
+      "size_bytes": 9764
+    },
+    "results/milestone_4r/diagnostic.log": {
+      "sha256": "4b7081c1a446fd3d1831d88a6bbbdc4e4502248908eff5efd6afba1a58bd7f96",
+      "size_bytes": 2550
+    },
+    "results/milestone_4r/diagnostic_runtime.csv": {
+      "sha256": "b2ff40738074a5bab0162130879ca2e1ecc2d7f3730f82a1a786e7563b2e7fdb",
+      "size_bytes": 2237
+    },
+    "results/milestone_4r/envelope_site_counts.parquet": {
+      "sha256": "78645ae1fd5e331b1baf7bd1bd854a91d052ed4cc6fb2978de73b74bc54f34dc",
+      "size_bytes": 6607
+    },
+    "results/milestone_4r/final_test_resources.txt": {
+      "sha256": "639a450ed1acb574230060b5311bb13f3715f5ba59fd538bc62fa2a65a02fd39",
+      "size_bytes": 961
+    },
+    "results/milestone_4r/git_diff_stat.txt": {
+      "sha256": "a91756e66a86d17889efe4d7c2246762fb33617ffc1a117d21118d672c424ee2",
+      "size_bytes": 217
+    },
+    "results/milestone_4r/local_support.parquet": {
+      "sha256": "64d76dd39c27622b8e68e82d4f7a93966cb1d25c369d1cf264c72afef8022e39",
+      "size_bytes": 2436935
+    },
+    "results/milestone_4r/local_support_rebuild.parquet": {
+      "sha256": "64d76dd39c27622b8e68e82d4f7a93966cb1d25c369d1cf264c72afef8022e39",
+      "size_bytes": 2436935
+    },
+    "results/milestone_4r/one_stop_diagnostics.csv": {
+      "sha256": "ae62afdca76275b0a3cbe93183d466b648e1061c6eafa3b84c7191a970571fd7",
+      "size_bytes": 172315
+    },
+    "results/milestone_4r/one_stop_diagnostics.parquet": {
+      "sha256": "ec0ca04ab0604fb16c8e916fcfed4421b675b0c551318a6464632cb2fbc47d3a",
+      "size_bytes": 27099
+    },
+    "results/milestone_4r/preexisting_tests.log": {
+      "sha256": "2f15a988cfab32fdf3575f370f9ce031fa616baf40cf5c3014f1600c90c8b669",
+      "size_bytes": 1214
+    },
+    "results/milestone_4r/preexisting_tests.xml": {
+      "sha256": "dfbe9371c20880c147bc9d194dfde1376f0914c5576f00dcae10f2b590df5927",
+      "size_bytes": 9686
+    },
+    "results/milestone_4r/preservation_after.json": {
+      "sha256": "8eb272e1157bdbea3adb589d72cc9afda42f0e178e5d8e7c68cc9abe55782d6b",
+      "size_bytes": 273
+    },
+    "results/milestone_4r/preservation_before.json": {
+      "sha256": "162d9be322ce2aba6e8e7844b333e986f8a60c4ac0fd5b8e85deba5669c7fb98",
+      "size_bytes": 154915
+    },
+    "results/milestone_4r/protection_verification.log": {
+      "sha256": "b17416f1d8f9e2390e28932539bc36604346ec7808efaa6a6f48d9f6c272162f",
+      "size_bytes": 273
+    },
+    "results/milestone_4r/semantic_tests.log": {
+      "sha256": "3b2e1037479a120d34b27fff17396f7fd696880bf6baf1070aa7f4f1b0c479f3",
+      "size_bytes": 99
+    },
+    "results/milestone_4r/semantic_tests.xml": {
+      "sha256": "6cd8610fb61f817c35e78a4e58521dca6ffea9b32d1c0f671fdc82a89f47fd4c",
+      "size_bytes": 3745
+    },
+    "results/milestone_4r/site_build.json": {
+      "sha256": "3bfa2b09608b955629c29e67a82de6870064ecf6404a1686b85f7599feac8e24",
+      "size_bytes": 5964
+    },
+    "results/milestone_4r/site_build.log": {
+      "sha256": "7cc3b68cc5151c6ed87570638b6720c0be39db4aa7c74618396283000a08b160",
+      "size_bytes": 347
+    },
+    "results/milestone_4r/stop_sites.parquet": {
+      "sha256": "e3e7d6d6667f7ab684ff83eb2646920516b01aef2e6ceb8170c689e71f6afd38",
+      "size_bytes": 4487653
+    },
+    "results/milestone_4r/stop_sites_rebuild.parquet": {
+      "sha256": "e3e7d6d6667f7ab684ff83eb2646920516b01aef2e6ceb8170c689e71f6afd38",
+      "size_bytes": 4487653
+    },
+    "results/milestone_4r/support_coverage.csv": {
+      "sha256": "c1c0a964489a17e33b31673f7177f570fa590dbc043961ccb74c0260a3c6d0c7",
+      "size_bytes": 456
+    },
+    "results/milestone_4r/tests.log": {
+      "sha256": "a1e9c0d4224210b7e874184d7d2194a002ef58e4bba32849b184f78ce467a791",
+      "size_bytes": 1364
+    },
+    "results/milestone_4r/tests.xml": {
+      "sha256": "c44b210b0418b1653ee04f25b20c76ff2ba28f0bf7625438286111b1e631ed40",
+      "size_bytes": 13565
+    },
+    "scripts/_common.py": {
+      "sha256": "9e681f49a318bb14b9e3ae1c89998d9350b1e6d9b6b3f3c49f44efa685c92aaa",
+      "size_bytes": 3914
+    },
+    "scripts/_envelope_common.py": {
+      "sha256": "07c16e838813fafd56fbc5427b4aa19bbc221d30c764e3277e5919ea9293c60b",
+      "size_bytes": 1884
+    },
+    "scripts/_microplan_common.py": {
+      "sha256": "e228da46e9838b3e2667ca9ff5226c31fdb8961207415194c3ee2bccce1a5989",
+      "size_bytes": 6841
+    },
+    "scripts/_regional_common.py": {
+      "sha256": "244fd65849bcc66d4976e2cc8a803a64f8011e2c58c70cd3962c1052e992659b",
+      "size_bytes": 6178
+    },
+    "scripts/_stopplan4r_common.py": {
+      "sha256": "2b42c1ff08fe5dad25a6f8f350f8a2ce1f2f9d5dfa1a47e6f9deeb4a99d4821b",
+      "size_bytes": 1991
+    },
+    "scripts/accept_milestone_4b.py": {
+      "sha256": "fd621904cbc6af8bb5e7e7d6389aa05c009fa6c15f50302c98d5d561c00884c3",
+      "size_bytes": 3132
+    },
+    "scripts/accept_stopplan_4r.py": {
+      "sha256": "080d522bf84d6955678014d66eaf876ca1cbdbeb04031f3bc0aeebd3c871cbfd",
+      "size_bytes": 6352
+    },
+    "scripts/analyze_microplan_results.py": {
+      "sha256": "9af11a70c446c5fb412f660c35ff4991625d16430634f69c16a16fa9da189519",
+      "size_bytes": 9502
+    },
+    "scripts/benchmark_microplan_filters.py": {
+      "sha256": "b76427fd9a91a76b8435691a084a229ea3c633f7f8c7be78449ae4d0b40fd64b",
+      "size_bytes": 3509
+    },
+    "scripts/build_graph.py": {
+      "sha256": "5e63534334f34a985c200f75015f7b515a5d635aa169a2e29d1c068d54522f34",
+      "size_bytes": 3323
+    },
+    "scripts/build_pois.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "scripts/build_stop_sites_4r.py": {
+      "sha256": "aaff1cad697317ab8dad302265aa04bdd93e983e4c0ef7e97c2997567d9f19e8",
+      "size_bytes": 4847
+    },
+    "scripts/download_data.py": {
+      "sha256": "a266aa7a0da9a4a988be0b48752e7901f5f87038b8d61617392751550f769a73",
+      "size_bytes": 5635
+    },
+    "scripts/download_extract_boundary.py": {
+      "sha256": "731ba116b57cd908eba9090811b8ac454dbb98e55f2493a6bd6dbd4707941d20",
+      "size_bytes": 2255
+    },
+    "scripts/estimate_microplan_candidates.py": {
+      "sha256": "a708cc0f6a903b897a7200eb957f09b2534e7d67288993369ab31e1e3cf6355c",
+      "size_bytes": 2803
+    },
+    "scripts/generate_instances.py": {
+      "sha256": "aa0f8e8e620818a32eeed1b957482ba5c1ae7edd37c6c4a5843d831ec9f63313",
+      "size_bytes": 5408
+    },
+    "scripts/plot_envelopes.py": {
+      "sha256": "f71cc097c8cd297fd36e78381c1a88cdeb7ef329add4219e6d4327d7b3001f07",
+      "size_bytes": 6806
+    },
+    "scripts/plot_microplans.py": {
+      "sha256": "1f5a4e3274a02bd4e4ec2ec241c2d6ea14d40e00b6e4b4aed58fb139edf10f75",
+      "size_bytes": 15572
+    },
+    "scripts/plot_opportunities.py": {
+      "sha256": "bdcb42121c3c7cc6c312bde1a3f73f047bd71aa9d54df65adb8a59d6770ca73e",
+      "size_bytes": 9279
+    },
+    "scripts/plot_regional_growth.py": {
+      "sha256": "b387fb52d410bfcb6d568cddd37df327086390017c5b194b7fc6d88deea05615",
+      "size_bytes": 4502
+    },
+    "scripts/prepare_opportunity_data.py": {
+      "sha256": "fcb4a766c7b072f6ef98f08b342fa53ba0f7dbcc8a2a1be0991b75ac925d7961",
+      "size_bytes": 11314
+    },
+    "scripts/prepare_regional_data.py": {
+      "sha256": "9b1cc252abf905d47a175ce8a0d51b0406f07c8e2a7e7fe72c0440107135656c",
+      "size_bytes": 23175
+    },
+    "scripts/prepare_regional_model_input.py": {
+      "sha256": "d8aeafe62a344cd985ca6bcada5136e34b8f9496615bda58d8d6241046f70f2c",
+      "size_bytes": 10426
+    },
+    "scripts/rebuild_microplan_subset.py": {
+      "sha256": "4e8e7b4a47c8c6640888c8f4323a7cb21e236d7964a5cec632805b2a361441c0",
+      "size_bytes": 7105
+    },
+    "scripts/run_benchmark.py": {
+      "sha256": "eebeb9037de9fb0775dd81382912a80fb241e1ca068caa9394baf45e41c7afb6",
+      "size_bytes": 12053
+    },
+    "scripts/run_envelope_benchmark.py": {
+      "sha256": "f55ed5b08ab3816eb7fb9cf0ecaad224d5f038202413030ca60671f643de76b7",
+      "size_bytes": 13773
+    },
+    "scripts/run_microplan_benchmark.py": {
+      "sha256": "565fd45ba24c814a16b655f2741cc651a760201a70fbad512ef6d6aa36f558f9",
+      "size_bytes": 26736
+    },
+    "scripts/run_opportunity_benchmark.py": {
+      "sha256": "f5bc0f1e2a50e37976d17253178a933b24fcdb1329cf2f780beb28e2b08e6752",
+      "size_bytes": 17173
+    },
+    "scripts/run_regional_benchmark.py": {
+      "sha256": "638f98906387775fe9568ac626c05f659e6ba4d00618f1c8a3859ee7e139d6d2",
+      "size_bytes": 19748
+    },
+    "scripts/run_stopplan_4r_diagnostic.py": {
+      "sha256": "e9ad29027f2364285c8457c8d54b2079cd578e078e23e6d348d5faddd1e305f3",
+      "size_bytes": 13329
+    },
+    "scripts/verify_microplan_routing.py": {
+      "sha256": "a847d9f7ee0dd1a6c700cd463c0bcef9e5e2573c12b197b4a27f688bc44b20ca",
+      "size_bytes": 4358
+    },
+    "scripts/verify_milestone_1.py": {
+      "sha256": "97cc9621b3c4105baafc58eb2ab2640d9e3d66fd1184ca93181874f1f9920332",
+      "size_bytes": 2917
+    },
+    "scripts/verify_milestone_3a_preservation.py": {
+      "sha256": "12c912cedc582598dae8cba3d54997bdb515ec0d5abc98276a17a80a4cbd222c",
+      "size_bytes": 3034
+    },
+    "scripts/verify_milestone_4a_preservation.py": {
+      "sha256": "9dbd19a3b8f90af649a20af0ea487e09e64381279d263f58f1ba4345f6ec9a71",
+      "size_bytes": 3804
+    },
+    "scripts/verify_milestone_4b_preservation.py": {
+      "sha256": "136bd3e0bc6bff65fdde03b9cca8ae7f529b9a905bb7fff91a0c720ce89c0bfc",
+      "size_bytes": 3804
+    },
+    "scripts/verify_opportunity_neighbors.py": {
+      "sha256": "1b817da2c0ae98c7d6a2772f35abdb8bfe3a29b8641501a77db341d99bceebcb",
+      "size_bytes": 3142
+    },
+    "scripts/verify_rebuild.py": {
+      "sha256": "d93bd57531fc4549109cba2c56aed3223934f71625d4ef98c30c29bc40c3cf05",
+      "size_bytes": 1174
+    },
+    "scripts/write_envelope_report.py": {
+      "sha256": "f34b07063187de9727a2a9813a6a67df33db145bbe781fbc61b4b365bb060308",
+      "size_bytes": 14606
+    },
+    "scripts/write_microplan_report.py": {
+      "sha256": "8f776aca2b3c67c69bde93b57c53ce2e44648543f6fd17899ad8a77b65a99f79",
+      "size_bytes": 34583
+    },
+    "scripts/write_opportunity_report.py": {
+      "sha256": "ac9da4858f8e0d5ba1c204123ba8380cfcf9205c64eddfa2d813cac3bce78005",
+      "size_bytes": 25864
+    },
+    "scripts/write_regional_report.py": {
+      "sha256": "64a9f1fbff4507662b933eeae59412fe5c9ef3f35c223938eaca8936e86a56da",
+      "size_bytes": 20697
+    },
+    "scripts/write_stopplan_4r_report.py": {
+      "sha256": "d285fb6b362bdca0a5902c738fe509d07f9ce884b54e81603e4c754be105cd64",
+      "size_bytes": 24744
+    },
+    "src/acquisition/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "src/envelope/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "src/envelope/__init__.py": {
+      "sha256": "7606422b6841c7e1b741658fc0fa16f1653ac2808669c8e38cf900c24fd1e18f",
+      "size_bytes": 551
+    },
+    "src/envelope/boundary.py": {
+      "sha256": "e4cb78eb5f91ddccaaf89c99a292b7e661548452cf17b74a6dcec8424e40a26f",
+      "size_bytes": 2238
+    },
+    "src/envelope/expansion.py": {
+      "sha256": "150773540e0de778687a5e67b9e6382d2aa5ff1fec400d951315789c5b1c632f",
+      "size_bytes": 2650
+    },
+    "src/envelope/safe_detour.py": {
+      "sha256": "fe326102b3c61922549843753e3429bedffffbff98f1b5e0260760370738113d",
+      "size_bytes": 6928
+    },
+    "src/envelope/sampling.py": {
+      "sha256": "e809984bd20da6c37240515a0681800bbad42a93ac2b1641d7d1969679582d2b",
+      "size_bytes": 3757
+    },
+    "src/evaluation/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "src/graph/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "src/graph/__init__.py": {
+      "sha256": "985c8cff4759fb0cee963387a5c683a32be01e02e11e30d89455d4de225e4bde",
+      "size_bytes": 74
+    },
+    "src/graph/preprocessing.py": {
+      "sha256": "c87727b2b2e22b0aecd5a13f2ad6c8472f71f5beb3623d06348d1ede0ba500c3",
+      "size_bytes": 8049
+    },
+    "src/graph/road_graph.py": {
+      "sha256": "bbd159784f2ef90f164864d9300f359f2d1668358422366168000a818641e48e",
+      "size_bytes": 7769
+    },
+    "src/graph/validation.py": {
+      "sha256": "49fef0fd8d6d91703d2ceddf6717f5924928ee73f991cc1da90b00c67df251b7",
+      "size_bytes": 1154
+    },
+    "src/microplan/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "src/microplan/__init__.py": {
+      "sha256": "c6fbbd96d6fcad0003102a209d4c2da0bdb6b269e390f5cf7c50a2f06565e2d0",
+      "size_bytes": 197
+    },
+    "src/microplan/compression.py": {
+      "sha256": "06d735186d10c64f992b644fbe480e73fff20673948d38aa5ae71c09e8e60bec",
+      "size_bytes": 4391
+    },
+    "src/microplan/evaluation.py": {
+      "sha256": "a580a38d0054a0735791fe7c48e4cad8a9b8c5d058b52131715ae3558b02c036",
+      "size_bytes": 1537
+    },
+    "src/microplan/generation.py": {
+      "sha256": "8f885d62faaf427b19ec2040d9a3511865c7854eaf8ad04180d713445255c7d9",
+      "size_bytes": 4411
+    },
+    "src/microplan/models.py": {
+      "sha256": "0a04cb67b3361b358dadd0fc5ae0a39bfffa833291d1ecaf8af677f1f8a19e31",
+      "size_bytes": 3811
+    },
+    "src/microplan/pareto.cpp": {
+      "sha256": "ec12cf81b49a68052f258173e16bd55d09a8836ecd44a6d51d3889eed714c74c",
+      "size_bytes": 1308
+    },
+    "src/microplan/routing.cpp": {
+      "sha256": "2fc38a835cee766464714866edd07e117da430226bae1937108f6e26319d2788",
+      "size_bytes": 7288
+    },
+    "src/microplan/routing.py": {
+      "sha256": "2d9b2f42affdb6011709239289cfe705768118dd636e93fd6c89a50947723380",
+      "size_bytes": 4854
+    },
+    "src/opportunity/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "src/opportunity/__init__.py": {
+      "sha256": "f7f6f56ed9e61ecde262505728118a3ff09b65ed32c4c35f320c370370db2a61",
+      "size_bytes": 402
+    },
+    "src/opportunity/attachment.py": {
+      "sha256": "9f101de92389d09a9290b2594ea4a50cab7983d03edd06d018800ee82e69bb67",
+      "size_bytes": 2174
+    },
+    "src/opportunity/local_network.cpp": {
+      "sha256": "c3b014fa403955f231fb51508dcc4c4c639283b23a0ac6511594a05dbc6e8697",
+      "size_bytes": 3207
+    },
+    "src/opportunity/metrics.py": {
+      "sha256": "a9b77843ca29a25a3c0da790d0d4247639b8570359ee245e766b3691816e0e5d",
+      "size_bytes": 7488
+    },
+    "src/opportunity/models.py": {
+      "sha256": "0f4a5bf85ba1f1d1d902a2b41d5223aa740501e7221e9f1b45df03d1845185fc",
+      "size_bytes": 3837
+    },
+    "src/opportunity/network.py": {
+      "sha256": "bdd8ca569e4ce12ead37ecae10dd37c502869ee6aaeaf24ac0fe4c4afe03a763",
+      "size_bytes": 3244
+    },
+    "src/opportunity/region_union.cpp": {
+      "sha256": "37b3ebeba1eb011b595a56312f7e81ef70676eb0815aca17626c1a61d56f1fcb",
+      "size_bytes": 1111
+    },
+    "src/opportunity/regions.py": {
+      "sha256": "4d5e356adcf66eb04aedf97664eab121b730206d76e6b905ffc64a5032f1e028",
+      "size_bytes": 8590
+    },
+    "src/opportunity/sparse.py": {
+      "sha256": "308cd3d8d46749c32228f74ee221512e4eab088456ec5ca1151ddc6f99882c03",
+      "size_bytes": 4140
+    },
+    "src/opportunity/taxonomy.py": {
+      "sha256": "f75bc71b92fe5bd8b83f11d361e5ff41bffe520bbc659b75b97295325789a2df",
+      "size_bytes": 913
+    },
+    "src/planner/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "src/semantic/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "src/simulator/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "src/stopplan4r/__init__.py": {
+      "sha256": "41fece4822a9fdcedae34cca4aa020dc2452537eb64872a1b95be87dc6637b6a",
+      "size_bytes": 80
+    },
+    "src/stopplan4r/evaluation.py": {
+      "sha256": "20d24eafcbbcb7a664f87d689bf64c55ffcd8da9184f55f2f21f9f3bae53b9b6",
+      "size_bytes": 9416
+    },
+    "src/stopplan4r/models.py": {
+      "sha256": "172c38b77ff621d12d6507fb1b865ee769d781835c5d1344fc23d534846e9b3b",
+      "size_bytes": 7486
+    },
+    "src/stopplan4r/planner.py": {
+      "sha256": "23fae9809f60a348cf5c486610489ef3de36639282ad10110e712a46c73e0bfb",
+      "size_bytes": 9409
+    },
+    "src/stopplan4r/sites.py": {
+      "sha256": "2d263614cded89dd898d3d9a5b7f93991dde265fa31fe89973cb75995792f84d",
+      "size_bytes": 5961
+    },
+    "src/stopplan4r/uncertainty.py": {
+      "sha256": "78d0b6fd5754fd0ee99b5668902396e7ef0d95af268b995ef01ff1b793eccf57",
+      "size_bytes": 3245
+    },
+    "src/uncertainty/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "tests/conftest.py": {
+      "sha256": "0867e55606cf4b940ef1162f017ce919981f16a820954c95d8dfec1506c32412",
+      "size_bytes": 1567
+    },
+    "tests/test_download.py": {
+      "sha256": "3133956f02d038d361b2fff1dac94c604d8e70022ced9d8a40c5b0b1d4658d56",
+      "size_bytes": 3306
+    },
+    "tests/test_envelope.py": {
+      "sha256": "feaebe26e14575572071c98d3ad6d061a9139b55edf7403d18a2ba6318b51fb9",
+      "size_bytes": 8341
+    },
+    "tests/test_graph.py": {
+      "sha256": "916bffd9b523ab183f52eebcdcb36e35412f210ddeaba440d8d1be53baf2575d",
+      "size_bytes": 2885
+    },
+    "tests/test_microplan.py": {
+      "sha256": "2f706f4de39cd64f29cdb2900f7f0b60d765e0a9409f2db344c07a565c7b3eab",
+      "size_bytes": 10056
+    },
+    "tests/test_microplan_results.py": {
+      "sha256": "b75c5442af0647646e122eaa093b3d1e928fdd4d212b9d21798b1d9f3fcc9e9f",
+      "size_bytes": 5120
+    },
+    "tests/test_opportunity.py": {
+      "sha256": "7c9569a081439e1db2f2be62c10792327ff9ccf1128a828d9fadb71759cc5d7a",
+      "size_bytes": 15197
+    },
+    "tests/test_preprocessing.py": {
+      "sha256": "80191f9f28edf51abc6aec2c732d277921572c498bceb145f934d2c920fbe3ad",
+      "size_bytes": 2843
+    },
+    "tests/test_real_envelope.py": {
+      "sha256": "ae99bdb1f13fe8fca3f95045f03a68a6d7fb46c97d6668e158e3e37c843a28ef",
+      "size_bytes": 4078
+    },
+    "tests/test_real_graph.py": {
+      "sha256": "a681b839a7141a6b8a2cadfe0f98d51cebbc8a298b98956c04034839f1ff8542",
+      "size_bytes": 2488
+    },
+    "tests/test_regional.py": {
+      "sha256": "4f79dc420241145c2faf60892e010565ac23d892027ce39e1af7246d2e6fe55b",
+      "size_bytes": 12692
+    },
+    "tests/test_stopplan4r.py": {
+      "sha256": "9f541d19941dfdd8842301978361c16e9919978c4750dba5b82df8da5f7fc33d",
+      "size_bytes": 19630
+    },
+    "tests/test_stopplan4r_results.py": {
+      "sha256": "8b138b480562dafb8d4ebd00d1dff86da83ffccf9cadd1a9bd584a9befdb1588",
+      "size_bytes": 3827
+    },
+    "uv.lock": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    }
+  },
+  "note": "Read-only audit checkpoint; accepted manifests separately verified before tests; no accepted source or result regeneration."
+}

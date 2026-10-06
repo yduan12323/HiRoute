@@ -1,0 +1,13 @@
+{
+  "status": "failed",
+  "violations": 1,
+  "details": [
+    {
+      "path": ".gitignore",
+      "expected_sha256": "68bfbdb7f03c9fdaf30bb55bb4e1d10e15055ee87214125e5ded8aaeb93d8b26",
+      "actual_sha256": "30815e72d7068c9d62f59092375ecae3ea2cd0bbee28a6f82e056e3c2d6bb386"
+    }
+  ],
+  "preexisting": true,
+  "algorithm_component_changes": 0
+}

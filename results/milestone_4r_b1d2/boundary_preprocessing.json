@@ -1,0 +1,9 @@
+{
+  "seconds": 9.778803681023419,
+  "peak_rss_mib": 1033.6640625,
+  "memory_guard": {
+    "peak_rss_gib": 0.8293876647949219,
+    "available_gib": 49.435760498046875,
+    "projected_additional_gib": 6
+  }
+}

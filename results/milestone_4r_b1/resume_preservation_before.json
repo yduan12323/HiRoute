@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "verified_files": 840,
+  "changed_files": [],
+  "verified_accepted_source_files": 56,
+  "changed_accepted_source_files": [],
+  "accepted_source_manifest": "results/milestone_4b/acceptance.json",
+  "checkpoint_files": 933,
+  "checkpoint_changes": [],
+  "git_status": "?? MILESTONE_4R_B0_FORMAL_SPEC.md\n?? MILESTONE_4R_B1_CODEX_PROMPT.md\n?? MILESTONE_4R_B1_EXPERIMENT_PROTOCOL.md\n?? docs/MILESTONE_4R_B1_BLOCKER_REPORT.md\n?? docs/MILESTONE_4R_B1_REPORT.md\n?? results/milestone_4r_b1/\n",
+  "archived_hashes": {
+    "docs/MILESTONE_4R_B1_BLOCKER_REPORT.md": "58f3283de0ec76151c67b3e60ff03dc4756aba4ed7dc7ffc0a5ac495979a5272",
+    "results/milestone_4r_b1/blocker_acceptance.json": "afb4be0c94f4bdd9ddf0aa6638b02ebcc0342ce0233cd848f440437be04fe21f",
+    "results/milestone_4r_b1/role_coverage_counterexample.json": "bc1924b7bd08dfaa7447651c068c678021ab5f7f474d7a704eb13e248040e975",
+    "results/milestone_4r_b1/reproduce_role_audit.py": "e60ba5f88684c6986358752cf4b0e98d0b35ec88c0755136d249f3d95ed94afa"
+  }
+}

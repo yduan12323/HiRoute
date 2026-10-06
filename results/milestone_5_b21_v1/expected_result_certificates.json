@@ -1,0 +1,52 @@
+{
+  "frozen_before_probe": true,
+  "method": "Analytic exact rational derivation",
+  "safe_input_deletion": {
+    "energy": "1/2",
+    "t_A": "1030",
+    "t_B": "1031",
+    "rho_A": "0",
+    "rho_B": "1",
+    "identical_state": true,
+    "safely_dominated": "B"
+  },
+  "C_A": {
+    "value": "1336",
+    "attained": false,
+    "expression": "1336 + 24 E_a, 0 < E_a < 1"
+  },
+  "C_B": {
+    "value": "1349",
+    "attained": true,
+    "input_energy": "1/2",
+    "charge": "1/2"
+  },
+  "noninfimal_A_witness": {
+    "input_energy": "1/4",
+    "charge": "3/4",
+    "time": "1342",
+    "rho": "0"
+  },
+  "expected_represented_attained_sets": {
+    "reduce_then_C": [],
+    "C_then_reduce": [
+      "B"
+    ]
+  },
+  "mandatory_law_expected_violations": 0,
+  "predicted_contract_discrepancy": "Branchwise infimal-time closure retains no attained A at E_d=1; limit-only A cannot delete attained B",
+  "finite_representation_obstruction": "Every attained A at fixed E_d=1 has an earlier attained A using half its positive input energy; no earliest attained A exists",
+  "waiting_suffix": {
+    "a": "2000",
+    "b": "2100",
+    "D": "100",
+    "h": "300",
+    "attained_A_completion": "2100",
+    "attained_A_input": "1/4"
+  },
+  "authority_sections": [
+    "Core Theory sections 18-20, 23, 26, 28",
+    "Core Audit sections 5, 9-11, 18-19",
+    "Protocol sections 7-9, 14, 28, 37"
+  ]
+}

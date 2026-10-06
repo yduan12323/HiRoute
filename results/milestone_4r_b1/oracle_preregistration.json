@@ -1,0 +1,25 @@
+{
+  "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+  "epsilon_grid": [
+    0,
+    30,
+    60,
+    120
+  ],
+  "safe_lower_adjustment_s": 1e-06,
+  "verification_energy_tolerance_kwh": 1e-08,
+  "verification_time_tolerance_s": 2e-06,
+  "effect_tolerance_kwh": 1e-08,
+  "cost_ties": "accepted round(cost,7), then charge/count/identity",
+  "margin_comparison": "no added margin tolerance; negative slack is inconclusive",
+  "no_semantic_sites": "reduction undefined; would stop classification for clarification (never use legacy counts)",
+  "scope": "oracle logical Site-evaluation reduction potential only; all role/feasibility/summary work was prepaid",
+  "source_sha256": {
+    "src/hierarchy4r/__init__.py": "0f5e697145974f649b849c4110a5725c506576d95f69cb20f1cdc3afdf332334",
+    "src/hierarchy4r/bounds.py": "294d7adbf0598f25d8678e128cf49f9281888a3179af1e165651d28109d1a20a",
+    "src/hierarchy4r/domain.py": "63e9e5b0b4800e6e5a3cd0fdf51d1bcfee05c4522536ae9e7c3c49c76ab360e3",
+    "src/hierarchy4r/search.py": "1112db1880386b29dd48f57baa81a04cd7c3b86fb9e05070cce861f5f0f891c8",
+    "src/hierarchy4r/tree.py": "ed8d370996b0707f7d8b57dee5dd4201058b83032910ad3d33b46d137a12beb9",
+    "scripts/run_hierarchy_4r_oracle.py": "49c86ae35c6708beb3145d54b5ed7e32196516043d51c0639c1a068e4d5c689f"
+  }
+}

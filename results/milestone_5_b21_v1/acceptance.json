@@ -1,0 +1,295 @@
+{
+  "milestone": "5-B21",
+  "version": "v1",
+  "date": "2026-10-05",
+  "timezone": "Asia/Shanghai",
+  "status": "blocked_theory_contradiction",
+  "completion_rule_satisfied": false,
+  "authority_hashes": {
+    "MILESTONE_5_MULTISTOP_CORE_THEORY_V1.md": "dbe44ff83b4d98f2d06b090f7cd44bd40b0a4e21cc8eb439eee991ff2c73ccb2",
+    "MILESTONE_5_MULTISTOP_CORE_THEORY_AUDIT_V1.md": "02a1c417614852daec17a46be66f8930aa8de626128344122136617d5077b4c7",
+    "MILESTONE_5_B21_EXACT_VALIDATION_PROTOCOL_V1.md": "013c039b0c4d71f61fc43002ae05f63d33073293f7e0a709fc2e8b5bbe1e537f"
+  },
+  "protocol_hash": "013c039b0c4d71f61fc43002ae05f63d33073293f7e0a709fc2e8b5bbe1e537f",
+  "numerical_contract_hash": "a61bf5b76ef87a6c0d8707393c59cafb0933b21d8df9ec24da7b2e16b6d6cfa1",
+  "git_commit": "20b658257fb67655e09229411783935e17084fa4",
+  "git_status_before": "?? MILESTONE_4R_B0_FORMAL_SPEC.md\n?? MILESTONE_4R_B1D2_EXPERIMENT_PROTOCOL.md\n?? MILESTONE_4R_B1D2_FORMAL_SPEC.md\n?? MILESTONE_4R_B1D_FORMAL_SPEC.md\n?? MILESTONE_4R_B1E_FORMAL_SPEC.md\n?? MILESTONE_4R_B1_CODEX_PROMPT.md\n?? MILESTONE_4R_B1_EXPERIMENT_PROTOCOL.md\n?? MILESTONE_4R_B2_B21_EXPERIMENT_PROTOCOL.md\n?? MILESTONE_4R_B2_B21_THEORY_REVISION_R1.md\n?? MILESTONE_4R_B2_FORMAL_SPEC.md\n?? MILESTONE_4R_B2_T7_CHARGING_FRONTIER_SPEC.md\n?? MILESTONE_4R_B2_T7_THEOREM_AUDIT.md\n?? MILESTONE_4R_B2_THEORY_AUDIT.md\n?? MILESTONE_5_B21_EXACT_VALIDATION_PROTOCOL_V1.md\n?? MILESTONE_5_MULTISTOP_CORE_THEORY_AUDIT_V1.md\n?? MILESTONE_5_MULTISTOP_CORE_THEORY_V1.md\n?? docs/MILESTONE_4R_B1D2_REPORT.md\n?? docs/MILESTONE_4R_B1D_REPORT.md\n?? docs/MILESTONE_4R_B1E_REPORT.md\n?? docs/MILESTONE_4R_B1_ACTION_DOMAIN_AMENDMENT.md\n?? docs/MILESTONE_4R_B1_BLOCKER_REPORT.md\n?? docs/MILESTONE_4R_B1_REPORT.md\n?? docs/MILESTONE_4R_B2_B21_REPORT.md\n?? results/milestone_4r_b1/\n?? results/milestone_4r_b1d/\n?? results/milestone_4r_b1d2/\n?? results/milestone_4r_b1e/\n?? results/milestone_4r_b2_b21/\n?? scripts/analyze_hierarchy_4r.py\n?? scripts/analyze_hierarchy_4r_boundary.py\n?? scripts/analyze_hierarchy_4r_deploy.py\n?? scripts/analyze_hierarchy_4r_diagnosis.py\n?? scripts/audit_deploy_landmarks.py\n?? scripts/audit_hierarchy_4r_deploy_static.py\n?? scripts/build_hierarchy_4r.py\n?? scripts/build_hierarchy_4r_boundary.py\n?? scripts/check_hierarchy_4r_diameter.py\n?? scripts/close_b1_oracle_statistics.py\n?? scripts/finalize_hierarchy_4r.py\n?? scripts/finalize_hierarchy_4r_boundary.py\n?? scripts/finalize_hierarchy_4r_deploy.py\n?? scripts/finalize_hierarchy_4r_diagnosis.py\n?? scripts/preprocess_hierarchy_4r_deploy.py\n?? scripts/run_hierarchy_4r_boundary.py\n?? scripts/run_hierarchy_4r_deploy.py\n?? scripts/run_hierarchy_4r_diagnosis.py\n?? scripts/run_hierarchy_4r_h0.py\n?? scripts/run_hierarchy_4r_oracle.py\n?? scripts/time_hierarchy_4r_deploy_avoided.py\n?? src/hierarchy4r/\n?? tests/test_hierarchy4r_artifacts.py\n?? tests/test_hierarchy4r_boundary.py\n?? tests/test_hierarchy4r_boundary_artifacts.py\n?? tests/test_hierarchy4r_deploy.py\n?? tests/test_hierarchy4r_deploy_artifacts.py\n?? tests/test_hierarchy4r_diagnosis.py\n?? tests/test_hierarchy4r_diagnosis_artifacts.py\n?? tests/test_hierarchy4r_domain.py\n?? tests/test_hierarchy4r_theorems.py\n",
+  "git_status_after": "?? MILESTONE_4R_B0_FORMAL_SPEC.md\n?? MILESTONE_4R_B1D2_EXPERIMENT_PROTOCOL.md\n?? MILESTONE_4R_B1D2_FORMAL_SPEC.md\n?? MILESTONE_4R_B1D_FORMAL_SPEC.md\n?? MILESTONE_4R_B1E_FORMAL_SPEC.md\n?? MILESTONE_4R_B1_CODEX_PROMPT.md\n?? MILESTONE_4R_B1_EXPERIMENT_PROTOCOL.md\n?? MILESTONE_4R_B2_B21_EXPERIMENT_PROTOCOL.md\n?? MILESTONE_4R_B2_B21_THEORY_REVISION_R1.md\n?? MILESTONE_4R_B2_FORMAL_SPEC.md\n?? MILESTONE_4R_B2_T7_CHARGING_FRONTIER_SPEC.md\n?? MILESTONE_4R_B2_T7_THEOREM_AUDIT.md\n?? MILESTONE_4R_B2_THEORY_AUDIT.md\n?? MILESTONE_5_B21_EXACT_VALIDATION_PROTOCOL_V1.md\n?? MILESTONE_5_MULTISTOP_CORE_THEORY_AUDIT_V1.md\n?? MILESTONE_5_MULTISTOP_CORE_THEORY_V1.md\n?? docs/MILESTONE_4R_B1D2_REPORT.md\n?? docs/MILESTONE_4R_B1D_REPORT.md\n?? docs/MILESTONE_4R_B1E_REPORT.md\n?? docs/MILESTONE_4R_B1_ACTION_DOMAIN_AMENDMENT.md\n?? docs/MILESTONE_4R_B1_BLOCKER_REPORT.md\n?? docs/MILESTONE_4R_B1_REPORT.md\n?? docs/MILESTONE_4R_B2_B21_REPORT.md\n?? results/milestone_4r_b1/\n?? results/milestone_4r_b1d/\n?? results/milestone_4r_b1d2/\n?? results/milestone_4r_b1e/\n?? results/milestone_4r_b2_b21/\n?? results/milestone_5_b21_v1/\n?? scripts/analyze_hierarchy_4r.py\n?? scripts/analyze_hierarchy_4r_boundary.py\n?? scripts/analyze_hierarchy_4r_deploy.py\n?? scripts/analyze_hierarchy_4r_diagnosis.py\n?? scripts/audit_deploy_landmarks.py\n?? scripts/audit_hierarchy_4r_deploy_static.py\n?? scripts/build_hierarchy_4r.py\n?? scripts/build_hierarchy_4r_boundary.py\n?? scripts/check_hierarchy_4r_diameter.py\n?? scripts/close_b1_oracle_statistics.py\n?? scripts/finalize_hierarchy_4r.py\n?? scripts/finalize_hierarchy_4r_boundary.py\n?? scripts/finalize_hierarchy_4r_deploy.py\n?? scripts/finalize_hierarchy_4r_diagnosis.py\n?? scripts/preprocess_hierarchy_4r_deploy.py\n?? scripts/run_hierarchy_4r_boundary.py\n?? scripts/run_hierarchy_4r_deploy.py\n?? scripts/run_hierarchy_4r_diagnosis.py\n?? scripts/run_hierarchy_4r_h0.py\n?? scripts/run_hierarchy_4r_oracle.py\n?? scripts/time_hierarchy_4r_deploy_avoided.py\n?? src/hierarchy4r/\n?? tests/test_hierarchy4r_artifacts.py\n?? tests/test_hierarchy4r_boundary.py\n?? tests/test_hierarchy4r_boundary_artifacts.py\n?? tests/test_hierarchy4r_deploy.py\n?? tests/test_hierarchy4r_deploy_artifacts.py\n?? tests/test_hierarchy4r_diagnosis.py\n?? tests/test_hierarchy4r_diagnosis_artifacts.py\n?? tests/test_hierarchy4r_domain.py\n?? tests/test_hierarchy4r_theorems.py\n",
+  "pre_test_counts": {
+    "command": [
+      "/home/dy/miniconda3/envs/hiroute/bin/python",
+      "-m",
+      "pytest",
+      "-vv",
+      "--require-real-data",
+      "--require-envelope-results",
+      "--require-regional-results",
+      "--require-opportunity-results",
+      "--require-microplan-results",
+      "--junitxml=/home/dy/HiRoute/project/results/milestone_5_b21_v1/preexisting_tests.xml"
+    ],
+    "exit_code": 0,
+    "seconds": 141.7198650550563,
+    "tests": 235,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 235
+  },
+  "final_test_counts": {
+    "tests": 241,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 240
+  },
+  "accepted_predecessor_tests_failed": 0,
+  "ALG_audits": [
+    {
+      "law": "ALG-1",
+      "status": "not_evaluated",
+      "objects_evaluated": 0,
+      "violations": null,
+      "reason": "Hard stop before algebra population expansion"
+    },
+    {
+      "law": "ALG-2",
+      "status": "not_evaluated",
+      "objects_evaluated": 0,
+      "violations": null,
+      "reason": "Hard stop before algebra population expansion"
+    },
+    {
+      "law": "ALG-3",
+      "status": "not_evaluated",
+      "objects_evaluated": 0,
+      "violations": null,
+      "reason": "Hard stop before algebra population expansion"
+    },
+    {
+      "law": "ALG-4",
+      "status": "failed",
+      "objects_evaluated": 1,
+      "violations": 1,
+      "reason": "Exact open-input closure counterexample"
+    },
+    {
+      "law": "ALG-5",
+      "status": "not_evaluated",
+      "objects_evaluated": 0,
+      "violations": null,
+      "reason": "Hard stop before algebra population expansion"
+    },
+    {
+      "law": "ALG-6",
+      "status": "not_evaluated",
+      "objects_evaluated": 0,
+      "violations": null,
+      "reason": "Hard stop before algebra population expansion"
+    },
+    {
+      "law": "ALG-7",
+      "status": "not_evaluated",
+      "objects_evaluated": 0,
+      "violations": null,
+      "reason": "Hard stop before algebra population expansion"
+    },
+    {
+      "law": "ALG-8",
+      "status": "not_evaluated",
+      "objects_evaluated": 0,
+      "violations": null,
+      "reason": "Hard stop before algebra population expansion"
+    },
+    {
+      "law": "ALG-9",
+      "status": "not_evaluated",
+      "objects_evaluated": 0,
+      "violations": null,
+      "reason": "Hard stop before algebra population expansion"
+    },
+    {
+      "law": "ALG-10",
+      "status": "not_evaluated",
+      "objects_evaluated": 0,
+      "violations": null,
+      "reason": "Hard stop before algebra population expansion"
+    }
+  ],
+  "permanent_regression_exact_key": null,
+  "permanent_regression_expected_key": {
+    "J": 44950,
+    "Q": 76,
+    "H": 3,
+    "Pi": [
+      [
+        2,
+        "C"
+      ],
+      [
+        3,
+        "C"
+      ],
+      [
+        4,
+        "S"
+      ]
+    ]
+  },
+  "permanent_regression_status": "not_run_after_algebra_hard_stop",
+  "reset_regression_counts": {
+    "completed": 0,
+    "required": 10
+  },
+  "Stage_counts": {
+    "A": 0,
+    "B": 0,
+    "C": 0
+  },
+  "required_Stage_counts": {
+    "A": 20,
+    "B": 64,
+    "C": 32
+  },
+  "gates": {
+    "V1-G0": {
+      "status": "failed",
+      "violations": 1,
+      "scope": "ALG-4 hand object; other algebra laws unrun"
+    },
+    "V1-G1": {
+      "status": "passed",
+      "violations": 0,
+      "audited_pairs": 55
+    },
+    "V1-G2": {
+      "status": "failed",
+      "violations": 1,
+      "scope": "Branchwise infimal C closure is not closed under the mandated attained reduction algebra"
+    },
+    "V1-G3": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Hard stop at first branch-closure / ALG-4 hand object"
+    },
+    "V1-G4": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Hard stop at first branch-closure / ALG-4 hand object"
+    },
+    "V1-G5": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Hard stop at first branch-closure / ALG-4 hand object"
+    },
+    "V1-G6": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Hard stop at first branch-closure / ALG-4 hand object"
+    },
+    "V1-G7": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Hard stop at first branch-closure / ALG-4 hand object"
+    },
+    "V1-G8": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Hard stop at first branch-closure / ALG-4 hand object"
+    },
+    "V1-G9": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Hard stop at first branch-closure / ALG-4 hand object"
+    },
+    "V1-G10": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Hard stop at first branch-closure / ALG-4 hand object"
+    },
+    "V1-G11": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Hard stop at first branch-closure / ALG-4 hand object"
+    },
+    "V1-G12": {
+      "status": "passed",
+      "violations": 0,
+      "frozen_files_verified": 12939,
+      "historical_files_verified": 62
+    }
+  },
+  "REF_v1_FLAT_P_mismatch_count": null,
+  "REF_v1_HIER_P_mismatch_count": null,
+  "D_on_D_off_mismatch_count": null,
+  "ALG4_hand_object_mismatch_count": 1,
+  "lost_action_count": null,
+  "duplicate_action_count": null,
+  "Region_bound_violations": null,
+  "equal_primary_prune_violations": null,
+  "case_status_counts": {
+    "attained_optimum": null,
+    "infimum_unattained": null,
+    "infeasible": null
+  },
+  "case_status_scope": "Full solvers and populations not executed",
+  "peak_attained_branch_count": null,
+  "peak_total_PWA_pieces": null,
+  "total_frontier_pieces": null,
+  "maximum_diagnostic_depth": null,
+  "intended_reference_depth": 4,
+  "preservation_status": "verified_unchanged",
+  "unauthorized_preservation_changes": 0,
+  "historical_files_archived": 62,
+  "solver_implementation_status": {
+    "REF_v1": "not_implemented",
+    "FLAT_P": "not_implemented",
+    "HIER_P": "not_implemented"
+  },
+  "failed_contract": "ALG-4 / M5-C5 as asserted with branchwise infimal C closure M5-C6 and the attained/limit-only reduction contract",
+  "failure_classification": "theory contradiction",
+  "final_authorization_decision": "B21-v1 blocked. Do not begin deployable/long-haul work.",
+  "B2_2_started": false,
+  "report_sha256": "57bc7e13521aa00465eea03e9aa7a9667b56839638277201902be88d7846b7c5",
+  "evidence_sha256": {
+    "MILESTONE_5_B21_EXACT_VALIDATION_PROTOCOL_V1.md": "013c039b0c4d71f61fc43002ae05f63d33073293f7e0a709fc2e8b5bbe1e537f",
+    "MILESTONE_5_MULTISTOP_CORE_THEORY_AUDIT_V1.md": "02a1c417614852daec17a46be66f8930aa8de626128344122136617d5077b4c7",
+    "MILESTONE_5_MULTISTOP_CORE_THEORY_V1.md": "dbe44ff83b4d98f2d06b090f7cd44bd40b0a4e21cc8eb439eee991ff2c73ccb2",
+    "alg_case_manifest.json": "a26a5dcce621f2ebf289a5379d072b92e593fce3a49946123f7e78aab393b7b3",
+    "algebra_audit.csv": "5c7e417b2d885bd66744e8b5a65092833376f7d54fcb0a4217a8f71bee01128a",
+    "algebra_audit.json": "665d1f51c1116a317c1904a400cbc32f90b325ab3ac6362d3ead443f4385e848",
+    "authority_manifest.json": "a9a19adf90e2614be399416c1055466930c6b3a3886968206aef91f5c3de75e9",
+    "charging_audit.py": "b9122ab5221bdbe864769cbea745a8d7f65178e5bfa67dbeacabbda23391fbe1",
+    "charging_primitive_audit.json": "813ecb377aa6d2882dd7a9e3d7ee1d68ac27613dd9c0e340bcf955d22e61d0af",
+    "closure_probe.py": "1f123a62e709dd2040dc0e434117d21003b49d5a1c5e6176567625b27209e149",
+    "contract_freeze_manifest.json": "912e6f24bc5b93e13c89cd48a3b5350fce5a7e5e15fccd51ff058607f763a970",
+    "contract_tests.log": "6d69e44ad7c3c43a94124d96c0dd6bae977c8793daf1c9899d90c3a402e03c81",
+    "contract_tests.xml": "5fc23f72aa7e4b26709fc5a4fdfed40c47e03a7c2d1e220807d6e5552c909c56",
+    "correctness_gates.json": "e8264541331b3e00b16a11c87427a718efb9a051bf282bb88ba44df12f8cea4e",
+    "expected_result_certificates.json": "c94b8fb83113610bbbae55bb3b83f1e50e7385fec9cfd27b2d56d16c0d4f5366",
+    "final_test_summary.json": "367b909391f124a7729d2a0087e669e15ea1eeb6d8dbfb40d560ae707e7d3858",
+    "final_tests.log": "7463ea557007fe6813a2faf66972e526559b169371034fff6fe7c18581e74f26",
+    "final_tests.xml": "03dd5223069973ab671dd9b6a8b8cf881056af29d2802dd101824bb4b3a62c66",
+    "finalize_blocked.py": "f1f8d49310400ba890d35b33e2ea378181c041eb78218a2f7527af0cc6a21257",
+    "freeze_contract.py": "f86f2a335bdc93c0f9b321c18e96da4956d9dcea8a511cd5c0c454bf7b0cf922",
+    "frozen_input_hash_manifest.json": "3fc682e004c91db5ca4f9f03c87ea0a1de89fda3e2f95889ee22394d64ce1912",
+    "git_before.json": "ced703c70691a3f126f608a4ae82322ecd954ee8324e71f76855a3c3767bbaba",
+    "historical_b21_v0_hash_manifest.json": "9bfd8502fb6c6083fda667fda67c6f1c5d4f9f7e20472473e3a117687bb8bff3",
+    "numerical_contract.json": "a61bf5b76ef87a6c0d8707393c59cafb0933b21d8df9ec24da7b2e16b6d6cfa1",
+    "operator_closure_counterexample.json": "390562f364b18a94f7db2927334faf29ee9743d725fe838370506ad7101455a6",
+    "physical_realization_certificate.json": "90847beb87ea84297e083c5a37d841f9c37daa9b466210e627ae0718068dac78",
+    "predecessor_manifest_audit.json": "7678c8ea37a3b04c4a97e306d94f9e3f4f8792bf0675fa505dd65a7ca9d66d35",
+    "preexisting_tests.log": "b112b448b1e2961cb91a040ea8e5b54ddc32a92c441fa97fd7904b8138878398",
+    "preexisting_tests.xml": "8421ab3c693b7e1204facbf0e4c73a5823b41342c8b9c9394c534fe6627daf37",
+    "preflight.log": "ea22d63894bbe4ed3229c7a8cea1a9da8fab71f45fd20b924afea286c533dc29",
+    "preflight.py": "ef5a95c9aed389ac2ae9ae4b230c61323f122a4fd6f16c57d86e4475591edd61",
+    "preservation_after.json": "d6528e253c44bd8f301912f75a476771e77b7e75cb19a888c00c1b436a7cacf9",
+    "preservation_before.json": "95b75613994a72e9d07298b4f2435cd1da32cfeef8386784bedf9d2fadbde634",
+    "pretest_summary.json": "b4a56efcf48e47ada54ca49ec3f998859c2e8758ffc62dfbfef2da563bf67313",
+    "protocol_snapshot.md": "013c039b0c4d71f61fc43002ae05f63d33073293f7e0a709fc2e8b5bbe1e537f",
+    "run_closure_probe.py": "0370ab6f2f277fc6d92e1ce8b51ff0bb119d2fc9a186574f7b80bc6f6283bb1d",
+    "runtime_table.json": "6071b93d08fc1683f59c6be3ac6545ca9134f585cf29b83d86fb661019bd48fb",
+    "semantic_equivalence_comparator_audit.json": "801b71660da1e2ff86bf611c7f32591be5f169c1372662e7f5cdc43b3cce56f8",
+    "test_closure_contract.py": "870603762c5958bc5914774c2d1237b9f4933ff579d87a9c2a50c792b9a328b9"
+  }
+}

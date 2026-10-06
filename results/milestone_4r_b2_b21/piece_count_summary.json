@@ -1,0 +1,14 @@
+{
+  "scope": "stored traces in blocking operator probe, not complete solver accounting",
+  "counts": {
+    "branch_A": 3,
+    "branch_B": 3,
+    "earliest_merge": 6,
+    "after_schedule": 5,
+    "terminal": 3,
+    "alternative_schedule_merge": 5
+  },
+  "peak_stored_group": 6,
+  "total_stored_pieces": 25,
+  "full_case_total_pieces_created": null
+}

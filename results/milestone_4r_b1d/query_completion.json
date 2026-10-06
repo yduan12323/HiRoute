@@ -1,0 +1,21 @@
+{
+  "cases": 480,
+  "passed": true,
+  "summary_load_seconds": 0.004672901006415486,
+  "peak_rss_mib": 5823.54296875,
+  "optional_epsilon_runs": "not run",
+  "native_routing": {
+    "source_sha256": "2fc38a835cee766464714866edd07e117da430226bae1937108f6e26319d2788",
+    "compiler_command": [
+      "g++",
+      "-O3",
+      "-std=c++17",
+      "-shared",
+      "-fPIC",
+      "/home/dy/HiRoute/project/src/microplan/routing.cpp",
+      "-o",
+      "/home/dy/HiRoute/project/results/milestone_4r_b1d/native_cache/routing.so"
+    ],
+    "compiler_version": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+  }
+}

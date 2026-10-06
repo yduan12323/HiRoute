@@ -1,0 +1,57 @@
+[
+  {
+    "case_id": "A15_waiting_erases_prefix_time_advantage",
+    "status": "attained_optimum",
+    "J": "44950",
+    "Q_total": "76",
+    "H": 3,
+    "site_action_tuple": [
+      [
+        "4r:node/2",
+        "C"
+      ],
+      [
+        "4r:node/3",
+        "C"
+      ],
+      [
+        "4r:node/4",
+        "S"
+      ]
+    ],
+    "charges": [
+      "41",
+      "35"
+    ],
+    "events": [
+      {
+        "site": "4r:node/2",
+        "effect": "C",
+        "charge_kwh": "41",
+        "completion_s": "11508",
+        "arrival_kwh": "7",
+        "departure_kwh": "48"
+      },
+      {
+        "site": "4r:node/3",
+        "effect": "C",
+        "charge_kwh": "35",
+        "completion_s": "22800",
+        "arrival_kwh": "13",
+        "departure_kwh": "48"
+      },
+      {
+        "site": "4r:node/4",
+        "effect": "S",
+        "charge_kwh": "0",
+        "schedule_start_s": "40000",
+        "schedule_completion_s": "42700",
+        "completion_s": "42700",
+        "arrival_kwh": "8",
+        "departure_kwh": "8"
+      }
+    ],
+    "terminal_energy_kwh": "6",
+    "terminal_time_s": "43150"
+  }
+]

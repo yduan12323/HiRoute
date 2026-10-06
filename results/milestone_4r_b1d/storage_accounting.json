@@ -1,0 +1,10 @@
+{
+  "summary_payload_bytes": 3144192,
+  "summary_npy_bytes": 3144320,
+  "counts_npy_bytes": 49256,
+  "children_npy_bytes": 32880,
+  "summary_parquet_bytes": 1352226,
+  "leaf_membership_bytes": 1298178,
+  "query_additional_memory_guard_gib": 10,
+  "provenance": "Summary payload derived from the frozen 2047x3x2x8x4 float64 shape; observed disk sizes. Query memory projection is the guard in the frozen query source."
+}

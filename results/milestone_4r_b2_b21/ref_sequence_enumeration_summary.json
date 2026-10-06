@@ -1,0 +1,5153 @@
+{
+  "H_ref": 4,
+  "sequences_enumerated": 263,
+  "sequences": [
+    {
+      "sequence": [],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "regimes": 1458,
+      "strict_feasible_regimes": 0
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "regimes": 1458,
+      "strict_feasible_regimes": 22
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "regimes": 162,
+      "strict_feasible_regimes": 0
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "regimes": 1458,
+      "strict_feasible_regimes": 22
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "regimes": 162,
+      "strict_feasible_regimes": 4
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "regimes": 18,
+      "strict_feasible_regimes": 0
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "regimes": 1458,
+      "strict_feasible_regimes": 0
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "regimes": 1458,
+      "strict_feasible_regimes": 22
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "regimes": 162,
+      "strict_feasible_regimes": 0
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "regimes": 1458,
+      "strict_feasible_regimes": 22
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "regimes": 162,
+      "strict_feasible_regimes": 4
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "regimes": 18,
+      "strict_feasible_regimes": 0
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "unsatisfied_hard_schedule"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "regimes": 1458,
+      "strict_feasible_regimes": 0
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "regimes": 162,
+      "strict_feasible_regimes": 0
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "regimes": 18,
+      "strict_feasible_regimes": 0
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "rejection": "uncharged_origin_to_schedule_consumption_exceeds_initial_energy"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/1",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/2",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    },
+    {
+      "sequence": [
+        [
+          "4r:node/4",
+          "S"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ]
+      ],
+      "rejection": "directed_route_unreachable"
+    }
+  ],
+  "all_static_effect_labelled_sequences_enumerated": true,
+  "self_legs_retained": true,
+  "repeat_site_ban": false,
+  "independent_analytic_certificate": {
+    "minimum_stop_count": 3,
+    "minimum_stop_reason": "Schedule requires Site 4. Origin cannot reach Site 3 on initial energy. From either first charger to schedule/destination exceeds capacity, forcing a second charge at Site 3.",
+    "primary_lower_bound": "40000+2700+450+3*600=44950",
+    "secondary_lower_bound": "On the shorter-energy Site-2 branch: terminal reserve 6 + consumption 80 - initial 10 = 76 kWh. Site-1 branch consumes 87 and needs 83 kWh. Repeated visits cannot lower these branch-specific energy balances and incur additional nuisance.",
+    "curve_optimizer": "For arrival x at Site 3, F(x+40)-F(x) or F(x+35)-F(x) is strictly increasing on the feasible interval; earliest prefixes have x=0."
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "cases": 480,
+  "micro": {
+    "R_envelope": 0.9415752379628526,
+    "R_exact": 0.7738623002378757,
+    "R_search_historical": 0.4807407782921783,
+    "R_e2e_historical": 0.028934719318556068
+  },
+  "macro": {
+    "R_envelope": {
+      "defined_cases": 480,
+      "median": 0.9627696443949674,
+      "p05": 0.8555707871858234,
+      "p95": 0.9989086940705711
+    },
+    "R_exact": {
+      "defined_cases": 480,
+      "median": 0.8123476686463525,
+      "p05": 0.030823750991276773,
+      "p95": 1.0
+    },
+    "R_search_historical": {
+      "defined_cases": 480,
+      "median": 0.28632084501148025,
+      "p05": -3.457722478642946,
+      "p95": 0.868398864537651
+    },
+    "R_e2e_historical": {
+      "defined_cases": 480,
+      "median": 0.003801752321857532,
+      "p05": -0.021887407884864974,
+      "p95": 0.09647989159708618
+    }
+  },
+  "flat_totals": {
+    "N_region": 0,
+    "N_bound": 0,
+    "N_envelope": 12085920,
+    "N_exact": 1103938,
+    "N_semantic": 286567
+  },
+  "hier_totals": {
+    "N_region": 147765,
+    "N_bound": 191849,
+    "N_envelope": 706117,
+    "N_exact": 249642,
+    "N_semantic": 173577
+  },
+  "timing_diagnosis": "limited; paired aggregate timings retained from frozen B1-D; envelope/exact splits NA",
+  "no_new_success_threshold": true
+}

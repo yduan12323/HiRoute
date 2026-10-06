@@ -1,0 +1,19 @@
+{
+  "epsilon": 0,
+  "cost_audit_tolerance": 2e-06,
+  "gap_identity_tolerance": 2e-06,
+  "metric_reproduction_tolerance": 1e-05,
+  "population": "All 480 cases; all frozen ALT8 visited Region/buckets, plus all PS replay nodes for admissibility",
+  "timing": "No new deployable timing claims. Retain original paired B1-D timings; unrecorded envelope/exact splits and time-to-incumbent are NA.",
+  "incumbent_counts": "Through the first successful leaf batch, including that pop and all batch checks; no Site update remains NA. Zero-stop finite U distinguished from first Site improvement.",
+  "region_count": "N_region = popped Region/bucket nodes; created nonempty nodes and bounds also reported",
+  "memory_guard": {
+    "peak_rss_gib": 0.8293876647949219,
+    "available_gib": 49.408424377441406,
+    "projected_additional_gib": 10
+  },
+  "source_sha256": {
+    "scripts/run_hierarchy_4r_diagnosis.py": "b5715737c56d46e7351164cbcaf4318ecddf299e45c81b838880f3bb2dee7717",
+    "src/hierarchy4r/diagnosis.py": "6fd543538e3769dc150193e1f02d5193e26da4cd2084a34943bdfc14f4b47301"
+  }
+}

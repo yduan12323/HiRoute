@@ -1,0 +1,9 @@
+{
+  "validation/reference_probe.py": "9cd898afb9044dbbbeba3391af2173abc632cec91b95e29427a876982ff9fde9",
+  "validation/frontier_probe.py": "60527a32977a13fa7ed0f3f8a87c3aa2fde4f1e241d987a8893ac4c5114686fd",
+  "validation/run_contract_probe.py": "b3e7d0fa4914c7116115260f2a3d8463ee8db0695292107c309deae404161619",
+  "validation/test_contract_probe.py": "2b70ed501f4fc546d46ce0296817cff4f96b736a1a5e6b90ee1bf589c2da8b25",
+  "hand_cases.json": "5e8f4b92bdbefdf5f35104b9430bbc2d0541517e0df41b4ecdb9ca67f85a5744",
+  "numerical_contract.json": "cf722b8c812dbe2b0b5476dbf76c9f1691df8e09c4359a9f91b453d628ef5413",
+  "protocol_snapshot.md": "a50e2072615449c84b072b2a9e5975b37582d42e05bcf7387bf0c8d8eb5e6423"
+}

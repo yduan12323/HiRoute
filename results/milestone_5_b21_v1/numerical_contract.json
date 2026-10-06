@@ -1,0 +1,17 @@
+{
+  "version": "B21-v1-rational-hand-contract-v1",
+  "scope": "Analytic operator/theorem probe only; no full solvers",
+  "arithmetic": "fractions.Fraction for all branch, dominance, endpoint and witness semantics",
+  "equality_policy": "Exact rational equality; zero semantic and full-key tolerance",
+  "breakpoint_ordering": "Exact rational ascending order",
+  "endpoints": "Open is strict > or <; singleton requires both endpoints closed",
+  "affine_intersections": "Exact quotient of rational slope/intercept differences; coincident pieces compared by metadata",
+  "hand_cases": "Exact analytic endpoint minimization; no numerical optimizer",
+  "lower_bound_rounding": "Rational bounds require no adjustment; binary64 evaluator audit tolerance cannot establish feasibility",
+  "strict_charge": "E_a < E_d exactly; no charge quantum and no endpoint snapping",
+  "executable_witness_recheck": "Original rational input branch, strict charge and frozen integral F(b)-F(a)",
+  "semantic_comparator": "Exact attained (t,rho,pi) label sets at an analytic witness energy; one difference disproves global equivalence",
+  "binary64_use": "Unchanged frozen charging evaluator audit only, absolute 1e-10 seconds error threshold",
+  "no_soc_grid": true,
+  "no_heuristic_branch_cap": true
+}

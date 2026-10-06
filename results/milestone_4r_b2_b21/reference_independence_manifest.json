@@ -1,0 +1,16 @@
+{
+  "implementation": "validation/reference_probe.py",
+  "sha256": "9cd898afb9044dbbbeba3391af2173abc632cec91b95e29427a876982ff9fde9",
+  "imported_modules": [
+    "dataclasses",
+    "fractions",
+    "itertools",
+    "time",
+    "numpy",
+    "scipy.optimize"
+  ],
+  "frontier_calls": 0,
+  "region_bound_calls": 0,
+  "optimizer": "independent explicit charging-segment / schedule-branch regime LPs with exact certificates",
+  "scope": "C/S blocking hand case; full B21 REF not completed after hard stop"
+}

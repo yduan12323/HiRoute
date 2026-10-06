@@ -1,0 +1,179 @@
+{
+  "milestone": "4R-B2-B21",
+  "version": "contract-hard-stop-v1",
+  "date": "2026-10-05",
+  "timezone": "Asia/Shanghai",
+  "status": "blocked_correctness_failure",
+  "completion_rule_satisfied": false,
+  "semantic_identity": "Exact Small-Domain Multi-Stop Validation",
+  "naming_provenance": "Milestone 5 / legacy namespace 4R-B2; requested legacy artifact paths retained",
+  "protocol_hash": "a50e2072615449c84b072b2a9e5975b37582d42e05bcf7387bf0c8d8eb5e6423",
+  "predecessor_hashes": {
+    "docs/MILESTONE_4R_B1D2_REPORT.md": "f805471e3603951867d17ed40482c12509d2e197385b3158465f3915fd530f55",
+    "results/milestone_4r_b1d2/acceptance.json": "c31e0262ceb7af156121d3d22fd18b53939797e64f5729ce5f09bafe723573dd",
+    "results/milestone_4r_b1/hierarchy.json": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+    "results/milestone_4r_b1d/landmark_manifest.json": "4627d789aaae53ddf5e084bf8ccdcff0b44ec0ca181c5e8c3b99a6c7b5975af1",
+    "results/milestone_4r_b1d2/boundary_manifest.json": "4c5be4f7f8c7f72db707297832f26177f3344f35c9810210b3304581296b26af"
+  },
+  "authority_hashes": {
+    "RESEARCH_SPEC_v0.2.md": "2ad0b9666646bd4d7ebea6e601422a02720b186c3302f604b23bfffa80c5226f",
+    "MILESTONE_4R_B1D2_FORMAL_SPEC.md": "f5bc4cc51460a9e792cf45f1ba0b49e604694d3a21c06f56cc3e77ffe2a69857",
+    "MILESTONE_4R_B1D2_EXPERIMENT_PROTOCOL.md": "217fd4a5d101ccbb19575e0cf69c1ef3cfb0a09f926d4d58427afe5d9f8058e0",
+    "docs/MILESTONE_4R_B1D2_REPORT.md": "f805471e3603951867d17ed40482c12509d2e197385b3158465f3915fd530f55",
+    "MILESTONE_4R_B2_FORMAL_SPEC.md": "59b4887f305fc50a073763932a929d12a279404b0d2a87b3855448509c669163",
+    "MILESTONE_4R_B2_THEORY_AUDIT.md": "1201d44dcbe59327e58d29460a604232609ebb5a002e393e2500baeb22e131dc",
+    "MILESTONE_4R_B2_T7_CHARGING_FRONTIER_SPEC.md": "aed1ccef43f30a088a5c3a8d3d8d011463b3c4efd763008779f0c5d5bd5224b3",
+    "MILESTONE_4R_B2_T7_THEOREM_AUDIT.md": "aafb52ebab1871106287a90b52f218c92dcaf9b34675076de827d3b926acd359",
+    "MILESTONE_4R_B2_B21_EXPERIMENT_PROTOCOL.md": "a50e2072615449c84b072b2a9e5975b37582d42e05bcf7387bf0c8d8eb5e6423"
+  },
+  "numerical_contract_hash": "cf722b8c812dbe2b0b5476dbf76c9f1691df8e09c4359a9f91b453d628ef5413",
+  "numerical_contract_scope": "exact rational diagnostic probe, not a completed production solver contract",
+  "test_counts": {
+    "pre": {
+      "tests": 235,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "final": {
+      "tests": 246,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "final_tests_passed": false,
+  "stage_case_counts": {
+    "A": 1,
+    "B": 0,
+    "C": 0
+  },
+  "expected_stage_case_counts": {
+    "A": 20,
+    "B": 64,
+    "C": 32
+  },
+  "executed_stage_A_case": "A15_waiting_erases_prefix_time_advantage",
+  "gates": {
+    "G1": {
+      "status": "passed",
+      "violations": 0,
+      "audited_pairs": 55
+    },
+    "G2": {
+      "status": "failed",
+      "violations": 1,
+      "scope": "merge/drive/S composition in Stage A case 15",
+      "failure": "Earliest-time frontier merge loses the secondary winner after scheduled waiting"
+    },
+    "G3": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Hard stop after the first Stage A tie/dominance counterexample",
+      "blocking_case_observation": {
+        "status_equal": true,
+        "both": "attained_optimum"
+      }
+    },
+    "G4": {
+      "status": "failed",
+      "violations": 1,
+      "scope": "Stage A case 15 complete result key",
+      "failure": "Equal primary objective but charge 83 versus 76 kWh and wrong Site tuple"
+    },
+    "G5": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Hard stop after the first Stage A tie/dominance counterexample"
+    },
+    "G6": {
+      "status": "failed",
+      "violations": 1,
+      "scope": "T3 point-label continuation theorem test",
+      "full_FLAT_F_D_on_off_comparison_run": false,
+      "failure": "Strict g advantage disappears in mandatory scheduled waiting; deletion loses Q tie"
+    },
+    "G7": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Hard stop after the first Stage A tie/dominance counterexample"
+    },
+    "G8": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Hard stop after the first Stage A tie/dominance counterexample"
+    },
+    "G9": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Hard stop after the first Stage A tie/dominance counterexample"
+    },
+    "G10": {
+      "status": "passed",
+      "violations": 0,
+      "scope": "all code introduced in this blocked run",
+      "full_solver_validation_completed": false
+    },
+    "G11": {
+      "status": "passed",
+      "violations": 0,
+      "files_verified": 12872,
+      "prior_attempt_files_verified": 14
+    }
+  },
+  "REF_FLAT_F_mismatch_count": null,
+  "REF_HIER_F_mismatch_count": null,
+  "D_on_D_off_mismatch_count": null,
+  "frontier_operator_probe_mismatch_count": 1,
+  "point_label_dominance_probe_mismatch_count": 1,
+  "attained_unattained_infeasible_counts": {
+    "attained_optimum": 1,
+    "infimum_unattained": 0,
+    "infeasible": 0
+  },
+  "result_count_scope": "one independently optimized hand case",
+  "lost_action_count": null,
+  "duplicate_action_count": null,
+  "bound_admissibility_violations": null,
+  "no_discretization_status": "verified_for_all_new_diagnostic_code_no_semantic_patch",
+  "peak_frontier_piece_count": null,
+  "total_frontier_pieces": null,
+  "probe_peak_stored_piece_group": 6,
+  "probe_total_stored_pieces": 25,
+  "maximum_diagnostic_stop_depth": 4,
+  "depth_scope": "REF sequence enumeration at the diagnostic cap; winning plan has 3 stops",
+  "full_REF_implemented": false,
+  "full_FLAT_F_implemented": false,
+  "HIER_F_implemented": false,
+  "independent_regime_reference_probe_implemented": true,
+  "REF_sequences_enumerated": 263,
+  "REF_regimes_enumerated": 11070,
+  "B2_2_started": false,
+  "final_authorization_decision": "B2-1 blocked; do not proceed to deployable/long-haul scaling.",
+  "report_sha256": "4551b33984304053ca122e6d3bba42055fe6ac666fa89ddf632c3c77262b5f42",
+  "evidence_sha256": {
+    "preservation_before.json": "6de4c93ad0224fa1966b932db7d3464e509cf54ed3f60824b6bc3859e091d229",
+    "preservation_after.json": "6c939e57347c84379ab30db9b7e41cdb47235fc82e4d633807eff72dd5c99f18",
+    "frozen_input_hash_manifest.json": "b1ae3f325dd26ae4ef5c42f2a3f237cefd2d83bd13174f52f1bde6c343f8f109",
+    "prior_attempt_hash_manifest.json": "e1c9ea2fd5a1a19ebca4f80e5a6804da837896d8d48fadf9356c831085324a70",
+    "probe_freeze_manifest.json": "a9a38494a5f4d0c3b99a389f6a7619575b52085b1c6b4ea10a214872867e5451",
+    "numerical_contract.json": "cf722b8c812dbe2b0b5476dbf76c9f1691df8e09c4359a9f91b453d628ef5413",
+    "charging_segments.json": "7bcdf28c0e17bf331a31687f637a334aa7b8012cd153de0f5062690c3c619140",
+    "cumulative_primitive_audit.json": "39065656cd507543605eba42dddb23cd017b2c7aee785567437ec7986b3ca511",
+    "hand_cases.json": "5e8f4b92bdbefdf5f35104b9430bbc2d0541517e0df41b4ecdb9ca67f85a5744",
+    "case_construction_manifest.json": "8879a6576c7978e8c5aa72cd258177b9c7b288d7b69771cec0995bc9bfca43d2",
+    "ref_sequence_enumeration_summary.json": "f5d701b39a247d71c881c691fbaab8a71b9b05607efcf59dd4b5d07fb085a48e",
+    "ref_regime_enumeration_evidence.json": "3ba44da2fabbd71d1355a9625229633a3b4cd259c9926cc4b34d77be2136a1d9",
+    "ref_exact_case_results.json": "7f10d583aab93e363a2d2c2ff5846b4b5c32dd12d8e6f039f7a7374f094aed86",
+    "reference_independence_manifest.json": "c5ffe13223e20be097aeb8181503f2c6672c859fc7286604b103997b81b16da7",
+    "frontier_traces_hand_cases.json": "44127bdf4f5ad46905e76d924f4805c8d0205ea678da2f6c7a39bff245d6cf27",
+    "operator_audits.json": "6a79752096c4e44f4cab255b1de13137f2e682d57f19bf64cb772bde59a83f62",
+    "tie_witness_audits.json": "e0f2eb0e91d4e483b6a2e846ae0d7a4cc2c5645f98c135f2344dc1dec60fd7a0",
+    "dominance_deletion_witnesses.json": "f7aa78c5346d3decfc2161f33c72345c5577c3f32580345d41be91c85f40198e",
+    "dominance_on_off_comparison.json": "ad345b4136cf0aff229f20260dfd4f233e7363d94fdb16bb805567f71b3d3fa7",
+    "correctness_gates.json": "64d658f941f9ff3720bf8e07f6a2ec4008281bc0e45b7064dba33261815dda23",
+    "final_tests.log": "3113bb4b73fbbb79fdfa7475ffda059d168af05c53b26bac4339357d09e92b52",
+    "final_tests.xml": "5423c35998826fa7d2420f82d00fbafcf551d3e9f4a02e18c23e0e731a5a3ecd",
+    "final_test_summary.json": "6d011bc6d6eb42565672be757232cba7f1f7aa018fa692d24952972cc8086b24"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "case_id": 414,
+  "instance_id": 25,
+  "ratio": 1.4,
+  "initial_soc": 0.76,
+  "scenario": "energy_only",
+  "trip": {
+    "origin": 1780550,
+    "destination": 5199957,
+    "initial_energy_kwh": 45.6,
+    "start_time_s": 0.0,
+    "mobility_budget_s": 8115.170030072708
+  },
+  "baseline": {
+    "time_s": 5796.550021480506,
+    "distance_m": 121238.92700000019
+  },
+  "schedule": null,
+  "zero": {
+    "stops": [],
+    "clock_s": 5796.550021480506,
+    "drive_s": 5796.550021480506,
+    "distance_m": 121238.92700000019,
+    "terminal_energy_kwh": 26.201771679999972,
+    "requirement_penalty_s": 0,
+    "generalized_cost_s": 5796.550021480506,
+    "labels": [
+      {
+        "anchor": 1780550,
+        "elapsed_s": 0.0,
+        "energy_kwh": 45.6,
+        "scheduled_satisfied": false,
+        "stop_count": 0,
+        "generalized_cost_s": 0.0
+      },
+      {
+        "anchor": 5199957,
+        "elapsed_s": 5796.550021480506,
+        "energy_kwh": 26.201771679999972,
+        "scheduled_satisfied": false,
+        "stop_count": 0,
+        "generalized_cost_s": 5796.550021480506
+      }
+    ]
+  },
+  "legacy": {
+    "stops": [],
+    "clock_s": 5796.550021480506,
+    "drive_s": 5796.550021480506,
+    "distance_m": 121238.92700000019,
+    "terminal_energy_kwh": 26.201771679999972,
+    "requirement_penalty_s": 0,
+    "generalized_cost_s": 5796.550021480506,
+    "labels": [
+      {
+        "anchor": 1780550,
+        "elapsed_s": 0.0,
+        "energy_kwh": 45.6,
+        "scheduled_satisfied": false,
+        "stop_count": 0,
+        "generalized_cost_s": 0.0
+      },
+      {
+        "anchor": 5199957,
+        "elapsed_s": 5796.550021480506,
+        "energy_kwh": 26.201771679999972,
+        "scheduled_satisfied": false,
+        "stop_count": 0,
+        "generalized_cost_s": 5796.550021480506
+      }
+    ]
+  },
+  "semantic": {
+    "stops": [],
+    "clock_s": 5796.550021480506,
+    "drive_s": 5796.550021480506,
+    "distance_m": 121238.92700000019,
+    "terminal_energy_kwh": 26.201771679999972,
+    "requirement_penalty_s": 0,
+    "generalized_cost_s": 5796.550021480506,
+    "labels": [
+      {
+        "anchor": 1780550,
+        "elapsed_s": 0.0,
+        "energy_kwh": 45.6,
+        "scheduled_satisfied": false,
+        "stop_count": 0,
+        "generalized_cost_s": 0.0
+      },
+      {
+        "anchor": 5199957,
+        "elapsed_s": 5796.550021480506,
+        "energy_kwh": 26.201771679999972,
+        "scheduled_satisfied": false,
+        "stop_count": 0,
+        "generalized_cost_s": 5796.550021480506
+      }
+    ]
+  },
+  "flat_evaluation_seconds": 0.4974091600161046
+}

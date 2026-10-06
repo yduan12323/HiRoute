@@ -1,0 +1,11 @@
+{
+  "available": "igraph 1.0.0, networkit 11.2, networkx 3.6.1, scipy 1.17.1; no metis/pymetis",
+  "inspected": "igraph Graph community methods; networkit public namespaces; NetworkX kernighan_lin_bisection source",
+  "choice": "deterministic recursive unweighted topology BFS bisection",
+  "reason": "No installed native reproducible balanced recursive road-cell partitioner. NetworkX KL is available and seedable, but duplicates Python adjacency into edge_info and performs Python heap sweeps over 5,892,498 nodes and 11,561,067 directed edges per recursive level. Its default ten improvement passes have billions of Python graph/heap operations at this size; rejected on runtime/memory feasibility without comparative trials. igraph community objectives do not implement balanced recursive road-cell partitioning. Use the allowed topology-only fallback.",
+  "no_partition_performance_trials": true,
+  "rule": "Use weak undirected adjacency only for static partition; routing remains directed. BFS forest seeds and neighbors follow increasing OSM road-node identity. Choose earliest BFS prefix minimizing absolute Site-count imbalance with both sides nonempty; never split co-attached Sites. Recurse in left/right order. Early leaf only if capacity satisfied or all Sites share one road anchor.",
+  "branch_factor": 2,
+  "leaf_capacity": 64,
+  "seed": null
+}

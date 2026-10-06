@@ -1,0 +1,51 @@
+{
+  "initial_diagnostic": [
+    {
+      "manifest": "results/milestone_4r_b1d2/boundary_manifest.json",
+      "path": "nodes.parquet",
+      "expected_sha256": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+      "actual_sha256": null
+    },
+    {
+      "manifest": "results/milestone_4r_b1d2/boundary_manifest.json",
+      "path": "edges.parquet",
+      "expected_sha256": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+      "actual_sha256": null
+    },
+    {
+      "manifest": "results/milestone_4r_b1d2/boundary_manifest.json",
+      "path": "metadata.json",
+      "expected_sha256": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd",
+      "actual_sha256": null
+    }
+  ],
+  "resolved_records": [
+    {
+      "manifest": "results/milestone_4r_b1d2/boundary_manifest.json",
+      "path": "nodes.parquet",
+      "expected_sha256": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+      "actual_sha256": null,
+      "resolved_path": "data/processed/graphs/slovenia_extended/nodes.parquet",
+      "resolved_sha256": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5"
+    },
+    {
+      "manifest": "results/milestone_4r_b1d2/boundary_manifest.json",
+      "path": "edges.parquet",
+      "expected_sha256": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+      "actual_sha256": null,
+      "resolved_path": "data/processed/graphs/slovenia_extended/edges.parquet",
+      "resolved_sha256": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8"
+    },
+    {
+      "manifest": "results/milestone_4r_b1d2/boundary_manifest.json",
+      "path": "metadata.json",
+      "expected_sha256": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd",
+      "actual_sha256": null,
+      "resolved_path": "data/processed/graphs/slovenia_extended/metadata.json",
+      "resolved_sha256": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd"
+    }
+  ],
+  "evidence": "scripts/build_hierarchy_4r_boundary.py declares base = ROOT/data/processed/graphs/slovenia_extended",
+  "physical_file_changes": 0,
+  "note": "Corrected audit path resolution; no predecessor was changed"
+}

@@ -1,0 +1,67 @@
+{
+  "G1": {
+    "status": "passed",
+    "violations": 0,
+    "audited_pairs": 55
+  },
+  "G2": {
+    "status": "failed",
+    "violations": 1,
+    "scope": "merge/drive/S composition in Stage A case 15",
+    "failure": "Earliest-time frontier merge loses the secondary winner after scheduled waiting"
+  },
+  "G3": {
+    "status": "not_evaluated",
+    "violations": null,
+    "reason": "Hard stop after the first Stage A tie/dominance counterexample",
+    "blocking_case_observation": {
+      "status_equal": true,
+      "both": "attained_optimum"
+    }
+  },
+  "G4": {
+    "status": "failed",
+    "violations": 1,
+    "scope": "Stage A case 15 complete result key",
+    "failure": "Equal primary objective but charge 83 versus 76 kWh and wrong Site tuple"
+  },
+  "G5": {
+    "status": "not_evaluated",
+    "violations": null,
+    "reason": "Hard stop after the first Stage A tie/dominance counterexample"
+  },
+  "G6": {
+    "status": "failed",
+    "violations": 1,
+    "scope": "T3 point-label continuation theorem test",
+    "full_FLAT_F_D_on_off_comparison_run": false,
+    "failure": "Strict g advantage disappears in mandatory scheduled waiting; deletion loses Q tie"
+  },
+  "G7": {
+    "status": "not_evaluated",
+    "violations": null,
+    "reason": "Hard stop after the first Stage A tie/dominance counterexample"
+  },
+  "G8": {
+    "status": "not_evaluated",
+    "violations": null,
+    "reason": "Hard stop after the first Stage A tie/dominance counterexample"
+  },
+  "G9": {
+    "status": "not_evaluated",
+    "violations": null,
+    "reason": "Hard stop after the first Stage A tie/dominance counterexample"
+  },
+  "G10": {
+    "status": "passed",
+    "violations": 0,
+    "scope": "all code introduced in this blocked run",
+    "full_solver_validation_completed": false
+  },
+  "G11": {
+    "status": "passed",
+    "violations": 0,
+    "files_verified": 12872,
+    "prior_attempt_files_verified": 14
+  }
+}

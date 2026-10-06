@@ -1,0 +1,124 @@
+{
+  "left": [
+    {
+      "name": "A",
+      "energy": "1",
+      "time": "1336",
+      "rho": "0",
+      "pi": [
+        [
+          1,
+          "C"
+        ],
+        [
+          3,
+          "C"
+        ]
+      ],
+      "attained": false,
+      "input_energy": null,
+      "state": [
+        "site3",
+        1,
+        2
+      ]
+    }
+  ],
+  "right": [
+    {
+      "name": "A",
+      "energy": "1",
+      "time": "1336",
+      "rho": "0",
+      "pi": [
+        [
+          1,
+          "C"
+        ],
+        [
+          3,
+          "C"
+        ]
+      ],
+      "attained": false,
+      "input_energy": null,
+      "state": [
+        "site3",
+        1,
+        2
+      ]
+    },
+    {
+      "name": "B",
+      "energy": "1",
+      "time": "1349",
+      "rho": "1",
+      "pi": [
+        [
+          2,
+          "C"
+        ],
+        [
+          3,
+          "C"
+        ]
+      ],
+      "attained": true,
+      "input_energy": "1/2",
+      "state": [
+        "site3",
+        1,
+        2
+      ]
+    }
+  ],
+  "reduced_input": [
+    {
+      "name": "A",
+      "lo": "0",
+      "hi": "1",
+      "left_open": true,
+      "right_open": false,
+      "slope": "60",
+      "intercept": "1000",
+      "rho": "0",
+      "pi": [
+        [
+          1,
+          "C"
+        ]
+      ],
+      "state": [
+        "v",
+        1,
+        1
+      ]
+    }
+  ],
+  "congruent": false,
+  "witness_time": "1342",
+  "attained_waiting_completion": "2100",
+  "status": "theory_contradiction",
+  "contract": "ALG-4 under branchwise infimal C closure and attained/limit-only separation",
+  "input_reduction_deletions": 1,
+  "cross_energy_deletions": 0,
+  "left_attained_signature": [],
+  "right_attained_signature": [
+    [
+      "1349",
+      "1",
+      [
+        [
+          2,
+          "C"
+        ],
+        [
+          3,
+          "C"
+        ]
+      ]
+    ]
+  ],
+  "closure_probe_scope": "Exact one-segment hand object, not any of the three full solvers",
+  "hard_stop": true
+}

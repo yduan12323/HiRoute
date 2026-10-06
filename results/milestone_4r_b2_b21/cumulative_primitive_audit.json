@@ -1,0 +1,448 @@
+{
+  "cases": [
+    {
+      "arrival_kwh": "0",
+      "departure_kwh": "0",
+      "expected_s": "0",
+      "frozen_s": 0.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "0",
+      "departure_kwh": "1/3",
+      "expected_s": "12",
+      "frozen_s": 12.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "0",
+      "departure_kwh": "15",
+      "expected_s": "540",
+      "frozen_s": 540.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "0",
+      "departure_kwh": "30",
+      "expected_s": "1080",
+      "frozen_s": 1080.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "0",
+      "departure_kwh": "31",
+      "expected_s": "1140",
+      "frozen_s": 1140.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "0",
+      "departure_kwh": "39",
+      "expected_s": "1620",
+      "frozen_s": 1620.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "0",
+      "departure_kwh": "48",
+      "expected_s": "2160",
+      "frozen_s": 2160.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "0",
+      "departure_kwh": "49",
+      "expected_s": "2280",
+      "frozen_s": 2280.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "0",
+      "departure_kwh": "54",
+      "expected_s": "2880",
+      "frozen_s": 2880.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "0",
+      "departure_kwh": "60",
+      "expected_s": "3600",
+      "frozen_s": 3600.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "1/3",
+      "departure_kwh": "1/3",
+      "expected_s": "0",
+      "frozen_s": 0.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "1/3",
+      "departure_kwh": "15",
+      "expected_s": "528",
+      "frozen_s": 528.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "1/3",
+      "departure_kwh": "30",
+      "expected_s": "1068",
+      "frozen_s": 1068.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "1/3",
+      "departure_kwh": "31",
+      "expected_s": "1128",
+      "frozen_s": 1128.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "1/3",
+      "departure_kwh": "39",
+      "expected_s": "1608",
+      "frozen_s": 1608.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "1/3",
+      "departure_kwh": "48",
+      "expected_s": "2148",
+      "frozen_s": 2148.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "1/3",
+      "departure_kwh": "49",
+      "expected_s": "2268",
+      "frozen_s": 2268.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "1/3",
+      "departure_kwh": "54",
+      "expected_s": "2868",
+      "frozen_s": 2868.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "1/3",
+      "departure_kwh": "60",
+      "expected_s": "3588",
+      "frozen_s": 3588.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "15",
+      "departure_kwh": "15",
+      "expected_s": "0",
+      "frozen_s": 0.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "15",
+      "departure_kwh": "30",
+      "expected_s": "540",
+      "frozen_s": 540.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "15",
+      "departure_kwh": "31",
+      "expected_s": "600",
+      "frozen_s": 600.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "15",
+      "departure_kwh": "39",
+      "expected_s": "1080",
+      "frozen_s": 1080.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "15",
+      "departure_kwh": "48",
+      "expected_s": "1620",
+      "frozen_s": 1620.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "15",
+      "departure_kwh": "49",
+      "expected_s": "1740",
+      "frozen_s": 1740.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "15",
+      "departure_kwh": "54",
+      "expected_s": "2340",
+      "frozen_s": 2340.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "15",
+      "departure_kwh": "60",
+      "expected_s": "3060",
+      "frozen_s": 3060.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "30",
+      "departure_kwh": "30",
+      "expected_s": "0",
+      "frozen_s": 0.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "30",
+      "departure_kwh": "31",
+      "expected_s": "60",
+      "frozen_s": 60.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "30",
+      "departure_kwh": "39",
+      "expected_s": "540",
+      "frozen_s": 540.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "30",
+      "departure_kwh": "48",
+      "expected_s": "1080",
+      "frozen_s": 1080.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "30",
+      "departure_kwh": "49",
+      "expected_s": "1200",
+      "frozen_s": 1200.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "30",
+      "departure_kwh": "54",
+      "expected_s": "1800",
+      "frozen_s": 1800.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "30",
+      "departure_kwh": "60",
+      "expected_s": "2520",
+      "frozen_s": 2520.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "31",
+      "departure_kwh": "31",
+      "expected_s": "0",
+      "frozen_s": 0.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "31",
+      "departure_kwh": "39",
+      "expected_s": "480",
+      "frozen_s": 480.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "31",
+      "departure_kwh": "48",
+      "expected_s": "1020",
+      "frozen_s": 1020.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "31",
+      "departure_kwh": "49",
+      "expected_s": "1140",
+      "frozen_s": 1140.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "31",
+      "departure_kwh": "54",
+      "expected_s": "1740",
+      "frozen_s": 1740.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "31",
+      "departure_kwh": "60",
+      "expected_s": "2460",
+      "frozen_s": 2460.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "39",
+      "departure_kwh": "39",
+      "expected_s": "0",
+      "frozen_s": 0.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "39",
+      "departure_kwh": "48",
+      "expected_s": "540",
+      "frozen_s": 540.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "39",
+      "departure_kwh": "49",
+      "expected_s": "660",
+      "frozen_s": 660.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "39",
+      "departure_kwh": "54",
+      "expected_s": "1260",
+      "frozen_s": 1260.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "39",
+      "departure_kwh": "60",
+      "expected_s": "1980",
+      "frozen_s": 1980.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "48",
+      "departure_kwh": "48",
+      "expected_s": "0",
+      "frozen_s": 0.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "48",
+      "departure_kwh": "49",
+      "expected_s": "120",
+      "frozen_s": 120.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "48",
+      "departure_kwh": "54",
+      "expected_s": "720",
+      "frozen_s": 720.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "48",
+      "departure_kwh": "60",
+      "expected_s": "1440",
+      "frozen_s": 1440.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "49",
+      "departure_kwh": "49",
+      "expected_s": "0",
+      "frozen_s": 0.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "49",
+      "departure_kwh": "54",
+      "expected_s": "600",
+      "frozen_s": 600.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "49",
+      "departure_kwh": "60",
+      "expected_s": "1320",
+      "frozen_s": 1320.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "54",
+      "departure_kwh": "54",
+      "expected_s": "0",
+      "frozen_s": 0.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "54",
+      "departure_kwh": "60",
+      "expected_s": "720",
+      "frozen_s": 720.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    },
+    {
+      "arrival_kwh": "60",
+      "departure_kwh": "60",
+      "expected_s": "0",
+      "frozen_s": 0.0,
+      "absolute_error_s": 0.0,
+      "passed": true
+    }
+  ],
+  "violations": 0,
+  "max_absolute_error_s": 0.0,
+  "float_audit_tolerance_s": 1e-10,
+  "semantics_changed": false
+}

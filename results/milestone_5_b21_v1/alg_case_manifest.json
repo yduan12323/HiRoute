@@ -1,0 +1,67 @@
+{
+  "version": "B21-v1-algebra-population-v1",
+  "seed": 52101,
+  "intended_generated_counts": {
+    "Drive": 50,
+    "S": 50,
+    "C": 50,
+    "CS": 50,
+    "three_way_merge": 50
+  },
+  "generated_population_status": "Not yet generated; first exact closure hand object precedes generation",
+  "generator_policy": "Rational finite PWA intervals, exact open/closed endpoints, multiple rho and tuple branches",
+  "first_hand_case": "ALG4_open_input_minimum_and_attained_dominated_family",
+  "input_A": {
+    "state": [
+      "v",
+      1,
+      1
+    ],
+    "interval": [
+      "0",
+      "1"
+    ],
+    "left_open": true,
+    "right_open": false,
+    "time_slope": "60",
+    "time_intercept": "1000",
+    "rho": "0",
+    "pi": [
+      [
+        1,
+        "C"
+      ]
+    ],
+    "attained": true
+  },
+  "input_B": {
+    "state": [
+      "v",
+      1,
+      1
+    ],
+    "interval": [
+      "1/2",
+      "1/2"
+    ],
+    "left_open": false,
+    "right_open": false,
+    "time_slope": "0",
+    "time_intercept": "1031",
+    "rho": "1",
+    "pi": [
+      [
+        2,
+        "C"
+      ]
+    ],
+    "attained": true
+  },
+  "next_C": {
+    "site": 3,
+    "overhead_s": "300",
+    "output_energy": "1",
+    "primitive_on_input_output": "36 E"
+  },
+  "required_ALG4_equivalence": true
+}

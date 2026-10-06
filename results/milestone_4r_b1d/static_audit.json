@@ -1,0 +1,14 @@
+{
+  "regions": 2047,
+  "sites": 60498,
+  "bucket_views": 6141,
+  "violations": 0,
+  "root_counts": {
+    "Ccap": 2749,
+    "S0cap": 45129,
+    "SCcap": 2480
+  },
+  "full_array_hashes_verified": 32,
+  "all_site_root_to_leaf_paths_preserved": true,
+  "frozen_hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805"
+}

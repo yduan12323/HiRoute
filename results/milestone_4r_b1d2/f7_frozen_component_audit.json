@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "violations": 0,
+  "files_verified": 11332,
+  "archive_files_verified": 9,
+  "unauthorized_changes": [],
+  "accepted_protection": {
+    "passed": true,
+    "verified_files": 840,
+    "changed_files": [],
+    "verified_accepted_source_files": 56,
+    "changed_accepted_source_files": [],
+    "accepted_source_manifest": "results/milestone_4b/acceptance.json"
+  },
+  "tracked_changes": "",
+  "git_commit": "20b658257fb67655e09229411783935e17084fa4",
+  "git_status": "?? MILESTONE_4R_B0_FORMAL_SPEC.md\n?? MILESTONE_4R_B1D2_EXPERIMENT_PROTOCOL.md\n?? MILESTONE_4R_B1D2_FORMAL_SPEC.md\n?? MILESTONE_4R_B1D_FORMAL_SPEC.md\n?? MILESTONE_4R_B1E_FORMAL_SPEC.md\n?? MILESTONE_4R_B1_CODEX_PROMPT.md\n?? MILESTONE_4R_B1_EXPERIMENT_PROTOCOL.md\n?? docs/MILESTONE_4R_B1D2_REPORT.md\n?? docs/MILESTONE_4R_B1D_REPORT.md\n?? docs/MILESTONE_4R_B1E_REPORT.md\n?? docs/MILESTONE_4R_B1_ACTION_DOMAIN_AMENDMENT.md\n?? docs/MILESTONE_4R_B1_BLOCKER_REPORT.md\n?? docs/MILESTONE_4R_B1_REPORT.md\n?? results/milestone_4r_b1/\n?? results/milestone_4r_b1d/\n?? results/milestone_4r_b1d2/\n?? results/milestone_4r_b1e/\n?? scripts/analyze_hierarchy_4r.py\n?? scripts/analyze_hierarchy_4r_boundary.py\n?? scripts/analyze_hierarchy_4r_deploy.py\n?? scripts/analyze_hierarchy_4r_diagnosis.py\n?? scripts/audit_deploy_landmarks.py\n?? scripts/audit_hierarchy_4r_deploy_static.py\n?? scripts/build_hierarchy_4r.py\n?? scripts/build_hierarchy_4r_boundary.py\n?? scripts/check_hierarchy_4r_diameter.py\n?? scripts/close_b1_oracle_statistics.py\n?? scripts/finalize_hierarchy_4r.py\n?? scripts/finalize_hierarchy_4r_boundary.py\n?? scripts/finalize_hierarchy_4r_deploy.py\n?? scripts/finalize_hierarchy_4r_diagnosis.py\n?? scripts/preprocess_hierarchy_4r_deploy.py\n?? scripts/run_hierarchy_4r_boundary.py\n?? scripts/run_hierarchy_4r_deploy.py\n?? scripts/run_hierarchy_4r_diagnosis.py\n?? scripts/run_hierarchy_4r_h0.py\n?? scripts/run_hierarchy_4r_oracle.py\n?? scripts/time_hierarchy_4r_deploy_avoided.py\n?? src/hierarchy4r/\n?? tests/test_hierarchy4r_artifacts.py\n?? tests/test_hierarchy4r_boundary.py\n?? tests/test_hierarchy4r_boundary_artifacts.py\n?? tests/test_hierarchy4r_deploy.py\n?? tests/test_hierarchy4r_deploy_artifacts.py\n?? tests/test_hierarchy4r_diagnosis.py\n?? tests/test_hierarchy4r_diagnosis_artifacts.py\n?? tests/test_hierarchy4r_domain.py\n?? tests/test_hierarchy4r_theorems.py\n",
+  "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+  "landmark_manifest_sha256": "4627d789aaae53ddf5e084bf8ccdcff0b44ec0ca181c5e8c3b99a6c7b5975af1",
+  "boundary_manifest_sha256": "4c5be4f7f8c7f72db707297832f26177f3344f35c9810210b3304581296b26af"
+}

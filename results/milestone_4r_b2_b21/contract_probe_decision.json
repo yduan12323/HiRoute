@@ -1,0 +1,15 @@
+{
+  "status": "hard_stop_correctness_failure",
+  "case_id": "A15_waiting_erases_prefix_time_advantage",
+  "G2_violations": 1,
+  "G4_mismatches": 1,
+  "T3_tie_safety_counterexamples": 1,
+  "stage_A_executed": 1,
+  "stage_A_planned": 20,
+  "stage_B_executed": 0,
+  "stage_C_executed": 0,
+  "full_REF_FLAT_HIER_comparison_run": false,
+  "decision": "B2-1 blocked; do not proceed to deployable/long-haul scaling.",
+  "frozen_theory_changed": false,
+  "numerical_or_semantic_patch": false
+}

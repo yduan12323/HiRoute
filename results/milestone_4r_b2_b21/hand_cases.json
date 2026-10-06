@@ -1,0 +1,129 @@
+[
+  {
+    "case_id": "A15_waiting_erases_prefix_time_advantage",
+    "frozen_theorem_case": 15,
+    "description": "Primary-time tie with different cumulative charge, after C-C-S waiting",
+    "H_ref": 4,
+    "origin": "origin",
+    "destination": "destination",
+    "start_time_s": 0,
+    "initial_energy_kwh": 10,
+    "capacity_kwh": 60,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 6,
+    "consumption_kwh_per_m": "0.00016",
+    "overhead_s": 300,
+    "lambda_stop_s": 600,
+    "schedule": {
+      "a": 40000,
+      "b": 41000,
+      "D": 2700
+    },
+    "sites": {
+      "4r:node/1": [
+        "C"
+      ],
+      "4r:node/2": [
+        "C"
+      ],
+      "4r:node/3": [
+        "C"
+      ],
+      "4r:node/4": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        "0",
+        "30",
+        "36",
+        "0"
+      ],
+      [
+        "30",
+        "48",
+        "60",
+        "-720"
+      ],
+      [
+        "48",
+        "60",
+        "120",
+        "-3600"
+      ]
+    ],
+    "edges": [
+      {
+        "source": "origin",
+        "target": "4r:node/1",
+        "time_s": 9000,
+        "length_m": 31250
+      },
+      {
+        "source": "4r:node/1",
+        "target": "4r:node/3",
+        "time_s": 9000,
+        "length_m": 250000
+      },
+      {
+        "source": "origin",
+        "target": "4r:node/2",
+        "time_s": 9300,
+        "length_m": 18750
+      },
+      {
+        "source": "4r:node/2",
+        "target": "4r:node/3",
+        "time_s": 9300,
+        "length_m": 218750
+      },
+      {
+        "source": "4r:node/3",
+        "target": "4r:node/4",
+        "time_s": 9000,
+        "length_m": 250000
+      },
+      {
+        "source": "4r:node/4",
+        "target": "destination",
+        "time_s": 450,
+        "length_m": 12500
+      }
+    ],
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "44950",
+      "Q_total": "76",
+      "H": 3,
+      "site_action_tuple": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "terminal_energy_kwh": "6",
+      "schedule_start_s": "40000",
+      "schedule_completion_s": "42700",
+      "one_valid_charge_vector": [
+        "28",
+        "48"
+      ]
+    },
+    "analytic_certificate": {
+      "minimum_stop_count": 3,
+      "minimum_stop_reason": "Schedule requires Site 4. Origin cannot reach Site 3 on initial energy. From either first charger to schedule/destination exceeds capacity, forcing a second charge at Site 3.",
+      "primary_lower_bound": "40000+2700+450+3*600=44950",
+      "secondary_lower_bound": "On the shorter-energy Site-2 branch: terminal reserve 6 + consumption 80 - initial 10 = 76 kWh. Site-1 branch consumes 87 and needs 83 kWh. Repeated visits cannot lower these branch-specific energy balances and incur additional nuisance.",
+      "curve_optimizer": "For arrival x at Site 3, F(x+40)-F(x) or F(x+35)-F(x) is strictly increasing on the feasible interval; earliest prefixes have x=0."
+    }
+  }
+]

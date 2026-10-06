@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/home/dy/miniconda3/envs/hiroute/bin/python",
+    "-m",
+    "pytest",
+    "-vv",
+    "tests",
+    "results/milestone_4r_b2_b21/validation",
+    "--junitxml=results/milestone_4r_b2_b21/final_tests.xml"
+  ],
+  "exit_code": 1,
+  "seconds": 142.52274925401434,
+  "tests": 246,
+  "failures": 2,
+  "errors": 0,
+  "skipped": 0,
+  "passed": 244,
+  "failed_new_contract_regressions": [
+    "test_frozen_frontier_preserves_complete_key_after_schedule_waiting",
+    "test_frozen_strict_cost_dominance_preserves_complete_key"
+  ],
+  "accepted_predecessor_tests_failed": 0,
+  "xfailed_or_waived_tests": 0
+}

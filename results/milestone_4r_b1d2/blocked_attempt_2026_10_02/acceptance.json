@@ -1,0 +1,103 @@
+{
+  "milestone": "4R-B1D2",
+  "version": "preimplementation-blocker-1",
+  "status": "blocked_before_implementation",
+  "final_one_stop_iteration": true,
+  "project_progress_rule": "B1-D2 is the final one-stop algorithmic iteration. After B1-D2, the one-stop method is frozen and the next research milestone is B2 multi-stop formalization. B1 may be reopened only for a fundamental correctness defect, not for additional performance tuning.",
+  "git_commit": "20b658257fb67655e09229411783935e17084fa4",
+  "git_status": " M .gitignore\n?? MILESTONE_4R_B0_FORMAL_SPEC.md\n?? MILESTONE_4R_B1D2_EXPERIMENT_PROTOCOL.md\n?? MILESTONE_4R_B1D2_FORMAL_SPEC.md\n?? MILESTONE_4R_B1D_FORMAL_SPEC.md\n?? MILESTONE_4R_B1E_FORMAL_SPEC.md\n?? MILESTONE_4R_B1_CODEX_PROMPT.md\n?? MILESTONE_4R_B1_EXPERIMENT_PROTOCOL.md\n?? docs/MILESTONE_4R_B1D2_REPORT.md\n?? docs/MILESTONE_4R_B1D_REPORT.md\n?? docs/MILESTONE_4R_B1E_REPORT.md\n?? docs/MILESTONE_4R_B1_ACTION_DOMAIN_AMENDMENT.md\n?? docs/MILESTONE_4R_B1_BLOCKER_REPORT.md\n?? docs/MILESTONE_4R_B1_REPORT.md\n?? results/milestone_4r_b1/\n?? results/milestone_4r_b1d/\n?? results/milestone_4r_b1d2/\n?? results/milestone_4r_b1e/\n?? scripts/analyze_hierarchy_4r.py\n?? scripts/analyze_hierarchy_4r_deploy.py\n?? scripts/analyze_hierarchy_4r_diagnosis.py\n?? scripts/audit_deploy_landmarks.py\n?? scripts/audit_hierarchy_4r_deploy_static.py\n?? scripts/build_hierarchy_4r.py\n?? scripts/check_hierarchy_4r_diameter.py\n?? scripts/close_b1_oracle_statistics.py\n?? scripts/finalize_hierarchy_4r.py\n?? scripts/finalize_hierarchy_4r_deploy.py\n?? scripts/finalize_hierarchy_4r_diagnosis.py\n?? scripts/preprocess_hierarchy_4r_deploy.py\n?? scripts/run_hierarchy_4r_deploy.py\n?? scripts/run_hierarchy_4r_diagnosis.py\n?? scripts/run_hierarchy_4r_h0.py\n?? scripts/run_hierarchy_4r_oracle.py\n?? scripts/time_hierarchy_4r_deploy_avoided.py\n?? src/hierarchy4r/\n?? tests/test_hierarchy4r_artifacts.py\n?? tests/test_hierarchy4r_deploy.py\n?? tests/test_hierarchy4r_deploy_artifacts.py\n?? tests/test_hierarchy4r_diagnosis.py\n?? tests/test_hierarchy4r_diagnosis_artifacts.py\n?? tests/test_hierarchy4r_domain.py\n?? tests/test_hierarchy4r_theorems.py\n",
+  "pre_test_results": {
+    "tests": 207,
+    "failures": 2,
+    "errors": 0,
+    "skipped": 0
+  },
+  "failed_tests": [
+    {
+      "name": "test_archived_blocker_and_accepted_hashes_unchanged",
+      "classname": "tests.test_hierarchy4r_artifacts",
+      "message": "AssertionError: assert '30815e72d706...56e3c2d6bb386' == '68bfbdb7f03c...d8aaeb93d8b26'\n  \n  - 68bfbdb7f03c9fdaf30bb55bb4e1d10e15055ee87214125e5ded8aaeb93d8b26\n  + 30815e72d7068c9d62f59092375ecae3ea2cd0bbee28a6f82e056e3c2d6bb386"
+    },
+    {
+      "name": "test_frozen_modules_and_all_protected_evidence_unchanged",
+      "classname": "tests.test_hierarchy4r_diagnosis",
+      "message": "AssertionError: .gitignore\nassert '30815e72d706...56e3c2d6bb386' == '68bfbdb7f03c...d8aaeb93d8b26'\n  \n  - 68bfbdb7f03c9fdaf30bb55bb4e1d10e15055ee87214125e5ded8aaeb93d8b26\n  + 30815e72d7068c9d62f59092375ecae3ea2cd0bbee28a6f82e056e3c2d6bb386"
+    }
+  ],
+  "post_test_results": {
+    "status": "not_run",
+    "reason": "No implementation; hard stop"
+  },
+  "protected_artifact_status": {
+    "status": "failed_preexisting_mismatch",
+    "files_checked": 11332,
+    "frozen_mismatches": [
+      {
+        "path": ".gitignore",
+        "expected_sha256": "68bfbdb7f03c9fdaf30bb55bb4e1d10e15055ee87214125e5ded8aaeb93d8b26",
+        "actual_sha256": "30815e72d7068c9d62f59092375ecae3ea2cd0bbee28a6f82e056e3c2d6bb386"
+      }
+    ],
+    "changes_during_this_run": [],
+    "all_other_frozen_files_match": true
+  },
+  "hierarchy_hash": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+  "landmark_manifest_hash": "4627d789aaae53ddf5e084bf8ccdcff0b44ec0ca181c5e8c3b99a6c7b5975af1",
+  "boundary_manifest_hash": null,
+  "Region_count": 2047,
+  "boundary_node_totals": null,
+  "F1_F7": {
+    "F1": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Pre-implementation protection/test hard stop"
+    },
+    "F2": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Pre-implementation protection/test hard stop"
+    },
+    "F3": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Pre-implementation protection/test hard stop"
+    },
+    "F4": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Pre-implementation protection/test hard stop"
+    },
+    "F5": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Pre-implementation protection/test hard stop"
+    },
+    "F6": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Pre-implementation protection/test hard stop"
+    },
+    "F7": {
+      "status": "failed",
+      "violations": 1,
+      "reason": "Protected .gitignore differs from frozen checkpoint"
+    }
+  },
+  "cases_expected": 480,
+  "cases_evaluated": 0,
+  "exact_preservation_count": null,
+  "ALT_BA_PS_work_totals": null,
+  "boundary_read_totals": null,
+  "H_bound_summary": null,
+  "H_work_summaries": null,
+  "timing_summary": {
+    "status": "not_evaluated"
+  },
+  "one_stop_freeze_status": "not_completed_preimplementation_blocker",
+  "next_milestone": "B2 multi-stop formalization",
+  "transition_condition": "After B1-D2 F1\u2013F7 closure",
+  "fundamental_correctness_defect_found": false,
+  "blocker_type": "preexisting_protected_file_mismatch_and_test_failure",
+  "report_sha256": "c7156506aac218340261219b31af3b948a63765ecb11a8c57be826c5f3f4cd08",
+  "B2_implementation": "not_started"
+}

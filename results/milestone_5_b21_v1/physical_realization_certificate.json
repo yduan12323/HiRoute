@@ -1,0 +1,61 @@
+{
+  "scope": "Explanatory realizations of the original frozen input branches, not a new case",
+  "initial_energy": "30",
+  "capacity": "60",
+  "overhead": "300",
+  "A": {
+    "prefix": [
+      [
+        1,
+        "C"
+      ]
+    ],
+    "origin_to_site1": {
+      "time": "350",
+      "consumption": "0"
+    },
+    "site1_to_current": {
+      "time": "350",
+      "consumption": "30"
+    },
+    "first_charge": "u, 0 < u <= 1",
+    "first_charge_time": "60 u",
+    "current_energy": "u",
+    "current_time": "1000 + 60 u",
+    "rho": "0"
+  },
+  "B": {
+    "prefix": [
+      [
+        2,
+        "C"
+      ]
+    ],
+    "origin_to_site2": {
+      "time": "338",
+      "consumption": "29"
+    },
+    "site2_to_current": {
+      "time": "339",
+      "consumption": "2"
+    },
+    "first_arrival": "1",
+    "first_departure": "5/2",
+    "first_charge": "3/2",
+    "first_charge_time": "54",
+    "current_energy": "1/2",
+    "current_time": "1031",
+    "rho": "1"
+  },
+  "common_next_C": {
+    "output_energy": "1",
+    "overhead": "300"
+  },
+  "exact_recheck": {
+    "A_u_quarter_next_C_time": "1342",
+    "B_next_C_time": "1349"
+  },
+  "endpoints_and_all_charges_strictly_positive": true,
+  "charging_law": "Unchanged canonical 60-kWh charging evaluator",
+  "assertion": "A is an attained open-energy PWA prefix; B is a valid attained singleton prefix realization"
+}

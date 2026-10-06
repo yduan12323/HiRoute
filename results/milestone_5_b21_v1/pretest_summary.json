@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/home/dy/miniconda3/envs/hiroute/bin/python",
+    "-m",
+    "pytest",
+    "-vv",
+    "--require-real-data",
+    "--require-envelope-results",
+    "--require-regional-results",
+    "--require-opportunity-results",
+    "--require-microplan-results",
+    "--junitxml=/home/dy/HiRoute/project/results/milestone_5_b21_v1/preexisting_tests.xml"
+  ],
+  "exit_code": 0,
+  "seconds": 141.7198650550563,
+  "tests": 235,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": 235
+}

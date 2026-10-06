@@ -1,0 +1,9 @@
+{
+  "boundary_absolute_s": 1e-06,
+  "boundary_relative": 2e-08,
+  "rule": "max(0,nextafter(raw_min - (1e-6 + 2e-8*abs(raw_min)), -inf)); finite values only; inside/empty/unreachable -> 0",
+  "cost_audit_tolerance_s": 2e-06,
+  "metric_audit_tolerance": 1e-05,
+  "energy_bound": "unchanged ALT8 distance",
+  "cache": "Region-only per case; shared across static buckets"
+}

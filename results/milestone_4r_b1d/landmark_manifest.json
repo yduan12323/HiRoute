@@ -1,0 +1,36 @@
+{
+  "landmarks": [
+    611316,
+    765317,
+    537267,
+    5181121,
+    2880865,
+    121844,
+    1521217,
+    2300632
+  ],
+  "osm_ids": [
+    412449453,
+    523338682,
+    336944294,
+    9433841848,
+    3035262964,
+    247060591,
+    1403398173,
+    2204641569
+  ],
+  "largest_scc_nodes": 5819010,
+  "centroid_lon": 14.945060151197843,
+  "centroid_lat": 46.19880985267412,
+  "selection": "normalized fixed 8 directions; equirectangular coordinates; descending score, ascending OSM/node ID; skip previously selected extrema",
+  "node_order_sha256": "4ff19d67d97d1e6914931df5f66abf1e6e362bf3d9f055ed816a24a0b1744143",
+  "dtype": "float64",
+  "node_count": 5892498,
+  "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+  "inputs": {
+    "/home/dy/HiRoute/project/data/processed/graphs/slovenia_extended/nodes.parquet": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+    "/home/dy/HiRoute/project/data/processed/graphs/slovenia_extended/edges.parquet": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+    "/home/dy/HiRoute/project/data/processed/graphs/slovenia_extended/metadata.json": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd"
+  },
+  "config_sha256": "373bc096448cdc507d5c00c27fc9560494f830151f5b976fd48b7ebb576c2024"
+}

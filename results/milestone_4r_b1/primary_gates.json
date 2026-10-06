@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "cases": 480,
+  "H0": true,
+  "H1": true,
+  "H2": true,
+  "H3": true,
+  "H4": true,
+  "H5": true,
+  "H1_violations": 0,
+  "H2_mismatches": 0,
+  "H3_violations": 0,
+  "H4_lost_duplicated": 0,
+  "H5_mutations": 0
+}

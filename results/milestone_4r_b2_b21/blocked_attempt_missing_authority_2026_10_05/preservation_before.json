@@ -1,0 +1,37 @@
+{
+  "git_commit": "20b658257fb67655e09229411783935e17084fa4",
+  "git_status": "?? MILESTONE_4R_B0_FORMAL_SPEC.md\n?? MILESTONE_4R_B1D2_EXPERIMENT_PROTOCOL.md\n?? MILESTONE_4R_B1D2_FORMAL_SPEC.md\n?? MILESTONE_4R_B1D_FORMAL_SPEC.md\n?? MILESTONE_4R_B1E_FORMAL_SPEC.md\n?? MILESTONE_4R_B1_CODEX_PROMPT.md\n?? MILESTONE_4R_B1_EXPERIMENT_PROTOCOL.md\n?? MILESTONE_4R_B2_B21_EXPERIMENT_PROTOCOL.md\n?? MILESTONE_4R_B2_T7_CHARGING_FRONTIER_SPEC.md\n?? MILESTONE_4R_B2_T7_THEOREM_AUDIT.md\n?? docs/MILESTONE_4R_B1D2_REPORT.md\n?? docs/MILESTONE_4R_B1D_REPORT.md\n?? docs/MILESTONE_4R_B1E_REPORT.md\n?? docs/MILESTONE_4R_B1_ACTION_DOMAIN_AMENDMENT.md\n?? docs/MILESTONE_4R_B1_BLOCKER_REPORT.md\n?? docs/MILESTONE_4R_B1_REPORT.md\n?? results/milestone_4r_b1/\n?? results/milestone_4r_b1d/\n?? results/milestone_4r_b1d2/\n?? results/milestone_4r_b1e/\n?? results/milestone_4r_b2_b21/\n?? scripts/analyze_hierarchy_4r.py\n?? scripts/analyze_hierarchy_4r_boundary.py\n?? scripts/analyze_hierarchy_4r_deploy.py\n?? scripts/analyze_hierarchy_4r_diagnosis.py\n?? scripts/audit_deploy_landmarks.py\n?? scripts/audit_hierarchy_4r_deploy_static.py\n?? scripts/build_hierarchy_4r.py\n?? scripts/build_hierarchy_4r_boundary.py\n?? scripts/check_hierarchy_4r_diameter.py\n?? scripts/close_b1_oracle_statistics.py\n?? scripts/finalize_hierarchy_4r.py\n?? scripts/finalize_hierarchy_4r_boundary.py\n?? scripts/finalize_hierarchy_4r_deploy.py\n?? scripts/finalize_hierarchy_4r_diagnosis.py\n?? scripts/preprocess_hierarchy_4r_deploy.py\n?? scripts/run_hierarchy_4r_boundary.py\n?? scripts/run_hierarchy_4r_deploy.py\n?? scripts/run_hierarchy_4r_diagnosis.py\n?? scripts/run_hierarchy_4r_h0.py\n?? scripts/run_hierarchy_4r_oracle.py\n?? scripts/time_hierarchy_4r_deploy_avoided.py\n?? src/hierarchy4r/\n?? tests/test_hierarchy4r_artifacts.py\n?? tests/test_hierarchy4r_boundary.py\n?? tests/test_hierarchy4r_boundary_artifacts.py\n?? tests/test_hierarchy4r_deploy.py\n?? tests/test_hierarchy4r_deploy_artifacts.py\n?? tests/test_hierarchy4r_diagnosis.py\n?? tests/test_hierarchy4r_diagnosis_artifacts.py\n?? tests/test_hierarchy4r_domain.py\n?? tests/test_hierarchy4r_theorems.py\n",
+  "tracked_diff": "",
+  "files_verified": 12870,
+  "expected_hash_records_verified": 53288,
+  "manifests": [
+    "results/milestone_4r/preservation_before.json",
+    "results/milestone_4r/acceptance.json",
+    "results/milestone_4r_b1/preservation_checkpoint.json",
+    "results/milestone_4r_b1/resume_preservation_before.json",
+    "results/milestone_4r_b1/acceptance.json",
+    "results/milestone_4r_b1d/preservation_before.json",
+    "results/milestone_4r_b1d/acceptance.json",
+    "results/milestone_4r_b1d/query_preregistration.json",
+    "results/milestone_4r_b1d/landmark_manifest.json",
+    "results/milestone_4r_b1e/preservation_before.json",
+    "results/milestone_4r_b1e/acceptance.json",
+    "results/milestone_4r_b1e/frozen_input_hash_manifest.json",
+    "results/milestone_4r_b1d2/preservation_before.json",
+    "results/milestone_4r_b1d2/acceptance.json",
+    "results/milestone_4r_b1d2/frozen_input_hash_manifest.json",
+    "results/milestone_4r_b1d2/boundary_manifest.json",
+    "results/milestone_4r_b1d2/experiment_protocol.json",
+    "results/milestone_4b/preservation_before.json",
+    "results/milestone_4b/acceptance.json"
+  ],
+  "hash_violations": [],
+  "missing_authority_documents": [
+    "MILESTONE_4R_B2_FORMAL_SPEC.md",
+    "MILESTONE_4R_B2_THEORY_AUDIT.md"
+  ],
+  "preservation_passed": true,
+  "frozen_input_hash_manifest_sha256": "aaaf7b9269180415312d1d21d97bf9ce7eca0fb8883c6c306f0a18029fc9711b",
+  "hash_audit_seconds": 6.190505302045494,
+  "manifest_path_resolution_audit": "manifest_path_resolution_audit.json"
+}

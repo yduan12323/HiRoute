@@ -1,0 +1,7 @@
+{
+  "cases": 480,
+  "F2_F6_violations": 0,
+  "peak_rss_mib": 7118.01171875,
+  "shared_time_sssp_calls": 60,
+  "offline_distance_sssp_calls": 60
+}

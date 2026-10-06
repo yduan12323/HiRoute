@@ -1,0 +1,4 @@
+{
+  "policy": "Single isolated lookup replay; alternate ALT8/BA order by case; four frozen alt() calls per visited node; no SSSP, cost formula or search. Microprofile separate from uninstrumented paired totals.",
+  "source_sha256": "d8333676cce941731b852e641a0861bbadcecf120472d04e5d2d1ea45ad7f3ba"
+}

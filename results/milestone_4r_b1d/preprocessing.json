@@ -1,0 +1,25 @@
+{
+  "runtime_seconds": 152.889099749038,
+  "summary_seconds": 4.036304835928604,
+  "peak_rss_mib": 4253.6796875,
+  "array_disk_bytes": 1508483584,
+  "summary_disk_bytes": 1352226,
+  "summary_reconstruction_equal": true,
+  "landmark_manifest_sha256": "4627d789aaae53ddf5e084bf8ccdcff0b44ec0ca181c5e8c3b99a6c7b5975af1",
+  "summary_sha256": "dd04fd15ee4227b9d3b57ef8630b956c060899e35c33db20b967ccc0275f2cae",
+  "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+  "schema": {
+    "region": "int64",
+    "bucket": "str",
+    "metric": "str",
+    "landmark": "int64",
+    "count": "int64",
+    "empty": "bool",
+    "min_from": "float64",
+    "max_from": "float64",
+    "min_to": "float64",
+    "max_to": "float64",
+    "finite_from": "int64",
+    "finite_to": "int64"
+  }
+}

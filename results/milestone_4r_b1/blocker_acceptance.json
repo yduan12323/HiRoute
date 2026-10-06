@@ -1,0 +1,46 @@
+{
+  "passed": false,
+  "status": "blocked_contract_before_implementation",
+  "final_gate_statement": "B1 correctness failed \u2014 no empirical Go/No-Go interpretation",
+  "baseline_commit": "20b658257fb67655e09229411783935e17084fa4",
+  "branch": "codex/milestone-4r-b1",
+  "preexisting_tests": {
+    "tests": 116,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "preservation": {
+    "passed": true,
+    "checkpoint_files_verified": 933,
+    "changed_files": [],
+    "historical_manifests": "preservation_after.json"
+  },
+  "blocker": "C/S/CS exact predicates do not cover all feasible accepted flat one-stop actions; prompt section 6 and protocol section 5 require exact action-set equality.",
+  "counterexample": "role_coverage_counterexample.json",
+  "H1": "not_evaluated",
+  "H2": "not_evaluated",
+  "H3": "not_evaluated",
+  "H4": "not_evaluated; role-action coverage prerequisite disproved",
+  "H5": "not_evaluated",
+  "primary_cases_completed": 0,
+  "hierarchy_frozen": false,
+  "B1_O": "not_run",
+  "classification": null,
+  "B1_D": "not_started_prerequisites_unmet",
+  "B2": "not_started",
+  "proposed_amendment": "Explicit neutral no-charge/no-schedule stop role; contract amendment required before implementation.",
+  "report": "docs/MILESTONE_4R_B1_REPORT.md",
+  "report_sha256": "58f3283de0ec76151c67b3e60ff03dc4756aba4ed7dc7ffc0a5ac495979a5272",
+  "evidence_sha256": {
+    "baseline_audit.json": "1662c82af9d1a830544998e721096f9a49d2a6ad636f6ce4e3e3021708f1f1d5",
+    "dependency_availability.json": "374b3d75907c080870eca16f19a63a0c470cd6777af24fb72a46c3f15afb4a13",
+    "preexisting_tests.log": "ae6ad0ac65a6bb38a97f817a619f14fc117d5822d7f800fde88ac54f427031e4",
+    "preexisting_tests.xml": "ef8e4636c5664acec5dc0c36454bade568d5fd9ae9a6dcda49d35d616bd82f44",
+    "preservation_after.json": "bddae8f284f8582667d98e230ff467397e7863f7507077949b7940329bdf3c3f",
+    "preservation_checkpoint.json": "e2c303567172cdd83770d4d8dbdd5199121a4c6a751d25d38130aa956597000b",
+    "reproduce_role_audit.py": "e60ba5f88684c6986358752cf4b0e98d0b35ec88c0755136d249f3d95ed94afa",
+    "role_audit.log": "fd5e2c79bb2d3a1cabfa1b27d5c621dad669c00eda596c5148113df15f3cc98b",
+    "role_coverage_counterexample.json": "bc1924b7bd08dfaa7447651c068c678021ab5f7f474d7a704eb13e248040e975"
+  }
+}

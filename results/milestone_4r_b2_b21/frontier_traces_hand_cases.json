@@ -1,0 +1,958 @@
+{
+  "case_id": "A15_waiting_erases_prefix_time_advantage",
+  "earliest_frontier_result": {
+    "status": "attained_optimum",
+    "J": "44950",
+    "Q_total": "83",
+    "H": 3,
+    "site_action_tuple": [
+      [
+        "4r:node/1",
+        "C"
+      ],
+      [
+        "4r:node/3",
+        "C"
+      ],
+      [
+        "4r:node/4",
+        "S"
+      ]
+    ],
+    "terminal_energy_kwh": "6"
+  },
+  "retain_alternatives_result": {
+    "status": "attained_optimum",
+    "J": "44950",
+    "Q_total": "76",
+    "H": 3,
+    "site_action_tuple": [
+      [
+        "4r:node/2",
+        "C"
+      ],
+      [
+        "4r:node/3",
+        "C"
+      ],
+      [
+        "4r:node/4",
+        "S"
+      ]
+    ],
+    "terminal_energy_kwh": "6"
+  },
+  "primary_equal": true,
+  "charge_gap": "7",
+  "dominance_witness": {
+    "anchor": "4r:node/3",
+    "remaining_schedule": 1,
+    "stop_count": 2,
+    "energy_A": "48",
+    "energy_B": "48",
+    "time_A": "22260",
+    "time_B": "22488",
+    "g_A": "23460",
+    "g_B": "23688",
+    "Q_A": "83",
+    "Q_B": "76",
+    "time_relation": "A < B",
+    "energy_relation": "A = B",
+    "strict_primary_cost_relation": "g_A < g_B",
+    "frozen_rule_authorizes_deletion": true,
+    "D_off_point_label_result": {
+      "status": "attained_optimum",
+      "J": "44950",
+      "Q_total": "76",
+      "H": 3,
+      "site_action_tuple": [
+        [
+          "4r:node/2",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "terminal_energy_kwh": "6"
+    },
+    "D_on_point_label_result": {
+      "status": "attained_optimum",
+      "J": "44950",
+      "Q_total": "83",
+      "H": 3,
+      "site_action_tuple": [
+        [
+          "4r:node/1",
+          "C"
+        ],
+        [
+          "4r:node/3",
+          "C"
+        ],
+        [
+          "4r:node/4",
+          "S"
+        ]
+      ],
+      "terminal_energy_kwh": "6"
+    },
+    "primary_tie_after_wait": true,
+    "secondary_tie_lost": true
+  },
+  "strict_charge_input_traces": [
+    [
+      {
+        "low": "0",
+        "high": "8",
+        "time_minus_F_slope": "24",
+        "optimizer_arrival_energy": "0",
+        "optimizer_attained": true
+      },
+      {
+        "low": "8",
+        "high": "20",
+        "time_minus_F_slope": "84",
+        "optimizer_arrival_energy": "0",
+        "optimizer_attained": true
+      }
+    ],
+    [
+      {
+        "low": "0",
+        "high": "13",
+        "time_minus_F_slope": "24",
+        "optimizer_arrival_energy": "0",
+        "optimizer_attained": true
+      },
+      {
+        "low": "13",
+        "high": "25",
+        "time_minus_F_slope": "84",
+        "optimizer_arrival_energy": "0",
+        "optimizer_attained": true
+      }
+    ]
+  ],
+  "pieces": {
+    "branch_A": [
+      {
+        "piece_id": "C-4r:node/1-0",
+        "anchor": "4r:node/3",
+        "remaining_schedule": 1,
+        "stop_count": 2,
+        "low": "0",
+        "high": "30",
+        "left_open": true,
+        "right_open": false,
+        "time_slope": "36",
+        "time_intercept": "20100",
+        "charge_slope": "1",
+        "charge_intercept": "35",
+        "attained": true,
+        "predecessor_piece_id": "arrival-4r:node/1-x=0",
+        "predecessor_energy_rule": "constant 0",
+        "site_id": "4r:node/3",
+        "effect": "C",
+        "schedule_branch": "absent",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ]
+        ]
+      },
+      {
+        "piece_id": "C-4r:node/1-1",
+        "anchor": "4r:node/3",
+        "remaining_schedule": 1,
+        "stop_count": 2,
+        "low": "30",
+        "high": "48",
+        "left_open": false,
+        "right_open": false,
+        "time_slope": "60",
+        "time_intercept": "19380",
+        "charge_slope": "1",
+        "charge_intercept": "35",
+        "attained": true,
+        "predecessor_piece_id": "arrival-4r:node/1-x=0",
+        "predecessor_energy_rule": "constant 0",
+        "site_id": "4r:node/3",
+        "effect": "C",
+        "schedule_branch": "absent",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ]
+        ]
+      },
+      {
+        "piece_id": "C-4r:node/1-2",
+        "anchor": "4r:node/3",
+        "remaining_schedule": 1,
+        "stop_count": 2,
+        "low": "48",
+        "high": "60",
+        "left_open": false,
+        "right_open": false,
+        "time_slope": "120",
+        "time_intercept": "16500",
+        "charge_slope": "1",
+        "charge_intercept": "35",
+        "attained": true,
+        "predecessor_piece_id": "arrival-4r:node/1-x=0",
+        "predecessor_energy_rule": "constant 0",
+        "site_id": "4r:node/3",
+        "effect": "C",
+        "schedule_branch": "absent",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ]
+        ]
+      }
+    ],
+    "branch_B": [
+      {
+        "piece_id": "C-4r:node/2-0",
+        "anchor": "4r:node/3",
+        "remaining_schedule": 1,
+        "stop_count": 2,
+        "low": "0",
+        "high": "30",
+        "left_open": true,
+        "right_open": false,
+        "time_slope": "36",
+        "time_intercept": "20328",
+        "charge_slope": "1",
+        "charge_intercept": "28",
+        "attained": true,
+        "predecessor_piece_id": "arrival-4r:node/2-x=0",
+        "predecessor_energy_rule": "constant 0",
+        "site_id": "4r:node/3",
+        "effect": "C",
+        "schedule_branch": "absent",
+        "witness": [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ]
+        ]
+      },
+      {
+        "piece_id": "C-4r:node/2-1",
+        "anchor": "4r:node/3",
+        "remaining_schedule": 1,
+        "stop_count": 2,
+        "low": "30",
+        "high": "48",
+        "left_open": false,
+        "right_open": false,
+        "time_slope": "60",
+        "time_intercept": "19608",
+        "charge_slope": "1",
+        "charge_intercept": "28",
+        "attained": true,
+        "predecessor_piece_id": "arrival-4r:node/2-x=0",
+        "predecessor_energy_rule": "constant 0",
+        "site_id": "4r:node/3",
+        "effect": "C",
+        "schedule_branch": "absent",
+        "witness": [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ]
+        ]
+      },
+      {
+        "piece_id": "C-4r:node/2-2",
+        "anchor": "4r:node/3",
+        "remaining_schedule": 1,
+        "stop_count": 2,
+        "low": "48",
+        "high": "60",
+        "left_open": false,
+        "right_open": false,
+        "time_slope": "120",
+        "time_intercept": "16728",
+        "charge_slope": "1",
+        "charge_intercept": "28",
+        "attained": true,
+        "predecessor_piece_id": "arrival-4r:node/2-x=0",
+        "predecessor_energy_rule": "constant 0",
+        "site_id": "4r:node/3",
+        "effect": "C",
+        "schedule_branch": "absent",
+        "witness": [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ]
+        ]
+      }
+    ],
+    "earliest_merge": [
+      {
+        "piece_id": "merge-interval-0-C-4r:node/1-0",
+        "anchor": "4r:node/3",
+        "remaining_schedule": 1,
+        "stop_count": 2,
+        "low": "0",
+        "high": "30",
+        "left_open": true,
+        "right_open": true,
+        "time_slope": "36",
+        "time_intercept": "20100",
+        "charge_slope": "1",
+        "charge_intercept": "35",
+        "attained": true,
+        "predecessor_piece_id": "C-4r:node/1-0",
+        "predecessor_energy_rule": "identity",
+        "site_id": "4r:node/3",
+        "effect": "C",
+        "schedule_branch": "absent",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ]
+        ]
+      },
+      {
+        "piece_id": "merge-point-1-C-4r:node/1-0",
+        "anchor": "4r:node/3",
+        "remaining_schedule": 1,
+        "stop_count": 2,
+        "low": "30",
+        "high": "30",
+        "left_open": false,
+        "right_open": false,
+        "time_slope": "36",
+        "time_intercept": "20100",
+        "charge_slope": "1",
+        "charge_intercept": "35",
+        "attained": true,
+        "predecessor_piece_id": "C-4r:node/1-0",
+        "predecessor_energy_rule": "identity",
+        "site_id": "4r:node/3",
+        "effect": "C",
+        "schedule_branch": "absent",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ]
+        ]
+      },
+      {
+        "piece_id": "merge-interval-1-C-4r:node/1-1",
+        "anchor": "4r:node/3",
+        "remaining_schedule": 1,
+        "stop_count": 2,
+        "low": "30",
+        "high": "48",
+        "left_open": true,
+        "right_open": true,
+        "time_slope": "60",
+        "time_intercept": "19380",
+        "charge_slope": "1",
+        "charge_intercept": "35",
+        "attained": true,
+        "predecessor_piece_id": "C-4r:node/1-1",
+        "predecessor_energy_rule": "identity",
+        "site_id": "4r:node/3",
+        "effect": "C",
+        "schedule_branch": "absent",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ]
+        ]
+      },
+      {
+        "piece_id": "merge-point-2-C-4r:node/1-1",
+        "anchor": "4r:node/3",
+        "remaining_schedule": 1,
+        "stop_count": 2,
+        "low": "48",
+        "high": "48",
+        "left_open": false,
+        "right_open": false,
+        "time_slope": "60",
+        "time_intercept": "19380",
+        "charge_slope": "1",
+        "charge_intercept": "35",
+        "attained": true,
+        "predecessor_piece_id": "C-4r:node/1-1",
+        "predecessor_energy_rule": "identity",
+        "site_id": "4r:node/3",
+        "effect": "C",
+        "schedule_branch": "absent",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ]
+        ]
+      },
+      {
+        "piece_id": "merge-interval-2-C-4r:node/1-2",
+        "anchor": "4r:node/3",
+        "remaining_schedule": 1,
+        "stop_count": 2,
+        "low": "48",
+        "high": "60",
+        "left_open": true,
+        "right_open": true,
+        "time_slope": "120",
+        "time_intercept": "16500",
+        "charge_slope": "1",
+        "charge_intercept": "35",
+        "attained": true,
+        "predecessor_piece_id": "C-4r:node/1-2",
+        "predecessor_energy_rule": "identity",
+        "site_id": "4r:node/3",
+        "effect": "C",
+        "schedule_branch": "absent",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ]
+        ]
+      },
+      {
+        "piece_id": "merge-point-3-C-4r:node/1-2",
+        "anchor": "4r:node/3",
+        "remaining_schedule": 1,
+        "stop_count": 2,
+        "low": "60",
+        "high": "60",
+        "left_open": false,
+        "right_open": false,
+        "time_slope": "120",
+        "time_intercept": "16500",
+        "charge_slope": "1",
+        "charge_intercept": "35",
+        "attained": true,
+        "predecessor_piece_id": "C-4r:node/1-2",
+        "predecessor_energy_rule": "identity",
+        "site_id": "4r:node/3",
+        "effect": "C",
+        "schedule_branch": "absent",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ]
+        ]
+      }
+    ],
+    "after_schedule": [
+      {
+        "piece_id": "S-0-drive-merge-interval-1-C-4r:node/1-1",
+        "anchor": "4r:node/4",
+        "remaining_schedule": 0,
+        "stop_count": 3,
+        "low": "0",
+        "high": "0",
+        "left_open": false,
+        "right_open": false,
+        "time_slope": "0",
+        "time_intercept": "42700",
+        "charge_slope": "1",
+        "charge_intercept": "75",
+        "attained": true,
+        "predecessor_piece_id": "drive-merge-interval-1-C-4r:node/1-1",
+        "predecessor_energy_rule": "identity",
+        "site_id": "4r:node/4",
+        "effect": "S",
+        "schedule_branch": "early",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      },
+      {
+        "piece_id": "S-1-drive-merge-interval-1-C-4r:node/1-1",
+        "anchor": "4r:node/4",
+        "remaining_schedule": 0,
+        "stop_count": 3,
+        "low": "0",
+        "high": "8",
+        "left_open": true,
+        "right_open": true,
+        "time_slope": "0",
+        "time_intercept": "42700",
+        "charge_slope": "1",
+        "charge_intercept": "75",
+        "attained": true,
+        "predecessor_piece_id": "drive-merge-interval-1-C-4r:node/1-1",
+        "predecessor_energy_rule": "identity",
+        "site_id": "4r:node/4",
+        "effect": "S",
+        "schedule_branch": "early",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      },
+      {
+        "piece_id": "S-0-drive-merge-point-2-C-4r:node/1-1",
+        "anchor": "4r:node/4",
+        "remaining_schedule": 0,
+        "stop_count": 3,
+        "low": "8",
+        "high": "8",
+        "left_open": false,
+        "right_open": false,
+        "time_slope": "0",
+        "time_intercept": "42700",
+        "charge_slope": "1",
+        "charge_intercept": "75",
+        "attained": true,
+        "predecessor_piece_id": "drive-merge-point-2-C-4r:node/1-1",
+        "predecessor_energy_rule": "identity",
+        "site_id": "4r:node/4",
+        "effect": "S",
+        "schedule_branch": "early",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      },
+      {
+        "piece_id": "S-0-drive-merge-interval-2-C-4r:node/1-2",
+        "anchor": "4r:node/4",
+        "remaining_schedule": 0,
+        "stop_count": 3,
+        "low": "8",
+        "high": "20",
+        "left_open": true,
+        "right_open": true,
+        "time_slope": "0",
+        "time_intercept": "42700",
+        "charge_slope": "1",
+        "charge_intercept": "75",
+        "attained": true,
+        "predecessor_piece_id": "drive-merge-interval-2-C-4r:node/1-2",
+        "predecessor_energy_rule": "identity",
+        "site_id": "4r:node/4",
+        "effect": "S",
+        "schedule_branch": "early",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      },
+      {
+        "piece_id": "S-0-drive-merge-point-3-C-4r:node/1-2",
+        "anchor": "4r:node/4",
+        "remaining_schedule": 0,
+        "stop_count": 3,
+        "low": "20",
+        "high": "20",
+        "left_open": false,
+        "right_open": false,
+        "time_slope": "0",
+        "time_intercept": "42700",
+        "charge_slope": "1",
+        "charge_intercept": "75",
+        "attained": true,
+        "predecessor_piece_id": "drive-merge-point-3-C-4r:node/1-2",
+        "predecessor_energy_rule": "identity",
+        "site_id": "4r:node/4",
+        "effect": "S",
+        "schedule_branch": "early",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      }
+    ],
+    "terminal": [
+      {
+        "piece_id": "drive-S-0-drive-merge-point-2-C-4r:node/1-1",
+        "anchor": "destination",
+        "remaining_schedule": 0,
+        "stop_count": 3,
+        "low": "6",
+        "high": "6",
+        "left_open": false,
+        "right_open": false,
+        "time_slope": "0",
+        "time_intercept": "43150",
+        "charge_slope": "1",
+        "charge_intercept": "77",
+        "attained": true,
+        "predecessor_piece_id": "S-0-drive-merge-point-2-C-4r:node/1-1",
+        "predecessor_energy_rule": "E+2",
+        "site_id": "4r:node/4",
+        "effect": "S",
+        "schedule_branch": "early",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      },
+      {
+        "piece_id": "drive-S-0-drive-merge-interval-2-C-4r:node/1-2",
+        "anchor": "destination",
+        "remaining_schedule": 0,
+        "stop_count": 3,
+        "low": "6",
+        "high": "18",
+        "left_open": true,
+        "right_open": true,
+        "time_slope": "0",
+        "time_intercept": "43150",
+        "charge_slope": "1",
+        "charge_intercept": "77",
+        "attained": true,
+        "predecessor_piece_id": "S-0-drive-merge-interval-2-C-4r:node/1-2",
+        "predecessor_energy_rule": "E+2",
+        "site_id": "4r:node/4",
+        "effect": "S",
+        "schedule_branch": "early",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      },
+      {
+        "piece_id": "drive-S-0-drive-merge-point-3-C-4r:node/1-2",
+        "anchor": "destination",
+        "remaining_schedule": 0,
+        "stop_count": 3,
+        "low": "18",
+        "high": "18",
+        "left_open": false,
+        "right_open": false,
+        "time_slope": "0",
+        "time_intercept": "43150",
+        "charge_slope": "1",
+        "charge_intercept": "77",
+        "attained": true,
+        "predecessor_piece_id": "S-0-drive-merge-point-3-C-4r:node/1-2",
+        "predecessor_energy_rule": "E+2",
+        "site_id": "4r:node/4",
+        "effect": "S",
+        "schedule_branch": "early",
+        "witness": [
+          [
+            "4r:node/1",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      }
+    ],
+    "alternative_schedule_merge": [
+      {
+        "piece_id": "merge-point-0-S-0-drive-C-4r:node/2-1",
+        "anchor": "4r:node/4",
+        "remaining_schedule": 0,
+        "stop_count": 3,
+        "low": "0",
+        "high": "0",
+        "left_open": false,
+        "right_open": false,
+        "time_slope": "0",
+        "time_intercept": "42700",
+        "charge_slope": "1",
+        "charge_intercept": "68",
+        "attained": true,
+        "predecessor_piece_id": "S-0-drive-C-4r:node/2-1",
+        "predecessor_energy_rule": "identity",
+        "site_id": "4r:node/4",
+        "effect": "S",
+        "schedule_branch": "early",
+        "witness": [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      },
+      {
+        "piece_id": "merge-interval-0-S-2-drive-C-4r:node/2-1",
+        "anchor": "4r:node/4",
+        "remaining_schedule": 0,
+        "stop_count": 3,
+        "low": "0",
+        "high": "8",
+        "left_open": true,
+        "right_open": true,
+        "time_slope": "0",
+        "time_intercept": "42700",
+        "charge_slope": "1",
+        "charge_intercept": "68",
+        "attained": true,
+        "predecessor_piece_id": "S-2-drive-C-4r:node/2-1",
+        "predecessor_energy_rule": "identity",
+        "site_id": "4r:node/4",
+        "effect": "S",
+        "schedule_branch": "early",
+        "witness": [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      },
+      {
+        "piece_id": "merge-point-1-S-1-drive-C-4r:node/2-1",
+        "anchor": "4r:node/4",
+        "remaining_schedule": 0,
+        "stop_count": 3,
+        "low": "8",
+        "high": "8",
+        "left_open": false,
+        "right_open": false,
+        "time_slope": "0",
+        "time_intercept": "42700",
+        "charge_slope": "1",
+        "charge_intercept": "68",
+        "attained": true,
+        "predecessor_piece_id": "S-1-drive-C-4r:node/2-1",
+        "predecessor_energy_rule": "identity",
+        "site_id": "4r:node/4",
+        "effect": "S",
+        "schedule_branch": "early",
+        "witness": [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      },
+      {
+        "piece_id": "merge-interval-1-S-2-drive-C-4r:node/2-2",
+        "anchor": "4r:node/4",
+        "remaining_schedule": 0,
+        "stop_count": 3,
+        "low": "8",
+        "high": "20",
+        "left_open": true,
+        "right_open": true,
+        "time_slope": "0",
+        "time_intercept": "42700",
+        "charge_slope": "1",
+        "charge_intercept": "68",
+        "attained": true,
+        "predecessor_piece_id": "S-2-drive-C-4r:node/2-2",
+        "predecessor_energy_rule": "identity",
+        "site_id": "4r:node/4",
+        "effect": "S",
+        "schedule_branch": "early",
+        "witness": [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      },
+      {
+        "piece_id": "merge-point-2-S-1-drive-C-4r:node/2-2",
+        "anchor": "4r:node/4",
+        "remaining_schedule": 0,
+        "stop_count": 3,
+        "low": "20",
+        "high": "20",
+        "left_open": false,
+        "right_open": false,
+        "time_slope": "0",
+        "time_intercept": "42700",
+        "charge_slope": "1",
+        "charge_intercept": "68",
+        "attained": true,
+        "predecessor_piece_id": "S-1-drive-C-4r:node/2-2",
+        "predecessor_energy_rule": "identity",
+        "site_id": "4r:node/4",
+        "effect": "S",
+        "schedule_branch": "early",
+        "witness": [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ]
+      }
+    ]
+  }
+}

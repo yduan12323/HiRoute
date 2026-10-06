@@ -1,0 +1,117 @@
+{
+  "cases": 480,
+  "audited_ALT_nodes": 191849,
+  "semantic_populated_nodes": 52405,
+  "false_positive_only_nodes": 139444,
+  "median_G_landmark": 718.4213076597125,
+  "p95_G_landmark": 3103.492855464403,
+  "median_G_residual": 228.5482420000062,
+  "p95_G_residual": 4855.930825355837,
+  "summed_landmark_share": 0.5184618069145206,
+  "landmark_larger_node_fraction": 0.716000381642973,
+  "historical_old_gap_median": 1115.010854580968,
+  "maximum_identity_error": 1.8189894035458565e-12,
+  "FP_terminal_counts": {
+    "FP1": 456475,
+    "FP2": 4330,
+    "FP3": 38591,
+    "FP4": 31892,
+    "FP5": 0,
+    "FP6": 1252,
+    "TP": 173577
+  },
+  "workload": {
+    "cases": 480,
+    "micro": {
+      "R_envelope": 0.9415752379628526,
+      "R_exact": 0.7738623002378757,
+      "R_search_historical": 0.4807407782921783,
+      "R_e2e_historical": 0.028934719318556068
+    },
+    "macro": {
+      "R_envelope": {
+        "defined_cases": 480,
+        "median": 0.9627696443949674,
+        "p05": 0.8555707871858234,
+        "p95": 0.9989086940705711
+      },
+      "R_exact": {
+        "defined_cases": 480,
+        "median": 0.8123476686463525,
+        "p05": 0.030823750991276773,
+        "p95": 1.0
+      },
+      "R_search_historical": {
+        "defined_cases": 480,
+        "median": 0.28632084501148025,
+        "p05": -3.457722478642946,
+        "p95": 0.868398864537651
+      },
+      "R_e2e_historical": {
+        "defined_cases": 480,
+        "median": 0.003801752321857532,
+        "p05": -0.021887407884864974,
+        "p95": 0.09647989159708618
+      }
+    },
+    "flat_totals": {
+      "N_region": 0,
+      "N_bound": 0,
+      "N_envelope": 12085920,
+      "N_exact": 1103938,
+      "N_semantic": 286567
+    },
+    "hier_totals": {
+      "N_region": 147765,
+      "N_bound": 191849,
+      "N_envelope": 706117,
+      "N_exact": 249642,
+      "N_semantic": 173577
+    },
+    "timing_diagnosis": "limited; paired aggregate timings retained from frozen B1-D; envelope/exact splits NA",
+    "no_new_success_threshold": true
+  },
+  "incumbent": {
+    "cases": 480,
+    "zero_initialized": 120,
+    "first_site_acquired": 360,
+    "no_site_update": 120,
+    "no_initial_U_cases": 360,
+    "median_pops_to_first_site": 101.5,
+    "p95_pops_to_first_site": 266.20000000000005,
+    "median_refinement_fraction": 0.4798527443105757,
+    "p95_refinement_fraction": 0.9077275396359364,
+    "no_initial_U_median_refinement_fraction": 0.4798527443105757,
+    "no_initial_U_p95_refinement_fraction": 0.9077275396359364,
+    "no_initial_U_sum_refinements_before": 37775,
+    "no_initial_U_sum_total_refinements": 86953,
+    "median_candidate_checks_to_first_site": 234.0,
+    "median_exact_calls_to_first_site": 13.0,
+    "time_to_first_site": "NA: not recorded reliably; no inferred timing"
+  },
+  "counterfactual": [
+    {
+      "component": "N_envelope",
+      "ALT_total": 706117,
+      "PS_total": 166000,
+      "PS_vs_ALT_reduction": 0.7649114806752988
+    },
+    {
+      "component": "N_exact",
+      "ALT_total": 249642,
+      "PS_total": 76092,
+      "PS_vs_ALT_reduction": 0.695195519984618
+    },
+    {
+      "component": "N_semantic",
+      "ALT_total": 173577,
+      "PS_total": 54770,
+      "PS_vs_ALT_reduction": 0.6844628032515829
+    }
+  ],
+  "historical_outcomes_retained": [
+    "B1-O strong GO",
+    "B1-D v1 deployable gate failed"
+  ],
+  "diagnostic_only": true
+}

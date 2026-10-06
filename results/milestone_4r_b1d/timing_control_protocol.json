@@ -1,0 +1,7 @@
+{
+  "method": "Single fixed-order pass; same exact_leaf and routing semantics; only the complement of reached leaf candidates is timed. Candidate-set construction and routing excluded.",
+  "excluded": "No H0 serialization, oracle reads, summary construction, or Region scans in timed section",
+  "limitations": "Separate process/pass; Python and filesystem cache effects are uncontrolled; timings are descriptive development measurements.",
+  "source_sha256": "7634969350b73b7eec9ac7dd5c9ca197427d5fa80d3780f2a855ecf1eb3f815c",
+  "work_sha256": "04c4da6caf5860337bf07fbc433b3183695411ea655bb356b8aa31d7b1fb7bee"
+}

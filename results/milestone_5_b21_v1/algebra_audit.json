@@ -1,0 +1,72 @@
+[
+  {
+    "law": "ALG-1",
+    "status": "not_evaluated",
+    "objects_evaluated": 0,
+    "violations": null,
+    "reason": "Hard stop before algebra population expansion"
+  },
+  {
+    "law": "ALG-2",
+    "status": "not_evaluated",
+    "objects_evaluated": 0,
+    "violations": null,
+    "reason": "Hard stop before algebra population expansion"
+  },
+  {
+    "law": "ALG-3",
+    "status": "not_evaluated",
+    "objects_evaluated": 0,
+    "violations": null,
+    "reason": "Hard stop before algebra population expansion"
+  },
+  {
+    "law": "ALG-4",
+    "status": "failed",
+    "objects_evaluated": 1,
+    "violations": 1,
+    "reason": "Exact open-input closure counterexample"
+  },
+  {
+    "law": "ALG-5",
+    "status": "not_evaluated",
+    "objects_evaluated": 0,
+    "violations": null,
+    "reason": "Hard stop before algebra population expansion"
+  },
+  {
+    "law": "ALG-6",
+    "status": "not_evaluated",
+    "objects_evaluated": 0,
+    "violations": null,
+    "reason": "Hard stop before algebra population expansion"
+  },
+  {
+    "law": "ALG-7",
+    "status": "not_evaluated",
+    "objects_evaluated": 0,
+    "violations": null,
+    "reason": "Hard stop before algebra population expansion"
+  },
+  {
+    "law": "ALG-8",
+    "status": "not_evaluated",
+    "objects_evaluated": 0,
+    "violations": null,
+    "reason": "Hard stop before algebra population expansion"
+  },
+  {
+    "law": "ALG-9",
+    "status": "not_evaluated",
+    "objects_evaluated": 0,
+    "violations": null,
+    "reason": "Hard stop before algebra population expansion"
+  },
+  {
+    "law": "ALG-10",
+    "status": "not_evaluated",
+    "objects_evaluated": 0,
+    "violations": null,
+    "reason": "Hard stop before algebra population expansion"
+  }
+]

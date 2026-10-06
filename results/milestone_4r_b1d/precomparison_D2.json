@@ -1,0 +1,6 @@
+{
+  "audited": 1296,
+  "violations": 0,
+  "selection": "OD 0, every 17th Region including all root buckets, both metrics/directions",
+  "offline_only": true
+}

@@ -1,0 +1,16 @@
+{
+  "all_cases": 480,
+  "metric_defined_cases": 387,
+  "zero_semantic_cases": 93,
+  "macro_conditional_median_reduction": 0.9186046511627908,
+  "p_reduction_ge_50": 0.9896640826873385,
+  "p_reduction_ge_25": 1.0,
+  "micro_workload_reduction": 0.8322591226484557,
+  "classification": "strong GO",
+  "zero_policy": "NA; no_semantic_site_pruning_opportunity",
+  "authority": "User B1-D prompt section 1 and B1-D formal spec sections 27\u201329",
+  "inputs_sha256": {
+    "logical_work.csv": "2c9d0b64496057601052b894929d42651926ab2d612c9ed0029275d8564ccabb"
+  },
+  "hierarchy_rerun": false
+}

@@ -1,0 +1,63 @@
+{
+  "available": "igraph 1.0.0, networkit 11.2, networkx 3.6.1, scipy 1.17.1; no metis/pymetis",
+  "inspected": "igraph Graph community methods; networkit public namespaces; NetworkX kernighan_lin_bisection source",
+  "choice": "deterministic recursive unweighted topology BFS bisection",
+  "reason": "No installed native reproducible balanced recursive road-cell partitioner. NetworkX KL is available and seedable, but duplicates Python adjacency into edge_info and performs Python heap sweeps over 5,892,498 nodes and 11,561,067 directed edges per recursive level. Its default ten improvement passes have billions of Python graph/heap operations at this size; rejected on runtime/memory feasibility without comparative trials. igraph community objectives do not implement balanced recursive road-cell partitioning. Use the allowed topology-only fallback.",
+  "no_partition_performance_trials": true,
+  "rule": "Use weak undirected adjacency only for static partition; routing remains directed. BFS forest seeds and neighbors follow increasing OSM road-node identity. Choose earliest BFS prefix minimizing absolute Site-count imbalance with both sides nonempty; never split co-attached Sites. Recurse in left/right order. Early leaf only if capacity satisfied or all Sites share one road anchor.",
+  "branch_factor": 2,
+  "leaf_capacity": 64,
+  "seed": null,
+  "frozen_before_comparative_run": true,
+  "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+  "implementation_sha256": {
+    "src/hierarchy4r/bisection.cpp": "f158c5d03ebe35b32e09faffa69d36549f2fc339260434e2a030b6562e37b50c",
+    "scripts/build_hierarchy_4r.py": "f6b2f3c65380776e0462884772538afe8138c2f2b3ff3f584e28d6c43842e089",
+    "src/hierarchy4r/tree.py": "ed8d370996b0707f7d8b57dee5dd4201058b83032910ad3d33b46d137a12beb9"
+  },
+  "input_sha256": {
+    "data/processed/graphs/slovenia_extended/nodes.parquet": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+    "data/processed/graphs/slovenia_extended/edges.parquet": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+    "results/milestone_4r/stop_sites.parquet": "e3e7d6d6667f7ab684ff83eb2646920516b01aef2e6ceb8170c689e71f6afd38",
+    "results/milestone_4r_b1/h0_summary.json": "2405202603033db7aec28b43a59d97ccbaa5d11e131af20ebe482df549e760c8"
+  },
+  "region_count_by_depth": {
+    "0": 1,
+    "1": 2,
+    "2": 4,
+    "3": 8,
+    "4": 16,
+    "5": 32,
+    "6": 64,
+    "7": 128,
+    "8": 256,
+    "9": 512,
+    "10": 1024
+  },
+  "leaf_size_distribution": {
+    "54": 1,
+    "55": 1,
+    "56": 1,
+    "57": 4,
+    "58": 72,
+    "59": 789,
+    "60": 143,
+    "61": 11,
+    "62": 1,
+    "65": 1
+  },
+  "coverage_checks_passed": true,
+  "byte_identical_rebuild": true,
+  "road_cell_sha256": "abe92d977fb40bd043d8d61ee06c7e1af90c0bafb6b26f01bfab9194b63dff12",
+  "runtime_seconds": 12.526850621914491,
+  "peak_rss_mib": 1149.171875,
+  "compiler_command": [
+    "g++",
+    "-O3",
+    "-std=c++17",
+    "/home/dy/HiRoute/project/src/hierarchy4r/bisection.cpp",
+    "-o",
+    "/home/dy/HiRoute/project/results/milestone_4r_b1/hierarchy_build/bisection"
+  ],
+  "timestamp_utc": "2026-10-02T08:13:09.050434+00:00"
+}

@@ -1,0 +1,11 @@
+{
+  "region": 10,
+  "anchor_count": 49,
+  "tested_views": 0,
+  "violations": 0,
+  "unreachable_directed_pairs": 0,
+  "runtime_seconds": 13.336502138059586,
+  "peak_rss_mib": 3816.0859375,
+  "selection": "first static leaf; no comparative outcome used",
+  "uncomputed_regions": "diameter unavailable / +infinity certificate; never used as finite oracle RCC"
+}

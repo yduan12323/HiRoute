@@ -1,0 +1,124 @@
+{
+  "case_id": 299,
+  "instance_id": 18,
+  "ratio": 1.2,
+  "initial_soc": 0.76,
+  "scenario": "energy_and_scheduled",
+  "trip": {
+    "origin": 63161,
+    "destination": 1459063,
+    "initial_energy_kwh": 45.6,
+    "start_time_s": 0.0,
+    "mobility_budget_s": 8301.279665766231
+  },
+  "baseline": {
+    "time_s": 6917.733054805192,
+    "distance_m": 187422.53399999993
+  },
+  "schedule": {
+    "window_start_s": 2767.093221922077,
+    "window_end_s": 4842.413138363634,
+    "duration_s": 2700.0,
+    "meal_threshold": 1,
+    "hard": true,
+    "miss_penalty_s": 7200.0,
+    "time_penalty_per_s": 2.0,
+    "compatible_with_charging": true
+  },
+  "zero": null,
+  "legacy": {
+    "stops": [
+      {
+        "site_id": "4r:way/426745878",
+        "access_node": 5038066,
+        "arrival_time_s": 3232.3043231298693,
+        "arrival_energy_kwh": 31.303569600000003,
+        "departure_time_s": 6232.304323129869,
+        "departure_energy_kwh": 31.303569600000003,
+        "charged_kwh": 0.0,
+        "charging_duration_s": 0.0,
+        "scheduled_start_s": 3532.3043231298693
+      }
+    ],
+    "clock_s": 9960.201743558435,
+    "drive_s": 6960.201743558435,
+    "distance_m": 187779.41499999986,
+    "terminal_energy_kwh": 15.555293600000022,
+    "requirement_penalty_s": 0.0,
+    "generalized_cost_s": 10560.201743558435,
+    "labels": [
+      {
+        "anchor": 63161,
+        "elapsed_s": 0.0,
+        "energy_kwh": 45.6,
+        "scheduled_satisfied": false,
+        "stop_count": 0,
+        "generalized_cost_s": 0.0
+      },
+      {
+        "anchor": 5038066,
+        "elapsed_s": 6232.304323129869,
+        "energy_kwh": 31.303569600000003,
+        "scheduled_satisfied": true,
+        "stop_count": 1,
+        "generalized_cost_s": 6832.304323129869
+      },
+      {
+        "anchor": 1459063,
+        "elapsed_s": 9960.201743558435,
+        "energy_kwh": 15.555293600000022,
+        "scheduled_satisfied": true,
+        "stop_count": 1,
+        "generalized_cost_s": 10560.201743558435
+      }
+    ]
+  },
+  "semantic": {
+    "stops": [
+      {
+        "site_id": "4r:way/426745878",
+        "access_node": 5038066,
+        "arrival_time_s": 3232.3043231298693,
+        "arrival_energy_kwh": 31.303569600000003,
+        "departure_time_s": 6232.304323129869,
+        "departure_energy_kwh": 31.303569600000003,
+        "charged_kwh": 0.0,
+        "charging_duration_s": 0.0,
+        "scheduled_start_s": 3532.3043231298693
+      }
+    ],
+    "clock_s": 9960.201743558435,
+    "drive_s": 6960.201743558435,
+    "distance_m": 187779.41499999986,
+    "terminal_energy_kwh": 15.555293600000022,
+    "requirement_penalty_s": 0.0,
+    "generalized_cost_s": 10560.201743558435,
+    "labels": [
+      {
+        "anchor": 63161,
+        "elapsed_s": 0.0,
+        "energy_kwh": 45.6,
+        "scheduled_satisfied": false,
+        "stop_count": 0,
+        "generalized_cost_s": 0.0
+      },
+      {
+        "anchor": 5038066,
+        "elapsed_s": 6232.304323129869,
+        "energy_kwh": 31.303569600000003,
+        "scheduled_satisfied": true,
+        "stop_count": 1,
+        "generalized_cost_s": 6832.304323129869
+      },
+      {
+        "anchor": 1459063,
+        "elapsed_s": 9960.201743558435,
+        "energy_kwh": 15.555293600000022,
+        "scheduled_satisfied": true,
+        "stop_count": 1,
+        "generalized_cost_s": 10560.201743558435
+      }
+    ]
+  },
+  "flat_evaluation_seconds": 0.4359788259025663
+}

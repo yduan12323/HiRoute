@@ -1,0 +1,10 @@
+{
+  "scope": "Analytic first algebra object only",
+  "closure_probe_seconds": 0.001136166974902153,
+  "REF_sequence_enumeration_seconds": null,
+  "REF_regime_optimization_seconds": null,
+  "FLAT_propagation_seconds": null,
+  "safe_reduction_seconds": null,
+  "HIER_bounds_refinement_seconds": null,
+  "leaf_materialization_seconds": null
+}

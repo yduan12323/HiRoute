@@ -1,0 +1,12 @@
+{
+  "case_file_sha256": "5e8f4b92bdbefdf5f35104b9430bbc2d0541517e0df41b4ecdb9ca67f85a5744",
+  "constructed_before_regime_optimization": true,
+  "expected_source": "independent analytic clock/energy lower bounds",
+  "stage_A_planned": 20,
+  "stage_A_constructed": 1,
+  "stage_A_case_id": "A15_waiting_erases_prefix_time_advantage",
+  "stage_B_planned": 64,
+  "stage_C_planned": 32,
+  "stage_B_C_constructed": false,
+  "reason": "First hand tie case diagnoses a potential frozen theory contradiction; advance only if contract audit passes"
+}

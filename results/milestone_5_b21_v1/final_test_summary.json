@@ -1,0 +1,14 @@
+{
+  "tests": 241,
+  "failures": 1,
+  "errors": 0,
+  "skipped": 0,
+  "passed": 240,
+  "exit_code": 1,
+  "failed_tests": [
+    "test_alg4_mandatory_charge_congruence"
+  ],
+  "accepted_predecessor_tests_failed": 0,
+  "test_scope": "Entire configured tests/ population plus six new exact diagnostic tests",
+  "archived_v0_failed_tests": "Unmodified outside configured testpaths; original failed logs/XML preserved"
+}

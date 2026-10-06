@@ -1,0 +1,22 @@
+{
+  "epsilon": 0,
+  "cases_expected": 480,
+  "cost_tolerance": 2e-06,
+  "metric_tolerance": 1e-05,
+  "boundary_manifest_sha256": "4c5be4f7f8c7f72db707297832f26177f3344f35c9810210b3304581296b26af",
+  "numerical_safety_sha256": "8402d90048b6ec4b83f9a018f37d62f31acec756aff1be6b5aec7ac28eb2c1c2",
+  "timing": "One paired pass, same shared OD routing arrays; alternate ALT-first (even case) and BA-first (odd case). No explicit cache flush or warm-up; both indices loaded before pairs. Diagnostic I/O and offline minima excluded.",
+  "routing": "Exactly two shared time/actual-length SSSP calls per OD. Two distance SSSP calls per OD only in offline audit, never exposed to online boundary index.",
+  "audit_population": "Every BA-created nonempty Region/static bucket, including nodes rejected at creation; independently normalized ALT and PS ancestors.",
+  "no_performance_threshold": true,
+  "memory_guard": {
+    "peak_rss_gib": 0.8293876647949219,
+    "available_gib": 49.441993713378906,
+    "projected_additional_gib": 10
+  },
+  "source_sha256": {
+    "scripts/run_hierarchy_4r_boundary.py": "d4b95329cd7ffc2e57a4f20f29bcf9f2fb630d4fa94c39f54b1adbb02773ff13",
+    "src/hierarchy4r/boundary.py": "22e9ad4c96aed028ac94f37d33492f171670ac9421a195a774469b96c5c5b39e",
+    "tests/test_hierarchy4r_boundary.py": "e6fe8591f034e58ade4eb3df90ff2dc4b0c1075005b45d3f375db4e82866183a"
+  }
+}

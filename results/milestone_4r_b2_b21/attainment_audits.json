@@ -1,0 +1,8 @@
+{
+  "case_id": "A15_waiting_erases_prefix_time_advantage",
+  "reference_status": "attained_optimum",
+  "frontier_status": "attained_optimum",
+  "status_agrees": true,
+  "scope": "blocking probe only",
+  "all_C_witness_quantities_strictly_positive": true
+}

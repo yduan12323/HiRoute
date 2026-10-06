@@ -1,0 +1,22 @@
+{
+  "version": "b21-contract-probe-v1",
+  "frozen_before_comparison": true,
+  "authoritative_arithmetic": "fractions.Fraction over rational fixture and decimal charging constants",
+  "float_type": "IEEE-754 binary64 only for LP candidate discovery and frozen evaluator audit",
+  "exact_comparison_tolerance": 0,
+  "LP_candidate_tolerance": 1e-09,
+  "LP_candidate_policy": "Primal and dual vectors rationalized with denominator bound 1000000000 and accepted only after exact rational feasibility and strong-duality checks; rejected candidates do not change semantics",
+  "breakpoint_snapping": "none",
+  "open_closed_endpoint_handling": "exact rational inequalities; open charge constraints certified by positive feasible common slack, never a q_min",
+  "affine_intersection_ordering": "exact rational sort; singleton intersections retained",
+  "lexicographic_tolerance": 0,
+  "lexicographic_key": [
+    "unrounded_J",
+    "Q_total",
+    "H",
+    "Site/action_tuple"
+  ],
+  "lower_bound_rounding": "exact rational lower bounds; binary64 display may not prune",
+  "executable_witness_recheck": "exact original piecewise charging/schedule/energy equations and strict q>0; separate frozen evaluator cross-check",
+  "scope": "diagnostic counterexample audit; full numerical production contract not claimed"
+}

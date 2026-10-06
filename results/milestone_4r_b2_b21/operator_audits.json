@@ -1,0 +1,89 @@
+{
+  "case_id": "A15_waiting_erases_prefix_time_advantage",
+  "status": "failed",
+  "theorem": "T7-4 / earliest-time merge closure under scheduled waiting",
+  "expression": "S(merge(A,B)) loses the charge winner present in merge(S(A),S(B))",
+  "reference": {
+    "status": "attained_optimum",
+    "J": "44950",
+    "Q_total": "76",
+    "H": 3,
+    "site_action_tuple": [
+      [
+        "4r:node/2",
+        "C"
+      ],
+      [
+        "4r:node/3",
+        "C"
+      ],
+      [
+        "4r:node/4",
+        "S"
+      ]
+    ],
+    "charges": [
+      "41",
+      "35"
+    ],
+    "events": [
+      {
+        "site": "4r:node/2",
+        "effect": "C",
+        "charge_kwh": "41",
+        "completion_s": "11508",
+        "arrival_kwh": "7",
+        "departure_kwh": "48"
+      },
+      {
+        "site": "4r:node/3",
+        "effect": "C",
+        "charge_kwh": "35",
+        "completion_s": "22800",
+        "arrival_kwh": "13",
+        "departure_kwh": "48"
+      },
+      {
+        "site": "4r:node/4",
+        "effect": "S",
+        "charge_kwh": "0",
+        "schedule_start_s": "40000",
+        "schedule_completion_s": "42700",
+        "completion_s": "42700",
+        "arrival_kwh": "8",
+        "departure_kwh": "8"
+      }
+    ],
+    "terminal_energy_kwh": "6",
+    "terminal_time_s": "43150"
+  },
+  "earliest_frontier": {
+    "status": "attained_optimum",
+    "J": "44950",
+    "Q_total": "83",
+    "H": 3,
+    "site_action_tuple": [
+      [
+        "4r:node/1",
+        "C"
+      ],
+      [
+        "4r:node/3",
+        "C"
+      ],
+      [
+        "4r:node/4",
+        "S"
+      ]
+    ],
+    "terminal_energy_kwh": "6"
+  },
+  "primary_mismatches": 0,
+  "cumulative_charge_mismatches": 1,
+  "discrete_witness_mismatches": 1,
+  "primary_equal": true,
+  "charge_gap_kwh": "7",
+  "source_contract": "T7 audit Sections 3, 6, 16-20; B21 protocol Sections 4, 14-15, 21-23",
+  "contract_failure": true,
+  "implementation_patch_applied": false
+}

@@ -1,0 +1,11 @@
+{
+  "region": 360,
+  "anchor_count": 45,
+  "tested_views": 213,
+  "violations": 0,
+  "unreachable_directed_pairs": 0,
+  "runtime_seconds": 13.325756590114906,
+  "peak_rss_mib": 3844.46875,
+  "selection": "first static leaf with at least two C actions in H0 case 0; added because first static leaf had no eligible semantic Views",
+  "uncomputed_regions": "diameter unavailable / +infinity certificate; never used as finite oracle RCC"
+}

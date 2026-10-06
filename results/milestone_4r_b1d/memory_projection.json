@@ -1,0 +1,10 @@
+{
+  "array_bytes": 1508479488,
+  "projection_gib": 9.404881000518799,
+  "guard": {
+    "peak_rss_gib": 0.8293876647949219,
+    "available_gib": 49.39689254760742,
+    "projected_additional_gib": 9.404881000518799
+  },
+  "strategy": "32 float64 arrays, sequential SSSP, memory-mapped storage; no concurrent SSSP"
+}

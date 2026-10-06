@@ -1,0 +1,15 @@
+{
+  "executed_cases": [
+    "A15_waiting_erases_prefix_time_advantage"
+  ],
+  "demonstrated": [
+    "C",
+    "S",
+    "C-C",
+    "C-C-S",
+    "reserve-tight destination",
+    "positive charge",
+    "repeated Site enumeration retained"
+  ],
+  "remaining_coverage": "not evaluated after the failed tie/dominance contract probe"
+}

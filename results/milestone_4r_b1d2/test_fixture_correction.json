@@ -1,0 +1,12 @@
+{
+  "first_full_suite": {
+    "passed": 234,
+    "failed": 1,
+    "preexisting_failures": 0
+  },
+  "failed_test": "test_equal_cost_site_ties_keep_full_deterministic_key",
+  "cause": "New synthetic fixture changed Site ID without matching typed OSM identity; rejected before algorithm execution.",
+  "correction": "Use a second Site with site_id=4r:node/2 and osm_id=2; assert lexicographic winner is original Site.",
+  "frozen_algorithm_changed": false,
+  "targeted_recheck": "1 passed"
+}

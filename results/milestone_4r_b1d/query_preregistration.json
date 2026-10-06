@@ -1,0 +1,17 @@
+{
+  "epsilon": 0,
+  "landmarks": 8,
+  "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+  "summary_sha256": "576ce87c2b0fe236342b411e94be3468d694d5476a4dd61e36b5462a258e2027",
+  "ALT_ABS": 1e-06,
+  "ALT_REL": 2e-08,
+  "cost_safety_s": 1e-05,
+  "rounding_justification": "2e-8 exceeds 8*n*float64 epsilon for the 5,892,498-node nonnegative graph; per-difference absolute plus relative outward adjustment, nextafter toward -infinity. Accepted feasibility tolerances also retained.",
+  "primary_work": "All reached leaf candidate Site checks including envelope-only rejects; objective calls also separately counted. Conservative against semantic flat denominator.",
+  "flat_control": "All appropriate static bucket Site candidates, same exact leaf routine and shared routing, no oracle records/serialization inside timing",
+  "source_sha256": {
+    "src/hierarchy4r/deploy.py": "201965d9be605f826831ff61243222a32a63942c8f04d077113a7c2cab745733",
+    "src/hierarchy4r/deploy_search.py": "7aafbf2cd9b2051afee99f2664ac160051089d27a36ae6968d4d19c579b4c626",
+    "scripts/run_hierarchy_4r_deploy.py": "949592aa4ed81bc470a41dbfcd7272febd6bdc882de2e669322cc9995a7c89b7"
+  }
+}

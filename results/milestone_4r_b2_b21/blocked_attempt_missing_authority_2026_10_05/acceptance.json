@@ -1,0 +1,129 @@
+{
+  "milestone": "4R-B2-B21",
+  "version": "preflight-blocked-v1",
+  "status": "blocked_before_implementation",
+  "semantic_identity": "Exact Small-Domain Multi-Stop Validation",
+  "naming_provenance": "Available theory/protocol headers: Milestone 5 / legacy namespace 4R-B2; requested artifact namespace retained",
+  "date": "2026-10-05",
+  "timezone": "Asia/Shanghai",
+  "H_ref": 4,
+  "protocol_hash": "a50e2072615449c84b072b2a9e5975b37582d42e05bcf7387bf0c8d8eb5e6423",
+  "predecessor_hashes": {
+    "docs/MILESTONE_4R_B1D2_REPORT.md": "f805471e3603951867d17ed40482c12509d2e197385b3158465f3915fd530f55",
+    "results/milestone_4r_b1d2/acceptance.json": "c31e0262ceb7af156121d3d22fd18b53939797e64f5729ce5f09bafe723573dd",
+    "results/milestone_4r_b1/hierarchy.json": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+    "results/milestone_4r_b1d/landmark_manifest.json": "4627d789aaae53ddf5e084bf8ccdcff0b44ec0ca181c5e8c3b99a6c7b5975af1",
+    "results/milestone_4r_b1d2/boundary_manifest.json": "4c5be4f7f8c7f72db707297832f26177f3344f35c9810210b3304581296b26af"
+  },
+  "test_counts": {
+    "pre": {
+      "command": [
+        "/home/dy/miniconda3/envs/hiroute/bin/python",
+        "-m",
+        "pytest",
+        "-vv",
+        "--junitxml=/home/dy/HiRoute/project/results/milestone_4r_b2_b21/preexisting_tests.xml"
+      ],
+      "exit_code": 0,
+      "seconds": 146.1205046691466,
+      "tests": 235,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "final": null
+  },
+  "stage_case_counts": {
+    "A": 0,
+    "B": 0,
+    "C": 0
+  },
+  "preregistered_stage_case_counts": {
+    "A": 20,
+    "B": 64,
+    "C": 32
+  },
+  "gates": {
+    "G1": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Implementation blocked before complete frozen authority read"
+    },
+    "G2": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Implementation blocked before complete frozen authority read"
+    },
+    "G3": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Implementation blocked before complete frozen authority read"
+    },
+    "G4": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Implementation blocked before complete frozen authority read"
+    },
+    "G5": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Implementation blocked before complete frozen authority read"
+    },
+    "G6": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Implementation blocked before complete frozen authority read"
+    },
+    "G7": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Implementation blocked before complete frozen authority read"
+    },
+    "G8": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Implementation blocked before complete frozen authority read"
+    },
+    "G9": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Implementation blocked before complete frozen authority read"
+    },
+    "G10": {
+      "status": "not_evaluated",
+      "violations": null,
+      "reason": "Implementation blocked before complete frozen authority read"
+    },
+    "G11": {
+      "status": "passed",
+      "violations": 0
+    }
+  },
+  "REF_FLAT_F_mismatch_count": null,
+  "REF_HIER_F_mismatch_count": null,
+  "D_on_D_off_mismatch_count": null,
+  "result_status_counts": {
+    "attained": 0,
+    "unattained": 0,
+    "infeasible": 0
+  },
+  "lost_action_count": null,
+  "duplicate_action_count": null,
+  "bound_admissibility_violations": null,
+  "no_discretization_status": "not_evaluated_no_solver_implemented",
+  "peak_frontier_piece_count": null,
+  "total_frontier_pieces": null,
+  "maximum_diagnostic_stop_depth": null,
+  "missing_authority_documents": [
+    "MILESTONE_4R_B2_FORMAL_SPEC.md",
+    "MILESTONE_4R_B2_THEORY_AUDIT.md"
+  ],
+  "preservation_passed": true,
+  "numerical_contract_frozen": false,
+  "REF_implemented": false,
+  "FLAT_F_implemented": false,
+  "HIER_F_implemented": false,
+  "B2_2_started": false,
+  "final_authorization_decision": "B2-1 blocked; do not proceed to deployable/long-haul scaling.",
+  "report_sha256": "1a5f7582a80f264c4eea8fb4dac812548ea7bed3bbfa18fc0ce0d22f3138399a"
+}

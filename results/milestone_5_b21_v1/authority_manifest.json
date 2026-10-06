@@ -1,0 +1,33 @@
+{
+  "ordered_read_completed": true,
+  "research_spec_sha256": "2ad0b9666646bd4d7ebea6e601422a02720b186c3302f604b23bfffa80c5226f",
+  "authorities": [
+    {
+      "requested_path": "docs/MILESTONE_5_MULTISTOP_CORE_THEORY_V1.md",
+      "resolved_path": "MILESTONE_5_MULTISTOP_CORE_THEORY_V1.md",
+      "requested_path_exists": false,
+      "expected_sha256": "dbe44ff83b4d98f2d06b090f7cd44bd40b0a4e21cc8eb439eee991ff2c73ccb2",
+      "actual_sha256": "dbe44ff83b4d98f2d06b090f7cd44bd40b0a4e21cc8eb439eee991ff2c73ccb2",
+      "verified": true,
+      "path_resolution": "Supplied byte-identical artifact present at repository root; no reconstruction"
+    },
+    {
+      "requested_path": "docs/MILESTONE_5_MULTISTOP_CORE_THEORY_AUDIT_V1.md",
+      "resolved_path": "MILESTONE_5_MULTISTOP_CORE_THEORY_AUDIT_V1.md",
+      "requested_path_exists": false,
+      "expected_sha256": "02a1c417614852daec17a46be66f8930aa8de626128344122136617d5077b4c7",
+      "actual_sha256": "02a1c417614852daec17a46be66f8930aa8de626128344122136617d5077b4c7",
+      "verified": true,
+      "path_resolution": "Supplied byte-identical artifact present at repository root; no reconstruction"
+    },
+    {
+      "requested_path": "docs/MILESTONE_5_B21_EXACT_VALIDATION_PROTOCOL_V1.md",
+      "resolved_path": "MILESTONE_5_B21_EXACT_VALIDATION_PROTOCOL_V1.md",
+      "requested_path_exists": false,
+      "expected_sha256": "013c039b0c4d71f61fc43002ae05f63d33073293f7e0a709fc2e8b5bbe1e537f",
+      "actual_sha256": "013c039b0c4d71f61fc43002ae05f63d33073293f7e0a709fc2e8b5bbe1e537f",
+      "verified": true,
+      "path_resolution": "Supplied byte-identical artifact present at repository root; no reconstruction"
+    }
+  ]
+}

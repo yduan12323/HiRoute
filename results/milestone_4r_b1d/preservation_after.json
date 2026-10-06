@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "verified_files": 840,
+  "changed_files": [],
+  "verified_accepted_source_files": 56,
+  "changed_accepted_source_files": [],
+  "accepted_source_manifest": "results/milestone_4b/acceptance.json",
+  "B1_files_verified": 4881,
+  "B1_sources_verified": 15,
+  "checkpoint_files_verified": 933,
+  "archived_hashes": {
+    "docs/MILESTONE_4R_B1_BLOCKER_REPORT.md": "58f3283de0ec76151c67b3e60ff03dc4756aba4ed7dc7ffc0a5ac495979a5272",
+    "results/milestone_4r_b1/blocker_acceptance.json": "afb4be0c94f4bdd9ddf0aa6638b02ebcc0342ce0233cd848f440437be04fe21f",
+    "results/milestone_4r_b1/role_coverage_counterexample.json": "bc1924b7bd08dfaa7447651c068c678021ab5f7f474d7a704eb13e248040e975",
+    "results/milestone_4r_b1/reproduce_role_audit.py": "e60ba5f88684c6986358752cf4b0e98d0b35ec88c0755136d249f3d95ed94afa"
+  },
+  "changes": [],
+  "approved_closure_changes": [
+    "results/milestone_4r_b1/zero_denominator_clarification.json",
+    "results/milestone_4r_b1/oracle_analysis.json",
+    "results/milestone_4r_b1/acceptance.json",
+    "results/milestone_4r_b1/oracle_summary.json",
+    "docs/MILESTONE_4R_B1_REPORT.md"
+  ],
+  "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+  "git_commit": "20b658257fb67655e09229411783935e17084fa4",
+  "git_status": "?? MILESTONE_4R_B0_FORMAL_SPEC.md\n?? MILESTONE_4R_B1D_FORMAL_SPEC.md\n?? MILESTONE_4R_B1_CODEX_PROMPT.md\n?? MILESTONE_4R_B1_EXPERIMENT_PROTOCOL.md\n?? docs/MILESTONE_4R_B1_ACTION_DOMAIN_AMENDMENT.md\n?? docs/MILESTONE_4R_B1_BLOCKER_REPORT.md\n?? docs/MILESTONE_4R_B1_REPORT.md\n?? results/milestone_4r_b1/\n?? results/milestone_4r_b1d/\n?? scripts/analyze_hierarchy_4r.py\n?? scripts/analyze_hierarchy_4r_deploy.py\n?? scripts/audit_deploy_landmarks.py\n?? scripts/audit_hierarchy_4r_deploy_static.py\n?? scripts/build_hierarchy_4r.py\n?? scripts/check_hierarchy_4r_diameter.py\n?? scripts/close_b1_oracle_statistics.py\n?? scripts/finalize_hierarchy_4r.py\n?? scripts/finalize_hierarchy_4r_deploy.py\n?? scripts/preprocess_hierarchy_4r_deploy.py\n?? scripts/run_hierarchy_4r_deploy.py\n?? scripts/run_hierarchy_4r_h0.py\n?? scripts/run_hierarchy_4r_oracle.py\n?? scripts/time_hierarchy_4r_deploy_avoided.py\n?? src/hierarchy4r/\n?? tests/test_hierarchy4r_artifacts.py\n?? tests/test_hierarchy4r_deploy.py\n?? tests/test_hierarchy4r_deploy_artifacts.py\n?? tests/test_hierarchy4r_domain.py\n?? tests/test_hierarchy4r_theorems.py\n"
+}

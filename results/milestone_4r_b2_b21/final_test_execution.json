@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/home/dy/miniconda3/envs/hiroute/bin/python",
+    "-m",
+    "pytest",
+    "-vv",
+    "tests",
+    "results/milestone_4r_b2_b21/validation",
+    "--junitxml=results/milestone_4r_b2_b21/final_tests.xml"
+  ],
+  "exit_code": 1,
+  "seconds": 142.52274925401434
+}

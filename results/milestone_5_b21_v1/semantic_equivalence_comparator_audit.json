@@ -1,0 +1,10 @@
+{
+  "arithmetic": "exact rational",
+  "witness_energy": "1",
+  "left_attained_count": 0,
+  "right_attained_count": 1,
+  "equivalent": false,
+  "raw_ids_or_segmentation_compared": false,
+  "global_equivalence_proved": false,
+  "global_inequivalence_witnessed": true
+}

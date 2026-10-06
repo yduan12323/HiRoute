@@ -1,0 +1,18 @@
+{
+  "cases": 480,
+  "zero_initialized": 120,
+  "first_site_acquired": 360,
+  "no_site_update": 120,
+  "no_initial_U_cases": 360,
+  "median_pops_to_first_site": 101.5,
+  "p95_pops_to_first_site": 266.20000000000005,
+  "median_refinement_fraction": 0.4798527443105757,
+  "p95_refinement_fraction": 0.9077275396359364,
+  "no_initial_U_median_refinement_fraction": 0.4798527443105757,
+  "no_initial_U_p95_refinement_fraction": 0.9077275396359364,
+  "no_initial_U_sum_refinements_before": 37775,
+  "no_initial_U_sum_total_refinements": 86953,
+  "median_candidate_checks_to_first_site": 234.0,
+  "median_exact_calls_to_first_site": 13.0,
+  "time_to_first_site": "NA: not recorded reliably; no inferred timing"
+}

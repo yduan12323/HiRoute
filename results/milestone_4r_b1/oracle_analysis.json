@@ -1,0 +1,35 @@
+{
+  "classification": "strong GO",
+  "median_reduction": 0.9186046511627908,
+  "fraction_at_least_50_percent": 0.9896640826873385,
+  "fraction_at_least_25_percent": 1.0,
+  "cases": 480,
+  "zero_semantic_denominator_cases": 93,
+  "B1_D": "unresolved: no proven non-enumerative deployable certificate implemented",
+  "accounting": "Logical Site-evaluation reduction potential only; no online compute or routing savings",
+  "primary_views": 19398,
+  "certified_views": 15915,
+  "H1_violations": 0,
+  "H3_violations": 0,
+  "perturbation_violations": 0,
+  "median_aggregation_gap": 216.28931399999965,
+  "p95_aggregation_gap": 2439.6266708545554,
+  "total_semantic_site_actions": 286567,
+  "total_logical_leaf_evaluations": 48069,
+  "statistical_closure": {
+    "all_cases": 480,
+    "metric_defined_cases": 387,
+    "zero_semantic_cases": 93,
+    "macro_conditional_median_reduction": 0.9186046511627908,
+    "p_reduction_ge_50": 0.9896640826873385,
+    "p_reduction_ge_25": 1.0,
+    "micro_workload_reduction": 0.8322591226484557,
+    "classification": "strong GO",
+    "zero_policy": "NA; no_semantic_site_pruning_opportunity",
+    "authority": "User B1-D prompt section 1 and B1-D formal spec sections 27\u201329",
+    "inputs_sha256": {
+      "logical_work.csv": "2c9d0b64496057601052b894929d42651926ab2d612c9ed0029275d8564ccabb"
+    },
+    "hierarchy_rerun": false
+  }
+}
