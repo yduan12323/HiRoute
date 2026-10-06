@@ -12,6 +12,8 @@ from fractions import Fraction as R
 import heapq
 from typing import Mapping
 
+from . import invocation_trace as trace
+from . import provenance
 from .bounded import BoundedResult, Problem, _groups, _replay_problem
 from .probe import Witness, terminal
 from .pwa import CutPiece, reduce_frontier
@@ -98,6 +100,7 @@ def solve_hierarchical(case: Mapping, dominance: bool = True, leaf_size: int = 1
 def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                                 incumbent: Witness | None = None, *, reducer=None) -> HierarchyResult:
     reducer = reduce_frontier if reducer is None else reducer
+    trace.start_run(problem,dominance,root,incumbent)
     incumbent_key = None
     incumbent_witness = None
     source = "none"
@@ -108,7 +111,7 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
         incumbent_witness = incumbent
         source = "externally_supplied_verified"
 
-    def update_incumbent(pieces):
+    def update_incumbent(pieces,group_id,source_stage):
         nonlocal incumbent_key, incumbent_witness, source
         for piece in pieces:
             # This is one feasible candidate, not a charge quantum or an
@@ -116,34 +119,45 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
             energy = piece.domain.approach_optimizer(piece.slope, R(1))
             witness = piece.at(energy).approach(R(1))
             key = _replay_problem(problem, witness)
-            if incumbent_key is None or key < incumbent_key:
+            improved=incumbent_key is None or key < incumbent_key
+            trace.emit('candidate',group_id=group_id,source=source_stage,
+                       family_id=trace.family_id(piece),energy=energy,
+                       witness=provenance.witness_dict(witness),key=key,improved=improved)
+            if improved:
                 incumbent_key = key
                 incumbent_witness = witness
                 if source != "externally_supplied_verified":
                     source = "own_search"
 
-    layer = ((problem.initial_piece(),),)
+    initial=trace.invoke("initial",(),{},lambda:(problem.initial_piece(),))
+    layer = (initial,)
     terminals = []
     attempted, feasible, maximum = 0, 1, 1
     nodes = leaf_actions = scans = pruned = equality = coverage_groups = 0
     audit = []
     for depth in range(problem.bound + 1):
-        for group in layer:
-            finished = problem.finish(group)
+        group_ids=trace.start_layer(depth,layer)
+        for group_id,group in zip(group_ids,layer):
+            finished=trace.invoke('finish',group,dict(group_id=group_id,source='layer',advance_id=None),
+                                  lambda group=group:problem.finish(group))
             terminals.extend(finished)
-            update_incumbent(finished)
+            update_incumbent(finished,group_id,'layer')
         if depth == problem.bound:
+            trace.emit('layer_end',depth=depth,reason='stop_bound',next_groups=[])
             break
         next_pieces = []
-        for group in layer:
+        for group_id,group in zip(group_ids,layer):
             state = group[0].state
             if state.anchor == problem.destination:
+                trace.emit('skip_terminal',group_id=group_id)
                 continue
+            trace.emit('expansion_start',group_id=group_id)
             expected = {a for effect in ("C", "S", "CS")
                         for a in actions(problem, root, effect, state.remaining_schedule)}
             covered = set()
             queue = []
             sequence_number = 0
+            query_ids = {}
 
             def cover(action_set):
                 if covered.intersection(action_set):
@@ -154,22 +168,33 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                 nonlocal scans, sequence_number
                 action_set = actions(problem, region, effect, state.remaining_schedule)
                 if not action_set:
+                    trace.emit('query',group_id=group_id,region_id=region.identifier,effect=effect,
+                               actions=action_set,bound=None,classification='empty_actions',queue_serial=None)
                     return
                 bound, paid = region_bound(problem, group, region, effect)
                 scans += paid
                 if bound is None:
+                    trace.emit('query',group_id=group_id,region_id=region.identifier,effect=effect,
+                               actions=action_set,bound=None,classification='unreachable',queue_serial=None)
                     cover(action_set)
                     audit.append(dict(reason="unreachable", region=region.identifier,
                                       effect=effect, prefix=group[0].pi, actions=action_set))
                     return
                 sequence_number += 1
+                query_ids[sequence_number]=trace.emit('query',group_id=group_id,
+                    region_id=region.identifier,effect=effect,actions=action_set,bound=bound,
+                    classification='queued',queue_serial=sequence_number)
                 heapq.heappush(queue, (bound, effect, region.identifier, sequence_number, region))
 
             for effect in ("C", "S", "CS"):
                 enqueue(root, effect)
             while queue:
-                bound, effect, _, _, region = heapq.heappop(queue)
+                bound, effect, _, popped_serial, region = heapq.heappop(queue)
                 nodes += 1
+                decision=('prune' if incumbent_key is not None and bound>incumbent_key[0] else
+                          'split' if region.children else 'leaf')
+                trace.emit('pop',group_id=group_id,query_seq=query_ids[popped_serial],
+                           decision=decision,incumbent_key=incumbent_key)
                 action_set = actions(problem, region, effect, state.remaining_schedule)
                 if incumbent_key is not None and bound > incumbent_key[0]:
                     pruned += 1
@@ -196,26 +221,39 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                         cover(((site, effect),))
                         leaf_actions += 1
                         attempted += 1
-                        output = problem.advance(group, site, effect)
+                        output=trace.invoke('advance',group,dict(group_id=group_id,site=site,effect=effect),
+                                            lambda:problem.advance(group,site,effect))
+                        advance_id=trace.last_invocation()
                         if output:
                             feasible += 1
                             next_pieces.extend(output)
-                            update_incumbent(problem.finish(output))
+                            finished=trace.invoke('finish',output,
+                                dict(group_id=group_id,source='leaf',advance_id=advance_id),
+                                lambda:problem.finish(output))
+                            update_incumbent(finished,group_id,'leaf')
             if covered != expected:
                 raise AssertionError("Hierarchy lost a statically legal next action")
+            trace.emit('expansion_end',group_id=group_id,covered_actions=sorted(covered))
             coverage_groups += 1
         if dominance:
             by_state = defaultdict(list)
             for p in next_pieces:
                 by_state[p.state].append(p)
-            next_pieces = [p for values in by_state.values() for p in reducer(values)]
+            next_pieces = [p for state,values in by_state.items() for p in trace.invoke(
+                'reduce',values,dict(depth=depth,state=[state.anchor,state.remaining_schedule,state.stop_count]),
+                lambda values=values:reducer(values))]
         maximum = max(maximum, len(next_pieces))
         layer = _groups(next_pieces)
+        trace.emit('layer_end',depth=depth,reason='continue' if layer else 'empty',
+                   next_groups=[trace.family_ids(group) for group in layer])
         if not layer:
             break
     result = terminal(terminals, problem.destination, problem.reserve, problem.start, problem.penalty)
     if result.witness is not None:
         _replay_problem(problem, result.witness)
     bounded = BoundedResult(result, problem.bound, dominance, attempted, feasible, len(terminals), maximum)
+    trace.emit('run_end',canonical=bounded.canonical(),terminal_families=trace.family_ids(terminals),
+               terminal_witness=provenance.witness_dict(result.witness) if result.witness else None,
+               terminal_family_id=trace.last_witness_family(result.witness))
     return HierarchyResult(bounded, nodes, leaf_actions, scans, pruned, equality,
                            coverage_groups, 0, 0, source, tuple(audit))

@@ -1,0 +1,66 @@
+{
+  "H_ref": 2,
+  "capacity_kwh": 5,
+  "case_id": "TRACE01_complete_invocations",
+  "charging_segments": [
+    [
+      0,
+      5,
+      1,
+      0
+    ]
+  ],
+  "consumption_kwh_per_m": 1,
+  "destination": "z",
+  "edges": [
+    {
+      "length_m": 1,
+      "source": "o",
+      "target": "c",
+      "time_s": 1
+    },
+    {
+      "length_m": 2,
+      "source": "c",
+      "target": "z",
+      "time_s": 1
+    },
+    {
+      "length_m": 6,
+      "source": "o",
+      "target": "e",
+      "time_s": 1
+    },
+    {
+      "length_m": 1,
+      "source": "e",
+      "target": "z",
+      "time_s": 1
+    },
+    {
+      "length_m": 1,
+      "source": "u",
+      "target": "z",
+      "time_s": 1
+    }
+  ],
+  "initial_energy_kwh": 2,
+  "lambda_stop_s": 1,
+  "minimum_energy_kwh": 0,
+  "origin": "o",
+  "overhead_s": 1,
+  "reserve_kwh": 0,
+  "schedule": null,
+  "sites": {
+    "c": [
+      "C"
+    ],
+    "e": [
+      "C"
+    ],
+    "u": [
+      "C"
+    ]
+  },
+  "start_time_s": 0
+}
