@@ -45,6 +45,10 @@ OD generation creates 30 city-anchored pairs, with seed 20260930 and 10 pairs pe
 
 ## Tests, deterministic rebuild and benchmark
 
+For the experimental M5 code without real datasets, use the separate
+[isolated-wheel synthetic CI gate](ci/README.md). Its focused result does not
+replace the full legacy acceptance commands below or certify M5 completion.
+
 ```bash
 pytest -q --require-real-data --junitxml=results/milestone_1/tests.xml
 
