@@ -1,0 +1,11 @@
+{
+  "schema": "original_hand_cases_plus_optional_initial_remaining_schedule_v1",
+  "fixture": "frozen_cases_v2.json",
+  "sha256": "436a6e04023bfad632147fb2d3411a3c71d566ae8bb0c2def59116bf17a01293",
+  "case_count": 18,
+  "construction": "Positive-domain repair, independently recomputed from physical arithmetic before REF/production comparison; not optimizer-output tuning.",
+  "v1_sha256": "ecc57d3f53cf8928233554e6e15635381bc1acc0d0178f5a3185a297fafc786f",
+  "v1_status": "Preserved exploratory nonnegative-extension cases; not a positive-domain production acceptance set.",
+  "changes": "All h=0 become h=1. Two CS-open cases change each road length0 to1 and initial energy1 to3, preserving slack for arbitrarily small strictly positive charge. Expected times recomputed analytically.",
+  "comparison_started": false
+}

@@ -1,0 +1,8 @@
+{
+  "fixture": "audit_regression_cases.json",
+  "sha256": "babdc5c8864d1738f90562da8b1dafbc3ddb05dfd39ba417cc03c00cb05806dd",
+  "case_count": 3,
+  "role": "Post-discovery audit regressions, not independent holdout",
+  "construction": "Frozen after discovering destination-site policy discrepancy and parent authority resolution; before comparing the production guard fix.",
+  "authority": "MILESTONE_5_MULTISTOP_CORE_THEORY_V1.md section2 terminal-destination prohibition, expressly carried forward by parent resolution; no first-transit ban added."
+}

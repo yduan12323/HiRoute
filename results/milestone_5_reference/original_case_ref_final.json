@@ -1,0 +1,930 @@
+{
+  "oracle": "independent_reference5",
+  "scope": "bounded_H_ref_diagnostic",
+  "fixture_sha256": "5e8f4b92bdbefdf5f35104b9430bbc2d0541517e0df41b4ecdb9ca67f85a5744",
+  "source_sha256": {
+    "validation/reference5/__init__.py": "d5a7490d2641f337e6f6c8e5e877b68727948ca2b429c4a7a684a55317681d73",
+    "validation/reference5/__main__.py": "76a4bbfebfb738429b77272fc79beb9f82e922ab7e918dfe4d1a4ca8aaab83bf",
+    "validation/reference5/lp.py": "56c88e73203f85c42e8473697969c4a86e10ae977f1689ac7e79d4fed800e26e",
+    "validation/reference5/model.py": "b8b2e0254426775638695f9c2db8317937a0326e93fed4698645e2883c1d51a2",
+    "validation/reference5/solver.py": "f163114360a54782bc408c368d5a3f636cada9b4f0cd4aa153fa1470e4e688f4",
+    "tests/test_reference5.py": "f2ad2572f34012e11d7e3ce35a251e22557c1ba0b87112de11cf4712d8c459da"
+  },
+  "python": "3.11.16",
+  "scipy": "1.17.1",
+  "results": [
+    {
+      "scope": "bounded_H_ref_diagnostic",
+      "model_domain": "positive_overhead_and_positive_road_edges",
+      "H_ref": 4,
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "result": {
+        "status": "attained_optimum",
+        "primary_infimum": "44950",
+        "secondary_infimum": "76",
+        "J": "44950",
+        "Q_total": "76",
+        "H": 3,
+        "site_action_tuple": [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ],
+        "charges": [
+          "41",
+          "35"
+        ],
+        "events": [
+          {
+            "site": "4r:node/2",
+            "effect": "C",
+            "charge_kwh": "41",
+            "arrival_time_s": "9300",
+            "arrival_kwh": "7",
+            "departure_kwh": "48",
+            "completion_s": "11508",
+            "charge_completion_s": "11508",
+            "schedule_start_s": null,
+            "schedule_completion_s": null,
+            "remaining_schedule": 1
+          },
+          {
+            "site": "4r:node/3",
+            "effect": "C",
+            "charge_kwh": "35",
+            "arrival_time_s": "20808",
+            "arrival_kwh": "13",
+            "departure_kwh": "48",
+            "completion_s": "22800",
+            "charge_completion_s": "22800",
+            "schedule_start_s": null,
+            "schedule_completion_s": null,
+            "remaining_schedule": 1
+          },
+          {
+            "site": "4r:node/4",
+            "effect": "S",
+            "charge_kwh": "0",
+            "arrival_time_s": "31800",
+            "arrival_kwh": "8",
+            "departure_kwh": "8",
+            "completion_s": "42700",
+            "charge_completion_s": null,
+            "schedule_start_s": "40000",
+            "schedule_completion_s": "42700",
+            "remaining_schedule": 0
+          }
+        ],
+        "terminal_energy_kwh": "6",
+        "terminal_time_s": "43150",
+        "remaining_schedule": 0,
+        "route_legs": [
+          {
+            "time": "9300",
+            "length": "18750",
+            "energy": "3",
+            "nodes": [
+              "origin",
+              "4r:node/2"
+            ],
+            "edges": [
+              "input:00000002"
+            ]
+          },
+          {
+            "time": "9300",
+            "length": "218750",
+            "energy": "35",
+            "nodes": [
+              "4r:node/2",
+              "4r:node/3"
+            ],
+            "edges": [
+              "input:00000003"
+            ]
+          },
+          {
+            "time": "9000",
+            "length": "250000",
+            "energy": "40",
+            "nodes": [
+              "4r:node/3",
+              "4r:node/4"
+            ],
+            "edges": [
+              "input:00000004"
+            ]
+          },
+          {
+            "time": "450",
+            "length": "12500",
+            "energy": "2",
+            "nodes": [
+              "4r:node/4",
+              "destination"
+            ],
+            "edges": [
+              "input:00000005"
+            ]
+          }
+        ],
+        "lex_key": [
+          "44950",
+          "76",
+          3,
+          [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ]
+        ],
+        "witness_replayed": true
+      },
+      "sequence_count": 41,
+      "terminal_sequence_count": 16,
+      "regime_count": 11072,
+      "closed_infeasible_regime_count": 10952,
+      "empty_strict_regime_count": 24,
+      "strict_feasible_regime_count": 96,
+      "certified_regime_count": 11072,
+      "sequences": [
+        {
+          "sequence": [],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/1",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/1",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/1",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/1",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 1458
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 1458
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 162
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 1458
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 162
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/1",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 18
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/2",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/2",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/2",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/2",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 1458
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 1458
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 162
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 1458
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 162
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/2",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 18
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/3",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 1458
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 162
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/3",
+              "C"
+            ],
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 18
+        },
+        {
+          "sequence": [
+            [
+              "4r:node/4",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 2
+        }
+      ],
+      "all_regimes_certified": true,
+      "elapsed_seconds": 44.490047108996805
+    }
+  ],
+  "full_certificates": {
+    "path": "original_case_certificates_final.json.gz",
+    "sha256": "d426362a9ad5b6eee15ffb18fb045dac959f7706554d85f6b154281fcd1de56f",
+    "uncompressed_bytes": 6080552,
+    "compressed_bytes": 156273
+  }
+}

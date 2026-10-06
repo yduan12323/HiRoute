@@ -1,0 +1,32 @@
+{
+  "case_count": 100,
+  "comparison_count": 400,
+  "reference_status_counts": {
+    "attained_optimum": 36,
+    "infeasible_within_H_ref": 62,
+    "secondary_unattained": 2
+  },
+  "hierarchy_d_on_prunes": 66,
+  "hierarchy_d_on_equalities": 32,
+  "fixture_sha256": "b7fe45805c605c1ce17bc5777c3aab7e12349536b7e89f46df9276d173761e78",
+  "source_hashes_at_start": {
+    "/workspace/shared/navigation_audit/worktrees/HiRoute-m5-time-cut/src/timecut5/bounded.py": "141642cb809112757e9c1c804785af44d7be506bf395870556ac0d74d389c246",
+    "/workspace/shared/navigation_audit/worktrees/HiRoute-m5-time-cut/src/timecut5/hierarchy.py": "d1f3d31a9f3155d6028e98cf906be3b921856f75ac682aa7b965e41c3f7fbe3b",
+    "/workspace/shared/navigation_audit/worktrees/HiRoute-m5-time-cut/src/timecut5/pwa.py": "717519aecb50bc4e45266b1179390a3f5d9ea6b2bd3ef3df3c926a55b122e3b9",
+    "/workspace/shared/navigation_audit/worktrees/HiRoute-m5-time-cut/src/timecut5/probe.py": "79226bd7dcf9ff9ceb326e2caf6cee1c471312a6e178ac024a77c27f2ea02b6d",
+    "/workspace/shared/navigation_audit/ref5_work/validation/reference5/model.py": "b8b2e0254426775638695f9c2db8317937a0326e93fed4698645e2883c1d51a2",
+    "/workspace/shared/navigation_audit/ref5_work/validation/reference5/solver.py": "f163114360a54782bc408c368d5a3f636cada9b4f0cd4aa153fa1470e4e688f4",
+    "/workspace/shared/navigation_audit/ref5_work/validation/reference5/lp.py": "56c88e73203f85c42e8473697969c4a86e10ae977f1689ac7e79d4fed800e26e"
+  },
+  "source_hashes_at_end": {
+    "/workspace/shared/navigation_audit/worktrees/HiRoute-m5-time-cut/src/timecut5/bounded.py": "141642cb809112757e9c1c804785af44d7be506bf395870556ac0d74d389c246",
+    "/workspace/shared/navigation_audit/worktrees/HiRoute-m5-time-cut/src/timecut5/hierarchy.py": "d1f3d31a9f3155d6028e98cf906be3b921856f75ac682aa7b965e41c3f7fbe3b",
+    "/workspace/shared/navigation_audit/worktrees/HiRoute-m5-time-cut/src/timecut5/pwa.py": "717519aecb50bc4e45266b1179390a3f5d9ea6b2bd3ef3df3c926a55b122e3b9",
+    "/workspace/shared/navigation_audit/worktrees/HiRoute-m5-time-cut/src/timecut5/probe.py": "79226bd7dcf9ff9ceb326e2caf6cee1c471312a6e178ac024a77c27f2ea02b6d",
+    "/workspace/shared/navigation_audit/ref5_work/validation/reference5/model.py": "b8b2e0254426775638695f9c2db8317937a0326e93fed4698645e2883c1d51a2",
+    "/workspace/shared/navigation_audit/ref5_work/validation/reference5/solver.py": "f163114360a54782bc408c368d5a3f636cada9b4f0cd4aa153fa1470e4e688f4",
+    "/workspace/shared/navigation_audit/ref5_work/validation/reference5/lp.py": "56c88e73203f85c42e8473697969c4a86e10ae977f1689ac7e79d4fed800e26e"
+  },
+  "sources_unchanged": true,
+  "scope": "New independently seeded bounded H_ref=2 diagnostic cases, no real-data or scalability claim. Frozen before solving; random population is not a completeness proof."
+}

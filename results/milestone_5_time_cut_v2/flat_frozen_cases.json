@@ -1,0 +1,252 @@
+[
+  {
+    "case_id": "cs_service_dominant",
+    "dominance": false,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 7.895900125731714e-05
+  },
+  {
+    "case_id": "cs_service_dominant",
+    "dominance": true,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 2.341499930480495e-05
+  },
+  {
+    "case_id": "cs_charge_dominant",
+    "dominance": false,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 1.7817001207731664e-05
+  },
+  {
+    "case_id": "cs_charge_dominant",
+    "dominance": true,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 1.6014000721042976e-05
+  },
+  {
+    "case_id": "cs_waiting_dominant",
+    "dominance": false,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 1.5203000657493249e-05
+  },
+  {
+    "case_id": "cs_waiting_dominant",
+    "dominance": true,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 1.466199682909064e-05
+  },
+  {
+    "case_id": "cs_exact_max_boundary",
+    "dominance": false,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 1.4881999959470704e-05
+  },
+  {
+    "case_id": "cs_exact_max_boundary",
+    "dominance": true,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 2.2855001589050516e-05
+  },
+  {
+    "case_id": "cs_crosses_charging_breakpoint",
+    "dominance": false,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 2.93140001303982e-05
+  },
+  {
+    "case_id": "cs_crosses_charging_breakpoint",
+    "dominance": true,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 2.858299922081642e-05
+  },
+  {
+    "case_id": "cs_primary_unattained",
+    "dominance": false,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 1.4121000276645645e-05
+  },
+  {
+    "case_id": "cs_primary_unattained",
+    "dominance": true,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 3.5693999961949885e-05
+  },
+  {
+    "case_id": "cs_secondary_unattained",
+    "dominance": false,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 2.424600097583607e-05
+  },
+  {
+    "case_id": "cs_secondary_unattained",
+    "dominance": true,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 1.4622000890085474e-05
+  },
+  {
+    "case_id": "c_primary_unattained_with_repeat",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 2,
+      "result": {
+        "status": "primary_unattained",
+        "primary_infimum": "4"
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.003733069999725558
+  },
+  {
+    "case_id": "c_primary_unattained_with_repeat",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 2,
+      "result": {
+        "status": "primary_unattained",
+        "primary_infimum": "4"
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.0033091229997808114
+  },
+  {
+    "case_id": "c_s_secondary_unattained_with_repeat",
+    "dominance": false,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 3,
+      "result": {
+        "status": "secondary_unattained",
+        "J": "14",
+        "secondary_infimum": "0"
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.008761570999922697
+  },
+  {
+    "case_id": "c_s_secondary_unattained_with_repeat",
+    "dominance": true,
+    "output": {
+      "scope": "bounded_H_ref_diagnostic",
+      "H_ref": 3,
+      "result": {
+        "status": "secondary_unattained",
+        "J": "14",
+        "secondary_infimum": "0"
+      }
+    },
+    "mismatches": [],
+    "seconds": 0.00943038900004467
+  },
+  {
+    "case_id": "zero_stop_no_station",
+    "dominance": false,
+    "error": "ValueError('An empty charging primitive is invalid')",
+    "seconds": 1.5664001693949103e-05
+  },
+  {
+    "case_id": "zero_stop_no_station",
+    "dominance": true,
+    "error": "ValueError('An empty charging primitive is invalid')",
+    "seconds": 5.957997927907854e-06
+  },
+  {
+    "case_id": "empty_capability_site",
+    "dominance": false,
+    "error": "ValueError('An empty charging primitive is invalid')",
+    "seconds": 6.029000360285863e-06
+  },
+  {
+    "case_id": "empty_capability_site",
+    "dominance": true,
+    "error": "ValueError('An empty charging primitive is invalid')",
+    "seconds": 4.927002009935677e-06
+  },
+  {
+    "case_id": "service_only_no_charge_variables",
+    "dominance": false,
+    "error": "ValueError('An empty charging primitive is invalid')",
+    "seconds": 6.831000064266846e-06
+  },
+  {
+    "case_id": "service_only_no_charge_variables",
+    "dominance": true,
+    "error": "ValueError('An empty charging primitive is invalid')",
+    "seconds": 1.223800063598901e-05
+  },
+  {
+    "case_id": "already_satisfied_service_state",
+    "dominance": false,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 2.4487002519890666e-05
+  },
+  {
+    "case_id": "already_satisfied_service_state",
+    "dominance": true,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 3.0816998332738876e-05
+  },
+  {
+    "case_id": "unsatisfied_service_bound_zero",
+    "dominance": false,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 1.534300099592656e-05
+  },
+  {
+    "case_id": "unsatisfied_service_bound_zero",
+    "dominance": true,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 1.309999788645655e-05
+  },
+  {
+    "case_id": "deterministic_site_tuple_tie",
+    "dominance": false,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 3.391100108274259e-05
+  },
+  {
+    "case_id": "deterministic_site_tuple_tie",
+    "dominance": true,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 1.3781002053292468e-05
+  },
+  {
+    "case_id": "fastest_leg_actual_length",
+    "dominance": false,
+    "error": "ValueError('An empty charging primitive is invalid')",
+    "seconds": 5.107998731546104e-06
+  },
+  {
+    "case_id": "fastest_leg_actual_length",
+    "dominance": true,
+    "error": "ValueError('An empty charging primitive is invalid')",
+    "seconds": 8.162001904565841e-06
+  },
+  {
+    "case_id": "deterministic_parallel_edge_tie",
+    "dominance": false,
+    "error": "ValueError('An empty charging primitive is invalid')",
+    "seconds": 5.138001142768189e-06
+  },
+  {
+    "case_id": "deterministic_parallel_edge_tie",
+    "dominance": true,
+    "error": "ValueError('An empty charging primitive is invalid')",
+    "seconds": 4.656998498830944e-06
+  },
+  {
+    "case_id": "cyclic_directed_graph_repeated_site",
+    "dominance": false,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 1.2869000784121454e-05
+  },
+  {
+    "case_id": "cyclic_directed_graph_repeated_site",
+    "dominance": true,
+    "error": "ValueError('Invalid bounded physical query')",
+    "seconds": 1.3009001122554764e-05
+  }
+]

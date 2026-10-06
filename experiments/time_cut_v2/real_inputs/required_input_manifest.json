@@ -1,0 +1,403 @@
+{
+  "audit_utc": "2026-10-06T04:08:00Z",
+  "audited_commit": "fd38d3aacc67b401264791723702df8dc3733ad0",
+  "read_only_repository_audit": true,
+  "core_physics_bytes": 412443599,
+  "core_plus_progress_bytes": 481252049,
+  "landmark_arrays_total_bytes_recorded": 1508483584,
+  "landmark_array_count": 32,
+  "sources": [
+    "results/milestone_4r/preservation_before.json",
+    "results/milestone_4r_b1/preservation_checkpoint.json",
+    "results/milestone_5_b21_v1/frozen_input_hash_manifest.json",
+    "results/milestone_4r_b1d/storage_accounting.json",
+    "results/milestone_4r_b1d/preprocessing.json",
+    "results/milestone_4r_b1d2/boundary_manifest.json"
+  ],
+  "files": [
+    {
+      "group": "stage_c_physics",
+      "path": "data/processed/graphs/slovenia_extended/nodes.parquet",
+      "size_bytes": 104471506,
+      "expected_sha256": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "stage_c_physics",
+      "path": "data/processed/graphs/slovenia_extended/edges.parquet",
+      "size_bytes": 303022185,
+      "expected_sha256": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "stage_c_physics",
+      "path": "data/processed/graphs/slovenia_extended/metadata.json",
+      "size_bytes": 13978,
+      "expected_sha256": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "stage_c_physics",
+      "path": "results/milestone_3a/od_remapping.parquet",
+      "size_bytes": 448277,
+      "expected_sha256": "f38c0a81f42564e4f220d5c82de43d4454abfd8e962b09979d3dbdc8a447dcea",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "stage_c_physics",
+      "path": "results/milestone_4r/stop_sites.parquet",
+      "size_bytes": 4487653,
+      "expected_sha256": "e3e7d6d6667f7ab684ff83eb2646920516b01aef2e6ceb8170c689e71f6afd38",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "accepted_progress",
+      "path": "results/milestone_4a/od_features.parquet",
+      "size_bytes": 68808450,
+      "expected_sha256": "be02c3bc750feb64dd5fc1df5a22f3862aa2d01aa26b4e30d0a53372b4a7894e",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/summaries.npy",
+      "size_bytes": 3144320,
+      "expected_sha256": "576ce87c2b0fe236342b411e94be3468d694d5476a4dd61e36b5462a258e2027",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/counts.npy",
+      "size_bytes": 49256,
+      "expected_sha256": "8269572896b4a7d23a27c0762363f91a98b4d07dcdf8ed1388f617ef2a588dee",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/children.npy",
+      "size_bytes": 32880,
+      "expected_sha256": "0f25fb0cb4ca85a595795a98dfa398baf5d74db91e756721797d7bc55ecb8c98",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/distance_0_in.npy",
+      "size_bytes": null,
+      "expected_sha256": "3c75eed2dfe32c5e7ffbc17acb7bd6db67a803d16d4991b8187c286e47a3c674",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/distance_0_out.npy",
+      "size_bytes": null,
+      "expected_sha256": "d9c31f28557bb8da6db299237264d8fd826990bb3da45a10a05915639349b15c",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/distance_1_in.npy",
+      "size_bytes": null,
+      "expected_sha256": "773438eb0bd4ec3ce97a44d92a6de64d3f3c22650bf1fa15a49b9e9842aa715b",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/distance_1_out.npy",
+      "size_bytes": null,
+      "expected_sha256": "9a41392e2388a6f83f42777fad235ff4c6a6f34271494214fbb35b4455b1532b",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/distance_2_in.npy",
+      "size_bytes": null,
+      "expected_sha256": "68741af4997daae214795ff5b8b21e8e3421a845b446c978e7d2519fed959f2e",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/distance_2_out.npy",
+      "size_bytes": null,
+      "expected_sha256": "98147d760e3c452eef33352fc06091e3f34abf9ef96ff7ff7625c2c79e49622d",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/distance_3_in.npy",
+      "size_bytes": null,
+      "expected_sha256": "da9bbad1c0723508493fd4d68ac608c7638243ef7c58cd7740b3c7464273da9f",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/distance_3_out.npy",
+      "size_bytes": null,
+      "expected_sha256": "7b09c41d170dbbd85310d1e22064835a2a07ccaf381ff0f806fd9a360a6f456e",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/distance_4_in.npy",
+      "size_bytes": null,
+      "expected_sha256": "cf86c05d3ec2c06b630fce8e60ba2f6e6c22118fed008b192d20d0ed302611cd",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/distance_4_out.npy",
+      "size_bytes": null,
+      "expected_sha256": "494f5e8115e8f13ef7921286a76f12d718d988f4de43959bbbc6be6b9921dbfb",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/distance_5_in.npy",
+      "size_bytes": null,
+      "expected_sha256": "d521a3cb90738a6113c458e118ff4e726ae1ffff2341f00b5b4e52535bf2aa85",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/distance_5_out.npy",
+      "size_bytes": null,
+      "expected_sha256": "3223e0315e08d1c444ae9b05601af1860cd698d645999d155f5bcb365944443d",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/distance_6_in.npy",
+      "size_bytes": null,
+      "expected_sha256": "21a6beb19263a4c1a4aa36efc5d7e98b9540dafb6bfde7302994680537beb250",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/distance_6_out.npy",
+      "size_bytes": null,
+      "expected_sha256": "04dfe543c6372eb496f65bebd7de75f7eb04e5d033be3cdc99508e1488d32212",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/distance_7_in.npy",
+      "size_bytes": null,
+      "expected_sha256": "4b3b0f85446c135d4fe570192811aaf43bd26ecc2207994470507dc1448e983e",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/distance_7_out.npy",
+      "size_bytes": null,
+      "expected_sha256": "13264f47114f10cf61077fb6e2a60767deab3b694d2221698effb8604abecc92",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/travel_time_0_in.npy",
+      "size_bytes": null,
+      "expected_sha256": "3be063a3376774bcf4669a334ce7602ff1eba735b7af791e4409c5746e5cb68a",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/travel_time_0_out.npy",
+      "size_bytes": null,
+      "expected_sha256": "90546fd5e9ebc1d643a6b4de2cc3b3258027b5eb6b482a616ce6654ad76bb14a",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/travel_time_1_in.npy",
+      "size_bytes": null,
+      "expected_sha256": "2e550c01ff3e05e13574b0c40d44cd4f18bb680921290a6b8a588cfa7a5fd533",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/travel_time_1_out.npy",
+      "size_bytes": null,
+      "expected_sha256": "9c1b8de8341ea132b65f54262a5d257e0a96bef166ef1782b32981074e2fd1fd",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/travel_time_2_in.npy",
+      "size_bytes": null,
+      "expected_sha256": "d817739e9f75eba6c8e92aa09c91d873ee044fcdd12b5fc9dca398140571b07d",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/travel_time_2_out.npy",
+      "size_bytes": null,
+      "expected_sha256": "2f5fe3a85bd7b3de31d204824e1837b21ebf24b307a7b4e0e2fde39b0f461a02",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/travel_time_3_in.npy",
+      "size_bytes": null,
+      "expected_sha256": "cf03883b87600804f92af0bc8fdf01dc974dc87bf80af0f57b1a49af9315fc7b",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/travel_time_3_out.npy",
+      "size_bytes": null,
+      "expected_sha256": "ed995ac6d4f69ee856d04ca69f1ae0e75e8629c72da2ba97790f5249f045fca0",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/travel_time_4_in.npy",
+      "size_bytes": null,
+      "expected_sha256": "8762e3e60672b6e724490b475563fe98e6b199d15c67fa4ce73964429fde4c3f",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/travel_time_4_out.npy",
+      "size_bytes": null,
+      "expected_sha256": "53511f06bb6ed8433d5ba13516319fab90426e8adec543d4ea3569cd2393cb7c",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/travel_time_5_in.npy",
+      "size_bytes": null,
+      "expected_sha256": "17ac831c113ba7276d2ab6f25092c01bb2885511365ba8e42aa92293d4832bbc",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/travel_time_5_out.npy",
+      "size_bytes": null,
+      "expected_sha256": "b9180ee0989b9c75712040e6e4a696606eeb983378389c3e52828e4de5ebe5fe",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/travel_time_6_in.npy",
+      "size_bytes": null,
+      "expected_sha256": "d7ab4238051d03b1418633f26949afa1c93212341e686af0b87331b1841556c1",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/travel_time_6_out.npy",
+      "size_bytes": null,
+      "expected_sha256": "8ff467abb4d6a1f30846e5ab1871fd1d63688f8ad325798c44e61aab5980632c",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/travel_time_7_in.npy",
+      "size_bytes": null,
+      "expected_sha256": "8c8ba8486359753deb8757e145008cc488da90cea962d9b27567d35e7352c36c",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_alt_substrate",
+      "path": "results/milestone_4r_b1d/landmarks/travel_time_7_out.npy",
+      "size_bytes": null,
+      "expected_sha256": "d7083ca9f6c313ee9fd7f587c36765f8f0f315adf35ca1b33a5aaced0d94a3c5",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_boundary_substrate",
+      "path": "results/milestone_4r_b1d2/road_leaf_cells.npy",
+      "size_bytes": null,
+      "expected_sha256": "f82a81f52402ba0e40dac48efb66db01e72ed3b8ae032ed0a9b3a3991f4ba85e",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_boundary_substrate",
+      "path": "results/milestone_4r_b1d2/subtree_ends.npy",
+      "size_bytes": null,
+      "expected_sha256": "24a39c403f370e76754498a0fb2500c8c18ed97866b333a869c9b45d9a7990d4",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_boundary_substrate",
+      "path": "results/milestone_4r_b1d2/ingress.npy",
+      "size_bytes": null,
+      "expected_sha256": "b81fecf25a05751dfb109927604b09121bf242dc11240efe258146e0e57de919",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_boundary_substrate",
+      "path": "results/milestone_4r_b1d2/egress.npy",
+      "size_bytes": null,
+      "expected_sha256": "5700394f49b76f0b02b5a0cc773e5f77252c9b78dba99c8d479f82e8ae01b1ee",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "legacy_boundary_substrate",
+      "path": "results/milestone_4r_b1d2/boundary_offsets.npy",
+      "size_bytes": null,
+      "expected_sha256": "da0f0176c9f16132ec6ffd35267e23ce90245b862c12556d271790ffdd757765",
+      "present": false,
+      "actual_sha256": null
+    },
+    {
+      "group": "existing_frozen_hierarchy",
+      "path": "results/milestone_4r_b1/hierarchy.json",
+      "size_bytes": 5271372,
+      "expected_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "present": true,
+      "actual_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805"
+    },
+    {
+      "group": "existing_frozen_hierarchy",
+      "path": "results/milestone_4r_b1/hierarchy_build/primary_cells.bin",
+      "size_bytes": 23569992,
+      "expected_sha256": "abe92d977fb40bd043d8d61ee06c7e1af90c0bafb6b26f01bfab9194b63dff12",
+      "present": true,
+      "actual_sha256": "abe92d977fb40bd043d8d61ee06c7e1af90c0bafb6b26f01bfab9194b63dff12"
+    }
+  ]
+}

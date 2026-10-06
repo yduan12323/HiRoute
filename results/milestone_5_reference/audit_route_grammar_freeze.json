@@ -1,0 +1,7 @@
+{
+  "fixture": "audit_route_grammar_cases.json",
+  "sha256": "33444155b95f74052222f1eaf0f74709a428b9ea389d13d81838b54badda34aa",
+  "case_count": 1,
+  "role": "Post-discovery route-grammar regression, not holdout",
+  "construction": "Frozen after external audit found consecutive-drive waypoint vulnerability, before comparing this fixture against the production replay fix."
+}

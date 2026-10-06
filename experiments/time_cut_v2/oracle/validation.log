@@ -1,0 +1,192 @@
+PASS historical_open_lower_endpoint {'open_cells': 2, 'singletons': 3, 'witnesses': 12}
+PASS negative_tau_minus_f {'open_cells': 2, 'singletons': 3, 'witnesses': 14}
+PASS zero_tau_minus_f {'open_cells': 2, 'singletons': 3, 'witnesses': 16}
+PASS positive_tau_minus_f {'open_cells': 2, 'singletons': 3, 'witnesses': 16}
+PASS open_input_zero_tau_minus_f {'open_cells': 2, 'singletons': 3, 'witnesses': 12}
+PASS right_excluded_optimizer {'open_cells': 2, 'singletons': 3, 'witnesses': 12}
+PASS singleton_positive_charge {'open_cells': 2, 'singletons': 3, 'witnesses': 8}
+PASS at_capacity_no_positive_charge {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS empty_input {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS charge_kinks {'open_cells': 9, 'singletons': 10, 'witnesses': 70}
+PASS attainment_tie_or {'open_cells': 2, 'singletons': 3, 'witnesses': 16}
+PASS same_value_open_then_closed {'open_cells': 2, 'singletons': 3, 'witnesses': 16}
+PASS deadline_equality_open {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS deadline_equality_closed {'open_cells': 2, 'singletons': 3, 'witnesses': 16}
+PASS plateau_open_input_boundary {'open_cells': 3, 'singletons': 4, 'witnesses': 21}
+PASS plateau_closed_endpoint {'open_cells': 3, 'singletons': 4, 'witnesses': 24}
+PASS deadline_crosses_energy_open {'open_cells': 9, 'singletons': 10, 'witnesses': 54}
+PASS deadline_crosses_energy_closed {'open_cells': 9, 'singletons': 10, 'witnesses': 72}
+PASS negative_time_slope_cs {'open_cells': 15, 'singletons': 16, 'witnesses': 95}
+PASS zero_service_duration_cs {'open_cells': 4, 'singletons': 5, 'witnesses': 29}
+PASS invalid_schedule {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS cs_arrival_and_departure_kinks {'open_cells': 83, 'singletons': 84, 'witnesses': 664}
+PASS random_0000 {'open_cells': 17, 'singletons': 18, 'witnesses': 78}
+PASS random_0001 {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS random_0002 {'open_cells': 3, 'singletons': 4, 'witnesses': 12}
+PASS random_0003 {'open_cells': 19, 'singletons': 20, 'witnesses': 88}
+PASS random_0004 {'open_cells': 3, 'singletons': 4, 'witnesses': 14}
+PASS random_0005 {'open_cells': 206, 'singletons': 207, 'witnesses': 1116}
+PASS random_0006 {'open_cells': 4, 'singletons': 5, 'witnesses': 12}
+PASS random_0007 {'open_cells': 13, 'singletons': 14, 'witnesses': 90}
+PASS random_0008 {'open_cells': 6, 'singletons': 7, 'witnesses': 28}
+PASS random_0009 {'open_cells': 119, 'singletons': 120, 'witnesses': 636}
+PASS random_0010 {'open_cells': 3, 'singletons': 4, 'witnesses': 12}
+PASS random_0011 {'open_cells': 23, 'singletons': 24, 'witnesses': 120}
+PASS random_0012 {'open_cells': 4, 'singletons': 5, 'witnesses': 18}
+PASS random_0013 {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS random_0014 {'open_cells': 16, 'singletons': 17, 'witnesses': 66}
+PASS random_0015 {'open_cells': 116, 'singletons': 117, 'witnesses': 784}
+PASS random_0016 {'open_cells': 23, 'singletons': 24, 'witnesses': 156}
+PASS random_0017 {'open_cells': 38, 'singletons': 39, 'witnesses': 228}
+PASS random_0018 {'open_cells': 5, 'singletons': 6, 'witnesses': 28}
+PASS random_0019 {'open_cells': 11, 'singletons': 12, 'witnesses': 54}
+PASS random_0020 {'open_cells': 8, 'singletons': 9, 'witnesses': 30}
+PASS random_0021 {'open_cells': 9, 'singletons': 10, 'witnesses': 48}
+PASS random_0022 {'open_cells': 10, 'singletons': 11, 'witnesses': 30}
+PASS random_0023 {'open_cells': 136, 'singletons': 137, 'witnesses': 818}
+PASS random_0024 {'open_cells': 5, 'singletons': 6, 'witnesses': 8}
+PASS random_0025 {'open_cells': 34, 'singletons': 35, 'witnesses': 180}
+PASS random_0026 {'open_cells': 6, 'singletons': 7, 'witnesses': 36}
+PASS random_0027 {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS random_0028 {'open_cells': 66, 'singletons': 67, 'witnesses': 360}
+PASS random_0029 {'open_cells': 16, 'singletons': 17, 'witnesses': 24}
+PASS random_0030 {'open_cells': 24, 'singletons': 25, 'witnesses': 120}
+PASS random_0031 {'open_cells': 10, 'singletons': 11, 'witnesses': 54}
+PASS random_0032 {'open_cells': 3, 'singletons': 4, 'witnesses': 12}
+PASS random_0033 {'open_cells': 26, 'singletons': 27, 'witnesses': 168}
+PASS random_0034 {'open_cells': 31, 'singletons': 32, 'witnesses': 126}
+PASS random_0035 {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS random_0036 {'open_cells': 9, 'singletons': 10, 'witnesses': 8}
+PASS random_0037 {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS random_0038 {'open_cells': 7, 'singletons': 8, 'witnesses': 22}
+PASS random_0039 {'open_cells': 24, 'singletons': 25, 'witnesses': 136}
+PASS random_0040 {'open_cells': 12, 'singletons': 13, 'witnesses': 72}
+PASS random_0041 {'open_cells': 60, 'singletons': 61, 'witnesses': 342}
+PASS random_0042 {'open_cells': 7, 'singletons': 8, 'witnesses': 50}
+PASS random_0043 {'open_cells': 12, 'singletons': 13, 'witnesses': 56}
+PASS random_0044 {'open_cells': 7, 'singletons': 8, 'witnesses': 6}
+PASS random_0045 {'open_cells': 26, 'singletons': 27, 'witnesses': 156}
+PASS random_0046 {'open_cells': 26, 'singletons': 27, 'witnesses': 164}
+PASS random_0047 {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS random_0048 {'open_cells': 2, 'singletons': 3, 'witnesses': 6}
+PASS random_0049 {'open_cells': 64, 'singletons': 65, 'witnesses': 336}
+PASS random_0050 {'open_cells': 62, 'singletons': 63, 'witnesses': 394}
+PASS random_0051 {'open_cells': 132, 'singletons': 133, 'witnesses': 1046}
+PASS random_0052 {'open_cells': 10, 'singletons': 11, 'witnesses': 60}
+PASS random_0053 {'open_cells': 37, 'singletons': 38, 'witnesses': 222}
+PASS random_0054 {'open_cells': 26, 'singletons': 27, 'witnesses': 120}
+PASS random_0055 {'open_cells': 13, 'singletons': 14, 'witnesses': 96}
+PASS random_0056 {'open_cells': 8, 'singletons': 9, 'witnesses': 48}
+PASS random_0057 {'open_cells': 42, 'singletons': 43, 'witnesses': 96}
+PASS random_0058 {'open_cells': 18, 'singletons': 19, 'witnesses': 108}
+PASS random_0059 {'open_cells': 13, 'singletons': 14, 'witnesses': 48}
+PASS random_0060 {'open_cells': 12, 'singletons': 13, 'witnesses': 72}
+PASS random_0061 {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS random_0062 {'open_cells': 5, 'singletons': 6, 'witnesses': 12}
+PASS random_0063 {'open_cells': 29, 'singletons': 30, 'witnesses': 102}
+PASS random_0064 {'open_cells': 11, 'singletons': 12, 'witnesses': 54}
+PASS random_0065 {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS random_0066 {'open_cells': 5, 'singletons': 6, 'witnesses': 30}
+PASS random_0067 {'open_cells': 8, 'singletons': 9, 'witnesses': 42}
+PASS random_0068 {'open_cells': 9, 'singletons': 10, 'witnesses': 42}
+PASS random_0069 {'open_cells': 7, 'singletons': 8, 'witnesses': 40}
+PASS random_0070 {'open_cells': 3, 'singletons': 4, 'witnesses': 12}
+PASS random_0071 {'open_cells': 21, 'singletons': 22, 'witnesses': 83}
+PASS random_0072 {'open_cells': 85, 'singletons': 86, 'witnesses': 504}
+PASS random_0073 {'open_cells': 172, 'singletons': 173, 'witnesses': 1084}
+PASS random_0074 {'open_cells': 6, 'singletons': 7, 'witnesses': 36}
+PASS random_0075 {'open_cells': 76, 'singletons': 77, 'witnesses': 456}
+PASS random_0076 {'open_cells': 126, 'singletons': 127, 'witnesses': 372}
+PASS random_0077 {'open_cells': 1, 'singletons': 2, 'witnesses': 8}
+PASS random_0078 {'open_cells': 6, 'singletons': 7, 'witnesses': 36}
+PASS random_0079 {'open_cells': 66, 'singletons': 67, 'witnesses': 396}
+PASS random_0080 {'open_cells': 4, 'singletons': 5, 'witnesses': 18}
+PASS random_0081 {'open_cells': 691, 'singletons': 692, 'witnesses': 2800}
+PASS random_0082 {'open_cells': 11, 'singletons': 12, 'witnesses': 32}
+PASS random_0083 {'open_cells': 121, 'singletons': 122, 'witnesses': 540}
+PASS random_0084 {'open_cells': 3, 'singletons': 4, 'witnesses': 12}
+PASS random_0085 {'open_cells': 31, 'singletons': 32, 'witnesses': 144}
+PASS random_0086 {'open_cells': 4, 'singletons': 5, 'witnesses': 18}
+PASS random_0087 {'open_cells': 38, 'singletons': 39, 'witnesses': 168}
+PASS random_0088 {'open_cells': 9, 'singletons': 10, 'witnesses': 46}
+PASS random_0089 {'open_cells': 200, 'singletons': 201, 'witnesses': 1200}
+PASS random_0090 {'open_cells': 32, 'singletons': 33, 'witnesses': 180}
+PASS random_0091 {'open_cells': 26, 'singletons': 27, 'witnesses': 156}
+PASS random_0092 {'open_cells': 63, 'singletons': 64, 'witnesses': 378}
+PASS random_0093 {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS random_0094 {'open_cells': 18, 'singletons': 19, 'witnesses': 96}
+PASS random_0095 {'open_cells': 10, 'singletons': 11, 'witnesses': 52}
+PASS random_0096 {'open_cells': 23, 'singletons': 24, 'witnesses': 108}
+PASS random_0097 {'open_cells': 45, 'singletons': 46, 'witnesses': 324}
+PASS random_0098 {'open_cells': 29, 'singletons': 30, 'witnesses': 148}
+PASS random_0099 {'open_cells': 66, 'singletons': 67, 'witnesses': 240}
+PASS random_0100 {'open_cells': 32, 'singletons': 33, 'witnesses': 192}
+PASS random_0101 {'open_cells': 518, 'singletons': 519, 'witnesses': 3928}
+PASS random_0102 {'open_cells': 6, 'singletons': 7, 'witnesses': 22}
+PASS random_0103 {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS random_0104 {'open_cells': 11, 'singletons': 12, 'witnesses': 18}
+PASS random_0105 {'open_cells': 33, 'singletons': 34, 'witnesses': 264}
+PASS random_0106 {'open_cells': 13, 'singletons': 14, 'witnesses': 60}
+PASS random_0107 {'open_cells': 40, 'singletons': 41, 'witnesses': 210}
+PASS random_0108 {'open_cells': 8, 'singletons': 9, 'witnesses': 36}
+PASS random_0109 {'open_cells': 149, 'singletons': 150, 'witnesses': 720}
+PASS random_0110 {'open_cells': 3, 'singletons': 4, 'witnesses': 12}
+PASS random_0111 {'open_cells': 104, 'singletons': 105, 'witnesses': 702}
+PASS random_0112 {'open_cells': 27, 'singletons': 28, 'witnesses': 138}
+PASS random_0113 {'open_cells': 236, 'singletons': 237, 'witnesses': 1416}
+PASS random_0114 {'open_cells': 3, 'singletons': 4, 'witnesses': 12}
+PASS random_0115 {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS random_0116 {'open_cells': 30, 'singletons': 31, 'witnesses': 88}
+PASS random_0117 {'open_cells': 15, 'singletons': 16, 'witnesses': 18}
+PASS random_0118 {'open_cells': 6, 'singletons': 7, 'witnesses': 18}
+PASS random_0119 {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS random_0120 {'open_cells': 7, 'singletons': 8, 'witnesses': 26}
+PASS random_0121 {'open_cells': 395, 'singletons': 396, 'witnesses': 2536}
+PASS random_0122 {'open_cells': 9, 'singletons': 10, 'witnesses': 46}
+PASS random_0123 {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+PASS random_0124 {'open_cells': 4, 'singletons': 5, 'witnesses': 12}
+PASS random_0125 {'open_cells': 12, 'singletons': 13, 'witnesses': 66}
+PASS random_0126 {'open_cells': 107, 'singletons': 108, 'witnesses': 276}
+PASS random_0127 {'open_cells': 144, 'singletons': 145, 'witnesses': 764}
+PASS random_0128 {'open_cells': 25, 'singletons': 26, 'witnesses': 176}
+PASS random_0129 {'open_cells': 102, 'singletons': 103, 'witnesses': 504}
+PASS random_0130 {'open_cells': 9, 'singletons': 10, 'witnesses': 36}
+PASS random_0131 {'open_cells': 1030, 'singletons': 1031, 'witnesses': 6970}
+PASS random_0132 {'open_cells': 70, 'singletons': 71, 'witnesses': 420}
+PASS random_0133 {'open_cells': 7, 'singletons': 8, 'witnesses': 0}
+PASS random_0134 {'open_cells': 10, 'singletons': 11, 'witnesses': 12}
+PASS random_0135 {'open_cells': 106, 'singletons': 107, 'witnesses': 760}
+PASS random_0136 {'open_cells': 34, 'singletons': 35, 'witnesses': 168}
+PASS random_0137 {'open_cells': 36, 'singletons': 37, 'witnesses': 275}
+PASS random_0138 {'open_cells': 3, 'singletons': 4, 'witnesses': 8}
+PASS random_0139 {'open_cells': 6, 'singletons': 7, 'witnesses': 18}
+PASS random_0140 {'open_cells': 27, 'singletons': 28, 'witnesses': 162}
+PASS random_0141 {'open_cells': 529, 'singletons': 530, 'witnesses': 3947}
+PASS random_0142 {'open_cells': 13, 'singletons': 14, 'witnesses': 54}
+PASS random_0143 {'open_cells': 26, 'singletons': 27, 'witnesses': 104}
+PASS random_0144 {'open_cells': 7, 'singletons': 8, 'witnesses': 36}
+PASS random_0145 {'open_cells': 101, 'singletons': 102, 'witnesses': 620}
+PASS random_0146 {'open_cells': 2, 'singletons': 3, 'witnesses': 12}
+PASS random_0147 {'open_cells': 19, 'singletons': 20, 'witnesses': 80}
+PASS random_0148 {'open_cells': 42, 'singletons': 43, 'witnesses': 252}
+PASS random_0149 {'open_cells': 1, 'singletons': 2, 'witnesses': 0}
+{
+  "method": "independent analytic candidate arrangement; no production projection/reduction helpers",
+  "full_symbolic": {
+    "cases": 172,
+    "open_cells": 7991,
+    "singletons": 8163,
+    "witnesses": 46548
+  },
+  "point_fuzz_only": {
+    "cases": 180,
+    "energies": 1793,
+    "witnesses": 3761
+  },
+  "mutation_sentinels": [
+    "value",
+    "attainment",
+    "missing_support"
+  ],
+  "seconds": 22.539
+}

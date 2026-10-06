@@ -1,0 +1,11 @@
+{
+  "case_count": 6,
+  "sha256": "e5359c63d6eab657b8e7c9cf694be5498ed547610cad83ed714506d590d3cb09",
+  "evidence_class": "Post-discovery adversarial regression, not an independently preregistered held-out acceptance population.",
+  "scope": "Bounded positive-overhead, positive-road-edge continuous C/S/CS model; external incumbent sequences are explicit legal candidates.",
+  "required_modes": [
+    "FLAT dominance off/on",
+    "HIER own incumbent dominance off/on",
+    "HIER external incumbent dominance off/on"
+  ]
+}

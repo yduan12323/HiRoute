@@ -1,0 +1,8323 @@
+[
+  {
+    "case_id": "audit_random_000",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 6,
+      "b": 16,
+      "D": 1
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        4,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_001",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 1,
+      "b": 14,
+      "D": 2
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        6,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_002",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 8,
+      "b": 9,
+      "D": 2
+    },
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        4,
+        3,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_003",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 0,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        5,
+        3,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_004",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 4,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 4,
+      "b": 18,
+      "D": 0
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        5,
+        2,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_005",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 7,
+      "b": 11,
+      "D": 0
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        6,
+        1,
+        4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_006",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 5,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        6,
+        3,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_007",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 3,
+      "b": 9,
+      "D": 1
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        6,
+        2,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_008",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 11,
+      "D": 4
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        5,
+        3,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_009",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 5,
+      "b": 9,
+      "D": 6
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        4,
+        3,
+        -4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_010",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 0,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 8,
+      "b": 9,
+      "D": 5
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        4,
+        3,
+        -4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_011",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 4,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 2,
+      "b": 13,
+      "D": 3
+    },
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        5,
+        1,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "ba"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_012",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 6,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 7,
+      "b": 10,
+      "D": 0
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        6,
+        2,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_013",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 1,
+      "b": 18,
+      "D": 6
+    },
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        4,
+        2,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_014",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 2,
+      "b": 15,
+      "D": 2
+    },
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        4,
+        2,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_015",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 5,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 7,
+      "b": 9,
+      "D": 5
+    },
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        5,
+        3,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_016",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 5,
+      "b": 13,
+      "D": 2
+    },
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        5,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ba"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_017",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 1,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        4,
+        2,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_018",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 0,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        5,
+        1,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_019",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 5,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 5,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 7,
+      "b": 13,
+      "D": 6
+    },
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        6,
+        2,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_020",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 4,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 6,
+      "b": 11,
+      "D": 5
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        6,
+        2,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_021",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 6,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 6,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        6,
+        3,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ba"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_022",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 6,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 8,
+      "b": 10,
+      "D": 2
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        6,
+        2,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_023",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 4,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 2,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        6,
+        2,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "ba"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_024",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 5,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 4,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 7,
+      "b": 14,
+      "D": 4
+    },
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        5,
+        2,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_025",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 4,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 0,
+      "b": 12,
+      "D": 1
+    },
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        5,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_026",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 6,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 5,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 0,
+      "b": 17,
+      "D": 1
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        6,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "oa"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_027",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 3,
+      "b": 15,
+      "D": 4
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        5,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_028",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 6,
+      "b": 9,
+      "D": 6
+    },
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        5,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_029",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        5,
+        2,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_030",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 4,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 7,
+      "b": 14,
+      "D": 5
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        5,
+        3,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_031",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        6,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_032",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 5,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 5,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 4,
+      "b": 14,
+      "D": 0
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        5,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_033",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 4,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 8,
+      "b": 17,
+      "D": 2
+    },
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        6,
+        2,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_034",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 4,
+      "b": 13,
+      "D": 5
+    },
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        5,
+        1,
+        4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "ba"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_035",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 2,
+      "b": 10,
+      "D": 6
+    },
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        4,
+        3,
+        -4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_036",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 5,
+      "b": 18,
+      "D": 3
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        4,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_037",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 1,
+      "b": 17,
+      "D": 3
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        4,
+        3,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_038",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 5,
+      "b": 9,
+      "D": 5
+    },
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        5,
+        3,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_039",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 5,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 5,
+      "b": 10,
+      "D": 4
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        5,
+        3,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_040",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 4,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 7,
+      "b": 14,
+      "D": 2
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        4,
+        2,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_041",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 5,
+      "b": 12,
+      "D": 2
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        6,
+        2,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_042",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 5,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 2,
+      "b": 12,
+      "D": 5
+    },
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        6,
+        3,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_043",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 6,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 6,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 4,
+      "b": 10,
+      "D": 4
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        6,
+        2,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "ba"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_044",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 4,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 1,
+      "b": 14,
+      "D": 3
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        5,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_045",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 2,
+      "b": 11,
+      "D": 1
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        6,
+        1,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_046",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 8,
+      "b": 13,
+      "D": 4
+    },
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        6,
+        3,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "ba"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_047",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 5,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 6,
+      "b": 18,
+      "D": 5
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        5,
+        3,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_048",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 8,
+      "b": 16,
+      "D": 6
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        6,
+        2,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "ab"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_049",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 5,
+      "b": 16,
+      "D": 1
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        4,
+        3,
+        -4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_050",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 4,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        4,
+        3,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_051",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 5,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 6,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        6,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_052",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 7,
+      "b": 13,
+      "D": 5
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        4,
+        1,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_053",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 1,
+      "b": 14,
+      "D": 3
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        6,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_054",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 6,
+      "b": 14,
+      "D": 4
+    },
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        4,
+        3,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_055",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 7,
+      "b": 13,
+      "D": 5
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        5,
+        3,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "ba"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_056",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 0,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 5,
+      "b": 12,
+      "D": 0
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        5,
+        3,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_057",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 7,
+      "b": 15,
+      "D": 6
+    },
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        4,
+        2,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_058",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 4,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 5,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 0,
+      "b": 18,
+      "D": 6
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        5,
+        2,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_059",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 0,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 4,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 2,
+      "b": 14,
+      "D": 0
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        5,
+        1,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_060",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 0,
+      "b": 10,
+      "D": 6
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        6,
+        2,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_061",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 4,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        5,
+        3,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_062",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 1,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        4,
+        3,
+        -4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_063",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 5,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 17,
+      "D": 0
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        6,
+        2,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_064",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 1,
+      "b": 17,
+      "D": 2
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        5,
+        3,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_065",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        4,
+        1,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_066",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 4,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        4,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_067",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 5,
+      "b": 10,
+      "D": 4
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        6,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_068",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        4,
+        1,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_069",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 6,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 5,
+      "b": 14,
+      "D": 1
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        6,
+        1,
+        4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ba"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_070",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 5,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 4,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 1,
+      "b": 17,
+      "D": 6
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        6,
+        1,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_071",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 2,
+      "b": 10,
+      "D": 0
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        5,
+        2,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_072",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        6,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_073",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 4,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 4,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        4,
+        1,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_074",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 6,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 6,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        6,
+        3,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "ba"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_075",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 4,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 0,
+      "b": 17,
+      "D": 6
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        5,
+        1,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_076",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        4,
+        3,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_077",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 4,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 6,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 2,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        6,
+        1,
+        4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_078",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 5,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 6,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        6,
+        3,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_079",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 6,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 5,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 8,
+      "b": 10,
+      "D": 5
+    },
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        6,
+        2,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "ba"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_080",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 1,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 0,
+      "b": 12,
+      "D": 1
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        5,
+        1,
+        4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ba"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_081",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 0,
+      "b": 18,
+      "D": 4
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        5,
+        3,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_082",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        6,
+        3,
+        -4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_083",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 5,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 4,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 8,
+      "b": 18,
+      "D": 2
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        6,
+        1,
+        4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_084",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        4,
+        3,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_085",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 5,
+      "b": 15,
+      "D": 2
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        5,
+        3,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_086",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 4,
+      "b": 14,
+      "D": 0
+    },
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        4,
+        2,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_087",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 6,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 4,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        6,
+        2,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_088",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 7,
+      "b": 15,
+      "D": 0
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        6,
+        2,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_089",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 3,
+      "b": 15,
+      "D": 1
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        4,
+        3,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_090",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 8,
+      "b": 15,
+      "D": 4
+    },
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        4,
+        1,
+        2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_091",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 1,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "CS"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        4,
+        3,
+        -4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "ab"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_092",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 4,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 3,
+      "b": 16,
+      "D": 4
+    },
+    "sites": {
+      "a": [
+        "S"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        5,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_093",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 0,
+      "b": 10,
+      "D": 6
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        4,
+        3,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_094",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 1,
+    "reserve_kwh": 2,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        6,
+        3,
+        -4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "ba"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_095",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 4,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 3,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 2,
+    "schedule": {
+      "a": 6,
+      "b": 14,
+      "D": 3
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S"
+      ],
+      "b": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        6,
+        2,
+        -2
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 4,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_096",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 1,
+    "schedule": null,
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        4,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 4,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "ba"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_097",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 4,
+    "capacity_kwh": 4,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 4,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 4,
+      "b": 16,
+      "D": 3
+    },
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "C",
+        "S",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        4,
+        3,
+        -4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 3,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "ab"
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1,
+        "edge_id": "az"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_098",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 1,
+    "capacity_kwh": 6,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 5,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 4,
+      "b": 18,
+      "D": 5
+    },
+    "sites": {
+      "a": [
+        "C"
+      ],
+      "b": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        6,
+        3,
+        -4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 2,
+        "length_m": 2,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 3,
+        "edge_id": "ob"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "ab"
+      },
+      {
+        "source": "b",
+        "target": "a",
+        "time_s": 4,
+        "length_m": 1,
+        "edge_id": "ba"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "bz"
+      }
+    ]
+  },
+  {
+    "case_id": "audit_random_099",
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 4,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 2,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 6,
+      "b": 14,
+      "D": 1
+    },
+    "sites": {
+      "a": [
+        "C",
+        "S",
+        "CS"
+      ],
+      "b": [
+        "C",
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        5,
+        3,
+        -4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "oa"
+      },
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ob"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 2,
+        "edge_id": "oz"
+      },
+      {
+        "source": "a",
+        "target": "b",
+        "time_s": 3,
+        "length_m": 4,
+        "edge_id": "ab"
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 2,
+        "edge_id": "bz"
+      }
+    ]
+  }
+]

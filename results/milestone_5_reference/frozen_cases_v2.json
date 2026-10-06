@@ -1,0 +1,999 @@
+[
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 10
+    },
+    "sites": {
+      "x": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        2,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "x",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "x",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3
+      }
+    ],
+    "case_id": "cs_service_dominant_positive_v2",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "13",
+      "Q_total": "2",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "x",
+          "CS"
+        ]
+      ]
+    },
+    "analytic_certificate": "Energy balance forces q>=2. Arrival1 and positive h1 give release2; charge completes6 below service completion12; terminal13.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "cs_service_dominant"
+  },
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 10
+    },
+    "sites": {
+      "x": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        10,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "x",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "x",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3
+      }
+    ],
+    "case_id": "cs_charge_dominant_positive_v2",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "23",
+      "Q_total": "2",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "x",
+          "CS"
+        ]
+      ]
+    },
+    "analytic_certificate": "Energy balance q>=2; release2 plus charge20 completes22, dominating service12; terminal23.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "cs_charge_dominant"
+  },
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 10,
+      "b": 10,
+      "D": 2
+    },
+    "sites": {
+      "x": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        2,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "x",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "x",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3
+      }
+    ],
+    "case_id": "cs_waiting_dominant_positive_v2",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "13",
+      "Q_total": "2",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "x",
+          "CS"
+        ]
+      ]
+    },
+    "analytic_certificate": "q>=2; positive overhead makes charging complete6, still before scheduled service completes12; terminal13.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "cs_waiting_dominant"
+  },
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 10
+    },
+    "sites": {
+      "x": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        5,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "x",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "x",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3
+      }
+    ],
+    "case_id": "cs_exact_max_boundary_positive_v2",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "13",
+      "Q_total": "2",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "x",
+          "CS"
+        ]
+      ]
+    },
+    "analytic_certificate": "q=2 and h1 give charging and service completion12 exactly; terminal13.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "cs_exact_max_boundary"
+  },
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 3
+    },
+    "sites": {
+      "x": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        5,
+        3,
+        -4
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "x",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "x",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3
+      }
+    ],
+    "case_id": "cs_crosses_charging_breakpoint_positive_v2",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "7",
+      "Q_total": "2",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "x",
+          "CS"
+        ]
+      ]
+    },
+    "analytic_certificate": "Arrival energy1 and departure3 give F(3)-F(1)=4. Release2 yields charging completion6, service5; terminal7.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "cs_crosses_charging_breakpoint"
+  },
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 0
+    },
+    "sites": {
+      "x": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "x",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "x",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1
+      }
+    ],
+    "case_id": "cs_primary_unattained_positive_v2",
+    "independent_expected": {
+      "status": "primary_unattained",
+      "primary_infimum": "3"
+    },
+    "analytic_certificate": "Positive drive lengths consume1 per leg: initial3 arrives at x with2; any q in (0,3] is energy-feasible. Mandatory CS has h1,D0,F(E)=E, so J=3+q with unattained infimum3.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "cs_primary_unattained"
+  },
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 10
+    },
+    "sites": {
+      "x": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "x",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "x",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1
+      }
+    ],
+    "case_id": "cs_secondary_unattained_positive_v2",
+    "independent_expected": {
+      "status": "secondary_unattained",
+      "J": "13",
+      "secondary_infimum": "0"
+    },
+    "analytic_certificate": "Positive drive lengths consume1 per leg: initial3 arrives at x with2; q in (0,3] is feasible. Positive h1 gives release2; service10 dominates charging, so J13 is attained and Q=q has unattained infimum0.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "cs_secondary_unattained"
+  },
+  {
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 10,
+    "capacity_kwh": 10,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 1,
+    "schedule": null,
+    "sites": {
+      "s": [
+        "C"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        10,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 20
+      },
+      {
+        "source": "o",
+        "target": "s",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "s",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1
+      }
+    ],
+    "case_id": "c_primary_unattained_with_repeat_positive_v2",
+    "independent_expected": {
+      "status": "primary_unattained",
+      "primary_infimum": "4"
+    },
+    "analytic_certificate": "Fastest direct leg consumes20>10. Via s requires an actual C: q in (0,1], J=4+q; repeat adds two units of time/penalty.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "c_primary_unattained_with_repeat"
+  },
+  {
+    "H_ref": 3,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 10,
+    "capacity_kwh": 10,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 1,
+    "schedule": {
+      "a": 10,
+      "b": 10,
+      "D": 1
+    },
+    "sites": {
+      "s": [
+        "C"
+      ],
+      "g": [
+        "S"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        10,
+        1,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "g",
+        "time_s": 1,
+        "length_m": 100
+      },
+      {
+        "source": "o",
+        "target": "s",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "s",
+        "target": "g",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "g",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1
+      }
+    ],
+    "case_id": "c_s_secondary_unattained_with_repeat_positive_v2",
+    "independent_expected": {
+      "status": "secondary_unattained",
+      "J": "14",
+      "secondary_infimum": "0"
+    },
+    "analytic_certificate": "The fastest direct route to g is energy-infeasible. C at s then S at g attains waiting plateau J=14 for q in (0,1]; Q infimum0 remains open. Extra C stops add penalty.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "c_s_secondary_unattained_with_repeat"
+  },
+  {
+    "H_ref": 0,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {},
+    "charging_segments": [],
+    "edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 1
+      }
+    ],
+    "case_id": "zero_stop_no_station_positive_v2",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "4",
+      "Q_total": "0",
+      "H": 0,
+      "site_action_tuple": []
+    },
+    "analytic_certificate": "Direct leg consumes1<=3 and no service remains; H_ref0 includes the empty sequence.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "zero_stop_no_station"
+  },
+  {
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {
+      "unsupported": []
+    },
+    "charging_segments": [],
+    "edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 4,
+        "length_m": 1
+      }
+    ],
+    "case_id": "empty_capability_site_positive_v2",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "4",
+      "Q_total": "0",
+      "H": 0,
+      "site_action_tuple": []
+    },
+    "analytic_certificate": "An empty site action list offers no semantic stop, while the direct feasible plan remains valid.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "empty_capability_site"
+  },
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 5,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 10
+    },
+    "sites": {
+      "x": [
+        "S"
+      ]
+    },
+    "charging_segments": [],
+    "edges": [
+      {
+        "source": "o",
+        "target": "x",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "x",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3
+      }
+    ],
+    "case_id": "service_only_no_charge_variables_positive_v2",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "13",
+      "Q_total": "0",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "x",
+          "S"
+        ]
+      ]
+    },
+    "analytic_certificate": "Initial energy5 covers total consumption4. Release2 plus service10 and final drive1 gives J13, Q0.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "service_only_no_charge_variables"
+  },
+  {
+    "H_ref": 0,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 10
+    },
+    "sites": {
+      "x": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        2,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 3,
+        "length_m": 1
+      }
+    ],
+    "initial_remaining_schedule": 0,
+    "case_id": "already_satisfied_service_state_positive_v2",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "3",
+      "Q_total": "0",
+      "H": 0,
+      "site_action_tuple": []
+    },
+    "analytic_certificate": "Explicit initial r=0 disables S/CS and permits the direct terminal plan even though a schedule definition is retained.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "already_satisfied_service_state"
+  },
+  {
+    "H_ref": 0,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 10
+    },
+    "sites": {
+      "x": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        2,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "x",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "x",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3
+      }
+    ],
+    "case_id": "unsatisfied_service_bound_zero_positive_v2",
+    "independent_expected": {
+      "status": "infeasible_within_H_ref"
+    },
+    "analytic_certificate": "Hard service remains unsatisfied and H_ref0 permits no stop; no conclusion beyond this bound.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "unsatisfied_service_bound_zero"
+  },
+  {
+    "H_ref": 1,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 10
+    },
+    "sites": {
+      "b": [
+        "CS"
+      ],
+      "a": [
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        2,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "b",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "b",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3
+      },
+      {
+        "source": "o",
+        "target": "a",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "a",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3
+      }
+    ],
+    "case_id": "deterministic_site_tuple_tie_positive_v2",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "13",
+      "Q_total": "2",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "a",
+          "CS"
+        ]
+      ]
+    },
+    "analytic_certificate": "Both sites have release2 and service completion12; both tie J13,Q2,H1, so lexicographic site a wins.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "deterministic_site_tuple_tie"
+  },
+  {
+    "H_ref": 0,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {},
+    "charging_segments": [],
+    "edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 4,
+        "edge_id": "fast"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 2,
+        "length_m": 1,
+        "edge_id": "short"
+      }
+    ],
+    "case_id": "fastest_leg_actual_length_positive_v2",
+    "independent_expected": {
+      "status": "infeasible_within_H_ref"
+    },
+    "analytic_certificate": "Selected fastest leg has length4 and exceeds energy3; the slower length1 edge may not replace it.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "fastest_leg_actual_length"
+  },
+  {
+    "H_ref": 0,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 3,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": null,
+    "sites": {},
+    "charging_segments": [],
+    "edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3,
+        "edge_id": "b"
+      },
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 1,
+        "edge_id": "a"
+      }
+    ],
+    "case_id": "deterministic_parallel_edge_tie_positive_v2",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "1",
+      "Q_total": "0",
+      "H": 0,
+      "site_action_tuple": []
+    },
+    "analytic_certificate": "Identical time/node path ties are broken by edge ID a before b; selected actual consumption is1.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "deterministic_parallel_edge_tie"
+  },
+  {
+    "H_ref": 2,
+    "origin": "o",
+    "destination": "z",
+    "start_time_s": 0,
+    "initial_energy_kwh": 2,
+    "capacity_kwh": 5,
+    "minimum_energy_kwh": 0,
+    "reserve_kwh": 0,
+    "consumption_kwh_per_m": 1,
+    "overhead_s": 1,
+    "lambda_stop_s": 0,
+    "schedule": {
+      "a": 0,
+      "b": 100,
+      "D": 10
+    },
+    "sites": {
+      "x": [
+        "C",
+        "CS"
+      ]
+    },
+    "charging_segments": [
+      [
+        0,
+        5,
+        2,
+        0
+      ]
+    ],
+    "edges": [
+      {
+        "source": "o",
+        "target": "x",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "x",
+        "target": "o",
+        "time_s": 1,
+        "length_m": 1
+      },
+      {
+        "source": "x",
+        "target": "z",
+        "time_s": 1,
+        "length_m": 3
+      }
+    ],
+    "case_id": "cyclic_directed_graph_repeated_site_positive_v2",
+    "independent_expected": {
+      "status": "attained_optimum",
+      "J": "13",
+      "Q_total": "2",
+      "H": 1,
+      "site_action_tuple": [
+        [
+          "x",
+          "CS"
+        ]
+      ]
+    },
+    "analytic_certificate": "Direct CS has release2 and service completion12, terminal13. Additional C before CS incurs another positive overhead plus positive charging; no better plan.",
+    "validation_domain": "positive_overhead_and_positive_road_edges",
+    "supersedes_exploratory_case": "cyclic_directed_graph_repeated_site"
+  }
+]

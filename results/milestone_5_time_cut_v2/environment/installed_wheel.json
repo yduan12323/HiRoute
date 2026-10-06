@@ -1,0 +1,30 @@
+{
+  "python": "3.11.16",
+  "wheel_sha256": "949df39544ed3a1fad38b7a350e3bae0ded42579ec5bd548bfc35ee15cf13f9d",
+  "modules_byte_identical": [
+    "hierarchy4r/boundary.py",
+    "hierarchy4r/bounds.py",
+    "hierarchy4r/tree.py",
+    "hierarchy4r/diagnosis.py",
+    "hierarchy4r/domain.py",
+    "hierarchy4r/deploy.py",
+    "hierarchy4r/search.py",
+    "hierarchy4r/__init__.py",
+    "hierarchy4r/deploy_search.py",
+    "timecut5/bounded.py",
+    "timecut5/probe.py",
+    "timecut5/hierarchy.py",
+    "timecut5/pwa.py",
+    "timecut5/__init__.py"
+  ],
+  "isolated_namespace_imports": [
+    "hierarchy4r",
+    "timecut5"
+  ],
+  "isolated_solver_smoke": [
+    "FLAT zero-stop",
+    "HIER zero-stop"
+  ],
+  "source_path_not_used": true,
+  "physical_and_pwa_standard_library_only": true
+}

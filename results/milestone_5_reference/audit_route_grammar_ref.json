@@ -1,0 +1,45 @@
+{
+  "fixture_sha256": "33444155b95f74052222f1eaf0f74709a428b9ea389d13d81838b54badda34aa",
+  "fixture_path": "results/milestone_5_reference/audit_route_grammar_cases.json",
+  "oracle": "independent_reference5",
+  "results": [
+    {
+      "scope": "bounded_H_ref_diagnostic",
+      "model_domain": "positive_overhead_and_positive_road_edges",
+      "H_ref": 0,
+      "case_id": "audit_zero_stop_cannot_shape_route_with_drive_waypoint",
+      "result": {
+        "status": "infeasible_within_H_ref"
+      },
+      "sequence_count": 1,
+      "terminal_sequence_count": 1,
+      "regime_count": 1,
+      "closed_infeasible_regime_count": 1,
+      "empty_strict_regime_count": 0,
+      "strict_feasible_regime_count": 0,
+      "certified_regime_count": 1,
+      "sequences": [
+        {
+          "sequence": [],
+          "remaining_schedule": 0,
+          "regimes": 1
+        }
+      ],
+      "regimes": [
+        {
+          "sequence": [],
+          "segments": [],
+          "schedule_branch": null,
+          "completion_branch": null,
+          "primary_certificate": {
+            "status": "infeasible",
+            "constant_constraints_verified": true
+          },
+          "status": "closed_regime_infeasible"
+        }
+      ],
+      "all_regimes_certified": true,
+      "elapsed_seconds": 0.00025490400003036484
+    }
+  ]
+}

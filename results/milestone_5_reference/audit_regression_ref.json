@@ -1,0 +1,304 @@
+{
+  "fixture_sha256": "babdc5c8864d1738f90562da8b1dafbc3ddb05dfd39ba417cc03c00cb05806dd",
+  "fixture_path": "results/milestone_5_reference/audit_regression_cases.json",
+  "oracle": "independent_reference5",
+  "results": [
+    {
+      "scope": "bounded_H_ref_diagnostic",
+      "model_domain": "positive_overhead_and_positive_road_edges",
+      "H_ref": 1,
+      "case_id": "audit_destination_service_is_not_stop",
+      "result": {
+        "status": "infeasible_within_H_ref"
+      },
+      "sequence_count": 1,
+      "terminal_sequence_count": 0,
+      "regime_count": 0,
+      "closed_infeasible_regime_count": 0,
+      "empty_strict_regime_count": 0,
+      "strict_feasible_regime_count": 0,
+      "certified_regime_count": 0,
+      "sequences": [
+        {
+          "sequence": [],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        }
+      ],
+      "regimes": [],
+      "all_regimes_certified": true,
+      "elapsed_seconds": 0.010885564999625785
+    },
+    {
+      "scope": "bounded_H_ref_diagnostic",
+      "model_domain": "positive_overhead_and_positive_road_edges",
+      "H_ref": 1,
+      "case_id": "audit_destination_charging_is_not_stop",
+      "result": {
+        "status": "infeasible_within_H_ref"
+      },
+      "sequence_count": 1,
+      "terminal_sequence_count": 1,
+      "regime_count": 1,
+      "closed_infeasible_regime_count": 1,
+      "empty_strict_regime_count": 0,
+      "strict_feasible_regime_count": 0,
+      "certified_regime_count": 1,
+      "sequences": [
+        {
+          "sequence": [],
+          "remaining_schedule": 0,
+          "regimes": 1
+        }
+      ],
+      "regimes": [
+        {
+          "sequence": [],
+          "segments": [],
+          "schedule_branch": null,
+          "completion_branch": null,
+          "primary_certificate": {
+            "status": "infeasible",
+            "constant_constraints_verified": true
+          },
+          "status": "closed_regime_infeasible"
+        }
+      ],
+      "all_regimes_certified": true,
+      "elapsed_seconds": 0.00019027700182050467
+    },
+    {
+      "scope": "bounded_H_ref_diagnostic",
+      "model_domain": "positive_overhead_and_positive_road_edges",
+      "H_ref": 1,
+      "case_id": "audit_destination_internal_road_transit_allowed",
+      "result": {
+        "status": "attained_optimum",
+        "primary_infimum": "5",
+        "secondary_infimum": "0",
+        "J": "5",
+        "Q_total": "0",
+        "H": 1,
+        "site_action_tuple": [
+          [
+            "s",
+            "S"
+          ]
+        ],
+        "charges": [],
+        "events": [
+          {
+            "site": "s",
+            "effect": "S",
+            "charge_kwh": "0",
+            "arrival_time_s": "2",
+            "arrival_kwh": "3",
+            "departure_kwh": "3",
+            "completion_s": "4",
+            "charge_completion_s": null,
+            "schedule_start_s": "3",
+            "schedule_completion_s": "4",
+            "remaining_schedule": 0
+          }
+        ],
+        "terminal_energy_kwh": "2",
+        "terminal_time_s": "5",
+        "remaining_schedule": 0,
+        "route_legs": [
+          {
+            "time": "2",
+            "length": "2",
+            "energy": "2",
+            "nodes": [
+              "o",
+              "z",
+              "s"
+            ],
+            "edges": [
+              "input:00000000",
+              "input:00000001"
+            ]
+          },
+          {
+            "time": "1",
+            "length": "1",
+            "energy": "1",
+            "nodes": [
+              "s",
+              "z"
+            ],
+            "edges": [
+              "input:00000002"
+            ]
+          }
+        ],
+        "lex_key": [
+          "5",
+          "0",
+          1,
+          [
+            [
+              "s",
+              "S"
+            ]
+          ]
+        ],
+        "witness_replayed": true
+      },
+      "sequence_count": 2,
+      "terminal_sequence_count": 1,
+      "regime_count": 2,
+      "closed_infeasible_regime_count": 1,
+      "empty_strict_regime_count": 0,
+      "strict_feasible_regime_count": 1,
+      "certified_regime_count": 2,
+      "sequences": [
+        {
+          "sequence": [],
+          "remaining_schedule": 1,
+          "regimes": 0,
+          "rejection": "unsatisfied_hard_schedule"
+        },
+        {
+          "sequence": [
+            [
+              "s",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "regimes": 2
+        }
+      ],
+      "regimes": [
+        {
+          "sequence": [
+            [
+              "s",
+              "S"
+            ]
+          ],
+          "segments": [],
+          "schedule_branch": "early",
+          "completion_branch": null,
+          "primary_certificate": {
+            "status": "infeasible",
+            "constant_constraints_verified": true
+          },
+          "status": "closed_regime_infeasible"
+        },
+        {
+          "sequence": [
+            [
+              "s",
+              "S"
+            ]
+          ],
+          "segments": [],
+          "schedule_branch": "late",
+          "completion_branch": null,
+          "primary_certificate": {
+            "status": "optimal",
+            "x": [],
+            "objective": "0",
+            "inequality_dual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "equality_dual": [],
+            "exact_primal_dual_verified": true
+          },
+          "strict_feasibility_certificate": {
+            "status": "optimal",
+            "x": [
+              "1"
+            ],
+            "objective": "-1",
+            "inequality_dual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-1"
+            ],
+            "equality_dual": [],
+            "exact_primal_dual_verified": true
+          },
+          "primary_face_certificate": {
+            "status": "optimal",
+            "x": [
+              "1"
+            ],
+            "objective": "-1",
+            "inequality_dual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-1"
+            ],
+            "equality_dual": [
+              "0"
+            ],
+            "exact_primal_dual_verified": true
+          },
+          "secondary_certificate": {
+            "status": "optimal",
+            "x": [],
+            "objective": "0",
+            "inequality_dual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "equality_dual": [
+              "0"
+            ],
+            "exact_primal_dual_verified": true
+          },
+          "secondary_face_certificate": {
+            "status": "optimal",
+            "x": [
+              "1"
+            ],
+            "objective": "-1",
+            "inequality_dual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-1"
+            ],
+            "equality_dual": [
+              "0",
+              "0"
+            ],
+            "exact_primal_dual_verified": true
+          },
+          "status": "attained_optimum",
+          "J": "5",
+          "Q_total": "0"
+        }
+      ],
+      "all_regimes_certified": true,
+      "elapsed_seconds": 0.005518696001672652
+    }
+  ]
+}
