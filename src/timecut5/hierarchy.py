@@ -96,7 +96,8 @@ def solve_hierarchical(case: Mapping, dominance: bool = True, leaf_size: int = 1
 
 
 def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
-                                incumbent: Witness | None = None) -> HierarchyResult:
+                                incumbent: Witness | None = None, *, reducer=None) -> HierarchyResult:
+    reducer = reduce_frontier if reducer is None else reducer
     incumbent_key = None
     incumbent_witness = None
     source = "none"
@@ -207,7 +208,7 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
             by_state = defaultdict(list)
             for p in next_pieces:
                 by_state[p.state].append(p)
-            next_pieces = [p for values in by_state.values() for p in reduce_frontier(values)]
+            next_pieces = [p for values in by_state.values() for p in reducer(values)]
         maximum = max(maximum, len(next_pieces))
         layer = _groups(next_pieces)
         if not layer:

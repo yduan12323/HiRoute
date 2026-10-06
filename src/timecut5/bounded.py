@@ -235,7 +235,8 @@ def solve_bounded(case: Mapping, dominance: bool = True) -> BoundedResult:
     return _solve_problem(Problem(case),dominance)
 
 
-def _solve_problem(problem: Problem, dominance: bool = True) -> BoundedResult:
+def _solve_problem(problem: Problem, dominance: bool = True, *, reducer=None) -> BoundedResult:
+    reducer = reduce_frontier if reducer is None else reducer
     layer = ((problem.initial_piece(),),)
     terminals = []
     attempted = 0
@@ -265,7 +266,7 @@ def _solve_problem(problem: Problem, dominance: bool = True) -> BoundedResult:
             by_state = defaultdict(list)
             for p in next_pieces:
                 by_state[p.state].append(p)
-            next_pieces = [p for group in by_state.values() for p in reduce_frontier(group)]
+            next_pieces = [p for group in by_state.values() for p in reducer(group)]
         maximum = max(maximum, len(next_pieces))
         layer = _groups(next_pieces)
         if not layer:
