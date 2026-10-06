@@ -249,6 +249,11 @@ def replay_witness(case: Mapping, witness: Witness) -> tuple:
     This checks the returned physical plan without reading PWA/FM internals.
     It is a witness verifier, not an independent optimization reference.
     """
+    # Incumbents affect pruning: legality checks must survive Python -O.
+    def _require(condition, message):
+        if not condition:
+            raise AssertionError(message)
+
     problem = Problem(case)
     time, energy, anchor = problem.start, problem.initial, problem.origin
     remaining, total_charge, pi = problem.initial_remaining, R(0), ()
@@ -261,49 +266,49 @@ def replay_witness(case: Mapping, witness: Witness) -> tuple:
     # would allow an unmodeled route-shaping via point and can manufacture a
     # false incumbent whose energy differs from the selected direct leg.
     if problem.origin == problem.destination:
-        assert len(events) == 1 and not witness.pi, "Terminal origin has no outgoing plan"
+        _require(len(events) == 1 and not witness.pi, "Terminal origin has no outgoing plan")
     else:
-        assert len(events) == 2 * len(witness.pi) + 2, "Noncanonical physical leg/stop structure"
+        _require(len(events) == 2 * len(witness.pi) + 2, "Noncanonical physical leg/stop structure")
         for index, event in enumerate(events[1:], 1):
-            assert (event.effect == "D") == (index % 2 == 1), "Drives must alternate with semantic stops"
+            _require((event.effect == "D") == (index % 2 == 1), "Drives must alternate with semantic stops")
 
     def integral(a, b):
-        assert problem.curve is not None
+        _require(problem.curve is not None, 'Witness violates the physical query or event equations')
         return sum((max(R(0), min(b, hi) - max(a, lo)) * slope
                     for lo, hi, slope, _ in problem.curve.segments), R(0))
 
     for event in events[1:]:
-        assert (event.arrival_time, event.arrival_energy) == (time, energy)
-        assert anchor != problem.destination, "No semantic continuation from a terminal anchor"
+        _require((event.arrival_time, event.arrival_energy) == (time, energy), 'Witness violates the physical query or event equations')
+        _require(anchor != problem.destination, "No semantic continuation from a terminal anchor")
         if event.effect == "D":
             leg = problem.legs[anchor, event.site]
             time += leg.time
             energy -= leg.energy
             anchor = event.site
         else:
-            assert anchor != problem.destination, "Destination is not a semantic stop"
-            assert event.site == anchor and event.effect in problem.sites[anchor]
+            _require(anchor != problem.destination, "Destination is not a semantic stop")
+            _require(event.site == anchor and event.effect in problem.sites[anchor], 'Witness violates the physical query or event equations')
             release = time + problem.overhead
             charge_done = schedule_done = release
             if event.effect in ("C", "CS"):
                 q = event.departure_energy - energy
-                assert q > 0 and event.departure_energy <= problem.capacity
+                _require(q > 0 and event.departure_energy <= problem.capacity, 'Witness violates the physical query or event equations')
                 charge_done += integral(energy, event.departure_energy)
                 total_charge += q
                 energy = event.departure_energy
             if event.effect in ("S", "CS"):
-                assert remaining == 1 and problem.schedule is not None
+                _require(remaining == 1 and problem.schedule is not None, 'Witness violates the physical query or event equations')
                 a, b, duration = problem.schedule
                 start = max(a, release)
-                assert start <= b
+                _require(start <= b, 'Witness violates the physical query or event equations')
                 schedule_done = start + duration
                 remaining = 0
             time = max(charge_done, schedule_done)
             pi += ((anchor, event.effect),)
-        assert problem.floor <= energy <= problem.capacity
-        assert (event.departure_time, event.departure_energy) == (time, energy)
-    assert len(pi) <= problem.bound, "Witness exceeds the explicit diagnostic stop bound"
-    assert anchor == problem.destination and remaining == 0 and energy >= problem.reserve
-    assert (witness.time, witness.energy, witness.charge, witness.pi, witness.state) == (
-        time, energy, total_charge, pi, State(anchor, remaining, len(pi)))
+        _require(problem.floor <= energy <= problem.capacity, 'Witness violates the physical query or event equations')
+        _require((event.departure_time, event.departure_energy) == (time, energy), 'Witness violates the physical query or event equations')
+    _require(len(pi) <= problem.bound, "Witness exceeds the explicit diagnostic stop bound")
+    _require(anchor == problem.destination and remaining == 0 and energy >= problem.reserve, 'Witness violates the physical query or event equations')
+    _require((witness.time, witness.energy, witness.charge, witness.pi, witness.state) == (
+        time, energy, total_charge, pi, State(anchor, remaining, len(pi))), 'Witness violates the physical query or event equations')
     return time - problem.start + problem.penalty * len(pi), total_charge, len(pi), pi
