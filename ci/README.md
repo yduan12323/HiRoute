@@ -39,7 +39,7 @@ fixture allowlist. It:
 2. Installs that wheel, stages repository validator source separately, and
    verifies production imports come from the environment. The test directory
    contains no `src` tree or repository pytest `pythonpath` override.
-3. Runs the same 22 selected modules under normal Python and `python -OO`, with
+3. Runs the same 24 selected modules under normal Python and `python -OO`, with
    one-thread BLAS/OpenMP/MKL and external pytest plugin autoload disabled.
 4. Rejects missing fixtures, zero collected tests, skips, errors and failures.
 
@@ -47,12 +47,27 @@ Coverage includes exact cut/PWA operators, bounded and tiny-HIER behavior,
 coalescing, forged-incumbent replay, immutable-leg/export-input mocks,
 independent REF adapter mocks, family provenance/receipts, invocation traces,
 restricted affine suffix certificates/witnesses, and trace/coalescing guards.
+Two additive v2 modules also cover continuous convex full-capacity charging
+with positive nondecreasing slopes, and genuinely charging-free S-only cases.
+They use explicit v2 models/ledgers and require result-plus-arrival-band witness
+binding. They do not admit generic nonconvex PWA, real-leg integration,
+coalescing, frozen numerical populations, or literal G8 closure.
 Only the nine explicitly named synthetic/mock JSON fixtures are staged.
+
+The v2 fixtures are hand-authored inside its test modules, so adding this
+coverage needs no data fixture or dependency change. All v1 files, the locked
+14-package environment and the workflow permissions/runner remain unchanged.
 
 The initial rehearsal on the PR5 public tree passed **298 tests and 413
 subtests in each mode**, with no skips. `-OO` produces the expected pytest
 warning about assertions outside test modules; negative validator tests still
 run. That warning is not a certificate of all optimized-runtime behavior.
+
+The additive convex/no-curve v2 integration was rehearsed in a fresh environment
+using the same hash-locked dependencies: **330 tests and 489 subtests in each
+mode**, with no skips, in 38.1 seconds after dependency installation. These
+counts include the existing affine-v1 regressions; they are focused CI evidence,
+not a newly admitted frozen numerical population or a performance benchmark.
 
 ## Deliberately outside this gate
 

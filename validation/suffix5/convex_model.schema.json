@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Continuous convex restricted suffix model v2",
+  "description": "Structural schema only. Independent semantic regeneration, canonical rational checks and complete ordered coverage are mandatory for acceptance.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "family_id", "word", "case_sha256", "family_bundle_sha256", "H", "pi", "arrival_bands", "exclusion", "lp"],
+  "properties": {
+    "schema": {"const": "family5-suffix-model-v2"},
+    "family_id": {"$ref": "#/$defs/digest"},
+    "case_sha256": {"$ref": "#/$defs/digest"},
+    "family_bundle_sha256": {"$ref": "#/$defs/digest"},
+    "word": {"$ref": "#/$defs/word"},
+    "pi": {"$ref": "#/$defs/word"},
+    "H": {"type": "integer", "minimum": 1},
+    "arrival_bands": {"oneOf": [{"type": "null"}, {"type": "array", "minItems": 1, "items": {"oneOf": [{"type": "null"}, {"type": "integer", "minimum": 0}]}}]},
+    "exclusion": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/exclusion"}]},
+    "lp": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/lp"}]}
+  },
+  "allOf": [{"if": {"properties": {"exclusion": {"type": "null"}}}, "then": {"properties": {"arrival_bands": {"type": "array"}, "lp": {"type": "object"}}}, "else": {"properties": {"arrival_bands": {"type": "null"}, "lp": {"type": "null"}}}}],
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "rational": {"type": "string", "pattern": "^-?(0|[1-9][0-9]*)(/[1-9][0-9]*)?$"},
+    "vector": {"type": "array", "minItems": 4, "items": {"$ref": "#/$defs/rational"}},
+    "word": {"type": "array", "minItems": 1, "items": {"type": "array", "prefixItems": [{"type": "string", "minLength": 1}, {"enum": ["C", "S", "CS"]}], "items": false, "minItems": 2, "maxItems": 2}},
+    "exclusion": {"type": "object", "additionalProperties": false, "required": ["kind", "leg_index", "source", "target"], "properties": {"kind": {"const": "unreachable_selected_leg"}, "leg_index": {"type": "integer", "minimum": 0}, "source": {"type": "string"}, "target": {"type": "string"}}},
+    "row": {"type": "object", "additionalProperties": false, "required": ["label", "coefficients", "rhs", "strict"], "properties": {"label": {"type": "string"}, "coefficients": {"$ref": "#/$defs/vector"}, "rhs": {"$ref": "#/$defs/rational"}, "strict": {"type": "boolean"}}},
+    "objective": {"type": "object", "additionalProperties": false, "required": ["coefficients", "constant"], "properties": {"coefficients": {"$ref": "#/$defs/vector"}, "constant": {"$ref": "#/$defs/rational"}}},
+    "lp": {"type": "object", "additionalProperties": false, "required": ["variables", "rows", "J", "Q"], "properties": {"variables": {"type": "array", "minItems": 4, "items": {"type": "string"}}, "rows": {"type": "array", "items": {"$ref": "#/$defs/row"}}, "J": {"$ref": "#/$defs/objective"}, "Q": {"$ref": "#/$defs/objective"}}}
+  }
+}
