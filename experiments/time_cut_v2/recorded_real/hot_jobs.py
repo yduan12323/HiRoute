@@ -15,6 +15,7 @@ PROFILE_TOTAL_SECONDS=90
 JOB_AS=1024**3
 MAX_REPORT=1024**2
 SWEEP_KERNEL='interval-sweep-v1'
+JOIN_KERNEL='interval-join-v1'
 
 class SampleEnd(BaseException):pass
 
@@ -138,19 +139,19 @@ class KernelObserver:
     self.stage=previous
   return call
  def run(self,raw,kernel,seconds=PROFILE_SECONDS):
-  from validation.family5 import independent_oracle_v2 as old,independent_oracle_v4 as new,independent_oracle_v5 as sweep
+  from validation.family5 import independent_oracle_v2 as old,independent_oracle_v4 as new,independent_oracle_v5 as sweep,independent_oracle_v6 as join
   from validation.real5_v2.batch_jobs import evaluate
   binding.require(type(seconds) in (int,float) and 0<seconds<=PROFILE_SECONDS,'profile duration')
   binding.require(signal.getitimer(signal.ITIMER_REAL)==(0.,0.),'existing alarm')
-  self.kernel=kernel;mod=old if kernel=='v2' else sweep if kernel==SWEEP_KERNEL else new
+  self.kernel=kernel;mod=old if kernel=='v2' else sweep if kernel==SWEEP_KERNEL else join if kernel==JOIN_KERNEL else new
   pair_name='dominates' if kernel=='v2' else '_dominates'
   self.deadline=time.monotonic()+seconds;handler=signal.getsignal(signal.SIGALRM)
   try:
    with ExitStack() as hooks:
     hooks.enter_context(patch.object(old,'arrangement',self.arrangement(old.arrangement)))
-    if kernel==SWEEP_KERNEL:
-     hooks.enter_context(patch.object(sweep._CoverSweep,'__init__',self.sweep_init(sweep._CoverSweep.__init__)))
-     hooks.enter_context(patch.object(sweep,'equivalent_compact',self.operation('equivalent',sweep.equivalent_compact)))
+    if kernel in (SWEEP_KERNEL,JOIN_KERNEL):
+     hooks.enter_context(patch.object(mod._CoverSweep,'__init__',self.sweep_init(mod._CoverSweep.__init__)))
+     hooks.enter_context(patch.object(mod,'equivalent_compact',self.operation('equivalent',mod.equivalent_compact)))
     else:
      hooks.enter_context(patch.object(mod,'_certificate_cell',self.cell(mod._certificate_cell)))
      hooks.enter_context(patch.object(mod,pair_name,self.pair(getattr(mod,pair_name))))
@@ -163,7 +164,7 @@ class KernelObserver:
   return dict(arrangements=self.arrangements,cell_started=self.cell_started,cell_completed=self.cell_completed,
    pair_comparisons_started=self.pairs_started,pair_comparisons_completed=self.pairs_completed,current_cell=self.current_cell,
    operation_cpu_seconds=self.operation_times,samples=self.samples,sweep_work=self.native_work(),
-   overhead=('sweep native work counters and operation timing; no per-cell pair wrapper' if self.kernel==SWEEP_KERNEL else
+   overhead=('sweep native work counters and operation timing; no per-cell pair wrapper' if self.kernel in (SWEEP_KERNEL,JOIN_KERNEL) else
     'pair counters add Python calls; cell wrappers add an active-support scan; inclusive times overlap'))
 
 def rebind_sweep_job(raw):

@@ -11,6 +11,7 @@ from .runtime import BATCH_REPLAY,BoundedEvidenceWriter,PlanContext,run_phase,wo
 from .worker import Fence,REPLAY_FILES,prior_capture,verify_loaded
 
 KERNEL='interval-sweep-v1'
+KERNELS=(KERNEL,'interval-join-v1')
 EXTRA_FILES={'batch-ledger.json','stage-before-family.json','stage-after-family.json','parallel-summary.json'}
 CAPTURE_PIN_FIELDS=('capture_manifest_sha','capture_result_sha','capture_decision_sha','capture_return_sha')
 
@@ -19,7 +20,7 @@ def capture_pins(args):
 
 def input_context(args,original):
  return binding.digest(dict(historical_plan_sha256=args.historical_plan_sha,input_sha256=original['input_sha256'],
-  capture_commitments=capture_pins(args),batch_kernel=KERNEL,node_oracle='v3-cached'))
+  capture_commitments=capture_pins(args),batch_kernel=args.batch_kernel,node_oracle='v3-cached'))
 
 def inputs(args,deadline):
  return replay_plan.verify(binding.ROOT,args.plan,args.plan_sha,args.historical_plan,args.historical_plan_sha,deadline)
@@ -29,7 +30,7 @@ def replay(original,current,root,writer,original_sha,current_sha,capture_path,ca
  from validation.real5_v2 import family
  from validation.family5.independent_oracle_v3 import MemoizedOracle
  from validation.family5.checker import VerificationError
- binding.require(pool.kernel==KERNEL,'full replay requires the pinned sweep kernel')
+ binding.require(pool.kernel in KERNELS,'full replay requires a pinned interval kernel')
  original_verify=family._verify_bundle;memo=MemoizedOracle();calls=0;ledger_commitment=None
  def exact(a,b,reason):
   try:return memo.exact_family_equal(a,b)
@@ -55,7 +56,7 @@ def replay(original,current,root,writer,original_sha,current_sha,capture_path,ca
  binding.require(calls==1 and ledger_commitment is not None and pool.snapshot()['complete'] is True,'missing complete family join')
  files={row['path']:row for row in writer.files}
  result=dict(schema='hiroute-complete-parallel-replay-v1',structural_verified=summary['structural_verified'],
-  literal_G8_closed=False,solver_calls=0,suffix_optimizer_calls=0,batch_kernel=KERNEL,node_oracle='v3-cached',
+  literal_G8_closed=False,solver_calls=0,suffix_optimizer_calls=0,batch_kernel=pool.kernel,node_oracle='v3-cached',
   historical_plan_sha256=original_sha,current_plan_sha256=current_sha,current_source_sha256=current['source_sha256'],
   input_sha256=original['input_sha256'],capture_sha256=capture_sha,batch_ledger=ledger_commitment,
   structural_summary=files['structural-summary.json'],callback_receipts=files['callback-receipts.json'],
@@ -68,7 +69,8 @@ def worker(args):
  writer=None;pool=None;current_stage='binding'
  def before():binding.require(math.isfinite(args.deadline) and time.monotonic()<args.deadline,'absolute replay deadline')
  try:
-  before();binding.require(type(args.worker_cpus) is list and len(args.worker_cpus)==len(set(args.worker_cpus))==5 and
+  before();binding.require(args.batch_kernel in KERNELS,'unreviewed replay kernel')
+  binding.require(type(args.worker_cpus) is list and len(args.worker_cpus)==len(set(args.worker_cpus))==5 and
    all(type(cpu) is int for cpu in args.worker_cpus) and set(args.worker_cpus)==os.sched_getaffinity(0),'worker mask differs from guarded group')
   binding.require(os.environ.get('HIROUTE_PROFILE')==BATCH_REPLAY.name and
    int(os.environ['HIROUTE_EVIDENCE_CAP_BYTES'])==BATCH_REPLAY.worker_evidence_bytes,'wrong group profile')
@@ -81,12 +83,12 @@ def worker(args):
   writer.write('run-binding.json',domain.chunks(dict(schema='hiroute-parallel-replay-binding-v1',
    historical_plan_sha256=args.historical_plan_sha,current_plan_sha256=args.plan_sha,
    source_sha256=current['source_sha256'],input_sha256=original['input_sha256'],capture_sha256=sha,
-   capture_commitments=capture_pins(args),worker_cpus=args.worker_cpus,batch_kernel=KERNEL,
+   capture_commitments=capture_pins(args),worker_cpus=args.worker_cpus,batch_kernel=args.batch_kernel,
    profile_name=BATCH_REPLAY.name,reference_usage='comparison_after_complete_independent_replay_only')))
   from validation.real5_v2.batch_jobs import BatchExecutor,WORKER_AS
   binding.require(WORKER_AS==1024**3,'reviewed child cap changed')
   # All four fresh workers start before decode, while the five-CPU mask is inherited.
-  with BatchExecutor(tuple(args.worker_cpus[1:]),float(args.deadline-10),sha,kernel=KERNEL) as pool:
+  with BatchExecutor(tuple(args.worker_cpus[1:]),float(args.deadline-10),sha,kernel=args.batch_kernel) as pool:
    binding.require(len(pool.slots)==4 and all(s.process.poll() is None for s in pool.slots),'four live scalar workers required')
    os.sched_setaffinity(0,{args.worker_cpus[0]});current_stage='complete-replay'
    replay(original,current,binding.ROOT,writer,args.historical_plan_sha,args.plan_sha,path,sha,pool,before)
@@ -108,6 +110,7 @@ def main():
  p.add_argument('--capture-attempt',type=Path,required=True);p.add_argument('--capture-return',type=Path,required=True)
  for name in CAPTURE_PIN_FIELDS:p.add_argument('--'+name.replace('_','-'),required=True)
  p.add_argument('--worker-cpus',type=int,nargs=5,required=True);p.add_argument('--cpu',type=int)
+ p.add_argument('--batch-kernel',choices=KERNELS,default=KERNEL)
  p.add_argument('--deadline',type=float);p.add_argument('--attempt-dir',type=Path);args=p.parse_args()
  if args.worker:return worker(args)
  binding.require(args.cpu is not None and args.attempt_dir is not None,'supervisor CPU and fresh attempt required')
@@ -117,7 +120,7 @@ def main():
  resource.setrlimit(resource.RLIMIT_AS,(min(512*1024**2,soft) if soft!=resource.RLIM_INFINITY else 512*1024**2,hard))
  original,current=inputs(args,deadline)
  argv=[sys.executable,'-B','-m','experiments.time_cut_v2.recorded_real.parallel_replay','--worker','--deadline',repr(deadline),
-  '--worker-cpus',*map(str,args.worker_cpus)]
+  '--worker-cpus',*map(str,args.worker_cpus),'--batch-kernel',args.batch_kernel]
  for name in ('plan','historical_plan','capture_attempt','capture_return'):
   argv+=['--'+name.replace('_','-'),str(getattr(args,name).resolve())]
  for name in ('plan_sha','historical_plan_sha',*CAPTURE_PIN_FIELDS):argv+=['--'+name.replace('_','-'),getattr(args,name)]

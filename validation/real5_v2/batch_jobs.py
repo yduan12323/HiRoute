@@ -17,7 +17,8 @@ MAX_PIECES=20000
 SCHEMA='family5-selection-job-v1'
 TAU_KERNEL='tau-precompute-v1'
 SWEEP_KERNEL='interval-sweep-v1'
-KERNELS=('v2',TAU_KERNEL,SWEEP_KERNEL)
+JOIN_KERNEL='interval-join-v1'
+KERNELS=('v2',TAU_KERNEL,SWEEP_KERNEL,JOIN_KERNEL)
 
 class BatchIncomplete(RuntimeError):pass
 
@@ -83,7 +84,9 @@ def evaluate(raw,*,expected_kernel=None):
    from validation.family5 import independent_oracle_v4 as comparison
   if kernel==SWEEP_KERNEL:
    from validation.family5 import independent_oracle_v5 as comparison
-   result=comparison.equivalent_compact(a,b)
+  if kernel==JOIN_KERNEL:
+   from validation.family5 import independent_oracle_v6 as comparison
+  if kernel in (SWEEP_KERNEL,JOIN_KERNEL):result=comparison.equivalent_compact(a,b)
   else:result=comparison.equivalent(a,b)
   comparison.antichain(list(dict.fromkeys(b)))
   cells=result['cells'];certificate=result['sha256']
@@ -123,7 +126,7 @@ class BatchExecutor:
   require(type(worker_as) is int and 128*1024**2<=worker_as<=WORKER_AS,'worker AS cap')
   require(type(kernel) is str and kernel in KERNELS,'unknown batch kernel')
   self.kernel=kernel;self.cpus=tuple(cpus);self.deadline=deadline;self.context=context;self.worker_as=worker_as
-  self.slots=[];self.expected=None;self.submitted={};self.results={};self.closed=False;self.workers_joined=False
+  self.slots=[];self.expected=None;self.submitted={};self.results={};self.closed=False;self.workers_joined=False;self.failure=None
  def __enter__(self):
   try:
    for cpu in self.cpus:
@@ -155,6 +158,7 @@ class BatchExecutor:
   self.submitted[index]=record;slot.pending=record;slot.sending=raw+b'\n';slot.offset=0;slot.receiving=bytearray()
   while slot.pending is not None and slot.offset<len(slot.sending):self.pump()
  def pump(self,block=True):
+  require(self.failure is None,'cannot resume a failed worker join')
   if time.monotonic()>=self.deadline:raise BatchIncomplete('batch deadline exceeded')
   with selectors.DefaultSelector() as selector:
    for slot in self.slots:
@@ -176,7 +180,11 @@ class BatchExecutor:
       raw,tail=bytes(slot.receiving).split(b'\n',1);require(not tail,'extra batch response bytes')
       envelope=decode(raw)
       require(type(envelope) is dict and set(envelope)=={'status','result','error','telemetry'},'worker response fields')
-      if envelope['status']!='completed':raise BatchIncomplete('batch check failed: '+str(envelope['error'])[:512])
+      if envelope['status']!='completed':
+       self.failure=dict(job=dict(slot.pending),response_sha256=sha(raw),
+        reported_status=envelope['status'],reported_error=envelope['error'])
+       raise BatchIncomplete('batch check failed at index '+str(slot.pending['index'])+
+        ' job '+slot.pending['job_sha256']+': '+str(envelope['error'])[:512])
       require(slot.offset==len(slot.sending),'premature worker response')
       result=envelope['result'];check_result(result,slot.pending)
       require(result['index'] not in self.results,'duplicate worker result')
@@ -212,6 +220,7 @@ class BatchExecutor:
    submitted_count=len(self.submitted),completed_count=len(self.results),cpus=list(self.cpus),worker_as_bytes=self.worker_as,
    complete=self.workers_joined and self.expected is not None and len(self.submitted)==len(self.results)==len(self.expected))
   if self.kernel!='v2':result.update(schema='family5-selection-ledger-v2',kernel=self.kernel)
+  if self.failure is not None:result['worker_failure']=decode(wire(self.failure))
   return result
  def close(self):
   self.closed=True

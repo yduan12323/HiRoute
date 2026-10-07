@@ -35,6 +35,22 @@ class CompleteParallelReplay(unittest.TestCase):
      ledger=plan.load(self.root/('parallel-'+name)/'batch-ledger.json')
      self.assertEqual(len(ledger['expected']),len(ledger['results']))
      self.assertEqual(out['batch_ledger']['sha256'],plan.pin(self.root/('parallel-'+name)/'batch-ledger.json')['sha256'])
+
+ def test_join_kernel_full_path_preserves_serial_query_and_receipt_bytes(self):
+  for i,row in enumerate(self.fixture.rows):
+   for dominance in (False,True):
+    name=f'join-{i}-{dominance}';old,new,path,sha=self.capture(row,dominance,name)
+    with self.fixture.writer(name+'-serial') as writer:
+     baseline=domain.replay(old,self.root,writer,'a'*64,path,sha);writer.finalize()
+    with BatchExecutor(self.cpus,float(time.monotonic()+20),sha,worker_as=256*1024**2,kernel='interval-join-v1') as pool:
+     with self.fixture.writer(name+'-parallel') as writer:
+      out=full.replay(old,new,self.root,writer,'a'*64,'b'*64,path,sha,pool);writer.finalize()
+    self.assertEqual(out['batch_kernel'],'interval-join-v1')
+    for file in ('query-index.json','callback-receipts.json'):
+     self.assertEqual((self.root/(name+'-serial')/file).read_bytes(),(self.root/(name+'-parallel')/file).read_bytes())
+    after=plan.load(self.root/(name+'-parallel')/'structural-summary.json')
+    baseline['checked'].pop('elapsed_s');after['checked'].pop('elapsed_s');self.assertEqual(baseline,after)
+
  def test_forged_capture_rejects_and_children_reap_without_full_summary(self):
   for mutation in ('bytes','canonical','scope','parent'):
    with self.subTest(mutation=mutation):
@@ -61,7 +77,7 @@ class CompleteParallelReplay(unittest.TestCase):
       with patch.object(pool,'snapshot',side_effect=lambda:dict(original(),complete=False)),self.assertRaisesRegex(ValueError,'incomplete batch ledger'):
        full.replay(old,new,self.root,writer,'a'*64,'b'*64,path,sha,pool)
      else:
-      with self.assertRaisesRegex(ValueError,'pinned sweep kernel'):
+      with self.assertRaisesRegex(ValueError,'pinned interval kernel'):
        full.replay(old,new,self.root,writer,'a'*64,'b'*64,path,sha,pool)
  def test_fresh_producer_blocked_four_worker_protocol_and_output_coverage(self):
   cpus=tuple(sorted(os.sched_getaffinity(0)))[:5]
@@ -74,7 +90,7 @@ from unittest.mock import patch
 from experiments.time_cut_v2.recorded_real import parallel_replay as full,plan
 root=Path(sys.argv[1]);cpus=json.loads(sys.argv[2]);os.sched_setaffinity(0,set(cpus))
 old=plan.load(root/'old.json');new=plan.load(root/'new.json');capture=root/'capture/capture.json';sha=plan.pin(capture)['sha256']
-a=argparse.Namespace(worker_cpus=cpus,deadline=float(time.monotonic()+20),historical_plan_sha='a'*64,plan_sha='b'*64,
+a=argparse.Namespace(batch_kernel=full.KERNEL,worker_cpus=cpus,deadline=float(time.monotonic()+20),historical_plan_sha='a'*64,plan_sha='b'*64,
  capture_attempt=root/'capture',capture_manifest_sha='c'*64,capture_result_sha='d'*64,capture_decision_sha='e'*64,
  capture_return=root/'return.json',capture_return_sha='f'*64)
 env={'HIROUTE_PROFILE':full.BATCH_REPLAY.name,'HIROUTE_EVIDENCE_CAP_BYTES':str(full.BATCH_REPLAY.worker_evidence_bytes),

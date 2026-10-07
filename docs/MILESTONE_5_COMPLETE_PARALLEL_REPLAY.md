@@ -2,7 +2,9 @@
 
 This opt-in runner consumes the original completed capture. It does not rerun
 search or numerical suffix optimization. The serial replay remains the reference.
-The four scalar workers use `interval-sweep-v1`; the coordinator uses the reviewed
+The four scalar workers default to `interval-sweep-v1`; an explicit
+`--batch-kernel interval-join-v1` selects the separately reviewed endpoint join.
+The selected identity binds the runtime context and every job/result. The coordinator uses the reviewed
 bounded `v3-cached` exact node oracle. Every node, physical transition, ordered
 invocation, compact occurrence, Region query, supplied callback and terminal
 witness retains the existing checker obligation.

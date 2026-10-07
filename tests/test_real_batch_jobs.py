@@ -79,6 +79,19 @@ class BatchJobs(unittest.TestCase):
   for deadline in (float('inf'),float('-inf'),float('nan')):
    with self.subTest(deadline=deadline),self.assertRaises(ValueError):
     BatchExecutor(self.cpus(),deadline,'b'*64)
+ def test_worker_failure_retains_exact_pending_identity_and_never_completes(self):
+  p=piece();raw=make_job(11840,'a'*64,'reduction',[p],[],'b'*64,kernel='interval-sweep-v1')
+  with BatchExecutor(self.cpus(),float(time.monotonic()+10),'b'*64,worker_as=256*1024**2,kernel='interval-sweep-v1') as pool:
+   pool.start([(11840,'a'*64,'reduction')])
+   with self.assertRaisesRegex(BatchIncomplete,'index 11840 job '+sha(raw)):
+    pool.submit(11840,'a'*64,'reduction',[p],[]);pool.finish()
+   snap=pool.snapshot();self.assertFalse(snap['complete']);self.assertEqual(snap['completed_count'],0)
+   failure=snap['worker_failure'];self.assertEqual(failure['job'],pool.submitted[11840])
+   self.assertEqual(failure['reported_status'],'unresolved');self.assertIn('AssertionError',failure['reported_error'])
+   self.assertEqual(len(failure['response_sha256']),64)
+   failure['job']['index']=999;self.assertEqual(pool.snapshot()['worker_failure']['job']['index'],11840)
+   with self.assertRaisesRegex(ValueError,'cannot resume'):pool.pump()
+  self.assertTrue(all(s.process.poll() is not None for s in pool.slots))
  def test_job_cap_before_submission(self):
   with BatchExecutor(self.cpus(),float(time.monotonic()+10),'b'*64,worker_as=256*1024**2) as pool:
    pool.start([(0,'a'*64,'union')])
