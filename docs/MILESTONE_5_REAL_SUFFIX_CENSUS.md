@@ -73,3 +73,41 @@ inform a separately declared numerical resource/evidence budget. Later suffix
 certificates must bind actual checked prefix families and independently replay
 their inherited witnesses; index metadata and historical REF agreement cannot
 replace those obligations.
+
+## Optional exact logical-model reuse count
+
+Add `--logical-model-plan` to the same guarded census command to count distinct
+logical identities `(source bundle, original family ID, complete suffix word,
+arrival bands)`. This preserves the original flat census and adds a compressed
+binding map. It does not build matrices or measure LP-task reuse.
+
+For one original family, identical words start with the same first action.
+Different first actions define disjoint languages. Therefore, taking the union
+of that family's original mandatory first-action pairs and applying the same
+finite recurrence counts distinct complete word/band identities exactly.
+Different family IDs remain separate even if all scalar cut fields coincide.
+Repeated appearances of one family must have byte-identical state/rho/pi/depth
+context. Exact string/pair equality is used; no new digest-based equivalence is
+introduced. Graph-excluded words retain null band assignments and one slot.
+
+Every original query position and family position is retained in the ordered
+binding map, together with original first-action order, ancestry commitment and
+thin-row hash. Expanding those finite languages restores every original model
+occurrence; the summed occurrence count must equal the original census. The
+global group ordering is only a storage choice, never a replacement for the
+original query/word/band certificate ordering.
+
+Memory and output size grow with original query/family/action references, not
+with the expanded model count. C01's completed first census had 12,172 query
+rows, 13,736 family occurrences and 7,652,832 expanded model slots; its measured
+worker peak RSS was 319,815,680 bytes. The optional count keeps the same 2 GiB AS,
+180-second deadline and 64 MiB output limit. That prior measurement is a planning
+reference, not a claimed bound on the new run. The new run reports its own guard
+measurements and remains count-only.
+
+Later candidate certificate reuse may use only complete ordered LP task bytes
+`{c,A,b,equalities}`, with equality checked after any digest lookup. Optimal-face
+tasks cannot be predeclared identical until their preceding exact result exists.
+J/Q constants, H, site/action order and original-family witness lifting remain
+per binding. A logical-model count is not a count of unique LP tasks and grants
+no permission to launch millions of optimizations.

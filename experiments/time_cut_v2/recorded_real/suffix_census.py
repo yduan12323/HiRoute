@@ -170,7 +170,10 @@ def worker(args):
   _,hard=resource.getrlimit(resource.RLIMIT_AS);resource.setrlimit(resource.RLIMIT_AS,(WORKER_AS,hard))
   sys.meta_path.insert(0,NoOptimization());sources=check_sources(binding.ROOT,args.source_commit,args.source_sha);before()
   index,trusted,summary,anchors=completed_inputs(binding.ROOT,args,args.deadline,before)
-  result=census(index,trusted,summary['checked'],before)
+  if getattr(args,'logical_model_plan',False):
+   from .logical_models import count_logical_models
+   result=count_logical_models(index,trusted,summary['checked'],before)
+  else:result=census(index,trusted,summary['checked'],before)
   result.update(evidence=anchors,census_source_commit=args.source_commit,census_source_sha256=args.source_sha,
    resource_scope=dict(worker_as_bytes=WORKER_AS,absolute_seconds=SECONDS))
   raw=binding.canonical(result)+b'\n';binding.require(len(raw)<=OUTPUT_LIMIT,'count report byte cap')
@@ -189,13 +192,15 @@ def main():
  for name in ('historical-plan','replay-plan','replay-attempt','replay-return'):p.add_argument('--'+name,type=Path,required=True)
  for name in ('historical-plan-sha','replay-plan-sha','replay-return-sha','replay-manifest-sha','replay-result-sha',
   'replay-decision-sha','query-index-sha','source-commit','source-sha'):p.add_argument('--'+name,required=True)
- p.add_argument('--cpu',type=int);p.add_argument('--attempt-dir',type=Path);args=p.parse_args()
+ p.add_argument('--cpu',type=int);p.add_argument('--attempt-dir',type=Path)
+ p.add_argument('--logical-model-plan',action='store_true');args=p.parse_args()
  if args.worker:return worker(args)
  binding.require(args.cpu is not None and args.attempt_dir is not None,'explicit CPU and fresh attempt required')
  deadline=float(ENTRY+SECONDS);check_sources(binding.ROOT,args.source_commit,args.source_sha)
  argv=[sys.executable,'-B','-m','experiments.time_cut_v2.recorded_real.suffix_census','--worker','--deadline',repr(deadline)]
  for key,value in vars(args).items():
-  if key not in ('worker','deadline','cpu','attempt_dir'):argv+=['--'+key.replace('_','-'),str(value)]
+  if key not in ('worker','deadline','cpu','attempt_dir','logical_model_plan'):argv+=['--'+key.replace('_','-'),str(value)]
+ if args.logical_model_plan:argv.append('--logical-model-plan')
  context=binding.digest({k:str(v) for k,v in vars(args).items() if k not in ('worker','deadline','cpu','attempt_dir')})
  result=run_phase(argv,attempt_dir=args.attempt_dir,profile=REPLAY,cpu=args.cpu,
   context=PlanContext(args.replay_plan_sha,args.source_sha,context,REPLAY.name),entry_monotonic=float(ENTRY),deadline_monotonic=deadline)
