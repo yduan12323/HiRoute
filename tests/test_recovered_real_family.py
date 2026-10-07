@@ -178,6 +178,27 @@ class RecoveredRealFamily(unittest.TestCase):
             with self.subTest(mutation=mutation), self.assertRaises(ValueError):
                 prepare(repin(changed))
 
+    def test_original_construction_annotations_are_typed_and_hash_bound(self):
+        row = deepcopy(self.rows[0])
+        tree = row["original_tree"]
+        tree.update(branch_factor=2, capacity=64, mechanism="deterministic recursive unweighted topology BFS bisection")
+        def annotate(index, depth):
+            region = tree["regions"][index]
+            region.update(depth=depth, road_node_count=10-depth, early_leaf_reason=None)
+            for child in region["children"]:
+                annotate(child, depth+1)
+        annotate(0, 0)
+        repin(row)
+        trusted = prepare(row)
+        for d in (False, True):
+            data = capture(row,d)
+            verify_trace(data["trace"],data["bundle"],trusted)
+        for field,value in (("depth",True),("depth",99),("road_node_count",-1),("early_leaf_reason",5)):
+            bad = deepcopy(row);bad["original_tree"]["regions"][0][field]=value
+            with self.subTest(field=field,value=value),self.assertRaises(ValueError):prepare(repin(bad))
+        bad=deepcopy(row);bad["original_tree"]["capacity"]=True
+        with self.assertRaises(ValueError):prepare(repin(bad))
+
     def test_collision_cannot_drive_from_raw_site_as_another_anchor(self):
         row = self.rows[2]
         trusted = prepare(row)

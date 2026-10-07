@@ -32,6 +32,12 @@ time/actual-length pairs are never interpreted as graph edges or rerouted.
 Their canonical binary64 hex and exact ratios are retained, including identity
 legs for distinct coattached Sites.
 
+The original tree's known construction annotations (`branch_factor`, `capacity`,
+`mechanism`, Region `depth`, `early_leaf_reason`, and `road_node_count`) are
+supported and type checked. Declared depth and branch width must agree with the
+topology. These fields remain bound by the complete original-tree hash; graph
+construction and road-node counts are not independently rederived here.
+
 Original Region IDs, member order, child order and empty children survive exact
 source-tree validation and restriction. Each original internal Region must be
 a disjoint exact partition of its children; disconnected or cyclic Regions,

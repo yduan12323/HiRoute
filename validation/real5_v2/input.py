@@ -254,7 +254,12 @@ def _regions(data, expected_sha256, selected):
         tree = json.loads(data, object_pairs_hook=unique_object)
     except (UnicodeDecodeError, json.JSONDecodeError) as error:
         raise InvalidInput("Invalid original tree JSON") from error
-    require(type(tree) is dict and set(tree) == {"site_ids", "regions"}, "Original tree fields")
+    require(type(tree) is dict and {"site_ids", "regions"} <= set(tree) <=
+            {"site_ids", "regions", "branch_factor", "capacity", "mechanism"}, "Original tree fields")
+    for key in ("branch_factor", "capacity"):
+        require(key not in tree or type(tree[key]) is int and tree[key] > 0, "Invalid original tree annotation")
+    require("mechanism" not in tree or type(tree["mechanism"]) is str and bool(tree["mechanism"]),
+            "Invalid original mechanism annotation")
     ids, rows = tree["site_ids"], tree["regions"]
     require(type(ids) is list and all(type(s) is str and s for s in ids), "Original Site IDs")
     require(len(ids) == len(set(ids)), "Duplicate original Site ID")
@@ -262,7 +267,14 @@ def _regions(data, expected_sha256, selected):
     require(type(rows) is list and bool(rows), "Missing original Regions")
     member_sets = []
     for row in rows:
-        require(type(row) is dict and set(row) == {"parent", "children", "members"}, "Original Region fields")
+        require(type(row) is dict and {"parent", "children", "members"} <= set(row) <=
+                {"parent", "children", "members", "depth", "early_leaf_reason", "road_node_count"},
+                "Original Region fields")
+        for key in ("depth", "road_node_count"):
+            require(key not in row or type(row[key]) is int and row[key] >= 0, "Invalid original Region annotation")
+        require("early_leaf_reason" not in row or row["early_leaf_reason"] is None or
+                type(row["early_leaf_reason"]) is str and bool(row["early_leaf_reason"]),
+                "Invalid original early-leaf annotation")
         require(type(row["parent"]) is int, "Original parent must be an integer")
         for field, bound in (("children", len(rows)), ("members", len(ids))):
             values = row[field]
@@ -274,15 +286,17 @@ def _regions(data, expected_sha256, selected):
     require(member_sets[0] == set(range(len(ids))), "Original root Site coverage")
     visited = set()
 
-    def visit(index):
+    def visit(index, depth=0):
         require(index not in visited, "Original Region cycle or repeated child")
         visited.add(index)
         row, covered, children = rows[index], set(), []
+        require("depth" not in row or row["depth"] == depth, "Original Region depth mismatch")
+        require("branch_factor" not in tree or len(row["children"]) <= tree["branch_factor"], "Original Region exceeds branch factor")
         for child in row["children"]:
             require(rows[child]["parent"] == index, "Original Region parent mismatch")
             require(not covered.intersection(member_sets[child]), "Overlapping original Region partition")
             covered.update(member_sets[child])
-            children.append(visit(child))
+            children.append(visit(child, depth+1))
         require(not children or covered == member_sets[index], "Incomplete original Region partition")
         # Original IDs, child order, member order and empty children survive.
         return dict(id=index, members=[ids[i] for i in row["members"] if ids[i] in selected], children=children)
