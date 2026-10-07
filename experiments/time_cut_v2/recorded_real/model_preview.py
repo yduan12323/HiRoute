@@ -4,7 +4,6 @@ ENTRY=time.monotonic()
 import argparse,json,math,os,resource,sys
 from dataclasses import asdict
 from pathlib import Path
-from unittest.mock import patch
 from . import plan as binding,domain,suffix_census
 from .hot_jobs import read_pinned
 from .runtime import BATCH_REPLAY,REPLAY,PlanContext,BoundedEvidenceWriter,read_phase_result,run_phase,worker_failure
@@ -60,9 +59,8 @@ def preview_capture(original,original_sha,index,trusted,logical,capture_path,cap
  """Tiny-testable domain core; the public worker separately binds fixed C01."""
  from validation.suffix5.preview_selection import select_preview
  from validation.suffix5.task_catalog import TaskCatalog,compile_selected
- from validation.real5_v2 import family
- from validation.family5.independent_oracle_v3 import MemoizedOracle
- from validation.family5.checker import VerificationError,_plain
+ from validation.family5.checker import _plain
+ from .family_gate import verify_families
  selection=select_preview(logical,trusted)
  selection_pin=writer.write('selection.json',domain.chunks(selection));before()
  # Selection is already frozen before capture decode/family checks or matrices.
@@ -73,18 +71,8 @@ def preview_capture(original,original_sha,index,trusted,logical,capture_path,cap
  suffix_census.same(payload['variant'],domain.variant(original),'capture variant changed')
  bundle=payload['bundle'];del payload # Past full replay, not this phase, covers trace/callback occurrences.
  before();domain.stage(writer,'before-family')
- native=family._verify_bundle;memo=MemoizedOracle();calls=0
- def delegated(*a,**kw):
-  nonlocal calls
-  binding.require(calls==0 and 'batch_executor' not in kw,'unexpected family invocation');calls+=1
-  return native(*a,**kw,batch_executor=pool)
- def exact(a,b,reason):
-  try:return memo.exact_family_equal(a,b)
-  except AssertionError as error:raise VerificationError(f'{reason}: {error}') from error
- with patch.object(family,'oracle',memo),patch.object(family,'_exact',exact),patch.object(family,'_verify_bundle',delegated):
-  checked=family.verify_bundle(bundle,trusted)
+ checked,ledger=verify_families(bundle,trusted,pool)
  del bundle
- ledger=pool.snapshot();binding.require(calls==1 and ledger['complete'] is True,'incomplete family batch join')
  binding.require(checked.summary['bundle_sha256']==index['bundle_sha256'] and
   checked.summary['case_sha256']==index['case_sha256'],'fresh checked bundle differs from completed trace index')
  suffix_census.same(_plain(checked.summary['real_input_sources']),trusted.source_snapshot(),'fresh physical sources changed')
