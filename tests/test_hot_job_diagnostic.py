@@ -1,7 +1,7 @@
 """Tiny exact extraction/profile checks; no real capture is read."""
 from copy import deepcopy
 from fractions import Fraction as F
-import json,tempfile,time,unittest
+import argparse,json,os,sys,tempfile,time,unittest
 from pathlib import Path
 from unittest.mock import patch
 from experiments.time_cut_v2.recorded_real import hot_jobs as hot
@@ -111,4 +111,34 @@ class HotJobDiagnostic(unittest.TestCase):
    self.assertFalse(report['completed']);self.assertEqual(report['error']['type'],'SampleEnd')
    self.assertTrue(report['observations']['samples']);self.assertIs(v2._certificate_cell,slow)
   self.assertIs(v2._certificate_cell,original)
+
+ def test_sweep_worker_fixed_population_and_payload_identity(self):
+  p=piece()
+  for index,mutation in [(i,None) for i in hot.HOT_IDS]+[(11839,'outside'),(11836.,'float'),
+    (11836,'job-index'),(11837,'context'),(11838,'batch')]:
+   with self.subTest(index=index,mutation=mutation),tempfile.TemporaryDirectory() as d:
+    root=Path(d);actual_index=11835 if mutation=='job-index' else int(index)
+    raw=make_job(actual_index,'b'*64 if mutation=='batch' else 'a'*64,'reduction',[p],[p],
+     'd'*64 if mutation=='context' else 'c'*64)
+    (root/'job.json').write_bytes(raw)
+    manifest=dict(schema='hiroute-hot-job-extraction-v1',indices=list(hot.HOT_IDS),context_sha256='c'*64,
+     jobs=[dict(index=index,batch_sha256='a'*64,files={'v2':dict(path='job.json',sha256=sha(raw),size_bytes=len(raw))})])
+    encoded=hot.binding.canonical(manifest);(root/'jobs.json').write_bytes(encoded)
+    args=argparse.Namespace(mode='profile',manifest=root/'jobs.json',manifest_sha=sha(encoded),
+     index=index,kernel=hot.SWEEP_KERNEL,source_commit='e'*40,source_sha='f'*64)
+    env={'HIROUTE_PROFILE':hot.REPLAY.name,'HIROUTE_EVIDENCE_CAP_BYTES':str(hot.REPLAY.worker_evidence_bytes),
+     'HIROUTE_EVIDENCE_ROOT':str(root/'out')}
+    with patch.dict(os.environ,env),patch.object(sys,'meta_path',list(sys.meta_path)),\
+      patch.object(hot,'source_binding'),patch.object(hot.resource,'setrlimit') as cap:
+     if mutation is not None:
+      with self.assertRaises(ValueError):hot.worker(args)
+      self.assertFalse((root/'out'/'diagnostic.json').exists())
+     else:
+      self.assertEqual(hot.worker(args),0)
+      result=json.loads((root/'out'/'diagnostic.json').read_bytes())
+      self.assertEqual(result['index'],index);self.assertTrue(result['completed'])
+      self.assertEqual(result['source_job_sha256'],sha(raw))
+      self.assertEqual(result['result']['certificate_sha256'],evaluate(raw)['certificate_sha256'])
+      self.assertFalse(result['acceptance']);self.assertFalse(result['structural_verified'])
+     cap.assert_called_once_with(hot.resource.RLIMIT_AS,(hot.JOB_AS,hot.JOB_AS))
 if __name__=='__main__':unittest.main()

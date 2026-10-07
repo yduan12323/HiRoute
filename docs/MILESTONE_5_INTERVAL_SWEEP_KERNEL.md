@@ -58,12 +58,13 @@ Six focused tests compare complete certificate bytes/hashes and first-error
 payloads against v2 over 700 seeded cases, all endpoint/attainment combinations,
 duplicates, full keys, disconnected/singleton domains and large coefficients.
 They also verify bounded chunks, resource-limit behavior, detached list ownership
-and reuse across irrelevant line crossings. Real performance remains unmeasured.
+and reuse across irrelevant line crossings. These are source-equivalence tests;
+real performance is recorded separately for each pinned diagnostic attempt.
 
 ## Fixed extracted-job pilot
 
 Only the hot-job command exposes `--kernel interval-sweep-v1`, restricted to
-index 11835. It reads the existing extraction manifest and authenticates the
+the fixed extracted indices 11835–11838. It reads the existing extraction manifest and authenticates the
 original v2 job bytes, then reconstructs a canonical job-v2 changing only the
 schema/kernel fields. Both original and candidate SHA values are retained.
 Workers pin that kernel in the existing versioned result/ledger contract. The
@@ -76,5 +77,11 @@ and must not be hidden in a throughput comparison. No new extraction, solver or
 whole-capture run is needed. Completion still has acceptance=false; compare the
 full certificate count/hash and reviewed mathematical invariants before broader
 use. The next remote command is the already reviewed hot-job profile command
-with index 11835, `--kernel interval-sweep-v1`, the new reviewed source pins and
+with one of those four indices, `--kernel interval-sweep-v1`, the new reviewed source pins and
 a fresh attempt/return path.
+
+The allowlist extension changes no resource limit or mathematical operation.
+Each job still authenticates its original manifest-bound v2 payload and retains
+its own batch, context, original-job and transformed-job identities. A completed
+new-kernel certificate is not evidence of a real-job v2 hash comparison unless
+that same complete reference certificate was actually computed.

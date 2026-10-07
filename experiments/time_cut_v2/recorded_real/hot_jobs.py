@@ -210,7 +210,7 @@ def worker(args):
    manifest=read_pinned(args.manifest,args.manifest_sha,MAX_REPORT)
    binding.require(manifest['schema']=='hiroute-hot-job-extraction-v1' and manifest['indices']==list(HOT_IDS),'extracted population')
    match=[r for r in manifest['jobs'] if r['index']==args.index];binding.require(len(match)==1,'hot-job identity')
-   if args.kernel==SWEEP_KERNEL:binding.require(args.index==11835,'sweep pilot is fixed to extracted11835')
+   if args.kernel==SWEEP_KERNEL:binding.require(type(args.index) is int and args.index in HOT_IDS,'sweep pilot requires a fixed extracted hot-job identity')
    source_kernel='v2' if args.kernel==SWEEP_KERNEL else args.kernel
    spec=match[0]['files'][source_kernel];path=binding.inside(args.manifest.parent,spec['path'])
    original=read_job_bytes(path,spec);raw=rebind_sweep_job(original) if args.kernel==SWEEP_KERNEL else original
@@ -242,7 +242,7 @@ def main():
   input_hash=binding.digest(dict(plan=args.plan_sha,capture=args.capture_sha,v2=args.v2_ledger_sha,v4=args.v4_ledger_sha));seconds=EXTRACT_SECONDS
  else:
   binding.require(args.manifest is not None and args.manifest_sha and args.index in HOT_IDS and args.kernel is not None,'profile pins required')
-  if args.kernel==SWEEP_KERNEL:binding.require(args.index==11835,'sweep pilot is fixed to extracted11835')
+  if args.kernel==SWEEP_KERNEL:binding.require(type(args.index) is int and args.index in HOT_IDS,'sweep pilot requires a fixed extracted hot-job identity')
   argv+=['--manifest',str(args.manifest.resolve()),'--manifest-sha',args.manifest_sha,'--index',str(args.index),'--kernel',args.kernel]
   input_hash=binding.digest(dict(manifest=args.manifest_sha,index=args.index,kernel=args.kernel));seconds=PROFILE_TOTAL_SECONDS
  result=run_phase(argv,attempt_dir=args.attempt_dir,profile=REPLAY,cpu=args.cpu,
