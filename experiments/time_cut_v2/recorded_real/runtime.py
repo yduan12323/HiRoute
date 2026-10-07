@@ -78,9 +78,11 @@ CAPTURE = RuntimeProfile("capture-v1", 8 * GiB, 8 * GiB, 1200, 4 * GiB,
                          16 * MiB, 16 * GiB, 20 * GiB)
 REPLAY = RuntimeProfile("replay-v1", 16 * GiB, 16 * GiB, 1800, 8 * GiB,
                         16 * MiB, 16 * GiB, 20 * GiB)
+BATCH_REPLAY = RuntimeProfile("batch-replay-v1", 16 * GiB, 20 * GiB, 1800, 8 * GiB,
+                              16 * MiB, 16 * GiB, 20 * GiB)
 TINY_TEST = RuntimeProfile("tiny-test-v1", 256 * MiB, 256 * MiB, 2, 2 * MiB,
                           64 * 1024, MiB, MiB)
-PROFILES = {p.name: p for p in (CAPTURE, REPLAY, TINY_TEST)}
+PROFILES = {p.name: p for p in (CAPTURE, REPLAY, BATCH_REPLAY, TINY_TEST)}
 
 
 @dataclass(frozen=True)
@@ -531,6 +533,12 @@ def _read_ready(attempt: Path) -> tuple[dict, bytes]:
     for key in ("profile", "context", "entry_monotonic", "deadline_monotonic", "launcher_rss_bytes_at_entry"):
         if report.get(key) != request.get(key):
             raise ValueError(f"report {key} differs from bound request")
+    if profile == BATCH_REPLAY or "worker_cpus" in request or "worker_cpus" in report:
+        _request_worker_cpus(profile, request)
+        _request_worker_cpus(profile, report)
+        for key in ("cpu", "worker_cpus"):
+            if _json(report.get(key)) != _json(request.get(key)):
+                raise ValueError(f"report {key} differs from bound request")
     for key in ("entry_monotonic", "deadline_monotonic"):
         if any(type(record.get(key)) is not float or not math.isfinite(record[key]) for record in (report, request)):
             raise ValueError(f"invalid exact-type {key}")
@@ -702,11 +710,41 @@ def _check_hard_limit(profile: RuntimeProfile) -> None:
         raise ValueError("inherited RLIMIT_AS hard limit is smaller than the exact profile")
 
 
-def _preflight(profile: RuntimeProfile, attempt: Path, cpu: int) -> None:
+def _worker_cpu_mask(profile: RuntimeProfile, cpu: int,
+                     worker_cpus: tuple[int, ...] | None) -> tuple[int, ...]:
+    """Keep serial profiles unchanged; batch reserves five distinct worker CPUs."""
+    _integer(cpu, "cpu", 0)
+    if profile != BATCH_REPLAY:
+        if worker_cpus is not None:
+            raise ValueError("worker_cpus is only supported by the fixed batch replay profile")
+        return (cpu,)
+    if type(worker_cpus) is not tuple or len(worker_cpus) != 5:
+        raise ValueError("batch replay worker_cpus must be a tuple of exactly five CPU IDs")
+    for worker_cpu in worker_cpus:
+        _integer(worker_cpu, "worker CPU", 0)
+    if len(set(worker_cpus)) != 5 or cpu in worker_cpus:
+        raise ValueError("batch replay requires six distinct CPUs including the supervisor")
+    return worker_cpus
+
+
+def _request_worker_cpus(profile: RuntimeProfile, request: dict) -> tuple[int, ...] | None:
+    """Decode the exact request/report mask without consulting current affinity."""
+    value = request.get("worker_cpus")
+    if value is not None and type(value) is not list:
+        raise ValueError("serialized worker_cpus must be a list")
+    worker_cpus = tuple(value) if value is not None else None
+    _worker_cpu_mask(profile, request.get("cpu"), worker_cpus)
+    return worker_cpus
+
+
+def _preflight(profile: RuntimeProfile, attempt: Path, cpu: int,
+               worker_cpus: tuple[int, ...] | None = None) -> None:
     _check_hard_limit(profile)
-    if cpu not in os.sched_getaffinity(0):
-        raise ValueError("explicit CPU is outside inherited affinity")
-    if _mem_available() < profile.host_reserve_bytes + profile.child_as_bytes + profile.supervisor_as_bytes:
+    mask = _worker_cpu_mask(profile, cpu, worker_cpus)
+    if not {cpu, *mask} <= os.sched_getaffinity(0):
+        raise ValueError("explicit CPU mask is outside inherited affinity")
+    worker_reservation = max(profile.child_as_bytes, profile.group_rss_bytes)
+    if _mem_available() < profile.host_reserve_bytes + worker_reservation + profile.supervisor_as_bytes:
         raise ValueError("insufficient host MemAvailable admission reserve")
     if _disk_available(attempt) < profile.disk_floor_bytes + profile.evidence_bytes:
         raise ValueError("insufficient free disk admission reserve")
@@ -725,6 +763,8 @@ def _supervise(request: dict, attempt: Path) -> dict:
               "rss_scope": "sampled worker process group; shared pages may double count; not exact aggregate peak",
               "kernel_peak_scope": "maximum wait4 ru_maxrss across reaped processes, not summed group peak",
               "evidence_scope": "worker-local conservative charge plus separate supervisor metadata reservation"}
+    if profile == BATCH_REPLAY:
+        report.update(cpu=request.get("cpu"), worker_cpus=request.get("worker_cpus"))
     worker = None
     lock_fd = snapshot_fd = None
     last_sample = last_snapshot = time.monotonic()
@@ -803,7 +843,8 @@ def _supervise(request: dict, attempt: Path) -> dict:
         report["stage"] = "preflight"
         if time.monotonic() >= deadline:
             raise TimeoutError("phase expired before preflight")
-        _preflight(profile, attempt, request["cpu"])
+        worker_cpus = _request_worker_cpus(profile, request)
+        _preflight(profile, attempt, request["cpu"], worker_cpus)
         # This file is shared by every profile of this guard for the current UID.
         lock_path = Path("/tmp") / f"hiroute-recorded-phase-{os.getuid()}.lock"
         inherited_lock = request.get("admission_lock_fd")
@@ -828,7 +869,7 @@ def _supervise(request: dict, attempt: Path) -> dict:
             resource.setrlimit(resource.RLIMIT_AS, (profile.child_as_bytes, profile.child_as_bytes))
             resource.setrlimit(resource.RLIMIT_FSIZE, (profile.worker_evidence_bytes, profile.worker_evidence_bytes))
             resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
-            os.sched_setaffinity(0, {request["cpu"]})
+            os.sched_setaffinity(0, set(worker_cpus) if worker_cpus is not None else {request["cpu"]})
 
         env = dict(os.environ, HIROUTE_EVIDENCE_ROOT=str(attempt / "evidence"),
                    HIROUTE_EVIDENCE_CAP_BYTES=str(profile.worker_evidence_bytes), HIROUTE_PROFILE=profile.name,
@@ -931,7 +972,7 @@ def _supervise(request: dict, attempt: Path) -> dict:
 def _run_phase_locked(command: list[str], *, attempt_dir: Path | str, profile: RuntimeProfile,
                       cpu: int, context: PlanContext, entry_monotonic: float,
                       deadline_monotonic: float, admission_lock_fd: int | None,
-                      admission_error: str | None) -> dict:
+                      admission_error: str | None, worker_cpus: tuple[int, ...] | None = None) -> dict:
     """Run only after external root admission; new attempt directory required.
 
     The caller is a control-only launcher. Its RSS is reported separately and is
@@ -942,7 +983,7 @@ def _run_phase_locked(command: list[str], *, attempt_dir: Path | str, profile: R
         raise ValueError("profile must exactly match a named fixed profile")
     if type(context) is not PlanContext or context.profile_name != profile.name:
         raise ValueError("pinned context must match profile")
-    _integer(cpu, "cpu", 0)
+    _worker_cpu_mask(profile, cpu, worker_cpus)
     if type(command) is not list or not command or any(type(x) is not str or not x or "\0" in x for x in command):
         raise ValueError("command must be an explicit argv list")
     for value in (entry_monotonic, deadline_monotonic):
@@ -961,10 +1002,14 @@ def _run_phase_locked(command: list[str], *, attempt_dir: Path | str, profile: R
                "deadline_monotonic": deadline_monotonic,
                "admission_lock_fd": admission_lock_fd,
                "launcher_rss_bytes_at_entry": _processes()[os.getpid()][3]}
+    if worker_cpus is not None:
+        request["worker_cpus"] = list(worker_cpus)
+    cpu_binding = {"cpu": cpu, "worker_cpus": list(worker_cpus)} if profile == BATCH_REPLAY else {}
     _exclusive_json(attempt / "request.json", request, profile.supervisor_evidence_bytes // 8)
     if admission_error is not None:
         report = {"schema": "hiroute-phase-v1", "status": "unresolved", "worker_pid": None,
-                  "reason": admission_error, "phase_wall_seconds": time.monotonic() - entry_monotonic}
+                  "reason": admission_error, "phase_wall_seconds": time.monotonic() - entry_monotonic,
+                  **cpu_binding}
         _exclusive_json(attempt / "result.json", report, DECISION_BYTES)
         _reject(attempt, admission_error)
         return report
@@ -978,7 +1023,8 @@ def _run_phase_locked(command: list[str], *, attempt_dir: Path | str, profile: R
     except Exception as exc:
         _prctl(36, previous_subreaper)
         report = {"schema": "hiroute-phase-v1", "status": "unresolved",
-                  "reason": f"supervisor launch failed: {type(exc).__name__}: {str(exc)[:256]}"}
+                  "reason": f"supervisor launch failed: {type(exc).__name__}: {str(exc)[:256]}",
+                  **cpu_binding}
         _exclusive_json(attempt / "result.json", report, DECISION_BYTES)
         _reject(attempt, report["reason"])
         return report
@@ -1012,7 +1058,8 @@ def _run_phase_locked(command: list[str], *, attempt_dir: Path | str, profile: R
             result_path = attempt / "launcher-result.json"
         _exclusive_json(result_path, {"schema": "hiroute-phase-v1", "status": "unresolved",
                                      "reason": "supervisor failed without a final report",
-                                     "phase_wall_seconds": time.monotonic() - entry_monotonic})
+                                     "phase_wall_seconds": time.monotonic() - entry_monotonic,
+                                     **cpu_binding})
     report, _ = _read_json_bytes(result_path, METADATA_BYTES)
     if (not supervisor_reaped or not descendants_reaped or supervisor.returncode != 0 or
             report.get("status") != "provisional"):
@@ -1085,11 +1132,14 @@ def _run_phase_locked(command: list[str], *, attempt_dir: Path | str, profile: R
 
 def run_phase(command: list[str], *, attempt_dir: Path | str, profile: RuntimeProfile,
               cpu: int, context: PlanContext, entry_monotonic: float,
-              deadline_monotonic: float) -> dict:
+              deadline_monotonic: float, worker_cpus: tuple[int, ...] | None = None) -> dict:
     """Hold exclusive phase ownership through cleanup and final publication.
 
     PlanContext is not execution authorization. The external root must admit the
     phase first. Binding work must start at or after entry and fit its deadline.
+    Batch replay requires five worker_cpus, ordered coordinator then four fresh
+    children, disjoint from the supervisor's cpu. The trusted coordinator pins
+    itself after spawning its children in the inherited worker process group.
     """
     lock_path = Path("/tmp") / f"hiroute-recorded-phase-{os.getuid()}.lock"
     lock_fd = os.open(lock_path, os.O_CREAT | os.O_RDWR | _NOFOLLOW, 0o600)
@@ -1103,7 +1153,7 @@ def run_phase(command: list[str], *, attempt_dir: Path | str, profile: RuntimePr
                                  context=context, entry_monotonic=entry_monotonic,
                                  deadline_monotonic=deadline_monotonic,
                                  admission_lock_fd=lock_fd if error is None else None,
-                                 admission_error=error)
+                                 admission_error=error, worker_cpus=worker_cpus)
     finally:
         os.close(lock_fd)
 

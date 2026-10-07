@@ -24,7 +24,7 @@ from .physical_state import verify_physical_states
 
 
 @_validation_api
-def _verify_bundle(bundle, trusted_case, physics):
+def _verify_bundle(bundle, trusted_case, physics, *, batch_executor=None):
     """Validate all nodes and complete recorded operator invocations exactly.
 
     Raises VerificationError on rejection. Returns an immutable CheckedBundle.
@@ -166,6 +166,11 @@ def _verify_bundle(bundle, trusted_case, physics):
         else:
             raise VerificationError(f'unsupported node kind {kind}')
     owned = set()
+    if batch_executor is not None:
+        from .batch_jobs import BatchExecutor
+        require(type(batch_executor) is BatchExecutor, 'unsupported_batch_executor')
+        batch_executor.start((i, data['batch_ids'][i], batch['kind']) for i, batch in enumerate(batches)
+                             if batch['kind'] in ('union', 'reduction'))
     for i, batch in enumerate(batches):
         require(set(batch) == {'kind', 'parents', 'outputs', 'params'}, 'invalid_batch_fields')
         require(digest(batch) == data['batch_ids'][i], 'batch_hash_mismatch', batch=i)
@@ -206,6 +211,11 @@ def _verify_bundle(bundle, trusted_case, physics):
                 require(n['kind'] == 'select' and n['parents'] == parents and n['params']['mode'] == kind, 'selection_batch_origin')
             if kind == 'union':
                 require(not ps or len({p.family() for p in ps}) == 1, 'union_batch_crosses_family_key')
+            if batch_executor is not None:
+                # Every origin/parent/parameter check above remains serial.
+                # Only the complete independent scalar batch obligation moves.
+                batch_executor.submit(i, data['batch_ids'][i], kind, ps, os)
+            elif kind == 'union':
                 checked_cells += _exact(ps, os, 'union_batch_missing_minimum_or_attainment')
             else:
                 try:
@@ -218,6 +228,8 @@ def _verify_bundle(bundle, trusted_case, physics):
             raise VerificationError(f'unsupported batch kind {kind}')
         owned.update(outputs)
     require(all(ident in owned for ident, n in nodes.items() if n['kind'] in ('drive', 'stop', 'select')), 'operator_node_missing_complete_batch')
+    if batch_executor is not None:
+        checked_cells += batch_executor.finish()
     summary = dict(schema='family5-check-v1', verified=True, nodes=len(nodes), batches=len(batches),
                    checked_affine_cells=checked_cells, distinct_stop_regimes=len(regime_cache),
                    case_sha256=digest(trusted_case), bundle_sha256=digest(data),
