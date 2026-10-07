@@ -39,7 +39,7 @@ fixture allowlist. It:
 2. Installs that wheel, stages repository validator source separately, and
    verifies production imports come from the environment. The test directory
    contains no `src` tree or repository pytest `pythonpath` override.
-3. Runs the same 24 selected modules under normal Python and `python -OO`, with
+3. Runs the same 31 selected modules under normal Python and `python -OO`, with
    one-thread BLAS/OpenMP/MKL and external pytest plugin autoload disabled.
 4. Rejects missing fixtures, zero collected tests, skips, errors and failures.
 
@@ -52,6 +52,10 @@ with positive nondecreasing slopes, and genuinely charging-free S-only cases.
 They use explicit v2 models/ledgers and require result-plus-arrival-band witness
 binding. They do not admit generic nonconvex PWA, real-leg integration,
 coalescing, frozen numerical populations, or literal G8 closure.
+The recovered additions also check the immutable capture loader, container
+ownership and streamed hashes, recorded coalescing, independent real-family
+anchor/phase validation, and real/coalesced mock replay. These are code-only
+reconstruction checks, not acceptance of historical source or real populations.
 Only the nine explicitly named synthetic/mock JSON fixtures are staged.
 
 The v2 fixtures are hand-authored inside its test modules, so adding this
@@ -68,6 +72,11 @@ using the same hash-locked dependencies: **330 tests and 489 subtests in each
 mode**, with no skips, in 38.1 seconds after dependency installation. These
 counts include the existing affine-v1 regressions; they are focused CI evidence,
 not a newly admitted frozen numerical population or a performance benchmark.
+
+The recovered loader/real-trace stack passed **393 tests and 748 subtests in
+each mode**, with no skips, in a fresh installed-wheel rehearsal lasting
+57.9 seconds after dependency installation. The same dependency lock and
+explicit nine-fixture allowlist were used.
 
 ## Deliberately outside this gate
 
