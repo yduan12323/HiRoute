@@ -61,18 +61,32 @@ class ReplayedBlocks:
 
 
 @api
-def replay_blocks(reader, ctx, blocks, source_context, *, deadline, before=lambda: None):
+def replay_blocks(reader, ctx, blocks, source_context, *, deadline, before=lambda: None,
+                  replay_profile='pilot4/1024'):
     """Return nothing authoritative until the entire pinned stream is consumed.
 
 The reader enforces canonical JSONL, gzip/incomplete-prefix policy and byte
 caps. A malformed complete record anywhere invalidates this call, even if an
 earlier block had a checkpoint. Resource exceptions propagate to the caller.
+Only the frozen pilot4/1024 and window32/8192 declaration maxima are supported;
+the profile grants no source-admission or historical-runtime authority.
 """
     from .archive_reader import ArchiveReader
     require(type(reader) is ArchiveReader, 'bounded pinned archive reader required')
     require(type(deadline) is float and math.isfinite(deadline), 'finite cold replay deadline required')
-    require(type(blocks) is list and 0 < len(blocks) <= 4,
-            'cold reader currently bounded to four 256-model blocks')
+    require(type(replay_profile) is str and replay_profile in ('pilot4/1024', 'window32/8192'),
+            'frozen cold replay profile required')
+    max_blocks, max_models = (4, 1024) if replay_profile == 'pilot4/1024' else (32, 8192)
+    require(type(blocks) is list and 0 < len(blocks) <= max_blocks,
+            'cold reader block count exceeds replay profile')
+    # Bound every declaration before copying it or constructing either model
+    # map. BlockCertificates still checks all range/descriptor semantics.
+    model_count = 0
+    for block in blocks:
+        require(type(block) is dict and type(block.get('descriptors')) is list and
+                0 < len(block['descriptors']) <= 256, 'bounded block descriptors required')
+        model_count += len(block['descriptors'])
+    require(model_count <= max_models, 'cold reader model count exceeds replay profile')
     require(type(source_context) is dict, 'independently admitted source context required')
     exact_json(source_context)
     exact_json(blocks)
@@ -84,8 +98,6 @@ earlier block had a checkpoint. Resource exceptions propagate to the caller.
     expected = {row['ordinal']: block['range']['block_id']
                 for block in blocks for row in block['descriptors']}
     block_ids = [block['range']['block_id'] for block in blocks]
-    require(len(expected) <= 1024 and len(blocks) <= 4,
-            'cold reader currently bounded to four 256-model blocks')
     header = dict(kind='header', schema='hiroute-suffix-block-proof-archive-v1',
                   source_context=source_context, expected_models=len(expected),
                   blocks=[block['range'] for block in blocks], certificate_reuse_enabled=False)

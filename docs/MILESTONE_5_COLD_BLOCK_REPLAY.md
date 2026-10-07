@@ -3,7 +3,14 @@
 This code-only milestone adds a restart reader for the existing
 `hiroute-suffix-block-proof-archive-v1` JSONL/gzip format. It does not run an LP,
 start a server job, certify an entire query, or close literal G8. The current
-helper accepts at most four independently declared blocks and 1,024 models.
+helper defaults to at most four independently declared blocks and 1,024 models.
+The explicit `replay_profile='window32/8192'` keyword permits at most 32 blocks
+and 8,192 models. The default `pilot4/1024` and this window profile are the only
+accepted names; arbitrary cap overrides are not supported. Each block remains
+bounded to 256 descriptors, checked before model-map construction. Both profiles
+use the same archive and receipt schemas, certificate/checkpoint and physical
+checks, 512 MiB compressed/raw caps, and 8 MiB row cap. Selecting the window
+profile supplies no source-admission or historical-runtime authority.
 
 ## Caller obligations
 
@@ -96,12 +103,19 @@ Run the focused, optimizer-free suite with:
 ```sh
 PYTHONPATH=src python -m unittest \
   tests.test_suffix_archive_reader tests.test_suffix_block_replay \
-  tests.test_suffix_block_archive tests.test_suffix_block_certificates -q
+  tests.test_suffix_block_archive tests.test_suffix_block_certificates \
+  tests.test_suffix_window_replay -q
 ```
 
-All 45 tests pass, including original-writer roundtrip, sync-flushed checkpoint
+All 55 tests pass in normal and `-OO` modes, including original-writer roundtrip, sync-flushed checkpoint
 recovery, source/model/certificate/physical tampering, gap and duplicate
 rejection, expired/late deadlines, and an exact 254-of-256 salvage-and-recheck
-exercise using repeated tiny hand certificates. These tests do not constitute
+exercise using repeated tiny hand certificates. The window tests additionally
+replay 32 small hand-certified blocks, check original row references and physical
+winners, and admit exactly 8,192 declared slots using a header-only interrupted
+archive that certifies zero models. Over-cap and wrong-type inputs fail before
+model-map construction. Four-block receipts and retained certificate rows match
+the legacy implementation byte-for-byte after removing physical replay timings.
+These tests do not constitute
 a cold replay of the real pilot. Its archive is not present in this checkout;
 no real archive result or full-population completion is claimed here.
