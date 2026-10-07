@@ -22,6 +22,21 @@ class BatchJobs(unittest.TestCase):
    job=dict(index=4,batch_sha256='a'*64,kind=kind,context_sha256='b'*64,job_sha256=sha(raw))
    self.assertEqual(check_result(result,job),3)
    if kind=='reduction':self.assertEqual(result['certificate_sha256'],oracle.equivalent([p],[p])['sha256'])
+ def test_explicit_kernel_pin_and_identical_certificate(self):
+  p=piece();baseline=evaluate(make_job(4,'a'*64,'reduction',[p],[p],'b'*64))
+  raw=make_job(4,'a'*64,'reduction',[p],[p],'b'*64,kernel='tau-precompute-v1')
+  result=evaluate(raw,expected_kernel='tau-precompute-v1')
+  self.assertEqual(result['certificate_sha256'],baseline['certificate_sha256'])
+  self.assertEqual(result['cells'],baseline['cells']);self.assertEqual(result['kernel'],'tau-precompute-v1')
+  job=dict(index=4,batch_sha256='a'*64,kind='reduction',context_sha256='b'*64,job_sha256=sha(raw),kernel='tau-precompute-v1')
+  self.assertEqual(check_result(result,job),3)
+  with self.assertRaises(ValueError):evaluate(raw,expected_kernel='v2')
+  with self.assertRaises(ValueError):check_result(dict(result,kernel='v2'),job)
+  with self.assertRaises(ValueError):evaluate(make_job(4,'a'*64,'reduction',[p],[p],'b'*64),expected_kernel='tau-precompute-v1')
+  with BatchExecutor(self.cpus(),float(time.monotonic()+10),'b'*64,worker_as=256*1024**2,kernel='tau-precompute-v1') as pool:
+   pool.start([(4,'a'*64,'reduction')]);pool.submit(4,'a'*64,'reduction',[p],[p]);self.assertEqual(pool.finish(),3)
+   self.assertEqual(pool.snapshot()['kernel'],'tau-precompute-v1')
+   self.assertEqual(pool.results[4]['result']['certificate_sha256'],baseline['certificate_sha256'])
  def test_missing_duplicate_wrong_hash_and_repaired_piece_negatives(self):
   p=piece();raw=make_job(0,'a'*64,'union',[p],[p],'b'*64);result=evaluate(raw)
   job=dict(index=0,batch_sha256='a'*64,kind='union',context_sha256='b'*64,job_sha256=sha(raw))

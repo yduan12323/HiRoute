@@ -9,7 +9,7 @@ from .diagnose import Observer,DiagnosticStop,MAX_POST_DECODE_SECONDS,TOTAL_SECO
 from .runtime import BATCH_REPLAY,PlanContext,BoundedEvidenceWriter,run_phase,worker_failure
 
 CHANGED={'validation/real5_v2/family.py','experiments/time_cut_v2/recorded_real/runtime.py'}
-ADDED={'validation/family5/independent_oracle_v3.py','validation/real5_v2/batch_jobs.py',
+ADDED={'validation/family5/independent_oracle_v4.py','validation/family5/independent_oracle_v3.py','validation/real5_v2/batch_jobs.py',
  'experiments/time_cut_v2/recorded_real/diagnose.py','experiments/time_cut_v2/recorded_real/parallel_profile.py'}
 
 def inputs(args):
@@ -66,7 +66,7 @@ def worker(args):
   int(os.environ['HIROUTE_EVIDENCE_CAP_BYTES'])==BATCH_REPLAY.worker_evidence_bytes,'wrong group profile')
  binding.require(type(args.deadline) is float and time.monotonic()+MAX_POST_DECODE_SECONDS+20<args.deadline,'insufficient absolute diagnostic budget')
  # Spawn before loading the 835 MB capture: no child inherits its live registry.
- with BatchExecutor(tuple(args.worker_cpus[1:]),args.deadline-10,args.capture_sha) as pool:
+ with BatchExecutor(tuple(args.worker_cpus[1:]),args.deadline-10,args.capture_sha,kernel=args.batch_kernel) as pool:
   os.sched_setaffinity(0,{args.worker_cpus[0]})
   before=time.monotonic();payload=binding.load(args.capture);decode=time.monotonic()-before
   binding.require(payload['schema']=='hiroute-recorded-real-capture-v1' and payload['source_plan_sha256']==args.plan_sha,'capture plan changed')
@@ -76,7 +76,7 @@ def worker(args):
   result,error,observer=run_profile(payload,trusted,pool)
   ledger=pool.snapshot()
  report=dict(schema='hiroute-parallel-replay-diagnostic-v1',acceptance=False,structural_verified=False,solver_calls=0,
-  suffix_optimizer_calls=0,oracle_version='v3-parent-v2-complete-batch-v1',capture_sha256=args.capture_sha,
+  suffix_optimizer_calls=0,oracle_version='v3-parent-'+args.batch_kernel+'-complete-batch-v1',batch_kernel=args.batch_kernel,capture_sha256=args.capture_sha,
   plan_sha256=args.plan_sha,diagnostic_source_commit=args.source_commit,diagnostic_source_sha256=args.source_sha,
   worker_cpus=args.worker_cpus,decode_seconds=decode,checker_returned=result is not None,error=error,
   post_decode_budget_seconds=MAX_POST_DECODE_SECONDS,observations=observer.snapshot(),family_jobs_complete=ledger['complete'],
@@ -93,6 +93,7 @@ def main():
  for name in ('plan','capture'):parser.add_argument('--'+name,type=Path,required=True);parser.add_argument('--'+name+'-sha',required=True)
  parser.add_argument('--source-commit',required=True);parser.add_argument('--source-sha',required=True)
  parser.add_argument('--worker-cpus',type=int,nargs=5,required=True);parser.add_argument('--cpu',type=int)
+ parser.add_argument('--batch-kernel',choices=('v2','tau-precompute-v1'),default='v2')
  parser.add_argument('--deadline',type=float);parser.add_argument('--attempt-dir',type=Path);args=parser.parse_args()
  if args.worker:
   try:return worker(args)
@@ -105,7 +106,7 @@ def main():
  argv=[sys.executable,'-B','-m','experiments.time_cut_v2.recorded_real.parallel_profile','--worker',
   '--plan',str(args.plan.resolve()),'--plan-sha',args.plan_sha,'--capture',str(args.capture.resolve()),'--capture-sha',args.capture_sha,
   '--source-commit',args.source_commit,'--source-sha',args.source_sha,'--deadline',repr(deadline),
-  '--worker-cpus',*map(str,args.worker_cpus)]
+  '--worker-cpus',*map(str,args.worker_cpus),'--batch-kernel',args.batch_kernel]
  result=run_phase(argv,attempt_dir=args.attempt_dir,profile=BATCH_REPLAY,cpu=args.cpu,worker_cpus=tuple(args.worker_cpus),
   context=PlanContext(args.plan_sha,args.source_sha,binding.digest(dict(input_sha256=value['input_sha256'],capture_sha256=args.capture_sha)),BATCH_REPLAY.name),
   entry_monotonic=float(ENTRY),deadline_monotonic=deadline)

@@ -23,6 +23,16 @@ class ParallelProfile(unittest.TestCase):
       self.assertEqual(baseline.export_queries(),after.export_queries())
       a=dict(baseline.summary);b=dict(after.summary);a.pop('elapsed_s');b.pop('elapsed_s');self.assertEqual(a,b)
       self.assertIs(family._verify_bundle,original)
+ def test_tau_kernel_preserves_tiny_complete_traces(self):
+  rows=json.loads((ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
+  for row in rows:
+   for dominance in (False,True):
+    data=capture(row,dominance);trusted=prepare(row);baseline=verify_coalesced_trace(data['trace'],data['bundle'],trusted)
+    with BatchExecutor(tuple(sorted(os.sched_getaffinity(0)))[:2],float(time.monotonic()+15),'b'*64,worker_as=256*1024**2,kernel='tau-precompute-v1') as pool:
+     after,error,observer=run_profile(data,trusted,pool)
+     self.assertIsNone(error);self.assertTrue(pool.snapshot()['complete'])
+     self.assertEqual(baseline.export_queries(),after.export_queries())
+     a=dict(baseline.summary);b=dict(after.summary);a.pop('elapsed_s');b.pop('elapsed_s');self.assertEqual(a,b)
  def test_interrupted_profile_is_not_a_completed_join(self):
   rows=json.loads((ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
   data=capture(rows[0],True);trusted=prepare(rows[0]);original=family._verify_bundle

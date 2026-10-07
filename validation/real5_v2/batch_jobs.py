@@ -15,6 +15,8 @@ RESPONSE_LIMIT=32*1024
 WORKER_AS=1024**3
 MAX_PIECES=20000
 SCHEMA='family5-selection-job-v1'
+TAU_KERNEL='tau-precompute-v1'
+KERNELS=('v2',TAU_KERNEL)
 
 class BatchIncomplete(RuntimeError):pass
 
@@ -50,34 +52,49 @@ def read_piece(p):
  require(type(p['chi']) is bool,'attainment flag')
  return oracle.Piece(lo,hi,d[2],d[3],rational(p['m']),rational(p['b']),p['chi'],rational(p['rho']),tuple(map(tuple,pi)),tuple(s))
 
-def make_job(index,batch_sha,kind,a,b,context):
+def make_job(index,batch_sha,kind,a,b,context,*,kernel='v2'):
+ require(type(kernel) is str and kernel in KERNELS,'unknown batch kernel')
  require(type(index) is int and index>=0 and hash_id(batch_sha) and hash_id(context),'job identity')
  require(kind in ('union','reduction'),'selection job kind')
  require(len(a)+len(b)<=MAX_PIECES,'piece count exceeds job cap')
  value=dict(schema=SCHEMA,index=index,batch_sha256=batch_sha,kind=kind,context_sha256=context,
   left=[encode_piece(p) for p in a],right=[encode_piece(p) for p in b])
+ if kernel!='v2':value.update(schema='family5-selection-job-v2',kernel=kernel)
  raw=wire(value);require(len(raw)<=JOB_LIMIT,'serialized job exceeds cap');return raw
 
-def evaluate(raw):
+def evaluate(raw,*,expected_kernel=None):
  require(type(raw) is bytes and len(raw)<=JOB_LIMIT,'job byte cap')
- job=decode(raw);require(type(job) is dict and set(job)=={'schema','index','batch_sha256','kind','context_sha256','left','right'},'job fields')
- require(job['schema']==SCHEMA and type(job['index']) is int and job['index']>=0 and hash_id(job['batch_sha256']) and hash_id(job['context_sha256']),'job identity')
+ job=decode(raw);require(type(job) is dict,'job object')
+ kernel='v2' if job.get('schema')==SCHEMA else job.get('kernel')
+ require(kernel in KERNELS and (expected_kernel is None or kernel==expected_kernel),'worker kernel mismatch')
+ fields={'schema','index','batch_sha256','kind','context_sha256','left','right'}
+ if kernel!='v2':fields.add('kernel')
+ require(set(job)==fields and job['schema']==(SCHEMA if kernel=='v2' else 'family5-selection-job-v2'),'job fields/schema')
+ require(type(job['index']) is int and job['index']>=0 and hash_id(job['batch_sha256']) and hash_id(job['context_sha256']),'job identity')
  require(type(job['left']) is list and type(job['right']) is list and len(job['left'])+len(job['right'])<=MAX_PIECES,'job piece arrays')
  a,b=[read_piece(p) for p in job['left']],[read_piece(p) for p in job['right']]
  certificate=None
  if job['kind']=='union':
   require(not a or len({p.family() for p in a})==1,'union crosses family key');cells=exact_family_equal(a,b)
  elif job['kind']=='reduction':
-  result=oracle.equivalent(a,b);oracle.antichain(list(dict.fromkeys(b)))
+  comparison=oracle
+  if kernel==TAU_KERNEL:
+   from validation.family5 import independent_oracle_v4 as comparison
+  result=comparison.equivalent(a,b);comparison.antichain(list(dict.fromkeys(b)))
   cells=result['cells'];certificate=result['sha256']
  else:raise ValueError('unknown job kind')
- return dict(schema='family5-selection-result-v1',index=job['index'],batch_sha256=job['batch_sha256'],
+ response=dict(schema='family5-selection-result-v1',index=job['index'],batch_sha256=job['batch_sha256'],
   kind=job['kind'],context_sha256=job['context_sha256'],job_sha256=sha(raw),cells=cells,certificate_sha256=certificate)
+ if kernel!='v2':response.update(schema='family5-selection-result-v2',kernel=kernel)
+ return response
 
 def check_result(result,job):
+ kernel=job.get('kernel','v2');require(kernel in KERNELS,'unknown expected kernel')
  expected={'schema','index','batch_sha256','kind','context_sha256','job_sha256','cells','certificate_sha256'}
+ if kernel!='v2':expected.add('kernel')
  require(type(result) is dict and set(result)==expected,'result fields')
- require(result['schema']=='family5-selection-result-v1' and type(result['index']) is int and
+ require(result['schema']==('family5-selection-result-v1' if kernel=='v2' else 'family5-selection-result-v2') and
+  result.get('kernel','v2')==kernel and type(result['index']) is int and
   all(result[k]==job[k] for k in ('index','batch_sha256','kind','context_sha256','job_sha256')),'foreign batch result')
  require(type(result['cells']) is int and result['cells']>=0,'result cell count')
  require(result['certificate_sha256'] is None if result['kind']=='union' else hash_id(result['certificate_sha256']),'result certificate binding')
@@ -94,18 +111,20 @@ class Slot:
 
 class BatchExecutor:
  """At most four in-flight jobs; no unbounded queue or inherited graph heap."""
- def __init__(self,cpus,deadline,context,*,worker_as=WORKER_AS):
+ def __init__(self,cpus,deadline,context,*,worker_as=WORKER_AS,kernel='v2'):
   require(type(cpus) in (tuple,list) and 1<=len(cpus)<=4 and all(type(x) is int for x in cpus) and len(set(cpus))==len(cpus),'worker CPU list')
   require(set(cpus)<=os.sched_getaffinity(0),'worker CPU outside allowed mask')
   require(type(deadline) is float and math.isfinite(deadline) and deadline>time.monotonic() and hash_id(context),'executor context/deadline')
   require(type(worker_as) is int and 128*1024**2<=worker_as<=WORKER_AS,'worker AS cap')
-  self.cpus=tuple(cpus);self.deadline=deadline;self.context=context;self.worker_as=worker_as
+  require(type(kernel) is str and kernel in KERNELS,'unknown batch kernel')
+  self.kernel=kernel;self.cpus=tuple(cpus);self.deadline=deadline;self.context=context;self.worker_as=worker_as
   self.slots=[];self.expected=None;self.submitted={};self.results={};self.closed=False;self.workers_joined=False
  def __enter__(self):
   try:
    for cpu in self.cpus:
     flags=['-'+('O'*sys.flags.optimize)] if sys.flags.optimize else []
     command=[sys.executable,'-B',*flags,'-m',__name__,'--worker','--cpu',str(cpu),'--as-bytes',str(self.worker_as)]
+    if self.kernel!='v2':command+=['--kernel',self.kernel]
     def limits(cpu=cpu):
      resource.setrlimit(resource.RLIMIT_AS,(self.worker_as,self.worker_as))
      resource.setrlimit(resource.RLIMIT_CORE,(0,0));os.sched_setaffinity(0,{cpu})
@@ -123,8 +142,9 @@ class BatchExecutor:
  def submit(self,index,batch_sha,kind,a,b):
   require(not self.closed and self.expected is not None,'inactive batch executor')
   n=len(self.submitted);require(n<len(self.expected) and (index,batch_sha,kind)==self.expected[n],'missing duplicate or reordered job submission')
-  raw=make_job(index,batch_sha,kind,a,b,self.context)
+  raw=make_job(index,batch_sha,kind,a,b,self.context,kernel=self.kernel)
   record=dict(index=index,batch_sha256=batch_sha,kind=kind,context_sha256=self.context,job_sha256=sha(raw),input_bytes=len(raw))
+  if self.kernel!='v2':record['kernel']=self.kernel
   while all(s.pending is not None for s in self.slots):self.pump()
   slot=next(s for s in self.slots if s.pending is None)
   self.submitted[index]=record;slot.pending=record;slot.sending=raw+b'\n';slot.offset=0;slot.receiving=bytearray()
@@ -182,10 +202,12 @@ class BatchExecutor:
   self.workers_joined=True
   return sum(check_result(self.results[i]['result'],self.submitted[i]) for i,h,k in self.expected)
  def snapshot(self):
-  return dict(schema='family5-selection-ledger-v1',context_sha256=self.context,expected=self.expected,
+  result=dict(schema='family5-selection-ledger-v1',context_sha256=self.context,expected=self.expected,
    submitted=[self.submitted[i] for i in sorted(self.submitted)],results=[self.results[i] for i in sorted(self.results)],
    submitted_count=len(self.submitted),completed_count=len(self.results),cpus=list(self.cpus),worker_as_bytes=self.worker_as,
    complete=self.workers_joined and self.expected is not None and len(self.submitted)==len(self.results)==len(self.expected))
+  if self.kernel!='v2':result.update(schema='family5-selection-ledger-v2',kernel=self.kernel)
+  return result
  def close(self):
   self.closed=True
   for slot in self.slots:
@@ -200,14 +222,15 @@ class BatchExecutor:
   if failed:raise BatchIncomplete('worker cleanup deadline exceeded')
  def __exit__(self,*exc):self.close()
 
-def worker(cpu,as_bytes):
+def worker(cpu,as_bytes,kernel='v2'):
+ require(kernel in KERNELS,'unknown worker kernel')
  require(cpu in os.sched_getaffinity(0),'worker affinity');os.sched_setaffinity(0,{cpu})
  require(128*1024**2<=as_bytes<=WORKER_AS,'worker AS cap');resource.setrlimit(resource.RLIMIT_AS,(as_bytes,as_bytes))
  resource.setrlimit(resource.RLIMIT_CORE,(0,0))
  for raw in iter(lambda:sys.stdin.buffer.readline(JOB_LIMIT+2),b''):
   require(raw.endswith(b'\n') and len(raw)<=JOB_LIMIT+1,'worker request framing/cap');raw=raw[:-1]
   start=time.process_time()
-  try:result=evaluate(raw);status='completed';error=None
+  try:result=evaluate(raw,expected_kernel=kernel);status='completed';error=None
   except Exception as exc:result=None;status='unresolved';error=type(exc).__name__+': '+str(exc)[:512]
   envelope=dict(status=status,result=result,error=error,telemetry=dict(pid=os.getpid(),cpu=cpu,as_bytes=as_bytes,
    cpu_seconds=time.process_time()-start,kernel_peak_rss_bytes=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024))
@@ -216,4 +239,5 @@ def worker(cpu,as_bytes):
 
 if __name__=='__main__':
  parser=argparse.ArgumentParser();parser.add_argument('--worker',action='store_true',required=True);parser.add_argument('--cpu',type=int,required=True);parser.add_argument('--as-bytes',type=int,required=True)
- args=parser.parse_args();worker(args.cpu,args.as_bytes)
+ parser.add_argument('--kernel',choices=KERNELS,default='v2')
+ args=parser.parse_args();worker(args.cpu,args.as_bytes,args.kernel)
