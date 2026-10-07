@@ -32,11 +32,13 @@ TESTS = (
     "tests/test_family_receipt_stream_v1.py",
     "tests/test_invocation_trace_v1.py",
     "tests/test_restricted_suffix_v1.py",
+    "tests/test_restricted_suffix_v2.py",
     "tests/test_trace_coalescing_integration.py",
     "validation/family5/test_checker_units.py",
     "validation/trace5/test_checker_units.py",
     "validation/suffix5/test_certificate_checker.py",
     "validation/suffix5/test_witness_checker.py",
+    "validation/suffix5/test_convex_checker.py",
 )
 
 # Only hand-built synthetic cases and mock legs are staged. No result directory
