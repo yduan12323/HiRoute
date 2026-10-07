@@ -16,7 +16,8 @@ WORKER_AS=1024**3
 MAX_PIECES=20000
 SCHEMA='family5-selection-job-v1'
 TAU_KERNEL='tau-precompute-v1'
-KERNELS=('v2',TAU_KERNEL)
+SWEEP_KERNEL='interval-sweep-v1'
+KERNELS=('v2',TAU_KERNEL,SWEEP_KERNEL)
 
 class BatchIncomplete(RuntimeError):pass
 
@@ -80,7 +81,11 @@ def evaluate(raw,*,expected_kernel=None):
   comparison=oracle
   if kernel==TAU_KERNEL:
    from validation.family5 import independent_oracle_v4 as comparison
-  result=comparison.equivalent(a,b);comparison.antichain(list(dict.fromkeys(b)))
+  if kernel==SWEEP_KERNEL:
+   from validation.family5 import independent_oracle_v5 as comparison
+   result=comparison.equivalent_compact(a,b)
+  else:result=comparison.equivalent(a,b)
+  comparison.antichain(list(dict.fromkeys(b)))
   cells=result['cells'];certificate=result['sha256']
  else:raise ValueError('unknown job kind')
  response=dict(schema='family5-selection-result-v1',index=job['index'],batch_sha256=job['batch_sha256'],

@@ -83,6 +83,22 @@ class HotJobDiagnostic(unittest.TestCase):
    self.assertEqual(report['result'],evaluate(raw,expected_kernel=kernel))
    self.assertEqual(report['observations']['cell_completed'],3)
    self.assertEqual(original,(v2.arrangement,v2.dominates,v4._dominates,v2._certificate_cell,v4._certificate_cell))
+ def test_sweep_rebind_preserves_inputs_and_reports_exact_certificate(self):
+  from validation.family5 import independent_oracle_v5 as sweep
+  from validation.real5_v2.batch_jobs import decode
+  p=piece();original=make_job(11835,'a'*64,'reduction',[p],[p],'c'*64)
+  candidate=hot.rebind_sweep_job(original);a,b=decode(original),decode(candidate)
+  self.assertEqual({k:v for k,v in a.items() if k!='schema'},{k:v for k,v in b.items() if k not in ('schema','kernel')})
+  init=sweep._CoverSweep.__init__;report=hot.profile_job(candidate,'interval-sweep-v1',1)
+  self.assertTrue(report['completed']);self.assertFalse(report['acceptance'])
+  expected=evaluate(original,expected_kernel='v2')
+  self.assertEqual(report['result']['certificate_sha256'],expected['certificate_sha256'])
+  self.assertEqual(report['result']['cells'],expected['cells'])
+  self.assertEqual(report['observations']['sweep_work']['certificate_cells'],expected['cells'])
+  self.assertIs(sweep._CoverSweep.__init__,init)
+  with self.assertRaises(ValueError):hot.rebind_sweep_job(candidate)
+  with self.assertRaises(ValueError):hot.rebind_sweep_job(original+b' ')
+
  def test_timeout_keeps_observations_and_restores_hooks(self):
   p=piece();raw=make_job(0,'a'*64,'reduction',[p],[p],'c'*64)
   original=v2._certificate_cell

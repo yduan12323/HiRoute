@@ -37,6 +37,15 @@ class BatchJobs(unittest.TestCase):
    pool.start([(4,'a'*64,'reduction')]);pool.submit(4,'a'*64,'reduction',[p],[p]);self.assertEqual(pool.finish(),3)
    self.assertEqual(pool.snapshot()['kernel'],'tau-precompute-v1')
    self.assertEqual(pool.results[4]['result']['certificate_sha256'],baseline['certificate_sha256'])
+ def test_sweep_job_uses_complete_certificate_digest_and_kernel_pin(self):
+  p=piece();raw=make_job(0,'a'*64,'reduction',[p],[p],'b'*64,kernel='interval-sweep-v1')
+  result=evaluate(raw,expected_kernel='interval-sweep-v1')
+  self.assertEqual(result['certificate_sha256'],oracle.equivalent([p],[p])['sha256'])
+  with self.assertRaises(ValueError):evaluate(raw,expected_kernel='v2')
+  with BatchExecutor(self.cpus(),float(time.monotonic()+10),'b'*64,worker_as=256*1024**2,kernel='interval-sweep-v1') as pool:
+   pool.start([(0,'a'*64,'reduction')]);pool.submit(0,'a'*64,'reduction',[p],[p]);self.assertEqual(pool.finish(),3)
+   self.assertEqual(pool.results[0]['result']['certificate_sha256'],result['certificate_sha256'])
+
  def test_missing_duplicate_wrong_hash_and_repaired_piece_negatives(self):
   p=piece();raw=make_job(0,'a'*64,'union',[p],[p],'b'*64);result=evaluate(raw)
   job=dict(index=0,batch_sha256='a'*64,kind='union',context_sha256='b'*64,job_sha256=sha(raw))

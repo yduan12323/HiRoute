@@ -1,7 +1,7 @@
 """Extract four hash-reconciled hot jobs and profile one without a solver."""
 import time
 ENTRY=time.monotonic()
-import argparse,hashlib,json,os,resource,signal,stat,sys
+import argparse,hashlib,json,os,resource,signal,stat,sys,weakref
 from pathlib import Path
 from contextlib import ExitStack
 from unittest.mock import patch
@@ -14,6 +14,7 @@ PROFILE_SECONDS=60
 PROFILE_TOTAL_SECONDS=90
 JOB_AS=1024**3
 MAX_REPORT=1024**2
+SWEEP_KERNEL='interval-sweep-v1'
 
 class SampleEnd(BaseException):pass
 
@@ -85,7 +86,7 @@ class KernelObserver:
  def __init__(self):
   self.stage='binding';self.started=time.monotonic();self.deadline=None;self.samples=[]
   self.arrangements=[];self.cell_started=0;self.cell_completed=0;self.pairs_started=0;self.pairs_completed=0;self.current_cell=None
-  self.operation_times={};self.counts={}
+  self.operation_times={};self.counts={};self.sweep_ref=None;self.sweep_work=None;self.kernel=None
  def sample(self,signum,frame):
   now=time.monotonic();stack=[]
   while frame is not None and len(stack)<16:
@@ -93,7 +94,8 @@ class KernelObserver:
   if len(self.samples)<PROFILE_SECONDS+2:
    self.samples.append(dict(elapsed_seconds=now-self.started,stage=self.stage,cell_started=self.cell_started,
     cell_completed=self.cell_completed,pairs_started=self.pairs_started,pairs_completed=self.pairs_completed,
-    current_cell=None if self.current_cell is None else dict(self.current_cell),stack=stack))
+    current_cell=None if self.current_cell is None else dict(self.current_cell),stack=stack,
+    sweep_work=self.native_work()))
   if now>=self.deadline:raise SampleEnd('bounded hot-job observation ended')
  def operation(self,name,fn):
   def call(*args,**kw):
@@ -122,27 +124,56 @@ class KernelObserver:
   def call(*args):
    self.pairs_started+=1;result=fn(*args);self.pairs_completed+=1;return result
   return call
+ def native_work(self):
+  obj=self.sweep_ref() if self.sweep_ref is not None else None
+  value=getattr(obj,'work',None) if obj is not None else self.sweep_work
+  return None if value is None else dict(value)
+ def sweep_init(self,fn):
+  def call(sweep,*args,**kw):
+   self.sweep_ref=weakref.ref(sweep);previous=self.stage;self.stage='interval_build';start=time.process_time()
+   try:return fn(sweep,*args,**kw)
+   finally:
+    self.sweep_work=getattr(sweep,'work',None)
+    self.operation_times['interval_build']=self.operation_times.get('interval_build',0.)+time.process_time()-start
+    self.stage=previous
+  return call
  def run(self,raw,kernel,seconds=PROFILE_SECONDS):
-  from validation.family5 import independent_oracle_v2 as old,independent_oracle_v4 as new
+  from validation.family5 import independent_oracle_v2 as old,independent_oracle_v4 as new,independent_oracle_v5 as sweep
   from validation.real5_v2.batch_jobs import evaluate
   binding.require(type(seconds) in (int,float) and 0<seconds<=PROFILE_SECONDS,'profile duration')
   binding.require(signal.getitimer(signal.ITIMER_REAL)==(0.,0.),'existing alarm')
-  mod=old if kernel=='v2' else new;pair_name='dominates' if kernel=='v2' else '_dominates'
+  self.kernel=kernel;mod=old if kernel=='v2' else sweep if kernel==SWEEP_KERNEL else new
+  pair_name='dominates' if kernel=='v2' else '_dominates'
   self.deadline=time.monotonic()+seconds;handler=signal.getsignal(signal.SIGALRM)
   try:
    with ExitStack() as hooks:
     hooks.enter_context(patch.object(old,'arrangement',self.arrangement(old.arrangement)))
-    hooks.enter_context(patch.object(mod,'_certificate_cell',self.cell(mod._certificate_cell)))
-    hooks.enter_context(patch.object(mod,pair_name,self.pair(getattr(mod,pair_name))))
-    for name in ('equivalent','antichain'):hooks.enter_context(patch.object(mod,name,self.operation(name,getattr(mod,name))))
+    if kernel==SWEEP_KERNEL:
+     hooks.enter_context(patch.object(sweep._CoverSweep,'__init__',self.sweep_init(sweep._CoverSweep.__init__)))
+     hooks.enter_context(patch.object(sweep,'equivalent_compact',self.operation('equivalent',sweep.equivalent_compact)))
+    else:
+     hooks.enter_context(patch.object(mod,'_certificate_cell',self.cell(mod._certificate_cell)))
+     hooks.enter_context(patch.object(mod,pair_name,self.pair(getattr(mod,pair_name))))
+     hooks.enter_context(patch.object(mod,'equivalent',self.operation('equivalent',mod.equivalent)))
+    hooks.enter_context(patch.object(mod,'antichain',self.operation('antichain',mod.antichain)))
     signal.signal(signal.SIGALRM,self.sample);signal.setitimer(signal.ITIMER_REAL,min(1.,seconds),1.)
     return evaluate(raw,expected_kernel=kernel)
   finally:signal.setitimer(signal.ITIMER_REAL,0);signal.signal(signal.SIGALRM,handler)
  def summary(self):
   return dict(arrangements=self.arrangements,cell_started=self.cell_started,cell_completed=self.cell_completed,
    pair_comparisons_started=self.pairs_started,pair_comparisons_completed=self.pairs_completed,current_cell=self.current_cell,
-   operation_cpu_seconds=self.operation_times,samples=self.samples,
-   overhead='pair counters add Python calls; cell wrappers add an active-support scan; inclusive times overlap')
+   operation_cpu_seconds=self.operation_times,samples=self.samples,sweep_work=self.native_work(),
+   overhead=('sweep native work counters and operation timing; no per-cell pair wrapper' if self.kernel==SWEEP_KERNEL else
+    'pair counters add Python calls; cell wrappers add an active-support scan; inclusive times overlap'))
+
+def rebind_sweep_job(raw):
+ from validation.real5_v2.batch_jobs import decode,read_piece,make_job
+ value=decode(raw)
+ binding.require(value['schema']=='family5-selection-job-v1' and 'kernel' not in value,'sweep source must be original v2 job')
+ a=[read_piece(p) for p in value['left']];b=[read_piece(p) for p in value['right']]
+ args=(value['index'],value['batch_sha256'],value['kind'],a,b,value['context_sha256'])
+ binding.require(make_job(*args)==raw,'noncanonical or changed original job')
+ return make_job(*args,kernel=SWEEP_KERNEL)
 
 def profile_job(raw,kernel,seconds=PROFILE_SECONDS):
  from validation.real5_v2.batch_jobs import decode,read_piece,sha
@@ -179,9 +210,12 @@ def worker(args):
    manifest=read_pinned(args.manifest,args.manifest_sha,MAX_REPORT)
    binding.require(manifest['schema']=='hiroute-hot-job-extraction-v1' and manifest['indices']==list(HOT_IDS),'extracted population')
    match=[r for r in manifest['jobs'] if r['index']==args.index];binding.require(len(match)==1,'hot-job identity')
-   spec=match[0]['files'][args.kernel];path=binding.inside(args.manifest.parent,spec['path'])
-   raw=read_job_bytes(path,spec);result=profile_job(raw,args.kernel)
-   binding.require(result['job_sha256']==spec['sha256'] and result['index']==args.index and result['context_sha256']==manifest['context_sha256'] and result['batch_sha256']==match[0]['batch_sha256'],'profile input context')
+   if args.kernel==SWEEP_KERNEL:binding.require(args.index==11835,'sweep pilot is fixed to extracted11835')
+   source_kernel='v2' if args.kernel==SWEEP_KERNEL else args.kernel
+   spec=match[0]['files'][source_kernel];path=binding.inside(args.manifest.parent,spec['path'])
+   original=read_job_bytes(path,spec);raw=rebind_sweep_job(original) if args.kernel==SWEEP_KERNEL else original
+   result=profile_job(raw,args.kernel);result['source_job_sha256']=hashlib.sha256(original).hexdigest()
+   binding.require(result['source_job_sha256']==spec['sha256'] and result['job_sha256']==hashlib.sha256(raw).hexdigest() and result['index']==args.index and result['context_sha256']==manifest['context_sha256'] and result['batch_sha256']==match[0]['batch_sha256'],'profile input context')
    result['source_pins']=dict(manifest_sha256=args.manifest_sha,source_commit=args.source_commit,source_sha256=args.source_sha)
    encoded=binding.canonical(result)+b'\n';binding.require(len(encoded)<=MAX_REPORT,'profile report cap');writer.write('diagnostic.json',[encoded])
   writer.finalize()
@@ -190,7 +224,7 @@ def worker(args):
 def main():
  p=argparse.ArgumentParser();p.add_argument('--worker',action='store_true');p.add_argument('--mode',choices=('extract','profile'),required=True)
  for name in ('capture','v2-ledger','v4-ledger','manifest'):p.add_argument('--'+name,type=Path);p.add_argument('--'+name+'-sha')
- p.add_argument('--plan-sha');p.add_argument('--index',type=int,choices=HOT_IDS);p.add_argument('--kernel',choices=('v2','tau-precompute-v1'))
+ p.add_argument('--plan-sha');p.add_argument('--index',type=int,choices=HOT_IDS);p.add_argument('--kernel',choices=('v2','tau-precompute-v1',SWEEP_KERNEL))
  p.add_argument('--source-commit',required=True);p.add_argument('--source-sha',required=True);p.add_argument('--cpu',type=int);p.add_argument('--attempt-dir',type=Path)
  args=p.parse_args()
  if args.worker:
@@ -208,6 +242,7 @@ def main():
   input_hash=binding.digest(dict(plan=args.plan_sha,capture=args.capture_sha,v2=args.v2_ledger_sha,v4=args.v4_ledger_sha));seconds=EXTRACT_SECONDS
  else:
   binding.require(args.manifest is not None and args.manifest_sha and args.index in HOT_IDS and args.kernel is not None,'profile pins required')
+  if args.kernel==SWEEP_KERNEL:binding.require(args.index==11835,'sweep pilot is fixed to extracted11835')
   argv+=['--manifest',str(args.manifest.resolve()),'--manifest-sha',args.manifest_sha,'--index',str(args.index),'--kernel',args.kernel]
   input_hash=binding.digest(dict(manifest=args.manifest_sha,index=args.index,kernel=args.kernel));seconds=PROFILE_TOTAL_SECONDS
  result=run_phase(argv,attempt_dir=args.attempt_dir,profile=REPLAY,cpu=args.cpu,
