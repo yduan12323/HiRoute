@@ -46,7 +46,7 @@ def load_model(job):
 
 
 def execute_candidate(job, *, deadline_monotonic, emit, solve=None, budget_factory=None,
-                      versions=None):
+                      versions=None, model_loader=None):
     """Injection seam for hand-certificate tests; the CLI has no injection option."""
     started = time.monotonic()
     cpu_started = time.process_time()
@@ -73,7 +73,7 @@ def execute_candidate(job, *, deadline_monotonic, emit, solve=None, budget_facto
     announced = False
     try:
         require(time.monotonic() < deadline_monotonic, 'candidate absolute deadline exhausted')
-        model = load_model(job)
+        model = (load_model if model_loader is None else model_loader)(job)
         if solve is None:
             import numpy
             import scipy
