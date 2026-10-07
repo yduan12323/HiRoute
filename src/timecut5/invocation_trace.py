@@ -13,8 +13,12 @@ _active=ContextVar('timecut5_invocation_trace',default=None)
 
 
 class InvocationTrace:
-    def __init__(self,recorder):
+    def __init__(self,recorder,representation=None):
+        if representation not in (None,'exact-adjacent-cut-coalescing-v1'):
+            raise ValueError('Unsupported recorded representation')
         self.recorder=recorder
+        self.representation=representation
+        self.coalescings=0
         self.events=[]
         self.invocations=0
         self.groups=0
@@ -36,7 +40,28 @@ class InvocationTrace:
         return seq
 
     def export(self):
-        return dict(schema='family5-hier-trace-v1',events=[json.loads(e) for e in self.events])
+        value=dict(schema='family5-hier-trace-v1',events=[json.loads(e) for e in self.events])
+        if self.representation is not None:
+            value.update(schema='family5-hier-trace-v2',representation=self.representation)
+        return value
+
+
+def require_coalescing_context():
+    trace=_active.get()
+    if (trace is None or trace.representation!='exact-adjacent-cut-coalescing-v1'
+            or provenance._active.get() is not trace.recorder):
+        raise ValueError('Recorded coalescing requires its active v2 trace and family Recorder')
+    return trace
+
+
+def record_coalescing(parents,outputs):
+    trace=require_coalescing_context()
+    position=len(trace.recorder.batches)
+    trace.emit('coalesce',dict(coalescing_id=trace.coalescings,
+        input_families=family_ids(parents),output_families=family_ids(outputs),
+        input_guards=[provenance.signature(piece)['domain'] for piece in parents],
+        batch_range=[position,position]))
+    trace.coalescings+=1
 
 
 def family_id(piece):
