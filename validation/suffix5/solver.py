@@ -21,17 +21,20 @@ class UnresolvedRegime(ArithmeticError):
 
 
 class SolveBudget:
-    def __init__(self,max_passes=760,wall_seconds=120,rss_mib=256):
+    def __init__(self,max_passes=760,wall_seconds=120,rss_mib=256,rss_reader=None):
         if type(max_passes) is not int or max_passes<1:raise ValueError('Invalid pass cap')
         for name,value in [('wall_seconds',wall_seconds),('rss_mib',rss_mib)]:
             if type(value) not in (int,float) or not math.isfinite(value) or value<=0:
                 raise ValueError('Invalid positive finite budget '+name)
-        self.max_passes=max_passes;self.wall_seconds=wall_seconds;self.rss_mib=rss_mib
+        if rss_reader is not None and not callable(rss_reader):raise ValueError('Invalid RSS byte reader')
+        self.max_passes=max_passes;self.wall_seconds=wall_seconds;self.rss_mib=rss_mib;self.rss_reader=rss_reader
         self.started=time.monotonic();self.passes=0
     def check(self):
         if self.passes>self.max_passes:raise BudgetExceeded('LP candidate pass cap exhausted')
         if time.monotonic()-self.started>self.wall_seconds:raise BudgetExceeded('LP wall-time cap exhausted')
-        if resource.getrusage(resource.RUSAGE_SELF).ru_maxrss>self.rss_mib*1024:raise BudgetExceeded('LP peak RSS cap exhausted')
+        peak=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024 if self.rss_reader is None else self.rss_reader()
+        if type(peak) is not int or peak<0:raise BudgetExceeded('Invalid LP peak RSS byte observation')
+        if peak>self.rss_mib*1024**2:raise BudgetExceeded('LP peak RSS cap exhausted')
     def tick(self):
         self.check()
         if self.passes>=self.max_passes:raise BudgetExceeded('LP candidate pass cap exhausted')

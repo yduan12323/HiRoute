@@ -17,7 +17,8 @@ from experiments.time_cut_v2.recorded_real import lp_worker as worker
 
 
 VERSIONS = dict(python='test', numpy='test', scipy='test')
-METRICS = dict(versions=VERSIONS, cpu_seconds=0., wall_seconds=0., pass_count=0, peak_rss_bytes=0)
+METRICS = dict(versions=VERSIONS, cpu_seconds=0., wall_seconds=0., pass_count=0, peak_rss_bytes=0,
+               rss_source=jobs.RSS_SOURCE,rusage_peak_rss_bytes=0)
 STAGE = dict(name='feasibility', task=dict(c=['0'], A=[], b=[], equalities=[]),
              certificate=dict(status='infeasible', constant_constraints_verified=True))
 

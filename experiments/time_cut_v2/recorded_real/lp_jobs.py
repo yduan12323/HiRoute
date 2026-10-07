@@ -19,6 +19,7 @@ import subprocess
 import sys
 import threading
 import time
+from .candidate_memory import SOURCE as RSS_SOURCE
 
 POSITIONS = (0, 63, 64, 159, 160, 223, 224, 255)
 STAGES = ('feasibility', 'primary', 'primary_attainment', 'secondary', 'secondary_attainment')
@@ -94,7 +95,7 @@ class LPJob:
     def _payload(self):
         return dict(schema=SCHEMA, **vars(self), limits=dict(max_passes=MAX_PASSES,
             wall_seconds=LP_SECONDS, as_bytes=CHILD_AS_BYTES, rss_mib=SOFT_RSS_MIB,
-            stdout_bytes=STDOUT_BYTES, stderr_bytes=STDERR_BYTES, highs_threads=1))
+            stdout_bytes=STDOUT_BYTES, stderr_bytes=STDERR_BYTES, highs_threads=1,rss_source=RSS_SOURCE))
 
     @property
     def job_sha256(self):
@@ -122,7 +123,7 @@ def make_jobs(*, model_payloads_path, model_payloads_sha256,
 
 def _metrics(value):
     require(type(value) is dict and set(value) == {'versions', 'cpu_seconds',
-            'wall_seconds', 'pass_count', 'peak_rss_bytes'}, 'candidate metrics fields')
+            'wall_seconds', 'pass_count', 'peak_rss_bytes','rss_source','rusage_peak_rss_bytes'}, 'candidate metrics fields')
     require(type(value['versions']) is dict and set(value['versions']) == {'python', 'numpy', 'scipy'}
             and all(type(v) is str and 0 < len(v) <= 128 for v in value['versions'].values()),
             'candidate runtime versions')
@@ -132,6 +133,8 @@ def _metrics(value):
     require(type(value['pass_count']) is int and 0 <= value['pass_count'] <= MAX_PASSES,
             'candidate pass count')
     require(type(value['peak_rss_bytes']) is int and value['peak_rss_bytes'] >= 0, 'candidate RSS')
+    require(value['rss_source']==RSS_SOURCE and type(value['rusage_peak_rss_bytes']) is int and
+            value['rusage_peak_rss_bytes']>=0,'candidate RSS measurement provenance')
 
 
 class FrameReader:

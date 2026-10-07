@@ -12,6 +12,7 @@ import sys
 from .lp_jobs import (LPJob, CHILD_AS_BYTES, SOFT_RSS_MIB, MAX_PASSES, LP_SECONDS,
                       STDOUT_BYTES, MODEL_BYTES, FRAME_SCHEMA, STAGES, THREAD_ENV,
                       canonical, decode, digest, require)
+from .candidate_memory import SOURCE as RSS_SOURCE,peak_rss_bytes
 
 
 class CandidateFence(importlib.abc.MetaPathFinder):
@@ -56,7 +57,8 @@ def execute_candidate(job, *, deadline_monotonic, emit, solve=None, budget_facto
     def metrics():
         return dict(versions=versions, cpu_seconds=time.process_time() - cpu_started,
             wall_seconds=time.monotonic() - started, pass_count=budget.passes if budget else 0,
-            peak_rss_bytes=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024)
+            peak_rss_bytes=peak_rss_bytes(),rss_source=RSS_SOURCE,
+            rusage_peak_rss_bytes=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024)
 
     def frame(kind, **value):
         emit(dict(schema=FRAME_SCHEMA, job=job.to_dict(), kind=kind, **value))
@@ -89,7 +91,7 @@ def execute_candidate(job, *, deadline_monotonic, emit, solve=None, budget_facto
         require(budget_factory is not None, 'candidate budget factory required')
         remaining = min(LP_SECONDS, deadline_monotonic - time.monotonic())
         require(remaining > 0, 'candidate import/startup deadline exhausted')
-        budget = budget_factory(max_passes=MAX_PASSES, wall_seconds=remaining, rss_mib=SOFT_RSS_MIB)
+        budget = budget_factory(max_passes=MAX_PASSES, wall_seconds=remaining, rss_mib=SOFT_RSS_MIB,rss_reader=peak_rss_bytes)
         frame('started', metrics=metrics())
         announced = True
         record = solve(model, budget=budget, on_stage=stage)

@@ -69,6 +69,28 @@ Checking, witness lifting and publication have a separate 30-second per-model
 main-thread timer, also bounded by the global deadline. At most 40 logical stage
 slots and 96 candidate passes are possible across the eight bindings.
 
+The Linux-only candidate uses the current exec address space's `/proc/self/status`
+`VmHWM`, taking the maximum with `VmRSS` from the same bounded read. Required
+fields, PID, units and integer values are checked; missing or malformed procfs
+data fails closed. This peak survives releases within that address space.
+`getrusage(RUSAGE_SELF).ru_maxrss` is retained only as a separately named
+diagnostic because its counters survive `execve` and can include the large
+coordinator image before exec. It must not reject a small fresh candidate.
+The general `SolveBudget` default remains unchanged; only this worker injects
+the explicit `linux-exec-vmhwm-v1` byte reader. Job limits and candidate frames
+bind that measurement source. No parent-peak subtraction or raised cap is used.
+
+These are kernel RSS observations, not an exact Python heap census. The unchanged
+hard address-space limit and sampled whole-group guard remain additional limits.
+See the Linux manual for [getrusage](https://man7.org/linux/man-pages/man2/getrusage.2.html)
+and [proc status](https://man7.org/linux/man-pages/man5/proc_pid_status.5.html).
+Synthetic regression allocates under 100 MiB in each process: a large live
+parent execs a small child, then the child creates and frees its own over-cap
+allocation. It demonstrates both the inherited-counter failure and rejection
+of the child's own retained high-water mark. It invokes no optimizer. The
+original failed C01 calibration and its zero-LP evidence remain preserved;
+this source correction does not itself imply a successful retry.
+
 Candidate stdout is bounded at 2 MiB and stderr at 64 KiB; consumed prefixes and
 completed stage frames survive malformed output, timeout or worker failure.
 Each stored candidate document may use at most 6 MiB to retain both its raw
@@ -96,6 +118,9 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests python -B -m unittest -q \
 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests python -B -OO -m unittest -q \
   test_suffix_calibration test_lp_calibration_jobs test_lp_calibration_run test_real_model_preview
 ```
+
+The RSS-source correction additionally requires `test_candidate_memory` in
+both modes before a separately admitted fresh attempt.
 
 The thin command is `python -B -m
 experiments.time_cut_v2.recorded_real.calibration_run`. It accepts all explicit
