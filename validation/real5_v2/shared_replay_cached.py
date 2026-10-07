@@ -12,11 +12,14 @@ from validation.capture5.query_dag_digest import QueryDagEncoder
 from .shared_replay import RealCoalescedReplay
 
 @_api
-def verify_coalesced_trace(trace,bundle,trusted_case,*,on_stage=lambda *a,**k:None,metrics=None):
+def verify_coalesced_trace(trace,bundle,trusted_case,*,on_stage=lambda *a,**k:None,metrics=None,measure_lengths=False,on_progress=None):
  started=time.perf_counter();replay=RealCoalescedReplay(trace,bundle,trusted_case);result=replay.run()
  on_stage('after_ordered_trace',replay=replay)
  on_stage('trace_digest');trace_sha=stream_digest(replay.trace)
  on_stage('query_freeze');encoder=QueryDagEncoder(replay.node_queries)
+ if measure_lengths:
+  on_stage('query_size_count',encoder=encoder);encoder.measure_lengths()
+ encoder.progress=on_progress
  on_stage('query_digest',encoder=encoder);query_sha=encoder.digest();stats=encoder.snapshot()
  if metrics is not None:metrics.update(stats)
  on_stage('summary')

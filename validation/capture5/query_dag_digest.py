@@ -19,17 +19,28 @@ class QueryDagEncoder:
    if type(value) is not int or not 0<=value<=limit:raise ValueError('canonical cache limit')
   self._queries=freeze_shared(queries) # Copy external mappings; no borrowed mutable cache keys.
   self.cache_bytes=cache_bytes;self.entry_bytes=entry_bytes;self.key_bytes=key_bytes
-  self.cache={};self.keys={};self.reserved_bytes=0;self.reserved_key_bytes=0
+  self.cache={};self.keys={};self.reserved_bytes=0;self.reserved_key_bytes=0;self.lengths=None;self.progress=None
   self.stats=dict(cache_bytes=0,key_tuple_bytes=0,cache_hits=0,cache_misses=0,cache_entries=0,
    oversized_entries=0,budget_skips=0,ancestry_occurrences=0,distinct_ancestries=0,
    query_count=len(self.queries),queries_started=0,queries_completed=0,
    emitted_bytes=0,emitted_chunks=0,encoded_chunks=0,encoded_bytes=0,cached_bytes_emitted=0)
  @property
  def queries(self):return self._queries
+ def measure_lengths(self):
+  from .canonical_lengths import query_lengths
+  self.lengths=query_lengths(self.queries)
+  return self.lengths
  def snapshot(self):
-  return dict(self.stats,cache_bytes=sum(map(len,self.cache.values())),cache_entries=len(self.cache),
+  result=dict(self.stats,cache_bytes=sum(map(len,self.cache.values())),cache_entries=len(self.cache),
    key_tuple_bytes=sum(map(sys.getsizeof,self.keys.values())),reserved_cache_bytes=self.reserved_bytes,
    reserved_key_tuple_bytes=self.reserved_key_bytes,logical_query_bytes=self.stats['emitted_bytes'])
+  if self.lengths is not None:
+   complete=min(self.stats['queries_completed'],len(self.queries))
+   result.update(logical_query_bytes_total=self.lengths['total_bytes'],
+    logical_query_bytes_remaining=max(0,self.lengths['total_bytes']-self.stats['emitted_bytes']),
+    remaining_bytes_after_completed_queries=self.lengths['total_bytes']-self.lengths['prefix_bytes'][complete],
+    largest_query_bytes=self.lengths['largest_query_bytes'])
+  return result
  def encoded(self,value):
   for chunk in canonical_chunks(value):
    self.stats['encoded_chunks']+=1;self.stats['encoded_bytes']+=len(chunk)
@@ -92,10 +103,12 @@ class QueryDagEncoder:
    for i,query in enumerate(self.queries):
     if i:yield b','
     self.stats['queries_started']+=1
+    if self.progress is not None:self.progress()
     if type(query) is MappingProxyType and type(query.get('ancestry_nodes')) is MappingProxyType:seen.add(id(query['ancestry_nodes']))
     self.stats['distinct_ancestries']=len(seen)
     yield from self.query(query)
     self.stats['queries_completed']+=1
+    if self.progress is not None:self.progress()
    yield b']'
   for chunk in body():
    if len(chunk)>CHUNK_BYTES:raise ValueError('canonical chunk limit')

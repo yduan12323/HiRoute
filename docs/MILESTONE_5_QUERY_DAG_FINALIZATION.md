@@ -68,3 +68,28 @@ measurement. Tiny tests cover exact bytes, mutation/alias isolation, fallback,
 interleaved consumption, complete mock-query equivalence and timer restoration.
 Cloud checks currently use Python 3.12; the declared Python 3.11 server preflight
 remains required before the real diagnostic.
+
+## Full cached run progress and exact remaining bytes
+
+A full `--shared-query-digest` run now measures canonical lengths once over the
+owned DAG before hashing. Container lengths are memoized by owned identity;
+scalars use the same JSON spelling, including Unicode escapes and signed zero.
+It produces exact total and per-query prefix lengths without expanding repeated
+ancestry. Remaining bytes are computed from those totals and the emitted prefix,
+not from an average query size. These counts are observations, not a new proof
+condition or a runtime-completion guarantee.
+
+The existing 1,800-second full-run limit and all memory/disk limits remain. Full
+cached runs publish immutable progress snapshots at phase boundaries and at most
+once per 60 seconds during query hashing and callback/query-index output. There
+are at most 48 records, each at most 16 KiB, plus an exact progress index. Together with the existing 13 output files,
+this stays below the unchanged 64-file runtime inventory limit. The
+existing evidence writer accounts and cold-verifies them, including snapshots
+written while a larger receipt file is streamed. The complete output inventory
+checks the contiguous record sequence and typed index. Progress cannot close a
+mathematical gate; missing callbacks or a timeout still leave replay incomplete.
+
+The full command uses `--batch-kernel interval-join-v1 --shared-query-digest` and
+omits both diagnostic-profile flags. No additional 180-second diagnostic is
+required by this instrumentation. A renewed source plan and separate run
+admission are still required.

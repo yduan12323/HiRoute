@@ -40,6 +40,10 @@ def replay(original,current,root,writer,original_sha,current_sha,capture_path,ca
  from validation.family5.checker import VerificationError
  binding.require(pool.kernel in KERNELS,'full replay requires a pinned interval kernel')
  original_verify=family._verify_bundle;memo=MemoizedOracle();calls=0;ledger_commitment=None;digest_metrics={}
+ progress=None
+ if shared_query_digest and finalization_observer is None:
+  from .full_progress import FullProgress
+  progress=FullProgress(writer,before)
  def exact(a,b,reason):
   try:return memo.exact_family_equal(a,b)
   except AssertionError as error:raise VerificationError(f'{reason}: {error}') from error
@@ -64,7 +68,8 @@ def replay(original,current,root,writer,original_sha,current_sha,capture_path,ca
    def cached_verify(*args):
     try:
      result=shared_replay_cached.verify_coalesced_trace(*args,metrics=digest_metrics,
-      on_stage=finalization_observer.observe if finalization_observer is not None else lambda *a,**k:None)
+      on_stage=finalization_observer.observe if finalization_observer is not None else progress.stage,
+      measure_lengths=progress is not None,on_progress=None if progress is None else progress.tick)
     finally:
      if finalization_observer is not None:finalization_observer.close()
     if finalization_observer is not None:
@@ -72,6 +77,14 @@ def replay(original,current,root,writer,original_sha,current_sha,capture_path,ca
      raise TraceObservationEnd('query finalization returned; callbacks intentionally not profiled')
     return result
    hooks.enter_context(patch.object(shared_replay,'verify_coalesced_trace',cached_verify))
+  if progress is not None:
+   original_receipts=domain.receipt_rows;original_queries=domain.thin_queries
+   def receipts(checked,requests,before):
+    yield from progress.rows('callbacks',original_receipts(checked,requests,before),len(requests))
+   def queries(checked,before):
+    yield from progress.rows('query_index',original_queries(checked,before),len(checked.queries))
+   hooks.enter_context(patch.object(domain,'receipt_rows',receipts))
+   hooks.enter_context(patch.object(domain,'thin_queries',queries))
   hooks.enter_context(patch.object(family,'oracle',memo));hooks.enter_context(patch.object(family,'_exact',exact))
   hooks.enter_context(patch.object(family,'_verify_bundle',delegated));hooks.enter_context(patch.object(domain,'load',capture_load))
   summary=domain.replay(original,root,writer,original_sha,capture_path,capture_sha,before)
@@ -85,6 +98,7 @@ def replay(original,current,root,writer,original_sha,current_sha,capture_path,ca
   query_index=files['query-index.json'],reference_comparison=summary['reference_comparison'],node_oracle_cache=memo.snapshot(),
   scope='complete structural replay of the fixed historical capture; no numerical suffix certification')
  if shared_query_digest:result['query_digest_cache']=digest_metrics
+ if progress is not None:result['progress_index']=progress.finish()
  writer.write('parallel-summary.json',domain.chunks(result));before()
  return result
 
@@ -168,6 +182,9 @@ def worker(args):
    action(original,current,binding.ROOT,writer,args.historical_plan_sha,args.plan_sha,path,sha,pool,before,**options)
   current_stage='final-binding';verify_loaded(current);inputs(args,args.deadline);before()
   expected=PROFILE_FILES if getattr(args,'ordered_trace_profile',False) else FINALIZATION_FILES if getattr(args,'query_finalization_profile',False) else REPLAY_FILES|EXTRA_FILES
+  if action is replay and getattr(args,'shared_query_digest',False):
+   from .full_progress import expected_files
+   expected=expected|expected_files(writer)
   binding.require({row['path'] for row in writer.files}==expected,'parallel replay output coverage changed')
   writer.finalize();before();return 0
  except BaseException as error:
