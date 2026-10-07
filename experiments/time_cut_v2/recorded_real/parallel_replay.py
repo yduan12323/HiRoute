@@ -16,6 +16,7 @@ EXTRA_FILES={'batch-ledger.json','stage-before-family.json','stage-after-family.
 PROFILE_FILES={'run-binding.json','stage-before-decode.json','stage-after-decode.json',
  'stage-before-family.json','batch-ledger.json','stage-after-family.json',
  'stage-before-ordered-trace.json','ordered-trace-profile.json'}
+FINALIZATION_FILES=(PROFILE_FILES-{'stage-before-ordered-trace.json','ordered-trace-profile.json'}) | {'stage-before-finalization.json','query-finalization-profile.json'}
 CAPTURE_PIN_FIELDS=('capture_manifest_sha','capture_result_sha','capture_decision_sha','capture_return_sha')
 
 def capture_pins(args):
@@ -25,18 +26,20 @@ def input_context(args,original):
  value=dict(historical_plan_sha256=args.historical_plan_sha,input_sha256=original['input_sha256'],
   capture_commitments=capture_pins(args),batch_kernel=args.batch_kernel,node_oracle='v3-cached')
  if getattr(args,'ordered_trace_profile',False):value['ordered_trace_profile']='180s-after-revalidated-family-v1'
+ if getattr(args,'query_finalization_profile',False):value['query_finalization_profile']='180s-after-ordered-traversal-v1'
+ if getattr(args,'shared_query_digest',False) or getattr(args,'query_finalization_profile',False):value['shared_query_digest']='owned-canonical-node-cache-v1'
  return binding.digest(value)
 
 def inputs(args,deadline):
  return replay_plan.verify(binding.ROOT,args.plan,args.plan_sha,args.historical_plan,args.historical_plan_sha,deadline)
 
-def replay(original,current,root,writer,original_sha,current_sha,capture_path,capture_sha,pool,before=lambda:None,*,after_family=None):
+def replay(original,current,root,writer,original_sha,current_sha,capture_path,capture_sha,pool,before=lambda:None,*,after_family=None,shared_query_digest=False,finalization_observer=None):
  """Use the complete serial domain path; only scalar selection batches delegate."""
  from validation.real5_v2 import family
  from validation.family5.independent_oracle_v3 import MemoizedOracle
  from validation.family5.checker import VerificationError
  binding.require(pool.kernel in KERNELS,'full replay requires a pinned interval kernel')
- original_verify=family._verify_bundle;memo=MemoizedOracle();calls=0;ledger_commitment=None
+ original_verify=family._verify_bundle;memo=MemoizedOracle();calls=0;ledger_commitment=None;digest_metrics={}
  def exact(a,b,reason):
   try:return memo.exact_family_equal(a,b)
   except AssertionError as error:raise VerificationError(f'{reason}: {error}') from error
@@ -56,6 +59,19 @@ def replay(original,current,root,writer,original_sha,current_sha,capture_path,ca
   binding.require(Path(path)==Path(capture_path),'unexpected full-replay JSON load')
   return read_pinned(path,capture_sha,1024**3)
  with ExitStack() as hooks:
+  if shared_query_digest:
+   from validation.real5_v2 import shared_replay,shared_replay_cached
+   def cached_verify(*args):
+    try:
+     result=shared_replay_cached.verify_coalesced_trace(*args,metrics=digest_metrics,
+      on_stage=finalization_observer.observe if finalization_observer is not None else lambda *a,**k:None)
+    finally:
+     if finalization_observer is not None:finalization_observer.close()
+    if finalization_observer is not None:
+     from .trace_observer import TraceObservationEnd
+     raise TraceObservationEnd('query finalization returned; callbacks intentionally not profiled')
+    return result
+   hooks.enter_context(patch.object(shared_replay,'verify_coalesced_trace',cached_verify))
   hooks.enter_context(patch.object(family,'oracle',memo));hooks.enter_context(patch.object(family,'_exact',exact))
   hooks.enter_context(patch.object(family,'_verify_bundle',delegated));hooks.enter_context(patch.object(domain,'load',capture_load))
   summary=domain.replay(original,root,writer,original_sha,capture_path,capture_sha,before)
@@ -68,6 +84,7 @@ def replay(original,current,root,writer,original_sha,current_sha,capture_path,ca
   structural_summary=files['structural-summary.json'],callback_receipts=files['callback-receipts.json'],
   query_index=files['query-index.json'],reference_comparison=summary['reference_comparison'],node_oracle_cache=memo.snapshot(),
   scope='complete structural replay of the fixed historical capture; no numerical suffix certification')
+ if shared_query_digest:result['query_digest_cache']=digest_metrics
  writer.write('parallel-summary.json',domain.chunks(result));before()
  return result
 
@@ -91,11 +108,35 @@ def observe_trace(original,current,root,writer,original_sha,current_sha,capture_
  binding.require(observer.started is not None and pool.snapshot()['complete'] is True,'trace began without complete family checks')
  before();return result
 
+def observe_finalization(original,current,root,writer,original_sha,current_sha,capture_path,capture_sha,pool,before=lambda:None):
+ from .finalization_observer import FinalizationObserver
+ from .trace_observer import TraceObservationEnd,TRACE_SECONDS
+ observer=FinalizationObserver(on_start=lambda:domain.stage(writer,'before-finalization',window_seconds=TRACE_SECONDS))
+ error=None;failure=None
+ try:
+  replay(original,current,root,writer,original_sha,current_sha,capture_path,capture_sha,pool,before,
+   shared_query_digest=True,finalization_observer=observer)
+ except TraceObservationEnd as exc:error=dict(type=type(exc).__name__,message=str(exc))
+ except Exception as exc:error=dict(type=type(exc).__name__,message=str(exc)[:1000]);failure=exc
+ else:raise ValueError('finalization observation did not stop at its boundary')
+ finally:observer.terminal_snapshot=observer.location();observer.close()
+ result=dict(schema='hiroute-query-finalization-profile-v1',acceptance=False,structural_verified=False,
+  literal_G8_closed=False,solver_calls=0,suffix_optimizer_calls=0,historical_plan_sha256=original_sha,
+  current_plan_sha256=current_sha,current_source_sha256=current['source_sha256'],capture_sha256=capture_sha,
+  batch_kernel=pool.kernel,family_jobs_complete=pool.snapshot()['complete'],error=error,observations=observer.snapshot())
+ encoded=binding.canonical(result)+b'\n';binding.require(len(encoded)<=1024**2,'finalization diagnostic byte cap')
+ writer.write('query-finalization-profile.json',[encoded])
+ if failure is not None:raise failure
+ binding.require(observer.started is not None and pool.snapshot()['complete'] is True,'finalization began without complete checks')
+ before();return result
+
 def worker(args):
  writer=None;pool=None;current_stage='binding'
  def before():binding.require(math.isfinite(args.deadline) and time.monotonic()<args.deadline,'absolute replay deadline')
  try:
   before();binding.require(type(getattr(args,'ordered_trace_profile',False)) is bool,'invalid trace diagnostic flag')
+  binding.require(all(type(getattr(args,name,False)) is bool for name in ('query_finalization_profile','shared_query_digest')) and
+   not(getattr(args,'ordered_trace_profile',False) and getattr(args,'query_finalization_profile',False)),'invalid finalization flags')
   binding.require(args.batch_kernel in KERNELS,'unreviewed replay kernel')
   binding.require(type(args.worker_cpus) is list and len(args.worker_cpus)==len(set(args.worker_cpus))==5 and
    all(type(cpu) is int for cpu in args.worker_cpus) and set(args.worker_cpus)==os.sched_getaffinity(0),'worker mask differs from guarded group')
@@ -113,6 +154,8 @@ def worker(args):
    capture_commitments=capture_pins(args),worker_cpus=args.worker_cpus,batch_kernel=args.batch_kernel,
    profile_name=BATCH_REPLAY.name,reference_usage='comparison_after_complete_independent_replay_only')
   if getattr(args,'ordered_trace_profile',False):run_binding['ordered_trace_profile']='180s-after-revalidated-family-v1'
+  if getattr(args,'query_finalization_profile',False):run_binding['query_finalization_profile']='180s-after-ordered-traversal-v1'
+  if getattr(args,'shared_query_digest',False) or getattr(args,'query_finalization_profile',False):run_binding['shared_query_digest']='owned-canonical-node-cache-v1'
   writer.write('run-binding.json',domain.chunks(run_binding))
   from validation.real5_v2.batch_jobs import BatchExecutor,WORKER_AS
   binding.require(WORKER_AS==1024**3,'reviewed child cap changed')
@@ -120,10 +163,11 @@ def worker(args):
   with BatchExecutor(tuple(args.worker_cpus[1:]),float(args.deadline-10),sha,kernel=args.batch_kernel) as pool:
    binding.require(len(pool.slots)==4 and all(s.process.poll() is None for s in pool.slots),'four live scalar workers required')
    os.sched_setaffinity(0,{args.worker_cpus[0]});current_stage='complete-replay'
-   action=observe_trace if getattr(args,'ordered_trace_profile',False) else replay
-   action(original,current,binding.ROOT,writer,args.historical_plan_sha,args.plan_sha,path,sha,pool,before)
+   action=observe_trace if getattr(args,'ordered_trace_profile',False) else observe_finalization if getattr(args,'query_finalization_profile',False) else replay
+   options={'shared_query_digest':True} if action is replay and getattr(args,'shared_query_digest',False) else {}
+   action(original,current,binding.ROOT,writer,args.historical_plan_sha,args.plan_sha,path,sha,pool,before,**options)
   current_stage='final-binding';verify_loaded(current);inputs(args,args.deadline);before()
-  expected=PROFILE_FILES if getattr(args,'ordered_trace_profile',False) else REPLAY_FILES|EXTRA_FILES
+  expected=PROFILE_FILES if getattr(args,'ordered_trace_profile',False) else FINALIZATION_FILES if getattr(args,'query_finalization_profile',False) else REPLAY_FILES|EXTRA_FILES
   binding.require({row['path'] for row in writer.files}==expected,'parallel replay output coverage changed')
   writer.finalize();before();return 0
  except BaseException as error:
@@ -142,12 +186,13 @@ def main():
  for name in CAPTURE_PIN_FIELDS:p.add_argument('--'+name.replace('_','-'),required=True)
  p.add_argument('--worker-cpus',type=int,nargs=5,required=True);p.add_argument('--cpu',type=int)
  p.add_argument('--batch-kernel',choices=KERNELS,default=KERNEL)
- p.add_argument('--ordered-trace-profile',action='store_true')
+ modes=p.add_mutually_exclusive_group();modes.add_argument('--ordered-trace-profile',action='store_true')
+ modes.add_argument('--query-finalization-profile',action='store_true');p.add_argument('--shared-query-digest',action='store_true')
  p.add_argument('--deadline',type=float);p.add_argument('--attempt-dir',type=Path);args=p.parse_args()
  if args.worker:return worker(args)
  binding.require(args.cpu is not None and args.attempt_dir is not None,'supervisor CPU and fresh attempt required')
  from .trace_observer import TOTAL_SECONDS
- deadline=float(ENTRY+(TOTAL_SECONDS if args.ordered_trace_profile else BATCH_REPLAY.wall_seconds))
+ deadline=float(ENTRY+(TOTAL_SECONDS if args.ordered_trace_profile or args.query_finalization_profile else BATCH_REPLAY.wall_seconds))
  soft,hard=resource.getrlimit(resource.RLIMIT_AS)
  binding.require(hard==resource.RLIM_INFINITY or hard>=BATCH_REPLAY.child_as_bytes,'inherited AS ceiling too small')
  resource.setrlimit(resource.RLIMIT_AS,(min(512*1024**2,soft) if soft!=resource.RLIM_INFINITY else 512*1024**2,hard))
@@ -155,6 +200,8 @@ def main():
  argv=[sys.executable,'-B','-m','experiments.time_cut_v2.recorded_real.parallel_replay','--worker','--deadline',repr(deadline),
   '--worker-cpus',*map(str,args.worker_cpus),'--batch-kernel',args.batch_kernel]
  if args.ordered_trace_profile:argv.append('--ordered-trace-profile')
+ if args.query_finalization_profile:argv.append('--query-finalization-profile')
+ if args.shared_query_digest:argv.append('--shared-query-digest')
  for name in ('plan','historical_plan','capture_attempt','capture_return'):
   argv+=['--'+name.replace('_','-'),str(getattr(args,name).resolve())]
  for name in ('plan_sha','historical_plan_sha',*CAPTURE_PIN_FIELDS):argv+=['--'+name.replace('_','-'),getattr(args,name)]
