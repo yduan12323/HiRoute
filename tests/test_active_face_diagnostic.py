@@ -39,7 +39,11 @@ class DiagnosticTests(unittest.TestCase):
         # one, which consumes the final free rank and cannot be corrected.
         task=dict(c=['-1','0'],A=[['1','0'],['0','1'],['0','1']],
                   b=['0','1.000002','1'],equalities=[])
-        result=d.inspect_task(task,v,lambda *a,**k:candidate([0,1.000001],[-1,0,0]))
+        # Keep this observation test on the intentionally failing legacy branch
+        # after the separately tested exact exchange fallback is introduced.
+        with patch('validation.suffix5.basis_exchange.recover_exchange',
+                   side_effect=v.UncertifiedLP('Exact active-constraint recovery did not certify the candidate')):
+            result=d.inspect_task(task,v,lambda *a,**k:candidate([0,1.000001],[-1,0,0]))
         self.assertEqual(result['outcome'],'unresolved')
         self.assertIn('Exact active-constraint recovery',result['error'])
         self.assertEqual(len(result['native_passes']),1)

@@ -152,7 +152,10 @@ def recover_certificate(c, A, b, equalities, candidate, dual_support=None):
             return check(trial)
         except UncertifiedLP:
             pass
-    raise UncertifiedLP("Exact active-constraint recovery did not certify the candidate")
+    # Preserve the ordinary and greedy recovery paths. Only a previously
+    # unresolved full basis reaches the bounded exact exchange neighborhood.
+    from .basis_exchange import recover_exchange
+    return recover_exchange(c, A, b, equalities, candidate, selected_rows)
 
 
 def exact_lp(c, A, b, equalities=(), *, _phase=False):
