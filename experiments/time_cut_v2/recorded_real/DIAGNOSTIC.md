@@ -22,7 +22,7 @@ entrypoints remain unchanged when this diagnostic is not used.
 
 A source snapshot binds the newly committed diagnostic file. Every historical
 checker file named by the original capture plan must remain byte-identical; the
-only additional inventoried source is diagnose.py. Input-manifest links and the
+only additional inventoried sources are diagnose.py and independent_oracle_v3.py. Input-manifest links and the
 full existing capture byte hash are rechecked. The old plan/recorded source
 identity remains distinct from this new diagnostic identity.
 
@@ -45,6 +45,7 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:. python -B -m experiments.time_cut_v2.
  --capture EXISTING_CAPTURE_PATH \
  --capture-sha 66bdff79410db1e27aa7e1226e0698ef07bd7b5d307d00f61fbd07edaaede2ff \
  --source-commit REVIEWED_REMOTE_COMMIT --source-sha REVIEWED_SOURCE_INVENTORY_SHA256 \
+ --oracle-version v3-cached \
  --cpu APPROVED_CPU --attempt-dir NEW_DIAGNOSTIC_ATTEMPT \
  > NEW_DIAGNOSTIC_CALLER_RETURN.json
 ```
@@ -60,3 +61,15 @@ Because the previous real attempt never emitted after-trace, its bottleneck
 precedes supplemental callback checking. Profiling will distinguish exact family
 operator validation from trace traversal, ancestry commitments and copy/hash work
 before choosing any optimization or parallel unit.
+
+## Same-capture oracle comparison
+
+The default `--oracle-version v2` retains the original independent oracle.
+Explicit `v3-cached` changes only family-stage exact comparisons and reuses
+complete-key results in a fresh bounded cache. It leaves the original v2 module
+and all default checker entrypoints unchanged. Temporary family bindings are
+restored on interruption/exit. Both variants retain every node/batch check; a
+cache hit stands for the identical complete semantic input, never a partial key.
+The diagnostic records its version and cache hit/miss/eviction/serialized-byte
+counts. Compare completed-check counts and sampled stacks under the same 180s
+budget; these are throughput observations, not accepted full replays.

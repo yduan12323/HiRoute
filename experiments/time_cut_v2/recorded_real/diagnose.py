@@ -17,7 +17,9 @@ class DiagnosticStop(BaseException):
 
 class Observer:
  """Temporary call counters and 1-Hz stacks; never replaces a check result."""
- def __init__(self):
+ def __init__(self,oracle_version='v2'):
+  binding.require(oracle_version in ('v2','v3-cached'),'unknown diagnostic oracle')
+  self.oracle_version=oracle_version;self.memo=None
   self.calls={};self.active=[];self.samples=[];self.transitions=[];self.started=time.monotonic();self.deadline=None
  def wrap(self,name,fn):
   def observed(*args,**kwargs):
@@ -56,7 +58,8 @@ class Observer:
     cpu_seconds=time.process_time(),kernel_peak_rss_bytes=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024))
   if self.deadline is not None and now>=self.deadline:raise DiagnosticStop('post-decode diagnostic budget exhausted')
  def snapshot(self):
-  return dict(calls=self.calls,stack_samples=self.samples,transitions=self.transitions,
+  return dict(oracle_version=self.oracle_version,cache=None if self.memo is None else self.memo.snapshot(),
+   calls=self.calls,stack_samples=self.samples,transitions=self.transitions,
    timing_scope='inclusive overlapping wall times, not additive; sampled stacks are observations',
    elapsed_seconds=time.monotonic()-self.started)
 
@@ -64,14 +67,23 @@ class Observer:
   from validation.real5_v2 import family,shared_replay,trace
   from validation.family5 import independent_oracle_v2 as oracle
   from validation.trace5.checker import _Replay
-  stack=ExitStack()
+  stack=ExitStack();reference_oracle=oracle
+  if self.oracle_version=='v3-cached':
+   from validation.family5.independent_oracle_v3 import MemoizedOracle
+   from validation.family5.checker import VerificationError
+   self.memo=MemoizedOracle();oracle=self.memo
+   def exact(a,b,reason):
+    try:return oracle.exact_family_equal(a,b)
+    except AssertionError as error:raise VerificationError(f'{reason}: {error}') from error
+   stack.enter_context(patch.object(family,'oracle',oracle))
+   stack.enter_context(patch.object(family,'_exact',exact))
   targets=[(family,'_verify_bundle','family_validation'),(family,'verify_physical_states','physical_phase'),
    (_Replay,'__init__','trace_setup'),(trace.RealPhysicsReplayMixin,'run','trace_walk'),
    (shared_replay.RealCoalescedReplay,'ancestry','query_ancestry'),
    (shared_replay,'query_digest','query_freeze_hash'),(shared_replay,'freeze_shared','query_freeze_storage'),
    (family,'canonical','family_canonical'),(family,'digest','family_hash'),(family,'_freeze','family_freeze'),
    (oracle,'exact_family_equal','exact_family_equal'),(oracle,'equivalent','dominance_equivalence'),
-   (oracle,'antichain','antichain'),(oracle,'arrangement','affine_arrangement')]
+   (oracle,'antichain','antichain'),(reference_oracle,'arrangement','affine_arrangement')]
   for obj,name,label in targets:stack.enter_context(patch.object(obj,name,self.wrap(label,getattr(obj,name))))
   return stack
 
@@ -96,7 +108,8 @@ def inputs(args):
  for name,spec in value['source_files'].items():binding.require(binding.pin(binding.inside(root,name))==spec,'historical checker source changed: '+name)
  binding.assert_committed_sources(root,value['source_files'],value['source_commit'])
  current=binding.source_inventory(root)
- binding.require(set(current)-set(value['source_files'])=={'experiments/time_cut_v2/recorded_real/diagnose.py'},'unexpected diagnostic source delta')
+ binding.require(set(current)-set(value['source_files'])=={'experiments/time_cut_v2/recorded_real/diagnose.py',
+  'validation/family5/independent_oracle_v3.py'},'unexpected diagnostic source delta')
  binding.require(binding.source_commit(root)==args.source_commit,'diagnostic commit changed')
  binding.assert_committed_sources(root,current,args.source_commit)
  binding.require(binding.digest(current)==args.source_sha,'diagnostic source hash changed')
@@ -114,7 +127,7 @@ def worker(args):
  from . import domain
  from validation.family5.checker import wire_equal
  from validation.real5_v2.shared_replay import verify_coalesced_trace
- observer=Observer();before=time.monotonic();payload=binding.load(args.capture);decode=time.monotonic()-before
+ observer=Observer(args.oracle_version);before=time.monotonic();payload=binding.load(args.capture);decode=time.monotonic()-before
  binding.require(payload['schema']=='hiroute-recorded-real-capture-v1' and payload['source_plan_sha256']==args.plan_sha,'capture source plan changed')
  for key in ('source_sha256','input_sha256','query_sha256'):binding.require(payload[key]==value[key],'capture context changed')
  binding.require(wire_equal(payload['variant'],domain.variant(value)) and wire_equal(payload['query'],value['query']),'capture query changed')
@@ -125,7 +138,7 @@ def worker(args):
  except DiagnosticStop as exc:error=dict(type=type(exc).__name__,message=str(exc))
  except Exception as exc:error=dict(type=type(exc).__name__,message=str(exc)[:1000])
  report=dict(schema='hiroute-replay-diagnostic-v1',acceptance=False,structural_verified=False,suffix_optimizer_calls=0,
-  solver_calls=0,post_decode_budget_seconds=MAX_POST_DECODE_SECONDS,plan_sha256=args.plan_sha,
+  solver_calls=0,oracle_version=args.oracle_version,post_decode_budget_seconds=MAX_POST_DECODE_SECONDS,plan_sha256=args.plan_sha,
   capture_sha256=args.capture_sha,diagnostic_source_sha256=args.source_sha,diagnostic_source_commit=args.source_commit,
   decode_seconds=decode,checker_returned=result is not None,error=error,observations=observer.snapshot(),
   population=dict(nodes=len(payload['bundle']['nodes']),batches=len(payload['bundle']['batches']),events=len(payload['trace']['events']),callbacks=len(payload['callback_requests'])),
@@ -140,6 +153,7 @@ def main():
  p=argparse.ArgumentParser();p.add_argument('--worker',action='store_true')
  for name in ('plan','capture'):p.add_argument('--'+name,type=Path,required=True);p.add_argument('--'+name+'-sha',required=True)
  p.add_argument('--source-commit',required=True);p.add_argument('--source-sha',required=True)
+ p.add_argument('--oracle-version',choices=('v2','v3-cached'),default='v2')
  p.add_argument('--attempt-dir',type=Path);p.add_argument('--cpu',type=int);args=p.parse_args()
  if args.worker:
   try:return worker(args)
@@ -151,7 +165,7 @@ def main():
  value=inputs(args)
  argv=[sys.executable,'-B','-m','experiments.time_cut_v2.recorded_real.diagnose','--worker',
   '--plan',str(args.plan.resolve()),'--plan-sha',args.plan_sha,'--capture',str(args.capture.resolve()),'--capture-sha',args.capture_sha,
-  '--source-commit',args.source_commit,'--source-sha',args.source_sha]
+  '--source-commit',args.source_commit,'--source-sha',args.source_sha,'--oracle-version',args.oracle_version]
  result=run_phase(argv,attempt_dir=args.attempt_dir,profile=REPLAY,cpu=args.cpu,
   context=PlanContext(args.plan_sha,args.source_sha,binding.digest(dict(input_sha256=value['input_sha256'],capture_sha256=args.capture_sha)),REPLAY.name),
   entry_monotonic=float(ENTRY),deadline_monotonic=float(ENTRY+TOTAL_SECONDS))

@@ -26,6 +26,11 @@ class Diagnostic(unittest.TestCase):
      self.assertEqual(observer.calls['family_validation']['completed'],1)
      self.assertEqual(observer.calls['trace_walk']['completed'],1)
      self.assertEqual(observer.active,[])
+     optimized=Observer('v3-cached');fast=optimized.run(lambda:verify_coalesced_trace(data['trace'],data['bundle'],trusted),1)
+     self.assertEqual(before.export_queries(),fast.export_queries())
+     c=dict(fast.summary);c.pop('elapsed_s');self.assertEqual(a,c)
+     self.assertEqual(originals,(family._verify_bundle,oracle.exact_family_equal))
+     self.assertLessEqual(optimized.memo.stored_bytes,8*1024**2)
  def test_budget_interruption_restores_all_hooks_and_alarm(self):
   from validation.real5_v2 import family
   original=family._verify_bundle;handler=signal.getsignal(signal.SIGALRM);observer=Observer()
