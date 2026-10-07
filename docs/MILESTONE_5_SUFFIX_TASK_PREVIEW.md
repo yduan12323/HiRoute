@@ -34,7 +34,8 @@ sharing identical LP tasks, and reject ordering/face/key/cap/type changes:
 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests python -B -m unittest -q test_suffix_task_catalog
 ```
 
-No server preview is implemented or launched by this checkpoint. First obtain
+The task-catalog helper alone neither implements nor launches a server preview.
+The guarded thin runner below is a separate integration. First obtain
 the completed logical-model count, then bind a small deterministic selection,
 the actual checked bundle and a separately reviewed/admitted resource plan. Use
 the measured payload sizes and construction times before deciding whether a
@@ -60,7 +61,7 @@ sample, not a representative estimate of every mixed-band/word/family reuse
 rate or a numerical proof for the population. The complete 695,712 unique
 logical models and 7,652,832 original occurrences remain required later.
 
-The future small runner must authenticate the completed replay and logical-count
+The small runner below must authenticate the completed replay and logical-count
 returns/manifests, pin the capture bytes, recompute this exact metadata selection
 before matrices, and obtain a genuine freshly verified CheckedBundle using the
 existing bounded family checker. It must never manufacture that type from
