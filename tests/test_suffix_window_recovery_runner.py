@@ -26,6 +26,11 @@ class RecoveryRunnerTests(unittest.TestCase):
 
     def arguments(self):
         args = self.fixture.arguments(later=True)
+        # The general-window fixture now has optional D0/one-block fields;
+        # the independent recovery parser deliberately has no such options.
+        for key in ('bootstrap', 'bootstrap_sha', 'maximum_blocks'):
+            self.assertIsNone(getattr(args, key))
+            delattr(args, key)
         args.recovery_plan = self.root/'recovery-plan.json'
         args.recovery_plan_sha = '9'*64
         return args
