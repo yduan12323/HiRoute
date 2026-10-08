@@ -69,6 +69,44 @@ class RecoveryPlanTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'independent'):
             recovery.AdmittedRecoveryPlan({}, {}, [], [])
 
+    def _policy_spelling(self, value, spelling):
+        artifacts = value['predecessors'][0]['artifacts']
+        spec = artifacts['request']; path = Path(spec['path'])
+        request = json.loads(path.read_bytes())
+        values = receipts._command(request, 'suffix_window')
+        values['source_policy'] = spelling
+        request['command'][request['command'].index('--source-policy')+1] = spelling
+        request['context']['input_sha256'] = plan.digest({k:v for k,v in values.items() if k!='deadline'})
+        path.write_bytes(raw(request)); spec.update(plan.pin(path))
+        # These optional synthetic records bind the former request hash. The
+        # immutable production request is never rewritten by the real recipe.
+        for key in ('result','decision','actual_return'):
+            artifacts[key] = None
+        return request
+
+    def test_relative_policy_spelling_uses_authenticated_historical_cwd(self):
+        for prefix in ('', './'):
+            with self.subTest(prefix=prefix):
+                value = self.document()
+                spelling = prefix+str(self.fx.policy_path.relative_to(self.root))
+                request = self._policy_spelling(value, spelling)
+                admitted = self.admit(value)
+                self.assertEqual(admitted.document()['predecessors'][0]['artifacts']['source_policy']['path'],
+                                 str(self.fx.policy_path))
+                self.assertEqual(receipts._command(request,'suffix_window')['source_policy'],spelling)
+
+    def test_relative_policy_cannot_bind_another_absolute_file(self):
+        value = self.document()
+        self._policy_spelling(value, 'different-policy.json')
+        with self.assertRaisesRegex(ValueError,'source-policy binding'):
+            self.admit(value)
+
+    def test_relative_policy_cannot_rewrite_historical_cwd(self):
+        value = self.document(mutate_run=lambda run: run['invocation_origin'].update(cwd='/tmp'))
+        self._policy_spelling(value, self.fx.policy_path.name)
+        with self.assertRaisesRegex(ValueError,'origin'):
+            self.admit(value)
+
     def test_plan_canonical_pin_explicit_absences_and_cumulative_caps(self):
         value = self.document()
         with self.assertRaisesRegex(ValueError, 'canonical'):

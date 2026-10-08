@@ -212,6 +212,7 @@ def admit(value, admitted, registry, *, reviewed_sources, deadline, before=lambd
         read(pins['archive'], decode=False)
         request, run = documents['request'], documents['run_binding']
         values = receipts._command(request, 'suffix_window') if original else command(request)
+        _origin(run['invocation_origin'], request, row['module'])
         binding.require(values['source_commit'] == row['source_commit'] and
             values['source_sha'] == row['source_sha256'] and
             reviewed_sources.get(row['source_commit']) == row['source_sha256'],
@@ -221,7 +222,10 @@ def admit(value, admitted, registry, *, reviewed_sources, deadline, before=lambd
             0 < request['deadline_monotonic']-request['entry_monotonic'] <= 900, 'historical wall budget changed')
         receipts._inputs(values, commitment, cache, deadline)
         policy = documents['source_policy']
-        binding.require(pins['source_policy']['path'] == values['source_policy'] and
+        # Keep the exact historical argument in its request/input digest. The
+        # separately pinned artifact uses a canonical absolute location.
+        policy_location = os.path.abspath(Path(run['invocation_origin']['cwd']) / values['source_policy'])
+        binding.require(pins['source_policy']['path'] == policy_location and
             pins['source_policy']['sha256'] == values['source_policy_sha'] and
             type(policy) is dict and set(policy) == {'schema', 'reviewed_sources'} and
             policy['schema'] == 'hiroute-reviewed-window-sources-v1' and
@@ -251,7 +255,6 @@ def admit(value, admitted, registry, *, reviewed_sources, deadline, before=lambd
         suffix_census.same(run['window_id'], window['window_id'], 'historical window ID changed')
         suffix_census.same(run['registry_admission'], suffix_window.registry_admission(SimpleNamespace(**values)),
                           'historical registry provenance changed')
-        _origin(run['invocation_origin'], request, row['module'])
         resources = run['resource_plan']
         if original:
             expected_resources = suffix_window.resource_plan(values['worker_cpus'], window['expected_model_count'])

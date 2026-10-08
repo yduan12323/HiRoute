@@ -18,6 +18,10 @@ are `schema` (`hiroute-suffix-window-recovery-plan-v1`),
 `historical_attempt_status` (`failed`), `original_selection`, `base_registry`, and
 `predecessors`. Artifact pins have exactly `path` (absolute), `sha256`, and
 `size_bytes`. Every file read is bounded and consumes the exact pinned bytes.
+Historical command spellings remain unchanged in their request/input digest.
+A relative source-policy argument is interpreted against the authenticated
+historical checkout cwd and compared to the canonical absolute artifact pin;
+the policy bytes, SHA, source membership and safe-file checks remain required.
 
 `predecessors` is oldest first, at most 32 entries and 512 MiB of compressed
 archive bytes in total. The first is the original `suffix_window` attempt; every
