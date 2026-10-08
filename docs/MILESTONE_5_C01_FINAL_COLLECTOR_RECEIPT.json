@@ -1,0 +1,451 @@
+{
+  "schema": "hiroute-c01-documentation-receipt-capsule-v1",
+  "created_utc": "2026-10-08",
+  "kind": "copied_small_metadata_and_pins_not_raw_evidence",
+  "execution": {
+    "host": "dyserver",
+    "project": "/home/dy/HiRoute/project",
+    "python": "/home/dy/miniconda3/envs/hiroute/bin/python3.11",
+    "python_version": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+    "source_commit": "052a157b745cdaee463579bf8478d1f78d44838b",
+    "source_tree": "f12276c197e9fe580c6a392a08344e0604721470",
+    "source_inventory_files": 116,
+    "source_inventory_sha256": "3090ccc44bcb8c1d8abb69cca627508b730018c273cb848b1fceb42f888e10fb"
+  },
+  "identity": {
+    "case_id": "C01",
+    "search": "HIER",
+    "dominance": true,
+    "representation": "exact-adjacent-cut-coalescing-v1",
+    "H": 4,
+    "pool_id": "OD00_energy_only",
+    "initial_soc": "3/10",
+    "sites": 8,
+    "regions": 2047
+  },
+  "actual_collector_command": [
+    "/home/dy/miniconda3/envs/hiroute/bin/python",
+    "-B",
+    "-m",
+    "experiments.time_cut_v2.recorded_real.final_collector",
+    "--historical-plan",
+    "results/milestone_5_recorded_remote/plan.C01.json",
+    "--replay-plan",
+    "results/milestone_5_recorded_remote/plan.C01.parallel.cached.renewed.json",
+    "--replay-attempt",
+    "results/milestone_5_recorded_remote/C01.parallel_replay.cached.001",
+    "--replay-return",
+    "results/milestone_5_recorded_remote/C01.parallel_replay.cached.001.return.json",
+    "--logical-attempt",
+    "results/milestone_5_recorded_remote/C01.real_suffix_logical_plan.001",
+    "--logical-return",
+    "results/milestone_5_recorded_remote/C01.real_suffix_logical_plan.001.return.json",
+    "--capture",
+    "results/milestone_5_recorded_remote/C01.capture.001/evidence/capture.json",
+    "--historical-plan-sha",
+    "f590542e83370bfe8b37748ded4cac94b7d016b84735dcfc735099c0c709672d",
+    "--replay-plan-sha",
+    "59064a6d9cffd3fe6aa2b2d80b8df28a8bbef535ff78705845612b7ae5f51312",
+    "--replay-return-sha",
+    "d3f572f2d66bf06bcef270d93f7dda324aa67c5234b9eb9afe8c7ab1e1000f6d",
+    "--replay-manifest-sha",
+    "17f55db17feb858b3913c376aeea3f6ed286427c3042fd9012290f763a5c6cd0",
+    "--replay-result-sha",
+    "4c7177501cfd3443e5547541ac756fb698cc2ebedc70e5c58e1aa4115779d173",
+    "--replay-decision-sha",
+    "9f3e0da0455902951f8d719ac4291b6f88f53bef3ea7030fafbfd9f99b2a8e09",
+    "--query-index-sha",
+    "9275e7b39e771b06cf1b4f79275b6e9ba91e6e61e8c386f8ca672f3f618c99fc",
+    "--source-commit",
+    "052a157b745cdaee463579bf8478d1f78d44838b",
+    "--source-sha",
+    "3090ccc44bcb8c1d8abb69cca627508b730018c273cb848b1fceb42f888e10fb",
+    "--logical-return-sha",
+    "52127c3767bf7a34754f5a74d31b6d3a6f74679f7638374e260e689f51f2aae4",
+    "--logical-report-sha",
+    "57d76d06a372635c2912ec75f6319a1f8ce6cb8622351045164d303afbec21ce",
+    "--logical-source-sha",
+    "808588f501a979b020e86f2d16f3c81f499937abecb037291e579c39720bbb43",
+    "--source-policy",
+    "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.suffix_window.sources.recovery066.001.json",
+    "--source-policy-sha",
+    "e4663080b5c1384bd51aca55a21f6a5474fad962e90c08422a307328376b10b3",
+    "--registry",
+    "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.suffix_registry.085.json",
+    "--registry-sha",
+    "4a8dcf510a565f403372df9a07b6f719d9a4f7d5ee2773ef348031495e51ae39",
+    "--registry-return",
+    "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.suffix_registry.085.return.json",
+    "--registry-return-sha",
+    "1067167a5d64164b5bb9ac828b139e183e240cf79674328fe4957e4f8d7ed4b9",
+    "--cpu",
+    "0",
+    "--worker-cpus",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "--attempt-dir",
+    "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.final_collector.001",
+    "--runtime-return-output",
+    "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.final_collector.001.runtime-return.json",
+    "--collector-output",
+    "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.final_collector.001.acceptance.json"
+  ],
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "src:.",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "resources": {
+    "absolute_seconds": 3600,
+    "coordinator_as_bytes": 17179869184,
+    "disk_floor_bytes": 21474836480,
+    "evidence_charge_bytes": 1073741824,
+    "family_worker_as_bytes": 1073741824,
+    "family_workers": 4,
+    "group_rss_bytes": 21474836480,
+    "host_available_floor_bytes": 17179869184,
+    "maximum_physical_requests": 8192,
+    "name": "C01-final-collector-v1",
+    "numerical_solver_calls": 0,
+    "supervisor_cpu": 0,
+    "supervisor_evidence_bytes": 16777216,
+    "worker_cpus": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "worker_evidence_bytes": 1056964608
+  },
+  "admission_available_memory_bytes": 58069647360,
+  "admission_available_disk_bytes": 346190594048,
+  "retained_pin_scan": {
+    "distinct_files": 1374,
+    "bytes": 2797078243
+  },
+  "actual_runtime_metrics": {
+    "descendants_reaped": true,
+    "phase_wall_seconds": 944.1559915640391,
+    "sampled_group_rss_peak_bytes": 5401182208,
+    "worker_charged_bytes": 247890724,
+    "worker_exit_code": 0
+  },
+  "summary": {
+    "all_excluded_nonempty_queries": 0,
+    "bound_counterexample_queries": 0,
+    "bound_status_counts": {
+      "satisfied": 12172,
+      "vacuous_empty_restricted_family": 9666
+    },
+    "bound_valid_queries": 21838,
+    "complete": true,
+    "complete_blocks": 2718,
+    "empty_action_queries": 9666,
+    "full_C32_complete": false,
+    "full_population_complete": false,
+    "literal_G8_closed": false,
+    "missing_bound_queries": 0,
+    "numerical_evidence_complete": true,
+    "observations": [
+      {
+        "coordinator_cpu_seconds": 92.220165,
+        "stage": "fresh-family",
+        "wall_seconds": 118.12098652496934
+      },
+      {
+        "blocks": 2718,
+        "coordinator_cpu_seconds": 711.665765695,
+        "models": 695712,
+        "stage": "cold-registry",
+        "wall_seconds": 737.8583233009558
+      },
+      {
+        "coordinator_cpu_seconds": 730.356412982,
+        "empty_queries": 9666,
+        "physical_requests": 1790,
+        "queries": 12172,
+        "stage": "original-query-planning",
+        "wall_seconds": 756.5688460441306
+      },
+      {
+        "coordinator_cpu_seconds": 843.8612898360001,
+        "physical_requests": 1790,
+        "stage": "selected-physical-witnesses",
+        "wall_seconds": 870.1139140550513
+      },
+      {
+        "coordinator_cpu_seconds": 913.891622827,
+        "query_events": 21838,
+        "stage": "original-query-results",
+        "wall_seconds": 940.1605794851203
+      }
+    ],
+    "original_model_occurrences": 7652832,
+    "original_nonempty_queries": 12172,
+    "original_occurrence_evidence_complete": true,
+    "physical_archive": {
+      "path": "physical-witnesses.jsonl",
+      "sha256": "e2b1b03b8db2a76a40403f6918443be6e8e9a30b980a43b94f7d56aa9105639b",
+      "size_bytes": 43650568
+    },
+    "physical_evidence_complete": true,
+    "physical_query_bindings": 12172,
+    "point_level_counterexample_claimed": false,
+    "population": {
+      "block_plan_sha256": "bc70e46ebf49a5ed443a3e7f41a4917f8d4020f0c0ffc84953c501a74870f860",
+      "case_sha256": "129ccd369ebf647664e366dab61f510c7f68bde4151dce3a29951ce544ac0390",
+      "completed_replay": {
+        "capture_sha256": "66bdff79410db1e27aa7e1226e0698ef07bd7b5d307d00f61fbd07edaaede2ff",
+        "historical_plan_sha256": "f590542e83370bfe8b37748ded4cac94b7d016b84735dcfc735099c0c709672d",
+        "manifest_sha256": "17f55db17feb858b3913c376aeea3f6ed286427c3042fd9012290f763a5c6cd0",
+        "parallel_summary": {
+          "path": "parallel-summary.json",
+          "sha256": "d9dd6686b723dd3a5e36111d92966c89bd7604cedd3f87ad2ca5c1446bd9388c",
+          "size_bytes": 2544
+        },
+        "query_index": {
+          "path": "query-index.json",
+          "sha256": "9275e7b39e771b06cf1b4f79275b6e9ba91e6e61e8c386f8ca672f3f618c99fc",
+          "size_bytes": 42923142
+        },
+        "reference_comparison": {
+          "raw_certificates_replayed": false,
+          "status": "pending_missing_historical_reference"
+        },
+        "replay_plan_sha256": "59064a6d9cffd3fe6aa2b2d80b8df28a8bbef535ff78705845612b7ae5f51312",
+        "structural_summary": {
+          "path": "structural-summary.json",
+          "sha256": "2e9aac4a67d662d5f18933c1ca90f4b1241ee0ec8403cbee8f603a8195d9efa6",
+          "size_bytes": 8275
+        },
+        "successful_return_sha256": "d3f572f2d66bf06bcef270d93f7dda324aa67c5234b9eb9afe8c7ab1e1000f6d"
+      },
+      "empty_action_queries": 9666,
+      "empty_action_sha256": "f053e7b0d784e9d5812bd0ff6d1566c2c0d9a83a412ba584bd81a6703f2ac87e",
+      "literal_G8_closed": false,
+      "logical_plan_sha256": "7cc7c11846b2e59d3a6c512194a3a571ac2f4432b3442be149a37ad280ad4cba",
+      "numerical_acceptance": false,
+      "original_model_occurrences": 7652832,
+      "queries": 12172,
+      "query_freeze_sha256": "79d09528f7b9b641c3b7370b290d7c477d20bae79c8b637627325d6ed4be4539",
+      "schema": "hiroute-cold-admitted-suffix-population-v1",
+      "source_bundle_sha256": "c8783a22ffb90228f6f53b9fb08ed1a401a465c8bec29cd5d506f743f5916091",
+      "unique_logical_models": 695712
+    },
+    "query_collection_rows_sha256": "affcf6f9e3af59e81c9a34e1209db9188847b1d9c960ab0f98ca63e95ea0080e",
+    "query_results": {
+      "path": "query-results.jsonl",
+      "sha256": "b1f8cc1d45faa990ddc484579d3d6f04bd73a34e94f56c0bcbaecb4493cac63c",
+      "size_bytes": 64381586
+    },
+    "registry": {
+      "path": "reconciled-registry.json",
+      "sha256": "4a8dcf510a565f403372df9a07b6f719d9a4f7d5ee2773ef348031495e51ae39",
+      "size_bytes": 4930034
+    },
+    "resource_plan": {
+      "absolute_seconds": 3600,
+      "coordinator_as_bytes": 17179869184,
+      "disk_floor_bytes": 21474836480,
+      "evidence_charge_bytes": 1073741824,
+      "family_worker_as_bytes": 1073741824,
+      "family_workers": 4,
+      "group_rss_bytes": 21474836480,
+      "host_available_floor_bytes": 17179869184,
+      "maximum_physical_requests": 8192,
+      "name": "C01-final-collector-v1",
+      "numerical_solver_calls": 0,
+      "supervisor_cpu": 0,
+      "supervisor_evidence_bytes": 16777216,
+      "worker_cpus": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "worker_evidence_bytes": 1056964608
+    },
+    "result_counts": {
+      "attained_optimum": 12172,
+      "empty_restricted_family": 9666
+    },
+    "schema": "hiroute-final-collector-summary-v1",
+    "single_C01_case_accepted": true,
+    "single_C01_case_bound_status": "satisfied",
+    "single_C01_case_bound_valid": true,
+    "source_commit": "052a157b745cdaee463579bf8478d1f78d44838b",
+    "source_sha256": "3090ccc44bcb8c1d8abb69cca627508b730018c273cb848b1fceb42f888e10fb",
+    "total_query_events": 21838,
+    "unique_physical_requests": 1790,
+    "verified_unique_logical_models": 695712,
+    "whole_M5_complete": false,
+    "zero_length_queries": 0
+  },
+  "independent_read_only_verification": {
+    "status": "verified_collected",
+    "checked_at_utc": "2026-10-08T12:28:05.450603+00:00",
+    "query_rows": 21838,
+    "claims": {
+      "full_C32_complete": false,
+      "full_population_complete": false,
+      "literal_G8_closed": false,
+      "whole_M5_complete": false
+    }
+  },
+  "evidence_pins": {
+    "C01.suffix_registry.085.json": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.suffix_registry.085.json",
+      "sha256": "4a8dcf510a565f403372df9a07b6f719d9a4f7d5ee2773ef348031495e51ae39",
+      "size_bytes": 4930034
+    },
+    "C01.suffix_registry.085.json.run-return.json": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.suffix_registry.085.json.run-return.json",
+      "sha256": "8f4cc5ba16fc2f0209e6e8842b3debb03a8a02b767cef445edf444138062e2ad",
+      "size_bytes": 2234
+    },
+    "C01.suffix_registry.085.return.json": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.suffix_registry.085.return.json",
+      "sha256": "1067167a5d64164b5bb9ac828b139e183e240cf79674328fe4957e4f8d7ed4b9",
+      "size_bytes": 18654
+    },
+    "C01.suffix_window.085.controller-return.json": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.suffix_window.085.controller-return.json",
+      "sha256": "593dfb228f59d0f6b03d3b4d3e235124ea0cfca254a2ed29c38ba310b80ddeaf",
+      "size_bytes": 15953
+    },
+    "C01.suffix_window.sources.recovery066.001.json": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.suffix_window.sources.recovery066.001.json",
+      "sha256": "e4663080b5c1384bd51aca55a21f6a5474fad962e90c08422a307328376b10b3",
+      "size_bytes": 509
+    },
+    "capture": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.capture.001/evidence/capture.json",
+      "sha256": "66bdff79410db1e27aa7e1226e0698ef07bd7b5d307d00f61fbd07edaaede2ff",
+      "size_bytes": 835419819
+    },
+    "historical_plan": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/plan.C01.json",
+      "sha256": "f590542e83370bfe8b37748ded4cac94b7d016b84735dcfc735099c0c709672d",
+      "size_bytes": 8038
+    },
+    "logical_report": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.real_suffix_logical_plan.001/evidence/suffix-census.json",
+      "sha256": "57d76d06a372635c2912ec75f6319a1f8ce6cb8622351045164d303afbec21ce",
+      "size_bytes": 8547625
+    },
+    "logical_return": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.real_suffix_logical_plan.001.return.json",
+      "sha256": "52127c3767bf7a34754f5a74d31b6d3a6f74679f7638374e260e689f51f2aae4",
+      "size_bytes": 2268
+    },
+    "query_index": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.parallel_replay.cached.001/evidence/query-index.json",
+      "sha256": "9275e7b39e771b06cf1b4f79275b6e9ba91e6e61e8c386f8ca672f3f618c99fc",
+      "size_bytes": 42923142
+    },
+    "replay_decision": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.parallel_replay.cached.001/decision.json",
+      "sha256": "9f3e0da0455902951f8d719ac4291b6f88f53bef3ea7030fafbfd9f99b2a8e09",
+      "size_bytes": 220
+    },
+    "replay_manifest": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.parallel_replay.cached.001/evidence/__manifest.json",
+      "sha256": "17f55db17feb858b3913c376aeea3f6ed286427c3042fd9012290f763a5c6cd0",
+      "size_bytes": 4629
+    },
+    "replay_plan": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/plan.C01.parallel.cached.renewed.json",
+      "sha256": "59064a6d9cffd3fe6aa2b2d80b8df28a8bbef535ff78705845612b7ae5f51312",
+      "size_bytes": 10539
+    },
+    "replay_result": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.parallel_replay.cached.001/result.json",
+      "sha256": "4c7177501cfd3443e5547541ac756fb698cc2ebedc70e5c58e1aa4115779d173",
+      "size_bytes": 1845
+    },
+    "replay_return": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.parallel_replay.cached.001.return.json",
+      "sha256": "d3f572f2d66bf06bcef270d93f7dda324aa67c5234b9eb9afe8c7ab1e1000f6d",
+      "size_bytes": 2341
+    },
+    "acceptance": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.final_collector.001.acceptance.json",
+      "sha256": "a9d810572b1020d7e86a40f27991e51f5393ad8ef0149bee8f213aabab032542",
+      "size_bytes": 1002
+    },
+    "controller": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.final_collector.001.controller-return.json",
+      "sha256": "3c0c9372888be80d40ee9d2c331862726b1383d2b3f4540c82793773fd63545e",
+      "size_bytes": 1269
+    },
+    "manifest": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.final_collector.001/evidence/__manifest.json",
+      "sha256": "ac6037d4bcc2b5513c665ec93fdc49be59a6798253f27b784d2f1f28efc61d97",
+      "size_bytes": 1625
+    },
+    "runtime_return": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.final_collector.001.runtime-return.json",
+      "sha256": "01930ebebbeb04f2e7458b1c18eae4304b12c4a742ca3ca25cd663ba388879ca",
+      "size_bytes": 2234
+    },
+    "summary": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.final_collector.001/evidence/collector-summary.json",
+      "sha256": "7f73e664e97a2e75b03c9490728f0f8e93d83147457643f2e50c4abfd726d910",
+      "size_bytes": 4606
+    },
+    "command": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.final_collector.001.command.json",
+      "size_bytes": 2808,
+      "sha256": "7e69ce031179dd21d42006aa70f61a79b59ae8f8f7037be43b685575a9e01950"
+    },
+    "admission": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.final_collector.001.admission.json",
+      "size_bytes": 12387,
+      "sha256": "0bff0a0ad34bf723e8e368f24eb4742f7c29d87cb663e1ef358ac3dc4449cc67"
+    },
+    "postflight": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.final_collector.001.postflight.json",
+      "size_bytes": 9550,
+      "sha256": "26311b818d0a931710f888b198220f31c9a5215779057527369585503b326b94"
+    },
+    "precheck": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.final_collector_precheck.20261008T115933Z/report.json",
+      "size_bytes": 6172,
+      "sha256": "bd123fc2dfa89e7ea2a6b5850ec612ca2cf3295b46a9c7af1b2507bc38729767"
+    },
+    "query_results": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.final_collector.001/evidence/query-results.jsonl",
+      "sha256": "b1f8cc1d45faa990ddc484579d3d6f04bd73a34e94f56c0bcbaecb4493cac63c",
+      "size_bytes": 64381586
+    },
+    "physical_witnesses": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.final_collector.001/evidence/physical-witnesses.jsonl",
+      "sha256": "e2b1b03b8db2a76a40403f6918443be6e8e9a30b980a43b94f7d56aa9105639b",
+      "size_bytes": 43650568
+    },
+    "reconciled_registry": {
+      "path": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.final_collector.001/evidence/reconciled-registry.json",
+      "sha256": "4a8dcf510a565f403372df9a07b6f719d9a4f7d5ee2773ef348031495e51ae39",
+      "size_bytes": 4930034
+    }
+  },
+  "continuity": {
+    "checked_at_utc": "2026-10-08T12:29:54.835201Z",
+    "retained_files": 1812,
+    "retained_directories": 265,
+    "attempt_trees": 88,
+    "retained_bytes": 3048255023,
+    "file_identities_unchanged": true,
+    "source_and_tracked_tree_unchanged": true,
+    "related_processes": 0,
+    "uid_lock_held": false
+  }
+}
