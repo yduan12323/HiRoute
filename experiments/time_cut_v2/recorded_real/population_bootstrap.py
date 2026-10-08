@@ -5,6 +5,7 @@ numerical certificate. A live worker must independently admit genuine families
 and compare this complete catalogue and population freeze before any LP.
 """
 import argparse
+import math
 import sys
 import time
 from pathlib import Path
@@ -14,6 +15,37 @@ from . import plan as binding, suffix_census, model_preview, variant_scope
 SCHEMA = 'hiroute-c01-d0-population-bootstrap-v1'
 MAX_BYTES = 32 * 1024**2
 FIELDS = ('bootstrap', 'bootstrap_sha')
+
+
+def check_count_budget(request, accepted):
+    """Authenticate the narrower count budget inside the 1800-second profile.
+
+    Both objects must come from the independently pinned actual request and
+    successful cold return. A report's descriptive resource_scope is insufficient.
+    """
+    for key in ('entry_monotonic', 'deadline_monotonic'):
+        binding.require(type(request.get(key)) is float and math.isfinite(request[key]) and
+                        type(accepted.get(key)) is float and math.isfinite(accepted[key]) and
+                        request[key] == accepted[key], 'count request/return time binding changed: '+key)
+    entry, deadline = request['entry_monotonic'], request['deadline_monotonic']
+    binding.require(entry < deadline <= entry+suffix_census.SECONDS,
+                    'count request exceeds reviewed 180-second budget')
+    command = request['command']
+    binding.require(type(command) is list and all(type(arg) is str for arg in command),
+                    'count worker command strings required')
+    # Reject duplicate, attached and abbreviated deadline options rather than
+    # allowing argparse to select a different effective deadline.
+    options = [arg for arg in command if arg.startswith('--') and
+               '--deadline'.startswith(arg.split('=', 1)[0])]
+    binding.require(options == ['--deadline'], 'one exact count worker deadline option required')
+    position = command.index('--deadline')+1
+    binding.require(position < len(command), 'count worker deadline value required')
+    try:
+        worker_deadline = float(command[position])
+    except ValueError as error:
+        raise ValueError('invalid count worker deadline value') from error
+    binding.require(math.isfinite(worker_deadline) and worker_deadline == deadline,
+                    'count worker deadline differs from actual request')
 
 
 def catalogue_from_count(trusted, logical, before=lambda: None):
@@ -89,7 +121,6 @@ def authenticate_inputs(args, reviewed_sources, deadline, before=lambda: None, *
                     args.logical_source_sha == args.source_sha,
                     'initial D0 bootstrap requires one reviewed source checkpoint')
     index, trusted, summary, anchors = suffix_census.completed_inputs(binding.ROOT, args, deadline, before)
-    logical = model_preview.logical_input(args, anchors, index, trusted, summary, deadline, before)
     cache = cache or receipts._Dependencies(before)
     # Actual successful returns, decisions, manifests and every upstream proof
     # remain required, even when a repaired outer JSON repeats correct counts.
@@ -103,6 +134,9 @@ def authenticate_inputs(args, reviewed_sources, deadline, before=lambda: None, *
         binding.require(type(command) is list and len(command) > 5 and
                         command[:5] == [sys.executable, '-B', '-m', receipts.MODULE_PREFIX+module, '--worker'],
                         'reviewed bootstrap '+prefix+' worker required')
+        if prefix == 'logical':
+            check_count_budget(request, result)
+    logical = model_preview.logical_input(args, anchors, index, trusted, summary, deadline, before)
     logical_result = cache.read(Path(args.logical_attempt)/'evidence/suffix-census.json', args.logical_report_sha, 64*1024**2)
     binding.require(logical_result.get('census_source_commit') == args.source_commit,
                     'bootstrap logical checkpoint changed')

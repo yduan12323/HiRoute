@@ -22,6 +22,12 @@ fresh output path. Preparation launches no capture, worker, matrix or LP.
 It authenticates successful retained replay/count returns and manifests,
 requires the reviewed `parallel_replay` and `suffix_census` worker modules,
 recomputes counts independently, and retains the complete input/proof graph.
+Count admission also authenticates the actual request's entry/deadline against
+the cold successful return, requires an at-most-180-second requested budget,
+and binds the worker's single exact `--deadline` value to that request.
+Duplicate, attached and abbreviated deadline options are rejected. The outer
+REPLAY profile's 1800-second ceiling and a report describing 180 seconds do
+not authorize a longer count request.
 The initial bootstrap requires one reviewed source checkpoint shared by the
 original plan, replay plan and count. Later windows may use subsequently
 reviewed checkpoints without changing that population.

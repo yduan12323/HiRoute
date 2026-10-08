@@ -135,11 +135,13 @@ class BootstrapProtocolTests(unittest.TestCase):
         self.requests = {}
         for prefix, module in [('replay', 'parallel_replay'), ('logical', 'suffix_census')]:
             path = getattr(self.args, prefix+'_attempt'); path.mkdir()
-            value = dict(command=[sys.executable, '-B', '-m', receipts.MODULE_PREFIX+module, '--worker', '--unit-fixture'])
+            value = dict(command=[sys.executable, '-B', '-m', receipts.MODULE_PREFIX+module, '--worker',
+                                  '--deadline', '280.0'], entry_monotonic=100.0, deadline_monotonic=280.0)
             self.requests[prefix] = value
             self.write(path/'request.json', value)
             returned = dict(status='completed', protocol_fake_not_execution_authority=True, prefix=prefix)
             self.returned[prefix] = returned
+            returned.update(entry_monotonic=100.0, deadline_monotonic=280.0)
             sha = self.write(getattr(self.args, prefix+'_return'), returned)
             setattr(self.args, prefix+'_return_sha', sha)
         report = self.args.logical_attempt/'evidence/suffix-census.json'
@@ -156,7 +158,8 @@ class BootstrapProtocolTests(unittest.TestCase):
         def fake_phase(path, *, successful_return, **kwargs):
             prefix = 'replay' if Path(path)==self.args.replay_attempt else 'logical'
             self.assertEqual(successful_return, self.returned[prefix])
-            return dict(status='failed' if fail else 'completed', request_sha256=binding.pin(Path(path)/'request.json')['sha256'])
+            return dict(successful_return, status='failed' if fail else 'completed',
+                        request_sha256=binding.pin(Path(path)/'request.json')['sha256'])
         with patch.object(replay_plan, 'historical_plan', return_value=self.physical), \
              patch.object(suffix_census, 'completed_inputs', return_value=(index, trusted, dict(checked=summary), anchors)), \
              patch.object(model_preview, 'logical_input', return_value=logical), \
@@ -174,6 +177,55 @@ class BootstrapProtocolTests(unittest.TestCase):
         self.assertEqual(closure.call_count, 1)
         self.assertEqual(result['population'], self.fixture[-1].commitment())
         self.assertFalse(result['numerical_acceptance'])
+
+    def test_completed_count_with_181_to_1800_second_budget_is_rejected_before_count_decode(self):
+        for seconds in (181.0, 900.0, 1800.0):
+            request = self.requests['logical']; request['deadline_monotonic'] = 100.0+seconds
+            request['command'][-1] = repr(request['deadline_monotonic'])
+            self.returned['logical']['deadline_monotonic'] = request['deadline_monotonic']
+            self.write(self.args.logical_attempt/'request.json', request)
+            self.args.logical_return_sha = self.write(self.args.logical_return, self.returned['logical'])
+            with self.subTest(seconds=seconds), self.execution_boundary(), \
+                 patch.object(model_preview, 'logical_input') as count, \
+                 self.assertRaisesRegex(ValueError, '180-second budget'):
+                self.authenticate()
+            count.assert_not_called()
+
+    def test_actual_request_entry_and_deadline_must_match_successful_return(self):
+        for field in ('entry_monotonic', 'deadline_monotonic'):
+            request = deepcopy(self.requests['logical']); request[field] += 1.0
+            self.write(self.args.logical_attempt/'request.json', request)
+            with self.subTest(field=field), self.execution_boundary(), \
+                 self.assertRaisesRegex(ValueError, 'request/return time binding'):
+                self.authenticate()
+
+    def test_worker_deadline_missing_changed_duplicate_attached_or_abbreviated_rejects(self):
+        original = self.requests['logical']['command']
+        commands = [original[:-2], original[:-1], original[:-1]+['281.0'],
+                    original+['--deadline','281.0'], original+['--deadline=281.0'],
+                    original+['--d','281.0'], original[:-2]+['--deadline=280.0'],
+                    original[:-1]+['nan'], original[:-1]+['invalid']]
+        for command in commands:
+            request = deepcopy(self.requests['logical']); request['command'] = command
+            self.write(self.args.logical_attempt/'request.json', request)
+            with self.subTest(command=command), self.execution_boundary(), self.assertRaises(ValueError):
+                self.authenticate()
+
+    def test_exact_180_and_shorter_count_budgets_are_accepted_as_protocol_metadata(self):
+        for seconds in (0.5, 179.0, 180.0):
+            request = deepcopy(self.requests['logical']); request['deadline_monotonic'] = 100.0+seconds
+            request['command'][-1] = repr(request['deadline_monotonic'])
+            accepted = dict(entry_monotonic=request['entry_monotonic'],deadline_monotonic=request['deadline_monotonic'])
+            bootstrap.check_count_budget(request, accepted)
+
+    def test_nonfinite_boolean_time_alias_and_nonpositive_budget_reject(self):
+        for field, value in [('entry_monotonic', True), ('deadline_monotonic', 280),
+                             ('deadline_monotonic', float('inf')), ('entry_monotonic', float('nan')),
+                             ('deadline_monotonic', 100.0), ('deadline_monotonic', 99.0)]:
+            request = deepcopy(self.requests['logical']); request[field] = value
+            accepted = {key: request[key] for key in ('entry_monotonic','deadline_monotonic')}
+            with self.subTest(field=field,value=value), self.assertRaises(ValueError):
+                bootstrap.check_count_budget(request, accepted)
 
     def test_missing_changed_or_failed_upstream_return_rejects(self):
         with self.execution_boundary(fail=True), self.assertRaises(ValueError): self.authenticate()
