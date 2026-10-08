@@ -1,4 +1,4 @@
-"""Tiny byte/protocol fixtures and genuine 528-model enumerated population.
+"""Tiny byte/protocol fixtures and genuine small enumerated population.
 
 Completed-source outcomes are synthetic, as in window_receipts tests; this
 tests provenance/continuity, never mathematical truth or real D0 acceptance.
@@ -305,18 +305,106 @@ class UpstreamClosureTests(unittest.TestCase):
             root = Path(temporary).resolve(); replay = root/'replay'; replay.mkdir()
             capture = root/'capture'; capture.mkdir(); (capture/'spool').write_bytes(b'tiny capture control')
             retained = root/'capture-return.json'; retained.write_bytes(b'{"tiny":true}\n')
+            historical = root/'historical.json'
+            inventory = {'producer.py': dict(size_bytes=7,sha256='a'*64)}
+            historical.write_bytes(plan.canonical(dict(source_commit='b'*40,source_files=inventory,
+                source_sha256=plan.digest(inventory),input_sha256='c'*64))+b'\n')
             request = replay/'request.json'
             request.write_bytes(plan.canonical(dict(command=[sys.executable, '-B', '-m', wr.MODULE_PREFIX+'parallel_replay',
                 '--worker', '--capture-attempt', str(capture), '--capture-return', str(retained),
                 '--capture-return-sha', plan.pin(retained)['sha256']]))+b'\n')
-            entry = dict(dependencies=[row(request)])
+            entry = dict(dependencies=[row(request),row(historical)])
             roots, pins, phases = epoch._upstream_closure(entry, dict(replay_attempt=str(replay),
-                logical_attempt=str(root/'logical')), lambda: None)
+                logical_attempt=str(root/'logical'),historical_plan=str(historical),
+                historical_plan_sha=plan.pin(historical)['sha256']), lambda: None)
             self.assertIn(str(capture), roots); self.assertIn(row(retained), pins)
-            self.assertEqual(phases, [(str(capture), row(retained))])
+            self.assertEqual(phases[0][0],str(capture))
+            self.assertEqual(phases[0][1]['returned'],row(retained))
+            self.assertEqual(phases[0][1]['historical_plan'],row(historical))
             with self.assertRaises(ValueError):
                 epoch._upstream_closure(dict(dependencies=[]), dict(replay_attempt=str(replay),
                     logical_attempt=str(root/'logical')), lambda: None)
+
+
+class CaptureSourceDomainTests(unittest.TestCase):
+    """Nonempty real capture closure and full runtime reader; no skipped capture.
+
+    Records are synthetic phase metadata, not numerical/producer attestation.
+    The saved caller return and all supervisor/manifest hashes are checked by
+    the original read_phase_result. No return predicate or capture list is mocked.
+    """
+    def setUp(self):
+        self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
+        self.root=Path(self.tmp.name).resolve();self.number=0
+        self.historical=self.root/'historical.json'
+        self.inventory={'producer.py':dict(size_bytes=7,sha256='a'*64)}
+        self.document=dict(source_commit='b'*40,source_files=self.inventory,
+            source_sha256=plan.digest(self.inventory),input_sha256='c'*64)
+        self.historical.write_bytes(plan.canonical(self.document)+b'\n')
+        self.context=dict(plan_sha256=row(self.historical)['sha256'],
+            source_sha256=self.document['source_sha256'],input_sha256='c'*64,profile_name=epoch.CAPTURE.name)
+        self.replay=self.root/'replay';self.replay.mkdir();(self.root/'logical').mkdir()
+        self.values=dict(replay_attempt=str(self.replay),logical_attempt=str(self.root/'logical'),
+            historical_plan=str(self.historical),historical_plan_sha=row(self.historical)['sha256'])
+
+    def fixture(self, *, context=None, capture_plan=None):
+        self.number+=1;capture_plan=self.historical if capture_plan is None else capture_plan
+        command=[sys.executable,'-B','-m',wr.MODULE_PREFIX+'worker','--phase','capture',
+            '--plan',str(capture_plan),'--plan-sha',row(capture_plan)['sha256'],'--deadline','110.0']
+        from experiments.time_cut_v2.recorded_real.worker import CAPTURE_FILES
+        saved=fixture_module.UpstreamProofGraphTests().history(self.root,'capture'+str(self.number),
+            epoch.CAPTURE,sorted(CAPTURE_FILES),context=self.context if context is None else context,command=command)
+        request=self.replay/'request.json'
+        request.write_bytes(plan.canonical(dict(command=[sys.executable,'-B','-m',wr.MODULE_PREFIX+'parallel_replay',
+            '--worker','--capture-attempt',saved['attempt'],'--capture-return',saved['returned'],
+            '--capture-return-sha',saved['returned_sha']]))+b'\n')
+        entry=dict(dependencies=[row(request),row(self.historical)])
+        roots,pins,phases=epoch._upstream_closure(entry,self.values,lambda:None)
+        self.assertEqual(len(phases),1)
+        return roots,pins,phases,saved,entry
+
+    def authenticate(self, phases):
+        attempt,contract=phases[0]
+        return epoch._authenticate_capture(attempt,contract,time.monotonic()+30,lambda:None)
+
+    def test_legal_distinct_capture_and_window_inventories_pass_nonempty_real_capture_reader(self):
+        roots,pins,phases,_,entry=self.fixture()
+        window_sources={'b'*40:'e'*64}
+        self.assertNotIn(self.context['source_sha256'],window_sources.values())
+        snapshot=closure.Closure.capture(roots,pins+entry['dependencies'],lambda:None)
+        accepted=self.authenticate(phases)
+        self.assertEqual(accepted['status'],'completed')
+        self.assertEqual(accepted['context'],self.context)
+        snapshot.continuity(lambda:None)
+
+    def test_wrong_capture_hash_input_plan_or_profile_context_reject_even_with_valid_outer_receipts(self):
+        for key in ('source_sha256','input_sha256','plan_sha256','profile_name'):
+            context=dict(self.context);context[key]='foreign' if key=='profile_name' else '0'*64
+            _,_,phases,_,_=self.fixture(context=context)
+            with self.subTest(key=key),self.assertRaises(ValueError):self.authenticate(phases)
+
+    def test_different_capture_commit_cannot_substitute_another_plan_with_same_inventory(self):
+        other=self.root/'different-commit.json';document=dict(self.document,source_commit='d'*40)
+        other.write_bytes(plan.canonical(document)+b'\n')
+        _,_,phases,_,_=self.fixture(capture_plan=other)
+        with self.assertRaisesRegex(ValueError,'commit/plan binding'):self.authenticate(phases)
+
+    def test_capture_return_bytes_replacement_or_link_cannot_reuse_original_return_pin(self):
+        for change in ('bytes','replace','link'):
+            _,_,phases,saved,_=self.fixture();path=Path(saved['returned']);original=path.read_bytes()
+            if change=='bytes':path.write_bytes(original.replace(b'completed',b'provision'))
+            elif change=='replace':
+                replacement=path.with_suffix('.replacement');replacement.write_bytes(original+b' ');os.replace(replacement,path)
+            else:
+                target=path.with_suffix('.target');target.write_bytes(original);path.unlink();path.symlink_to(target)
+            with self.subTest(change=change),self.assertRaises((ValueError,OSError)):self.authenticate(phases)
+
+    def test_historical_inventory_digest_and_commit_shape_are_required(self):
+        for key,value in (('source_sha256','0'*64),('source_commit','invalid')):
+            document=dict(self.document);document[key]=value
+            self.historical.write_bytes(plan.canonical(document)+b'\n')
+            self.values['historical_plan_sha']=row(self.historical)['sha256']
+            with self.subTest(key=key),self.assertRaises(ValueError):self.fixture()
 
 
 class IPCTests(unittest.TestCase):

@@ -6,6 +6,7 @@ API launches no controller, LP, recovery series, or collector. A real launcher
 and its original-checkout/code attestation require a separate admission review.
 """
 from contextlib import contextmanager
+from dataclasses import asdict
 import os
 from pathlib import Path
 import secrets
@@ -15,7 +16,7 @@ from types import SimpleNamespace
 from experiments.time_cut_v2.recorded_real import plan as binding
 from experiments.time_cut_v2.recorded_real import window_receipts as receipts
 from experiments.time_cut_v2.recorded_real.bootstrap_executor import validate_pinned_policy
-from experiments.time_cut_v2.recorded_real.runtime import read_phase_result
+from experiments.time_cut_v2.recorded_real.runtime import CAPTURE, read_phase_result
 from validation.suffix5.window_plan import next_window
 from validation.capture5.containers import detach_json
 
@@ -109,7 +110,60 @@ def _upstream_closure(entry, values, before):
     capture_pin = dict(path=returned, size_bytes=os.lstat(returned).st_size,
                        sha256=supplied['capture_return_sha'])
     pins.append(capture_pin)
-    return roots, pins, [(supplied['capture_attempt'], capture_pin)]
+    historical_path = _path(values['historical_plan'])
+    historical_pins = [pin for pin in entry['dependencies'] if pin['path'] == historical_path and
+                       pin['sha256'] == values['historical_plan_sha']]
+    binding.require(len(historical_pins) == 1, 'epoch independently retained historical plan required')
+    historical_pin = historical_pins[0]
+    historical = _read(historical_pin, before, 1024**2)
+    commit = historical['source_commit']
+    binding.require(type(commit) is str and len(commit) == 40 and
+                    all(c in '0123456789abcdef' for c in commit), 'epoch historical capture commit required')
+    receipts._sha(historical['source_sha256']); receipts._sha(historical['input_sha256'])
+    binding.require(type(historical['source_files']) is dict and bool(historical['source_files']) and
+                    binding.digest(historical['source_files']) == historical['source_sha256'],
+                    'epoch historical capture source inventory changed')
+    contract = dict(returned=capture_pin, historical_plan=historical_pin, source_commit=commit,
+        context=dict(plan_sha256=historical_pin['sha256'], source_sha256=historical['source_sha256'],
+                     input_sha256=historical['input_sha256'], profile_name=CAPTURE.name))
+    return roots, pins, [(supplied['capture_attempt'], contract)]
+
+
+def _authenticate_capture(attempt, contract, deadline, before):
+    """Use the producer's historical plan domain, not the window census domain.
+
+    The independently retained historical plan's exact bytes include its commit
+    and source inventory. The accepted capture request must bind that same plan.
+    Original worker.verify_plan authenticated that commit at capture execution;
+    capture returns contain its four-field context, not a separate commit label.
+    """
+    accepted = read_phase_result(attempt, successful_return=_read(contract['returned'], before, 65536),
+        deadline_monotonic=deadline, resource_check=before)
+    binding.require(accepted.get('status') == 'completed' and accepted.get('descendants_reaped') is True,
+                    'epoch original capture runtime is not cold authenticated')
+    _same(accepted['profile'], asdict(CAPTURE), 'epoch original capture profile changed')
+    _same(accepted['context'], contract['context'], 'epoch historical capture source/input/plan context changed')
+    request_pin = dict(path=str(Path(attempt)/'request.json'), size_bytes=os.lstat(Path(attempt)/'request.json').st_size,
+                       sha256=accepted['request_sha256'])
+    request = _read(request_pin, before, 1024**2)
+    argv = request['command']
+    binding.require(type(argv) is list and len(argv) == 12 and
+        argv[1:4] == ['-B', '-m', receipts.MODULE_PREFIX+'worker'], 'epoch original capture command changed')
+    fields = {}
+    for i in range(4, len(argv), 2):
+        key = argv[i]
+        binding.require(key in ('--phase','--plan','--plan-sha','--deadline') and key not in fields,
+                        'epoch original capture command options changed')
+        fields[key] = argv[i+1]
+    binding.require(fields['--phase'] == 'capture' and
+        fields['--plan'] == contract['historical_plan']['path'] and
+        fields['--plan-sha'] == contract['historical_plan']['sha256'] and
+        float(fields['--deadline']) == request['deadline_monotonic'],
+        'epoch capture commit/plan binding differs from authenticated historical plan')
+    historical = _read(contract['historical_plan'], before, 1024**2)
+    _same(historical['source_commit'], contract['source_commit'], 'epoch historical capture commit changed')
+    before()
+    return accepted
 
 
 def closure_inputs(metadata, actual, code_pins, before):
@@ -136,10 +190,10 @@ def closure_inputs(metadata, actual, code_pins, before):
         values, _ = _request(entry, before)
         upstream_roots, upstream_pins, capture_phases = _upstream_closure(entry, values, before)
         roots.update(upstream_roots); pins.extend(upstream_pins)
-        for attempt, returned in capture_phases:
-            binding.require(attempt not in captures or captures[attempt] == returned,
+        for attempt, contract in capture_phases:
+            binding.require(attempt not in captures or captures[attempt] == contract,
                             'epoch conflicting capture caller pins')
-            captures[attempt] = returned
+            captures[attempt] = contract
         if entry['module'] == 'block_resume':
             for key in ('old_archive', 'old_summary', 'old_selection'):
                 historic = Path(values[key])
@@ -203,12 +257,8 @@ class Epoch:
             initial = Closure.capture(roots, pins, check)
             checked = receipts.reconcile_registry(scheduling, scope, reviewed_sources=sources,
                                                  deadline=deadline, before=check)
-            for attempt, returned in captures.items():
-                accepted_capture = read_phase_result(attempt, successful_return=_read(returned, check, 65536),
-                    deadline_monotonic=deadline, resource_check=check)
-                binding.require(accepted_capture.get('status') == 'completed' and
-                                accepted_capture['context']['source_sha256'] in sources.values(),
-                                'epoch original capture runtime/source is not cold authenticated')
+            for attempt, contract in captures.items():
+                _authenticate_capture(attempt, contract, deadline, check)
             newest = checked.metadata()['entries'][-1]
             _same(actual['runtime_return']['path'], newest['successful_return'], 'epoch newest actual runtime path changed')
             _same(actual['runtime_return']['sha256'], newest['successful_return_sha256'],
@@ -291,7 +341,7 @@ class Epoch:
                             'epoch requires ordinary default continuation from actual previous returns')
             roots, pins, captures = closure_inputs(proposed, actual, self._code_pins, check)
             binding.require(all(attempt in self._closure.roots and
-                                returned['path'] in self._closure.files for attempt, returned in captures.items()),
+                                contract['returned']['path'] in self._closure.files for attempt, contract in captures.items()),
                             'epoch new entry introduces a foreign original capture phase')
             candidate = Closure.capture(roots, pins, check)
             self._closure.require_extension(candidate)

@@ -452,7 +452,7 @@ class UpstreamProofGraphTests(unittest.TestCase):
     def json_sha(value):
         return hashlib.sha256(runtime._json(value)).hexdigest()
 
-    def history(self, root, prefix, profile, names):
+    def history(self, root, prefix, profile, names, *, context=None, command=None):
         attempt = root/prefix; attempt.mkdir()
         with runtime.BoundedEvidenceWriter(attempt/'evidence', profile.worker_evidence_bytes,
                                            profile_name=profile.name) as writer:
@@ -460,9 +460,10 @@ class UpstreamProofGraphTests(unittest.TestCase):
             manifest = writer.finalize()
         manifest_raw = (attempt/'evidence/__manifest.json').read_bytes()
         cpus = list(range(6))  # Serialized upstream proof fixture; no launch.
-        context = dict(plan_sha256='e'*64, source_sha256='f'*64, input_sha256='d'*64, profile_name=profile.name)
+        if context is None:
+            context = dict(plan_sha256='e'*64, source_sha256='f'*64, input_sha256='d'*64, profile_name=profile.name)
         request = dict(profile=asdict(profile), context=context, entry_monotonic=100., deadline_monotonic=110.,
-                       launcher_rss_bytes_at_entry=1, command=['/usr/bin/python3', '-c', 'synthetic fixture'])
+                       launcher_rss_bytes_at_entry=1, command=command or ['/usr/bin/python3', '-c', 'synthetic fixture'])
         if profile == runtime.BATCH_REPLAY:
             request.update(cpu=cpus[0], worker_cpus=cpus[1:6])
         report = {key: value for key, value in request.items() if key != 'command'}

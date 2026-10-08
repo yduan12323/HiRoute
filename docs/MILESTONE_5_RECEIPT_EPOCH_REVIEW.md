@@ -51,6 +51,18 @@ Establish also cold-verifies that capture's actual runtime return. Unknown
 upstream or recovery receipt contracts fail closed, rather than silently
 dropping dependencies.
 
+Capture and window source hashes belong to separate inventory domains. Capture
+is bound to the exact independently retained historical plan, including its
+source commit, source_files digest and original four-field runtime context
+(plan/source/input/profile). Its accepted worker request must name that same
+plan path and SHA. The original capture worker verified the plan's Git commit
+at execution; the return carries the pinned context, not a standalone commit
+label. The historical producer inventory omits suffix5, while the window/census
+inventory includes it. A valid capture hash therefore need not occur in the
+window policy's reviewed_sources values. The window, replay and count contracts
+continue to be checked by the unchanged original verifier. No producer hash is
+inserted into the window allowlist and no historical evidence is rewritten.
+
 Every closed tree includes journal, writer lock, spool, control and non-manifest
 files. Hashing streams actual bytes with a bounded buffer and rejects hardlink
 aliases, symlinks, special files, changed/replaced files, and short reads. All
@@ -158,16 +170,23 @@ hash throughput within180 seconds, and real owning-launcher/numerical boundary
 integration. These require independent review before execution. No real prefix
 initialization or retained real-window admission is performed by this patch.
 
+The source-domain regression builds a nonempty capture closure with saved
+request/result/supervisor decision/manifest/final decision/caller return files.
+It uses the original full read_phase_result, with no mocked capture predicate
+or empty capture list. Different valid producer/window inventories pass;
+alternate capture-commit plans, wrong source/input/plan/profile contexts, broken
+historical inventory digests and changed/replaced/linked actual returns fail.
+
 ## Recorded synthetic validation
 
 The final isolated Linux Python3.11.16 revision, restricted to two actual CPU
-IDs with taskset, passed 332 unittest cases without skips in both normal
-(87.488 seconds) and `-OO` (88.579 seconds) modes. The 23 selected
+IDs with taskset, passed 337 unittest cases without skips in both normal
+(87.581 seconds) and `-OO` (88.238 seconds) modes. The 23 selected
 modules cover receipt epoch/origin, standard window receipts/runner/selector,
 independent collector/query/fold/empty occurrences, D1 recovery receipts/runner/
 core/plan, variant scope, D0 bootstrap, one-block limits, archive transport,
 occurrence joins, calibration, census and indexed population/context. The
-source-bound epoch/origin subset has 29 tests. These are code regressions,
+source-bound epoch/origin subset has 34 tests. These are code regressions,
 not real-population acceptance results.
 
 The pure metadata receipt fixtures declare six distinct CPU IDs. They never
@@ -183,8 +202,9 @@ message expectation after adding the package-namespace rejection; the revised
 assertion accepts both valid origin rejection paths. The earlier unrestricted
 normal/-OO 332-case passes remain in final-v2 logs. A two-CPU final-v3 run
 exposed the D1 fixture restoration issue described above; its failure is kept.
-Final log files are `review-validation.final-v4.two-cpu.normal.log` and
-`review-validation.final-v4.two-cpu.optimized.log`. Their metadata file records full
+The 332-case two-CPU passes remain in final-v4 logs. Latest source-domain fix
+logs are `review-validation.capture-domain-v1.normal.log` and
+`review-validation.capture-domain-v1.optimized.log`. Their metadata file records full
 argv, tested source SHA256 pins, elapsed time and log SHA256 hashes. Publication
 copies these test logs to a new persistent review directory on the server;
 no server experiment archive is downloaded to the Mac.
