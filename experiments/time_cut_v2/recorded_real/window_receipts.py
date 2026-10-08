@@ -189,7 +189,7 @@ def _command(request, module):
 
 
 def _source(commit, source, module, reviewed_sources):
-    binding.require(module in ('block_resume', 'suffix_window') and type(commit) is str and
+    binding.require(module in ('block_resume', 'suffix_window', 'suffix_window_recovery') and type(commit) is str and
                     len(commit) == 40 and all(c in '0123456789abcdef' for c in commit),
                     'fixed reviewed module and full source commit required')
     if module == 'block_resume':
@@ -602,6 +602,9 @@ def _inputs(values, commitment, cache, deadline):
 
 
 def _admit(spec, admitted, selection, reviewed_sources, deadline, before, cache):
+    if spec.get('module') == 'suffix_window_recovery':
+        from .window_recovery_receipts import _admit_recovery
+        return _admit_recovery(spec, admitted, selection, reviewed_sources, deadline, before, cache)
     before()
     cache.used = set()
     plan, commitment = _population(admitted)

@@ -68,13 +68,17 @@ class ArchiveReader:
     """Single-use iterator. summary is detached and exists only after exhaustion."""
 
     def __init__(self, path, *, compressed_sha256, compressed_bytes,
-                 allow_incomplete=False, before=lambda: None):
+                 allow_incomplete=False, before=lambda: None, max_raw_bytes=None):
         require(type(compressed_sha256) is str and len(compressed_sha256) == 64 and
                 all(c in '0123456789abcdef' for c in compressed_sha256),
                 'canonical compressed archive SHA256 required')
         require(type(compressed_bytes) is int and
                 0 < compressed_bytes <= MAX_COMPRESSED_BYTES, 'compressed archive byte cap/pin')
         require(type(allow_incomplete) is bool and callable(before), 'reader policy/callback required')
+        if max_raw_bytes is None:
+            max_raw_bytes = MAX_RAW_BYTES
+        require(type(max_raw_bytes) is int and 0 <= max_raw_bytes <= MAX_RAW_BYTES,
+                'bounded exact integer archive raw-byte budget required')
         self._path = os.fspath(path)
         self._expected_sha256 = compressed_sha256
         self._expected_bytes = compressed_bytes
@@ -82,6 +86,18 @@ class ArchiveReader:
         self._before = before
         self._started = False
         self._summary = None
+        self._max_raw_bytes = max_raw_bytes
+
+    def limit_raw_bytes(self, max_raw_bytes):
+        """Tighten a not-yet-started reader to a shared history's remaining budget.
+
+        A caller cannot expand a constructor cap or change it after reading has
+        begun. Zero permits only a genuinely empty decompressed byte stream.
+        """
+        require(not self._started, 'archive raw-byte budget must precede reading')
+        require(type(max_raw_bytes) is int and 0 <= max_raw_bytes <= MAX_RAW_BYTES,
+                'bounded exact integer archive raw-byte budget required')
+        self._max_raw_bytes = min(self._max_raw_bytes, max_raw_bytes)
 
     @property
     def summary(self):
@@ -124,13 +140,19 @@ class ArchiveReader:
                 while True:
                     before()
                     try:
-                        raw = decoder.decompress(chunk, CHUNK_BYTES)
+                        # Decode at most one byte beyond the remaining budget,
+                        # enough to detect overflow without expanding a large
+                        # final chunk just to reject it. Existing per-row and
+                        # global limits remain in force.
+                        remaining = min(MAX_RAW_BYTES, self._max_raw_bytes) - raw_bytes
+                        raw = decoder.decompress(chunk, min(CHUNK_BYTES, remaining + 1))
                     except zlib.error as error:
                         raise ValueError('corrupt gzip archive') from error
                     chunk = decoder.unconsumed_tail
                     require(not decoder.unused_data, 'trailing gzip stream or bytes')
                     raw_bytes += len(raw)
-                    require(raw_bytes <= MAX_RAW_BYTES, 'uncompressed archive byte cap')
+                    require(raw_bytes <= min(MAX_RAW_BYTES, self._max_raw_bytes),
+                            'uncompressed archive byte cap')
                     raw_hash.update(raw)
                     fragments = raw.split(b'\n')
                     for index, fragment in enumerate(fragments):

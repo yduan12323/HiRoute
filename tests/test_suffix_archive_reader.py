@@ -151,6 +151,63 @@ class ArchiveReaderTests(unittest.TestCase):
         self.assertEqual(list(reader), rows)
         self.assertEqual(reader.summary['uncompressed_bytes'], encoding.raw_bytes)
 
+    def test_optional_raw_budget_preserves_default_bytes_and_summary(self):
+        rows = [{'payload': 'x'*40}, {'other': True}]
+        raw = self.raw(rows)
+        encoded = gzip.compress(raw)
+        default = self.reader(encoded)
+        self.assertEqual(list(default), rows)
+        expected = default.summary
+        for cap in (len(raw), reader_module.MAX_RAW_BYTES):
+            reader = self.reader(encoded, max_raw_bytes=cap)
+            self.assertEqual(list(reader), rows)
+            self.assertEqual(reader.summary, expected)
+        self.assert_rejected(encoded, max_raw_bytes=len(raw)-1)
+        self.assert_rejected(encoded, max_raw_bytes=0)
+        self.assertEqual(list(self.reader(gzip.compress(b''), max_raw_bytes=0)), [])
+
+    def test_raw_budget_is_exact_tightening_only_and_set_before_reading(self):
+        encoded = gzip.compress(self.raw([{'value': 1}]))
+        for invalid in (True, False, -1, 1.0, '10', reader_module.MAX_RAW_BYTES+1):
+            with self.subTest(invalid=invalid):
+                self.assert_rejected(encoded, max_raw_bytes=invalid)
+                reader = self.reader(encoded)
+                with self.assertRaises(ValueError):
+                    reader.limit_raw_bytes(invalid)
+        reader = self.reader(encoded, max_raw_bytes=1)
+        reader.limit_raw_bytes(reader_module.MAX_RAW_BYTES)
+        with self.assertRaisesRegex(ValueError, 'uncompressed archive byte cap'):
+            list(reader)
+        reader = self.reader(encoded)
+        list(reader)
+        with self.assertRaisesRegex(ValueError, 'precede reading'):
+            reader.limit_raw_bytes(0)
+
+    def test_small_remaining_budget_stops_decoder_at_first_overflow_byte(self):
+        encoded = gzip.compress(self.raw([{'payload': 'x'*100000}]))
+        real_decoder = zlib.decompressobj
+        outputs = []
+        class ObservedDecoder:
+            def __init__(self, *args, **kwargs):
+                self.decoder = real_decoder(*args, **kwargs)
+            def decompress(self, data, max_length=0):
+                result = self.decoder.decompress(data, max_length)
+                outputs.append(len(result))
+                return result
+            def __getattr__(self, name):
+                return getattr(self.decoder, name)
+        with patch.object(reader_module.zlib, 'decompressobj', ObservedDecoder):
+            self.assert_rejected(encoded, max_raw_bytes=17)
+        self.assertEqual(sum(outputs), 18)
+
+    def test_incomplete_trailing_bytes_consume_shared_raw_budget(self):
+        raw = self.raw([{'value': 1}])+b'{"partial":'
+        encoded = self.prefix(raw)
+        self.assert_rejected(encoded, allow_incomplete=True, max_raw_bytes=len(raw)-1)
+        reader = self.reader(encoded, allow_incomplete=True, max_raw_bytes=len(raw))
+        self.assertEqual(list(reader), [{'value': 1}])
+        self.assertEqual(reader.summary['uncompressed_bytes'], len(raw))
+
     def test_input_reads_and_decoder_output_are_bounded_chunks(self):
         rows = [{'index': i, 'payload': hashlib.sha256(str(i).encode()).hexdigest() * 7}
                 for i in range(120)]
