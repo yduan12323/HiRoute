@@ -117,13 +117,23 @@ files read during this audit.
 
 The registry names external archive `HiRoute-frozen-AB92-inputs-a2c4a7f.zip`,
 SHA-256 `7d001b1ce2ec83ac953b1891a93562e3b9060195e9dd5f5bcc6a9687b50e7679`.
-The parent thread reports an existing Library recovery in its cloud workspace,
-`ab_library_recovery/selected_ab`, from a roughly 23,810-byte ZIP with the
-`7d001b` digest prefix. That cloud path is not available through this selected
-Mac/server execution environment. This is a server transfer/intake gap, not
-a request for the user to upload the archive again. The parent can verify the
-full cloud archive digest and use a supported file-transfer route; none was
-attempted here. Until server intake is completed and checked, the 92 original
+The parent thread confirmed the recovered ZIP is now saved in Library at
+version 0, exactly 23,810 bytes, with the full archive digest above verified
+in its cloud workspace. Those are parent-provided facts, not a hash check of
+local bytes by this selected Mac/server execution environment. The original
+package is already available; the user does not need to upload it again.
+
+This task attempted the supported resolved-reference Library materialization
+with an explicit destination on the selected Mac. Preparation returned a
+signed transfer, but the current official transfer helper failed with HTTP
+403. No local ZIP was installed. Under the authorized stop-on-permission-
+failure instruction, no alternative download route was used. SSH transfer,
+ZIP member validation, the six server file hashes and the real-population
+registry tests therefore **were not executed**. The test suite's two original-
+population tests are not recorded as passing or as attempted skips.
+
+This is a Library access/server intake blocker, not a missing-user-upload
+request. Until server intake is completed and checked, the 92 original
 A/B member IDs and any source/
 representation/query-specific receipts remain unresolved. Preserve historical
 `independent_expected` separately from actual historical status/key rows;
@@ -189,13 +199,20 @@ attained optimum or justified by an unverified historical summary.
 
 ## Smallest rational next validation plan
 
-1. **Close input and identity provenance first.** Locate the complete original
-   aggregate freeze and verify the already-recovered cloud A/B archive/reports,
-   then transfer them through the supported route. Read and hash the six
+1. **Close input and identity provenance first.** Resolve the supported Library
+   materialization HTTP 403, retain the already-verified external archive
+   identity, and locate the complete original aggregate freeze. Once locally
+   materialized, verify its 23,810-byte size and full SHA-256, validate ZIP
+   members, and transfer/extract into a fresh server input-recovery directory
+   through the existing SSH route. Read and hash the six
    original files, then run metadata intake under the existing environment.
    The existing loader command is
    `PYTHONPATH=src python -m timecut5.frozen_ab_registry --input-root /path/to/extracted/tree`.
-   This step performs no optimization. Replace null member lists only with
+   Then set `HIROUTE_FROZEN_AB_ROOT` to that extracted tree and run
+   `PYTHONPATH=src python -m unittest discover -s tests -p test_frozen_ab_registry.py -v`.
+   Confirm the two original-population tests execute rather than skip, with
+   92 actual physical IDs and 184 HIER identities. This metadata step performs
+   no optimization and is not new numerical acceptance. Replace null member lists only with
    verified original IDs; retain S07 and algebra-only A04 with their correct roles.
 2. **Build the gate mapping before deciding computation.** Map original themes,
    B64 strata, C32 state/solver identities and source-specific historical
