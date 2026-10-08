@@ -4,12 +4,14 @@ No fixture claims a real C01 capture, successful guarded execution, numerical
 certificate, or production population. Physical C01 admission stays separate
 from the tiny mathematical oracle used here.
 """
-from contextlib import contextmanager
+from contextlib import contextmanager, redirect_stdout
 from copy import deepcopy
 import hashlib
+import io
 import json
 from pathlib import Path
 import sys
+import resource
 import tempfile
 import time
 from types import SimpleNamespace
@@ -229,6 +231,36 @@ class BootstrapProtocolTests(unittest.TestCase):
         with self.assertRaises((ValueError, OSError, KeyError)):
             model_preview.logical_input(self.args, self.fixture[4], self.fixture[0], self.fixture[1],
                                         dict(checked=self.fixture[2]), time.monotonic()+20, lambda: None)
+
+    @contextmanager
+    def preparation_boundary(self, limits):
+        # Only CLI orchestration is injected; no successful phase is claimed.
+        self.args.output = self.root/'prepared.json'
+        with patch('argparse.ArgumentParser.parse_args', return_value=self.args), \
+             patch.object(resource, 'getrlimit', return_value=limits), \
+             patch.object(resource, 'setrlimit') as memory, \
+             patch.object(sys, 'meta_path', list(sys.meta_path)), \
+             patch.object(suffix_census, 'check_sources') as source, \
+             patch.object(suffix_window, 'source_policy', return_value=self.policy), \
+             patch.object(bootstrap, 'authenticate_inputs', return_value=dict(protocol_fake_not_execution_authority=True)), \
+             redirect_stdout(io.StringIO()):
+            yield memory, source
+
+    def test_preparation_cannot_raise_inherited_memory_limits(self):
+        for limits, expected in (((resource.RLIM_INFINITY, resource.RLIM_INFINITY), 2*1024**3),
+                                  ((512*1024**2, resource.RLIM_INFINITY), 512*1024**2),
+                                  ((512*1024**2, 1024**3), 512*1024**2)):
+            with self.subTest(limits=limits), self.preparation_boundary(limits) as (memory, _):
+                bootstrap.main()
+                memory.assert_called_once_with(resource.RLIMIT_AS, (expected, limits[1]))
+            self.args.output.unlink()
+
+    def test_source_change_before_publication_stops_without_final_bootstrap(self):
+        with self.preparation_boundary((resource.RLIM_INFINITY, resource.RLIM_INFINITY)) as (_, source):
+            source.side_effect = [None, ValueError('owner source changed')]
+            with self.assertRaisesRegex(ValueError, 'owner source changed'): bootstrap.main()
+        self.assertFalse(self.args.output.exists())
+        self.assertTrue(self.args.output.with_name(self.args.output.name+'.partial').exists())
 
 
 class D0CommandTests(unittest.TestCase):
