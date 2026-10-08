@@ -1,12 +1,15 @@
-"""Linux CI for tiny D0 bootstrap and single-block protocol boundaries only."""
+"""Linux CI for synthetic bootstrap, receipt epoch and collector boundaries."""
 import os
 from pathlib import Path
 import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-MODULES = ('tests.test_c01_variant_scope', 'tests.test_c01_d0_bootstrap',
-           'tests.test_suffix_single_block_limit')
+MODULE_GROUPS = (
+    ('tests.test_c01_variant_scope','tests.test_c01_d0_bootstrap','tests.test_suffix_single_block_limit'),
+    ('tests.test_receipt_epoch','tests.test_receipt_epoch_origin'),
+    ('tests.test_suffix_window_receipts','tests.test_suffix_final_collector'),
+)
 
 
 def main():
@@ -28,8 +31,9 @@ if not result.wasSuccessful() or result.testsRun == 0 or result.skipped:
 print('Bootstrap/one-block code boundaries passed; no real-population execution')
 """
     for flags in ([], ['-OO']):
-        subprocess.run([sys.executable, *flags, '-B', '-c', script, *MODULES],
-                       cwd=ROOT, env=env, check=True, timeout=120)
+        for modules in MODULE_GROUPS:
+            subprocess.run([sys.executable, *flags, '-B', '-c', script, *modules],
+                           cwd=ROOT, env=env, check=True, timeout=120)
 
 
 if __name__ == '__main__':
