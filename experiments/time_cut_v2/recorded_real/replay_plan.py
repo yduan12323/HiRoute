@@ -9,7 +9,9 @@ MAX_PLAN_BYTES=4*1024**2
 
 def historical_plan(root,path,expected_sha):
  value=read_pinned(path,expected_sha,MAX_PLAN_BYTES)
- binding.require(type(value) is dict and value.get('schema')=='hiroute-recorded-real-plan-v1','historical plan schema')
+ binding.require(type(value) is dict,'historical plan schema')
+ from .variant_scope import validate_variant
+ validate_variant(value)
  binding.require(binding.digest(value['source_files'])==value['source_sha256'],'historical source inventory changed')
  binding.assert_committed_sources(root,value['source_files'],value['source_commit'])
  binding.require(binding.digest(value['inputs'])==value['input_sha256'] and

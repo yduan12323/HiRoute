@@ -80,7 +80,7 @@ def resolved_query(state,inputs):
   query['schedule']=dict(a=q['window_start_s'],b=q['window_end_s'],D=q['duration_s'])
  return query
 
-def prepare_plan(root,export_dir,manifest_sha,selection,selection_sha,tree,*,reference=None,state_id='C01'):
+def prepare_plan(root,export_dir,manifest_sha,selection,selection_sha,tree,*,reference=None,state_id='C01',dominance=True):
  # This preparation uses the published input translator only; it never searches.
  from timecut5.real_export_input import load_exported_case
  from .runtime import CAPTURE,REPLAY
@@ -100,14 +100,20 @@ def prepare_plan(root,export_dir,manifest_sha,selection,selection_sha,tree,*,ref
   comparison=dict(status='historical_result_available',expected_key=result_key(ref['result']),raw_certificates_replayed=False)
  inputs={role:dict(path=name,**pin(inside(root,name))) for role,name in names.items()}
  sources=source_inventory(root);commit=source_commit(root);assert_committed_sources(root,sources,commit)
- return dict(schema='hiroute-recorded-real-plan-v1',state_id=state_id,pool_id=pool,dominance=True,
+ require(type(dominance) is bool,'exact boolean dominance required')
+ require(dominance or state_id=='C01','D0 is restricted to C01')
+ result=dict(schema='hiroute-recorded-real-plan-v1' if dominance else 'hiroute-recorded-real-plan-v2',state_id=state_id,pool_id=pool,dominance=dominance,
      representation='exact-adjacent-cut-coalescing-v1',external_incumbent=None,
      H_ref=prepared.query['H_ref'],sites=len(prepared.table.sites),regions=len(prepared.restriction.regions),
      query=prepared.query,query_sha256=digest(prepared.query),source_commit=commit,
      source_files=sources,source_sha256=digest(sources),inputs=inputs,input_sha256=digest(inputs),
      profiles={p.name:asdict(p) for p in (CAPTURE,REPLAY)},reference=comparison,
      source_provenance_scope='pins verify current consumption chain; selection-generation sources and historical certificates are not rerun',
-     numerical_suffix_optimization=False,literal_G8_closed=False)
+      numerical_suffix_optimization=False,literal_G8_closed=False)
+ if not dominance:
+  from .variant_scope import D0
+  result['variant_id']=D0
+ return result
 
 def verify_export_chain(root,plan):
  # Recheck the manifest links independently on every admission, including replay.
@@ -177,7 +183,8 @@ def verify_export_chain(root,plan):
 def verify_plan(root,path,expected_sha,deadline,*,require_c01=True):
  root=Path(root).resolve();require(time.monotonic()<deadline,'phase deadline before binding')
  require(pin(path)['sha256']==expected_sha,'plan SHA256 mismatch');plan=load(path)
- require(plan['schema']=='hiroute-recorded-real-plan-v1','unsupported plan schema')
+ from .variant_scope import validate_variant
+ validate_variant(plan)
  require(plan['source_commit']==source_commit(root),'source commit changed')
  require(digest(plan['source_files'])==plan['source_sha256'] and source_inventory(root)==plan['source_files'],'source closure changed')
  assert_committed_sources(root,plan['source_files'],plan['source_commit'])
@@ -193,7 +200,7 @@ def verify_plan(root,path,expected_sha,deadline,*,require_c01=True):
  else:expected_reference=dict(status='historical_reference_missing',raw_certificates_replayed=False)
  require(canonical(plan['reference'])==canonical(expected_reference),'reference comparison binding changed')
  require(plan['representation']=='exact-adjacent-cut-coalescing-v1','representation changed')
- require(plan['external_incumbent'] is None and plan['dominance'] is True and plan['numerical_suffix_optimization'] is False and plan['literal_G8_closed'] is False,'unsupported execution scope')
+ require(plan['external_incumbent'] is None and plan['numerical_suffix_optimization'] is False and plan['literal_G8_closed'] is False,'unsupported execution scope')
  if require_c01:
   require((plan['state_id'],plan['pool_id'],plan['H_ref'],plan['sites'],plan['regions'])==('C01','OD00_energy_only',4,8,2047),'fixed C01 population changed')
   fixed={'export_manifest':'f846eb37219a34dea74aa9a79e7673b8cdae03ae281de189cb9b602a98ac380d',
@@ -207,8 +214,8 @@ def verify_plan(root,path,expected_sha,deadline,*,require_c01=True):
 def main():
  p=argparse.ArgumentParser();p.add_argument('--export-dir',required=True);p.add_argument('--manifest-sha',required=True)
  p.add_argument('--selection',required=True);p.add_argument('--selection-sha',required=True);p.add_argument('--tree',required=True)
- p.add_argument('--reference');p.add_argument('--output',type=Path,required=True);a=p.parse_args()
- value=prepare_plan(ROOT,a.export_dir,a.manifest_sha,a.selection,a.selection_sha,a.tree,reference=a.reference)
+ p.add_argument('--reference');p.add_argument('--dominance',choices=('on','off'),default='on');p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+ value=prepare_plan(ROOT,a.export_dir,a.manifest_sha,a.selection,a.selection_sha,a.tree,reference=a.reference,dominance=a.dominance=='on')
  require((value['H_ref'],value['sites'],value['regions'])==(4,8,2047),'fixed C01 population changed')
  with a.output.open('xb') as f:f.write(canonical(value)+b'\n')
  print(json.dumps(dict(plan=str(a.output),**pin(a.output),reference_status=value['reference']['status'],execution_started=False)))
