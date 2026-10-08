@@ -103,20 +103,27 @@ class WindowReceiptTests(unittest.TestCase):
                 mutate_summary=lambda summary: None, mutate_run=lambda run: None, maximum_blocks=None):
         if maximum_blocks is not None:
             self.values['maximum_blocks'] = maximum_blocks
-            window = detach_json(next_window(self.population, [],
-                population_plan_sha256=plan.digest(self.population), maximum_blocks=maximum_blocks))
-            self.selection['window_plan'] = window
+        else:
+            self.values.pop('maximum_blocks', None)
         limit = 32 if maximum_blocks is None else maximum_blocks
+        window = detach_json(next_window(self.population, self.base.completed_block_ids(),
+            population_plan_sha256=plan.digest(self.population), maximum_blocks=limit))
+        blocks = [dict(range=span, descriptors=list(self.admitted.population.block(span['block_id'])))
+                  for span in window['blocks']]
+        models = window['expected_model_count']
+        self.selection = dict(schema='hiroute-suffix-window-selection-v1', population=self.admitted.commitment(),
+            window_plan=window, blocks=blocks, selection_uses_outcomes=False, numerical_cache_enabled=False,
+            maximum_candidate_passes=models*12, maximum_logical_stages=models*5)
         self.number += 1
         attempt = self.root/('window'+str(self.number)); attempt.mkdir()
         evidence = attempt/'evidence'
         resources = dict(name='C01-suffix-window-v1', absolute_seconds=900,
             evidence_charge_bytes=512*1024**2, uncompressed_archive_bytes=512*1024**2,
             maximum_input_bytes=128*1024**2, maximum_blocks=limit, maximum_models=limit*256,
-            models=self.population['total_models'], block_size=256, persistent_workers=4,
+            models=models, block_size=256, persistent_workers=4,
             candidate_as_bytes=1024**3, candidate_peak_rss_bytes=768*1024**2, seconds_per_model=30,
-            maximum_passes_per_model=12, maximum_candidate_passes=self.population['total_models']*12,
-            maximum_logical_stages=self.population['total_models']*5,
+            maximum_passes_per_model=12, maximum_candidate_passes=models*12,
+            maximum_logical_stages=models*5,
             numerical_cache_enabled=False, worker_cpus=self.values['worker_cpus'])
         commitment = self.admitted.commitment()
         origin = dict(schema='hiroute-reviewed-controller-origin-v1', checkout_root=str(self.root.resolve()),
@@ -147,7 +154,7 @@ class WindowReceiptTests(unittest.TestCase):
             writer.write('batch-ledger.json', domain.chunks({'tiny_fixture': True}))
             blocks = self.selection['blocks']
             rows = [dict(kind='header', schema='hiroute-suffix-block-proof-archive-v1', source_context=context,
-                expected_models=self.population['total_models'], blocks=[block['range'] for block in blocks],
+                expected_models=models, blocks=[block['range'] for block in blocks],
                 certificate_reuse_enabled=False)]
             reports = []; input_bytes = 0
             for block in blocks:
@@ -181,10 +188,10 @@ class WindowReceiptTests(unittest.TestCase):
                     query_optimum_certified=False, literal_G8_closed=False)
                 reports.append(report); rows.append(dict(kind='block_report', report=report, winner_witness=None))
             transport = dict(status='complete', input_exhausted=True, all_submitted_accounted=True,
-                all_processes_reaped=True, submitted_count=self.population['total_models'],
-                terminal_count=self.population['total_models'], protocol_error_count=0, collector_error=None, input_bytes=input_bytes)
+                all_processes_reaped=True, submitted_count=models,
+                terminal_count=models, protocol_error_count=0, collector_error=None, input_bytes=input_bytes)
             rows.append(dict(kind='footer', schema='hiroute-suffix-block-proof-footer-v1', complete=True,
-                verified_models=self.population['total_models'], expected_models=self.population['total_models'],
+                verified_models=models, expected_models=models,
                 transport=transport, blocks=reports, **wr.FALSE_AUTHORITY))
             mutate_rows(rows)
             encoder = block_archive.ArchiveEncoding()
@@ -192,7 +199,7 @@ class WindowReceiptTests(unittest.TestCase):
             summary = dict(schema='hiroute-suffix-window-summary-v1', source_context=context, resource_plan=resources,
                 invocation_origin=origin,
                 population=commitment, selection=selection_pin, base_registry=base_pin, window_id=context['window_id'],
-                proof_archive=proof, encoding=encoder.summary(), complete=True, verified_models=self.population['total_models'],
+                proof_archive=proof, encoding=encoder.summary(), complete=True, verified_models=models,
                 blocks=reports, transport=transport, numerical_wall_seconds=0., registry_admission=run['registry_admission'], **wr.FALSE_AUTHORITY)
             mutate_summary(summary)
             writer.write('window-summary.json', domain.chunks(summary)); manifest = writer.finalize()
