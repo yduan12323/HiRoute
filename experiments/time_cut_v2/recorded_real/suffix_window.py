@@ -89,7 +89,7 @@ def input_context(args):
     from .population_bootstrap import FIELDS
     return {key: str(value) if isinstance(value, Path) else value
             for key, value in vars(args).items() if key not in INPUT_EXCLUSIONS and
-            not (key in FIELDS and value is None)}
+            not (key in FIELDS+('maximum_blocks',) and value is None)}
 
 
 def worker_command(args, deadline):
@@ -102,16 +102,24 @@ def worker_command(args, deadline):
     return command
 
 
-def resource_plan(cpus, models):
+def block_limit(args):
+    value = getattr(args, 'maximum_blocks', None)
+    value = MAX_BLOCKS if value is None else value
+    binding.require(type(value) is int and 1 <= value <= MAX_BLOCKS, 'window block cap')
+    return value
+
+
+def resource_plan(cpus, models, *, maximum_blocks=MAX_BLOCKS):
+    binding.require(type(maximum_blocks) is int and 1 <= maximum_blocks <= MAX_BLOCKS, 'window block cap')
     binding.require(type(cpus) is list and len(cpus) == 5 and
         all(type(cpu) is int and cpu >= 0 for cpu in cpus) and len(set(cpus)) == 5,
         'five distinct resource-plan CPUs required')
-    binding.require(type(models) is int and 0 <= models <= MAX_MODELS, 'window model cap')
+    binding.require(type(models) is int and 0 <= models <= maximum_blocks*256, 'window model cap')
     binding.require(BATCH_REPLAY.group_rss_bytes == 20*1024**3 and
         BATCH_REPLAY.host_reserve_bytes == 16*1024**3, 'fixed group and host resource policy changed')
     return dict(name='C01-suffix-window-v1', absolute_seconds=SECONDS,
         evidence_charge_bytes=512*1024**2, uncompressed_archive_bytes=512*1024**2,
-        maximum_input_bytes=MAX_INPUT_BYTES, maximum_blocks=MAX_BLOCKS, maximum_models=MAX_MODELS,
+        maximum_input_bytes=MAX_INPUT_BYTES, maximum_blocks=maximum_blocks, maximum_models=maximum_blocks*256,
         models=models, block_size=256, persistent_workers=4, candidate_as_bytes=1024**3,
         candidate_peak_rss_bytes=768*1024**2, seconds_per_model=30, maximum_passes_per_model=12,
         maximum_candidate_passes=models*12, maximum_logical_stages=models*5,
@@ -214,7 +222,7 @@ def registry_admission(args):
                 source_policy_sha256=args.source_policy_sha)
 
 
-def plan_window(scope, registry):
+def plan_window(scope, registry, *, maximum_blocks=MAX_BLOCKS):
     from .window_receipts import CheckedRegistry, ReceiptScope
     from .indexed_population import AdmittedSuffixPopulation
     from validation.capture5.containers import detach_json
@@ -233,14 +241,15 @@ def plan_window(scope, registry):
             'fixed full C01 numerical population changed')
     suffix_census.same(registry.metadata()['population'], commitment, 'registry population changed')
     return detach_json(next_window(plan, registry.completed_block_ids(),
-                                   population_plan_sha256=commitment['block_plan_sha256']))
+                                   population_plan_sha256=commitment['block_plan_sha256'],
+                                   maximum_blocks=maximum_blocks))
 
 
-def freeze_selection(admitted, registry, before=lambda: None):
+def freeze_selection(admitted, registry, before=lambda: None, *, maximum_blocks=MAX_BLOCKS):
     from .indexed_population import AdmittedSuffixPopulation
     binding.require(type(admitted) is AdmittedSuffixPopulation,
                     'fresh genuine admitted suffix population required for descriptors')
-    window = plan_window(admitted, registry)
+    window = plan_window(admitted, registry, maximum_blocks=maximum_blocks)
     plan = admitted.population.plan()
     blocks = []
     for number in window['block_ids']:
@@ -286,7 +295,7 @@ def worker(args):
         binding.require(os.environ.get('HIROUTE_PROFILE') == BATCH_REPLAY.name and
             os.environ.get('HIROUTE_EVIDENCE_CAP_BYTES') == str(BATCH_REPLAY.worker_evidence_bytes),
             'wrong suffix window group guard')
-        resource_plan(args.worker_cpus, 0)
+        resource_plan(args.worker_cpus, 0, maximum_blocks=block_limit(args))
         binding.require(os.sched_getaffinity(0) == set(args.worker_cpus), 'five inherited CPUs required')
         binding.require(not any(name == 'validation' or name.startswith(('validation.', 'timecut5')) or
             name.split('.')[0] in ('numpy', 'scipy', 'sympy') for name in sys.modules),
@@ -330,10 +339,10 @@ def worker(args):
         from .indexed_population import admit_population
         admitted = admit_population(binding.ROOT, args, ctx, args.deadline, before)
         _, registry = load_registry(args, policy, admitted=admitted, deadline=args.deadline, before=before)
-        selection = freeze_selection(admitted, registry, before)
+        selection = freeze_selection(admitted, registry, before, maximum_blocks=block_limit(args))
         window = selection['window_plan']
         binding.require(window['launch_required'], 'terminal empty window must not launch a worker')
-        resources = resource_plan(args.worker_cpus, window['expected_model_count'])
+        resources = resource_plan(args.worker_cpus, window['expected_model_count'], maximum_blocks=block_limit(args))
         admission = registry_admission(args)
         writer.write('block-plan.json', domain.chunks(admitted.population.plan()))
         base_pin = writer.write('base-registry.json', domain.chunks(registry.metadata()))
@@ -475,12 +484,12 @@ def controller(args):
             _live_checks(BATCH_REPLAY, directory, deadline, pending_metadata_bytes=32*1024**2)
     before()
     origin = check_invocation_origin()
-    resource_plan(args.worker_cpus, 0)
+    resource_plan(args.worker_cpus, 0, maximum_blocks=block_limit(args))
     sources = suffix_census.check_sources(binding.ROOT, args.source_commit, args.source_sha)
     suffix_census.same(check_invocation_origin(sources), origin, 'controller invocation origin changed')
     policy = source_policy(args, before)
     scope, registry = load_registry(args, policy, deadline=deadline, before=before)
-    window = plan_window(scope, registry)
+    window = plan_window(scope, registry, maximum_blocks=block_limit(args))
     if not window['launch_required']:
         before()
         return dict(status='terminal_empty', launch_required=False, window_id=None,
@@ -525,6 +534,8 @@ def parser():
                            type=str if key.endswith('_sha') else Path)
     value.add_argument('--bootstrap', type=Path)
     value.add_argument('--bootstrap-sha')
+    value.add_argument('--maximum-blocks', type=int, default=None,
+                       help='lower whole-block selection cap, from1 to32; default32')
     value.add_argument('--worker-cpus', type=int, nargs=5, required=True)
     value.add_argument('--cpu', type=int)
     value.add_argument('--attempt-dir', type=Path)

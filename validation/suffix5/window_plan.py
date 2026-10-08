@@ -100,10 +100,10 @@ def _binding(plan, population_plan_sha256):
                 total_blocks=len(plan['blocks']), block_size=plan['block_size'])
 
 
-def _budget():
+def _budget(maximum_blocks=MAX_BLOCKS):
     return dict(absolute_seconds=SECONDS, evidence_charge_bytes=EVIDENCE_BYTES,
                 uncompressed_archive_bytes=EVIDENCE_BYTES,
-                maximum_blocks=MAX_BLOCKS, maximum_models=MAX_MODELS,
+                maximum_blocks=maximum_blocks, maximum_models=maximum_blocks*DEFAULT_BLOCK_SIZE,
                 numerical_cache_enabled=False)
 
 
@@ -133,16 +133,19 @@ def _join_ranges(plan, blocks):
                 preserve_original_query_occurrence_order=True, partial_segments_are_complete=False)
 
 
-def _window(plan, population_plan_sha256, completed):
+def _window(plan, population_plan_sha256, completed, maximum_blocks=MAX_BLOCKS):
+    require(type(maximum_blocks) is int and 1 <= maximum_blocks <= MAX_BLOCKS,
+            'window_block_limit_outside_reviewed_ceiling')
     outstanding = _outstanding(plan, completed)
-    blocks = outstanding[:MAX_BLOCKS]
+    blocks = outstanding[:maximum_blocks]
     count = sum(block['model_count'] for block in blocks)
     require(count <= MAX_MODELS, 'window_model_budget_exceeded')
-    identity = dict(schema=SCHEMA, policy=POLICY, population=_binding(plan, population_plan_sha256),
+    identity = dict(schema=SCHEMA, policy=(POLICY if maximum_blocks == MAX_BLOCKS else
+                    f'first-{maximum_blocks}-outstanding-canonical-blocks-v1'), population=_binding(plan, population_plan_sha256),
                     blocks=blocks, block_ids=[block['block_id'] for block in blocks],
                     expected_model_count=count,
                     expected_ordinal_ranges=[[block['start'], block['end']] for block in blocks],
-                    operation_budget=_budget())
+                    operation_budget=_budget(maximum_blocks))
     return freeze_shared(dict(identity, window_id=digest(identity) if blocks else None,
                               status='ready' if blocks else 'terminal_empty',
                               launch_required=bool(blocks), completed_block_ids=completed,
@@ -153,7 +156,8 @@ def _window(plan, population_plan_sha256, completed):
 
 
 @api
-def next_window(population_plan, completed_block_ids, *, population_plan_sha256):
+def next_window(population_plan, completed_block_ids, *, population_plan_sha256,
+                maximum_blocks=MAX_BLOCKS):
     """Select the first <=32 outstanding whole blocks in immutable catalogue order.
 
     Supply ``admitted.population.plan()`` and its independently authenticated
@@ -169,16 +173,17 @@ def next_window(population_plan, completed_block_ids, *, population_plan_sha256)
     version cannot change it. All-completed input returns no runnable window ID.
     """
     plan = _population(population_plan, population_plan_sha256)
-    return _window(plan, population_plan_sha256, _completed(plan, completed_block_ids))
+    return _window(plan, population_plan_sha256, _completed(plan, completed_block_ids), maximum_blocks)
 
 
 @api
-def check_window_plan(window, population_plan, completed_block_ids, *, population_plan_sha256):
+def check_window_plan(window, population_plan, completed_block_ids, *, population_plan_sha256,
+                      maximum_blocks=MAX_BLOCKS):
     """Recompute the exact plan before consuming a persisted window; no admission."""
     actual = detach_json(window)
     exact_json(actual)
     expected = next_window(population_plan, completed_block_ids,
-                           population_plan_sha256=population_plan_sha256)
+                           population_plan_sha256=population_plan_sha256, maximum_blocks=maximum_blocks)
     same(actual, detach_json(expected), 'window_plan_changed')
     return expected
 

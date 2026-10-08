@@ -175,10 +175,16 @@ def _command(request, module):
     if module == 'suffix_window':
         from .population_bootstrap import FIELDS
         bootstrap = set(FIELDS) if any(key in values for key in FIELDS) else set()
-        binding.require(set(values) <= required | extras | set(WINDOW_OPTIONALS) | bootstrap, 'unknown window command option')
+        binding.require(set(values) <= required | extras | set(WINDOW_OPTIONALS) | bootstrap | {'maximum_blocks'}, 'unknown window command option')
         for key in WINDOW_OPTIONALS:
             values.setdefault(key, None)
         extras |= set(WINDOW_OPTIONALS) | bootstrap
+        if 'maximum_blocks' in values:
+            raw_limit = values['maximum_blocks']
+            binding.require(raw_limit.isdecimal() and str(int(raw_limit)) == raw_limit and
+                            1 <= int(raw_limit) <= 32, 'window block cap')
+            values['maximum_blocks'] = int(raw_limit)
+            extras.add('maximum_blocks')
     binding.require(set(values) == required | extras, 'reviewed worker command options changed')
     binding.require(float(values['deadline']) == request['deadline_monotonic'] and
                     values['worker_cpus'] == request['worker_cpus'], 'worker deadline/CPU binding changed')
@@ -767,7 +773,8 @@ def _admit(spec, admitted, selection, reviewed_sources, deadline, before, cache)
                 registration_return_sha256=values['registry_return_sha'], source_policy_sha256=values['source_policy_sha'])
         suffix_census.same(read('base-registry.json'), base.metadata(), 'copied base registry changed')
         binding.require(files['base-registry.json']['sha256'] == base_sha, 'base registry exact bytes changed')
-        window = detach_json(next_window(plan, base.completed_block_ids(), population_plan_sha256=binding.digest(plan)))
+        window = detach_json(next_window(plan, base.completed_block_ids(), population_plan_sha256=binding.digest(plan),
+            maximum_blocks=values.get('maximum_blocks', 32)))
         suffix_census.same(selection['window_plan'], window, 'completed window not the first outstanding catalogue window')
         suffix_census.same([b['range'] for b in selection['blocks']], window['blocks'], 'window block selection changed')
         suffix_census.same(selection, dict(schema='hiroute-suffix-window-selection-v1', population=commitment,
@@ -786,7 +793,8 @@ def _admit(spec, admitted, selection, reviewed_sources, deadline, before, cache)
         models = window['expected_model_count']
         suffix_census.same(resources, dict(name='C01-suffix-window-v1', absolute_seconds=900,
             evidence_charge_bytes=512*1024**2, uncompressed_archive_bytes=512*1024**2,
-            maximum_input_bytes=128*1024**2, maximum_blocks=32, maximum_models=8192,
+            maximum_input_bytes=128*1024**2, maximum_blocks=values.get('maximum_blocks', 32),
+            maximum_models=values.get('maximum_blocks', 32)*256,
             models=models, block_size=256, persistent_workers=4, candidate_as_bytes=1024**3,
             candidate_peak_rss_bytes=768*1024**2, seconds_per_model=30, maximum_passes_per_model=12,
             maximum_candidate_passes=models*12, maximum_logical_stages=models*5,
