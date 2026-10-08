@@ -140,9 +140,17 @@ def main():
     # Metadata preparation only, like plan preparation. No worker/capture/LP
     # launch is hidden here. Read/loop bounds and the count ceiling are retained.
     import resource
-    _, hard = resource.getrlimit(resource.RLIMIT_AS)
-    binding.require(hard == resource.RLIM_INFINITY or hard >= suffix_census.WORKER_AS, 'bootstrap inherited AS ceiling')
-    resource.setrlimit(resource.RLIMIT_AS, (suffix_census.WORKER_AS, hard))
+    soft, hard = resource.getrlimit(resource.RLIMIT_AS)
+    ceiling = suffix_census.WORKER_AS
+    if soft != resource.RLIM_INFINITY:
+        ceiling = min(ceiling, soft)
+    if hard != resource.RLIM_INFINITY:
+        ceiling = min(ceiling, hard)
+    resource.setrlimit(resource.RLIMIT_AS, (ceiling, hard))
+    from .runtime import _directory
+    import os
+    directory = _directory(args.output.parent)
+    os.close(directory)
     deadline = time.monotonic()+suffix_census.SECONDS
     def before():
         binding.require(time.monotonic() < deadline, 'bootstrap preparation deadline')
