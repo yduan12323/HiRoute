@@ -80,9 +80,16 @@ REPLAY = RuntimeProfile("replay-v1", 16 * GiB, 16 * GiB, 1800, 8 * GiB,
                         16 * MiB, 16 * GiB, 20 * GiB)
 BATCH_REPLAY = RuntimeProfile("batch-replay-v1", 16 * GiB, 20 * GiB, 1800, 8 * GiB,
                               16 * MiB, 16 * GiB, 20 * GiB)
+FINAL_COLLECTOR = RuntimeProfile("final-collector-v1", 16 * GiB, 20 * GiB, 3600, GiB,
+                                16 * MiB, 16 * GiB, 20 * GiB)
 TINY_TEST = RuntimeProfile("tiny-test-v1", 256 * MiB, 256 * MiB, 2, 2 * MiB,
                           64 * 1024, MiB, MiB)
-PROFILES = {p.name: p for p in (CAPTURE, REPLAY, BATCH_REPLAY, TINY_TEST)}
+PROFILES = {p.name: p for p in (CAPTURE, REPLAY, BATCH_REPLAY, FINAL_COLLECTOR, TINY_TEST)}
+
+
+def _is_group_profile(profile: RuntimeProfile) -> bool:
+    """Only these exact fixed profiles admit a separate five-CPU worker mask."""
+    return profile in (BATCH_REPLAY, FINAL_COLLECTOR)
 
 
 @dataclass(frozen=True)
@@ -231,6 +238,7 @@ class BoundedEvidenceWriter:
         self._paths: set[str] = set()
         self._failed = False
         self._closed = False
+        self._active_writes = 0
         self._journal_bytes = 0
         parent = _directory(self.root.parent, create=True)
         try:
@@ -263,10 +271,29 @@ class BoundedEvidenceWriter:
         os.fsync(self._journal)
 
     def write(self, relative_path: str, chunks: Iterable[bytes], *, expected_bytes: int | None = None) -> dict:
+        def producer(emit: Callable[[bytes], None]) -> None:
+            for chunk in chunks:
+                emit(chunk)
+        return self._write(relative_path, producer, expected_bytes=expected_bytes)
+
+    def write_from_callback(self, relative_path: str, producer: Callable[[Callable[[bytes], None]], object],
+                            *, expected_bytes: int | None = None) -> dict:
+        """Synchronously give one producer a bounded byte sink, without spooling.
+
+        The sink is valid only during this call; caught sink errors still poison
+        completion. Nested writes on this owner retain their own partials/sinks.
+        The producer's return value is ignored, as for an exhausted iterable.
+        """
+        return self._write(relative_path, producer, expected_bytes=expected_bytes)
+
+    def _write(self, relative_path: str, producer: Callable[[Callable[[bytes], None]], object],
+               *, expected_bytes: int | None) -> dict:
         if self._closed or self._failed:
             raise ValueError("writer is finalized or failed")
         partial = f"__partial/{len(self._paths):04d}.part"
         fd = parent_fd = None
+        active = False
+        self._active_writes += 1
         try:
             parts = _relative(relative_path)
             if expected_bytes is not None:
@@ -287,15 +314,30 @@ class BoundedEvidenceWriter:
             fd = os.open(partial_name, os.O_CREAT | os.O_EXCL | os.O_WRONLY | _NOFOLLOW, 0o400, dir_fd=self._partial_fd)
             digest, size = hashlib.sha256(), 0
             self._event({"event": "begin", "path": relative_path, "partial": partial})
-            for chunk in chunks:
-                if type(chunk) is not bytes:
-                    raise ValueError("evidence chunks must be immutable bytes")
-                for offset in range(0, len(chunk), CHUNK_BYTES):
-                    piece = chunk[offset:offset + CHUNK_BYTES]
-                    self._reserve(2 * len(piece))
-                    _write_all(fd, piece)
-                    digest.update(piece)
-                    size += len(piece)
+            def emit(chunk: bytes) -> None:
+                nonlocal size
+                try:
+                    if not active or self._closed or self._failed:
+                        raise ValueError("evidence sink is inactive or writer is finalized or failed")
+                    if type(chunk) is not bytes:
+                        raise ValueError("evidence chunks must be immutable bytes")
+                    for offset in range(0, len(chunk), CHUNK_BYTES):
+                        piece = chunk[offset:offset + CHUNK_BYTES]
+                        self._reserve(2 * len(piece))
+                        _write_all(fd, piece)
+                        digest.update(piece)
+                        size += len(piece)
+                except BaseException:
+                    self._failed = True
+                    raise
+
+            active = True
+            try:
+                producer(emit)
+            finally:
+                active = False
+            if self._closed or self._failed:
+                raise ValueError("writer is finalized or failed")
             if expected_bytes is not None and size != expected_bytes:
                 raise ValueError("producer ended before the expected byte count")
             os.fsync(fd)
@@ -310,9 +352,12 @@ class BoundedEvidenceWriter:
             return dict(row)
         except BaseException as exc:
             self._failed = True
-            self._event({"event": "failed", "reason": type(exc).__name__})
+            if not self._closed:
+                self._event({"event": "failed", "reason": type(exc).__name__})
             raise
         finally:
+            active = False
+            self._active_writes -= 1
             if fd is not None:
                 os.close(fd)
             if parent_fd is not None:
@@ -321,6 +366,9 @@ class BoundedEvidenceWriter:
     def finalize(self) -> dict:
         if self._closed or self._failed:
             raise ValueError("cannot finalize a failed or finalized writer")
+        if self._active_writes:
+            self._failed = True
+            raise ValueError("cannot finalize while an evidence write is active")
         result = {"schema": "hiroute-evidence-v1", "profile_name": self.profile_name,
                   "cap_bytes": self.cap_bytes, "charged_bytes": self.charged_bytes,
                   "charge_kind": "worker-local conservative reservation; not live aggregate disk usage",
@@ -533,7 +581,7 @@ def _read_ready(attempt: Path) -> tuple[dict, bytes]:
     for key in ("profile", "context", "entry_monotonic", "deadline_monotonic", "launcher_rss_bytes_at_entry"):
         if report.get(key) != request.get(key):
             raise ValueError(f"report {key} differs from bound request")
-    if profile == BATCH_REPLAY or "worker_cpus" in request or "worker_cpus" in report:
+    if _is_group_profile(profile) or "worker_cpus" in request or "worker_cpus" in report:
         _request_worker_cpus(profile, request)
         _request_worker_cpus(profile, report)
         for key in ("cpu", "worker_cpus"):
@@ -712,18 +760,18 @@ def _check_hard_limit(profile: RuntimeProfile) -> None:
 
 def _worker_cpu_mask(profile: RuntimeProfile, cpu: int,
                      worker_cpus: tuple[int, ...] | None) -> tuple[int, ...]:
-    """Keep serial profiles unchanged; batch reserves five distinct worker CPUs."""
+    """Keep serial profiles unchanged; known groups reserve five worker CPUs."""
     _integer(cpu, "cpu", 0)
-    if profile != BATCH_REPLAY:
+    if not _is_group_profile(profile):
         if worker_cpus is not None:
-            raise ValueError("worker_cpus is only supported by the fixed batch replay profile")
+            raise ValueError("worker_cpus is only supported by fixed group profiles")
         return (cpu,)
     if type(worker_cpus) is not tuple or len(worker_cpus) != 5:
-        raise ValueError("batch replay worker_cpus must be a tuple of exactly five CPU IDs")
+        raise ValueError("group worker_cpus must be a tuple of exactly five CPU IDs")
     for worker_cpu in worker_cpus:
         _integer(worker_cpu, "worker CPU", 0)
     if len(set(worker_cpus)) != 5 or cpu in worker_cpus:
-        raise ValueError("batch replay requires six distinct CPUs including the supervisor")
+        raise ValueError("group profile requires six distinct CPUs including the supervisor")
     return worker_cpus
 
 
@@ -763,7 +811,7 @@ def _supervise(request: dict, attempt: Path) -> dict:
               "rss_scope": "sampled worker process group; shared pages may double count; not exact aggregate peak",
               "kernel_peak_scope": "maximum wait4 ru_maxrss across reaped processes, not summed group peak",
               "evidence_scope": "worker-local conservative charge plus separate supervisor metadata reservation"}
-    if profile == BATCH_REPLAY:
+    if _is_group_profile(profile):
         report.update(cpu=request.get("cpu"), worker_cpus=request.get("worker_cpus"))
     worker = None
     lock_fd = snapshot_fd = None
@@ -1004,7 +1052,7 @@ def _run_phase_locked(command: list[str], *, attempt_dir: Path | str, profile: R
                "launcher_rss_bytes_at_entry": _processes()[os.getpid()][3]}
     if worker_cpus is not None:
         request["worker_cpus"] = list(worker_cpus)
-    cpu_binding = {"cpu": cpu, "worker_cpus": list(worker_cpus)} if profile == BATCH_REPLAY else {}
+    cpu_binding = {"cpu": cpu, "worker_cpus": list(worker_cpus)} if _is_group_profile(profile) else {}
     _exclusive_json(attempt / "request.json", request, profile.supervisor_evidence_bytes // 8)
     if admission_error is not None:
         report = {"schema": "hiroute-phase-v1", "status": "unresolved", "worker_pid": None,
@@ -1137,9 +1185,10 @@ def run_phase(command: list[str], *, attempt_dir: Path | str, profile: RuntimePr
 
     PlanContext is not execution authorization. The external root must admit the
     phase first. Binding work must start at or after entry and fit its deadline.
-    Batch replay requires five worker_cpus, ordered coordinator then four fresh
-    children, disjoint from the supervisor's cpu. The trusted coordinator pins
-    itself after spawning its children in the inherited worker process group.
+    Batch replay and final collection require five worker_cpus, ordered coordinator
+    then four fresh family children, disjoint from the supervisor's cpu. The
+    trusted coordinator pins itself after spawning its children in the inherited
+    worker process group. Final collection permits no numerical LP children.
     """
     lock_path = Path("/tmp") / f"hiroute-recorded-phase-{os.getuid()}.lock"
     lock_fd = os.open(lock_path, os.O_CREAT | os.O_RDWR | _NOFOLLOW, 0o600)
