@@ -173,10 +173,12 @@ def _command(request, module):
     extras = {'old_archive', 'old_summary', 'old_selection'} if module == 'block_resume' else {
         'source_policy', 'source_policy_sha', 'registry_output', 'registration_return_output'}
     if module == 'suffix_window':
-        binding.require(set(values) <= required | extras | set(WINDOW_OPTIONALS), 'unknown window command option')
+        from .population_bootstrap import FIELDS
+        bootstrap = set(FIELDS) if any(key in values for key in FIELDS) else set()
+        binding.require(set(values) <= required | extras | set(WINDOW_OPTIONALS) | bootstrap, 'unknown window command option')
         for key in WINDOW_OPTIONALS:
             values.setdefault(key, None)
-        extras |= set(WINDOW_OPTIONALS)
+        extras |= set(WINDOW_OPTIONALS) | bootstrap
     binding.require(set(values) == required | extras, 'reviewed worker command options changed')
     binding.require(float(values['deadline']) == request['deadline_monotonic'] and
                     values['worker_cpus'] == request['worker_cpus'], 'worker deadline/CPU binding changed')
@@ -598,6 +600,10 @@ def _inputs(values, commitment, cache, deadline):
     suffix_census.same(values['replay_manifest_sha'], anchors['manifest_sha256'], 'replay manifest admission changed')
     suffix_census.same(values['query_index_sha'], anchors['query_index']['sha256'], 'original query admission changed')
     _physical_inputs(values, cache)
+    from .variant_scope import is_d0_population, physical_scope
+    if is_d0_population(commitment):
+        original = cache.read(values['historical_plan'], values['historical_plan_sha'], 4*1024**2)
+        binding.require(physical_scope(original), 'D0 receipt cannot consume a D1 plan')
     _upstream_phases(values, commitment, cache, deadline)
 
 
@@ -710,9 +716,11 @@ def _admit(spec, admitted, selection, reviewed_sources, deadline, before, cache)
             all(type(origin[key]) is str and Path(origin[key]).is_absolute() for key in
                 ('checkout_root', 'controller_path', 'python_executable', 'executable_realpath', 'cwd')),
             'trusted reviewed-controller origin binding required')
+        from .variant_scope import is_d0_population
+        d0 = is_d0_population(commitment)
         binding.require(type(policy) is dict and set(policy) == {'schema', 'reviewed_sources'} and
                         policy['schema'] == 'hiroute-reviewed-window-sources-v1' and
-                        policy['reviewed_sources'].get(SEED_COMMIT) == SEED_SOURCE and
+                        (d0 or policy['reviewed_sources'].get(SEED_COMMIT) == SEED_SOURCE) and
                         policy['reviewed_sources'].get(values['source_commit']) == values['source_sha'],
                         'pinned source policy does not approve completed execution')
         binding.require(hashlib.sha256(binding.canonical(policy)+b'\n').hexdigest() == values['source_policy_sha'],
@@ -720,7 +728,19 @@ def _admit(spec, admitted, selection, reviewed_sources, deadline, before, cache)
         for commit, inventory in policy['reviewed_sources'].items():
             binding.require(reviewed_sources.get(commit) == inventory,
                             'historical source policy is outside current reviewed allowlist')
-        if values['registry'] is None:
+        if values.get('bootstrap') is not None:
+            from .population_bootstrap import admit_bootstrap
+            binding.require(d0 and values.get('bootstrap_sha') is not None and
+                            all(values[key] is None for key in WINDOW_OPTIONALS),
+                            'D0 bootstrap cannot mix seed or registry inputs')
+            _, base = admit_bootstrap(SimpleNamespace(**values), reviewed_sources, deadline=deadline,
+                                     before=before, admitted=admitted if type(admitted) is not ReceiptScope else None, cache=cache)
+            suffix_census.same(base.metadata()['population'], commitment, 'bootstrap receipt population changed')
+            base_sha = files['base-registry.json']['sha256']
+            admission = dict(kind='d0-replay-count-bootstrap-v1', bootstrap_sha256=values['bootstrap_sha'],
+                             source_policy_sha256=values['source_policy_sha'])
+        elif values['registry'] is None:
+            binding.require(not d0, 'D0 cannot use the historical D1 seed')
             binding.require(all(values[key] is None for key in ('registry_sha', 'registry_return', 'registry_return_sha')) and
                             all(values[key] is not None for key in ('seed_attempt', 'seed_return', 'old_archive',
                                                                    'old_summary', 'old_selection')),
@@ -736,6 +756,7 @@ def _admit(spec, admitted, selection, reviewed_sources, deadline, before, cache)
             admission = dict(kind='seed-resume-v1', successful_return_sha256=SEED_RETURN,
                              manifest_sha256=SEED_MANIFEST, source_policy_sha256=values['source_policy_sha'])
         else:
+            binding.require(values.get('bootstrap_sha') is None, 'partial bootstrap cannot enter a later window')
             binding.require(all(values[key] is None for key in WINDOW_OPTIONALS if not key.startswith('registry')),
                             'later window cannot mix seed and registry admissions')
             base = load_scheduling_registry(values['registry'], values['registry_sha'], admitted,

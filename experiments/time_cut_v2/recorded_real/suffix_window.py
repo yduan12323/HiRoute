@@ -86,8 +86,10 @@ def check_invocation_origin(source_files=None):
 
 def input_context(args):
     """Bind parser values without collapsing null, strings or CPU lists."""
+    from .population_bootstrap import FIELDS
     return {key: str(value) if isinstance(value, Path) else value
-            for key, value in vars(args).items() if key not in INPUT_EXCLUSIONS}
+            for key, value in vars(args).items() if key not in INPUT_EXCLUSIONS and
+            not (key in FIELDS and value is None)}
 
 
 def worker_command(args, deadline):
@@ -133,13 +135,26 @@ def source_policy(args, before=lambda: None):
             all(char in '0123456789abcdef' for char in inventory), 'invalid reviewed source identity')
     binding.require(sources.get(args.source_commit) == args.source_sha,
                     'current source is outside reviewed source policy')
-    binding.require(sources.get(SEED_COMMIT) == SEED_SOURCE,
-                    'reviewed source policy must explicitly retain the accepted seed source')
+    from .variant_scope import validate_variant
+    d0 = False
+    if sources.get(SEED_COMMIT) != SEED_SOURCE:
+        path = getattr(args, 'historical_plan', None)
+        if path is not None and Path(path).is_file():
+            original = read_pinned(path, args.historical_plan_sha, 4*1024**2)
+            d0 = validate_variant(original)
+        binding.require(d0,
+                        'reviewed source policy must explicitly retain the accepted seed source')
     before()
     return sources
 
 
 def admission_mode(args):
+    from .population_bootstrap import FIELDS
+    if any(getattr(args, key, None) is not None for key in FIELDS):
+        binding.require(all(getattr(args, key, None) is not None for key in FIELDS) and
+                        all(getattr(args, key) is None for key in SEED_FIELDS+REGISTRY_FIELDS),
+                        'bootstrap requires only its complete independently pinned inputs')
+        return 'bootstrap'
     if args.registry is None:
         binding.require(all(getattr(args, key) is None for key in REGISTRY_FIELDS),
                         'initial window cannot use partial registry inputs')
@@ -155,7 +170,16 @@ def admission_mode(args):
 def load_registry(args, reviewed_sources, *, admitted=None, deadline, before):
     """Use metadata-only controller scope or compare against fresh worker input."""
     from . import window_receipts as receipts
-    if admission_mode(args) == 'seed':
+    mode = admission_mode(args)
+    target = None
+    if getattr(args, 'historical_plan', None) is not None:
+        from .variant_scope import physical_scope
+        target = physical_scope(read_pinned(args.historical_plan, args.historical_plan_sha, 4*1024**2))
+        binding.require(not (target and mode == 'seed'), 'D0 cannot use the historical D1 seed')
+    if mode == 'bootstrap':
+        from .population_bootstrap import admit_bootstrap
+        scope, registry = admit_bootstrap(args, reviewed_sources, deadline=deadline, before=before, admitted=admitted)
+    elif mode == 'seed':
         scope = admitted if admitted is not None else receipts.scope_from_seed(
             args, deadline=deadline, before=before)
         registry = receipts.admit_seed_resume(args, scope, deadline=deadline, before=before)
@@ -167,6 +191,9 @@ def load_registry(args, reviewed_sources, *, admitted=None, deadline, before):
             args.registry, args.registry_sha, **options)
         registry = receipts.load_scheduling_registry(args.registry, args.registry_sha, scope, **options)
     binding.require(type(registry) is receipts.CheckedRegistry, 'typed checked registry required')
+    if target is not None:
+        from .variant_scope import is_d0_population
+        binding.require(target == is_d0_population(scope.commitment()), 'registry variant differs from physical plan')
     for entry in registry.metadata()['entries']:
         binding.require(reviewed_sources.get(entry['source_commit']) == entry['source_sha256'],
                         'registry history is outside reviewed source policy')
@@ -176,6 +203,9 @@ def load_registry(args, reviewed_sources, *, admitted=None, deadline, before):
 
 def registry_admission(args):
     from .window_receipts import SEED_RETURN, SEED_MANIFEST
+    if admission_mode(args) == 'bootstrap':
+        return dict(kind='d0-replay-count-bootstrap-v1', bootstrap_sha256=args.bootstrap_sha,
+                    source_policy_sha256=args.source_policy_sha)
     if admission_mode(args) == 'seed':
         return dict(kind='seed-resume-v1', successful_return_sha256=SEED_RETURN,
                     manifest_sha256=SEED_MANIFEST, source_policy_sha256=args.source_policy_sha)
@@ -194,9 +224,13 @@ def plan_window(scope, registry):
                     'authenticated original population scope required')
     plan = scope.plan() if type(scope) is ReceiptScope else scope.population.plan()
     commitment = scope.commitment()
-    binding.require(plan['block_size'] == 256 and plan['total_models'] == 695712 and
-        len(plan['blocks']) == 2718 and commitment['original_model_occurrences'] == 7652832,
-        'fixed full C01 numerical population changed')
+    from .variant_scope import is_d0_population, population_scope
+    if is_d0_population(commitment):
+        population_scope(plan, commitment)
+    else:
+        binding.require(plan['block_size'] == 256 and plan['total_models'] == 695712 and
+            len(plan['blocks']) == 2718 and commitment['original_model_occurrences'] == 7652832,
+            'fixed full C01 numerical population changed')
     suffix_census.same(registry.metadata()['population'], commitment, 'registry population changed')
     return detach_json(next_window(plan, registry.completed_block_ids(),
                                    population_plan_sha256=commitment['block_plan_sha256']))
@@ -263,9 +297,8 @@ def worker(args):
         policy = source_policy(args, before)
         index, trusted, _, anchors = suffix_census.completed_inputs(binding.ROOT, args, args.deadline, before)
         original = read_pinned(args.historical_plan, args.historical_plan_sha, 4*1024**2)
-        binding.require(original['state_id'] == 'C01' and original['H_ref'] == 4 and original['sites'] == 8 and
-            original['regions'] == 2047 and original['dominance'] is True and original['external_incumbent'] is None,
-            'fixed C01 physical population required')
+        from .variant_scope import physical_scope
+        physical_scope(original)
         raw_writer = BoundedEvidenceWriter(os.environ['HIROUTE_EVIDENCE_ROOT'],
             BATCH_REPLAY.worker_evidence_bytes, profile_name=BATCH_REPLAY.name)
         writer = QuotaWriter(raw_writer, before)
@@ -490,6 +523,8 @@ def parser():
     for key in SEED_FIELDS + REGISTRY_FIELDS:
         value.add_argument('--'+key.replace('_', '-'), default=None,
                            type=str if key.endswith('_sha') else Path)
+    value.add_argument('--bootstrap', type=Path)
+    value.add_argument('--bootstrap-sha')
     value.add_argument('--worker-cpus', type=int, nargs=5, required=True)
     value.add_argument('--cpu', type=int)
     value.add_argument('--attempt-dir', type=Path)

@@ -128,10 +128,14 @@ def require_complete_registry(scope, registry):
         type(scope) in (ReceiptScope, AdmittedSuffixPopulation), 'authenticated final registry required')
     catalogue = scope.plan() if type(scope) is ReceiptScope else scope.population.plan()
     commitment, metadata = scope.commitment(), registry.metadata()
-    same([catalogue['block_size'], catalogue['total_models'], len(catalogue['blocks']),
-          commitment['unique_logical_models'], commitment['queries'],
-          commitment['original_model_occurrences'], commitment['empty_action_queries']],
-         [256, 695712, 2718, 695712, 12172, 7652832, 9666], 'fixed C01 population changed')
+    from .variant_scope import is_d0_population, population_scope
+    if is_d0_population(commitment):
+        population_scope(catalogue, commitment)
+    else:
+        same([catalogue['block_size'], catalogue['total_models'], len(catalogue['blocks']),
+              commitment['unique_logical_models'], commitment['queries'],
+              commitment['original_model_occurrences'], commitment['empty_action_queries']],
+             [256, 695712, 2718, 695712, 12172, 7652832, 9666], 'fixed C01 population changed')
     same(metadata['population'], commitment, 'registry population changed')
     same([row['range'] for row in metadata['blocks']], catalogue['blocks'],
          'final registry lacks full canonical block coverage')
@@ -225,9 +229,8 @@ def attempt_snapshot(root, before):
 
 def check_case(args):
     original = read_pinned(args.historical_plan, args.historical_plan_sha, 4*1024**2)
-    binding.require(original['state_id'] == 'C01' and original['H_ref'] == 4 and original['sites'] == 8 and
-        original['regions'] == 2047 and original['dominance'] is True and original['external_incumbent'] is None,
-        'fixed C01 physical population required')
+    from .variant_scope import physical_scope
+    physical_scope(original)
     return original
 
 
@@ -497,16 +500,19 @@ def worker(args):
         require_complete_registry(admitted, registry)
         registry_pin = write_json(writer, 'reconciled-registry.json', registry.metadata(), before)
         same(registry_pin['sha256'], args.registry_sha, 'reconciled registry bytes changed')
-        observe(stage, blocks=2718, models=695712)
+        observe(stage, blocks=len(registry.metadata()['blocks']), models=admitted.commitment()['unique_logical_models'])
         stage = 'original-query-planning'
         from .query_collection import plan_query_collection
         plan = plan_query_collection(admitted, registry, before=before)
         partition = plan.recover_empty_partition(trace, before=before)
         del trace
         summary = plan.summary()
+        frozen = admitted.commitment()
+        from .variant_scope import is_d0_population
+        counts = [frozen['queries'], frozen['original_model_occurrences'], frozen['empty_action_queries'],
+                  frozen['queries']+frozen['empty_action_queries']] if is_d0_population(frozen) else [12172, 7652832, 9666, 21838]
         same([summary['queries'], summary['original_model_occurrences'], summary['empty_action_queries'],
-              partition.report()['recovered']['total_query_events']], [12172, 7652832, 9666, 21838],
-             'fixed original query partition changed')
+              partition.report()['recovered']['total_query_events']], counts, 'fixed original query partition changed')
         write_json(writer, 'query-plan.json', summary, before)
         write_json(writer, 'empty-partition.json', partition.report(), before)
         write_json(writer, 'run-binding.json', dict(schema='hiroute-final-collector-binding-v1',
@@ -514,7 +520,7 @@ def worker(args):
             input_context=input_context(args), input_context_sha256=binding.digest(input_context(args)),
             resource_plan=resources, registry=registry_pin, invocation_origin=origin,
             external_dependencies_sha256=binding.digest(snapshot)), before)
-        observe(stage, queries=12172, empty_queries=9666, physical_requests=summary['unique_physical_requests'])
+        observe(stage, queries=summary['queries'], empty_queries=summary['empty_action_queries'], physical_requests=summary['unique_physical_requests'])
         stage = 'selected-physical-witnesses'
         physical = stream_physical(plan, admitted, registry, writer, deadline=args.deadline, before=before)
         write_json(writer, 'physical-summary.json', dict(coverage=physical['coverage'], archive=physical['archive'],
@@ -538,10 +544,12 @@ def worker(args):
             same(suffix_window.source_policy(args, before), policy, 'reviewed source policy changed')
             check_snapshot(snapshot, before)
         final_check()
+        from .variant_scope import identity_fields
         write_json(writer, 'collector-summary.json', dict(schema='hiroute-final-collector-summary-v1',
             source_commit=args.source_commit, source_sha256=args.source_sha, population=admitted.commitment(),
             resource_plan=resources, registry=registry_pin, query_results=query_pin,
-            physical_archive=physical['archive'], observations=observations, **collected), before)
+            physical_archive=physical['archive'], observations=observations, **collected,
+            **identity_fields(admitted.commitment())), before)
         same(sorted(row['path'] for row in writer.files), sorted(EVIDENCE_FILES), 'collector evidence coverage changed')
         final_check(); writer.finalize(); final_check()
         return 0
@@ -582,7 +590,10 @@ def controller(args):
     policy = suffix_window.source_policy(args, before)
     _, registry = load_registry(args, policy, deadline=deadline, before=before)
     snapshot = retained_snapshot(args, registry, before)
-    check_case(args)
+    case = check_case(args)
+    from .variant_scope import validate_variant, is_d0_population
+    binding.require(validate_variant(case) == is_d0_population(registry.metadata()['population']),
+                    'collector registry variant differs from physical plan')
     evidence_snapshot = {}
     complete_attempt_snapshot = None
     def final_check():
@@ -629,6 +640,12 @@ def controller(args):
         binding.require(summary['schema'] == 'hiroute-final-collector-summary-v1' and summary['complete'] is True,
                         'completed collector summary required')
         same(summary['resource_plan'], resources, 'accepted resource plan differs')
+        from .variant_scope import identity_fields
+        identity = identity_fields(registry.metadata()['population'])
+        if identity:
+            same(summary['population'], registry.metadata()['population'], 'accepted D0 population differs')
+            for key, value in identity.items():
+                same(summary.get(key), value, 'accepted D0 variant identity differs')
         for key, value in FALSE_AUTHORITY.items():
             same(summary[key], value, 'global authority exceeded')
         acceptance = dict(schema='hiroute-final-collector-acceptance-v1', status='collected',
@@ -637,7 +654,7 @@ def controller(args):
             raw_attempt=str(args.attempt_dir), source_commit=args.source_commit, source_sha256=args.source_sha,
             complete=True, single_C01_case_bound_status=summary['single_C01_case_bound_status'],
             single_C01_case_bound_valid=summary['single_C01_case_bound_valid'],
-            single_C01_case_accepted=summary['single_C01_case_accepted'], **FALSE_AUTHORITY)
+            single_C01_case_accepted=summary['single_C01_case_accepted'], **identity, **FALSE_AUTHORITY)
         expected_acceptance = binding.canonical(acceptance)+b'\n'
         def publication_check():
             final_check()

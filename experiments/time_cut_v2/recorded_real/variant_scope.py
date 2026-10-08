@@ -77,3 +77,10 @@ def population_scope(catalogue, commitment):
             *[commitment[k] for k in fields]] == [695712, 2718, 695712, 12172, 7652832, 9666],
             'fixed C01 population changed')
     return d0
+
+
+def identity_fields(commitment):
+    if not is_d0_population(commitment):
+        return {}
+    return {key: commitment[key] for key in
+            ('variant_id', 'dominance', 'representation', 'population_freeze_sha256')}

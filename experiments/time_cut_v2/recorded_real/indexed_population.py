@@ -45,14 +45,16 @@ class AdmittedSuffixPopulation:
 
  def commitment(self):
   from validation.family5.checker import _plain
-  return dict(schema='hiroute-cold-admitted-suffix-population-v1',completed_replay=_plain(self._anchors),
+  value=dict(schema='hiroute-cold-admitted-suffix-population-v1',completed_replay=_plain(self._anchors),
    block_plan_sha256=self.population.plan_sha256,logical_plan_sha256=self.population._plan['logical_plan_sha256'],
    source_bundle_sha256=self._index['bundle_sha256'],case_sha256=self._index['case_sha256'],
    query_freeze_sha256=self._index['query_freeze_sha256'],queries=len(self._rows),
    original_model_occurrences=self._logical['original_occurrence_model_slots'],
    unique_logical_models=self.population._plan['total_models'],
    empty_action_queries=self._index['empty_action_queries'],empty_action_sha256=self._index['empty_action_sha256'],
-   numerical_acceptance=False,literal_G8_closed=False)
+    numerical_acceptance=False,literal_G8_closed=False)
+  from .variant_scope import with_variant
+  return with_variant(value,_plain(self._anchors))
 
  def query_ids(self):return tuple(self._rows)
 

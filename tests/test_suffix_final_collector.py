@@ -325,20 +325,24 @@ class ControllerTests(unittest.TestCase):
 
     @contextmanager
     def dependencies(self, result=None):
+        # Protocol transport mocks retain explicit legacy variant identity.
+        registry_scope = SimpleNamespace(metadata=lambda: dict(population={}))
+        case = dict(schema='hiroute-recorded-real-plan-v1', dominance=True,
+                    representation='exact-adjacent-cut-coalescing-v1', external_incumbent=None)
         with patch.object(runner.resource, 'getrlimit', return_value=(1024**3, resource.RLIM_INFINITY)), \
              patch.object(runner.resource, 'setrlimit') as limits, \
              patch.object(runner, '_live_checks') as live, \
              patch.object(runner, 'check_invocation_origin', return_value={'controller_module': runner.MODULE}), \
              patch.object(runner.suffix_census, 'check_sources', return_value={}) as source, \
              patch.object(runner.suffix_window, 'source_policy', return_value={}), \
-             patch.object(runner, 'load_registry', return_value=(object(), object())) as registry, \
+             patch.object(runner, 'load_registry', return_value=(object(), registry_scope)) as registry, \
              patch.object(runner, 'retained_snapshot', return_value={}), \
-             patch.object(runner, 'check_case'), \
+             patch.object(runner, 'check_case', return_value=case), \
              patch.object(runner, 'run_phase', return_value=result or {'status': 'failed'}) as phase, \
              patch.object(runner, 'read_phase_result', return_value={'status': 'completed'}) as cold:
             yield SimpleNamespace(limits=limits, live=live, source=source, registry=registry, phase=phase, cold=cold)
 
-    def fake_completed(self, args):
+    def fake_completed(self, args, *, summary_fields=None):
         def launch(*_, **__):
             args.attempt_dir.mkdir()
             for name in ('request.json', 'result.json', 'supervisor-decision.json', 'decision.json'):
@@ -349,11 +353,65 @@ class ControllerTests(unittest.TestCase):
                 doc = dict(schema='hiroute-final-collector-summary-v1', complete=True,
                     resource_plan=runner.resource_plan(args.worker_cpus), single_C01_case_bound_status='counterexample',
                     single_C01_case_bound_valid=False, single_C01_case_accepted=False, **runner.FALSE_AUTHORITY)
+                doc.update(summary_fields or {})
                 writer.write(name, runner.domain.chunks(doc))
             writer.finalize()
             return dict(status='completed', actual_not_reconstructed='fixture marker',
                 verified_manifest_sha256=binding.pin(args.attempt_dir/'evidence/__manifest.json')['sha256'])
         return launch
+
+    def d0_protocol_scope(self):
+        from tests.test_c01_d0_bootstrap import tiny_population
+        admitted = tiny_population()[-1]
+        scope = receipts.ReceiptScope(admitted.population.plan(), admitted.commitment(), _token=receipts._ADMISSION)
+        # Preflight protocol fixture only, not completed verifier executions.
+        metadata = dict(population=scope.commitment(), entries=[],
+            blocks=[dict(range=row) for row in scope.plan()['blocks']], completed_models=scope.plan()['total_models'])
+        return scope, receipts.CheckedRegistry(metadata, (), _token=receipts._ADMISSION)
+
+    def test_d0_preflight_requires_own_full_catalogue_and_exact_model_count(self):
+        scope, registry = self.d0_protocol_scope()
+        self.assertEqual(runner.require_complete_registry(scope, registry), scope.commitment())
+        for key in ('blocks', 'completed_models', 'population'):
+            bad = registry.metadata()
+            if key == 'blocks': bad[key] = []
+            elif key == 'completed_models': bad[key] -= 1
+            else: bad[key]['queries'] += 1
+            with self.assertRaises(ValueError):
+                runner.require_complete_registry(scope, receipts.CheckedRegistry(bad, (), _token=receipts._ADMISSION))
+
+    def test_d0_collector_acceptance_binds_variant_and_population_freeze(self):
+        from experiments.time_cut_v2.recorded_real.variant_scope import identity_fields
+        from tests.test_c01_variant_scope import VariantScopeTests
+        args = self.args(); scope, registry = self.d0_protocol_scope()
+        fields = dict(population=scope.commitment(), **identity_fields(scope.commitment()))
+        with self.dependencies() as dep, \
+             patch.object(runner, 'check_case', return_value=VariantScopeTests().physical(True)), \
+             patch.object(runner, 'load_registry', return_value=(scope, registry)):
+            dep.phase.side_effect = self.fake_completed(args, summary_fields=fields)
+            result = runner.controller(args)
+        self.assertEqual(result['status'], 'collected')
+        for key, value in identity_fields(scope.commitment()).items(): self.assertEqual(result[key], value)
+        self.assertFalse(result['literal_G8_closed'])
+
+    def test_d0_summary_cannot_omit_identity_even_with_completed_runtime(self):
+        from tests.test_c01_variant_scope import VariantScopeTests
+        args = self.args(); scope, registry = self.d0_protocol_scope()
+        with self.dependencies() as dep, \
+             patch.object(runner, 'check_case', return_value=VariantScopeTests().physical(True)), \
+             patch.object(runner, 'load_registry', return_value=(scope, registry)):
+            dep.phase.side_effect = self.fake_completed(args, summary_fields=dict(population=scope.commitment()))
+            result = runner.controller(args)
+        self.assertEqual(result['status'], 'collection_acceptance_failed')
+        self.assertTrue(args.runtime_return_output.exists())
+        self.assertFalse(args.collector_output.exists())
+
+    def test_d1_physical_plan_cannot_launch_with_d0_registry(self):
+        args = self.args(); scope, registry = self.d0_protocol_scope()
+        with self.dependencies() as dep, patch.object(runner, 'load_registry', return_value=(scope, registry)), \
+             self.assertRaisesRegex(ValueError, 'variant differs'):
+            runner.controller(args)
+        dep.phase.assert_not_called()
 
     def test_profile_entry_deadline_and_explicit_module_wiring(self):
         args = self.args()

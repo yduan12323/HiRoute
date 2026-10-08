@@ -153,11 +153,16 @@ def completed_inputs(root,args,deadline,before=lambda:None):
   'original capture identity changed')
  trusted=domain.trusted_case(original,root)
  same(summary['checked']['real_input'],trusted.source_snapshot(),'checked physical source changed')
- before();return index,trusted,summary,dict(replay_plan_sha256=args.replay_plan_sha,
+ anchors=dict(replay_plan_sha256=args.replay_plan_sha,
   historical_plan_sha256=args.historical_plan_sha,successful_return_sha256=args.replay_return_sha,
   manifest_sha256=args.replay_manifest_sha,query_index=files['query-index.json'],
   structural_summary=files['structural-summary.json'],parallel_summary=files['parallel-summary.json'],
   capture_sha256=index['capture_sha256'],reference_comparison=summary['reference_comparison'])
+ from .variant_scope import D0_PLAN_SCHEMA,physical_scope,D0,REPRESENTATION
+ if original['schema']==D0_PLAN_SCHEMA:
+  physical_scope(original)
+  anchors.update(variant_id=D0,dominance=False,representation=REPRESENTATION)
+ before();return index,trusted,summary,anchors
 
 def worker(args):
  writer=None
