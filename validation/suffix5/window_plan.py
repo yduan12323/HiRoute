@@ -171,6 +171,8 @@ def next_window(population_plan, completed_block_ids, *, population_plan_sha256,
     logical model ordinals. The ID binds only the population, selected work and
     fixed policy/budget, so retry history, completion batch partition, and source
     version cannot change it. All-completed input returns no runnable window ID.
+    An explicit exact integer maximum_blocks from 1 through 32 can only shrink
+    the selection. Its policy and budget are bound into the resulting window ID.
     """
     plan = _population(population_plan, population_plan_sha256)
     return _window(plan, population_plan_sha256, _completed(plan, completed_block_ids), maximum_blocks)

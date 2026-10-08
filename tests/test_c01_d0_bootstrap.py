@@ -24,6 +24,7 @@ from experiments.time_cut_v2.recorded_real import population_bootstrap as bootst
 from experiments.time_cut_v2.recorded_real import model_preview, replay_plan, suffix_census
 from experiments.time_cut_v2.recorded_real import suffix_window, window_receipts as receipts
 from experiments.time_cut_v2.recorded_real import final_collector, variant_scope
+from experiments.time_cut_v2.recorded_real import bootstrap_executor
 from experiments.time_cut_v2.recorded_real.logical_models import count_logical_models
 from tests import test_c01_variant_scope as variant_fixtures
 from tests.test_recovered_real_coalesced import capture
@@ -283,6 +284,160 @@ class BootstrapProtocolTests(unittest.TestCase):
         with self.assertRaises((ValueError, OSError, KeyError)):
             model_preview.logical_input(self.args, self.fixture[4], self.fixture[0], self.fixture[1],
                                         dict(checked=self.fixture[2]), time.monotonic()+20, lambda: None)
+
+    def executor_transition(self):
+        # Actual execution is mocked exactly as in the existing protocol tests.
+        # The independently checked tiny population remains genuine mathematics.
+        with self.execution_boundary():
+            expected = self.authenticate()
+        self.args.bootstrap = self.root/'bootstrap.json'
+        self.args.bootstrap_sha = self.write(self.args.bootstrap, expected)
+        original_commit, original_sha = self.args.source_commit, self.args.source_sha
+        self.args.source_commit, self.args.source_sha = 'e'*40, 'd'*64
+        self.policy = {original_commit: original_sha, self.args.source_commit: self.args.source_sha}
+        self.args.source_policy = self.root/'executor-policy.json'
+        row = dict(schema=bootstrap_executor.BINDING_SCHEMA, bootstrap_sha256=self.args.bootstrap_sha,
+            bootstrap_source_commit=original_commit, bootstrap_source_sha256=original_sha,
+            executor_source_commit=self.args.source_commit, executor_source_sha256=self.args.source_sha,
+            population_sha256=binding.digest(expected['population']),
+            block_plan_sha256=expected['population']['block_plan_sha256'], variant_id=variant_scope.D0)
+        policy = dict(schema=bootstrap_executor.POLICY_V2, reviewed_sources=self.policy,
+                      bootstrap_executor_bindings=[row])
+        self.args.source_policy_sha = self.write(self.args.source_policy, policy)
+        return expected, policy
+
+    def admit_transition(self):
+        return bootstrap.admit_bootstrap(self.args, self.policy, deadline=time.monotonic()+20)
+
+    def test_reviewed_executor_transition_authenticates_original_checkpoint_and_preserves_population(self):
+        expected, _ = self.executor_transition()
+        with self.execution_boundary() as (phase, closure), \
+             patch.object(bootstrap, 'authenticate_inputs', wraps=bootstrap.authenticate_inputs) as authenticate:
+            scope, registry = self.admit_transition()
+        self.assertEqual(phase.call_count, 2)
+        self.assertEqual(closure.call_count, 1)
+        self.assertEqual(authenticate.call_args.args[0].source_commit, expected['source_commit'])
+        self.assertEqual(self.args.source_commit, 'e'*40)
+        self.assertEqual(scope.plan(), expected['catalogue'])
+        self.assertEqual(scope.commitment(), expected['population'])
+        self.assertEqual(registry.completed_block_ids(), ())
+        self.assertFalse(registry.metadata()['fresh_numerical_replay'])
+        self.assertEqual(binding.pin(self.args.bootstrap)['sha256'], self.args.bootstrap_sha)
+
+    def test_new_executor_allowlist_alone_or_missing_policy_cannot_admit(self):
+        _, policy = self.executor_transition()
+        old = dict(schema=bootstrap_executor.POLICY_V1, reviewed_sources=self.policy)
+        self.args.source_policy_sha = self.write(self.args.source_policy, old)
+        with self.execution_boundary(), self.assertRaisesRegex(ValueError, 'version-two'):
+            self.admit_transition()
+        self.args.source_policy.unlink()
+        with self.execution_boundary(), self.assertRaises((ValueError, OSError)):
+            self.admit_transition()
+        policy['bootstrap_executor_bindings'] = []
+        self.args.source_policy_sha = self.write(self.args.source_policy, policy)
+        with self.execution_boundary(), self.assertRaises(ValueError):
+            self.admit_transition()
+
+    def test_repaired_policy_hash_cannot_change_mapping_source_variant_or_population(self):
+        _, policy = self.executor_transition()
+        mutations = [('bootstrap_sha256', '0'*64), ('bootstrap_source_commit', '0'*40),
+            ('bootstrap_source_sha256', '0'*64), ('executor_source_commit', '0'*40),
+            ('executor_source_sha256', '0'*64), ('population_sha256', '0'*64),
+            ('block_plan_sha256', '0'*64), ('variant_id', 'C01::HIER::D-on'),
+            ('schema', 'unreviewed-binding'), ('allow_any_executor', True)]
+        for key, value in mutations:
+            bad = deepcopy(policy); bad['bootstrap_executor_bindings'][0][key] = value
+            self.args.source_policy_sha = self.write(self.args.source_policy, bad)
+            with self.subTest(key=key), self.execution_boundary() as (phase, _), self.assertRaises(ValueError):
+                self.admit_transition()
+            # A repaired policy never substitutes for historical cold admission.
+            self.assertEqual(phase.call_count, 2)
+
+    def test_duplicate_ambiguous_or_unreviewed_policy_sources_reject(self):
+        _, policy = self.executor_transition()
+        duplicate = deepcopy(policy)
+        duplicate['bootstrap_executor_bindings'].append(deepcopy(duplicate['bootstrap_executor_bindings'][0]))
+        extra = deepcopy(policy); extra['reviewed_sources']['f'*40] = 'f'*64
+        for bad in (duplicate, extra):
+            self.args.source_policy_sha = self.write(self.args.source_policy, bad)
+            with self.execution_boundary(), self.assertRaises(ValueError): self.admit_transition()
+
+    def test_repaired_bootstrap_and_policy_hashes_cannot_change_original_population(self):
+        expected, policy = self.executor_transition()
+        for mutation in ('population', 'catalogue', 'history_source', 'inputs', 'variant'):
+            bad = deepcopy(expected)
+            if mutation == 'population':
+                bad['population']['queries'] += 1
+                freeze = {k:v for k,v in bad['population'].items() if k != 'population_freeze_sha256'}
+                bad['population']['population_freeze_sha256'] = binding.digest(freeze)
+            elif mutation == 'catalogue': bad['catalogue']['blocks'][0]['end'] += 1
+            elif mutation == 'history_source': bad['source_commit'] = self.args.source_commit
+            elif mutation == 'inputs': bad['inputs']['logical_return_sha'] = '0'*64
+            else: bad['population']['dominance'] = True
+            self.args.bootstrap_sha = self.write(self.args.bootstrap, bad)
+            updated = deepcopy(policy); row = updated['bootstrap_executor_bindings'][0]
+            row['bootstrap_sha256'] = self.args.bootstrap_sha
+            row['population_sha256'] = binding.digest(bad['population'])
+            self.args.source_policy_sha = self.write(self.args.source_policy, updated)
+            with self.subTest(mutation=mutation), self.execution_boundary(), self.assertRaises(ValueError):
+                self.admit_transition()
+
+    def test_executor_policy_shape_and_binding_count_are_strict(self):
+        _, policy = self.executor_transition()
+        invalid = []
+        for rows in (None, {}, (), [], [deepcopy(policy['bootstrap_executor_bindings'][0])]*17):
+            bad = deepcopy(policy); bad['bootstrap_executor_bindings'] = rows
+            invalid.append(bad)
+        for field, value in (('schema', 'allow-any-source'), ('reviewed_sources', []),
+                             ('allow_any_executor', True)):
+            bad = deepcopy(policy); bad[field] = value
+            invalid.append(bad)
+        bad = deepcopy(policy)
+        bad['bootstrap_executor_bindings'][0]['executor_source_sha256'] = True
+        invalid.append(bad)
+        for bad in invalid:
+            with self.subTest(policy=bad), self.assertRaises(ValueError):
+                bootstrap_executor.policy_sources(bad)
+
+    def test_executor_policy_pin_requires_exact_canonical_bytes(self):
+        _, policy = self.executor_transition()
+        for payload in (binding.canonical(policy), binding.canonical(policy)+b'\n\n',
+                        json.dumps(policy, indent=2).encode()+b'\n'):
+            with self.subTest(payload=payload[:40]), self.assertRaisesRegex(ValueError, 'canonical JSON'):
+                bootstrap_executor.validate_pinned_policy(policy, hashlib.sha256(payload).hexdigest())
+
+    def test_changed_caller_input_or_unreviewed_executor_rejects(self):
+        self.executor_transition()
+        original = self.args.query_index_sha
+        self.args.query_index_sha = '0'*64
+        with self.execution_boundary(), self.assertRaises(ValueError): self.admit_transition()
+        self.args.query_index_sha = original
+        self.args.source_sha = '0'*64
+        with self.execution_boundary(), self.assertRaisesRegex(ValueError, 'executor outside'):
+            self.admit_transition()
+
+    def test_d1_seed_worker_or_d1_physical_plan_cannot_enter_executor_transition(self):
+        self.executor_transition()
+        self.requests['replay']['command'][3] = receipts.MODULE_PREFIX+'block_resume'
+        self.write(self.args.replay_attempt/'request.json', self.requests['replay'])
+        with self.execution_boundary(), self.assertRaisesRegex(ValueError, 'worker required'):
+            self.admit_transition()
+        self.requests['replay']['command'][3] = receipts.MODULE_PREFIX+'parallel_replay'
+        self.write(self.args.replay_attempt/'request.json', self.requests['replay'])
+        self.physical.update(schema=variant_scope.D1_PLAN_SCHEMA, dominance=True)
+        self.physical.pop('variant_id')
+        with self.execution_boundary(), self.assertRaisesRegex(ValueError, 'D0-only'):
+            self.admit_transition()
+
+    def test_mapping_never_hides_changed_actual_count_deadline_or_return(self):
+        self.executor_transition()
+        request = self.requests['logical']; request['deadline_monotonic'] = 281.0
+        request['command'][-1] = '281.0'
+        self.returned['logical']['deadline_monotonic'] = 281.0
+        self.write(self.args.logical_attempt/'request.json', request)
+        self.args.logical_return_sha = self.write(self.args.logical_return, self.returned['logical'])
+        with self.execution_boundary(), self.assertRaisesRegex(ValueError, '180-second budget'):
+            self.admit_transition()
 
     @contextmanager
     def preparation_boundary(self, limits):

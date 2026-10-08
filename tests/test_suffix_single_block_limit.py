@@ -61,6 +61,9 @@ class SingleBlockSelectionTests(unittest.TestCase):
                     next_window(full, [], population_plan_sha256=digest(full), maximum_blocks=value)
                 with self.assertRaises(ValueError):
                     runner.resource_plan([1, 2, 3, 4, 5], 0, maximum_blocks=value)
+        for value in (0, -1, 33, True, 1., '1'):
+            with self.subTest(controller_value=value), self.assertRaises(ValueError):
+                runner.block_limit(SimpleNamespace(maximum_blocks=value))
 
     def test_single_block_preserves_existing_execution_limits(self):
         resource = runner.resource_plan([1, 2, 3, 4, 5], 256, maximum_blocks=1)
@@ -141,6 +144,28 @@ class SingleBlockCommandTests(unittest.TestCase):
             broken['command'][broken['command'].index('--maximum-blocks')+1] = raw
             with self.subTest(raw=raw), self.assertRaises(ValueError):
                 receipts._command(broken, 'suffix_window')
+
+    def test_recovery_cli_does_not_gain_bootstrap_or_smaller_window_options(self):
+        from experiments.time_cut_v2.recorded_real import suffix_window_recovery as recovery
+        options = {option for action in recovery.parser()._actions for option in action.option_strings}
+        self.assertNotIn('--maximum-blocks', options)
+        self.assertNotIn('--bootstrap', options)
+
+    def test_recovery_rejects_new_executor_mapping_policy(self):
+        from experiments.time_cut_v2.recorded_real import suffix_window_recovery as recovery
+        from experiments.time_cut_v2.recorded_real import bootstrap_executor
+        args = self.arguments()
+        value = dict(schema=bootstrap_executor.POLICY_V2,
+            reviewed_sources={args.source_commit:args.source_sha, 'c'*40:'c'*64},
+            bootstrap_executor_bindings=[dict(schema=bootstrap_executor.BINDING_SCHEMA,
+                bootstrap_sha256='b'*64, bootstrap_source_commit='c'*40,
+                bootstrap_source_sha256='c'*64, executor_source_commit=args.source_commit,
+                executor_source_sha256=args.source_sha, population_sha256='d'*64,
+                block_plan_sha256='e'*64, variant_id='C01::HIER::D-off')])
+        args.source_policy.write_bytes(plan.canonical(value)+b'\n')
+        args.source_policy_sha = plan.pin(args.source_policy)['sha256']
+        with self.assertRaisesRegex(ValueError, 'existing version-one'):
+            recovery.source_policy(args)
 
 
 if __name__ == '__main__':

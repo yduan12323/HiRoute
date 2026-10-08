@@ -723,15 +723,13 @@ def _admit(spec, admitted, selection, reviewed_sources, deadline, before, cache)
                 ('checkout_root', 'controller_path', 'python_executable', 'executable_realpath', 'cwd')),
             'trusted reviewed-controller origin binding required')
         from .variant_scope import is_d0_population
+        from .bootstrap_executor import validate_pinned_policy
         d0 = is_d0_population(commitment)
-        binding.require(type(policy) is dict and set(policy) == {'schema', 'reviewed_sources'} and
-                        policy['schema'] == 'hiroute-reviewed-window-sources-v1' and
-                        (d0 or policy['reviewed_sources'].get(SEED_COMMIT) == SEED_SOURCE) and
-                        policy['reviewed_sources'].get(values['source_commit']) == values['source_sha'],
+        policy_sources = validate_pinned_policy(policy, values['source_policy_sha'])
+        binding.require((d0 or policy_sources.get(SEED_COMMIT) == SEED_SOURCE) and
+                        policy_sources.get(values['source_commit']) == values['source_sha'],
                         'pinned source policy does not approve completed execution')
-        binding.require(hashlib.sha256(binding.canonical(policy)+b'\n').hexdigest() == values['source_policy_sha'],
-                        'reviewed source policy must use canonical JSON plus newline')
-        for commit, inventory in policy['reviewed_sources'].items():
+        for commit, inventory in policy_sources.items():
             binding.require(reviewed_sources.get(commit) == inventory,
                             'historical source policy is outside current reviewed allowlist')
         if values.get('bootstrap') is not None:

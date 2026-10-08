@@ -43,3 +43,5 @@ jobs:
           "$RUNNER_TEMP/m5-ci-venv/bin/python" -m pip --isolated --disable-pip-version-check install --index-url https://pypi.org/simple --require-hashes --only-binary=:all: --no-cache-dir -r ci/m5-requirements.txt
       - name: Build and test installed wheel
         run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_m5_code_only.py'
+      - name: Test D0 bootstrap and one-block protocol boundaries
+        run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_m5_bootstrap_code.py'

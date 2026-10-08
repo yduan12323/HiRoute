@@ -128,19 +128,10 @@ def resource_plan(cpus, models, *, maximum_blocks=MAX_BLOCKS):
 
 def source_policy(args, before=lambda: None):
     from .window_receipts import SEED_COMMIT, SEED_SOURCE
+    from .bootstrap_executor import validate_pinned_policy
     before()
     policy = read_pinned(args.source_policy, args.source_policy_sha, 65536)
-    binding.require(type(policy) is dict and set(policy) == {'schema', 'reviewed_sources'} and
-        policy['schema'] == 'hiroute-reviewed-window-sources-v1' and
-        type(policy['reviewed_sources']) is dict, 'reviewed source-policy schema required')
-    binding.require(hashlib.sha256(binding.canonical(policy)+b'\n').hexdigest() == args.source_policy_sha,
-        'source policy must use canonical JSON with one final newline')
-    sources = policy['reviewed_sources']
-    for commit, inventory in sources.items():
-        binding.require(type(commit) is str and len(commit) == 40 and
-            all(char in '0123456789abcdef' for char in commit) and
-            type(inventory) is str and len(inventory) == 64 and
-            all(char in '0123456789abcdef' for char in inventory), 'invalid reviewed source identity')
+    sources = validate_pinned_policy(policy, args.source_policy_sha)
     binding.require(sources.get(args.source_commit) == args.source_sha,
                     'current source is outside reviewed source policy')
     from .variant_scope import validate_variant

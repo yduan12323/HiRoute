@@ -95,13 +95,19 @@ class WindowReceiptTests(unittest.TestCase):
         manager.start(); self.addCleanup(manager.stop)
 
     def fixture(self, mutate_rows=lambda rows: None, mutate_request=lambda request: None,
-                mutate_summary=lambda summary: None, mutate_run=lambda run: None):
+                mutate_summary=lambda summary: None, mutate_run=lambda run: None, maximum_blocks=None):
+        if maximum_blocks is not None:
+            self.values['maximum_blocks'] = maximum_blocks
+            window = detach_json(next_window(self.population, [],
+                population_plan_sha256=plan.digest(self.population), maximum_blocks=maximum_blocks))
+            self.selection['window_plan'] = window
+        limit = 32 if maximum_blocks is None else maximum_blocks
         self.number += 1
         attempt = self.root/('window'+str(self.number)); attempt.mkdir()
         evidence = attempt/'evidence'
         resources = dict(name='C01-suffix-window-v1', absolute_seconds=900,
             evidence_charge_bytes=512*1024**2, uncompressed_archive_bytes=512*1024**2,
-            maximum_input_bytes=128*1024**2, maximum_blocks=32, maximum_models=8192,
+            maximum_input_bytes=128*1024**2, maximum_blocks=limit, maximum_models=limit*256,
             models=self.population['total_models'], block_size=256, persistent_workers=4,
             candidate_as_bytes=1024**3, candidate_peak_rss_bytes=768*1024**2, seconds_per_model=30,
             maximum_passes_per_model=12, maximum_candidate_passes=self.population['total_models']*12,
@@ -248,6 +254,22 @@ class WindowReceiptTests(unittest.TestCase):
             self.assertEqual(checked.block_reports(), receipt.block_reports())
         self.assertNotIn('certificate', repr(registry.metadata()['blocks']))
         self.assertLess(len(plan.canonical(registry.metadata())), wr.REGISTRY_LIMIT)
+    def test_single_block_limit_cold_binds_actual_request_selection_and_resources(self):
+        receipt = self.admit(self.fixture(maximum_blocks=1))
+        self.assertEqual([row['range']['block_id'] for row in receipt.block_reports()], [0])
+        self.assertEqual(receipt.metadata()['source_commit'], self.values['source_commit'])
+
+    def test_repaired_request_and_outer_hashes_cannot_relabel_default_window_as_single_block(self):
+        def alter(request):
+            position = request['command'].index('--maximum-blocks')+1
+            request['command'][position] = '1'
+            values = dict(self.values, maximum_blocks=1)
+            request['context']['input_sha256'] = plan.digest(values)
+        # fixture() repairs result/decision/return/manifest bindings after this
+        # mutation; cold selection still must match the narrowed request.
+        args = self.fixture(maximum_blocks=32, mutate_request=alter)
+        with self.assertRaisesRegex(ValueError, 'first outstanding catalogue window'):
+            self.admit(args)
 
     def test_factory_boundary_immutable_ownership_and_duplicate_registry(self):
         for cls, args in ((wr.CheckedWindowReceipt, ({}, [])), (wr.CheckedRegistry, ({}, [])), (wr.ReceiptScope, ({}, {}))):

@@ -108,7 +108,15 @@ def resource_plan(cpus, models, candidates):
     return value
 
 
-source_policy = suffix_window.source_policy
+def source_policy(args, before=lambda: None):
+    """Keep recovery on its existing version-one policy and selection contract."""
+    before()
+    policy = read_pinned(args.source_policy, args.source_policy_sha, 65536)
+    binding.require(policy.get('schema') == 'hiroute-reviewed-window-sources-v1',
+                    'recovery requires its existing version-one source policy')
+    return suffix_window.source_policy(args, before)
+
+
 load_registry = suffix_window.load_registry
 registry_admission = suffix_window.registry_admission
 freeze_selection = suffix_window.freeze_selection

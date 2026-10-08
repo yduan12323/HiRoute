@@ -51,6 +51,41 @@ authority flags remain false.
 
 ## Compatibility and limits
 
+`suffix_window --maximum-blocks 1` selects the first outstanding whole canonical
+block, at most 256 models. The optional integer limit is constrained to 1–32.
+Omitting it retains the original 32-block command/context serialization, window
+identity and resource plan. Controller, fresh worker and cold receipt each
+recompute the limited selection; changing outer JSON hashes cannot relabel an
+8192-model window as a one-block run. The full population catalogue is retained.
+Time, group RSS, four-worker, per-model and evidence ceilings are unchanged.
+
+The initial bootstrap continues to authenticate one immutable checkpoint shared
+by historical plan, replay and count. A different executor uses an explicit
+`hiroute-reviewed-window-sources-v2` policy instead of rewriting those inputs.
+This policy has exactly `schema`, `reviewed_sources` and
+`bootstrap_executor_bindings`. Each of at most 16 unique bindings has exactly:
+
+```text
+schema: hiroute-d0-bootstrap-executor-binding-v1
+bootstrap_sha256
+bootstrap_source_commit / bootstrap_source_sha256
+executor_source_commit / executor_source_sha256
+population_sha256 / block_plan_sha256
+variant_id: C01::HIER::D-off
+```
+
+Both source pairs must be in the reviewed allowlist. The frozen bootstrap is
+fully reconstructed from its actual replay/count returns and original source
+fields, including the actual 180-second count request, before the exact executor
+binding is admitted. Caller inputs match the frozen manifest except for the
+separately reviewed executor source pair. Catalogue, population freeze, physical
+input and original query identities stay unchanged. The actual new executor
+source, policy SHA and explicit block limit are bound into the worker request
+and checked again during cold receipt admission. Version-one policy and
+same-checkpoint bootstrap behavior remain compatible; there is no generic
+allow-any-source option. Recovery retains its version-one policy and existing
+CLI; this change adds no recovery bootstrap or smaller-window entrypoint.
+
 D1 keeps its existing population constants (695712 unique models, 2718 blocks,
 12172 nonempty and 9666 empty queries, 7652832 original model occurrences).
 Its command/context serialization excludes absent new bootstrap options, and

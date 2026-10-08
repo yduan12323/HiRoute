@@ -153,8 +153,24 @@ def admit_bootstrap(args, reviewed_sources, *, deadline, before=lambda: None, ad
     from . import window_receipts as receipts
     cache = cache or receipts._Dependencies(before)
     manifest = cache.read(args.bootstrap, args.bootstrap_sha, MAX_BYTES)
-    expected = authenticate_inputs(args, reviewed_sources, deadline, before, cache=cache)
+    # Freeze authentication keeps its original checkpoint and every original
+    # caller pin. A new executor is separately admitted by an exact policy row.
+    binding.require(type(manifest) is dict and manifest.get('schema') == SCHEMA,
+                    'pinned D0 bootstrap schema required')
+    bridged = (manifest['source_commit'], manifest['source_sha256']) != (args.source_commit, args.source_sha)
+    historical_args = args
+    if bridged:
+        from types import SimpleNamespace
+        binding.require(reviewed_sources.get(args.source_commit) == args.source_sha,
+                        'bootstrap executor outside reviewed allowlist')
+        historical_args = SimpleNamespace(**vars(args))
+        historical_args.source_commit = manifest['source_commit']
+        historical_args.source_sha = manifest['source_sha256']
+    expected = authenticate_inputs(historical_args, reviewed_sources, deadline, before, cache=cache)
     suffix_census.same(manifest, expected, 'bootstrap differs from authenticated replay/count population')
+    if bridged:
+        from .bootstrap_executor import admit_executor
+        admit_executor(args, expected, reviewed_sources, cache)
     scope = receipts.ReceiptScope(expected['catalogue'], expected['population'], _token=receipts._ADMISSION)
     if admitted is not None:
         suffix_census.same(admitted.population.plan(), scope.plan(), 'fresh D0 catalogue differs from bootstrap')
