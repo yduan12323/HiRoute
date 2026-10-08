@@ -20,6 +20,7 @@ from experiments.time_cut_v2.recorded_real import block_archive, domain, plan, r
 from experiments.time_cut_v2.recorded_real import window_receipts as wr
 from experiments.time_cut_v2.recorded_real.lp_stream_jobs import LPStreamJob
 from tests import test_indexed_suffix_population as population_fixtures
+from tests import test_c01_variant_scope as variant_fixtures
 from validation.capture5.containers import detach_json
 from validation.suffix5.aggregate_stream import StreamAggregator
 from validation.suffix5.independent_convex_model import build_model
@@ -50,6 +51,10 @@ class WindowReceiptTests(unittest.TestCase):
             path = self.root/(key+'.json')
             document = dict(tiny_fixture=key)
             if key in ('historical_plan', 'replay_plan'):
+                # Explicit synthetic D1 physical identity, not real C01 input
+                # authority. Recovery now independently checks this contract
+                # before re-admitting the genuine tiny scheduling population.
+                document.update(variant_fixtures.VariantScopeTests().physical())
                 document.update(inputs=input_pins, input_sha256=plan.digest(input_pins))
             path.write_bytes(raw(document))
             paths[key] = str(path)
