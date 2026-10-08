@@ -46,7 +46,10 @@ class RealSuffixCensus(unittest.TestCase):
    bad=deepcopy(index);change(bad)
    with self.assertRaises(ValueError):census.census(bad,trusted,summary['checked'])
  def test_completed_return_manifest_and_original_index_are_all_required(self):
-  old,summary,index,trusted,_=self.make();new=dict(old,source_sha256='e'*64)
+  old,summary,index,trusted,_=self.make()
+  # Historical-plan validation is injected below; preserve its explicit v1 identity.
+  old['schema']='hiroute-recorded-real-plan-v1'
+  new=dict(old,source_sha256='e'*64)
   attempt=self.root/'complete';attempt.mkdir();evidence=attempt/'evidence'
   pins=dict(capture_manifest_sha='1'*64,capture_result_sha='2'*64,capture_decision_sha='3'*64,capture_return_sha='4'*64)
   run=dict(schema='hiroute-parallel-replay-binding-v1',historical_plan_sha256='a'*64,current_plan_sha256='b'*64,
