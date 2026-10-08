@@ -160,8 +160,9 @@ initialization or retained real-window admission is performed by this patch.
 
 ## Recorded synthetic validation
 
-The latest isolated Linux Python3.11.16 revision passed 332 unittest cases in
-both normal (87.763 seconds) and `-OO` (88.070 seconds) modes. The 23 selected
+The final isolated Linux Python3.11.16 revision, restricted to two actual CPU
+IDs with taskset, passed 332 unittest cases without skips in both normal
+(87.488 seconds) and `-OO` (88.579 seconds) modes. The 23 selected
 modules cover receipt epoch/origin, standard window receipts/runner/selector,
 independent collector/query/fold/empty occurrences, D1 recovery receipts/runner/
 core/plan, variant scope, D0 bootstrap, one-block limits, archive transport,
@@ -169,13 +170,21 @@ occurrence joins, calibration, census and indexed population/context. The
 source-bound epoch/origin subset has 29 tests. These are code regressions,
 not real-population acceptance results.
 
+The pure metadata receipt fixtures declare six distinct CPU IDs. They never
+launch a phase or assert host affinity, so all metadata checks also run on
+small CI runners. Actual runtime preflight and production masks are unchanged.
+The D1 recovery test restores its saved fixture CPU list after an intentional
+alias mutation, rather than substituting the host's shorter affinity list.
+
 The original 326-case logs, initial 28-case epoch log, and an intermediate
-332-case failure log are retained alongside the final runs under the server's
+332-case failure logs are retained alongside the final runs under the server's
 `/tmp/hiroute-epoch-review-xcb3rlj8`. The intermediate failure was a test's error
 message expectation after adding the package-namespace rejection; the revised
-assertion accepts both valid origin rejection paths. Final log files are
-`review-validation.final-v2.normal.log` and
-`review-validation.final-v2.optimized.log`. Their metadata file records full
+assertion accepts both valid origin rejection paths. The earlier unrestricted
+normal/-OO 332-case passes remain in final-v2 logs. A two-CPU final-v3 run
+exposed the D1 fixture restoration issue described above; its failure is kept.
+Final log files are `review-validation.final-v4.two-cpu.normal.log` and
+`review-validation.final-v4.two-cpu.optimized.log`. Their metadata file records full
 argv, tested source SHA256 pins, elapsed time and log SHA256 hashes. Publication
 copies these test logs to a new persistent review directory on the server;
 no server experiment archive is downloaded to the Mac.

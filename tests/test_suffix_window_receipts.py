@@ -71,9 +71,10 @@ class WindowReceiptTests(unittest.TestCase):
         self.registration_path.write_bytes(raw(self.registration))
         self.policy_path = self.root/'source-policy.json'
         self.policy_path.write_bytes(raw(dict(schema='hiroute-reviewed-window-sources-v1', reviewed_sources=self.source)))
-        cpus = sorted(os.sched_getaffinity(0))
-        if len(cpus) < 6:
-            self.skipTest('runtime fixture needs six CPU IDs')
+        # These are serialized metadata fixtures, never runtime launchers.
+        # Six distinct declared IDs exercise the production CPU-mask contract
+        # even on a two-core CI runner; no affinity or hardware claim is made.
+        cpus = list(range(6))
         self.values = dict(paths, replay_attempt=str(self.root/'replay'), logical_attempt=str(self.root/'logical'),
             capture=str(self.root/'capture/capture.json'), replay_manifest_sha='1'*64, replay_result_sha='3'*64,
             replay_decision_sha='4'*64, query_index_sha='2'*64, source_commit='f'*40, source_sha='e'*64,
@@ -458,7 +459,7 @@ class UpstreamProofGraphTests(unittest.TestCase):
             files = {name: writer.write(name, [raw({'tiny_upstream_fixture': name})]) for name in names}
             manifest = writer.finalize()
         manifest_raw = (attempt/'evidence/__manifest.json').read_bytes()
-        cpus = sorted(os.sched_getaffinity(0))
+        cpus = list(range(6))  # Serialized upstream proof fixture; no launch.
         context = dict(plan_sha256='e'*64, source_sha256='f'*64, input_sha256='d'*64, profile_name=profile.name)
         request = dict(profile=asdict(profile), context=context, entry_monotonic=100., deadline_monotonic=110.,
                        launcher_rss_bytes_at_entry=1, command=['/usr/bin/python3', '-c', 'synthetic fixture'])
@@ -488,7 +489,6 @@ class UpstreamProofGraphTests(unittest.TestCase):
             files=files)
 
     def test_each_upstream_phase_is_authenticated_once_and_every_proof_remains_required(self):
-        if len(os.sched_getaffinity(0)) < 6: self.skipTest('six CPU IDs required')
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             replay = self.history(root, 'replay', runtime.BATCH_REPLAY,

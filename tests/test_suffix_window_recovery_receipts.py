@@ -339,13 +339,14 @@ class RecoveryRuntimeReceiptTests(unittest.TestCase):
         with self.assertRaises(ValueError): self.admit(args)
 
     def test_resource_cpu_evidence_coverage_and_late_failure_reject(self):
+        original_cpus = list(self.fx.values['worker_cpus'])
         with self.assertRaises(ValueError): self.admit(self.fixture(extra_evidence=True))
         with self.assertRaises(ValueError):
             self.admit(self.fixture(mutate_summary=lambda value: value['resource_plan'].update(maximum_candidate_passes=99)))
         with self.assertRaises(ValueError):
             self.admit(self.fixture(mutate_request=lambda value: value['worker_cpus'].__setitem__(0, value['cpu'])))
         # Restore fixture CPU inputs after the intentional alias mutation.
-        self.fx.values['worker_cpus'] = sorted(os.sched_getaffinity(0))[1:6]
+        self.fx.values['worker_cpus'] = original_cpus
         args = self.fixture()
         with patch.object(rr, 'read_phase_result', return_value=dict(status='unresolved')):
             with self.assertRaisesRegex(ValueError, 'runtime'): self.admit(args)
