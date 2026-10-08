@@ -155,7 +155,13 @@ def recover_certificate(c, A, b, equalities, candidate, dual_support=None):
     # Preserve the ordinary and greedy recovery paths. Only a previously
     # unresolved full basis reaches the bounded exact exchange neighborhood.
     from .basis_exchange import recover_exchange
-    return recover_exchange(c, A, b, equalities, candidate, selected_rows)
+    try:
+        return recover_exchange(c, A, b, equalities, candidate, selected_rows)
+    except UncertifiedLP as error:
+        if str(error) != 'Exact basis-exchange neighborhood did not certify the candidate':
+            raise
+    from .basis_walk import recover_walk
+    return recover_walk(c, A, b, equalities, candidate, selected_rows)
 
 
 def exact_lp(c, A, b, equalities=(), *, _phase=False):
