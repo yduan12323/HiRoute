@@ -210,6 +210,7 @@ class ProductionHooks:
         self.observer_source=observer_source or observer
         self.previous_argv=previous_argv; self.index=index; self.completed_models=completed_models
         self.prepared_path=None
+        self.command_row=None
 
     def source_check(self):
         self._source_check()
@@ -251,9 +252,26 @@ class ProductionHooks:
             preparation_seconds=0)
         self.prepared_path=out/'prepared.json'
         with self.prepared_path.open('xb') as stream: stream.write(_canonical(prepared))
-        return dict(command=pin(command_path),preparation=pin(preparation_path),
+        self.command_row=pin(command_path)
+        return dict(command=self.command_row,preparation=pin(preparation_path),
                     prepared=pin(self.prepared_path),observer=self.observer,
                     observer_source=self.observer_source)
+
+    def advance(self, result):
+        if self.command_row is None or result.get('status') != 'incrementally-authenticated':
+            raise AdmissionError('cannot advance without a cold-authenticated command')
+        command=pinned_json(self.command_row,4*1024**2)
+        if command['source_commit'] != self.source_commit or command['source_sha256'] != self.source_sha:
+            raise AdmissionError('next command source changed')
+        if result['actual']['registry']['path'] != command['argv'][command['argv'].index('--registry-output')+1]:
+            raise AdmissionError('cold result differs from prepared command')
+        if result['completed_models'] != self.completed_models+command['window_plan']['expected_model_count']:
+            raise AdmissionError('cold model total differs from private selected window')
+        self.previous_argv=command['argv']
+        self.completed_models=result['completed_models']
+        self.index+=1
+        self.prepared_path=None
+        self.command_row=None
 
     def launch(self, command):
         if self.prepared_path is None or pin(self.prepared_path) != command['prepared']:
@@ -416,16 +434,32 @@ class Adapter:
             self.fail(error)
             raise
 
-    def run_one(self, targets):
+    def run_one(self, targets, stop_requested=lambda: False):
         if self.state != 'ready': raise AdmissionError('adapter is not at a safe boundary')
         self.state = 'in-flight'
         try:
             self.hooks.source_check(); self.hooks.idle_check()
             self._fresh_targets(targets)
+            if stop_requested():
+                self.journal.append(dict(operation='pause-before-prepare'))
+                self.state='ready'
+                return None
             prepared = self._call('prepare', dict(targets=targets))
+            if prepared['window_plan']['launch_required'] is False:
+                if prepared.get('terminal') is not True:
+                    raise AdmissionError('private terminal plan omitted terminal marker')
+                self.journal.append(dict(operation='terminal-no-launch',
+                    completed_models=self.last_result['completed_models'],
+                    completed_blocks=self.last_result['completed_blocks']))
+                self.state='ready'
+                return None
+            if stop_requested():
+                return self._cancel_prepared(prepared,'after-private-prepare')
             command = self.hooks.prepare(prepared, targets)
             self._fresh_targets(targets)
             self.journal.append(dict(operation='command-prepared', command=command))
+            if stop_requested():
+                return self._cancel_prepared(prepared,'before-launch-intent')
             # Journal the launch intent before any controller process can exist.
             self.journal.claim_launch(prepared['window_plan'],command)
             self.journal.append(dict(operation='launch-intent', command=command))
@@ -441,6 +475,15 @@ class Adapter:
             self.fail(error)
             raise
 
+    def _cancel_prepared(self, prepared, stage):
+        returned=self._call('cancel-prepared',dict(token=prepared['token']))
+        if returned != dict(cancelled=True,at_safe_boundary=True,numerical_launch=False):
+            raise AdmissionError('private pending prepare did not cancel at safe boundary')
+        self.journal.append(dict(operation='abandoned-prepared-no-launch',stage=stage,
+            token_sha256=hashlib.sha256(_canonical(prepared['token'])).hexdigest()))
+        self.state='ready'
+        return None
+
     @staticmethod
     def _fresh_targets(targets):
         required = {'attempt', 'registry', 'registration_return', 'runtime_return'}
@@ -450,6 +493,20 @@ class Adapter:
         if len(set(paths)) != 4 or any(path.exists() or path.is_symlink() or
                                       path.with_name(path.name+'.partial').exists() for path in paths):
             raise AdmissionError('output target is already occupied')
+
+    def run_bounded(self, targets_list, stop_requested):
+        if self.state != 'ready' or not 1 <= len(targets_list) <= 4:
+            raise AdmissionError('bounded continuation requires a ready private epoch')
+        try:
+            for targets in targets_list:
+                if stop_requested(): break
+                result=self.run_one(targets,stop_requested)
+                if result is None: break
+                self.hooks.advance(result)
+            self.pause()
+        except BaseException as error:
+            if self.state != 'failed': self.fail(error)
+            raise
 
     def pause(self):
         if self.state != 'ready': raise AdmissionError('pause requires completed cold')

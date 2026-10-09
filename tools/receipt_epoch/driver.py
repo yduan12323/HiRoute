@@ -6,6 +6,7 @@ import importlib.abc
 import json
 import os
 from pathlib import Path
+import signal
 import subprocess
 import sys
 import tempfile
@@ -33,6 +34,9 @@ def parser():
     for name in ('observer-sha','original-command-sha','original-preparation-sha','previous-command-sha'):
         p.add_argument('--'+name)
     p.add_argument('--next-index',type=int)
+    p.add_argument('--window-count',type=int,default=1)
+    p.add_argument('--future-window-target',nargs=5,action='append',default=[],
+                   metavar=('INDEX','ATTEMPT','REGISTRY','REGISTRATION','RUNTIME'))
     return p
 
 
@@ -95,6 +99,26 @@ def worker_argv(args):
     return result
 
 
+def series_targets(args, series):
+    if (not 1 <= args.window_count <= 4 or
+        len(args.future_window_target) != args.window_count-1 or
+        len(args.retained_window_return) != args.next_index-18):
+        raise ValueError('bounded count, sequential targets and full retained prefix required')
+    targets_list=[dict(attempt=str(args.attempt_target.absolute()),registry=str(args.registry_target.absolute()),
+        registration_return=str(args.registration_target.absolute()),
+        runtime_return=str(args.runtime_target.absolute()))]
+    for offset,row in enumerate(args.future_window_target,1):
+        if row[0] != str(args.next_index+offset):
+            raise ValueError('future window indices must be consecutive')
+        targets_list.append(dict(zip(('attempt','registry','registration_return','runtime_return'),
+            (str(Path(value).absolute()) for value in row[1:]))))
+    all_targets=[path for targets in targets_list for path in targets.values()]
+    if len(all_targets)!=len(set(all_targets)):
+        raise ValueError('window outputs alias across the bounded batch')
+    for targets in targets_list: series.Adapter._fresh_targets(targets)
+    return targets_list
+
+
 def main():
     if not sys.flags.isolated: raise ValueError('run pinned metadata CLI with python -I -B')
     args=parser().parse_args()
@@ -142,8 +166,7 @@ def main():
                 'attempt_target','registry_target','registration_target','runtime_target','next_index')
             if any(getattr(args,key) is None for key in required) or args.next_index < 22:
                 raise ValueError('complete next ordinary series target contract required')
-            if len(args.retained_window_return) < 4:
-                raise ValueError('retained 018--021 return pins required before any continuation')
+            targets_list=series_targets(args,series)
             rows={key:dict(path=str(getattr(args,key).absolute()),sha256=getattr(args,key+'_sha'))
                   for key in ('observer','original_command','original_preparation','previous_command')}
             for row in rows.values():
@@ -188,7 +211,12 @@ def main():
                 source_check();idle_check()
                 journal=series.Journal(args.series_root,launch_ledger=base)
                 parent=None
+                pause_requested={'value':False}
+                def defer_pause(_signum,_frame): pause_requested['value']=True
+                signals=(signal.SIGINT,signal.SIGTERM,signal.SIGHUP)
+                previous_handlers={signum:signal.getsignal(signum) for signum in signals}
                 try:
+                    for signum in signals: signal.signal(signum,defer_pause)
                     parent=sidecar.Parent(worker_argv(args),cwd=root,
                         env=dict(os.environ,PYTHONPATH=os.pathsep.join((root,src)),PYTHONNOUSERSITE='1'),
                         expected_source_contract=bound.expected,
@@ -206,12 +234,9 @@ def main():
                         dict(actual=actual,code_pins=bound.pins,reviewed_sources=sources),hooks)
                     adapter.bootstrap()
                     hooks.completed_models=adapter.last_result['completed_models']
-                    targets=dict(attempt=str(args.attempt_target.absolute()),registry=str(args.registry_target.absolute()),
-                        registration_return=str(args.registration_target.absolute()),
-                        runtime_return=str(args.runtime_target.absolute()))
-                    adapter.run_one(targets)
-                    adapter.pause()
+                    adapter.run_bounded(targets_list,lambda:pause_requested['value'])
                 finally:
+                    for signum,handler in previous_handlers.items(): signal.signal(signum,handler)
                     if parent is not None: parent.invalidate()
                     journal.close()
             return

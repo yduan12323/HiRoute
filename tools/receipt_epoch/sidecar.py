@@ -101,6 +101,9 @@ def serve(reader, writer, *, origin):
                 elif operation == 'cold':
                     binding.require(set(payload) == {'token', 'actual'}, 'epoch exact cold payload required')
                     result = epoch.cold(**payload, deadline=deadline, before=before)
+                elif operation == 'cancel-prepared':
+                    binding.require(set(payload) == {'token'}, 'epoch cancel requires only private token')
+                    result = epoch.cancel_prepared(**payload, deadline=deadline, before=before)
                 elif operation == 'pause':
                     binding.require(not payload, 'epoch pause has no authority payload')
                     result = epoch.request_pause()

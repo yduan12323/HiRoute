@@ -354,6 +354,17 @@ class Epoch:
         self._pause = True
         return dict(pause_requested=True, at_safe_boundary=self._pending is None)
 
+    def cancel_prepared(self, token, *, deadline, before=lambda: None):
+        with self._phase(deadline, before) as check:
+            binding.require(self._pending is not None, 'cancel requires a prepared window')
+            _same(token, self._pending['token'], 'cancel token differs from private prepare')
+            self._closure.rehash(check)
+            self._closure.continuity(check)
+            check()
+            self._pending = None
+            self._pause = True
+            return dict(cancelled=True, at_safe_boundary=True, numerical_launch=False)
+
     def prepare(self, targets, *, deadline, before=lambda: None):
         with self._phase(deadline, before) as check:
             binding.require(not self._pause and self._pending is None, 'epoch paused or window already in flight')
@@ -369,7 +380,10 @@ class Epoch:
             plan = next_window(self._scope.plan(), self._registry.completed_block_ids(),
                                population_plan_sha256=binding.digest(self._scope.plan()))
             plan = detach_json(plan)
-            binding.require(plan['launch_required'], 'epoch prefix has no outstanding window')
+            if not plan['launch_required']:
+                self._closure.continuity(check)
+                check()
+                return _owned(dict(protocol=PROTOCOL, terminal=True, window_plan=plan))
             token = dict(epoch=self._nonce, generation=self._generation, challenge=secrets.token_hex(32))
             pending = dict(token=token, targets=targets, plan=plan)
             self._closure.continuity(check)

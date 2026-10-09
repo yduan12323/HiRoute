@@ -1,10 +1,12 @@
 """Bounded protocol fixtures; these deliberately never execute an LP controller."""
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
 from tools.receipt_epoch.series_adapter import Adapter, AdmissionError, Journal, pin, pinned_json, run_controller_once, production_command, ProductionHooks
+from tools.receipt_epoch import driver, series_adapter
 
 
 def check(value):
@@ -13,22 +15,28 @@ def check(value):
 
 class Epoch:
     def __init__(self, fail=None):
-        self.ops=[]; self.fail=fail; self.invalidated=False
+        self.ops=[]; self.fail=fail; self.invalidated=False; self.terminal_after=None
 
     def call(self, op, payload, *, seconds):
         check(seconds == 180)
         self.ops.append(op)
         if op == self.fail: raise EOFError('private pipe closed')
+        if op == 'prepare' and self.terminal_after is not None and self.ops.count('prepare') > self.terminal_after:
+            return dict(terminal=True,window_plan=dict(launch_required=False))
         if op == 'prepare': return dict(token=dict(epoch='private', generation=len(self.ops)),
-            window_plan=dict(window_id='W022',population_plan_sha256='0'*64,
+            window_plan=dict(launch_required=True,window_id='W022',population_plan_sha256='0'*64,
                              block_ids=list(range(673,705)),expected_model_count=8192))
+        if op == 'cold': return dict(status='incrementally-authenticated',
+            completed_models=172288+self.ops.count('cold')*8192,
+            completed_blocks=673+self.ops.count('cold')*32)
+        if op == 'cancel-prepared': return dict(cancelled=True,at_safe_boundary=True,numerical_launch=False)
         return dict(status=op)
 
     def invalidate(self): self.invalidated=True
 
 
 class Hooks:
-    def __init__(self, fail=None): self.fail=fail; self.launches=0; self.checks=0
+    def __init__(self, fail=None): self.fail=fail; self.launches=0; self.checks=0; self.advances=0
     def source_check(self):
         self.checks += 1
         if self.fail == 'source': raise AdmissionError('source changed')
@@ -43,6 +51,9 @@ class Hooks:
         if self.fail == 'cold': raise AdmissionError('return failed')
         return {key:dict(path=key, size_bytes=1, sha256='0'*64)
                 for key in ('registry','registration_return','runtime_return')}
+    def advance(self, result):
+        self.advances += 1
+        if self.fail == 'advance': raise AdmissionError('advance failed')
 
 
 def fixture(tmp_path, fail=None, epoch_fail=None):
@@ -67,6 +78,161 @@ def test_ordered_bootstrap_and_pause(tmp_path,count):
     check(epoch.ops == ['establish']+['prepare','cold']*count+['prepare','cold']*2+['pause','close'])
     check(hooks.launches == 2 and adapter.state == 'closed' and epoch.invalidated)
     check([json.loads(line)['operation'] for line in (root/'events.jsonl').read_text().splitlines()].count('launch-intent') == 2)
+
+
+def test_bounded_four_windows_keep_one_epoch_and_pause(tmp_path):
+    adapter,epoch,hooks,root=fixture(tmp_path)
+    adapter.bootstrap()
+    targets=[dict(attempt=f'a{i}',registry=f'r{i}',registration_return=f's{i}',runtime_return=f't{i}')
+             for i in range(4)]
+    adapter.run_bounded(targets,lambda:False)
+    check(epoch.ops == ['establish','prepare','cold']+['prepare','cold']*4+['pause','close'])
+    check(hooks.launches == hooks.advances == 4 and adapter.state == 'closed')
+    check((root/'events.jsonl').read_text().count('launch-intent') == 4)
+    adapter.journal.close()
+
+
+def test_requested_pause_waits_for_current_cold(tmp_path):
+    adapter,epoch,hooks,_=fixture(tmp_path)
+    adapter.bootstrap()
+    targets=[dict(attempt=f'a{i}',registry=f'r{i}',registration_return=f's{i}',runtime_return=f't{i}')
+             for i in range(4)]
+    adapter.run_bounded(targets,lambda:hooks.launches >= 1)
+    check(hooks.launches == hooks.advances == 1)
+    check(epoch.ops[-4:] == ['prepare','cold','pause','close'])
+    adapter.journal.close()
+
+
+def test_pause_during_preflight_prevents_new_private_prepare(tmp_path):
+    adapter,epoch,hooks,root=fixture(tmp_path)
+    adapter.bootstrap()
+    pause={'value':False}
+    original=hooks.source_check
+    def source_check():
+        original();pause['value']=True
+    hooks.source_check=source_check
+    adapter.run_bounded([dict(attempt='a',registry='r',registration_return='s',runtime_return='t')],
+                        lambda:pause['value'])
+    check(hooks.launches == 0 and epoch.ops == ['establish','prepare','cold','pause','close'])
+    check('pause-before-prepare' in (root/'events.jsonl').read_text())
+    adapter.journal.close()
+
+
+@pytest.mark.parametrize('stage', ['after-private-prepare','before-launch-intent'])
+def test_pause_after_prepare_cancels_private_token_without_intent(tmp_path,stage):
+    adapter,epoch,hooks,root=fixture(tmp_path)
+    adapter.bootstrap()
+    pause={'value':False}
+    if stage == 'after-private-prepare':
+        original=epoch.call
+        def call(op,payload,*,seconds):
+            result=original(op,payload,seconds=seconds)
+            if op == 'prepare': pause['value']=True
+            return result
+        epoch.call=call
+    else:
+        original=hooks.prepare
+        def prepare(prepared,targets):
+            result=original(prepared,targets);pause['value']=True;return result
+        hooks.prepare=prepare
+    adapter.run_bounded([dict(attempt='a',registry='r',registration_return='s',runtime_return='t')],
+                        lambda:pause['value'])
+    ops=[json.loads(line)['operation'] for line in (root/'events.jsonl').read_text().splitlines()]
+    check(hooks.launches == 0 and 'launch-intent' not in ops and 'cold' == ops[2])
+    check('cancel-prepared' in ops and 'abandoned-prepared-no-launch' in ops)
+    check(ops[-3:] == ['pause','close','safe-pause'] and epoch.invalidated)
+    adapter.journal.close()
+
+
+def test_pause_during_real_private_ipc_prepare_closes_without_launch(tmp_path):
+    sidecar=pytest.importorskip('tools.receipt_epoch.sidecar')
+    import sys,threading
+    if sys.platform == 'darwin': pytest.skip('RLIMIT_AS private service requires Linux')
+    script='''
+import sys,time
+from tools.receipt_epoch import sidecar
+class Micro:
+ def __init__(self): self.pending=False
+ @classmethod
+ def establish(cls,**kwargs): return cls()
+ def prepare(self,**kwargs):
+  time.sleep(.25);self.pending=True
+  return {'token':{'micro':'nonce'},'window_plan':{'launch_required':True}}
+ def cold(self,**kwargs):
+  self.pending=False
+  return {'completed_models':180480,'completed_blocks':705,'status':'incrementally-authenticated'}
+ def cancel_prepared(self,**kwargs):
+  self.pending=False
+  return {'cancelled':True,'at_safe_boundary':True,'numerical_launch':False}
+ def request_pause(self): return {'at_safe_boundary':not self.pending}
+ def invalidate(self): self.pending=False
+class Origin:
+ expected={'verifier_root':'.'}
+ pins=[]
+ def phase_check(self,deadline): pass
+sidecar.Epoch=Micro;sidecar.SourceBinding=Origin
+sidecar._live_checks=lambda *args,**kwargs:None
+sidecar.serve(sys.stdin.buffer,sys.stdout.buffer,origin=Origin())
+'''
+    parent=sidecar.Parent([sys.executable,'-B','-c',script],cwd=Path(__file__).parents[1],
+                          stderr_path=tmp_path/'private.stderr')
+    adapter,_,hooks,root=fixture(tmp_path)
+    adapter.epoch=parent
+    pause={'value':False}
+    timer=None
+    try:
+        adapter.bootstrap()
+        timer=threading.Timer(.05,lambda:pause.__setitem__('value',True));timer.start()
+        adapter.run_bounded([dict(attempt='a',registry='r',registration_return='s',runtime_return='t')],
+                            lambda:pause['value'])
+        timer.join()
+        ops=[json.loads(line)['operation'] for line in (root/'events.jsonl').read_text().splitlines()]
+        check(hooks.launches == 0 and 'launch-intent' not in ops)
+        check('cancel-prepared' in ops and ops[-1] == 'safe-pause')
+        check(parent.process.returncode == 0)
+    finally:
+        if timer is not None: timer.join()
+        parent.invalidate();adapter.journal.close()
+
+
+def test_terminal_private_plan_never_launches_empty_window(tmp_path):
+    adapter,epoch,hooks,root=fixture(tmp_path)
+    adapter.bootstrap();epoch.terminal_after=2
+    targets=[dict(attempt=f'a{i}',registry=f'r{i}',registration_return=f's{i}',runtime_return=f't{i}')
+             for i in range(4)]
+    adapter.run_bounded(targets,lambda:False)
+    check(hooks.launches == hooks.advances == 1)
+    check('terminal-no-launch' in (root/'events.jsonl').read_text())
+    check(epoch.ops[-4:] == ['cold','prepare','pause','close'])
+    adapter.journal.close()
+
+
+def test_advance_failure_stops_batch_without_retry(tmp_path):
+    adapter,epoch,hooks,root=fixture(tmp_path,fail='advance')
+    adapter.bootstrap()
+    targets=[dict(attempt=f'a{i}',registry=f'r{i}',registration_return=f's{i}',runtime_return=f't{i}')
+             for i in range(2)]
+    with pytest.raises(AdmissionError): adapter.run_bounded(targets,lambda:False)
+    check(hooks.launches == 1 and hooks.advances == 1 and epoch.invalidated)
+    check('failed-stopped' in (root/'events.jsonl').read_text())
+    adapter.journal.close()
+
+
+def test_bounded_target_contract_rejects_gaps_aliases_and_excess(tmp_path):
+    first=[tmp_path/f'{name}23' for name in ('a','r','s','t')]
+    later=[[str(n),*(str(tmp_path/f'{name}{n}') for name in ('a','r','s','t'))]
+           for n in (24,25,26)]
+    args=SimpleNamespace(window_count=4,next_index=23,retained_window_return=[('p','0')]*5,
+        attempt_target=first[0],registry_target=first[1],registration_target=first[2],
+        runtime_target=first[3],future_window_target=later)
+    check(len(driver.series_targets(args,series_adapter))==4)
+    args.future_window_target[1][0]='27'
+    with pytest.raises(ValueError): driver.series_targets(args,series_adapter)
+    args.future_window_target[1][0]='25'
+    args.future_window_target[2][1]=str(first[0])
+    with pytest.raises(ValueError): driver.series_targets(args,series_adapter)
+    args.window_count=5
+    with pytest.raises(ValueError): driver.series_targets(args,series_adapter)
 
 
 @pytest.mark.parametrize('failure', ['source','launch','cold'])
