@@ -6,6 +6,7 @@ Each request has a fresh absolute deadline shared on one host's monotonic clock.
 Only this metadata-only child is signalled on protocol/timeout failure.
 """
 import json
+import hashlib
 import math
 import os
 import resource
@@ -28,6 +29,7 @@ from experiments.time_cut_v2.recorded_real.runtime import BATCH_REPLAY, _live_ch
 
 MAX_FRAME = 4*1024**2
 AS_BYTES = 2*1024**3
+STDERR_BYTES = 64*1024
 
 
 def encode(value):
@@ -121,7 +123,7 @@ def serve(reader, writer, *, origin):
 
 class Parent:
     """Serial bounded IPC; no continuation after timeout or uncertain delivery."""
-    def __init__(self, command, *, cwd, env=None, expected_source_contract=None):
+    def __init__(self, command, *, cwd, env=None, expected_source_contract=None, stderr_path=None):
         binding.require(bool(command) and Path(command[0]).resolve() == Path(sys.executable).resolve(),
                         'epoch parent requires its independently trusted Python interpreter')
         self._cache = tempfile.TemporaryDirectory(prefix='hiroute-epoch-bytecode-')
@@ -129,10 +131,20 @@ class Parent:
         command = [command[0], '-B', *flags, '-X', 'pycache_prefix='+self._cache.name, *command[1:]]
         environment = dict(os.environ if env is None else env, PYTHONDONTWRITEBYTECODE='1', PYTHONNOUSERSITE='1')
         environment.pop('PYTHONHOME', None)
+        self.stderr_path = Path(stderr_path) if stderr_path is not None else None
+        self._stderr = None
         try:
+            if self.stderr_path is not None:
+                self._stderr = self.stderr_path.open('xb')
+            def child_limits():
+                soft, hard = resource.getrlimit(resource.RLIMIT_FSIZE)
+                ceiling = min([STDERR_BYTES]+[v for v in (soft, hard) if v != resource.RLIM_INFINITY])
+                resource.setrlimit(resource.RLIMIT_FSIZE, (ceiling, ceiling))
             self.process = subprocess.Popen(command, cwd=cwd, env=environment, stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE, stderr=subprocess.PIPE, start_new_session=True)
+                stdout=subprocess.PIPE, stderr=self._stderr or subprocess.PIPE,
+                start_new_session=True, preexec_fn=child_limits)
         except BaseException:
+            if self._stderr is not None: self._stderr.close()
             self._cache.cleanup(); raise
         self.sequence, self.live = 0, True
         os.set_blocking(self.process.stdin.fileno(), False)
@@ -150,6 +162,17 @@ class Parent:
             self.instance = hello['instance']
         except BaseException:
             self.invalidate(); raise
+
+    def diagnostic(self):
+        """Bounded durable child status; never include raw stderr in audit JSON."""
+        status = self.process.poll()
+        result = dict(child_exit_status=status)
+        if self.stderr_path is not None and self.stderr_path.exists():
+            raw = self.stderr_path.read_bytes()
+            binding.require(len(raw) <= STDERR_BYTES, 'epoch child stderr cap changed')
+            result.update(stderr_path=str(self.stderr_path), stderr_sha256=hashlib.sha256(raw).hexdigest(),
+                          stderr_size_bytes=len(raw))
+        return result
 
     def _transfer(self, fd, count=None, raw=None, deadline=None):
         result = bytearray()
@@ -202,7 +225,8 @@ class Parent:
             if operation == 'close':
                 self.live = False
                 self.process.wait(timeout=2)
-                for stream in (self.process.stdin, self.process.stdout, self.process.stderr): stream.close()
+                for stream in (self.process.stdin, self.process.stdout, self.process.stderr, self._stderr):
+                    if stream is not None: stream.close()
                 self._cache.cleanup()
             return reply['result']
         except BaseException:
@@ -219,8 +243,8 @@ class Parent:
             except subprocess.TimeoutExpired:
                 os.killpg(self.process.pid, signal.SIGKILL)
                 self.process.wait(timeout=2)
-        for stream in (self.process.stdin, self.process.stdout, self.process.stderr):
-            stream.close()
+        for stream in (self.process.stdin, self.process.stdout, self.process.stderr, self._stderr):
+            if stream is not None: stream.close()
         self._cache.cleanup()
 
 

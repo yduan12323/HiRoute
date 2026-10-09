@@ -439,6 +439,32 @@ sys.stdout.buffer.write(encode(dict(protocol=PROTOCOL,instance='a'*64,as_bytes=A
         with self.assertRaises((EOFError, BrokenPipeError)): parent.call('prepare', {'targets': {}}, seconds=1)
         self.assertFalse(parent.live)
 
+    def test_child_exception_retains_bounded_diagnostic_and_exit_status(self):
+        script = f'''
+import sys
+sys.path.insert(0, {str(Path(__file__).parents[1])!r})
+from tools.receipt_epoch.sidecar import encode,AS_BYTES
+from tools.receipt_epoch.epoch import PROTOCOL
+sys.stdout.buffer.write(encode(dict(protocol=PROTOCOL,instance='a'*64,as_bytes=AS_BYTES)));sys.stdout.buffer.flush()
+sys.stdin.buffer.read(4)
+raise ValueError('synthetic metadata refusal')
+'''
+        with tempfile.TemporaryDirectory() as directory:
+            diagnostic = Path(directory)/'worker.stderr'
+            parent = sidecar.Parent([sys.executable, '-I', '-B', '-c', script],
+                                    cwd=Path(__file__).parents[1], stderr_path=diagnostic)
+            self.addCleanup(parent.invalidate)
+            with self.assertRaises(EOFError): parent.call('establish', {}, seconds=2)
+            facts = parent.diagnostic()
+            self.assertEqual(facts['child_exit_status'], 1)
+            self.assertEqual(facts['stderr_path'], str(diagnostic))
+            self.assertLessEqual(facts['stderr_size_bytes'], sidecar.STDERR_BYTES)
+            self.assertIn(b'synthetic metadata refusal', diagnostic.read_bytes())
+            self.assertFalse(parent.live)
+            with self.assertRaises(FileExistsError):
+                sidecar.Parent([sys.executable, '-I', '-B', '-c', script],
+                               cwd=Path(__file__).parents[1], stderr_path=diagnostic)
+
     def test_fresh_deadlines_sequence_nonce_cap_and_pause_with_micro_service(self):
         # Pure protocol stub; all actual receipt authentication is exercised by
         # EpochTests above. No disk JSON creates a real receipt in this process.

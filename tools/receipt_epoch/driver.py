@@ -136,7 +136,9 @@ def main():
                 log.write(raw);log.flush();os.fsync(log.fileno())
                 print(raw.decode(),end='',flush=True)
             try:
-                parent=sidecar.Parent(worker_argv(args),cwd=root,env=environment,expected_source_contract=bound.expected)
+                parent=sidecar.Parent(worker_argv(args),cwd=root,env=environment,
+                    expected_source_contract=bound.expected,
+                    stderr_path=args.audit_log.with_name(args.audit_log.name+'.worker.stderr'))
                 result=parent.call('establish',dict(actual=actual,code_pins=bound.pins,reviewed_sources=sources))
                 event(dict(operation='establish',result=result,source_contract=bound.expected,actual=actual))
                 for filename,sha in args.retained_window_return:
@@ -155,7 +157,8 @@ def main():
                 event(dict(operation='closed-at-safe-boundary',numerical_launches=0,collector_started=False,
                            disk_epoch_resume=False,final_independent_reconcile_required=True))
             except BaseException as error:
-                event(dict(operation='failed-stopped',error_type=type(error).__name__,message=str(error),automatic_retry=False))
+                event(dict(operation='failed-stopped',error_type=type(error).__name__,message=str(error),
+                           child=parent.diagnostic() if parent is not None else None,automatic_retry=False))
                 raise
             finally:
                 if parent is not None: parent.invalidate()
