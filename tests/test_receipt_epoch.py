@@ -5,6 +5,7 @@ tests provenance/continuity, never mathematical truth or real D0 acceptance.
 No LP, real-population launch, or real archive is used.
 """
 from copy import deepcopy
+from dataclasses import asdict
 from fractions import Fraction
 import io
 import os
@@ -41,6 +42,26 @@ class ClosureTests(unittest.TestCase):
             self.snapshot.rehash(lambda: None)
         self.assertEqual(consumed.call_count, 4)
         self.assertEqual({call.args[0] for call in consumed.call_args_list}, set(self.snapshot.files))
+
+    def test_only_exact_replay_member_can_cross_default_streaming_cap(self):
+        path = self.attempt/'evidence/proof.gz'; path.write_bytes(b'abcdefghijklmno')
+        pin = row(path)
+        with patch.object(closure, 'MAX_FILE_BYTES', 8):
+            with self.assertRaisesRegex(ValueError, 'bounded closure pin'):
+                closure.Closure.capture([str(self.attempt)], [pin], lambda: None)
+            grant = dict(pin)
+            snapshot = closure.Closure.capture([str(self.attempt)], [pin], lambda: None,
+                                               replay_members={str(path): grant})
+            pin['sha256'] = '0'*64; grant['size_bytes'] = 99
+            self.assertEqual(snapshot.replay_members[str(path)]['size_bytes'], 15)
+            self.assertEqual(snapshot.replay_members[str(path)]['sha256'], row(path)['sha256'])
+            with self.assertRaises(TypeError): snapshot.replay_members[str(path)]['sha256'] = '0'*64
+            snapshot.rehash(lambda: None)
+            path.write_bytes(b'abcdefghijklmnn')
+            with self.assertRaises(ValueError): snapshot.rehash(lambda: None)
+            with self.assertRaisesRegex(ValueError, 'differs from authenticated manifest'):
+                closure.Closure.capture([str(self.attempt)], [row(path)], lambda: None,
+                                        replay_members={str(path): dict(snapshot.replay_members[str(path)])})
 
     def test_actual_hash_detects_mutation_even_if_identity_layer_is_mocked_unchanged(self):
         path = self.attempt/'evidence/proof.gz'; path.write_bytes(b'ghijkl')
@@ -94,6 +115,70 @@ class ClosureTests(unittest.TestCase):
             self.snapshot.rehash(lambda: (_ for _ in ()).throw(TimeoutError('phase deadline')))
 
 
+class ReplayGrantTests(unittest.TestCase):
+    def test_large_replay_member_requires_original_phase_manifest_and_dependency(self):
+        attempt = '/tmp/review-only-original-replay'
+        request_pin = dict(path=attempt+'/request.json', size_bytes=40, sha256='d'*64)
+        request = dict(command=['python','-B','-m',epoch.receipts.MODULE_PREFIX+'parallel_replay',
+                                '--worker','--deadline','1'], profile=asdict(epoch.BATCH_REPLAY))
+        returned = dict(path='/tmp/review-only-replay.return.json', size_bytes=12, sha256='a'*64)
+        manifest_pin = dict(path=attempt+'/evidence/__manifest.json', size_bytes=40, sha256='b'*64)
+        member = dict(path='callback-receipts.json', size_bytes=closure.MAX_FILE_BYTES+1, sha256='c'*64)
+        member_pin = dict(path=attempt+'/evidence/'+member['path'], size_bytes=member['size_bytes'],
+                          sha256=member['sha256'])
+        entry = dict(dependencies=[request_pin, returned, manifest_pin, member_pin])
+        values = dict(replay_attempt=attempt, replay_return=returned['path'],
+                      replay_return_sha=returned['sha256'])
+        accepted = dict(status='completed', descendants_reaped=True,
+                        request_sha256=request_pin['sha256'], profile=asdict(epoch.BATCH_REPLAY),
+                        verified_manifest_sha256=manifest_pin['sha256'],
+                        verified_manifest_size_bytes=manifest_pin['size_bytes'])
+        manifest = dict(profile_name=epoch.BATCH_REPLAY.name,
+                        cap_bytes=epoch.BATCH_REPLAY.worker_evidence_bytes, files=[member],
+                        charged_bytes=epoch.WRITER_HEADROOM+epoch.ENTRY_CHARGE+2*member['size_bytes'])
+        with patch.object(epoch, '_request', return_value=(values, {})), \
+             patch.object(epoch, '_read', side_effect=[request, dict(status='completed'), manifest]), \
+             patch.object(epoch, 'read_phase_result', return_value=accepted) as phase:
+            self.assertEqual(epoch.authenticated_replay_members(dict(entries=[entry]), time.monotonic()+5,
+                                                                 lambda: None), {member_pin['path']: member_pin})
+            phase.assert_called_once()
+        with patch.object(epoch, '_request', return_value=(values, {})), \
+             patch.object(epoch, '_read', side_effect=[request, dict(status='completed')]), \
+             patch.object(epoch, 'read_phase_result', side_effect=ValueError('original phase failed')):
+            with self.assertRaisesRegex(ValueError, 'original phase failed'):
+                epoch.authenticated_replay_members(dict(entries=[entry]), time.monotonic()+5, lambda: None)
+        for change in (dict(accepted, request_sha256='0'*64),
+                       dict(accepted, descendants_reaped=False), dict(accepted, status='unresolved')):
+            with self.subTest(change=change), patch.object(epoch, '_request', return_value=(values, {})), \
+                 patch.object(epoch, '_read', side_effect=[request, dict(status='completed')]), \
+                 patch.object(epoch, 'read_phase_result', return_value=change), \
+                 self.assertRaisesRegex(ValueError, 'return/request binding changed'):
+                epoch.authenticated_replay_members(dict(entries=[entry]), time.monotonic()+5, lambda: None)
+        with patch.object(epoch, '_request', return_value=(values, {})), \
+             patch.object(epoch, '_read', side_effect=[request, dict(status='completed'), manifest]), \
+             patch.object(epoch, 'read_phase_result', return_value=accepted):
+            with self.assertRaisesRegex(ValueError, 'retained dependency pin'):
+                epoch.authenticated_replay_members(dict(entries=[dict(dependencies=[request_pin, returned, manifest_pin])]),
+                                                   time.monotonic()+5, lambda: None)
+        wrong = dict(request, command=['python','-B','-m',epoch.receipts.MODULE_PREFIX+'parallel_profile',
+                                       '--worker','--deadline','1'])
+        with patch.object(epoch, '_request', return_value=(values, {})), \
+             patch.object(epoch, '_read', return_value=wrong), \
+             self.assertRaisesRegex(ValueError, 'only from reviewed parallel replay command'):
+            epoch.authenticated_replay_members(dict(entries=[entry]), time.monotonic()+5, lambda: None)
+        oversized = (epoch.BATCH_REPLAY.worker_evidence_bytes-epoch.WRITER_HEADROOM-epoch.ENTRY_CHARGE)//2+1
+        over_manifest = dict(manifest, files=[dict(member, size_bytes=oversized)],
+                             charged_bytes=epoch.WRITER_HEADROOM+epoch.ENTRY_CHARGE+2*oversized)
+        for changed, error in ((dict(manifest, charged_bytes=manifest['charged_bytes']+1), 'charge changed'),
+                               (over_manifest, 'charge changed'),
+                               (dict(manifest, profile_name=epoch.CAPTURE.name), 'charge changed')):
+            with self.subTest(error=error), patch.object(epoch, '_request', return_value=(values, {})), \
+                 patch.object(epoch, '_read', side_effect=[request, dict(status='completed'), changed]), \
+                 patch.object(epoch, 'read_phase_result', return_value=accepted), \
+                 self.assertRaisesRegex(ValueError, error):
+                epoch.authenticated_replay_members(dict(entries=[entry]), time.monotonic()+5, lambda: None)
+
+
 def expanded_inputs(self):
     """Six genuine charge bands give two canonical blocks, without LP."""
     case = deepcopy(self.fx.rows[1])
@@ -118,6 +203,8 @@ class EpochTests(unittest.TestCase):
         self.addCleanup(self.fixture.doCleanups)
         manager = patch.object(epoch, '_upstream_closure', side_effect=lambda entry, values, before:
             ({values['replay_attempt'], values['logical_attempt']}, [], []))
+        manager.start(); self.addCleanup(manager.stop)
+        manager = patch.object(epoch, 'authenticated_replay_members', return_value={})
         manager.start(); self.addCleanup(manager.stop)
         self.root = self.fixture.root
         (self.root/'logical').mkdir()

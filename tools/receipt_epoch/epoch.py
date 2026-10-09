@@ -16,11 +16,12 @@ from types import SimpleNamespace
 from experiments.time_cut_v2.recorded_real import plan as binding
 from experiments.time_cut_v2.recorded_real import window_receipts as receipts
 from experiments.time_cut_v2.recorded_real.bootstrap_executor import validate_pinned_policy
-from experiments.time_cut_v2.recorded_real.runtime import CAPTURE, read_phase_result
+from experiments.time_cut_v2.recorded_real.runtime import (
+    BATCH_REPLAY, CAPTURE, ENTRY_CHARGE, METADATA_BYTES, WRITER_HEADROOM, read_phase_result)
 from validation.suffix5.window_plan import next_window
 from validation.capture5.containers import detach_json
 
-from .closure import Closure, _path
+from .closure import Closure, MAX_FILE_BYTES, _path
 
 PROTOCOL = 'hiroute-private-receipt-epoch-v1-review'
 KEYS = ('registry', 'registration_return', 'runtime_return')
@@ -207,6 +208,72 @@ def closure_inputs(metadata, actual, code_pins, before):
     return roots, pins, captures
 
 
+def authenticated_replay_members(metadata, deadline, before):
+    """Allow large files only from the original cold-authenticated replay manifest.
+
+    Input, source, capture, logical and window files keep the default closure
+    bound. This grants exact replay member bytes, not a larger generic file cap.
+    """
+    members, seen = {}, set()
+    for entry in metadata['entries']:
+        before()
+        values, _ = _request(entry, before)
+        attempt = _path(values['replay_attempt'])
+        if attempt in seen:
+            continue
+        seen.add(attempt)
+        request_path = str(Path(attempt)/'request.json')
+        request_pins = [row for row in entry['dependencies'] if row['path'] == request_path]
+        binding.require(len(request_pins) == 1, 'epoch independent original replay request pin required')
+        request = _read(request_pins[0], before, 1024**2)
+        argv = request['command']
+        binding.require(type(argv) is list and len(argv) > 5 and argv[1:5] ==
+                        ['-B', '-m', receipts.MODULE_PREFIX+'parallel_replay', '--worker'],
+                        'epoch large member only from reviewed parallel replay command')
+        _same(request['profile'], asdict(BATCH_REPLAY), 'epoch original replay request profile changed')
+        returned_path = _path(values['replay_return'])
+        return_pins = [row for row in entry['dependencies'] if row['path'] == returned_path and
+                       row['sha256'] == values['replay_return_sha']]
+        binding.require(len(return_pins) == 1, 'epoch independent original replay return pin required')
+        returned = _read(return_pins[0], before, 65536)
+        accepted = read_phase_result(attempt, successful_return=returned,
+            deadline_monotonic=deadline, resource_check=before)
+        binding.require(accepted.get('status') == 'completed' and accepted.get('descendants_reaped') is True and
+                        request_pins[0]['sha256'] == accepted.get('request_sha256'),
+                        'epoch original replay return/request binding changed')
+        _same(accepted['profile'], asdict(BATCH_REPLAY), 'epoch original replay profile changed')
+        evidence = Path(attempt)/'evidence'
+        manifest_path = str(evidence/'__manifest.json')
+        manifest_pins = [row for row in entry['dependencies'] if row['path'] == manifest_path and
+                         row['sha256'] == accepted['verified_manifest_sha256'] and
+                         row['size_bytes'] == accepted['verified_manifest_size_bytes']]
+        binding.require(len(manifest_pins) == 1, 'epoch independent original replay manifest pin required')
+        manifest = _read(manifest_pins[0], before, METADATA_BYTES)
+        rows = manifest['files']
+        cap = BATCH_REPLAY.worker_evidence_bytes
+        binding.require(manifest['profile_name'] == BATCH_REPLAY.name and manifest['cap_bytes'] == cap and
+                        type(rows) is list and 0 < len(rows) <= 64 and
+                        manifest['charged_bytes'] == WRITER_HEADROOM + ENTRY_CHARGE*len(rows) +
+                        2*sum(row['size_bytes'] for row in rows) <= cap,
+                        'epoch original replay evidence charge changed')
+        single_bound = (cap-WRITER_HEADROOM-ENTRY_CHARGE)//2
+        for row in rows:
+            before()
+            if row['size_bytes'] <= MAX_FILE_BYTES:
+                continue
+            path = _path(str(evidence/row['path']))
+            binding.require(Path(path).is_relative_to(evidence) and
+                            type(row['size_bytes']) is int and row['size_bytes'] <= single_bound,
+                            'epoch replay member exceeds original charged profile')
+            receipts._sha(row['sha256'])
+            exact = dict(path=path, size_bytes=row['size_bytes'], sha256=row['sha256'])
+            binding.require(exact in entry['dependencies'], 'epoch replay member lacks retained dependency pin')
+            binding.require(path not in members or members[path] == exact,
+                            'epoch conflicting original replay member')
+            members[path] = exact
+    return members
+
+
 class Epoch:
     """One private memory authority; no serializer or disk-resume constructor."""
     __slots__ = ('_scope', '_registry', '_actual', '_closure', '_sources', '_frozen',
@@ -254,7 +321,8 @@ class Epoch:
             metadata = scheduling.metadata()
             binding.require(bool(metadata['entries']), 'epoch needs an existing completed prefix')
             roots, pins, captures = closure_inputs(metadata, actual, code_pins, check)
-            initial = Closure.capture(roots, pins, check)
+            replay_members = authenticated_replay_members(metadata, deadline, check)
+            initial = Closure.capture(roots, pins, check, replay_members=replay_members)
             checked = receipts.reconcile_registry(scheduling, scope, reviewed_sources=sources,
                                                  deadline=deadline, before=check)
             for attempt, contract in captures.items():
@@ -343,7 +411,8 @@ class Epoch:
             binding.require(all(attempt in self._closure.roots and
                                 contract['returned']['path'] in self._closure.files for attempt, contract in captures.items()),
                             'epoch new entry introduces a foreign original capture phase')
-            candidate = Closure.capture(roots, pins, check)
+            replay_members = authenticated_replay_members(proposed, deadline, check)
+            candidate = Closure.capture(roots, pins, check, replay_members=replay_members)
             self._closure.require_extension(candidate)
             args = _spec_args(newest['attempt'], actual['runtime_return'], check)
             receipt = receipts.admit_new_completed_window(args, scope, reviewed_sources=self._sources,
