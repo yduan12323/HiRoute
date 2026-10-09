@@ -1,18 +1,20 @@
 # M5-V remaining coverage audit
 
-Audit date: 2026-10-08 UTC; server source:
+Original audit date: 2026-10-08 UTC; updated 2026-10-09 UTC. Original server source:
 `052a157b745cdaee463579bf8478d1f78d44838b`, branch
 `codex/milestone-4r-b1`, project `/home/dy/HiRoute/project`.
 
-**One current admitted identity is accepted: C01-HIER-D1.** The remaining
+**Two C01 HIER identities are accepted: D-on and D-off.** The remaining
 requested identities and complete original M5-V gate matrix are open.
-The [C01 report](MILESTONE_5_C01_FINAL_COLLECTOR_REPORT.md) provides measured
-counts, source lineage, failure/recovery history, command, resources and receipts.
+The [D1 report](MILESTONE_5_C01_FINAL_COLLECTOR_REPORT.md) and
+[D0 report](MILESTONE_5_C01_D0_FINAL_COLLECTOR_REPORT.md) provide separate
+measured counts, source lineage, commands, resources and receipts.
 
-The [machine-readable audit](MILESTONE_5_V_COVERAGE_20261008.json) is a
+The [machine-readable audit](MILESTONE_5_V_COVERAGE_20261008.json), updated
+with the D0 receipt on 2026-10-09, is a
 **reconstructed audit ledger**, not a recovered original frozen manifest.
 It explicitly expands the observed C32 inputs into 96 requested identities
-(HIER D-off/D-on and FLAT D-on), with one qualifying current-source receipt.
+(HIER D-off/D-on and FLAT D-on), with two qualifying C01 HIER receipts on their respective frozen sources.
 It retains unresolved A/B member lists as null, and does not invent IDs,
 acceptance percentages, or successful vacuous cases.
 
@@ -55,7 +57,7 @@ input bytes and historical outcome identities; it performs no optimization.
 | Declared expanded A28 + B64 | 184 | 92 (projection only) | A/B original IDs require missing input files |
 | Observed C32 preparation inputs | 64 (requested) | 32 (requested) | 32 actual state IDs and hashes available; not acceptance |
 | Requested combined arithmetic | 248 | 124 | (28+64+32)×2 and (28+64+32); no full original freeze located |
-| Current qualifying collector identity | C01-HIER-D1 | None observed | One indexed C01 original-query/bound/witness receipt |
+| Qualifying collector identities | C01-HIER-D1 and C01-HIER-D0 | None observed | Two distinct indexed C01 original-query/bound/witness receipts |
 
 Thus the requested 248 HIER / 124 FLAT-D1 numbers are a conditional arithmetic
 projection over the expanded A28/B64/C32 inventory. They are not direct quoted
@@ -73,7 +75,7 @@ new synthetic cases or dropping inconvenient identities.
 | Historical C32 four-mode parity summary | A reported 128/128 key comparison | Original-query proofs, physical witnesses and each current-source identity |
 | Frozen A/B metadata intake | Original-byte/identity validation when six pinned files are present | Capture wrapper and current optimization/query/bound acceptance |
 | C01 structural replay | Sealed trace structure and query indexing, supplemented by historical REF canonical-key match | Raw historical REF certificate replay and numerical acceptance by replay alone |
-| Current C01 final collector | Original indexed C01 query coverage, reconciled numerical evidence, physical bindings and bound status | C01 D0/FLAT, other cases, literal exact inherited-family G8 and whole M5-V |
+| C01 final collectors (D1 and D0) | Separate original indexed query coverage, reconciled numerical evidence, physical bindings and bound status | C01 FLAT, other cases, literal exact inherited-family G8 and whole M5-V |
 
 Historical checkpoint evidence is explicitly bounded in
 [`MILESTONE_5_CUT_CHECKPOINT.md`](../MILESTONE_5_CUT_CHECKPOINT.md):
@@ -93,11 +95,12 @@ server. They are historical review context, not newly hashed server evidence
 or current acceptance. Recover the original reports and source pins before
 promoting any of these summaries into a current ledger.
 
-The current collector explicitly requires `dominance=True`
+The historical D1 collector at source `052a157b` required `dominance=True`
 (`experiments/time_cut_v2/recorded_real/final_collector.py`, lines 228–230 at
 052a157b), while `recorded_real/plan.py`, lines 103–105 and 195–198, fixes
 C01, H4, eight Sites, 2,047 regions and the representation. C01's D1 receipt
-cannot be copied to D0 or another case. The admitted indexed family also
+cannot be copied to D0 or another case; D0 has its own accepted receipt at
+source `3ad6e38`. The admitted indexed family also
 cannot be renamed as literal inherited-family G8.
 
 ## Missing original A/B material
@@ -187,9 +190,9 @@ B2/B2.1 section 9 excludes effect-free via-Sites from the action set; section
 18 requires exact partitioning of concrete semantic next actions. Conditional
 on an authentic S07 input and a genuinely empty concrete action family, the
 action-family bound obligation is vacuous. This is an inference from those
-rules, not a recovered S07 acceptance statement. The current C01 collector
-demonstrates the required accounting pattern: retain 9,666 empty-action query
-rows with `vacuous_empty_restricted_family` rather than skipping them.
+rules, not a recovered S07 acceptance statement. The two C01 collectors
+demonstrate the required accounting pattern: D1 retains 9,666 and D0 retains
+15,795 empty-action query rows with `vacuous_empty_restricted_family`.
 
 Empty actions alone do not prove a whole case. S07 still needs original
 identity/input/source, trace and denominator, terminal/direct-drive feasibility,
@@ -220,19 +223,16 @@ attained optimum or justified by an unverified historical summary.
    proof, unavailable or unverified. Locate S07's original row/trace and
    perform its smallest terminal/empty-family checks once identity is verified.
    Do not rerun every population merely because a summary is incomplete.
-3. **Candidate smallest experimental delta: C01-HIER-D0.** The current
-   entrypoints admit only D1, so D0 first needs a separately reviewed,
-   explicitly scoped implementation/admission change. Capture the authentic
-   D0 trace; independently freeze its query index, empty/nonempty counts and
-   suffix population; conduct count-only/resource admission before any solver
-   work. Use fresh outputs and the existing caps with failure stopping.
-   D1 denominators/certificates cannot be relabeled as D0 acceptance.
-4. **Choose the next gate by the reconciled gaps.** After the manifest and D0
-   feasibility review, prioritize a minimal original algebra/reset or
-   literal-inherited-family case with independent REF and physical witness
-   checks, then expand only the identities still lacking qualifying receipts.
-   Whole M5-V completion requires all original correctness gates.
+3. **Preserve accepted D0 evidence.** C01-HIER-D0 has its own frozen
+   population, independent cold receipts and final acceptance. Reuse its
+   844,440 successful models, 3,299 blocks and 105 registry entries. Do not
+   rerun them to fill unrelated gates.
+4. **Choose the next gate from the reconciled gaps.** Prioritize a minimal
+   original algebra/reset or literal inherited-family case with independent
+   REF and physical witness checks, then expand only identities still lacking
+   qualifying receipts. Whole M5-V completion requires all original
+   correctness gates.
 
-No new large experiment, D0 solve, source change, installation or raw-evidence
-rewrite was launched as part of this documentation task. These documents
-record results and a plan; they do not authorize or execute the next experiment.
+This 2026-10-09 update records the separately completed D0 run and its
+acceptance. No numerical experiment or raw-evidence rewrite was launched by
+this documentation update.

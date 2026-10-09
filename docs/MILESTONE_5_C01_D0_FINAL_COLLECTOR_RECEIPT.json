@@ -1,0 +1,218 @@
+{
+  "schema": "hiroute-c01-documentation-receipt-capsule-v1",
+  "created_utc": "2026-10-09",
+  "kind": "copied_small_metadata_and_pins_not_raw_evidence",
+  "execution": {
+    "host": "dyserver",
+    "project": "/home/dy/HiRoute/project",
+    "python": "/home/dy/miniconda3/envs/hiroute/bin/python",
+    "source_commit": "3ad6e385903b631579df059b48d9ea6037728da7",
+    "source_inventory_files": 119,
+    "source_inventory_sha256": "9b3f2a1b1c2a3b36533ea42e744b94e33f5929730ec7cfe11aa0f2e586caf5ad",
+    "source_import_sha256": "51dc49e87236b2e956f0fd4deecc58ff7cb5dc35ad3fb69772af902188e903ac"
+  },
+  "identity": {
+    "variant_id": "C01::HIER::D-off",
+    "case_id": "C01",
+    "search": "HIER",
+    "dominance": false,
+    "representation": "exact-adjacent-cut-coalescing-v1",
+    "H": 4,
+    "pool_id": "OD00_energy_only",
+    "initial_soc": "3/10",
+    "sites": 8,
+    "regions": 2047
+  },
+  "actual_collector_command": [
+    "/home/dy/miniconda3/envs/hiroute/bin/python",
+    "-B",
+    "-m",
+    "experiments.time_cut_v2.recorded_real.final_collector",
+    "--historical-plan",
+    "/home/dy/HiRoute/project/results/milestone_5_validation/C01.HIER.D0.preflight.746e9ce.20261008T145847Z/plan.C01.HIER.D0.capture.json",
+    "--replay-plan",
+    "/home/dy/HiRoute/project/results/milestone_5_validation/C01.HIER.D0.preflight.746e9ce.20261008T145847Z/plan.C01.HIER.D0.replay.json",
+    "--replay-attempt",
+    "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.HIER.D0.746e9ce.20261008T145847Z/structural_replay.001",
+    "--replay-return",
+    "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.HIER.D0.746e9ce.20261008T145847Z/structural_replay.001.return.json",
+    "--logical-attempt",
+    "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.HIER.D0.746e9ce.20261008T145847Z/census.001",
+    "--logical-return",
+    "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.HIER.D0.746e9ce.20261008T145847Z/census.001.return.json",
+    "--capture",
+    "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.HIER.D0.746e9ce.20261008T145847Z/capture.001/evidence/capture.json",
+    "--historical-plan-sha",
+    "a4b18955162f09abf71dd4d656df98b9272180b388a8fc6c381f6b32c98316b9",
+    "--replay-plan-sha",
+    "a4b18955162f09abf71dd4d656df98b9272180b388a8fc6c381f6b32c98316b9",
+    "--replay-return-sha",
+    "397817840db2e4a9e0a310c9d5949a821c3b5080bc2a483356b19396d202194b",
+    "--replay-manifest-sha",
+    "8f0b47c928435c53f2047b8205336e16942490b250707ee1fdd0fc430a85682f",
+    "--replay-result-sha",
+    "0ab0f44e8951914378b241958b7ca90fc38cf168b105465f8d9993e47d33545d",
+    "--replay-decision-sha",
+    "da6b122357e4a2b560e8e441262e5474f9a5c29aef3ad3c3d8fa74a5b7251d8a",
+    "--query-index-sha",
+    "a57a273376dbf3d8bfc28dd62080271f5a92d25278ff8fe12368981c75e193cf",
+    "--source-commit",
+    "3ad6e385903b631579df059b48d9ea6037728da7",
+    "--source-sha",
+    "9b3f2a1b1c2a3b36533ea42e744b94e33f5929730ec7cfe11aa0f2e586caf5ad",
+    "--logical-return-sha",
+    "1f9d23126d83e6c120d5de8489b44d1c565b75e8a78f9f2c0b0fe030858d1ec6",
+    "--logical-report-sha",
+    "f8c510d71eb2c46ec0711beae1017d07c03cf12fa115648f33657ad27d0313fd",
+    "--logical-source-sha",
+    "8ee0928f3b37b63e72584f36fa87928431b97f9319ae4da9570ae643d014c5d8",
+    "--source-policy",
+    "/home/dy/HiRoute/project/results/milestone_5_validation/C01.D0.executor_review.3ad6e38.20261008T171537Z/source-policy.REVIEW-CANDIDATE.json",
+    "--source-policy-sha",
+    "3de130328d7a488fd5551f67fae570a274b8003fa6b5fa0b92f04381559b2493",
+    "--registry",
+    "/home/dy/HiRoute/project/results/milestone_5_validation/C01.D0.epoch-series.3ad6e38/window104.epoch-b3e974f.20261009T095500Z/window104.registry.json",
+    "--registry-sha",
+    "171c5ecff4258cb72ee013c4d1cd441d814b4e35c4e50bc4aca733ca92a81abf",
+    "--registry-return",
+    "/home/dy/HiRoute/project/results/milestone_5_validation/C01.D0.epoch-series.3ad6e38/window104.epoch-b3e974f.20261009T095500Z/window104.registration-return.json",
+    "--registry-return-sha",
+    "12131f5373dba908bbe46d38cfe9765f7419104d45dd543c3eeecc8a05b5e715",
+    "--cpu",
+    "0",
+    "--worker-cpus",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "--attempt-dir",
+    "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.HIER.D0.final_collector.001.3ad6e38",
+    "--runtime-return-output",
+    "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.HIER.D0.final_collector.001.3ad6e38.runtime-return.json",
+    "--collector-output",
+    "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.HIER.D0.final_collector.001.3ad6e38.acceptance.json"
+  ],
+  "command_argv_sha256": "54fed4c106716da35fe811d8830231b473e183d9fa5edaaa276890cd235df946",
+  "environment": {
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "src:."
+  },
+  "resources": {
+    "coordinator_as_bytes": 17179869184,
+    "deadline_seconds": 3600,
+    "disk_floor_bytes": 21474836480,
+    "evidence_charge_bytes": 1073741824,
+    "family_worker_as_bytes": 1073741824,
+    "family_workers": 4,
+    "group_rss_bytes": 21474836480,
+    "host_memory_floor_bytes": 17179869184,
+    "numerical_solver_calls": 0,
+    "supervisor_as_bytes": 536870912,
+    "supervisor_cpu": 0,
+    "supervisor_reserve_bytes": 16777216,
+    "worker_cpus": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "actual_runtime_metrics": {
+    "status": "completed",
+    "phase_wall_seconds": 1408.2119749269914,
+    "sampled_group_rss_peak_bytes": 4173930496,
+    "kernel_max_reaped_ru_maxrss_bytes": 4279443456,
+    "worker_charged_bytes": 418267942,
+    "reaped_cpu_seconds": 1415.473581,
+    "supervisor_cpu_seconds": 221.259318,
+    "descendants_reaped": true,
+    "worker_exit_code": 0
+  },
+  "summary": {
+    "complete": true,
+    "single_C01_case_accepted": true,
+    "single_C01_case_bound_valid": true,
+    "bound_status": "satisfied",
+    "query_events": 35685,
+    "attained_optimum": 19890,
+    "empty_restricted_family": 15795,
+    "bound_valid_queries": 35685,
+    "missing_bound_queries": 0,
+    "bound_counterexample_queries": 0,
+    "physical_witnesses": 2925,
+    "physical_query_bindings": 19890,
+    "unique_logical_models": 844440,
+    "complete_blocks": 3299,
+    "registry_entries": 105,
+    "original_model_occurrences": 9288840,
+    "population_freeze_sha256": "f2f5d282b226b69a686d694663089594b7db613436bd266cddea219d91f80b07",
+    "full_population_complete": false,
+    "full_C32_complete": false,
+    "whole_M5_complete": false,
+    "literal_G8_closed": false
+  },
+  "independent_read_only_verification": {
+    "query_rows_streamed": 35685,
+    "physical_witness_rows_streamed": 2925,
+    "all_manifest_member_bytes_verified": true,
+    "all_witness_requests_used": true,
+    "original_processes_absent_after_completion": true,
+    "verifier": "/Users/dy/Documents/Codex/2026-10-09/task/verify_hiroute_d0_final_collector.py"
+  },
+  "evidence_pins": {
+    "controller_return": {
+      "sha256": "4831c03228eaeb81d5994b8322efcaeba2a2e10a88fa0910b5835b6fb4703191",
+      "size_bytes": 1521
+    },
+    "runtime_return": {
+      "sha256": "f372edff079dca82d500fff3e9a3eb1b4610644978cbbe2f6a8c82752b65098d",
+      "size_bytes": 2238
+    },
+    "acceptance": {
+      "sha256": "c8222f32096e0d0968ae282e97ad70e9fd5341f6837ce28f88bf33e8112031d0",
+      "size_bytes": 1230
+    },
+    "manifest": {
+      "sha256": "65da492c5ebd5ea47c4129fbad5249a25b8f4fc74a6f4a2c8e911583acd17f62",
+      "size_bytes": 1626
+    },
+    "summary": {
+      "sha256": "b3003eb739906a8370010936f010f8c355cca14a1e3ef7c4d85253640ef8e36b",
+      "size_bytes": 5114
+    },
+    "query_results": {
+      "sha256": "51a754618e670fc4724b45b6c5e3fc895128efa561659502c301542c2ccbab57",
+      "size_bytes": 121258950
+    },
+    "physical_witnesses": {
+      "sha256": "505e363358a392ad5aa2b760c2ad3460e2c01b6cacfc8b3d4da4524cac890493",
+      "size_bytes": 61069776
+    },
+    "reconciled_registry": {
+      "sha256": "171c5ecff4258cb72ee013c4d1cd441d814b4e35c4e50bc4aca733ca92a81abf",
+      "size_bytes": 8959458
+    }
+  },
+  "archive": {
+    "path": "/Users/dy/Documents/Codex/2026-10-07/task/HiRoute-D0-archive-20261009-8818aa9/C01-HIER-D0-final-collector-3ad6e38-20261009T165839Z/C01.HIER.D0.final_collector.001.3ad6e38.closed-evidence.tar.gz",
+    "sha256": "69b013d4b21cb69dd53ca7a4617763561636056be1e541be68a90d37dc4e07be",
+    "size_bytes": 18675739,
+    "source_files": 35,
+    "source_raw_bytes": 218092534,
+    "standalone_manifest_sha256": "85ae4a6b31dede224a5c2ef9bd1638b1012eab8e60de201a82f728e8c2460083"
+  },
+  "continuity": {
+    "server_receipt_stem": "/home/dy/HiRoute/project/results/milestone_5_recorded_remote/C01.HIER.D0.final_collector.001.3ad6e38",
+    "plan_sha256": "3880a9bbc4529185a2209cd5a3fb0fedaf5fa4b2b92944e4d253bb067247c257",
+    "final_registration_return_sha256": "12131f5373dba908bbe46d38cfe9765f7419104d45dd543c3eeecc8a05b5e715",
+    "final_registry_sha256": "171c5ecff4258cb72ee013c4d1cd441d814b4e35c4e50bc4aca733ca92a81abf",
+    "final_runtime_return_sha256": "9999de9a3b5d91d390aa5a60b8890ead0d30f339a4719530826d3cae1f147b9a",
+    "source_policy_sha256": "3de130328d7a488fd5551f67fae570a274b8003fa6b5fa0b92f04381559b2493"
+  }
+}

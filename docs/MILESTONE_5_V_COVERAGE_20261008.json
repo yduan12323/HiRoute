@@ -817,10 +817,10 @@
       "dominance": false,
       "H": 4,
       "input_sha256": "d4bd50215c8035552ca47a9bf4e175d580eb265a2e9acbeff5d574c60b08b57c",
-      "representation": null,
-      "status": "no_qualifying_current_source_receipt_observed",
-      "evaluation_source_commit": null,
-      "receipt": null,
+      "representation": "exact-adjacent-cut-coalescing-v1",
+      "status": "accepted_original_query_bound_and_physical_witness",
+      "evaluation_source_commit": "3ad6e385903b631579df059b48d9ea6037728da7",
+      "receipt": "MILESTONE_5_C01_D0_FINAL_COLLECTOR_RECEIPT.json#evidence_pins",
       "literal_G8_closed": false,
       "full_population_complete": false
     },
@@ -2269,5 +2269,7 @@
     "independent REF",
     "literal inherited-family G8",
     "complete original semantic and structural gate matrix"
-  ]
+  ],
+  "updated_utc": "2026-10-09",
+  "source_audited_additional": "3ad6e385903b631579df059b48d9ea6037728da7"
 }
