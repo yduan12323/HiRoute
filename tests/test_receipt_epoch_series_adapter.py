@@ -85,11 +85,34 @@ def test_bounded_four_windows_keep_one_epoch_and_pause(tmp_path):
     adapter.bootstrap()
     targets=[dict(attempt=f'a{i}',registry=f'r{i}',registration_return=f's{i}',runtime_return=f't{i}')
              for i in range(4)]
-    adapter.run_bounded(targets,lambda:False)
+    adapter.run_bounded(targets,lambda:False,remaining_windows=4)
     check(epoch.ops == ['establish','prepare','cold']+['prepare','cold']*4+['pause','close'])
     check(hooks.launches == hooks.advances == 4 and adapter.state == 'closed')
     check((root/'events.jsonl').read_text().count('launch-intent') == 4)
     adapter.journal.close()
+
+
+def test_remaining_catalogue_bound_runs_once_then_pauses(tmp_path):
+    adapter,epoch,hooks,root=fixture(tmp_path)
+    adapter.bootstrap()
+    targets=[dict(attempt=f'a{i}',registry=f'r{i}',registration_return=f's{i}',runtime_return=f't{i}')
+             for i in range(54)]
+    adapter.run_bounded(targets,lambda:False,remaining_windows=54)
+    check(hooks.launches == hooks.advances == 54 and adapter.state == 'closed')
+    check(epoch.ops[-2:] == ['pause','close'])
+    check((root/'events.jsonl').read_text().count('launch-intent') == 54)
+    adapter.journal.close()
+
+
+def test_adapter_rejects_targets_beyond_remaining_catalogue(tmp_path):
+    adapter,epoch,hooks,root=fixture(tmp_path)
+    adapter.bootstrap()
+    targets=[dict(attempt=f'a{i}',registry=f'r{i}',registration_return=f's{i}',runtime_return=f't{i}')
+             for i in range(55)]
+    with pytest.raises(AdmissionError):
+        adapter.run_bounded(targets,lambda:False,remaining_windows=54)
+    check(hooks.launches == 0 and adapter.state == 'ready')
+    adapter.pause();adapter.journal.close()
 
 
 def test_requested_pause_waits_for_current_cold(tmp_path):
@@ -97,7 +120,7 @@ def test_requested_pause_waits_for_current_cold(tmp_path):
     adapter.bootstrap()
     targets=[dict(attempt=f'a{i}',registry=f'r{i}',registration_return=f's{i}',runtime_return=f't{i}')
              for i in range(4)]
-    adapter.run_bounded(targets,lambda:hooks.launches >= 1)
+    adapter.run_bounded(targets,lambda:hooks.launches >= 1,remaining_windows=4)
     check(hooks.launches == hooks.advances == 1)
     check(epoch.ops[-4:] == ['prepare','cold','pause','close'])
     adapter.journal.close()
@@ -112,7 +135,7 @@ def test_pause_during_preflight_prevents_new_private_prepare(tmp_path):
         original();pause['value']=True
     hooks.source_check=source_check
     adapter.run_bounded([dict(attempt='a',registry='r',registration_return='s',runtime_return='t')],
-                        lambda:pause['value'])
+                        lambda:pause['value'],remaining_windows=1)
     check(hooks.launches == 0 and epoch.ops == ['establish','prepare','cold','pause','close'])
     check('pause-before-prepare' in (root/'events.jsonl').read_text())
     adapter.journal.close()
@@ -136,7 +159,7 @@ def test_pause_after_prepare_cancels_private_token_without_intent(tmp_path,stage
             result=original(prepared,targets);pause['value']=True;return result
         hooks.prepare=prepare
     adapter.run_bounded([dict(attempt='a',registry='r',registration_return='s',runtime_return='t')],
-                        lambda:pause['value'])
+                        lambda:pause['value'],remaining_windows=1)
     ops=[json.loads(line)['operation'] for line in (root/'events.jsonl').read_text().splitlines()]
     check(hooks.launches == 0 and 'launch-intent' not in ops and 'cold' == ops[2])
     check('cancel-prepared' in ops and 'abandoned-prepared-no-launch' in ops)
@@ -184,7 +207,7 @@ sidecar.serve(sys.stdin.buffer,sys.stdout.buffer,origin=Origin())
         adapter.bootstrap()
         timer=threading.Timer(.05,lambda:pause.__setitem__('value',True));timer.start()
         adapter.run_bounded([dict(attempt='a',registry='r',registration_return='s',runtime_return='t')],
-                            lambda:pause['value'])
+                            lambda:pause['value'],remaining_windows=1)
         timer.join()
         ops=[json.loads(line)['operation'] for line in (root/'events.jsonl').read_text().splitlines()]
         check(hooks.launches == 0 and 'launch-intent' not in ops)
@@ -195,12 +218,13 @@ sidecar.serve(sys.stdin.buffer,sys.stdout.buffer,origin=Origin())
         parent.invalidate();adapter.journal.close()
 
 
-def test_terminal_private_plan_never_launches_empty_window(tmp_path):
+@pytest.mark.parametrize('count', [4,54])
+def test_terminal_private_plan_never_launches_empty_window(tmp_path,count):
     adapter,epoch,hooks,root=fixture(tmp_path)
     adapter.bootstrap();epoch.terminal_after=2
     targets=[dict(attempt=f'a{i}',registry=f'r{i}',registration_return=f's{i}',runtime_return=f't{i}')
-             for i in range(4)]
-    adapter.run_bounded(targets,lambda:False)
+             for i in range(count)]
+    adapter.run_bounded(targets,lambda:False,remaining_windows=count)
     check(hooks.launches == hooks.advances == 1)
     check('terminal-no-launch' in (root/'events.jsonl').read_text())
     check(epoch.ops[-4:] == ['cold','prepare','pause','close'])
@@ -212,7 +236,7 @@ def test_advance_failure_stops_batch_without_retry(tmp_path):
     adapter.bootstrap()
     targets=[dict(attempt=f'a{i}',registry=f'r{i}',registration_return=f's{i}',runtime_return=f't{i}')
              for i in range(2)]
-    with pytest.raises(AdmissionError): adapter.run_bounded(targets,lambda:False)
+    with pytest.raises(AdmissionError): adapter.run_bounded(targets,lambda:False,remaining_windows=2)
     check(hooks.launches == 1 and hooks.advances == 1 and epoch.invalidated)
     check('failed-stopped' in (root/'events.jsonl').read_text())
     adapter.journal.close()
@@ -225,14 +249,42 @@ def test_bounded_target_contract_rejects_gaps_aliases_and_excess(tmp_path):
     args=SimpleNamespace(window_count=4,next_index=23,retained_window_return=[('p','0')]*5,
         attempt_target=first[0],registry_target=first[1],registration_target=first[2],
         runtime_target=first[3],future_window_target=later)
-    check(len(driver.series_targets(args,series_adapter))==4)
+    check(len(driver.series_targets(args,series_adapter,4))==4)
     args.future_window_target[1][0]='27'
-    with pytest.raises(ValueError): driver.series_targets(args,series_adapter)
+    with pytest.raises(ValueError): driver.series_targets(args,series_adapter,4)
     args.future_window_target[1][0]='25'
     args.future_window_target[2][1]=str(first[0])
-    with pytest.raises(ValueError): driver.series_targets(args,series_adapter)
+    with pytest.raises(ValueError): driver.series_targets(args,series_adapter,4)
     args.window_count=5
-    with pytest.raises(ValueError): driver.series_targets(args,series_adapter)
+    with pytest.raises(ValueError): driver.series_targets(args,series_adapter,4)
+
+
+def test_remaining_window_count_uses_pinned_catalogue_plan():
+    preparation=dict(previous_completed_blocks=list(range(1569)),
+        resource_plan=dict(maximum_blocks=32),
+        population=dict(unique_logical_models=844440),
+        window_plan=dict(block_ids=list(range(1569,1601)),
+            population=dict(total_blocks=3299,block_size=256,total_models=844440)))
+    check(driver.remaining_window_count(preparation,51)==54)
+    preparation['window_plan']['block_ids'][0]=1568
+    with pytest.raises(ValueError):driver.remaining_window_count(preparation,51)
+    preparation['window_plan']['block_ids'][0]=1569
+    preparation['previous_completed_blocks'][0]=1
+    with pytest.raises(ValueError):driver.remaining_window_count(preparation,51)
+
+
+@pytest.mark.parametrize('count', [1,4,54,55,0])
+def test_cli_count_stops_at_remaining_catalogue(tmp_path,count):
+    first=[tmp_path/f'{name}51' for name in ('a','r','s','t')]
+    later=[[str(n),*(str(tmp_path/f'{name}{n}') for name in ('a','r','s','t'))]
+           for n in range(52,51+count)]
+    args=SimpleNamespace(window_count=count,next_index=51,retained_window_return=[('p','0')]*33,
+        attempt_target=first[0],registry_target=first[1],registration_target=first[2],
+        runtime_target=first[3],future_window_target=later)
+    if 1 <= count <= 54:
+        check(len(driver.series_targets(args,series_adapter,54))==count)
+    else:
+        with pytest.raises(ValueError):driver.series_targets(args,series_adapter,54)
 
 
 @pytest.mark.parametrize('failure', ['source','launch','cold'])

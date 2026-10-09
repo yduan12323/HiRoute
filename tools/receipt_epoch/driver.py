@@ -99,8 +99,31 @@ def worker_argv(args):
     return result
 
 
-def series_targets(args, series):
-    if (not 1 <= args.window_count <= 4 or
+def remaining_window_count(preparation, next_index):
+    """Bound an invocation by the pinned catalogue, never by a stored pass status."""
+    plan = preparation['window_plan']
+    blocks = plan['block_ids']
+    previous_ids = preparation['previous_completed_blocks']
+    maximum = preparation['resource_plan']['maximum_blocks']
+    total = plan['population']['total_blocks']
+    block_size = plan['population']['block_size']
+    models = plan['population']['total_models']
+    if (type(next_index) is not int or type(previous_ids) is not list or
+        any(type(value) is not int for value in (maximum,total,block_size,models)) or
+        type(blocks) is not list or not 1 <= len(blocks) <= maximum or
+        maximum != 32 or block_size != 256 or models != preparation['population']['unique_logical_models'] or
+        total != (models+block_size-1)//block_size or
+        previous_ids != list(range(len(previous_ids))) or
+        blocks != list(range(len(previous_ids), len(previous_ids)+len(blocks))) or
+        len(previous_ids)+len(blocks) != 1+32*(next_index-1) or
+        not 0 < len(previous_ids)+len(blocks) < total):
+        raise ValueError('original pinned plan does not bound the next catalogue window')
+    return (total-(len(previous_ids)+len(blocks))+maximum-1)//maximum
+
+
+def series_targets(args, series, remaining_windows):
+    if (type(remaining_windows) is not int or
+        not 1 <= args.window_count <= remaining_windows or
         len(args.future_window_target) != args.window_count-1 or
         len(args.retained_window_return) != args.next_index-18):
         raise ValueError('bounded count, sequential targets and full retained prefix required')
@@ -166,13 +189,15 @@ def main():
                 'attempt_target','registry_target','registration_target','runtime_target','next_index')
             if any(getattr(args,key) is None for key in required) or args.next_index < 22:
                 raise ValueError('complete next ordinary series target contract required')
-            targets_list=series_targets(args,series)
             rows={key:dict(path=str(getattr(args,key).absolute()),sha256=getattr(args,key+'_sha'))
                   for key in ('observer','original_command','original_preparation','previous_command')}
             for row in rows.values():
                 checked=series.pin(row['path'])
                 if checked['sha256']!=row['sha256']: raise ValueError('production input SHA changed')
                 row['size_bytes']=checked['size_bytes']
+            remaining=remaining_window_count(series.pinned_json(rows['original_preparation'],sidecar.MAX_FRAME),
+                                             args.next_index)
+            targets_list=series_targets(args,series,remaining)
             previous=series.pinned_json(rows['previous_command'],sidecar.MAX_FRAME)
             if previous.get('source_commit') != args.verifier_commit or previous.get('source_sha256') != args.verifier_source_sha:
                 raise ValueError('previous controller source differs from frozen verifier')
@@ -234,7 +259,7 @@ def main():
                         dict(actual=actual,code_pins=bound.pins,reviewed_sources=sources),hooks)
                     adapter.bootstrap()
                     hooks.completed_models=adapter.last_result['completed_models']
-                    adapter.run_bounded(targets_list,lambda:pause_requested['value'])
+                    adapter.run_bounded(targets_list,lambda:pause_requested['value'],remaining_windows=remaining)
                 finally:
                     for signum,handler in previous_handlers.items(): signal.signal(signum,handler)
                     if parent is not None: parent.invalidate()

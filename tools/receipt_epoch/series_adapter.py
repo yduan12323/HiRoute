@@ -494,8 +494,9 @@ class Adapter:
                                       path.with_name(path.name+'.partial').exists() for path in paths):
             raise AdmissionError('output target is already occupied')
 
-    def run_bounded(self, targets_list, stop_requested):
-        if self.state != 'ready' or not 1 <= len(targets_list) <= 4:
+    def run_bounded(self, targets_list, stop_requested, *, remaining_windows):
+        if (self.state != 'ready' or type(remaining_windows) is not int or
+            not 1 <= len(targets_list) <= remaining_windows):
             raise AdmissionError('bounded continuation requires a ready private epoch')
         try:
             for targets in targets_list:
