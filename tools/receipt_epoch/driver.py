@@ -14,7 +14,7 @@ import time
 
 def parser():
     p = argparse.ArgumentParser(description=__doc__, allow_abbrev=False)
-    p.add_argument('operation', choices=('fingerprint','authenticate-retained','private-worker'))
+    p.add_argument('operation', choices=('fingerprint','authenticate-retained','private-worker','series-draft'))
     p.add_argument('--tool-root', type=Path, required=True)
     p.add_argument('--tool-commit', required=True)
     p.add_argument('--verifier-root', type=Path, required=True)
@@ -27,6 +27,12 @@ def parser():
     p.add_argument('--prefix-handoff-sha')
     p.add_argument('--retained-window-return',nargs=2,action='append',default=[],metavar=('FILE','SHA256'))
     p.add_argument('--audit-log',type=Path)
+    for name in ('series-root','observer','original-command','original-preparation','previous-command',
+                 'attempt-target','registry-target','registration-target','runtime-target'):
+        p.add_argument('--'+name,type=Path)
+    for name in ('observer-sha','original-command-sha','original-preparation-sha','previous-command-sha'):
+        p.add_argument('--'+name)
+    p.add_argument('--next-index',type=int)
     return p
 
 
@@ -112,8 +118,9 @@ def main():
         sidecar=importlib.import_module(name+'.sidecar')
         if args.operation=='private-worker':
             sidecar.serve(sys.stdin.buffer,sys.stdout.buffer,origin=bound);return
-        if any(value is None for value in (args.policy,args.policy_sha,args.prefix_handoff,args.prefix_handoff_sha,args.audit_log)):
-            raise ValueError('policy, independently pinned actual prefix and exclusive audit-log required')
+        required_inputs=(args.policy,args.policy_sha,args.prefix_handoff,args.prefix_handoff_sha)
+        if any(value is None for value in required_inputs) or (args.operation!='series-draft' and args.audit_log is None):
+            raise ValueError('policy, independently pinned actual prefix and operation output required')
         from experiments.time_cut_v2.recorded_real.bootstrap_executor import validate_pinned_policy
         from experiments.time_cut_v2.recorded_real.archive_reader import _pairs,_nonfinite
         def pinned(path,sha,limit):
@@ -127,6 +134,87 @@ def main():
         # Only actual pointer pins are consumed. Passed/cold/cache status fields
         # have no authority: the new sidecar always fully reconciles this prefix.
         actual=prefix['actual']
+        if args.operation=='series-draft':
+            series=importlib.import_module(name+'.series_adapter')
+            from experiments.time_cut_v2.recorded_real import suffix_window, suffix_census
+            required=('series_root','observer','observer_sha','original_command','original_command_sha',
+                'original_preparation','original_preparation_sha','previous_command','previous_command_sha',
+                'attempt_target','registry_target','registration_target','runtime_target','next_index')
+            if any(getattr(args,key) is None for key in required) or args.next_index < 22:
+                raise ValueError('complete next ordinary series target contract required')
+            if len(args.retained_window_return) < 4:
+                raise ValueError('retained 018--021 return pins required before any continuation')
+            rows={key:dict(path=str(getattr(args,key).absolute()),sha256=getattr(args,key+'_sha'))
+                  for key in ('observer','original_command','original_preparation','previous_command')}
+            for row in rows.values():
+                checked=series.pin(row['path'])
+                if checked['sha256']!=row['sha256']: raise ValueError('production input SHA changed')
+                row['size_bytes']=checked['size_bytes']
+            previous=series.pinned_json(rows['previous_command'],sidecar.MAX_FRAME)
+            if previous.get('source_commit') != args.verifier_commit or previous.get('source_sha256') != args.verifier_source_sha:
+                raise ValueError('previous controller source differs from frozen verifier')
+            def source_check():
+                suffix_census.check_sources(args.verifier_root,args.verifier_commit,args.verifier_source_sha)
+                for staged in (False,True):
+                    diff=['git','-C',root,'diff','--name-only']
+                    if staged: diff.insert(4,'--cached')
+                    if subprocess.check_output(diff,text=True,timeout=10).strip():
+                        raise ValueError('frozen production tracked checkout changed')
+                for row in rows.values():
+                    if series.pin(row['path'])!=row: raise ValueError('production interface source changed')
+            def idle_check():
+                import fcntl
+                for proc in Path('/proc').iterdir():
+                    if not proc.name.isdigit(): continue
+                    try:
+                        if proc.stat().st_uid != os.getuid(): continue
+                        argv=(proc/'cmdline').read_bytes().split(b'\0')
+                        if b'-m' in argv and any(v.startswith(b'experiments.time_cut_v2.recorded_real.') for v in argv):
+                            raise ValueError('active recorded experiment exists')
+                    except (OSError,PermissionError): continue
+                phase=Path('/tmp')/f'hiroute-recorded-phase-{os.getuid()}.lock'
+                if phase.exists():
+                    with phase.open('r') as stream:
+                        fcntl.flock(stream.fileno(),fcntl.LOCK_EX|fcntl.LOCK_NB)
+                        fcntl.flock(stream.fileno(),fcntl.LOCK_UN)
+            import fcntl
+            base=Path(root)/'results/milestone_5_validation/C01.D0.epoch-series.3ad6e38'
+            if args.series_root.absolute().parent != base:
+                raise ValueError('series run must use fixed isolated D0 epoch-series parent')
+            base.mkdir(mode=0o700,exist_ok=True)
+            lock=Path('/tmp')/f'hiroute-d0-series-{os.getuid()}.lock'
+            with lock.open('a') as guard:
+                fcntl.flock(guard.fileno(),fcntl.LOCK_EX|fcntl.LOCK_NB)
+                source_check();idle_check()
+                journal=series.Journal(args.series_root,launch_ledger=base)
+                parent=None
+                try:
+                    parent=sidecar.Parent(worker_argv(args),cwd=root,
+                        env=dict(os.environ,PYTHONPATH=os.pathsep.join((root,src)),PYTHONNOUSERSITE='1'),
+                        expected_source_contract=bound.expected,
+                        stderr_path=args.series_root/'private-worker.stderr.txt')
+                    hooks=series.ProductionHooks(suffix_window=suffix_window,python=sys.executable,
+                        root=root,source_commit=args.verifier_commit,source_sha=args.verifier_source_sha,
+                        original_command=rows['original_command'],original_preparation=rows['original_preparation'],
+                        observer=rows['observer'],source_check=source_check,idle_check=idle_check,
+                        previous_argv=previous['argv'],index=args.next_index,completed_models=0,
+                        observer_source=next(row for row in bound.pins if row['path']==str(
+                            args.tool_root.absolute()/'tools/receipt_epoch/series_observer.py')))
+                    retained=[dict(path=str(Path(filename).absolute()),size_bytes=series.pin(filename)['size_bytes'],sha256=sha)
+                              for filename,sha in args.retained_window_return]
+                    adapter=series.Adapter(parent,journal,retained,
+                        dict(actual=actual,code_pins=bound.pins,reviewed_sources=sources),hooks)
+                    adapter.bootstrap()
+                    hooks.completed_models=adapter.last_result['completed_models']
+                    targets=dict(attempt=str(args.attempt_target.absolute()),registry=str(args.registry_target.absolute()),
+                        registration_return=str(args.registration_target.absolute()),
+                        runtime_return=str(args.runtime_target.absolute()))
+                    adapter.run_one(targets)
+                    adapter.pause()
+                finally:
+                    if parent is not None: parent.invalidate()
+                    journal.close()
+            return
         environment=dict(os.environ,PYTHONPATH=os.pathsep.join((root,src)),PYTHONNOUSERSITE='1')
         parent=None
         with args.audit_log.open('xb') as log:
