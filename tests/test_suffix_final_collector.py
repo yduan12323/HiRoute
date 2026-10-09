@@ -420,7 +420,7 @@ class ControllerTests(unittest.TestCase):
         self.assertEqual(dep.limits.call_args.args[1][0], 512*1024**2)
         call = dep.phase.call_args
         self.assertIs(call.kwargs['profile'], runtime.FINAL_COLLECTOR)
-        self.assertEqual(call.kwargs['deadline_monotonic']-call.kwargs['entry_monotonic'], 3600)
+        self.assertEqual(call.kwargs['deadline_monotonic'], call.kwargs['entry_monotonic']+3600)
         self.assertEqual(call.kwargs['worker_cpus'], (1, 2, 3, 4, 5))
         self.assertEqual(call.args[0][3], runner.MODULE)
         parsed = runner.parser().parse_args(call.args[0][4:])
