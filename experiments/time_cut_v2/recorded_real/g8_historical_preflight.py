@@ -21,6 +21,13 @@ LEAF_SHAPES = {
     'C01::HIER::D-on': (86, {'block_resume': 1, 'suffix_window': 83, 'suffix_window_recovery': 2}),
     'C01::HIER::D-off': (105, {'suffix_window': 105}),
 }
+D0_CALLBACK_DEPENDENCY = (
+    '/home/dy/HiRoute/project/results/milestone_5_recorded_remote/'
+    'C01.HIER.D0.746e9ce.20261008T145847Z/structural_replay.001/'
+    'evidence/callback-receipts.json',
+    'f93ece232d62012f4263a15aa2f09e1380e658812afa155a209737b7018384d5',
+    1196508261,
+)
 
 
 def preflight(registry, producer_root, reviewed_sources, *, variant_id, deadline, before=lambda: None):
@@ -35,6 +42,8 @@ def preflight(registry, producer_root, reviewed_sources, *, variant_id, deadline
         binding.require(time.monotonic() < deadline, 'retained path preflight deadline')
     def pinned(path, sha, size, limit=1024**3):
         path = wr.historical_path(str(path), root)
+        if variant_id == 'C01::HIER::D-off' and (path, sha, size) == D0_CALLBACK_DEPENDENCY:
+            limit = size
         key = (path, sha)
         if key not in hashed:
             wr._read(path, sha, limit, guard, size=size, decode=False)
