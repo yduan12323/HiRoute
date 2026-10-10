@@ -76,6 +76,8 @@ new synthetic cases or dropping inconvenient identities.
 | C01 structural replay | Sealed trace structure and query indexing, supplemented by historical REF canonical-key match | Raw historical REF certificate replay and numerical acceptance by replay alone |
 | C01 final collectors (D1 and D0) | Separate original indexed query coverage, reconciled numerical evidence, physical bindings and bound status | C01 FLAT, other cases, literal exact inherited-family G8 and whole M5-V |
 
+The complete C01-HIER-D1 original-node domain audit subsequently passed on checker commit `b6c92893b483b383fafa38ce51f6ed0a85c48c1e`, reusing the accepted numerical and physical evidence while freshly checking all 21,838 original query events. Its 39-file manifest SHA-256 is `5216ef596e878cde069f00835e730dce57a487a0292c7400e5710ed8af2ae302`; zero new LP calls were made. See the [scoped D1 report](MILESTONE_5_C01_FINAL_COLLECTOR_REPORT.md#full-original-node-domain-audit-003). The [D0 node-batch preflight](MILESTONE_5_C01_D0_NODE_BATCH_PREFLIGHT.md) authenticated all retained paths, but the measured callback evidence exceeds the unchanged 2 GiB writer charge; no D0 full-node audit has run.
+
 ## 2026-10-10 focused source and retained-node check
 
 On development source `1eaff29c49340cee63afe4cee3f97c864ce8c52e`, five
