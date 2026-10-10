@@ -43,6 +43,55 @@ COMMON_PINS = ('historical_plan_sha', 'replay_plan_sha', 'replay_return_sha',
 WINDOW_OPTIONALS = ('seed_attempt', 'seed_return', 'old_archive', 'old_summary', 'old_selection',
                     'seed_result_sha', 'seed_decision_sha', 'registry', 'registry_sha',
                     'registry_return', 'registry_return_sha')
+HISTORICAL_PATHS = frozenset(COMMON_PATHS + ('source_policy', 'registry_output',
+    'registration_return_output', 'seed_attempt', 'seed_return', 'old_archive',
+    'old_summary', 'old_selection', 'registry', 'registry_return', 'bootstrap',
+    'recovery_plan'))
+
+
+def historical_root(root):
+    """A separately authenticated producer root, never the current checker cwd."""
+    path = Path(root)
+    binding.require(path.is_absolute() and '..' not in path.parts and
+                    str(path) == os.path.abspath(path), 'canonical historical producer root required')
+    return path
+
+
+def historical_path(value, root):
+    root = historical_root(root)
+    binding.require(type(value) is str and value and '..' not in Path(value).parts and
+                    os.path.normpath(value) == value, 'canonical historical input path required')
+    path = Path(value)
+    path = path if path.is_absolute() else root/path
+    binding.require(path.is_relative_to(root), 'historical input escapes producer root')
+    return str(path)
+
+
+def resolve_historical_paths(values, root):
+    """Resolve only after the original command/input-context digest is checked."""
+    if root is None:
+        return values
+    result = dict(values)
+    for key in HISTORICAL_PATHS & result.keys():
+        if result[key] is not None:
+            result[key] = historical_path(result[key], root)
+    return result
+
+
+def window_origin(origin, request, producer_root=None):
+    root = historical_root(producer_root) if producer_root is not None else binding.ROOT.resolve()
+    binding.require(type(origin) is dict and set(origin) == {'schema', 'checkout_root', 'controller_module',
+        'controller_path', 'python_executable', 'executable_realpath', 'cwd'} and
+        origin['schema'] == 'hiroute-reviewed-controller-origin-v1' and
+        origin['controller_module'] == MODULE_PREFIX+'suffix_window' and
+        origin['checkout_root'] == str(root) and
+        origin['controller_path'] == str(root/'experiments/time_cut_v2/recorded_real/suffix_window.py') and
+        origin['cwd'] == str(root) and
+        request['command'][0] == origin['python_executable'] == sys.executable and
+        origin['executable_realpath'] == str(Path(sys.executable).resolve()) and
+        all(type(origin[key]) is str and Path(origin[key]).is_absolute() for key in
+            ('checkout_root', 'controller_path', 'python_executable', 'executable_realpath', 'cwd')),
+        'trusted reviewed-controller origin binding required')
 
 
 def _guard(deadline, before):
@@ -152,7 +201,7 @@ def _selection(admitted, selection, before):
     return selection
 
 
-def _command(request, module):
+def _command(request, module, *, producer_root=None):
     command = request['command']
     binding.require(type(command) is list and len(command) > 5 and
                     type(command[0]) is str and command[0].startswith('/') and
@@ -193,7 +242,7 @@ def _command(request, module):
     suffix_census.same(request['context'], dict(plan_sha256=values['replay_plan_sha'],
         source_sha256=values['source_sha'], input_sha256=context, profile_name=BATCH_REPLAY.name),
         'runtime does not bind reviewed command inputs')
-    return values
+    return resolve_historical_paths(values, producer_root)
 
 
 def _source(commit, source, module, reviewed_sources):
@@ -419,10 +468,11 @@ def _archive(path, pin, encoding, blocks, source_context, summary, before, *, re
 
 class _Dependencies:
     """One reconciliation's input-byte cache, never a certificate authority."""
-    def __init__(self, before):
+    def __init__(self, before, producer_root=None):
         self.before, self.rows, self.decoded, self.used = before, {}, {}, set()
         self.admitted = {}
         self.phases = {}
+        self.producer_root = None if producer_root is None else historical_root(producer_root)
 
     def read(self, path, sha, limit, *, decode=True, size=None):
         key = (os.path.abspath(path), sha)
@@ -586,7 +636,7 @@ def _physical_inputs(values, cache):
         binding.require(type(pin) is dict and set(pin) == {'path', 'sha256', 'size_bytes'} and
                         type(pin['size_bytes']) is int and 0 <= pin['size_bytes'] <= 1024**3,
                         'bounded immutable physical input pin required: '+role)
-        path = binding.inside(binding.ROOT, pin['path'])
+        path = binding.inside(cache.producer_root or binding.ROOT, pin['path'])
         cache.read(path, pin['sha256'], 1024**3, size=pin['size_bytes'], decode=False)
 
 
@@ -628,6 +678,8 @@ def _admit(spec, admitted, selection, reviewed_sources, deadline, before, cache)
         return receipt
     attempt, module = Path(spec['attempt']), spec['module']
     binding.require(module in ('block_resume', 'suffix_window'), 'unknown reviewed receipt contract')
+    if cache.producer_root is not None:
+        historical_path(str(attempt), cache.producer_root)
     evidence = attempt / 'evidence'
     successful = cache.read(spec['successful_return'], spec['successful_return_sha256'], 65536)
     binding.require(successful.get('status') == 'completed' and 'acceptance_receipt' in successful,
@@ -643,7 +695,7 @@ def _admit(spec, admitted, selection, reviewed_sources, deadline, before, cache)
     suffix_census.same(result['profile'], asdict(BATCH_REPLAY), 'exact BATCH_REPLAY runtime profile required')
     suffix_census.same(result['verified_manifest_sha256'], spec['manifest_sha256'], 'pinned completed manifest changed')
     request = cache.read(attempt / 'request.json', result['request_sha256'], 1024**2)
-    values = _command(request, module)
+    values = _command(request, module, producer_root=cache.producer_root)
     _source(values['source_commit'], values['source_sha'], module, reviewed_sources)
     binding.require(request['deadline_monotonic'] <= request['entry_monotonic'] + 900,
                     'completed window exceeded reviewed 900-second phase budget')
@@ -710,18 +762,7 @@ def _admit(spec, admitted, selection, reviewed_sources, deadline, before, cache)
         policy = cache.read(values['source_policy'], values['source_policy_sha'], 65536)
         origin = run['invocation_origin']
         suffix_census.same(summary['invocation_origin'], origin, 'reviewed invocation origin changed')
-        binding.require(type(origin) is dict and set(origin) == {'schema', 'checkout_root', 'controller_module',
-            'controller_path', 'python_executable', 'executable_realpath', 'cwd'} and
-            origin['schema'] == 'hiroute-reviewed-controller-origin-v1' and
-            origin['controller_module'] == MODULE_PREFIX+'suffix_window' and
-            origin['checkout_root'] == str(binding.ROOT.resolve()) and
-            origin['controller_path'] == str(Path(origin['checkout_root'])/'experiments/time_cut_v2/recorded_real/suffix_window.py') and
-            origin['cwd'] == origin['checkout_root'] and
-            request['command'][0] == origin['python_executable'] == sys.executable and
-            origin['executable_realpath'] == str(Path(sys.executable).resolve()) and
-            all(type(origin[key]) is str and Path(origin[key]).is_absolute() for key in
-                ('checkout_root', 'controller_path', 'python_executable', 'executable_realpath', 'cwd')),
-            'trusted reviewed-controller origin binding required')
+        window_origin(origin, request, cache.producer_root)
         from .variant_scope import is_d0_population
         from .bootstrap_executor import validate_pinned_policy
         d0 = is_d0_population(commitment)
@@ -1041,7 +1082,8 @@ def load_scheduling_registry(path, registry_sha, admitted, *, registration_retur
     return CheckedRegistry(metadata, (), _token=_ADMISSION)
 
 
-def reconcile_registry(registry, admitted, *, reviewed_sources, deadline, before=lambda: None):
+def reconcile_registry(registry, admitted, *, reviewed_sources, deadline,
+                       producer_root=None, before=lambda: None):
     """Cold-authenticate each unique entry and its dependencies before aggregation.
 
     It uses checked results from the reviewed executions, with no LP/checker
@@ -1050,7 +1092,7 @@ def reconcile_registry(registry, admitted, *, reviewed_sources, deadline, before
     binding.require(type(registry) is CheckedRegistry, 'registered scheduling snapshot required')
     check = _guard(deadline, before)
     reviewed_sources = _owned(reviewed_sources)
-    cache, receipts = _Dependencies(check), []
+    cache, receipts = _Dependencies(check, producer_root), []
     fields = ('module', 'attempt', 'successful_return', 'successful_return_sha256',
               'result_sha256', 'decision_sha256', 'manifest_sha256')
     for entry in registry.metadata()['entries']:

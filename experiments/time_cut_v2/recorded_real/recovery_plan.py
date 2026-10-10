@@ -80,7 +80,7 @@ def load(path, sha, *, deadline, before=lambda: None):
     return value
 
 
-def command(request):
+def command(request, *, producer_root=None):
     """Parse only the new entrypoint; old optional-null hashing stays unchanged."""
     from .suffix_window_recovery import parser, input_context
     argv = request['command']
@@ -100,21 +100,22 @@ def command(request):
     suffix_census.same(request['context'], dict(plan_sha256=values['replay_plan_sha'],
         source_sha256=values['source_sha'], input_sha256=binding.digest(values),
         profile_name=suffix_window.BATCH_REPLAY.name), 'recovery command input context changed')
-    return dict(values, deadline=args.deadline)
+    return receipts.resolve_historical_paths(dict(values, deadline=args.deadline), producer_root)
 
 
 def _relative(pin, name):
     return dict(path=name, sha256=pin['sha256'], size_bytes=pin['size_bytes'])
 
 
-def _origin(origin, request, module):
+def _origin(origin, request, module, *, producer_root=None):
     binding.require(type(origin) is dict and set(origin) == {'schema', 'checkout_root', 'controller_module',
         'controller_path', 'python_executable', 'executable_realpath', 'cwd'} and
         origin['schema'] == 'hiroute-reviewed-controller-origin-v1' and origin['controller_module'] == module and
         all(type(origin[k]) is str and Path(origin[k]).is_absolute() for k in
             ('checkout_root', 'controller_path', 'python_executable', 'executable_realpath', 'cwd')) and
         origin['controller_path'] == str(Path(origin['checkout_root']) / (module.replace('.', '/')+'.py')) and
-        origin['cwd'] == origin['checkout_root'] == str(binding.ROOT.resolve()) and
+        origin['cwd'] == origin['checkout_root'] ==
+        str(receipts.historical_root(producer_root) if producer_root is not None else binding.ROOT.resolve()) and
         request['command'][0] == origin['python_executable'] == sys.executable and
         origin['executable_realpath'] == str(Path(sys.executable).resolve()),
         'historical reviewed controller origin changed')
@@ -160,7 +161,8 @@ class AdmittedRecoveryPlan:
         return result
 
 
-def admit(value, admitted, registry, *, reviewed_sources, deadline, before=lambda: None):
+def admit(value, admitted, registry, *, reviewed_sources, deadline,
+          producer_root=None, before=lambda: None):
     """Link failures to the independently admitted first outstanding window.
 
     Metadata booleans never authorize a retained certificate. The separate
@@ -172,7 +174,7 @@ def admit(value, admitted, registry, *, reviewed_sources, deadline, before=lambd
     binding.require(type(registry) is receipts.CheckedRegistry, 'independently checked base registry required')
     catalogue, commitment = receipts._population(admitted)
     suffix_census.same(registry.metadata()['population'], commitment, 'recovery base population changed')
-    cache = receipts._Dependencies(check)
+    cache = receipts._Dependencies(check, producer_root)
     def read(pin, *, decode=True):
         return cache.read(pin['path'], pin['sha256'],
             512*1024**2 if not decode else receipts.SUMMARY_LIMIT, size=pin['size_bytes'], decode=decode)
@@ -211,8 +213,9 @@ def admit(value, admitted, registry, *, reviewed_sources, deadline, before=lambd
         documents = {name: read(pin) for name, pin in pins.items() if pin is not None and name != 'archive'}
         read(pins['archive'], decode=False)
         request, run = documents['request'], documents['run_binding']
-        values = receipts._command(request, 'suffix_window') if original else command(request)
-        _origin(run['invocation_origin'], request, row['module'])
+        values = (receipts._command(request, 'suffix_window', producer_root=cache.producer_root)
+                  if original else command(request, producer_root=cache.producer_root))
+        _origin(run['invocation_origin'], request, row['module'], producer_root=cache.producer_root)
         binding.require(values['source_commit'] == row['source_commit'] and
             values['source_sha'] == row['source_sha256'] and
             reviewed_sources.get(row['source_commit']) == row['source_sha256'],

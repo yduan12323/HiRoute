@@ -168,7 +168,8 @@ def cold_collect(checked, root, args, policy, *, before=lambda: None):
     _, scheduling = load_registry(args, policy, admitted=admitted,
                                   deadline=args.deadline, before=before)
     registry = reconcile_registry(scheduling, admitted, reviewed_sources=policy,
-                                  deadline=args.deadline, before=before)
+                                  deadline=args.deadline, producer_root=args.producer_root,
+                                  before=before)
     require_complete_registry(admitted, registry)
     domain = check_domains(checked, admitted.query_projection, before=before)
     commitment = admitted.commitment()

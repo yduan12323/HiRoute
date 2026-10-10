@@ -41,6 +41,7 @@ def _args(request, pin):
     # The retained request's old monotonic deadline is provenance, not the
     # new supervisor's clock. Its other pins remain unchanged.
     args.deadline = None
+    args.producer_root = producer_root
     return args
 
 

@@ -318,8 +318,8 @@ def _history(admission, cold, blocks, cache, before):
     return history, leaves
 
 
-def _origin(origin, request):
-    root = binding.ROOT.resolve()
+def _origin(origin, request, *, producer_root=None):
+    root = wr.historical_root(producer_root) if producer_root is not None else binding.ROOT.resolve()
     expected = dict(schema='hiroute-reviewed-controller-origin-v1', checkout_root=str(root),
         controller_module=wr.MODULE_PREFIX+MODULE,
         controller_path=str(root/'experiments/time_cut_v2/recorded_real/suffix_window_recovery.py'),
@@ -341,6 +341,8 @@ def _admit_recovery(spec, admitted, selection, reviewed_sources, deadline, befor
         return receipt
     binding.require(spec['module'] == MODULE, 'reviewed recovery receipt contract required')
     attempt = Path(spec['attempt']); evidence = attempt/'evidence'
+    if cache.producer_root is not None:
+        wr.historical_path(str(attempt), cache.producer_root)
     successful = cache.read(spec['successful_return'], spec['successful_return_sha256'], 65536)
     binding.require(successful.get('status') == 'completed' and 'acceptance_receipt' in successful,
                     'independently retained actual successful recovery runtime return required')
@@ -355,7 +357,7 @@ def _admit_recovery(spec, admitted, selection, reviewed_sources, deadline, befor
     _same(result['profile'], asdict(BATCH_REPLAY), 'exact recovery BATCH_REPLAY profile required')
     _same(result['verified_manifest_sha256'], spec['manifest_sha256'], 'pinned recovery manifest changed')
     request = cache.read(attempt/'request.json', result['request_sha256'], 1024**2)
-    values = recovery_plan.command(request)
+    values = recovery_plan.command(request, producer_root=cache.producer_root)
     wr._source(values['source_commit'], values['source_sha'], MODULE, reviewed_sources)
     binding.require(0 < request['deadline_monotonic']-request['entry_monotonic'] <= 900,
                     'recovery exceeds reviewed 900-second budget')
@@ -380,7 +382,7 @@ def _admit_recovery(spec, admitted, selection, reviewed_sources, deadline, befor
     for key, expected in (('source_commit', values['source_commit']), ('source_sha256', values['source_sha']),
         ('completed_replay', commitment['completed_replay']), ('logical_report_sha256', values['logical_report_sha'])):
         _same(run[key], expected, 'recovery run input binding changed: '+key)
-    origin = run['invocation_origin']; _origin(origin, request)
+    origin = run['invocation_origin']; _origin(origin, request, producer_root=cache.producer_root)
     _same(summary['invocation_origin'], origin, 'recovery invocation origin changed')
     policy = cache.read(values['source_policy'], values['source_policy_sha'], 65536)
     binding.require(type(policy) is dict and set(policy) == {'schema', 'reviewed_sources'} and
@@ -405,7 +407,7 @@ def _admit_recovery(spec, admitted, selection, reviewed_sources, deadline, befor
     binding.require(files['recovery-plan.json']['sha256'] == values['recovery_plan_sha'],
                     'recovery plan exact bytes changed')
     admission = recovery_plan.admit(plan_document, admitted, base, reviewed_sources=reviewed_sources,
-                                   deadline=deadline, before=before)
+                                   deadline=deadline, producer_root=cache.producer_root, before=before)
     for pin in admission.dependencies():
         key = (pin['path'], pin['sha256'])
         if key in cache.rows:
