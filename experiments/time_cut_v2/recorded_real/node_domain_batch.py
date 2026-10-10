@@ -103,8 +103,10 @@ def check_domains(checked, projected=None, *, before=lambda: None):
                     require(wire_equal(projection[key], _plain(value)),
                             'admitted projection differs from original domain: '+key)
                 require(projection['query_seq'] == seq and
-                        type(projection['model_slots']) is int and projection['model_slots'] > 0,
-                        'admitted original model occurrence missing')
+                        type(projection['model_slots']) is int and projection['model_slots'] >= 0 and
+                        projection['legal_completion_language_empty'] ==
+                        (projection['model_slots'] == 0),
+                        'admitted original model occurrence count differs')
                 require(projection['ancestry_bundle_sha256'] == row['ancestry_bundle_sha256'],
                         'admitted original ancestry differs')
                 ranges = projection['ranges']
@@ -117,7 +119,10 @@ def check_domains(checked, projected=None, *, before=lambda: None):
                         require(item['family_position'] == family_position and
                                 item['action_position'] == action_position and
                                 item['query_start'] == offset and
-                                type(item['query_end']) is int and item['query_end'] > offset and
+                                type(item['query_end']) is int and item['query_end'] >= offset and
+                                type(item['logical_start']) is int and
+                                type(item['logical_end']) is int and
+                                0 <= item['logical_start'] <= item['logical_end'] and
                                 item['logical_end']-item['logical_start'] == item['query_end']-offset,
                                 'admitted original occurrence range differs')
                         offset = item['query_end']

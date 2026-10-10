@@ -84,6 +84,7 @@ def fixture_smoke(cli, writer, before):
     from validation.family5.checker import _plain, canonical, digest
     from validation.real5_v2 import prepare_real_case
     from validation.real5_v2.coalesced import verify_coalesced_trace
+    from validation.real5_v2.suffix_context import count_language
     from validation.trace5 import CheckedTrace
     from .node_domain_batch import check_domains
     fixture = read_pinned(cli.fixture_evidence, cli.fixture_sha, 1024**2)
@@ -98,15 +99,22 @@ def fixture_smoke(cli, writer, before):
     def projection(seq):
         item = next(x for x in checked.queries if x['query_seq'] == seq)
         roots, actions = _plain(item['family_ids']), _plain(item['actions'])
-        ranges = [dict(family_position=f, action_position=a, segment_id=0,
-                       logical_start=0, logical_end=1,
-                       query_start=f*len(actions)+a, query_end=f*len(actions)+a+1)
-                  for f in range(len(roots)) for a in range(len(actions))]
+        counts = [count_language(trusted, item['state'], [action])['models_per_family']
+                  for action in actions]
+        ranges = []
+        offset = 0
+        for f in range(len(roots)):
+            for a, count in enumerate(counts):
+                ranges.append(dict(family_position=f, action_position=a, segment_id=0,
+                    logical_start=0, logical_end=count, query_start=offset,
+                    query_end=offset+count))
+                offset += count
         if cli.fixture_mode == 'tamper-range': ranges[-1]['query_end'] += 1
         return dict(query_seq=seq, family_ids=roots, actions=actions,
                     recorded_bound=item['bound'], classification=item['classification'],
                     ancestry_bundle_sha256=item['ancestry_bundle_sha256'],
-                    model_slots=len(ranges), ranges=ranges)
+                    model_slots=offset, legal_completion_language_empty=offset==0,
+                    ranges=ranges)
     domain = check_domains(checked, projection, before=before)
     writer.write('fixture-domain.json', (canonical(dict(schema='hiroute-g8-batch-fixture-v1',
         fixture_only=True, literal_G8_closed=False, historical_collector_sha256=cli.collector_acceptance_sha,
