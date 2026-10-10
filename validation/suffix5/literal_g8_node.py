@@ -16,6 +16,49 @@ from validation.suffix5.independent_convex_model import enumerate_words, build_m
 from validation.suffix5.solver import SolveBudget, UnresolvedRegime, solve_model
 
 
+def reconstruct_node_domain(checked: CheckedTrace, query_seq: int,
+                            family_ids: list, actions: list) -> dict:
+    """For a checked immutable-leg trace, derive node domain without query fields.
+
+    The layer occurrence binds the exact guarded ancestry roots; the verified
+    Region tree and immutable physics bind legal actions. Unsupported traces
+    are unresolved rather than silently adopting indexed query fields.
+    """
+    require('real_input' in checked.summary, 'unsupported_non_real_trace_domain')
+    events = checked.snapshot()['events']
+    starts = [e for e in events if e['kind'] == 'run_start']
+    require(len(starts) == 1, 'missing_original_region_tree')
+    groups = [group for e in events if e['kind'] == 'layer_start' and e['seq'] < query_seq
+              for group in e['payload']['groups']]
+    queries = [e for e in events if e['seq'] == query_seq and e['kind'] == 'query']
+    require(len(queries) == 1, 'missing_original_query_event')
+    event = queries[0]['payload']
+    groups = [group for group in groups if group['group_id'] == event['group_id']]
+    require(len(groups) == 1 and groups[0]['families'], 'missing_original_layer_group')
+    original_families = groups[0]['families']
+    nodes = checked.bundle.snapshot()['nodes']
+    states = [nodes[fid]['output']['state'] for fid in original_families]
+    require(all(state == states[0] for state in states), 'mixed_group_states')
+    def region(node):
+        if node['id'] == event['region_id']:
+            return node
+        matches = [found for child in node['children'] if (found := region(child)) is not None]
+        require(len(matches) <= 1, 'ambiguous_original_region')
+        return matches[0] if matches else None
+    selected = region(starts[0]['payload']['regions'])
+    require(selected is not None, 'missing_original_region')
+    physics = checked.bundle._physics
+    effect = event['effect']
+    original_actions = ([] if effect in ('S', 'CS') and not states[0][1] else
+                        [[site, effect] for site in selected['members']
+                         if physics.anchors[site] != physics.destination and
+                         effect in physics.sites[site]])
+    require(wire_equal(family_ids, original_families), 'original_ancestry_roots_differ')
+    require(wire_equal(actions, original_actions), 'original_region_actions_differ')
+    return dict(family_ids=original_families, actions=original_actions,
+                region_id=selected['id'], effect=effect, state=states[0])
+
+
 def source_pins(checked: CheckedTrace, query_seq: int) -> dict:
     """Return pins for review; never infer authority from a retained ledger."""
     require(type(checked) is CheckedTrace and checked.summary['verified'] is True,
@@ -51,10 +94,19 @@ def audit_node(checked: CheckedTrace, query_seq: int, *, expected: dict,
     require(witness is None or type(witness) is tuple and len(witness) == 3,
             'witness must be (slot, evidence, contract)')
     query = next(q for q in checked.export_queries() if q['query_seq'] == query_seq)
+    domain = reconstruct_node_domain(checked, query_seq,
+                                     query['family_ids'], query['actions']) if 'real_input' in checked.summary else None
+    if domain is not None:
+        require(query['region_id'] == domain['region_id'] and
+                query['effect'] == domain['effect'] and
+                wire_equal(query['state'], domain['state']),
+                'indexed_query_differs_from_original_node')
+    family_ids = domain['family_ids'] if domain is not None else query['family_ids']
+    actions = domain['actions'] if domain is not None else query['actions']
     models = []
     try:
-        for family_id in query['family_ids']:
-            for word in enumerate_words(checked.bundle, family_id, query['actions']):
+        for family_id in family_ids:
+            for word in enumerate_words(checked.bundle, family_id, actions):
                 for model in build_models(checked.bundle, family_id, word):
                     models.append(model)
                     if len(models) > max_models:

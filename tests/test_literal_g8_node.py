@@ -3,7 +3,7 @@ from copy import deepcopy
 import json
 import unittest
 
-from validation.suffix5.literal_g8_node import audit_node, source_pins
+from validation.suffix5.literal_g8_node import audit_node, source_pins, reconstruct_node_domain
 from validation.suffix5.test_convex_checker import hand_ledger
 from tests.test_recovered_real_coalesced import ROOT, capture, prepare
 from validation.real5_v2.coalesced import verify_coalesced_trace
@@ -59,6 +59,16 @@ class LiteralG8NodeTests(unittest.TestCase):
         row = json.loads((ROOT / 'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[0]
         captured = capture(row, True)
         checked = verify_coalesced_trace(captured['trace'], captured['bundle'], prepare(row))
+        nonempty = next(q for q in checked.export_queries() if q['query_seq'] == 7)
+        domain = reconstruct_node_domain(checked, 7, nonempty['family_ids'],
+                                         nonempty['actions'])
+        self.assertEqual(domain['actions'], [['A', 'C']])
+        with self.assertRaises(ValueError):
+            reconstruct_node_domain(checked, 7, nonempty['family_ids'], [])
+        other_family = next(q for q in checked.export_queries() if q['query_seq'] == 46)['family_ids']
+        self.assertNotEqual(nonempty['family_ids'], other_family)
+        with self.assertRaises(ValueError):
+            reconstruct_node_domain(checked, 7, other_family, nonempty['actions'])
         self.assertEqual(next(q for q in checked.export_queries() if q['query_seq'] == 46)['query_seq'], 46)
         pins = source_pins(checked, 46)
         result = audit_node(checked, 46, expected=pins, max_models=0)
