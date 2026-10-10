@@ -29,7 +29,9 @@ def reconstruct_node_domain(checked: CheckedTrace, query_seq: int,
     are unresolved rather than silently adopting indexed query fields.
     """
     require('real_input' in checked.summary, 'unsupported_non_real_trace_domain')
-    events = checked.snapshot()['events']
+    # Traverse the already verified immutable objects in place. Detaching the
+    # entire trace or bundle would copy the whole C01 population for one node.
+    events = checked._trace['events']
     starts = [e for e in events if e['kind'] == 'run_start']
     require(len(starts) == 1, 'missing_original_region_tree')
     groups = [group for e in events if e['kind'] == 'layer_start' and e['seq'] < query_seq
@@ -40,7 +42,7 @@ def reconstruct_node_domain(checked: CheckedTrace, query_seq: int,
     groups = [group for group in groups if group['group_id'] == event['group_id']]
     require(len(groups) == 1 and groups[0]['families'], 'missing_original_layer_group')
     original_families = groups[0]['families']
-    nodes = checked.bundle.snapshot()['nodes']
+    nodes = checked.bundle._data['nodes']
     states = [nodes[fid]['output']['state'] for fid in original_families]
     require(all(state == states[0] for state in states), 'mixed_group_states')
     def region(node):
@@ -57,10 +59,11 @@ def reconstruct_node_domain(checked: CheckedTrace, query_seq: int,
                         [[site, effect] for site in selected['members']
                          if physics.anchors[site] != physics.destination and
                          effect in physics.sites[site]])
+    original_families = _plain(original_families)
     require(wire_equal(family_ids, original_families), 'original_ancestry_roots_differ')
     require(wire_equal(actions, original_actions), 'original_region_actions_differ')
     return dict(family_ids=original_families, actions=original_actions,
-                region_id=selected['id'], effect=effect, state=states[0])
+                region_id=selected['id'], effect=effect, state=_plain(states[0]))
 
 
 def source_pins(checked: CheckedTrace, query_seq: int) -> dict:
@@ -111,7 +114,7 @@ def audit_node(checked: CheckedTrace, query_seq: int, *, expected: dict,
             'small explicit model cap required')
     require(witness is None or type(witness) is tuple and len(witness) == 3,
             'witness must be (slot, evidence, contract)')
-    query = next(q for q in checked.export_queries() if q['query_seq'] == query_seq)
+    query = _plain(next(q for q in checked.queries if q['query_seq'] == query_seq))
     domain = (reconstruct_node_domain(checked, query_seq,
                                      query['family_ids'], query['actions'])
               if supported else None)

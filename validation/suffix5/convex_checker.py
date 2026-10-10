@@ -84,7 +84,7 @@ audit returns validated named primal points for physical-witness binding.
 def check_query_ledger(checked_trace, ledger, *, with_audit=False):
     """Bind every record to the entire exact original public query language."""
     from validation.trace5 import CheckedTrace
-    from validation.family5.checker import digest
+    from validation.family5.checker import digest, _plain
 
     require(type(checked_trace) is CheckedTrace, 'requires_trusted_CheckedTrace')
     require(type(with_audit) is bool, 'with_audit_type')
@@ -94,9 +94,9 @@ def check_query_ledger(checked_trace, ledger, *, with_audit=False):
     same(ledger['schema'], 'family5-suffix-query-ledger-v2', 'query_ledger_schema')
     sequence = ledger['query_seq']
     require(type(sequence) is int and sequence >= 0, 'query_sequence_type')
-    queries = [q for q in checked_trace.export_queries() if q['query_seq'] == sequence]
+    queries = [q for q in checked_trace.queries if q['query_seq'] == sequence]
     require(len(queries) == 1, 'query_not_in_original_checked_population')
-    query = queries[0]
+    query = _plain(queries[0])
     same(ledger['query_sha256'], digest(query), 'original_query_digest_mismatch')
     same(ledger['trace_sha256'], checked_trace.summary['trace_sha256'], 'original_trace_digest_mismatch')
     require(type(ledger['models']) is list, 'ledger_models_type')

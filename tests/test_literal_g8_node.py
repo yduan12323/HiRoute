@@ -4,6 +4,7 @@ import json
 import resource
 import sys
 import unittest
+from unittest.mock import patch
 
 from validation.suffix5.literal_g8_node import audit_node, source_pins, reconstruct_node_domain
 from validation.suffix5.test_convex_checker import hand_ledger
@@ -23,9 +24,11 @@ from validation.trace5.coalesced import _connected_components
 class LiteralG8NodeTests(unittest.TestCase):
     def test_strict_unattained_equality_stays_scoped(self):
         checked, ledger = hand_ledger()
-        result = audit_node(checked, ledger['query_seq'],
-                            expected=source_pins(checked, ledger['query_seq']),
-                            max_models=3, ledger=ledger, indexed_only=True)
+        with patch.object(type(checked), 'export_queries',
+                          side_effect=AssertionError('whole query population detached')):
+            result = audit_node(checked, ledger['query_seq'],
+                                expected=source_pins(checked, ledger['query_seq']),
+                                max_models=3, ledger=ledger, indexed_only=True)
         self.assertEqual(result['status'], 'indexed_verified_bound')
         self.assertEqual(result['exact_result'],
                          {'status': 'primary_unattained', 'primary_infimum': '2'})
@@ -88,7 +91,10 @@ class LiteralG8NodeTests(unittest.TestCase):
             reconstruct_node_domain(checked, 7, other_family, nonempty['actions'])
         self.assertEqual(next(q for q in checked.export_queries() if q['query_seq'] == 46)['query_seq'], 46)
         pins = source_pins(checked, 46)
-        result = audit_node(checked, 46, expected=pins, max_models=0)
+        with (patch.object(type(checked), 'snapshot', side_effect=AssertionError('whole trace detached')),
+              patch.object(type(checked), 'export_queries', side_effect=AssertionError('whole query population detached')),
+              patch.object(type(checked.bundle), 'snapshot', side_effect=AssertionError('whole bundle detached'))):
+            result = audit_node(checked, 46, expected=pins, max_models=0)
         self.assertEqual(result['status'], 'exact_empty')
         self.assertEqual(result['exact_model_count'], 0)
         self.assertFalse(result['literal_G8_closed'])
