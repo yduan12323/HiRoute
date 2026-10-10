@@ -1,6 +1,6 @@
 # M5-V remaining coverage audit
 
-Original audit date: 2026-10-08 UTC; updated 2026-10-09 UTC. Original server source:
+Original audit date: 2026-10-08 UTC; updated 2026-10-10 UTC. Original server source:
 `052a157b745cdaee463579bf8478d1f78d44838b`, branch
 `codex/milestone-4r-b1`, project `/home/dy/HiRoute/project`.
 
@@ -10,13 +10,12 @@ The [D1 report](MILESTONE_5_C01_FINAL_COLLECTOR_REPORT.md) and
 [D0 report](MILESTONE_5_C01_D0_FINAL_COLLECTOR_REPORT.md) provide separate
 measured counts, source lineage, commands, resources and receipts.
 
-The [machine-readable audit](MILESTONE_5_V_COVERAGE_20261008.json), updated
-with the D0 receipt on 2026-10-09, is a
-**reconstructed audit ledger**, not a recovered original frozen manifest.
-It explicitly expands the observed C32 inputs into 96 requested identities
-(HIER D-off/D-on and FLAT D-on), with two qualifying C01 HIER receipts on their respective frozen sources.
-It retains unresolved A/B member lists as null, and does not invent IDs,
-acceptance percentages, or successful vacuous cases.
+The [machine-readable audit](MILESTONE_5_V_COVERAGE_20261008.json) is a
+**reconstructed audit ledger**, not a recovered combined frozen manifest.
+It now records all 92 byte-verified original A/B physical IDs and their
+historical result rows. It separately expands the 32 observed C states into
+96 requested HIER D-off/D-on and FLAT D-on identities. Only the two C01 HIER
+identities have qualifying final-collector receipts on their respective sources.
 
 ## Authoritative scope and the 248 / 124 accounting
 
@@ -54,7 +53,7 @@ input bytes and historical outcome identities; it performs no optimization.
 
 | Accounting layer | HIER D-off/D-on | FLAT D-on | Meaning |
 | --- | ---: | ---: | --- |
-| Declared expanded A28 + B64 | 184 | 92 (projection only) | A/B original IDs require missing input files |
+| Verified expanded A28 + B64 inputs | 184 | 92 (projection only) | 92 IDs and historical outcomes restored; no current-source acceptance |
 | Observed C32 preparation inputs | 64 (requested) | 32 (requested) | 32 actual state IDs and hashes available; not acceptance |
 | Requested combined arithmetic | 248 | 124 | (28+64+32)×2 and (28+64+32); no full original freeze located |
 | Qualifying collector identities | C01-HIER-D1 and C01-HIER-D0 | None observed | Two distinct indexed C01 original-query/bound/witness receipts |
@@ -63,7 +62,7 @@ Thus the requested 248 HIER / 124 FLAT-D1 numbers are a conditional arithmetic
 projection over the expanded A28/B64/C32 inventory. They are not direct quoted
 numbers from plan section 44, not 248/124 observed passing results, and not the
 whole original protocol. No complete frozen combined manifest was located
-in the audited server checkout or small retained metadata. Its existence
+in the audited server checkout or recovered A/B archive. Its existence
 elsewhere is unresolved. The arithmetic does not authorize substituting
 new synthetic cases or dropping inconvenient identities.
 
@@ -71,9 +70,9 @@ new synthetic cases or dropping inconvenient identities.
 
 | Evidence level | What it establishes | What remains open |
 | --- | --- | --- |
-| Historical bounded numeric parity | Status/full-key comparison on its own bounded inputs and historical source | Original expanded A28/B64/C32 population and current-source rerun |
+| Recovered A28/B64 historical reports | Original IDs, scoped H4 comparisons: A 112/112 four-mode, B 256/256; zero reported status/key mismatches | Current-source acceptance, missing gate-specific traces, literal inherited-family G8, whole M5-V |
 | Historical C32 four-mode parity summary | A reported 128/128 key comparison | Original-query proofs, physical witnesses and each current-source identity |
-| Frozen A/B metadata intake | Original-byte/identity validation when six pinned files are present | Capture wrapper and current optimization/query/bound acceptance |
+| Frozen A/B metadata intake | Six raw-byte pins, 92 IDs, 184 HIER variants and historical status/key shape validated; 15 tests pass | Capture wrapper and current optimization/query/bound acceptance |
 | C01 structural replay | Sealed trace structure and query indexing, supplemented by historical REF canonical-key match | Raw historical REF certificate replay and numerical acceptance by replay alone |
 | C01 final collectors (D1 and D0) | Separate original indexed query coverage, reconciled numerical evidence, physical bindings and bound status | C01 FLAT, other cases, literal exact inherited-family G8 and whole M5-V |
 
@@ -87,13 +86,17 @@ preparation records. Their then-missing real inputs have subsequently been
 restored; preparation and restored input availability still do not prove
 remaining solver identities.
 
-The parent historical review reported A gaps in visited bounds, refinement,
-deletion, algebra and reset coverage; B's exact inherited-family optimizer was
-false; and C's 128/128 represented four-mode key parity. The original A/B/C
-acceptance report files for those conclusions are not available on this
-server. They are historical review context, not newly hashed server evidence
-or current acceptance. Recover the original reports and source pins before
-promoting any of these summaries into a current ledger.
+The recovered A report records 28 bounded H4 physical cases, 112/112
+four-mode parity matches, zero status/key mismatches and passing scoped tests
+for all 20 named themes. It explicitly does **not** claim 20 complete-graph
+solves. A04 is algebra-only; its remaining visited-bound, dynamic refinement,
+deletion, 50-algebra and reset obligations are separate. The B report records
+64 distinct five-factor combinations, 256/256 full-solver comparisons and zero
+mismatches. Its original-source raw certificates for 12 cases were not
+retained, and `exact_inherited_family_optimizer_implemented=false`.
+These are byte-verified historical reports at their stated source versions,
+not present-source collector acceptance. The reported C 128/128 four-mode
+parity remains a historical summary without the original report files here.
 
 The historical D1 collector at source `052a157b` required `dominance=True`
 (`experiments/time_cut_v2/recorded_real/final_collector.py`, lines 228–230 at
@@ -103,48 +106,36 @@ cannot be copied to D0 or another case; D0 has its own accepted receipt at
 source `3ad6e38`. The admitted indexed family also
 cannot be renamed as literal inherited-family G8.
 
-## Missing original A/B material
+## Recovered original A/B material and historical scope
 
-All six original files below were absent on the audited server. These are
-**declared expected pins** copied from the registry authority, not hashes of
-files read during this audit.
+On 2026-10-10 the user supplied the existing Library archive as a local
+Downloads file. Its 23,810 bytes matched SHA-256
+`7d001b1ce2ec83ac953b1891a93562e3b9060195e9dd5f5bcc6a9687b50e7679`.
+All ZIP entries passed path, symlink and size checks. The six pinned files
+were copied without replacing an existing server file to their documented
+`/home/dy/HiRoute/project/results/` paths; their raw bytes matched the
+[registry pins](FROZEN_AB_REGISTRY.md). The original Downloads file and the
+separate server recovery copy remain intact. The earlier Library helper HTTP
+403 remains a historical failed attempt; this recovery used the user's local
+copy, with no retry of that transfer.
 
-| Original file | Rows | Declared SHA-256 |
-| --- | ---: | --- |
-| `results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json` | 24 | `3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2` |
-| `results/milestone_5_coalescing_prototype/frozen_A/physical_supplement.json` | 3 | `1b09f4895df68dd67e0362f88988c9f05c10e9bbf628ded24807bf577bc43a30` |
-| `results/milestone_5_coalescing_prototype/frozen_A/physical_merge_supplement.json` | 1 | `121770eb0bef153d313dea7b02d7ab8156f846b3331cf896676a3cf72b5b6bd4` |
-| `results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json` | 64 | `61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037` |
-| `results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json` | 28 | `163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c` |
-| `results/milestone_5_acceptance_b64/acceptance_populations/evaluation_v2/B64_RESULTS.json` | 64 | `a45979a2a49909d61b25df46d35237120f85c46c8c266cf13b78c7ed627bb025` |
+The trusted Python metadata intake returned `metadata_only_intake_validated`,
+92 A/B physical cases, 184 HIER variants and `solver_executed=false`.
+All 15 focused tests passed, including both original-population tests without
+skips. The [machine ledger](MILESTONE_5_V_COVERAGE_20261008.json) lists each
+A/B case ID, source file pin, historical status/key, and B factor levels.
+The input `independent_expected` metadata remains separate from the actual
+historical result rows.
 
-The registry names external archive `HiRoute-frozen-AB92-inputs-a2c4a7f.zip`,
-SHA-256 `7d001b1ce2ec83ac953b1891a93562e3b9060195e9dd5f5bcc6a9687b50e7679`.
-The parent thread confirmed the recovered ZIP is now saved in Library at
-version 0, exactly 23,810 bytes, with the full archive digest above verified
-in its cloud workspace. Those are parent-provided facts, not a hash check of
-local bytes by this selected Mac/server execution environment. The original
-package is already available; the user does not need to upload it again.
+| Recovered group | Historical report outcome | Scope boundary |
+| --- | --- | --- |
+| A28 | 24 attained, 2 infeasible, 1 primary unattained, 1 secondary unattained; 112/112 four-mode parity, zero reported key/status mismatches | H4 scoped diagnostics; A04 algebra-only, not a 29th physical case; not all 20 themes are complete graph solves |
+| B64 | 48 attained, 16 infeasible; 64/64 distinct factor combinations, 256/256 full-solver comparisons, zero reported mismatches | H4 bounded diagnostic; 12 original-source raw certificates not retained; literal inherited-family optimizer incomplete |
 
-This task attempted the supported resolved-reference Library materialization
-with an explicit destination on the selected Mac. Preparation returned a
-signed transfer, but the current official transfer helper failed with HTTP
-403. No local ZIP was installed. Under the authorized stop-on-permission-
-failure instruction, no alternative download route was used. SSH transfer,
-ZIP member validation, the six server file hashes and the real-population
-registry tests therefore **were not executed**. The test suite's two original-
-population tests are not recorded as passing or as attempted skips.
-
-This is a Library access/server intake blocker, not a missing-user-upload
-request. Until server intake is completed and checked, the 92 original
-A/B member IDs and any source/
-representation/query-specific receipts remain unresolved. Preserve historical
-`independent_expected` separately from actual historical status/key rows;
-do not substitute one for the other.
-
-The original A20 thematic suite is a semantic coverage requirement, whereas
-A28 is an expanded physical input inventory. Counting 28 files does not show
-that every theme is covered.
+S07 is now identified as `S07_effect_free_via_site_excluded` in the A input.
+Its `sites={"v":[]}` row and historical A result report
+`infeasible_within_H_ref` with four-mode parity. The historical row does not
+establish a current-source S07 collector receipt.
 
 ## Mandatory semantic and structural checklist
 
@@ -152,7 +143,7 @@ The following checklist remains open at the full-population level; individual
 passing rows require original identity, input hash, implementation/source,
 representation, full expected/actual key, receipt and gate-specific evidence.
 
-- [ ] Map the original 20 themes to physical cases: charging segment/breakpoints;
+- [x] Recover original A case IDs and historical scoped theme mapping; separately audit the full-graph and gate-specific gaps: charging segment/breakpoints;
   increasing/decreasing frontier; disconnected energy domain; merge crossing;
   deadline/start clipping; all three CS dominance/branch-switch behaviors;
   zero-charge limit; unattained positive-charge infimum; attained interior;
@@ -165,8 +156,9 @@ representation, full expected/actual key, receipt and gate-specific evidence.
 - [ ] Map original coalescing, refinement, pruning/deletion and visited bounds
   to actual query/physical evidence, distinguishing indexed supersets from
   the literal exact inherited family.
-- [ ] Recover B64's deterministic original cases and their source versions;
-  cover all 4 topology × 2 SOC × 2 schedule × 2 capability × 2 tightness strata.
+- [x] Recover B64 original IDs and historical source versions; verify all
+  4 topology × 2 SOC × 2 schedule × 2 capability × 2 tightness combinations.
+  Present-source acceptance remains open.
 - [ ] Verify all 32 C states and requested solver identities separately;
   H4/eight-Site preparation alone is not proof.
 - [ ] Retain the exact-validation protocol's 50 algebra objects, permanent
@@ -180,49 +172,39 @@ representation, full expected/actual key, receipt and gate-specific evidence.
 
 ## S07: preserve identity and distinguish a vacuous obligation
 
-The parent historical review supplied `sites={"v":[]}` for S07. The original
-S07 input row, its frozen group/member identity and actual acceptance receipt
-were not found in the server documents, code or small retained JSON. The
-machine ledger keeps it as a pending label with no invented original ID,
-input digest or successful receipt. It is not removed from any population.
+The restored original A input contains `S07_effect_free_via_site_excluded`
+with `sites={"v":[]}` and an analytic certificate explaining that the
+physically feasible via-v drive is effect-free and cannot become a semantic
+stop. The restored historical A report records `infeasible_within_H_ref` and
+four-mode parity for S07. It is a historical scoped result, not a
+current-source acceptance receipt.
 
 B2/B2.1 section 9 excludes effect-free via-Sites from the action set; section
 18 requires exact partitioning of concrete semantic next actions. Conditional
 on an authentic S07 input and a genuinely empty concrete action family, the
 action-family bound obligation is vacuous. This is an inference from those
-rules, not a recovered S07 acceptance statement. The two C01 collectors
+rules, not a separate current-source S07 acceptance statement. The two C01 collectors
 demonstrate the required accounting pattern: D1 retains 9,666 and D0 retains
 15,795 empty-action query rows with `vacuous_empty_restricted_family`.
 
-Empty actions alone do not prove a whole case. S07 still needs original
-identity/input/source, trace and denominator, terminal/direct-drive feasibility,
-status/attainment/full key and any applicable physical witness checks.
+Empty actions alone do not prove a whole case. S07 still needs matching current-source trace, denominator, terminal and
+direct-drive feasibility, full-key and any applicable physical-witness checks
+for present-source acceptance.
 An empty family must be recorded as empty; it cannot be counted as a nonempty
 attained optimum or justified by an unverified historical summary.
 
 ## Smallest rational next validation plan
 
-1. **Close input and identity provenance first.** Resolve the supported Library
-   materialization HTTP 403, retain the already-verified external archive
-   identity, and locate the complete original aggregate freeze. Once locally
-   materialized, verify its 23,810-byte size and full SHA-256, validate ZIP
-   members, and transfer/extract into a fresh server input-recovery directory
-   through the existing SSH route. Read and hash the six
-   original files, then run metadata intake under the existing environment.
-   The existing loader command is
-   `PYTHONPATH=src python -m timecut5.frozen_ab_registry --input-root /path/to/extracted/tree`.
-   Then set `HIROUTE_FROZEN_AB_ROOT` to that extracted tree and run
-   `PYTHONPATH=src python -m unittest discover -s tests -p test_frozen_ab_registry.py -v`.
-   Confirm the two original-population tests execute rather than skip, with
-   92 actual physical IDs and 184 HIER identities. This metadata step performs
-   no optimization and is not new numerical acceptance. Replace null member lists only with
-   verified original IDs; retain S07 and algebra-only A04 with their correct roles.
-2. **Build the gate mapping before deciding computation.** Map original themes,
-   B64 strata, C32 state/solver identities and source-specific historical
-   receipts. Mark each obligation as accepted, historical-only, vacuous with
-   proof, unavailable or unverified. Locate S07's original row/trace and
-   perform its smallest terminal/empty-family checks once identity is verified.
-   Do not rerun every population merely because a summary is incomplete.
+1. **Preserve the recovered A/B input and historical identities.** All six
+   source files and 92 IDs now validate. Keep their historical status/key
+   reports bound to their original sources; locate any still-retained raw
+   per-case certificates and the combined original gate manifest. No input
+   recovery or duplicate solve is needed for the metadata step.
+2. **Reconcile each remaining gate against these IDs.** Use the recovered
+   A20 theme and B64 factor mappings, C32 state IDs, and source-specific
+   reports. Separate historical parity from present-source original-query,
+   physical-witness, FLAT D-off/D-on, algebra/reset and literal G8 proof.
+   Expand computations only where a specific obligation lacks valid evidence.
 3. **Preserve accepted D0 evidence.** C01-HIER-D0 has its own frozen
    population, independent cold receipts and final acceptance. Reuse its
    844,440 successful models, 3,299 blocks and 105 registry entries. Do not
@@ -233,6 +215,5 @@ attained optimum or justified by an unverified historical summary.
    qualifying receipts. Whole M5-V completion requires all original
    correctness gates.
 
-This 2026-10-09 update records the separately completed D0 run and its
-acceptance. No numerical experiment or raw-evidence rewrite was launched by
-this documentation update.
+This 2026-10-10 update records A/B input recovery and metadata-only validation.
+No numerical experiment or raw-evidence rewrite was launched.
