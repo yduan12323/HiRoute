@@ -30,6 +30,12 @@ def _args(request, pin):
                     command[4:6] == ['--worker', '--deadline'], 'historical collector request changed')
     from .final_collector import parser
     args = parser().parse_args(command[4:])
+    producer_root = Path(request).resolve().parents[3]
+    binding.require(producer_root == Path('/home/dy/HiRoute/project'),
+                    'historical collector request must come from frozen producer root')
+    for key, value in vars(args).items():
+        if isinstance(value, Path) and not value.is_absolute():
+            setattr(args, key, producer_root/value)
     binding.require(args.worker_cpus == [1, 2, 3, 4, 5] and body['profile']['name'] == 'final-collector-v1',
                     'historical collector resource or CPU binding changed')
     # The retained request's old monotonic deadline is provenance, not the
