@@ -11,9 +11,13 @@ from __future__ import annotations
 from validation.family5.checker import digest, require, wire_equal, _plain
 from validation.trace5 import CheckedTrace
 from validation.suffix5.convex_checker import check_query_ledger
+from validation.suffix5.checker import aggregate_records
 from validation.suffix5.convex_evidence import check_query_witness
 from validation.suffix5.independent_convex_model import enumerate_words, build_models
-from validation.suffix5.solver import SolveBudget, UnresolvedRegime, solve_model
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from validation.suffix5.solver import SolveBudget
 
 
 def reconstruct_node_domain(checked: CheckedTrace, query_seq: int,
@@ -132,8 +136,10 @@ def audit_node(checked: CheckedTrace, query_seq: int, *, expected: dict,
         return dict(status='unsupported_model_scope', query_seq=query_seq,
                     reason=str(error), source=actual, literal_G8_closed=False)
     if ledger is None:
-        require(not models or type(budget) is SolveBudget,
-                'fresh model solving requires explicit SolveBudget')
+        if models:
+            from validation.suffix5.solver import SolveBudget, UnresolvedRegime, solve_model
+            require(type(budget) is SolveBudget,
+                    'fresh model solving requires explicit SolveBudget')
         records = []
         for slot, model in enumerate(models):
             try:
@@ -142,11 +148,10 @@ def audit_node(checked: CheckedTrace, query_seq: int, *, expected: dict,
                 return dict(status='unresolved_solver_budget', query_seq=query_seq,
                             failed_slot=slot, reason=str(error), source=actual,
                             literal_G8_closed=False)
-        from validation.suffix5.query import aggregate
         ledger = dict(schema='family5-suffix-query-ledger-v2', query_seq=query_seq,
                       query_sha256=actual['query_sha256'],
                       trace_sha256=actual['trace_sha256'],
-                      models=records, result=aggregate(records))
+                      models=records, result=aggregate_records(records))
     else:
         require(budget is None, 'retained ledger and fresh solve budget are exclusive')
         require(type(ledger) is dict and ledger.get('query_seq') == query_seq and

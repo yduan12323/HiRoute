@@ -1,5 +1,6 @@
 """Full tiny replay equivalence and failure checks; no real profile or solver batch."""
 from copy import deepcopy
+import importlib
 import json,os,subprocess,sys,time,unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -50,6 +51,31 @@ class CompleteParallelReplay(unittest.TestCase):
    self.assertTrue(pool.snapshot()['complete'])
   self.assertTrue(summary['structural_verified'])
   self.assertEqual(observed,[('exact_empty',0)])
+
+ def test_collector_fence_retained_node_callback_without_solver(self):
+  from experiments.time_cut_v2.recorded_real.suffix_census import NoOptimization
+  from validation.suffix5.literal_g8_node import audit_node,source_pins
+  old,new,path,sha=self.capture(self.fixture.rows[0]);observed=[]
+  solver_before=sys.modules.get('validation.suffix5.solver')
+  def audit(checked):
+   result=audit_node(checked,46,expected=source_pins(checked,46),max_models=0)
+   observed.append(result['status'])
+  fence=NoOptimization();sys.meta_path.insert(0,fence)
+  try:
+   with BatchExecutor(self.cpus,float(time.monotonic()+20),sha,
+                      worker_as=256*1024**2,kernel='interval-join-v1') as pool:
+    with self.fixture.writer('collector-fence-hook') as writer:
+     summary=full.replay(old,new,self.root,writer,'a'*64,'b'*64,path,sha,pool,
+                         on_checked_trace=audit)
+     writer.finalize()
+   self.assertTrue(summary['structural_verified'])
+   self.assertEqual(observed,['exact_empty'])
+   self.assertIs(sys.modules.get('validation.suffix5.solver'),solver_before)
+   if solver_before is None:
+    with self.assertRaises(ImportError):
+     importlib.import_module('validation.suffix5.solver')
+  finally:
+   sys.meta_path.remove(fence)
 
  def test_join_kernel_full_path_preserves_serial_query_and_receipt_bytes(self):
   for i,row in enumerate(self.fixture.rows):
