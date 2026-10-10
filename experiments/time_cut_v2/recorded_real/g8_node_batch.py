@@ -32,6 +32,9 @@ def _args(request, pin):
     args = parser().parse_args(command[4:])
     binding.require(args.worker_cpus == [1, 2, 3, 4, 5] and body['profile']['name'] == 'final-collector-v1',
                     'historical collector resource or CPU binding changed')
+    # The retained request's old monotonic deadline is provenance, not the
+    # new supervisor's clock. Its other pins remain unchanged.
+    args.deadline = None
     return args
 
 
@@ -70,6 +73,41 @@ def accepted_collector(cli, old, before):
     return receipt, summary
 
 
+def fixture_smoke(cli, writer, before):
+    """Small fenced domain seam check; never grants C01 acceptance."""
+    from validation.family5.checker import _plain, canonical, digest
+    from validation.real5_v2 import prepare_real_case
+    from validation.real5_v2.coalesced import verify_coalesced_trace
+    from validation.trace5 import CheckedTrace
+    from .node_domain_batch import check_domains
+    fixture = read_pinned(cli.fixture_evidence, cli.fixture_sha, 1024**2)
+    row, evidence = fixture['row'], fixture['evidence']
+    trusted = prepare_real_case(row['query'], digest(row['query']),
+        canonical(row['table']).encode(), row['table_sha256'],
+        canonical(row['original_tree']).encode(), row['original_tree_sha256'])
+    checked = verify_coalesced_trace(evidence['trace'], evidence['bundle'], trusted)
+    if cli.fixture_mode == 'missing-empty':
+        checked = CheckedTrace(checked._trace, checked.bundle, checked.summary,
+                               checked.node_queries, checked.empty_action_queries[:-1])
+    def projection(seq):
+        item = next(x for x in checked.queries if x['query_seq'] == seq)
+        roots, actions = _plain(item['family_ids']), _plain(item['actions'])
+        ranges = [dict(family_position=f, action_position=a, segment_id=0,
+                       logical_start=0, logical_end=1,
+                       query_start=f*len(actions)+a, query_end=f*len(actions)+a+1)
+                  for f in range(len(roots)) for a in range(len(actions))]
+        if cli.fixture_mode == 'tamper-range': ranges[-1]['query_end'] += 1
+        return dict(query_seq=seq, family_ids=roots, actions=actions,
+                    recorded_bound=item['bound'], classification=item['classification'],
+                    ancestry_bundle_sha256=item['ancestry_bundle_sha256'],
+                    model_slots=len(ranges), ranges=ranges)
+    domain = check_domains(checked, projection, before=before)
+    writer.write('fixture-domain.json', (canonical(dict(schema='hiroute-g8-batch-fixture-v1',
+        fixture_only=True, literal_G8_closed=False, historical_collector_sha256=cli.collector_acceptance_sha,
+        domain=domain)).encode()+b'\n',))
+    before()
+
+
 def worker(cli):
     writer = None
     stage = 'source-binding'
@@ -86,7 +124,17 @@ def worker(cli):
         sys.meta_path.insert(0, suffix_census.NoOptimization())
         sources = suffix_census.check_sources(binding.ROOT, cli.checker_commit, cli.checker_source_sha)
         old = _args(cli.collector_request, cli.collector_request_sha)
+        old.deadline = cli.deadline
         collector_receipt, collector_summary = accepted_collector(cli, old, before)
+        if cli.fixture_mode is not None:
+            stage = 'fenced-retained-evidence-fixture'
+            writer = runtime.BoundedEvidenceWriter(os.environ['HIROUTE_EVIDENCE_ROOT'],
+                PROFILE.worker_evidence_bytes, profile_name=PROFILE.name)
+            fixture_smoke(cli, writer, before)
+            suffix_census.check_sources(binding.ROOT, cli.checker_commit, cli.checker_source_sha)
+            accepted_collector(cli, old, before)
+            writer.finalize()
+            return 0
         from . import suffix_window
         policy = suffix_window.source_policy(old, before)
         original, current = replay_plan.verify(binding.ROOT, cli.live_plan, cli.live_plan_sha,
@@ -162,6 +210,9 @@ def parser():
     p.add_argument('--worker-cpus', type=int, nargs=5, required=True)
     p.add_argument('--cpu', type=int)
     p.add_argument('--deadline', type=float)
+    p.add_argument('--fixture-evidence', type=Path)
+    p.add_argument('--fixture-sha')
+    p.add_argument('--fixture-mode', choices=('pass','tamper-range','missing-empty'))
     return p
 
 
@@ -180,11 +231,21 @@ def main(argv=None):
     sources = suffix_census.check_sources(binding.ROOT, cli.checker_commit, cli.checker_source_sha)
     old = _args(cli.collector_request, cli.collector_request_sha)
     accepted_collector(cli, old, lambda: _before(deadline))
-    original, current = replay_plan.verify(binding.ROOT, cli.live_plan, cli.live_plan_sha,
-                                           old.historical_plan, old.historical_plan_sha, deadline)
-    binding.require(current['source_commit'] == cli.checker_commit and
-                    current['source_sha256'] == cli.checker_source_sha,
-                    'live plan is not bound to committed checker source')
+    binding.require((cli.fixture_mode is None and cli.fixture_evidence is None and cli.fixture_sha is None) or
+                    (cli.fixture_mode is not None and cli.fixture_evidence is not None and cli.fixture_sha is not None),
+                    'fixture evidence and mode must be complete')
+    if cli.fixture_mode is not None:
+        binding.require(binding.pin(cli.fixture_evidence)['sha256'] == cli.fixture_sha,
+                        'fixture evidence changed')
+    else:
+        binding.require(cli.fixture_evidence is None and cli.fixture_sha is None,
+                        'unexpected fixture evidence in full batch')
+    if cli.fixture_mode is None:
+        original, current = replay_plan.verify(binding.ROOT, cli.live_plan, cli.live_plan_sha,
+                                               old.historical_plan, old.historical_plan_sha, deadline)
+        binding.require(current['source_commit'] == cli.checker_commit and
+                        current['source_sha256'] == cli.checker_source_sha,
+                        'live plan is not bound to committed checker source')
     from . import suffix_window
     suffix_window.source_policy(old, lambda: _before(deadline))
     command = [sys.executable, '-B', '-m', MODULE, '--worker']
@@ -194,13 +255,17 @@ def main(argv=None):
                 'capture_result_sha','capture_decision_sha','capture_return_sha',
                 'checker_commit','checker_source_sha'):
         command += ['--'+key.replace('_','-'), getattr(cli,key)]
+    if cli.fixture_mode is not None:
+        command += ['--fixture-evidence', str(cli.fixture_evidence.resolve()),
+                    '--fixture-sha', cli.fixture_sha, '--fixture-mode', cli.fixture_mode]
     command += ['--worker-cpus', *map(str,cli.worker_cpus), '--deadline', repr(deadline)]
     context = runtime.PlanContext(cli.live_plan_sha, cli.checker_source_sha,
         binding.digest(dict(historical_plan=old.historical_plan_sha,
                             collector_request=cli.collector_request_sha,
                             collector_acceptance=cli.collector_acceptance_sha,
                             capture_sha=binding.pin(old.capture)['sha256'],
-                            historical_registry=old.registry_sha)), PROFILE.name)
+                            historical_registry=old.registry_sha,
+                            fixture_sha=cli.fixture_sha, fixture_mode=cli.fixture_mode)), PROFILE.name)
     result = runtime.run_phase(command, attempt_dir=cli.attempt_dir, profile=PROFILE,
         cpu=cli.cpu, worker_cpus=tuple(cli.worker_cpus), context=context,
         entry_monotonic=float(ENTRY), deadline_monotonic=deadline)
