@@ -63,6 +63,15 @@ class EmptyOccurrences(unittest.TestCase):
         self.assertFalse(actual['execution_authority'])
         self.assertFalse(actual['certificate_authority'])
 
+    def test_checked_trace_snapshot_preserves_recovery_wire_hash(self):
+        with self.assertRaisesRegex(ValueError, 'trace_fields'):
+            bridge.recover_empty_occurrences(
+                self.checked._trace, self.ids, **self.pins)
+        detached = self.checked.snapshot()
+        self.assertEqual(stream_digest(detached), self.pins['trace_sha256'])
+        actual = bridge.recover_empty_occurrences(detached, self.ids, **self.pins)
+        self.assertEqual(actual['rows'], self.original_rows)
+
     def test_returned_rows_do_not_alias_capture(self):
         actual = self.recover()
         actual['rows'][0]['actions'].append(['foreign', 'C'])

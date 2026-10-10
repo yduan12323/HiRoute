@@ -180,7 +180,7 @@ def cold_collect(checked, root, args, policy, *, before=lambda: None):
             checked.summary['trace_sha256'] == admitted._index['trace_sha256'],
             'live original node domain differs from admitted population')
     plan = plan_query_collection(admitted, registry, before=before)
-    partition = plan.recover_empty_partition(checked._trace, before=before)
+    partition = plan.recover_empty_partition(checked.snapshot(), before=before)
     summary = plan.summary()
     require(summary['planning_complete'] is True and
             summary['original_model_occurrences'] == domain['admitted_model_occurrences'] and
