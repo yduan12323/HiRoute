@@ -333,7 +333,16 @@ class QueryCollectionTests(unittest.TestCase):
 
     def test_empty_recovery_requires_unchanged_original_v2_trace_and_returns_bound_partition(self):
         result, _ = self.run_plan()
-        trace = plan.load(self.fx.fx.root/'capture/capture.json')['trace']
+        payload = plan.load(self.fx.fx.root/'capture/capture.json')
+        trace = payload['trace']
+        from validation.real5_v2.shared_replay_cached import verify_coalesced_trace
+        checked = verify_coalesced_trace(trace, payload['bundle'], self.fx.trusted)
+        self.assertNotIsInstance(checked._trace, dict)
+        with self.assertRaisesRegex(ValueError, 'trace_fields'):
+            result.recover_empty_partition(checked._trace)
+        live_partition = result.recover_empty_partition(checked.snapshot())
+        self.assertEqual(live_partition.report()['recovered']['total_query_events'],
+                         self.admitted.commitment()['queries'] + self.admitted.commitment()['empty_action_queries'])
         self.assertEqual(trace['schema'], 'family5-hier-trace-v2')
         original = deepcopy(trace)
         with patch('validation.suffix5.checker._bound_audit', wraps=_bound_audit) as audit:
