@@ -4781,5 +4781,17 @@
       "availability": "restored_on_server_and_raw_bytes_verified_2026-10-10",
       "pin_authority": "docs/FROZEN_AB_REGISTRY.md; src/timecut5/frozen_ab_registry.py"
     }
-  ]
+  ],
+  "b64_missing_certificate_recovery": {
+    "scope": "exactly B01–B06 and B09–B14, bounded H_ref diagnostic on separately pinned source",
+    "receipt": "MILESTONE_5_B_MISSING_CERTIFICATE_RECOVERY.json",
+    "source_commit": "6a91a6b18a858a10b5206cad17402db72d5972a8",
+    "cases": 12,
+    "certified_finite_regimes": 173456,
+    "four_mode_matches": 48,
+    "four_mode_mismatches": 0,
+    "historical_status_full_key_and_regime_matches": 12,
+    "literal_G8_closed": false,
+    "whole_M5_complete": false
+  }
 }

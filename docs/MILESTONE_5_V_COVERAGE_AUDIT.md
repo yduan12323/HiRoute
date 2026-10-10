@@ -91,7 +91,7 @@ The restored B64 report, SHA-256
 `a45979a2a49909d61b25df46d35237120f85c46c8c266cf13b78c7ed627bb025`,
 identifies its 12 original-source cases lacking raw certificates as B01–B06
 and B09–B14. It retains their result/reference identities, but those identities
-do not replace the missing raw certificates. For C32, the hash-verified 32-state
+do not replace the missing raw certificates. A subsequent [scoped recovery](MILESTONE_5_B_MISSING_CERTIFICATE_RECOVERY.md) freshly certified all 173,456 finite regimes for exactly those 12 cases on source `6a91a6b18a858a10b5206cad17402db72d5972a8`, with 48/48 four-mode matches and all 12 status/full-key/regime rows matching that historical report. This fills the missing raw-certificate gap for those cases while preserving the historical source boundary. For C32, the hash-verified 32-state
 input inventory is `results/milestone_5_real_export/query_states_resolved.json`
 (SHA-256 `d4bd50215c8035552ca47a9bf4e175d580eb265a2e9acbeff5d574c60b08b57c`)
 with immutable leg tables and original tree restrictions. The reported
@@ -148,7 +148,7 @@ solves. A04 is algebra-only; its remaining visited-bound, dynamic refinement,
 deletion, 50-algebra and reset obligations are separate. The B report records
 64 distinct five-factor combinations, 256/256 full-solver comparisons and zero
 mismatches. Its original-source raw certificates for 12 cases were not
-retained, and `exact_inherited_family_optimizer_implemented=false`.
+retained; fresh scoped certificates for exactly those cases are now indexed in the [recovery receipt](MILESTONE_5_B_MISSING_CERTIFICATE_RECOVERY.json). `exact_inherited_family_optimizer_implemented=false`.
 These are byte-verified historical reports at their stated source versions,
 not present-source collector acceptance. The reported C 128/128 four-mode
 parity remains a historical summary without the original report files here.
@@ -185,7 +185,7 @@ historical result rows.
 | Recovered group | Historical report outcome | Scope boundary |
 | --- | --- | --- |
 | A28 | 24 attained, 2 infeasible, 1 primary unattained, 1 secondary unattained; 112/112 four-mode parity, zero reported key/status mismatches | H4 scoped diagnostics; A04 algebra-only, not a 29th physical case; not all 20 themes are complete graph solves |
-| B64 | 48 attained, 16 infeasible; 64/64 distinct factor combinations, 256/256 full-solver comparisons, zero reported mismatches | H4 bounded diagnostic; 12 original-source raw certificates not retained; literal inherited-family optimizer incomplete |
+| B64 | 48 attained, 16 infeasible; 64/64 distinct factor combinations, 256/256 full-solver comparisons, zero reported mismatches | H4 bounded diagnostic; 12 originally missing raw-certificate cases now freshly recovered on a separately pinned source; literal inherited-family optimizer incomplete |
 
 S07 is now identified as `S07_effect_free_via_site_excluded` in the A input.
 Its `sites={"v":[]}` row and historical A result report
