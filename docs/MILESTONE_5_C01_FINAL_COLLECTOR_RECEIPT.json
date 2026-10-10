@@ -447,5 +447,30 @@
     "source_and_tracked_tree_unchanged": true,
     "related_processes": 0,
     "uid_lock_held": false
+  },
+  "original_node_domain_audit": {
+    "scope": "C01-HIER-D1 complete original-node and empty-action domain; reused historical numerical and physical authority",
+    "status": "completed",
+    "checker_commit": "b6c92893b483b383fafa38ce51f6ed0a85c48c1e",
+    "checker_source_sha256": "c76db5fa8af6201a94943913f1d4dbc11c7eaa256e560c3e971a34b807854d7e",
+    "server_attempt": "/home/dy/HiRoute/g8_batch_b6c9289/g8-batch-full-d1.003",
+    "successful_return_sha256": "3f4725d85ddd3221023091bf5b35938019c31eeada06fea451f034ff09b58620",
+    "verified_manifest_sha256": "5216ef596e878cde069f00835e730dce57a487a0292c7400e5710ed8af2ae302",
+    "queries_nonempty": 12172,
+    "queries_empty": 9666,
+    "total_query_events": 21838,
+    "unique_models": 695712,
+    "model_occurrences": 7652832,
+    "blocks": 2718,
+    "historical_registry_entries": 86,
+    "fresh_lp_calls": 0,
+    "solver_calls": 0,
+    "literal_G8_closed": false,
+    "whole_M5_complete": false,
+    "mac_archive": {
+      "path": "g8-batch-full-d1.003.success.tar.gz",
+      "sha256": "c4b070b5752f43fce09cd1818ffc1ef416678a23ea2d995c020cc5d9e6ce65a8",
+      "size_bytes": 17871016
+    }
   }
 }

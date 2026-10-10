@@ -269,3 +269,10 @@ Likewise, bounded legacy numeric parity and the checkpoint's synthetic tests
 are historical populations at their own source versions. They do not close
 the original A28/B64/C32 identities or certify present-source D0/FLAT results.
 See the coverage audit for the smallest remaining validation plan.
+## Full original-node domain audit (.003)
+
+On 2026-10-10 checker commit `b6c92893b483b383fafa38ce51f6ed0a85c48c1e` completed one supervised, read-only audit in `/home/dy/HiRoute/g8_batch_b6c9289/g8-batch-full-d1.003`. It reauthenticated the accepted historical numerical and physical collector without rerunning LP models. The actual caller return was `completed`, all descendants were reaped, and its 39-file manifest was cold verified (SHA-256 `5216ef596e878cde069f00835e730dce57a487a0292c7400e5710ed8af2ae302`). Wall time was 1,849.18 seconds; peak sampled group RSS was 5,491,949,568 bytes and charged evidence was 1,133,131,790 bytes, within the unchanged 3,600-second, 16 GiB child AS, 20 GiB group RSS and 2 GiB evidence profile.
+
+Fresh structural and original-node verification covered 12,172 nonempty queries, 9,666 empty-action events, 21,838 total original query events, 695,712 unique models, 7,652,832 model occurrences and 2,718 blocks. The cold-admitted registry contains 86 entries: one block resume, 83 ordinary windows and two recovery windows. The checked empty partition and query collection share row SHA-256 `affcf6f9e3af59e81c9a34e1209db9188847b1d9c960ab0f98ca63e95ea0080e`. Structural replay passed with zero solver and suffix optimizer calls. The historical collector acceptance pin remains `a9d810572b1020d7e86a40f27991e51f5393ad8ef0149bee8f213aabab032542`.
+
+This closes the scoped C01-HIER-D1 original-node domain audit using prior numerical and physical authority. Literal exact inherited-family G8 for every node, C01-D0, FLAT, other C32 cases and whole M5-V remain open. `literal_G8_closed`, `full_C32_complete` and `whole_M5_complete` remain false. The server evidence and Mac archive are indexed in the receipt capsule.
