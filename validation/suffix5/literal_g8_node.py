@@ -1,7 +1,7 @@
-"""Bounded audit of one original HIER node's inherited continuation family.
+"""Bounded audit of one checked indexed HIER query's inherited family.
 
 This is an evidence consumer for a genuine CheckedTrace, not a population runner
-or a source of global G8 acceptance. The independent convex model/checker
+or a source of original-node domain completeness or global G8 acceptance. The independent convex model/checker
 reconstruct every family, suffix word, and arrival band. Existing exact LP
 certificates may be supplied; absent certificates are solved only within the
 caller's explicit small model and solve budgets.
@@ -82,6 +82,10 @@ def audit_node(checked: CheckedTrace, query_seq: int, *, expected: dict,
                       models=records, result=aggregate(records))
     else:
         require(budget is None, 'retained ledger and fresh solve budget are exclusive')
+        require(type(ledger) is dict and ledger.get('query_seq') == query_seq and
+                ledger.get('query_sha256') == actual['query_sha256'] and
+                ledger.get('trace_sha256') == actual['trace_sha256'],
+                'retained ledger belongs to a different query occurrence')
         require(type(ledger) is dict and type(ledger.get('models')) is list and
                 len(ledger['models']) == len(models), 'retained ledger lacks exact node model count')
     # Rebuilds every model independently, checks all exact LP certificates,
@@ -103,5 +107,5 @@ def audit_node(checked: CheckedTrace, query_seq: int, *, expected: dict,
                 exact_result=checked_result['result'], recorded_bound=query['bound'],
                 bound_status=finding['bound_status'], bound_gap=finding['bound_gap'],
                 source=actual, physical_witness_checked=witness is not None,
-                scope='one_original_checked_inherited_family_node',
+                scope='one_checked_indexed_inherited_family_query',
                 literal_G8_closed=False)

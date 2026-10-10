@@ -7,6 +7,11 @@ from validation.suffix5.literal_g8_node import audit_node, source_pins
 from validation.suffix5.test_convex_checker import hand_ledger
 from tests.test_recovered_real_coalesced import ROOT, capture, prepare
 from validation.real5_v2.coalesced import verify_coalesced_trace
+from validation.suffix5.independent_convex_model import build_model
+from validation.suffix5.convex_checker import check_regime
+from validation.suffix5.test_convex_checker import hand_record
+from validation.suffix5.test_certificate_checker import inherited_open_context
+from tests.test_restricted_suffix_v2 import foreign_context
 
 
 class LiteralG8NodeTests(unittest.TestCase):
@@ -64,6 +69,37 @@ class LiteralG8NodeTests(unittest.TestCase):
         wrong['region_tree_sha256'] = '0' * 64
         with self.assertRaises(ValueError):
             audit_node(checked, 46, expected=wrong, max_models=0)
+
+        # Both are genuine, distinct zero-model queries from this checked trace.
+        other = source_pins(checked, 50)
+        foreign_ledger = dict(schema='family5-suffix-query-ledger-v2', query_seq=50,
+                              query_sha256=other['query_sha256'],
+                              trace_sha256=other['trace_sha256'], models=[],
+                              result={'status': 'empty_restricted_family'})
+        self.assertEqual(audit_node(checked, 50, expected=other, max_models=0,
+                                    ledger=foreign_ledger)['status'], 'exact_empty')
+        with self.assertRaises(ValueError):
+            audit_node(checked, 46, expected=pins, max_models=0,
+                       ledger=foreign_ledger)
+
+    def test_distinct_ancestry_and_inherited_energy_are_preserved(self):
+        ctx, ids = foreign_context()
+        self.assertNotEqual(ids[0], ids[1])
+        models = [build_model(ctx, fid, [['c', 'C']], [0]) for fid in ids]
+        self.assertNotEqual(models[0], models[1])
+        self.assertEqual([model['family_id'] for model in models], ids)
+        inherited, fid = inherited_open_context()
+        model = build_model(inherited, fid, [['o', 'C']], [0])
+        self.assertEqual([row['strict'] for row in model['lp']['rows'][:3]],
+                         [True, True, True])
+        self.assertEqual([row['rhs'] for row in model['lp']['rows'][:3]],
+                         ['-3', '4', '-11'])
+
+    def test_secondary_unattained_remains_distinct_from_primary(self):
+        ctx, record = hand_record('CS', 0)
+        self.assertEqual(check_regime(ctx, record)['status'],
+                         'secondary_unattained')
+        self.assertEqual(record['result']['secondary_infimum'], '0')
 
 
 if __name__ == '__main__':
