@@ -17,6 +17,7 @@ from tests.test_restricted_suffix_v2 import foreign_context
 from validation.suffix5.solver import SolveBudget
 from tests.test_recovered_real_family import capture as baseline_capture
 from validation.real5_v2 import verify_trace as verify_baseline_trace
+from validation.trace5.coalesced import _connected_components
 
 
 class LiteralG8NodeTests(unittest.TestCase):
@@ -120,6 +121,13 @@ class LiteralG8NodeTests(unittest.TestCase):
     def test_distinct_ancestry_and_inherited_energy_are_preserved(self):
         ctx, ids = foreign_context()
         self.assertNotEqual(ids[0], ids[1])
+        # Identical singleton cuts with separate guarded histories form one
+        # connected component under the supported coalescing grammar.
+        self.assertEqual(ctx.snapshot()['nodes'][ids[0]]['output'],
+                         ctx.snapshot()['nodes'][ids[1]]['output'])
+        self.assertEqual([members for members, _ in
+                          _connected_components([ctx._pieces[fid] for fid in ids])],
+                         [[0, 1]])
         models = [build_model(ctx, fid, [['c', 'C']], [0]) for fid in ids]
         self.assertNotEqual(models[0], models[1])
         self.assertEqual([model['family_id'] for model in models], ids)
