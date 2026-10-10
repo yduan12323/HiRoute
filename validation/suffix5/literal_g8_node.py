@@ -79,13 +79,27 @@ def source_pins(checked: CheckedTrace, query_seq: int) -> dict:
 
 def audit_node(checked: CheckedTrace, query_seq: int, *, expected: dict,
                max_models: int, ledger: dict | None = None,
-               budget: SolveBudget | None = None, witness: tuple | None = None) -> dict:
+               budget: SolveBudget | None = None, witness: tuple | None = None,
+               indexed_only: bool = False) -> dict:
     """Check one exact inherited-family node against its recorded Region bound.
 
     The result is scoped to this query occurrence. ``ledger`` is optional
     retained evidence, never an authority for model membership. A missing
     ledger requires an explicit numerical budget. No implicit unlimited solve.
+    ``max_models`` limits accepted models, not eager enumeration memory/time.
+    An empty result may contain certified infeasible models; only
+    ``exact_language_empty`` means zero enumerated models.
     """
+    require(type(indexed_only) is bool, 'indexed_only_type')
+    supported = (checked.summary.get('schema') ==
+                 'family5-real-coalesced-hier-trace-check-v2' and
+                 'real_input' in checked.summary)
+    if not supported and not indexed_only:
+        return dict(status='unsupported_original_node_domain', query_seq=query_seq,
+                    trace_schema=checked.summary.get('schema'),
+                    literal_G8_closed=False)
+    require(not indexed_only or not supported,
+            'indexed_only_is_for_unsupported_trace_grammar')
     actual = source_pins(checked, query_seq)
     require(type(expected) is dict and set(expected) == set(actual) and
             wire_equal(expected, actual), 'node source/trace/ancestry pins differ')
@@ -94,8 +108,9 @@ def audit_node(checked: CheckedTrace, query_seq: int, *, expected: dict,
     require(witness is None or type(witness) is tuple and len(witness) == 3,
             'witness must be (slot, evidence, contract)')
     query = next(q for q in checked.export_queries() if q['query_seq'] == query_seq)
-    domain = reconstruct_node_domain(checked, query_seq,
-                                     query['family_ids'], query['actions']) if 'real_input' in checked.summary else None
+    domain = (reconstruct_node_domain(checked, query_seq,
+                                     query['family_ids'], query['actions'])
+              if supported else None)
     if domain is not None:
         require(query['region_id'] == domain['region_id'] and
                 query['effect'] == domain['effect'] and
@@ -152,6 +167,8 @@ def audit_node(checked: CheckedTrace, query_seq: int, *, expected: dict,
               else 'verified_bound' if finding['bound_status'] == 'satisfied'
               else 'bound_counterexample' if finding['bound_status'] == 'violated'
               else 'missing_bound')
+    if indexed_only:
+        status = 'indexed_' + status
     return dict(schema='hiroute-literal-g8-single-node-audit-v1', status=status,
                 query_seq=query_seq, region_id=query['region_id'], effect=query['effect'],
                 family_ids=list(query['family_ids']), exact_model_count=len(models),
