@@ -17,10 +17,18 @@ from .hot_jobs import read_pinned
 from .runtime import _directory, read_phase_result
 
 
-def preflight(registry, producer_root, reviewed_sources, *, deadline, before=lambda: None):
+LEAF_SHAPES = {
+    'C01::HIER::D-on': (86, {'block_resume': 1, 'suffix_window': 83, 'suffix_window_recovery': 2}),
+    'C01::HIER::D-off': (105, {'suffix_window': 105}),
+}
+
+
+def preflight(registry, producer_root, reviewed_sources, *, variant_id, deadline, before=lambda: None):
     root = wr.historical_root(producer_root)
+    binding.require(variant_id in LEAF_SHAPES, 'unsupported retained registry variant')
+    leaf_count, expected_modules = LEAF_SHAPES[variant_id]
     binding.require(registry['schema'] == 'hiroute-checked-window-registry-v1' and
-                    len(registry['entries']) == 86, 'fixed retained registry leaf count changed')
+                    len(registry['entries']) == leaf_count, 'fixed retained registry leaf count changed')
     counts, hashed, recovery_leaves = Counter(), set(), 0
     def guard():
         before()
@@ -84,13 +92,13 @@ def preflight(registry, producer_root, reviewed_sources, *, deadline, before=lam
                         'duplicate retained dependency')
         for dep in dependencies:
             pinned(dep['path'], dep['sha256'], dep['size_bytes'])
-    binding.require(dict(counts) == dict(block_resume=1,suffix_window=83,suffix_window_recovery=2),
+    binding.require(dict(counts) == expected_modules,
                     'retained registry module population changed')
-    return dict(schema='hiroute-d1-historical-path-preflight-v1',
-        producer_root=str(root), leaves=sum(counts.values()), modules=dict(counts),
+    return dict(schema='hiroute-historical-path-preflight-v1',
+        producer_root=str(root), variant_id=variant_id, leaves=sum(counts.values()), modules=dict(counts),
         recovery_predecessors=recovery_leaves, distinct_hashed_dependencies=len(hashed),
         source_and_origin_paths_verified=True, mathematical_acceptance=False,
-        lp_calls=0, full_D1_attempt_started=False)
+        lp_calls=0, full_batch_attempt_started=False)
 
 
 def main(argv=None):
@@ -105,10 +113,14 @@ def main(argv=None):
     args.deadline=deadline
     suffix_census.check_sources(binding.ROOT,args.checker_commit,args.checker_source_sha)
     old=_args(Path(args.collector_request),args.collector_request_sha)
-    accepted_collector(args,old,lambda: binding.require(time.monotonic()<deadline,'preflight deadline'))
+    receipt, summary = accepted_collector(args,old,lambda: binding.require(time.monotonic()<deadline,'preflight deadline'))
     sources=suffix_window.source_policy(old)
     registry=read_pinned(old.registry,old.registry_sha,wr.REGISTRY_LIMIT)
-    result=preflight(registry,old.producer_root,sources,deadline=deadline)
+    variant_id = receipt.get('variant_id', 'C01::HIER::D-on')
+    from .variant_scope import is_d0_population
+    binding.require((variant_id == 'C01::HIER::D-off') == is_d0_population(summary['population']),
+                    'retained registry variant differs from collector population')
+    result=preflight(registry,old.producer_root,sources,variant_id=variant_id,deadline=deadline)
     print(json.dumps(result,sort_keys=True))
     return 0
 
