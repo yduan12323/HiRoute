@@ -770,7 +770,14 @@
       "evaluation_source_commit": "3ad6e385903b631579df059b48d9ea6037728da7",
       "receipt": "MILESTONE_5_C01_D0_FINAL_COLLECTOR_RECEIPT.json#evidence_pins",
       "literal_G8_closed": false,
-      "full_population_complete": false
+      "full_population_complete": false,
+      "original_node_domain_audit": {
+        "status": "completed_retained_evidence_cold_admitted",
+        "checker_commit": "6a91a6b18a858a10b5206cad17402db72d5972a8",
+        "verified_manifest_sha256": "301fce572a3cc9acc7fa737ab6d30ec8de3829ab0960e6156aa5af697eaf5fe9",
+        "receipt": "MILESTONE_5_C01_D0_FINAL_COLLECTOR_RECEIPT.json#original_node_domain_audit",
+        "fresh_lp_calls": 0
+      }
     },
     {
       "identity": "C01::HIER::D-on",

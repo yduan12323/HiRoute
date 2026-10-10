@@ -214,5 +214,41 @@
     "final_registry_sha256": "171c5ecff4258cb72ee013c4d1cd441d814b4e35c4e50bc4aca733ca92a81abf",
     "final_runtime_return_sha256": "9999de9a3b5d91d390aa5a60b8890ead0d30f339a4719530826d3cae1f147b9a",
     "source_policy_sha256": "3de130328d7a488fd5551f67fae570a274b8003fa6b5fa0b92f04381559b2493"
+  },
+  "original_node_domain_audit": {
+    "scope": "C01-HIER-D0 complete original-node and empty-action domain; reused historical numerical and physical authority",
+    "status": "completed",
+    "checker_commit": "6a91a6b18a858a10b5206cad17402db72d5972a8",
+    "checker_source_sha256": "f47a4e248751f7593c2efafdb25cbac156243e42feda78fec856106a48c4635a",
+    "live_plan_sha256": "5f16bdb23fcebfe49c02a90197eda5d929a092260829968fef0153d44ec45b97",
+    "profile": "retained-node-audit-d0-v1",
+    "server_attempt": "/home/dy/HiRoute/g8_batch_d0_6a91a6b/g8-batch-full-d0.001",
+    "successful_return_sha256": "bdba8a00817963523037b46b77e636d838ffd81dedb404a43c7b6d151d8961c9",
+    "verified_manifest_sha256": "301fce572a3cc9acc7fa737ab6d30ec8de3829ab0960e6156aa5af697eaf5fe9",
+    "manifest_files": 43,
+    "domain_sha256": "5daba98afcc11c7864fa84148993a3f71119e8685a6dbab04966b6ea8a692990",
+    "domain_report_sha256": "d7d72f677ed6a09e2f7a4c602277ee6fbd70d704d396c96be0da4e06f48ff006",
+    "queries_nonempty": 19890,
+    "queries_empty": 15795,
+    "total_query_events": 35685,
+    "unique_models": 844440,
+    "model_occurrences": 9288840,
+    "blocks": 3299,
+    "historical_registry_entries": 105,
+    "fresh_lp_calls": 0,
+    "numerical_certificates_rechecked": 0,
+    "phase_wall_seconds": 2659.0188849749975,
+    "sampled_group_rss_peak_bytes": 5710467072,
+    "worker_charged_bytes": 2577334424,
+    "descendants_reaped": true,
+    "worker_exit_code": 0,
+    "supervisor_acceptance": false,
+    "literal_G8_closed": false,
+    "whole_M5_complete": false,
+    "mac_archive": {
+      "path": "g8-batch-full-d0.002.success.tar.gz",
+      "sha256": "a458382f4b7bf3476b427c5d48572bf75f213b0f1c55ccc97ad287fda13d3cdb",
+      "size_bytes": 43888420
+    }
   }
 }
