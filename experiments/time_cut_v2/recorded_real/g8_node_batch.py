@@ -18,8 +18,21 @@ from .hot_jobs import read_pinned
 from .worker import prior_capture
 
 ENTRY = time.monotonic()
-PROFILE = runtime.RETAINED_NODE_AUDIT
 MODULE = 'experiments.time_cut_v2.recorded_real.g8_node_batch'
+
+
+def profile_for(cli):
+    receipt = read_pinned(cli.collector_acceptance, cli.collector_acceptance_sha, 65536)
+    variant = receipt.get('variant_id')
+    if variant == 'C01::HIER::D-off':
+        binding.require(receipt.get('dominance') is False and
+                        receipt.get('population_freeze_sha256') ==
+                        'f2f5d282b226b69a686d694663089594b7db613436bd266cddea219d91f80b07',
+                        'D0 retained profile population binding differs')
+        return runtime.RETAINED_NODE_AUDIT_D0
+    binding.require(variant is None and 'dominance' not in receipt,
+                    'unsupported retained-node collector variant')
+    return runtime.RETAINED_NODE_AUDIT
 
 
 def _args(request, pin):
@@ -129,8 +142,9 @@ def worker(cli):
     def before(): _before(cli.deadline)
     try:
         before()
-        binding.require(os.environ.get('HIROUTE_PROFILE') == PROFILE.name and
-                        int(os.environ['HIROUTE_EVIDENCE_CAP_BYTES']) == PROFILE.worker_evidence_bytes,
+        profile = profile_for(cli)
+        binding.require(os.environ.get('HIROUTE_PROFILE') == profile.name and
+                        int(os.environ['HIROUTE_EVIDENCE_CAP_BYTES']) == profile.worker_evidence_bytes,
                         'fixed retained-node profile differs')
         binding.require(cli.worker_cpus == [1,2,3,4,5] and
                         os.sched_getaffinity(0) == set(cli.worker_cpus), 'fixed family CPU group differs')
@@ -144,7 +158,7 @@ def worker(cli):
         if cli.fixture_mode is not None:
             stage = 'fenced-retained-evidence-fixture'
             writer = runtime.BoundedEvidenceWriter(os.environ['HIROUTE_EVIDENCE_ROOT'],
-                PROFILE.worker_evidence_bytes, profile_name=PROFILE.name)
+                profile.worker_evidence_bytes, profile_name=profile.name)
             fixture_smoke(cli, writer, before)
             suffix_census.check_sources(binding.ROOT, cli.checker_commit, cli.checker_source_sha)
             accepted_collector(cli, old, before)
@@ -162,7 +176,7 @@ def worker(cli):
         binding.require(capture_sha == binding.pin(old.capture)['sha256'],
                         'live replay capture differs from retained collector')
         writer = runtime.BoundedEvidenceWriter(os.environ['HIROUTE_EVIDENCE_ROOT'],
-            PROFILE.worker_evidence_bytes, profile_name=PROFILE.name)
+            profile.worker_evidence_bytes, profile_name=profile.name)
         from validation.real5_v2.batch_jobs import BatchExecutor, WORKER_AS
         binding.require(WORKER_AS == 1024**3, 'family child AS differs')
         from .node_domain_batch import cold_collect
@@ -234,15 +248,16 @@ def parser():
 def main(argv=None):
     cli = parser().parse_args(argv)
     if cli.worker: return worker(cli)
+    profile = profile_for(cli)
     binding.require(cli.cpu == 0 and cli.worker_cpus == [1,2,3,4,5] and
                     not cli.attempt_dir.exists(), 'fresh fixed supervisor request required')
-    deadline = float(ENTRY + PROFILE.wall_seconds)
+    deadline = float(ENTRY + profile.wall_seconds)
     soft, hard = resource.getrlimit(resource.RLIMIT_AS)
-    binding.require(hard == resource.RLIM_INFINITY or hard >= PROFILE.child_as_bytes,
+    binding.require(hard == resource.RLIM_INFINITY or hard >= profile.child_as_bytes,
                     'inherited AS ceiling too small')
     resource.setrlimit(resource.RLIMIT_AS,
-        (min(PROFILE.supervisor_as_bytes, soft) if soft != resource.RLIM_INFINITY
-         else PROFILE.supervisor_as_bytes, hard))
+        (min(profile.supervisor_as_bytes, soft) if soft != resource.RLIM_INFINITY
+         else profile.supervisor_as_bytes, hard))
     sources = suffix_census.check_sources(binding.ROOT, cli.checker_commit, cli.checker_source_sha)
     old = _args(cli.collector_request, cli.collector_request_sha)
     accepted_collector(cli, old, lambda: _before(deadline))
@@ -281,8 +296,8 @@ def main(argv=None):
                             collector_acceptance=cli.collector_acceptance_sha,
                             capture_sha=binding.pin(old.capture)['sha256'],
                             historical_registry=old.registry_sha,
-                            fixture_sha=cli.fixture_sha, fixture_mode=cli.fixture_mode)), PROFILE.name)
-    result = runtime.run_phase(command, attempt_dir=cli.attempt_dir, profile=PROFILE,
+                            fixture_sha=cli.fixture_sha, fixture_mode=cli.fixture_mode)), profile.name)
+    result = runtime.run_phase(command, attempt_dir=cli.attempt_dir, profile=profile,
         cpu=cli.cpu, worker_cpus=tuple(cli.worker_cpus), context=context,
         entry_monotonic=float(ENTRY), deadline_monotonic=deadline)
     print(json.dumps(result, sort_keys=True))

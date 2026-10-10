@@ -82,16 +82,19 @@ BATCH_REPLAY = RuntimeProfile("batch-replay-v1", 16 * GiB, 20 * GiB, 1800, 8 * G
                               16 * MiB, 16 * GiB, 20 * GiB)
 RETAINED_NODE_AUDIT = RuntimeProfile("retained-node-audit-v1", 16 * GiB, 20 * GiB, 3600, 2 * GiB,
                                      16 * MiB, 16 * GiB, 20 * GiB)
+RETAINED_NODE_AUDIT_D0 = RuntimeProfile("retained-node-audit-d0-v1", 16 * GiB, 20 * GiB, 3600, 4 * GiB,
+                                        16 * MiB, 16 * GiB, 20 * GiB)
 FINAL_COLLECTOR = RuntimeProfile("final-collector-v1", 16 * GiB, 20 * GiB, 3600, GiB,
                                 16 * MiB, 16 * GiB, 20 * GiB)
 TINY_TEST = RuntimeProfile("tiny-test-v1", 256 * MiB, 256 * MiB, 2, 2 * MiB,
                           64 * 1024, MiB, MiB)
-PROFILES = {p.name: p for p in (CAPTURE, REPLAY, BATCH_REPLAY, RETAINED_NODE_AUDIT, FINAL_COLLECTOR, TINY_TEST)}
+PROFILES = {p.name: p for p in (CAPTURE, REPLAY, BATCH_REPLAY, RETAINED_NODE_AUDIT,
+                               RETAINED_NODE_AUDIT_D0, FINAL_COLLECTOR, TINY_TEST)}
 
 
 def _is_group_profile(profile: RuntimeProfile) -> bool:
     """Only these exact fixed profiles admit a separate five-CPU worker mask."""
-    return profile in (BATCH_REPLAY, RETAINED_NODE_AUDIT, FINAL_COLLECTOR)
+    return profile in (BATCH_REPLAY, RETAINED_NODE_AUDIT, RETAINED_NODE_AUDIT_D0, FINAL_COLLECTOR)
 
 
 @dataclass(frozen=True)
