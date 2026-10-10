@@ -250,8 +250,9 @@ def main(argv=None):
         original, current = replay_plan.verify(binding.ROOT, cli.live_plan, cli.live_plan_sha,
                                                old.historical_plan, old.historical_plan_sha, deadline)
         binding.require(current['source_commit'] == cli.checker_commit and
-                        current['source_sha256'] == cli.checker_source_sha,
-                        'live plan is not bound to committed checker source')
+                        current['source_sha256'] ==
+                        binding.digest(binding.source_inventory(binding.ROOT)),
+                        'live plan is not bound to committed replay source')
     from . import suffix_window
     suffix_window.source_policy(old, lambda: _before(deadline))
     command = [sys.executable, '-B', '-m', MODULE, '--worker']
