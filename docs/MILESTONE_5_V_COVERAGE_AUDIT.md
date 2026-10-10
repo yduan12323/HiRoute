@@ -98,15 +98,36 @@ project directories; `results/milestone_5_reference/validation_summary_final.jso
 explicitly marks historical A20/B64/C32 completion false. C32 exact results,
 per-case raw certificates and current-source receipts remain unlocated.
 
-C01-HIER-D1 original query 1473 has 75 retained model proof rows, but a fresh
-single-coordinator node audit did not complete. The 2 GiB attempt failed while
+C01-HIER-D1 original query 1473 has 75 retained model proof rows. The first
+single-coordinator node audit did not complete: the 2 GiB attempt failed while
 decoding the 835,419,819-byte capture; the established 16 GiB AS / 20 GiB RSS /
 3,600-second attempt authenticated the historical source plan and decoded the
 v2 capture but timed out during independent full-trace verification before a
 `CheckedTrace` returned. No LP ran, no retained certificate was newly checked,
 and no bound was newly accepted. Both failure reports and the exact input hashes
-are preserved in the isolated checkout. The accepted D1 collector still has
-its separate indexed original-query receipt; this probe does not revise it.
+are preserved in the isolated checkout. These failures preceded the scoped
+successful audit below.
+
+At source `74e8cdc05e4acaf980de1736685af0319bc04c67`, fresh attempt
+`/home/dy/HiRoute/g8_node_review_1eaff29/g8-node-collector-1473.003`
+independently verified the complete frozen trace with four bounded family
+workers, then checked all 75 retained LP certificates for original query
+1473, exact model ordinals `[649404,649479)`. Its genuine checked-node result
+is `verified_bound`, with `bound_status=satisfied`, recorded bound
+`47405636699724177/8796093022208`, zero new solver calls, and
+`literal_G8_closed=false`. The result is scoped to this one inherited-family
+query occurrence; it does not close global G8 or revise the accepted D1
+collector. The fixed `retained-node-audit-v1` supervisor completed in
+1,149.56 seconds with all descendants reaped, under 3,600 seconds, 16 GiB
+child AS, 20 GiB group RSS and 2 GiB charged evidence. Its 40-file manifest
+was cold verified (SHA-256
+`0669f8ad83643321e02f5f8de8aa2781e2ff6f9d64ef6010bdf33e5a3335d885`);
+the node receipt SHA-256 is
+`353a510db1e99b001840148b7da8f5c66c03e0366b0aa333ce9d82d7f59a5cd3`.
+The complete preserved archive and manifest are copied to Mac
+`/Users/dy/Documents/Codex/2026-10-07/task/hiroute-g8-node-1473-74e8cdc-20261010/`,
+with archive SHA-256
+`249a0e594565ec1bef46f5744ff8f483aadfd23a3ca5020f3002fb3d1408bddd`.
 
 Historical checkpoint evidence is explicitly bounded in
 [`MILESTONE_5_CUT_CHECKPOINT.md`](../MILESTONE_5_CUT_CHECKPOINT.md):
