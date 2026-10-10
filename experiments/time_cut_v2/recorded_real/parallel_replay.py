@@ -33,7 +33,7 @@ def input_context(args,original):
 def inputs(args,deadline):
  return replay_plan.verify(binding.ROOT,args.plan,args.plan_sha,args.historical_plan,args.historical_plan_sha,deadline)
 
-def replay(original,current,root,writer,original_sha,current_sha,capture_path,capture_sha,pool,before=lambda:None,*,after_family=None,shared_query_digest=False,finalization_observer=None):
+def replay(original,current,root,writer,original_sha,current_sha,capture_path,capture_sha,pool,before=lambda:None,*,after_family=None,shared_query_digest=False,finalization_observer=None,on_checked_trace=None):
  """Use the complete serial domain path; only scalar selection batches delegate."""
  from validation.real5_v2 import family
  from validation.family5.independent_oracle_v3 import MemoizedOracle
@@ -87,7 +87,8 @@ def replay(original,current,root,writer,original_sha,current_sha,capture_path,ca
    hooks.enter_context(patch.object(domain,'thin_queries',queries))
   hooks.enter_context(patch.object(family,'oracle',memo));hooks.enter_context(patch.object(family,'_exact',exact))
   hooks.enter_context(patch.object(family,'_verify_bundle',delegated));hooks.enter_context(patch.object(domain,'load',capture_load))
-  summary=domain.replay(original,root,writer,original_sha,capture_path,capture_sha,before)
+  summary=domain.replay(original,root,writer,original_sha,capture_path,capture_sha,before,
+                        on_checked_trace=on_checked_trace)
  binding.require(calls==1 and ledger_commitment is not None and pool.snapshot()['complete'] is True,'missing complete family join')
  files={row['path']:row for row in writer.files}
  result=dict(schema='hiroute-complete-parallel-replay-v1',structural_verified=summary['structural_verified'],

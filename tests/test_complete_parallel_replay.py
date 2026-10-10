@@ -35,6 +35,21 @@ class CompleteParallelReplay(unittest.TestCase):
      ledger=plan.load(self.root/('parallel-'+name)/'batch-ledger.json')
      self.assertEqual(len(ledger['expected']),len(ledger['results']))
      self.assertEqual(out['batch_ledger']['sha256'],plan.pin(self.root/('parallel-'+name)/'batch-ledger.json')['sha256'])
+ def test_interval_join_replay_exposes_verified_trace_to_node_audit(self):
+  from validation.suffix5.literal_g8_node import audit_node,source_pins
+  old,new,path,sha=self.capture(self.fixture.rows[0]);observed=[]
+  def audit(checked):
+   result=audit_node(checked,46,expected=source_pins(checked,46),max_models=0)
+   observed.append((result['status'],result['exact_model_count']))
+  with BatchExecutor(self.cpus,float(time.monotonic()+20),sha,
+                     worker_as=256*1024**2,kernel='interval-join-v1') as pool:
+   with self.fixture.writer('parallel-hook') as writer:
+    summary=full.replay(old,new,self.root,writer,'a'*64,'b'*64,path,sha,pool,
+                        on_checked_trace=audit)
+    writer.finalize()
+   self.assertTrue(pool.snapshot()['complete'])
+  self.assertTrue(summary['structural_verified'])
+  self.assertEqual(observed,[('exact_empty',0)])
 
  def test_join_kernel_full_path_preserves_serial_query_and_receipt_bytes(self):
   for i,row in enumerate(self.fixture.rows):

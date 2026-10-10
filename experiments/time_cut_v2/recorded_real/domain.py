@@ -142,7 +142,7 @@ def expand_query(row,checked):
  """Convenience for one query; use QueryExpander once for a whole population."""
  return QueryExpander(checked).expand(row)
 
-def replay(plan,root,writer,plan_sha,capture_path,expected_capture_sha,before=lambda:None):
+def replay(plan,root,writer,plan_sha,capture_path,expected_capture_sha,before=lambda:None,*,on_checked_trace=None):
  from validation.real5_v2.shared_replay import verify_coalesced_trace
  from validation.family5.checker import wire_equal,_plain
  from validation.capture5.containers import stream_digest
@@ -157,6 +157,9 @@ def replay(plan,root,writer,plan_sha,capture_path,expected_capture_sha,before=la
  trusted=trusted_case(plan,root);before()
  checked=verify_coalesced_trace(payload['trace'],payload['bundle'],trusted)
  require(wire_equal(payload['canonical'],_plain(checked.summary['canonical'])),'outer canonical result differs from checked trace')
+ if on_checked_trace is not None:
+  require(callable(on_checked_trace),'checked trace callback required')
+  before();on_checked_trace(checked);before()
  before();stage(writer,'after-trace',events=checked.summary['events'],queries=len(checked.queries))
  receipt=writer.write('callback-receipts.json',array_document({},'receipts',receipt_rows(checked,payload['callback_requests'],before)))
  before();stage(writer,'after-callbacks',callbacks=len(payload['callback_requests']))

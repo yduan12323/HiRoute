@@ -40,6 +40,21 @@ class RecordedDomain(unittest.TestCase):
      self.assertEqual([expander.expand(q) for q in index['queries']],checked.export_queries())
      receipts=plan.load(self.root/f'replay-{i}-{d}/callback-receipts.json')['receipts']
      self.assertEqual(len(receipts),len(payload['callback_requests']))
+ def test_live_checked_trace_hook_can_audit_one_original_node(self):
+  from validation.suffix5.literal_g8_node import audit_node,source_pins
+  row=self.rows[0];value=self.make_plan(row,True);observed=[]
+  with self.writer('hook-capture') as writer:
+   cap=domain.capture(value,self.root,writer,'a'*64);writer.finalize()
+  path=self.root/'hook-capture/capture.json'
+  def check(checked):
+   result=audit_node(checked,46,expected=source_pins(checked,46),max_models=0)
+   observed.append((checked.summary['schema'],result['status'],result['exact_model_count']))
+  with self.writer('hook-replay') as writer:
+   summary=domain.replay(value,self.root,writer,'a'*64,path,cap['capture']['sha256'],
+                         on_checked_trace=check)
+   writer.finalize()
+  self.assertTrue(summary['structural_verified'])
+  self.assertEqual(observed,[('family5-real-coalesced-hier-trace-check-v2','exact_empty',0)])
  def test_wrong_reference_is_never_an_incumbent_and_preserves_capture(self):
   row=self.rows[0];value=self.make_plan(row);value['reference']=dict(status='historical_result_available',expected_key=['-999','0',0,[]])
   from timecut5 import coalesced_solver

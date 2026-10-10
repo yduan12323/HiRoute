@@ -76,6 +76,38 @@ new synthetic cases or dropping inconvenient identities.
 | C01 structural replay | Sealed trace structure and query indexing, supplemented by historical REF canonical-key match | Raw historical REF certificate replay and numerical acceptance by replay alone |
 | C01 final collectors (D1 and D0) | Separate original indexed query coverage, reconciled numerical evidence, physical bindings and bound status | C01 FLAT, other cases, literal exact inherited-family G8 and whole M5-V |
 
+## 2026-10-10 focused source and retained-node check
+
+On development source `1eaff29c49340cee63afe4cee3f97c864ce8c52e`, five
+separately bounded, single-thread regression groups passed: 30 PWA/REF
+certificate-recovery tests, 6 provenance/trace tests, 7 bounded/hierarchy
+tests, 8 real-adapter tests, and 24 REF tests (75 total). The logs are retained
+in the isolated server checkout `/home/dy/HiRoute/g8_node_review_1eaff29/`.
+They check affected code paths, not original-population acceptance.
+
+The restored B64 report, SHA-256
+`a45979a2a49909d61b25df46d35237120f85c46c8c266cf13b78c7ed627bb025`,
+identifies its 12 original-source cases lacking raw certificates as B01–B06
+and B09–B14. It retains their result/reference identities, but those identities
+do not replace the missing raw certificates. For C32, the hash-verified 32-state
+input inventory is `results/milestone_5_real_export/query_states_resolved.json`
+(SHA-256 `d4bd50215c8035552ca47a9bf4e175d580eb265a2e9acbeff5d574c60b08b57c`)
+with immutable leg tables and original tree restrictions. The reported
+historical 128/128 parity has no original C32 report file in the audited
+project directories; `results/milestone_5_reference/validation_summary_final.json`
+explicitly marks historical A20/B64/C32 completion false. C32 exact results,
+per-case raw certificates and current-source receipts remain unlocated.
+
+C01-HIER-D1 original query 1473 has 75 retained model proof rows, but a fresh
+single-coordinator node audit did not complete. The 2 GiB attempt failed while
+decoding the 835,419,819-byte capture; the established 16 GiB AS / 20 GiB RSS /
+3,600-second attempt authenticated the historical source plan and decoded the
+v2 capture but timed out during independent full-trace verification before a
+`CheckedTrace` returned. No LP ran, no retained certificate was newly checked,
+and no bound was newly accepted. Both failure reports and the exact input hashes
+are preserved in the isolated checkout. The accepted D1 collector still has
+its separate indexed original-query receipt; this probe does not revise it.
+
 Historical checkpoint evidence is explicitly bounded in
 [`MILESTONE_5_CUT_CHECKPOINT.md`](../MILESTONE_5_CUT_CHECKPOINT.md):
 18 new analytic + 100 generated cases and 400 cross-solver comparisons
