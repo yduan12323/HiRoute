@@ -20,7 +20,8 @@ from timecut5.road_provider import (RoadSelectedLegProvider,
     TableFreeRoadSelectedLegProvider, TableFreeRegionBoundProvider)
 from timecut5.road_landmark import certify_integer_landmark
 from timecut5.sparse_seed import (SparseSeedCatalog, admit_sparse_seed,
-    first_feasible_proposal_baseline, replay_sparse_seed)
+    first_feasible_proposal_baseline, replay_sparse_seed,
+    sequential_no_overlap_baseline)
 from timecut5.deployable import constructive_seed_candidates
 from timecut5.systemd_supervisor import run_m5d_phase
 from scripts.m5d_main_row import execute_exact_method
@@ -349,6 +350,25 @@ class RoadProviderTest(unittest.TestCase):
             self.assertEqual(replay_sparse_seed(query, catalog,
                 baseline["sequence"], baseline["charges"])["lex_key"],
                 baseline["lex_key"])
+            # A CS event can overlap charge and service in the exact physical
+            # model. The transport baseline deliberately starts service after
+            # charging; its strictly later arrival is checked independently.
+            cs_sites = {"s1": RealSite("s1", "road:1", ("CS",))}
+            cs_catalog = SparseSeedCatalog(provider, cs_sites,
+                origin_anchor="road:0", destination_anchor="road:2",
+                nodes_path=nodes, edges_path=edges,
+                site_catalog_sha256=site_catalog_digest(cs_sites),
+                hierarchy_sha256="e" * 64, candidate_sha256=candidate_sha)
+            cs_query = dict(query, sparse_domain_sha256=cs_catalog.domain_sha256,
+                schedule={"a": 0, "b": 10, "D": 2})
+            overlapping = replay_sparse_seed(cs_query, cs_catalog,
+                (("s1", "CS"),), (1,))
+            sequential = replay_sparse_seed(cs_query, cs_catalog,
+                (("s1", "CS"),), (1,), sequential_no_overlap=True)
+            self.assertEqual(sequential["lex_key"][0] - overlapping["lex_key"][0], 1)
+            transport = sequential_no_overlap_baseline(cs_query, cs_catalog)
+            self.assertEqual(transport["status"], "feasible")
+            self.assertEqual(transport["lex_key"], sequential["lex_key"])
             self.assertEqual(provider.source_run_count, 3)
             class LandmarkRouter:
                 provenance = {"source_sha256": "f" * 64}

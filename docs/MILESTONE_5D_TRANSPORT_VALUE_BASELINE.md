@@ -1,6 +1,17 @@
-# M5-D feasible transport comparator and literature scope
+# M5-D transport baseline and seed selection diagnostic
 
-The comparator `first_feasible_proposal_baseline` returns the first independently
+`sequential_no_overlap_baseline` is the D5.4 feasible construction baseline.
+It completes charging before starting scheduled service at a combined `CS`
+stop. Its fixed proposals are independently replayed on selected native road
+edges with exact energy, time-window and reserve checks. It returns the best
+feasible proposal in that stream, or reports that none was found. This is a
+bounded construction comparison; it does not certify a sequential optimum.
+The directed regression checks that a one-second charge and a two-second
+service take three seconds sequentially, versus two seconds when overlapping.
+
+The earlier `first_feasible_proposal_baseline` is a seed-selection diagnostic:
+
+It returns the first independently
 replayed feasible witness in the already fixed deterministic seed-proposal order.
 It binds the full graph and candidate universe, replays the selected native
 edges and exact battery/clock constraints, and reports `(J, Q, H, Pi)`. It does

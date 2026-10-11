@@ -87,7 +87,8 @@ def validate_sparse_query(query: Mapping, catalog: SparseSeedCatalog):
     return normalize_case(dict(query, sites=declared, edges=[]))
 
 
-def replay_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, sequence, charges):
+def replay_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, sequence, charges,
+                       *, sequential_no_overlap=False):
     """Independently replay exact physical events and every selected edge."""
     if (query.get("sparse_domain_sha256") != catalog.domain_sha256 or
             query.get("origin") != catalog.origin_anchor or
@@ -162,7 +163,8 @@ def replay_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, sequence, cha
                             for lo, hi, slope, _ in segments), R(0))
             done.append(release + duration)
         if effect in ("S", "CS"):
-            start = max(R(schedule["a"]), release)
+            service_release = done[0] if sequential_no_overlap and effect == "CS" else release
+            start = max(R(schedule["a"]), service_release)
             if start > R(schedule["b"]):
                 raise SeedInfeasible("Schedule infeasible")
             done.append(start + R(schedule["D"]))
@@ -179,6 +181,36 @@ def replay_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, sequence, cha
            sum(charges, R(0)), len(sequence), sequence)
     return {"lex_key": key, "edge_witnesses": tuple(edges_used),
             "domain_sha256": catalog.domain_sha256, "source_run_count": catalog.provider.source_run_count}
+
+
+def sequential_no_overlap_baseline(query: Mapping, catalog: SparseSeedCatalog):
+    """Best feasible fixed proposal with charging completed before service starts.
+
+    This is a deterministic construction baseline, not an exact solver. Every
+    candidate is replayed with the same selected road edges and battery rules.
+    """
+    from .deployable import constructive_seed_candidates
+    validate_sparse_query(query, catalog)
+    proposals = constructive_seed_candidates(query, catalog)
+    accepted = []
+    for ordinal, (sequence, charges) in enumerate(proposals):
+        try:
+            replay = replay_sparse_seed(query, catalog, sequence, charges,
+                                        sequential_no_overlap=True)
+        except SeedInfeasible:
+            continue
+        accepted.append((replay["lex_key"], ordinal, sequence, charges,
+                         replay["edge_witnesses"]))
+    if not accepted:
+        return {"status": "no_feasible_proposal", "proposal_count": len(proposals),
+                "domain_sha256": catalog.domain_sha256}
+    key, ordinal, sequence, charges, witnesses = min(accepted)
+    return {"status": "feasible", "proposal_ordinal": ordinal,
+            "proposal_count": len(proposals), "accepted_count": len(accepted),
+            "lex_key": key, "sequence": sequence, "charges": charges,
+            "domain_sha256": catalog.domain_sha256,
+            "edge_witnesses": witnesses,
+            "source_run_count": catalog.provider.source_run_count}
 
 
 def admit_sparse_seed(query: Mapping, catalog: SparseSeedCatalog):
