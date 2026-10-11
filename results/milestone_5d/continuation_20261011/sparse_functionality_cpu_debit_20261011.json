@@ -1,0 +1,41 @@
+{
+  "schema": "hiroute.m5d.sparse_functionality_cpu_debit.v1",
+  "status": "failed_recovery_preserved_no_optimum_claim",
+  "budget_policy": {
+    "pilot_functionality_wall_seconds_per_unit": 120,
+    "memory_bytes_per_unit": 4294967296,
+    "recovery_unit_configured_wall_seconds": 180,
+    "discrepancy": "The operator configured 180 seconds by carrying over an older phase limit. This was not approved for the M5-D functionality check; subsequent functionality units default to 120 seconds."
+  },
+  "runs": [
+    {
+      "kind": "fixed_od02_n8_sparse_seed_admission",
+      "source_commit": "388fad57c289fdae41bb7adf61e600528caf19f7",
+      "result": "success",
+      "wall_limit_seconds": 120,
+      "wall_elapsed_ns": 65485605003,
+      "cgroup_cpu_usage_ns": 66537962000,
+      "peak_memory_bytes": 1732546560,
+      "presearch_receipt_sha256": "30b2376cbe51d49f6b89bbb2a1a237a1f160ed917e2a0af86b485acd4e365d9b"
+    },
+    {
+      "kind": "fixed_od02_n8_same_engine_recovery_attempt",
+      "source_commit": "56d9f2f484f8b93f09e6e6de26b667587c239574",
+      "result": "timeout",
+      "wall_limit_seconds": 180,
+      "wall_elapsed_ns": 180096474656,
+      "cgroup_cpu_usage_ns": 181253984000,
+      "peak_memory_bytes": 2245459968,
+      "unit": "hiroute-m5d-4dce8796ac214d6fb34568bf40086955.service",
+      "unit_receipt_sha256": "a17f130b82a90361f97a9793d14a27ef706459162d9c8007d1d20f6f32f8db07",
+      "presearch_receipt_sha256": "3913a970c604a146d2696d1c764a73ae6b759c9896bb054ee60b5e8b57343696",
+      "checkpoint_sha256": "59af4688db92a18cbcee820093944e522059429dad59faca4680817abae813c1",
+      "recovery_receipt_present": false,
+      "post_run_control_group": "",
+      "post_run_process_seen": false
+    }
+  ],
+  "new_cgroup_cpu_hours_debited": 0.06883109611111111,
+  "evidence_archive_sha256": "6c5d50371581d3280b5a4dca5491c402cf1ed0d87c6b6f856a14b1958ded651c",
+  "server_originals_preserved": true
+}
