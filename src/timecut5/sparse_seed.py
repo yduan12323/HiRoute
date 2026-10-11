@@ -24,6 +24,15 @@ def _hash(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def sparse_domain_digest(source_hashes, site_catalog_sha256, candidate_sha256,
+                         hierarchy_sha256, origin_anchor, destination_anchor):
+    return hashlib.sha256(json.dumps({
+        "graph": source_hashes, "sites": site_catalog_sha256,
+        "candidates": candidate_sha256, "hierarchy": hierarchy_sha256,
+        "origin": origin_anchor, "destination": destination_anchor},
+        sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+
+
 class SparseSeedCatalog:
     def __init__(self, provider: TableFreeRoadSelectedLegProvider, sites: Mapping,
                  *, origin_anchor: str, destination_anchor: str,
@@ -49,11 +58,9 @@ class SparseSeedCatalog:
         self.site_catalog_sha256 = site_catalog_sha256
         self.hierarchy_sha256 = hierarchy_sha256
         self.candidate_sha256 = candidate_sha256
-        self.domain_sha256 = hashlib.sha256(json.dumps({
-            "graph": provider.source_sha256, "sites": site_catalog_sha256,
-            "candidates": candidate_sha256, "hierarchy": hierarchy_sha256,
-            "origin": origin_anchor, "destination": destination_anchor},
-            sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        self.domain_sha256 = sparse_domain_digest(provider.source_sha256,
+            site_catalog_sha256, candidate_sha256, hierarchy_sha256,
+            origin_anchor, destination_anchor)
 
     def site(self, site_id):
         return self.sites[site_id]
