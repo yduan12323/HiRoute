@@ -16,7 +16,8 @@ from scripts.m5d_one_query_runner import load_graph, sha
 from timecut5.real_adapter import site_catalog_digest
 from timecut5.real_legs import RealSite
 from timecut5.road_provider import TableFreeRoadSelectedLegProvider
-from timecut5.sparse_seed import SparseSeedCatalog, admit_sparse_seed
+from timecut5.sparse_seed import (SparseSeedCatalog, admit_sparse_seed,
+    first_feasible_proposal_baseline)
 from validation.reference5 import model as independent_model
 
 
@@ -151,6 +152,22 @@ def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
             "seed": {k: str(v) if isinstance(v, R) else v
                      for k, v in admission.items() if k in ("status", "max_depth",
                         "proposal_count", "accepted_count", "lex_key", "sequence", "charges")}}
+        if prefix_count == 8 and boundary_seed_receipt is None:
+            baseline = first_feasible_proposal_baseline(query, catalog)
+            if baseline["status"] == "feasible" and admission["status"] == "verified":
+                delta = baseline["lex_key"][0] - admission["lex_key"][0]
+                if delta < 0:
+                    raise ValueError("First-feasible baseline beat selected minimum seed")
+                report["feasible_construction_baseline"] = {
+                    "status": "feasible_not_optimality_certificate",
+                    "proposal_ordinal": baseline["proposal_ordinal"],
+                    "J": str(baseline["lex_key"][0]),
+                    "charge_kwh": str(baseline["lex_key"][1]),
+                    "stops": baseline["lex_key"][2],
+                    "seed_J_gain_s": str(delta),
+                    "seed_J_gain_fraction_of_baseline": str(delta / baseline["lex_key"][0])
+                        if baseline["lex_key"][0] else None,
+                    "source_run_count_including_baseline": provider.source_run_count}
         with (out / "presearch_receipt.json").open("x") as stream:
             json.dump(report, stream, sort_keys=True, default=str)
             stream.write("\n")

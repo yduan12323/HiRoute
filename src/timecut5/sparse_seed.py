@@ -200,3 +200,28 @@ def admit_sparse_seed(query: Mapping, catalog: SparseSeedCatalog):
             "domain_sha256": catalog.domain_sha256,
             "source_run_count": catalog.provider.source_run_count,
             "fresh_edge_witnesses": fresh["edge_witnesses"]}
+
+
+def first_feasible_proposal_baseline(query: Mapping, catalog: SparseSeedCatalog):
+    """Deterministic feasible construction comparator, with no optimum claim.
+
+    It uses the same fixed proposal stream and independent physical replay as
+    seed admission, returning the first feasible proposal rather than searching
+    for the best key. Proposal-generation and routing cost remain chargeable.
+    """
+    from .deployable import constructive_seed_candidates
+    validate_sparse_query(query, catalog)
+    proposals = constructive_seed_candidates(query, catalog)
+    for ordinal, (sequence, charges) in enumerate(proposals):
+        try:
+            replay = replay_sparse_seed(query, catalog, sequence, charges)
+        except SeedInfeasible:
+            continue
+        return {"status": "feasible", "proposal_ordinal": ordinal,
+            "proposal_count": len(proposals), "lex_key": replay["lex_key"],
+            "sequence": sequence, "charges": charges,
+            "domain_sha256": catalog.domain_sha256,
+            "edge_witnesses": replay["edge_witnesses"],
+            "source_run_count": catalog.provider.source_run_count}
+    return {"status": "no_feasible_proposal", "proposal_count": len(proposals),
+            "domain_sha256": catalog.domain_sha256}

@@ -19,7 +19,8 @@ from timecut5.live_replay import ExactLayerReplay, LayerCheckpointStop
 from timecut5.road_provider import (RoadSelectedLegProvider,
     TableFreeRoadSelectedLegProvider, TableFreeRegionBoundProvider)
 from timecut5.road_landmark import certify_integer_landmark
-from timecut5.sparse_seed import SparseSeedCatalog, admit_sparse_seed, replay_sparse_seed
+from timecut5.sparse_seed import (SparseSeedCatalog, admit_sparse_seed,
+    first_feasible_proposal_baseline, replay_sparse_seed)
 from timecut5.deployable import constructive_seed_candidates
 from timecut5.systemd_supervisor import run_m5d_phase
 
@@ -341,6 +342,12 @@ class RoadProviderTest(unittest.TestCase):
             admission = admit_sparse_seed(query, catalog)
             self.assertEqual(admission["status"], "verified")
             self.assertEqual(admission["max_depth"], admission["lex_key"][0])
+            baseline = first_feasible_proposal_baseline(query, catalog)
+            self.assertEqual(baseline["status"], "feasible")
+            self.assertGreaterEqual(baseline["lex_key"], admission["lex_key"])
+            self.assertEqual(replay_sparse_seed(query, catalog,
+                baseline["sequence"], baseline["charges"])["lex_key"],
+                baseline["lex_key"])
             outcome = replay_sparse_seed(query, catalog, (("s1", "C"),), (1,))
             self.assertEqual(outcome["lex_key"][0], 4)
             self.assertEqual(outcome["edge_witnesses"], ((0,), (1,)))
