@@ -7,6 +7,7 @@ fields are read before the unit is stopped; missing fields fail closed.
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+from decimal import Decimal
 import json
 import os
 from pathlib import Path
@@ -38,6 +39,16 @@ def _properties(unit: str) -> dict[str, str]:
     command.extend(["-p", "MemorySwapMax", "-p", "KillMode", "-p", "RuntimeMaxUSec"])
     result = subprocess.run(command, check=True, text=True, capture_output=True)
     return dict(line.split("=", 1) for line in result.stdout.splitlines() if "=" in line)
+
+
+def _duration_us(value: str) -> int | None:
+    units = {"us": 1, "ms": 1000, "s": 1_000_000,
+             "min": 60_000_000, "h": 3_600_000_000}
+    parts = re.findall(r"([0-9]+(?:\.[0-9]+)?)(us|ms|min|h|s)", value)
+    if not parts or " ".join(number + unit for number, unit in parts) != value:
+        return None
+    total = sum(Decimal(number) * units[unit] for number, unit in parts)
+    return int(total) if total == int(total) else None
 
 
 def run_supervised(argv: tuple[str, ...], *, cwd: Path, output_dir: Path,
@@ -86,7 +97,7 @@ def run_supervised(argv: tuple[str, ...], *, cwd: Path, output_dir: Path,
                 fields.get("MemoryMax") != str(memory_bytes) or
                 fields.get("MemorySwapMax") != "0" or
                 fields.get("KillMode") != "control-group" or
-                fields.get("RuntimeMaxUSec") != str(wall_seconds) + "s" or
+                _duration_us(fields.get("RuntimeMaxUSec", "")) != wall_seconds * 1_000_000 or
                 not re.fullmatch(r"[0-9]+", fields.get("ExecMainStatus", ""))):
             raise RuntimeError("Cgroup CPU, peak memory or enforced limit receipt missing")
         receipt_path = output_dir / (unit + ".receipt.json")
