@@ -9,11 +9,102 @@ from __future__ import annotations
 
 from fractions import Fraction
 import hashlib
+import json
 import math
 import time
 from typing import Mapping
 
 from .real_legs import ImmutableLegTable, SelectedLeg, TIE_POLICY
+
+
+class TableFreeRoadSelectedLegProvider:
+    """Route selected anchors from the graph without constructing a leg table.
+
+    The caller supplies a byte-bound anchor catalog and graph/router identities.
+    A leg miss performs one forward native run; only the requested target path
+    is retained. The complete graph-label arrays are discarded after the run.
+    """
+
+    def __init__(self, graph, router, anchor_nodes: Mapping[str, int], *,
+                 nodes_sha256: str, edges_sha256: str, router_sha256: str,
+                 anchor_catalog_sha256: str):
+        import re
+        hashes = (nodes_sha256, edges_sha256, router_sha256, anchor_catalog_sha256)
+        if any(type(value) is not str or re.fullmatch(r"[0-9a-f]{64}", value) is None
+               for value in hashes):
+            raise ValueError("Complete graph, router and anchor byte bindings required")
+        anchors = dict(anchor_nodes)
+        if (not anchors or len(set(anchors.values())) != len(anchors) or
+                any(type(name) is not str or not name or type(node) is not int or
+                    not 0 <= node < graph.node_count for name, node in anchors.items())):
+            raise ValueError("Invalid or duplicate road anchors")
+        catalog = json.dumps(anchors, sort_keys=True, separators=(",", ":")).encode()
+        if hashlib.sha256(catalog).hexdigest() != anchor_catalog_sha256:
+            raise ValueError("Road anchor catalog bytes differ from binding")
+        provenance = getattr(router, "provenance", None)
+        if not isinstance(provenance, dict) or provenance.get("source_sha256") != router_sha256:
+            raise ValueError("Native router source differs from binding")
+        self.graph, self.router, self.anchor_nodes = graph, router, anchors
+        self.source_sha256 = dict(nodes=nodes_sha256, edges=edges_sha256,
+                                  router=router_sha256, anchors=anchor_catalog_sha256,
+                                  tie_policy=hashlib.sha256(TIE_POLICY.encode()).hexdigest())
+        self.legs: dict[tuple[str, str], SelectedLeg] = {}
+        self.edge_witnesses: dict[tuple[str, str], tuple[int, ...] | None] = {}
+        self.source_run_count = 0
+        self.route_wall_ns = 0
+        self.route_process_cpu_ns = 0
+
+    def _path(self, source_node, target_node, parent, parent_edge):
+        if source_node == target_node:
+            return ()
+        backward = []
+        node = target_node
+        while node != source_node:
+            prior, edge = int(parent[node]), int(parent_edge[node])
+            if (prior < 0 or not 0 <= edge < self.graph.edge_count or
+                    int(self.graph.source[edge]) != prior or
+                    int(self.graph.target[edge]) != node or
+                    len(backward) >= self.graph.node_count):
+                raise ValueError("Native selected predecessor edge is invalid")
+            backward.append(edge)
+            node = prior
+        return tuple(reversed(backward))
+
+    def leg(self, source: str, target: str) -> SelectedLeg:
+        if source not in self.anchor_nodes or target not in self.anchor_nodes:
+            raise ValueError("Unknown road anchor")
+        key = source, target
+        if key in self.legs:
+            return self.legs[key]
+        started_wall, started_cpu = time.monotonic_ns(), time.process_time_ns()
+        source_node, target_node = self.anchor_nodes[source], self.anchor_nodes[target]
+        costs, lengths, parents, edges = self.router.full_edges(source_node)
+        cost, length = float(costs[target_node]), float(lengths[target_node])
+        if math.isinf(cost) and math.isinf(length):
+            if int(parents[target_node]) != -1 or int(edges[target_node]) != -1:
+                raise ValueError("Unreachable target has a predecessor")
+            leg = SelectedLeg(source, target, False, None, None,
+                              "forward_from_source", None, None)
+            path = None
+        elif math.isfinite(cost) and math.isfinite(length) and cost >= 0 and length >= 0:
+            path = self._path(source_node, target_node, parents, edges)
+            replay_time = replay_length = 0.0
+            for edge in path:
+                replay_time += float(self.graph.weights["travel_time"][edge])
+                replay_length += float(self.graph.weights["distance"][edge])
+            if (replay_time, replay_length) != (cost, length):
+                raise ValueError("Selected edge witness does not replay native labels")
+            leg = SelectedLeg(source, target, True,
+                Fraction(*cost.as_integer_ratio()), Fraction(*length.as_integer_ratio()),
+                "identity" if source == target else "forward_from_source",
+                cost.hex(), length.hex())
+        else:
+            raise ValueError("Native selected labels have invalid reachability")
+        self.legs[key], self.edge_witnesses[key] = leg, path
+        self.source_run_count += 1
+        self.route_wall_ns += time.monotonic_ns() - started_wall
+        self.route_process_cpu_ns += time.process_time_ns() - started_cpu
+        return leg
 
 
 class RoadSelectedLegProvider:

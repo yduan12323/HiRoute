@@ -8,11 +8,12 @@ import numpy as np
 
 from timecut5.real_legs import (ImmutableLegTable, NUMERICS, SCHEMA,
                                 TIE_POLICY, encode_binary64)
-from timecut5.road_provider import RoadSelectedLegProvider
+from timecut5.road_provider import RoadSelectedLegProvider, TableFreeRoadSelectedLegProvider
 from timecut5.road_landmark import certify_integer_landmark
 
 
 class NativeStub:
+    provenance = {"source_sha256": "a" * 64}
     def __init__(self, wrong_edge=False):
         self.wrong_edge = wrong_edge
 
@@ -79,6 +80,31 @@ class RoadProviderTest(unittest.TestCase):
             edges_sha256="c" * 64)
         with self.assertRaises(ValueError):
             provider.leg("road:0", "road:2")
+
+    def test_table_free_selected_target_and_edge_replay(self):
+        table, graph = self.fixture()
+        anchors = {f"road:{i}": i for i in range(3)}
+        catalog_sha = hashlib.sha256(json.dumps(anchors, sort_keys=True,
+            separators=(",", ":")).encode()).hexdigest()
+        provider = TableFreeRoadSelectedLegProvider(graph, NativeStub(),
+            anchors, nodes_sha256="b" * 64,
+            edges_sha256="c" * 64, router_sha256="a" * 64,
+            anchor_catalog_sha256=catalog_sha)
+        self.assertEqual(provider.leg("road:0", "road:2"), table.leg("road:0", "road:2"))
+        self.assertEqual(provider.edge_witnesses["road:0", "road:2"], (0, 1))
+        self.assertEqual(set(provider.legs), {("road:0", "road:2")})
+        provider.leg("road:0", "road:2")
+        self.assertEqual(provider.source_run_count, 1)
+        broken = TableFreeRoadSelectedLegProvider(graph, NativeStub(wrong_edge=True),
+            anchors, nodes_sha256="b" * 64,
+            edges_sha256="c" * 64, router_sha256="a" * 64,
+            anchor_catalog_sha256=catalog_sha)
+        with self.assertRaises(ValueError):
+            broken.leg("road:0", "road:2")
+        with self.assertRaisesRegex(ValueError, "catalog bytes"):
+            TableFreeRoadSelectedLegProvider(graph, NativeStub(), anchors,
+                nodes_sha256="b" * 64, edges_sha256="c" * 64,
+                router_sha256="a" * 64, anchor_catalog_sha256="d" * 64)
 
     def test_integer_landmark_checks_both_directed_potentials(self):
         _, graph = self.fixture()
