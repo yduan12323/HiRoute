@@ -249,7 +249,7 @@ def solve_bounded(case: Mapping, dominance: bool = True) -> BoundedResult:
 
 def _solve_problem(problem: Problem, dominance: bool = True, *, reducer=None,
                    verified_primary_upper: R | None = None,
-                   singleton_bound=None) -> BoundedResult:
+                   singleton_bound=None, checkpoint_hook=None) -> BoundedResult:
     reducer = reduce_frontier if reducer is None else reducer
     if verified_primary_upper is not None and (type(verified_primary_upper) is not R or
                                                verified_primary_upper < 0):
@@ -273,6 +273,9 @@ def _solve_problem(problem: Problem, dominance: bool = True, *, reducer=None,
                 incumbent_j = key[0]
 
     for depth in range(problem.bound + 1):
+        if checkpoint_hook is not None:
+            checkpoint_hook(depth, layer, tuple(terminals), incumbent_j,
+                            (attempted, feasible, maximum))
         for group in layer:
             finished = problem.finish(group)
             terminals.extend(finished)

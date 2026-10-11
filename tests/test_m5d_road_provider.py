@@ -8,9 +8,10 @@ import numpy as np
 
 from timecut5.real_legs import (ImmutableLegTable, NUMERICS, SCHEMA,
                                 TIE_POLICY, RealSite, encode_binary64)
-from timecut5.real_adapter import TableFreeRealProblem
+from timecut5.real_adapter import TableFreeRealProblem, site_catalog_digest
 from timecut5.bounded import _solve_problem
 from timecut5.hierarchy import Region, _solve_hierarchical_problem
+from timecut5.live_replay import ExactLayerReplay, LayerCheckpointStop
 from timecut5.road_provider import (RoadSelectedLegProvider,
     TableFreeRoadSelectedLegProvider, TableFreeRegionBoundProvider)
 from timecut5.road_landmark import certify_integer_landmark
@@ -145,7 +146,8 @@ class RoadProviderTest(unittest.TestCase):
                 consumption_kwh_per_m="1/10", overhead_s=1, lambda_stop_s=0,
                 schedule=None, charging_segments=[[0, 2, 1, 0]])
             return TableFreeRealProblem(query, table.sites, provider,
-                origin_anchor="road:0", destination_anchor="road:2")
+                origin_anchor="road:0", destination_anchor="road:2",
+                site_catalog_sha256=site_catalog_digest(table.sites))
         class LandmarkRouter:
             provenance = {"source_sha256": "f" * 64}
             def full(self, root, reverse=False):
@@ -157,6 +159,7 @@ class RoadProviderTest(unittest.TestCase):
         root = Region(0, ("s1",))
         bound = TableFreeRegionBoundProvider(hier_problem.provider, table.sites,
             root, destination_anchor="road:2", landmark_anchor="road:0",
+            site_catalog_sha256=site_catalog_digest(table.sites),
             router_factory=lambda _: LandmarkRouter())
         self.assertEqual(json.loads(bound.landmark_certificate)["audited"][0]["checked_edges"], 4)
         self.assertEqual(set(hier_problem.provider.legs), set())
@@ -168,8 +171,47 @@ class RoadProviderTest(unittest.TestCase):
         collision = {"road:0": RealSite("road:0", "road:1", ("C",))}
         alias_bound = TableFreeRegionBoundProvider(hier_problem.provider, collision,
             Region(1, ("road:0",)), destination_anchor="road:2",
-            landmark_anchor="road:0", router_factory=lambda _: LandmarkRouter())
+            landmark_anchor="road:0", site_catalog_sha256=site_catalog_digest(collision),
+            router_factory=lambda _: LandmarkRouter())
         self.assertEqual(alias_bound.landmarks[0].from_landmark["road:0"], 0)
+        for mode in ("flat", "hier"):
+            def solve(hook):
+                instance = problem()
+                indexed = TableFreeRegionBoundProvider(instance.provider, table.sites,
+                    root, destination_anchor="road:2", landmark_anchor="road:0",
+                    site_catalog_sha256=site_catalog_digest(table.sites),
+                    router_factory=lambda _: LandmarkRouter())
+                return (_solve_problem(instance, checkpoint_hook=hook,
+                    verified_primary_upper=flat.result.key[0],
+                    singleton_bound=indexed.singleton_bound) if mode == "flat"
+                    else _solve_hierarchical_problem(instance, True, root,
+                        checkpoint_hook=hook, verified_primary_upper=flat.result.key[0],
+                        bound_provider=indexed))
+            original = solve(None)
+            stopped = ExactLayerReplay(mode=mode, domain_sha256="d" * 64,
+                external_source_sha256={"graph": "b" * 64}, stop_after_depth=1)
+            with self.assertRaises(LayerCheckpointStop) as interrupted:
+                solve(stopped)
+            restored = ExactLayerReplay(mode=mode, domain_sha256="d" * 64,
+                external_source_sha256={"graph": "b" * 64},
+                previous_checkpoint=interrupted.exception.checkpoint_bytes)
+            resumed = solve(restored)
+            restored.finish()
+            self.assertEqual(restored.replayed_restore_layers, 2)
+            self.assertEqual((original.result if mode == "flat" else original.bounded.result).key,
+                             (resumed.result if mode == "flat" else resumed.bounded.result).key)
+            with self.assertRaises(ValueError):
+                ExactLayerReplay(mode=mode, domain_sha256="e" * 64,
+                    external_source_sha256={"graph": "b" * 64},
+                    previous_checkpoint=interrupted.exception.checkpoint_bytes)
+            altered = json.loads(interrupted.exception.checkpoint_bytes)
+            altered["layers"][1]["state_sha256"] = "0" * 64
+            tampered = ExactLayerReplay(mode=mode, domain_sha256="d" * 64,
+                external_source_sha256={"graph": "b" * 64},
+                previous_checkpoint=json.dumps(altered, sort_keys=True,
+                    separators=(",", ":")).encode())
+            with self.assertRaisesRegex(ValueError, "OPEN"):
+                solve(tampered)
 
 
 if __name__ == "__main__":

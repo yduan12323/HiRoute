@@ -100,7 +100,7 @@ def solve_hierarchical(case: Mapping, dominance: bool = True, leaf_size: int = 1
 def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                                 incumbent: Witness | None = None, *, reducer=None,
                                 verified_primary_upper: R | None = None,
-                                bound_provider=None) -> HierarchyResult:
+                                bound_provider=None, checkpoint_hook=None) -> HierarchyResult:
     reducer = reduce_frontier if reducer is None else reducer
     if verified_primary_upper is not None and (type(verified_primary_upper) is not R or
                                                 verified_primary_upper < 0):
@@ -141,6 +141,11 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
     nodes = leaf_actions = scans = pruned = equality = coverage_groups = 0
     audit = []
     for depth in range(problem.bound + 1):
+        if checkpoint_hook is not None:
+            checkpoint_hook(depth, layer, tuple(terminals),
+                            (incumbent_key, incumbent_witness),
+                            (attempted, feasible, maximum, nodes, leaf_actions,
+                             scans, pruned, equality, coverage_groups))
         group_ids=trace.start_layer(depth,layer)
         for group_id,group in zip(group_ids,layer):
             finished=trace.invoke('finish',group,dict(group_id=group_id,source='layer',advance_id=None),

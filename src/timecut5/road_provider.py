@@ -111,10 +111,12 @@ class TableFreeRegionBoundProvider:
     """Indexed ALT bounds certified from graph edges, without selected-leg minima."""
 
     def __init__(self, leg_provider: TableFreeRoadSelectedLegProvider, sites: Mapping,
-                 root, *, destination_anchor: str, landmark_anchor: str, router_factory):
+                 root, *, destination_anchor: str, landmark_anchor: str,
+                 site_catalog_sha256: str, router_factory):
         from .deployable import RegionLandmarkSummary, member_set_digest
         from .road_landmark import certify_integer_landmark
         from .hierarchy import Region
+        from .real_adapter import site_catalog_digest
         if (not isinstance(root, Region) or set(root.members) != set(sites) or
                 destination_anchor not in leg_provider.anchor_nodes):
             raise ValueError("Table-free Region root must cover every Site")
@@ -122,6 +124,8 @@ class TableFreeRegionBoundProvider:
                not site.effects or not set(site.effects) <= {"C", "S", "CS"}
                for sid, site in sites.items()):
             raise ValueError("Invalid table-free Region Site catalog")
+        if site_catalog_digest(sites) != site_catalog_sha256:
+            raise ValueError("Table-free Region Site catalog binding mismatch")
         self.leg_provider, self.sites, self.root = leg_provider, dict(sites), root
         self.graph_sha256 = hashlib.sha256((leg_provider.source_sha256["nodes"] +
             leg_provider.source_sha256["edges"]).encode()).hexdigest()

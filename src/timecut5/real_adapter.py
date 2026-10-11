@@ -8,6 +8,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from fractions import Fraction as R
+import hashlib
+import json
 from collections.abc import Mapping as AbstractMapping
 from types import MappingProxyType
 from typing import Mapping
@@ -66,6 +68,12 @@ class _TableFreeRealLegs(AbstractMapping):
         return sum(leg.reachable for leg in self.provider.legs.values())
 
 
+def site_catalog_digest(sites: Mapping) -> str:
+    rows = [(sid, site.anchor_id, list(site.effects))
+            for sid, site in sorted(sites.items())]
+    return hashlib.sha256(json.dumps(rows, separators=(",", ":")).encode()).hexdigest()
+
+
 class TableFreeRealProblem(Problem):
     """Accepted physical transitions fed by source-bound native selected legs.
 
@@ -73,7 +81,8 @@ class TableFreeRealProblem(Problem):
     separate obligations of the caller before an exact result can be claimed.
     """
     def __init__(self, query: Mapping, sites: Mapping, provider, *,
-                 origin_anchor: str, destination_anchor: str):
+                 origin_anchor: str, destination_anchor: str,
+                 site_catalog_sha256: str):
         from .road_provider import TableFreeRoadSelectedLegProvider
         if not isinstance(provider, TableFreeRoadSelectedLegProvider):
             raise ValueError("Table-free native selected-leg provider required")
@@ -87,6 +96,8 @@ class TableFreeRealProblem(Problem):
                 not site.effects or not set(site.effects) <= {"C", "S", "CS"}
                 for sid, site in site_rows.items()):
             raise ValueError("Invalid table-free Site catalog")
+        if site_catalog_digest(site_rows) != site_catalog_sha256:
+            raise ValueError("Table-free Site catalog bytes differ from binding")
         declared = {sid: list(site.effects) for sid, site in site_rows.items()}
         for key, expected in (("origin", origin_anchor), ("destination", destination_anchor),
                               ("sites", declared)):
@@ -99,6 +110,7 @@ class TableFreeRealProblem(Problem):
                                               for sid, site in site_rows.items()})
         self.legs = _TableFreeRealLegs(provider, self.rate)
         self.provider = provider
+        self.site_catalog_sha256 = site_catalog_sha256
 
     def onward_time_lower_bound(self, anchor: str) -> R:
         if anchor not in self.provider.anchor_nodes:
