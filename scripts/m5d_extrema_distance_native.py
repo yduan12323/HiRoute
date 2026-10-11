@@ -36,6 +36,9 @@ def main() -> None:
     parser.add_argument("--geographic-screen-sha256", required=True)
     parser.add_argument("--native-cache", type=Path, required=True)
     parser.add_argument("--all-fixed-extrema", action="store_true")
+    parser.add_argument("--all-grid", action="store_true")
+    parser.add_argument("--origin-start", type=int, default=0)
+    parser.add_argument("--origin-stop", type=int)
     parser.add_argument("--micrometer-lower-bound", action="store_true")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -76,9 +79,13 @@ def main() -> None:
     router = ExactRouter(graph, {"compiler": "g++", "compiler_flags": ["-O3", "-std=c++17"]},
                          args.native_cache)
     try:
-        if args.all_fixed_extrema:
-            candidates = chosen["fixed_small_extrema_candidates"]
-            pairs = [(a, b) for a in candidates for b in candidates if a["site_id"] != b["site_id"]]
+        if args.all_fixed_extrema or args.all_grid:
+            candidates = chosen["fixed_grid_candidates" if args.all_grid else "fixed_small_extrema_candidates"]
+            stop = len(candidates) if args.origin_stop is None else args.origin_stop
+            if not 0 <= args.origin_start < stop <= len(candidates):
+                raise ValueError("Invalid fixed origin partition")
+            pairs = [(a, b) for a in candidates[args.origin_start:stop]
+                     for b in candidates if a["site_id"] != b["site_id"]]
         else:
             first, second = chosen["farthest_extrema_pair_sites"]
             pairs = [(first, second), (second, first)]
@@ -96,9 +103,11 @@ def main() -> None:
               "graph_nodes_sha256": node_sha, "graph_edges_sha256": edge_sha,
               "native_router_sha256": router.provenance["source_sha256"],
               "compiler_command": router.provenance["compiler_command"],
-              "candidate_mode": "all_fixed_extrema" if args.all_fixed_extrema else "farthest_pair",
+              "candidate_mode": "all_grid" if args.all_grid else
+                                ("all_fixed_extrema" if args.all_fixed_extrema else "farthest_pair"),
               "distance_mode": "integer_micrometer_lower_bound" if args.micrometer_lower_bound else "float_distance_cost",
-              "candidate_count": len(candidates) if args.all_fixed_extrema else 2,
+              "candidate_count": len(candidates) if (args.all_fixed_extrema or args.all_grid) else 2,
+              "origin_partition": [args.origin_start, stop] if (args.all_fixed_extrema or args.all_grid) else None,
               "pair_count": len(pairs),
               "finite_pair_count": int(np.isfinite(costs).sum()),
               "pairs_over_450km": int(sum(math.isfinite(float(cost)) and bool(cost >

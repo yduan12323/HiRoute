@@ -1,0 +1,37 @@
+{
+  "audits": [
+    {
+      "checked_reached_edges": 11436681,
+      "label_sha256": "c55eafe36c572b5b8b2b788cc2a98cc20a0dc382e7497825df9ed6c04a71899d",
+      "matched_screened_targets": 157,
+      "reached_node_count": 5824537,
+      "root": 2674409
+    },
+    {
+      "checked_reached_edges": 11436681,
+      "label_sha256": "1ecea39af8e93e84d212f2bcff97f949a1ee0fb54719b3d5c0e86641d1e389ca",
+      "matched_screened_targets": 157,
+      "reached_node_count": 5824537,
+      "root": 3977380
+    },
+    {
+      "checked_reached_edges": 11436681,
+      "label_sha256": "1782bcb0ede9fcc428e90d5fa1c8c6a7d44297c7c9c1a91a587632c6cfe0c92f",
+      "matched_screened_targets": 157,
+      "reached_node_count": 5824537,
+      "root": 4812719
+    }
+  ],
+  "elapsed_seconds": 6.665705400984734,
+  "graph_edges_sha256": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+  "graph_nodes_sha256": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+  "native_router_sha256": "2fc38a835cee766464714866edd07e117da430226bae1937108f6e26319d2788",
+  "no_time_cut_or_lp_optimizer_calls": true,
+  "one_metre_margin_passed": true,
+  "pair_screen_sha256": "baba2237953169aecd74f4ddd32b7ed90d5b13118935f38f7bd6e4a55c07b7ab",
+  "schema": "hiroute.m5d.distance_potential_check.v1",
+  "selected_leg_rounding_error_upper_m": 0.00029438936327223796,
+  "tool_sha256": "2a70282a6d300e04e06e72a7f6c1f0dae16f8b1b3d4f7fd5de79128db539201b",
+  "verified_long_pair_count": 20,
+  "verified_root_count": 3
+}

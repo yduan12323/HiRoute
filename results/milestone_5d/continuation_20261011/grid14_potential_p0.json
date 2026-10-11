@@ -1,0 +1,65 @@
+{
+  "audits": [
+    {
+      "checked_reached_edges": 11436681,
+      "label_sha256": "d6f695e202dd7fed7ad191e7c89dd5bdaf79fd75d3f6641f7f86950ed9d192f6",
+      "matched_screened_targets": 157,
+      "reached_node_count": 5824537,
+      "root": 335560
+    },
+    {
+      "checked_reached_edges": 11436681,
+      "label_sha256": "6f5c2a1bfa9e563f2cd4f1762c86c8efa0d6ff0b5294338f51c5c0a95d544904",
+      "matched_screened_targets": 157,
+      "reached_node_count": 5824537,
+      "root": 400875
+    },
+    {
+      "checked_reached_edges": 11436681,
+      "label_sha256": "73456c5f0d32eb8792c0e5c17ca0b3113825f855977d5786e6e259c4ddd26485",
+      "matched_screened_targets": 157,
+      "reached_node_count": 5824537,
+      "root": 1014886
+    },
+    {
+      "checked_reached_edges": 11436681,
+      "label_sha256": "ca850b3ca6a76dc79638853d0b0e2dfbe8559f577514350de90e274357e076a0",
+      "matched_screened_targets": 157,
+      "reached_node_count": 5824537,
+      "root": 1059925
+    },
+    {
+      "checked_reached_edges": 11436681,
+      "label_sha256": "a92c42f1347598b2754c7225c46b88b64499b7e21da2a8af580039674620c132",
+      "matched_screened_targets": 157,
+      "reached_node_count": 5824537,
+      "root": 1861744
+    },
+    {
+      "checked_reached_edges": 11436681,
+      "label_sha256": "3243c1878a4d9c403129156c5d30dfde7437c9d22ab568ec399e835821b95139",
+      "matched_screened_targets": 157,
+      "reached_node_count": 5824537,
+      "root": 3190137
+    },
+    {
+      "checked_reached_edges": 11436681,
+      "label_sha256": "9b2dc3d2fdf7d9354714b04c6eb4eb741ee17d882b51ae0a0cd9e5de4754abd7",
+      "matched_screened_targets": 157,
+      "reached_node_count": 5824537,
+      "root": 5243181
+    }
+  ],
+  "elapsed_seconds": 12.027546234894544,
+  "graph_edges_sha256": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+  "graph_nodes_sha256": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+  "native_router_sha256": "2fc38a835cee766464714866edd07e117da430226bae1937108f6e26319d2788",
+  "no_time_cut_or_lp_optimizer_calls": true,
+  "one_metre_margin_passed": true,
+  "pair_screen_sha256": "0838d667e740adb14d725f4e488fd4aee9e7f73cc3f5b69e2fef63a02241cc1b",
+  "schema": "hiroute.m5d.distance_potential_check.v1",
+  "selected_leg_rounding_error_upper_m": 0.00029438936327223796,
+  "tool_sha256": "2a70282a6d300e04e06e72a7f6c1f0dae16f8b1b3d4f7fd5de79128db539201b",
+  "verified_long_pair_count": 39,
+  "verified_root_count": 7
+}
