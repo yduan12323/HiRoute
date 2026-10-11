@@ -38,7 +38,6 @@ def run(root, graph_dir, output, certificate):
     for node in nodes[:-1]:
         _, length, _, _ = router.full_edges(node)
         labels.append([float(length[target]) for target in nodes])
-    router.close()
     # Charge fully at each stop. This is a physical path proposal, not a
     # schedule or objective certificate. Recheck every selected directed leg.
     q = slate["queries"][0]
@@ -72,7 +71,38 @@ def run(root, graph_dir, output, certificate):
         routes = more[:30000]
         if not routes:
             break
-    result = {"schema":"hiroute.m5d.od00_road_qualification.v1",
+    witness_legs = []
+    if witness:
+        chain = (0,) + witness + (33,)
+        energy = initial
+        for ordinal, (a, b) in enumerate(zip(chain, chain[1:])):
+            times, lengths, parents, parent_edges = router.full_edges(nodes[a])
+            back = []
+            current = nodes[b]
+            while current != nodes[a]:
+                edge = int(parent_edges[current]); previous = int(parents[current])
+                if (edge < 0 or int(graph.source[edge]) != previous or
+                        int(graph.target[edge]) != current or len(back) >= graph.node_count):
+                    raise ValueError("Invalid selected predecessor edge")
+                back.append(edge);current = previous
+            edges = tuple(reversed(back))
+            replay_time = replay_length = 0.0
+            for edge in edges:
+                replay_time += float(graph.weights["travel_time"][edge])
+                replay_length += float(graph.weights["distance"][edge])
+            if (replay_time, replay_length) != (float(times[nodes[b]]),float(lengths[nodes[b]])):
+                raise ValueError("Selected path edge replay differs from native labels")
+            arrival = energy - Fraction(*replay_length.as_integer_ratio()) * consumption
+            if arrival < 0 or (ordinal == len(chain)-2 and arrival < reserve):
+                raise ValueError("Proposed path violates exact battery energy")
+            charge = capacity-arrival if b != 33 else Fraction(0)
+            witness_legs.append({"from_node":nodes[a],"to_node":nodes[b],
+                "selected_edges":list(edges),"travel_time_hex":replay_time.hex(),
+                "actual_length_hex":replay_length.hex(),"energy_arrival_kwh":str(arrival),
+                "charge_kwh":str(charge)})
+            energy = capacity if b != 33 else arrival
+    router.close()
+    result = {"schema":"hiroute.m5d.od00_road_qualification.v2",
               "role":"directed_real_road_energy_path_proposal_not_schedule_or_exact_seed",
               "pool_sha256":digest(pool_file),"slate_sha256":digest(slate_file),
               "graph_nodes_sha256":cert["graph_nodes_sha256"],
@@ -81,8 +111,9 @@ def run(root, graph_dir, output, certificate):
               "candidate_count":32,"source_route_runs":len(labels),
               "route_prefix_site_indices":list(witness) if witness else None,
               "route_prefix_site_ids":[candidates[i-1]["site_id"] for i in witness] if witness else None,
+              "witness_legs":witness_legs,
               "qualified_executable_seed":False,
-              "qualification":"road_energy_proposal_only_schedule_and_exact_replay_pending" if witness else "no_energy_path_found_in_bounded_first32_search",
+              "qualification":"exact_energy_and_native_edge_replay_passed_activity_contract_pending" if witness else "no_energy_path_found_in_bounded_first32_search",
               "elapsed_ns":time.monotonic_ns()-start}
     with (output / "qualification.json").open("x") as f:
         json.dump(result,f,indent=2,sort_keys=True);f.write("\n")
