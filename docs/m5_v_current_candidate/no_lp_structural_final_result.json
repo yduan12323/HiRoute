@@ -1,0 +1,246 @@
+{
+  "case_count": 13,
+  "elapsed_seconds": 0.0052922500763088465,
+  "four_mode_receipt_sha256": {
+    "A": "a9b4cce314e3fc3885cfdb5e82adc993eb5961412958fcc958c83bfb015b3d4f",
+    "B": "96051007f480e75b867f6439233c561072ef6bb729f27f26b4d50d53479c3684"
+  },
+  "independent_model_sha256": "b8b2e0254426775638695f9c2db8317937a0326e93fed4698645e2883c1d51a2",
+  "input_sha256": {
+    "b_cases.json": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+    "physical_cases_h4.json": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2"
+  },
+  "rows": [
+    {
+      "case_id": "S07_effect_free_via_site_excluded",
+      "case_object_sha256": "b6c53b43eedf71786e22932335536f32d37e86c7cfeee0cdd6b2a3c882190eb5",
+      "current_four_modes": [
+        "flat_d0",
+        "flat_d1",
+        "hier_d0",
+        "hier_d1"
+      ],
+      "detail": {
+        "direct_energy": "20",
+        "direct_time": "1",
+        "enumerated_prefixes": 1,
+        "excluded_effect_free_site": "v",
+        "floor": "0",
+        "initial_energy": "10",
+        "terminal_discrete_sequences": 1
+      },
+      "reason": "only empty stop sequence; selected direct leg exceeds initial energy above floor",
+      "status": "independent_structural_infeasibility"
+    },
+    {
+      "case_id": "B21",
+      "case_object_sha256": "1b3479bfc9d484cbd3cc04b2e33d441545b4fae3121047238f0c0f9863ac8296",
+      "current_four_modes": [
+        "flat_d0",
+        "flat_d1",
+        "hier_d0",
+        "hier_d1"
+      ],
+      "detail": {
+        "enumerated_prefixes": 15,
+        "terminal_discrete_sequences": 0
+      },
+      "reason": "no reachable service-complete static sequence with final selected leg",
+      "status": "independent_structural_infeasibility"
+    },
+    {
+      "case_id": "B22",
+      "case_object_sha256": "7a1c1348c9f62076b78668d7fbd6f0d54a0cf452acb7227c1ca69587fdfae8c7",
+      "current_four_modes": [
+        "flat_d0",
+        "flat_d1",
+        "hier_d0",
+        "hier_d1"
+      ],
+      "detail": {
+        "enumerated_prefixes": 15,
+        "terminal_discrete_sequences": 0
+      },
+      "reason": "no reachable service-complete static sequence with final selected leg",
+      "status": "independent_structural_infeasibility"
+    },
+    {
+      "case_id": "B29",
+      "case_object_sha256": "46110b03d9a6d0583a829982ecee11db171f8f71c668cc20552bf80215eb711b",
+      "current_four_modes": [
+        "flat_d0",
+        "flat_d1",
+        "hier_d0",
+        "hier_d1"
+      ],
+      "detail": {
+        "enumerated_prefixes": 15,
+        "terminal_discrete_sequences": 0
+      },
+      "reason": "no reachable service-complete static sequence with final selected leg",
+      "status": "independent_structural_infeasibility"
+    },
+    {
+      "case_id": "B30",
+      "case_object_sha256": "77ad8c2772c7ac36b3eac72d4eb3190fb75cf41148d3c6f6343459b559052e99",
+      "current_four_modes": [
+        "flat_d0",
+        "flat_d1",
+        "hier_d0",
+        "hier_d1"
+      ],
+      "detail": {
+        "enumerated_prefixes": 15,
+        "terminal_discrete_sequences": 0
+      },
+      "reason": "no reachable service-complete static sequence with final selected leg",
+      "status": "independent_structural_infeasibility"
+    },
+    {
+      "case_id": "B37",
+      "case_object_sha256": "96ede09d257dd005861e976fa55a8b29e5063b1ca147458f7295c153a2be9607",
+      "current_four_modes": [
+        "flat_d0",
+        "flat_d1",
+        "hier_d0",
+        "hier_d1"
+      ],
+      "detail": {
+        "enumerated_prefixes": 9,
+        "terminal_discrete_sequences": 0
+      },
+      "reason": "no reachable service-complete static sequence with final selected leg",
+      "status": "independent_structural_infeasibility"
+    },
+    {
+      "case_id": "B38",
+      "case_object_sha256": "709ca72b12d1d63aefa9c0e5bd8b6fb2c59aeccf2a281cc81d17f91a63e9ca15",
+      "current_four_modes": [
+        "flat_d0",
+        "flat_d1",
+        "hier_d0",
+        "hier_d1"
+      ],
+      "detail": {
+        "enumerated_prefixes": 9,
+        "terminal_discrete_sequences": 0
+      },
+      "reason": "no reachable service-complete static sequence with final selected leg",
+      "status": "independent_structural_infeasibility"
+    },
+    {
+      "case_id": "B45",
+      "case_object_sha256": "35981973d334f56c560a687a3491dfc7a0d67ca9c25a0cda3585cc0b54758d91",
+      "current_four_modes": [
+        "flat_d0",
+        "flat_d1",
+        "hier_d0",
+        "hier_d1"
+      ],
+      "detail": {
+        "enumerated_prefixes": 9,
+        "terminal_discrete_sequences": 0
+      },
+      "reason": "no reachable service-complete static sequence with final selected leg",
+      "status": "independent_structural_infeasibility"
+    },
+    {
+      "case_id": "B46",
+      "case_object_sha256": "496d6a39dbaf4641d41b3bf066b9e7f5f9e9ec04847a2f9bdbcd7b50bdf9c6a0",
+      "current_four_modes": [
+        "flat_d0",
+        "flat_d1",
+        "hier_d0",
+        "hier_d1"
+      ],
+      "detail": {
+        "enumerated_prefixes": 9,
+        "terminal_discrete_sequences": 0
+      },
+      "reason": "no reachable service-complete static sequence with final selected leg",
+      "status": "independent_structural_infeasibility"
+    },
+    {
+      "case_id": "B53",
+      "case_object_sha256": "be4ab5be89fb4ae8cb10c96737af7b10ee06022a79e7a498dabfd35d047b4e59",
+      "current_four_modes": [
+        "flat_d0",
+        "flat_d1",
+        "hier_d0",
+        "hier_d1"
+      ],
+      "detail": {
+        "enumerated_prefixes": 31,
+        "terminal_discrete_sequences": 0
+      },
+      "reason": "no reachable service-complete static sequence with final selected leg",
+      "status": "independent_structural_infeasibility"
+    },
+    {
+      "case_id": "B54",
+      "case_object_sha256": "ce5c89fe3b072d90737a11363c805b1a8ebb1a40daf86d0d4e41fdd097fcc1cc",
+      "current_four_modes": [
+        "flat_d0",
+        "flat_d1",
+        "hier_d0",
+        "hier_d1"
+      ],
+      "detail": {
+        "enumerated_prefixes": 31,
+        "terminal_discrete_sequences": 0
+      },
+      "reason": "no reachable service-complete static sequence with final selected leg",
+      "status": "independent_structural_infeasibility"
+    },
+    {
+      "case_id": "B61",
+      "case_object_sha256": "45f585433d0aa526f21c3d5bb2b3967bb4f52b4390dcf2fd29ec689c32aa48d6",
+      "current_four_modes": [
+        "flat_d0",
+        "flat_d1",
+        "hier_d0",
+        "hier_d1"
+      ],
+      "detail": {
+        "enumerated_prefixes": 31,
+        "terminal_discrete_sequences": 0
+      },
+      "reason": "no reachable service-complete static sequence with final selected leg",
+      "status": "independent_structural_infeasibility"
+    },
+    {
+      "case_id": "B62",
+      "case_object_sha256": "ae1444ded4a3b1ff52d9084cfdc7303cdb8eacbad3e8b4d0501cca7fa101ab43",
+      "current_four_modes": [
+        "flat_d0",
+        "flat_d1",
+        "hier_d0",
+        "hier_d1"
+      ],
+      "detail": {
+        "enumerated_prefixes": 31,
+        "terminal_discrete_sequences": 0
+      },
+      "reason": "no reachable service-complete static sequence with final selected leg",
+      "status": "independent_structural_infeasibility"
+    }
+  ],
+  "schema": "hiroute-no-lp-structural-final-v1",
+  "source_commit": "d51367ca5a8a109d3a76c35ebbc55ac4edc361bf",
+  "source_sha256": {
+    "__init__.py": "4f4f9ddd72b02aeaca5a2c9a8e1b7f99cfa710144e0ac78a781ba98c216c8d76",
+    "bounded.py": "606e217d2b5a127d0e35c7178088b62cd18e3924a284842508b59622c220fc95",
+    "coalesce.py": "1900bfbed408398dd8c1f456b26137c0abe96745629764a25b9e19bdb4170ad9",
+    "coalesced_solver.py": "8361e31f410f105ae2e31917f06234f5d6a98ce43125022db903374c1aced5e4",
+    "frozen_ab_registry.py": "624d073985037214d13187d6eab904189cd5fd6918833bab1ef34de1d9ede4ca",
+    "hierarchy.py": "4e3ce07e93e963801209f3db7e9bdd5d10ad66be71d56a5687a1f1e36e9bf89b",
+    "invocation_trace.py": "9cf2e1969a3446c0574d1885e0865dc1c209d2ceb10e86d14ef7c0b89227df77",
+    "probe.py": "79226bd7dcf9ff9ceb326e2caf6cee1c471312a6e178ac024a77c27f2ea02b6d",
+    "provenance.py": "471a6cb75f8646988a4a21ee4998cab708e48de4a03e59b1e977a0813f526994",
+    "pwa.py": "b769fc3609d4d2040b00de6ad813384c7c00ea9c2e4c1249a4749bea4eea6c8b",
+    "real_adapter.py": "daa25b6c9fdd2f48a567da2fb443c2672f32d7de6a1f2b26a5b857de9c492cb2",
+    "real_export_input.py": "d79ce09a65e84087bb835f1a7ae8a70de9e4bb53af56a555e1e9c4c6c7bd7a4f",
+    "real_legs.py": "c3ec4140bde1defb04faecdf2ab92dfa3f61c5f61bc3112d9b76f3d7914c5227"
+  },
+  "status": "passed"
+}

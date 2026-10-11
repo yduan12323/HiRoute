@@ -1,0 +1,134 @@
+{
+  "elapsed_seconds": 0.003758292063139379,
+  "passed": 5,
+  "rows": [
+    {
+      "expected_at": [
+        [
+          0,
+          [
+            [
+              "6",
+              "1"
+            ],
+            [
+              "6",
+              "2"
+            ]
+          ]
+        ],
+        [
+          "1/2",
+          [
+            [
+              "6",
+              "1"
+            ],
+            [
+              "6",
+              "2"
+            ]
+          ]
+        ],
+        [
+          1,
+          [
+            [
+              "6",
+              "1"
+            ],
+            [
+              "7",
+              "2"
+            ]
+          ]
+        ]
+      ],
+      "independent_formula": "max(a,t+h)+D on t<=b-h, with open-cut plateau attainment iff tau<a-h",
+      "status": "passed",
+      "theme": "partial_waiting_gap_collapse",
+      "whole_domain": {
+        "open_cells": 2,
+        "singletons": 3
+      }
+    },
+    {
+      "expected_at": [
+        [
+          0,
+          [
+            [
+              "10",
+              "2"
+            ],
+            [
+              "11",
+              "1"
+            ]
+          ]
+        ],
+        [
+          1,
+          [
+            [
+              "10",
+              "2"
+            ],
+            [
+              "11",
+              "1"
+            ]
+          ]
+        ]
+      ],
+      "independent_formula": "max(a,t+h)+D on t<=b-h, with open-cut plateau attainment iff tau<a-h",
+      "status": "passed",
+      "theme": "no_waiting_plateau",
+      "whole_domain": {
+        "open_cells": 1,
+        "singletons": 2
+      }
+    },
+    {
+      "independent_expected_winner": "z",
+      "independent_formula": "same time: smaller rho wins; if rho ties lexicographically smaller full prefix wins",
+      "status": "passed",
+      "theme": "equal_time_unequal_rho",
+      "whole_domain": {
+        "open_cells": 1,
+        "singletons": 2
+      }
+    },
+    {
+      "independent_expected_winner": "a",
+      "independent_formula": "same time: smaller rho wins; if rho ties lexicographically smaller full prefix wins",
+      "status": "passed",
+      "theme": "equal_time_equal_rho_tuple",
+      "whole_domain": {
+        "open_cells": 1,
+        "singletons": 2
+      }
+    },
+    {
+      "independent_formula": "pairwise affine crossings at 1, 4/3, 3/2; pointwise minimum classes under independent (time,rho,pi) preorder",
+      "knots": [
+        "1",
+        "4/3",
+        "3/2"
+      ],
+      "status": "passed",
+      "theme": "multiple_crossings_different_rho",
+      "whole_domain": {
+        "open_cells": 4,
+        "singletons": 5
+      }
+    }
+  ],
+  "schema": "hiroute-v2-reset-gap-checks-v1",
+  "source_commit": "d51367ca5a8a109d3a76c35ebbc55ac4edc361bf",
+  "source_sha256": {
+    "experiments/time_cut_v2/oracle/frontier_checks.py": "f98e1b9dfdbc0fe77a9b332faf40e8a2ea221b2d20d47cf4d2dbe878b86077fa",
+    "src/timecut5/probe.py": "79226bd7dcf9ff9ceb326e2caf6cee1c471312a6e178ac024a77c27f2ea02b6d",
+    "src/timecut5/pwa.py": "b769fc3609d4d2040b00de6ad813384c7c00ea9c2e4c1249a4749bea4eea6c8b"
+  }
+}

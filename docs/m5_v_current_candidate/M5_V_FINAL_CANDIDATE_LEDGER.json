@@ -49,15 +49,17 @@
       "status": "passed_new_current_source"
     },
     "original_250_plus_10_operator_reset": {
-      "current_v2_frontier_checks": 216,
-      "current_v2_symbolic_cases": 172,
-      "frontier_sha256": "fce0f4fe6b98053c5e9923e4a044f55e7b1aad786514b093005fdb6e87d63b0b",
+      "C": 50,
+      "CS": 50,
+      "Drive": 50,
+      "S": 50,
+      "excluded": "refuted_v1_attained_set_ALG4",
       "inventory_path": "docs/MILESTONE_5_OPERATOR_RESET_INVENTORY.md",
-      "random_C": 75,
-      "random_CS": 75,
-      "residual": "Drive/S/three-way 50-object populations and exact reset fixture/law mapping; no wholesale C/CS rerun",
-      "status": "partially_mapped_current_source",
-      "validation_sha256": "a7db12993ae5bd9a052c61d1e3baadbdeda6d08b0c82e39cc29fa06112372a1b"
+      "new_operator_receipt_sha256": "469e21e11ff7db58a0ac135ef5d571ef74c95915fa2c878f2f4b5865c8648f6d",
+      "new_reset_receipt_sha256": "b16228a003e891a4655fdeb53852784f37fc75990955a4cdea4316bf39ee79d0",
+      "reset_themes": 10,
+      "status": "passed_explicit_v2_replacement_population",
+      "three_way_merge": 50
     },
     "original_76_independent_REF": {
       "finite_regimes": 11072,
@@ -71,8 +73,14 @@
       "status": "passed_scoped_optional_coalesced_C32_H4_fixed_inputs_at_admitted_source"
     },
     "remaining_A_B_full_independent_REF": {
-      "scope": "only keys not supported by accepted source/input-bound independent certificates; do not rerun all A/B",
-      "status": "open_selective_mathematical_authority"
+      "A_missing": 26,
+      "B_missing": 40,
+      "admitted_total": 26,
+      "new_structural_case_count": 13,
+      "new_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
+      "per_case_ledger_sha256": "865e73d985ea220f12013819bedd2df6d05d563b9863f255668df641295870fe",
+      "scope": "final optimality only; all A/B visited-node bounds independently closed; no batch rerun",
+      "status": "open_66_final_result_keys_only"
     },
     "whole_M5_V": {
       "status": "not_accepted"

@@ -8,29 +8,33 @@ At current candidate source `d51367c` (unchanged in `src/timecut5` and `validati
 
 Script SHA-256: `validate_production.py` `ccd6720ecd4b0e8d1024d265838a196e89fc193c692ca998b94dd2119e56f6d0`; `frontier_checks.py` `f98e1b9dfdbc0fe77a9b332faf40e8a2ea221b2d20d47cf4d2dbe878b86077fa`; `oracle.py` `8abc48f6b83e15b7da7cc0087a97cd68e2c7f202c370386f9059cc9c9557aff4`; current `pwa.py` `b769fc3609d4d2040b00de6ad813384c7c00ea9c2e4c1249a4749bea4eea6c8b`; `probe.py` `79226bd7dcf9ff9ceb326e2caf6cee1c471312a6e178ac024a77c27f2ea02b6d`.
 
-| Original §21 category | Existing matching evidence | Remaining exact population/law gap |
+| Original §21 category | Current v2 population and independent expected result | Status |
 | --- | --- | --- |
-| 50 Drive objects | Independent whole-domain Drive transform and reduction/congruence on nine directed frontiers; point tests | No frozen deterministic 50-object Drive population with case IDs and independent expected outcomes |
-| 50 S objects | Independent whole-domain S transform and congruence on nine directed frontiers; schedule adversaries and point tests | No frozen deterministic 50-object S population |
-| 50 C objects | 75 randomized full-energy C objects plus named adversaries; independent symbolic oracle and witnesses | Count and full-domain C law coverage exceed 50; document v2 semantic mapping and exact case IDs before treating these as the §21 replacement population |
-| 50 CS objects | 75 randomized full-energy CS objects plus named adversaries; independent symbolic oracle and witnesses | Count and full-domain CS law coverage exceed 50; same identity/semantic mapping step |
-| 50 three-way merge objects | Independent envelope/reduction, order reversal, equivalence-class, idempotence and congruence checks on nine frontiers | No frozen deterministic 50-object three-way merge population |
+| 50 Drive objects | 50 newly frozen objects; independent rational Drive translation/clipping and reduction/congruence, 100 whole-domain checks | Passed |
+| 50 S objects | 50 newly frozen objects; independent schedule `max(a,t+h)+D`, deadline and attainment, 100 whole-domain checks | Passed |
+| 50 C objects | First 50 of 75 seeded full-energy randomized C objects in the independent symbolic oracle; strict positivity, support, value, attainment and witness checked | Passed under v2 contract |
+| 50 CS objects | First 50 of 75 seeded full-energy randomized CS objects, same independent checks including schedule guards | Passed under v2 contract |
+| 50 three-way merge objects | 50 newly frozen objects with three nonempty input groups; independent pointwise minimal classes compare both association orders and direct reduction, 150 whole-domain checks | Passed |
+
+The new deterministic generator `experiments/time_cut_v2/oracle/operator_increment_50.py` uses seed `20261011`; its [per-object receipt](m5_v_current_candidate/operator_increment_50_result.json), SHA-256 `469e21e11ff7db58a0ac135ef5d571ef74c95915fa2c878f2f4b5865c8648f6d`, contains all 150 input objects, independent expected-output and actual-output hashes, and 350 whole-domain check records covering 1,314 open cells and 1,652 singleton boundaries. Script SHA-256 `83b7f6d3e2af4ca2e9e5b55529b55556af2cb1b17aef183698e3465cd7aad1df`. Commands: `python experiments/time_cut_v2/oracle/operator_increment_50.py --repo . --output <receipt>` and `python experiments/time_cut_v2/oracle/reset_gap_checks.py --repo . --output <receipt>`. Both exited 0 on current source. The original seed `52101` labels an ungenerated v1 plan, so this is an explicit v2 replacement population with its own frozen seeds and IDs. The refuted v1 attained-set ALG-4 equality is not asserted.
 
 The 250 seeded checks in `tests/test_time_cut_coalescing.py` use seed `762013` and test adjacent-cut union. They do not supply the §21 250 objects. The C/CS script uses seed `20261006`. Counts alone do not prove every algebra law; evaluate the v2 law mapping for each category before closing it.
 
 ## Ten original §23 reset themes
 
-| Theme | Closest retained v2 check | Residual mapping |
-| --- | --- | --- |
-| 1. Full waiting plateau, earlier/high rho vs later/low rho | `frontier_checks.py::rho_tradeoff_survives_then_plateau`; `test_constructive_dominance_budget` | Bind original expected full key if this exact §23 fixture is required |
-| 2. Partial waiting-gap collapse | `test_schedule_creates_attainment_on_strict_plateau`, `test_schedule_after_plateau_preserves_attainment` | No frozen theme-specific independent expected-result receipt identified |
-| 3. No waiting plateau | `test_schedule_after_plateau_preserves_attainment`; frontier S transform | No frozen theme-specific independent expected-result receipt identified |
-| 4. Equal time, unequal rho | `frontier_checks.py::strict_rho_overrides_pi`; `test_rho_and_tuple_are_required` | Map exact original parameter choice |
-| 5. Equal time/rho, different tuple | `frontier_checks.py::equal_rho_pi_still_matters`; `test_rho_and_tuple_are_required` | Map exact original tuple fixture |
-| 6. Old cross-energy pair must survive | `test_no_cross_energy_or_state_deletion` | Map exact old high-SOC fixture |
-| 7. Same prefix, different charge allocation, same final E | `test_v1_infimum_and_real_noninfimal_witnesses`; restricted two-charge replay | Explicit same-prefix allocation fixture and expected key not independently pinned |
-| 8. Limit-only better infimum vs attained worse plan | `test_open_cut_cannot_execute_limit`, `test_attained_primary_tie_survives_open_primary_competitor` | Map exact original end-to-end status/key |
-| 9. Multiple PWA branch intersections with different rho | `frontier_checks.py::affine_crossing_and_chi_tie`; whole-domain arrangements | Explicit multiple-crossing, different-rho fixture not identified |
-| 10. Region bound equals incumbent J with better secondary key | `test_equal_primary_cannot_prune_a_lower_charge_candidate`; current A/B strict pruning traces | Map exact original §23 fixture/source if separately mandated |
+Five additional rational checks in `experiments/time_cut_v2/oracle/reset_gap_checks.py` have [receipt](m5_v_current_candidate/reset_gap_result.json), SHA-256 `b16228a003e891a4655fdeb53852784f37fc75990955a4cdea4316bf39ee79d0`, and script SHA-256 `7adaa279cf0c3827bc31875a20b2d1427d7dca98591b3cc602ae182617ec207e`. Each constructs an independent expected schedule or preorder result and checks the complete rational arrangement. The other themes map to named permanent tests or the independently reviewed frontier/restricted-two-charge checks:
 
-The ten names are themes in the protocol, not a frozen generated file. Existing named tests demonstrate mechanisms; this table does not silently mark ten independently derived original expected results as passed. The smallest new work is to freeze and check only unmapped Drive/S/three-way objects and reset fixtures after reviewing the law/fixture mapping. No existing C/CS or C32 population is scheduled for repetition.
+| §23 theme | Independent expected result and source | Status |
+| --- | --- | --- |
+| 1. Full waiting plateau, earlier/high rho vs later/low rho | Both times collapse to the S plateau; the lower-rho branch remains necessary/wins. `frontier_checks.py::rho_tradeoff_survives_then_plateau` independently transforms and checks the whole domain. | Passed |
+| 2. Partial waiting-gap collapse | For A `t=4+2E,rho=2` and B `t=5,rho=1`, S with `a=6,h=1,D=0` gives A times `(6,6,7)` at `E=(0,1/2,1)` and B time 6 throughout. New whole-domain check. | Passed |
+| 3. No waiting plateau | With A `t=7,rho=2`, B `t=8,rho=1`, S `a=0,h=1,D=2` yields times 10 and 11 without waiting. New whole-domain check. | Passed |
+| 4. Equal time, unequal rho | At equal time 5, `rho=0` wins over `rho=1` even with worse prefix tuple; new independent minimal-class check. | Passed |
+| 5. Equal time/rho, different tuple | At equal time 5 and rho 0, prefix `a` wins over `z`; new independent minimal-class check. | Passed |
+| 6. Old cross-energy pair must survive | A cut at energy 0 cannot dominate a cut at energy 2; `test_no_cross_energy_or_state_deletion` fixes this expected false predicate. | Passed |
+| 7. Same prefix, different charge allocation, same final E | For two fixed C stops and final E=1, total time is `4-q1`; with inherited `q1<=1/2` the attained optimum is 7/2, while `q1<1/2` makes 7/2 limit-only. `frontier_checks.py::replay_restricted_two_charge` verifies three cases and constrained witness energies. | Passed |
+| 8. Limit-only better infimum vs attained worse plan | The open branch has `tau=1336` (unattained); the closed branch has 1349. An executable open-branch realization can beat 1349, but 1336 is never executed. `test_v1_cut_congruence_uses_continuation_coverage` and `test_open_cut_cannot_execute_limit`. | Passed under v2 continuation semantics |
+| 9. Multiple intersections with different rho | Three affine times `0`, `E-1`, `3-2E` on `[0,2]` cross at `1,4/3,3/2`; new independent exact-cell reduction check covers all intersections and retains necessary rho branches. | Passed |
+| 10. Region bound equals incumbent primary with better secondary key | Equal `J` nodes stay live; permanent `test_equal_primary_cannot_prune_a_lower_charge_candidate` expects full key `(13,2,1,((a,CS),))` and a positive equality-node-retained count. | Passed |
+
+These are v2 semantic test objects and named expectations, not a claim that the never-generated v1 files were executed. They cover the requested ten mechanisms. The point tests and HIER source tests run in the installed-wheel CI; the independent oracle receipts above are separate successful local runs pinned to the current source.
