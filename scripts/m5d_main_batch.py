@@ -21,6 +21,15 @@ def save(path, value):
     os.replace(temporary, path)
 
 
+def completed_pair_agrees(flat, hier):
+    """Compare exact coordinates only when both solver rows completed."""
+    if "exact_outcome" not in flat or "exact_outcome" not in hier:
+        return None
+    return (flat.get("seed_j"), flat.get("certified_depth"), flat.get("prewarm_sha256"),
+            flat["exact_outcome"]) == (hier.get("seed_j"), hier.get("certified_depth"),
+            hier.get("prewarm_sha256"), hier["exact_outcome"])
+
+
 def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
         phase_path: Path, output: Path):
     data = phase_path.read_bytes()
@@ -82,6 +91,16 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
             save(state_path, state)
             raise
         state["charged_cpu_ns"] += receipt.cpu_usage_ns
+        if receipt.cpu_quota_percent != 100 or receipt.cpu_usage_ns > 610 * 10**9:
+            state["rows"][row_id] = {"status": "verification_failed_cpu_limit",
+                "denominator_included": True, "receipt_path": receipt.receipt_path,
+                "cgroup_cpu_usage_ns": receipt.cpu_usage_ns}
+            state["stopped"] = True
+            for pending in phase["rows"]:
+                state["rows"].setdefault(pending["row_id"],
+                    {"status": "verification_blocked_unrun", "denominator_included": True})
+            save(state_path, state)
+            return state
         if receipt.result == "success" and receipt.exit_status == 0:
             status_file = row_out / "status.json"
             row_status = (json.loads(status_file.read_bytes()) if status_file.exists()
@@ -101,11 +120,10 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
         if row["method"] == "hier":
             flat_id = row_id.removesuffix("_hier") + "_flat"
             flat_status = state["rows"].get(flat_id, {})
-            if all("prewarm_sha256" in item for item in (flat_status, row_status)):
-                if any(flat_status[name] != row_status[name] for name in
-                       ("prewarm_sha256", "seed_j", "certified_depth")):
-                    state["rows"][flat_id]["status"] = "verification_failed_cache_mismatch"
-                    row_status["status"] = "verification_failed_cache_mismatch"
+            agreement = completed_pair_agrees(flat_status, row_status)
+            if agreement is False:
+                state["rows"][flat_id]["status"] = "verification_failed_method_disagreement"
+                row_status["status"] = "verification_failed_method_disagreement"
         if row_status["status"].startswith("verification_failed"):
             state["stopped"] = True
             for pending in phase["rows"]:

@@ -20,6 +20,7 @@ from timecut5.real_adapter import TableFreeRealProblem, site_catalog_digest
 from timecut5.real_legs import RealSite
 from timecut5.road_provider import TableFreeRoadSelectedLegProvider, TableFreeRegionBoundProvider
 from timecut5.sparse_seed import SparseSeedCatalog, admit_sparse_seed, replay_sparse_seed
+from timecut5.live_replay import ExactLayerReplay
 
 
 def append_phase(out: Path, phase: str, **fields):
@@ -39,7 +40,63 @@ def save_status(out: Path, value):
         os.fsync(stream.fileno())
 
 
-def execute_exact_method(query, sites, provider, catalog, bound, root, seed, method):
+def save_bytes_atomic(path: Path, data: bytes):
+    temporary = path.with_suffix(path.suffix + ".next")
+    with temporary.open("xb") as stream:
+        stream.write(data)
+        stream.flush()
+        os.fsync(stream.fileno())
+    os.replace(temporary, path)
+    directory = os.open(path.parent, os.O_RDONLY)
+    try:
+        os.fsync(directory)
+    finally:
+        os.close(directory)
+
+
+class DurableLayerReplay:
+    def __init__(self, path: Path, *, mode: str, domain_sha256: str,
+                 external_source_sha256: dict[str, str], previous_checkpoint=None):
+        self.path = path
+        self.replay = ExactLayerReplay(mode=mode, domain_sha256=domain_sha256,
+            external_source_sha256=external_source_sha256,
+            previous_checkpoint=previous_checkpoint)
+
+    def __call__(self, *args):
+        self.replay(*args)
+        save_bytes_atomic(self.path, self.replay.checkpoint_bytes())
+
+    def finish(self):
+        self.replay.finish()
+
+
+def exact_outcome(result):
+    """Record only mathematically defined coordinates of an exact terminal."""
+    if result.status == "attained_optimum":
+        if result.key is None or result.witness is None:
+            raise ValueError("Attained terminal lacks an executable key")
+        j, q, h, pi = result.key
+        return {"status": "attained_optimum", "J": str(j), "Q": str(q),
+                "H": h, "Pi": [list(event) for event in pi],
+                "J_attained": True, "Q_attained": True}
+    if result.status == "infimum_unattained" and result.unattained_component == "J":
+        if result.primary_infimum is None or result.secondary_infimum is not None or result.key is not None:
+            raise ValueError("Malformed primary infimum terminal")
+        return {"status": "infimum_unattained_J", "J": str(result.primary_infimum),
+                "Q": None, "H": None, "Pi": None,
+                "J_attained": False, "Q_attained": None}
+    if result.status == "infimum_unattained" and result.unattained_component == "Q":
+        if (result.primary_infimum is None or result.secondary_infimum is None or
+                result.key is not None):
+            raise ValueError("Malformed secondary infimum terminal")
+        return {"status": "infimum_unattained_Q", "J": str(result.primary_infimum),
+                "Q": str(result.secondary_infimum), "H": None, "Pi": None,
+                "J_attained": True, "Q_attained": False}
+    raise ValueError("Certified seed contradicts infeasible or unknown terminal")
+
+
+def execute_exact_method(query, sites, provider, catalog, bound, root, seed, method,
+                         checkpoint_hook=None):
     """Run the production exact engine and independently replay its terminal."""
     if method not in ("flat", "hier") or seed["status"] != "verified":
         raise ValueError("Exact method requires a verified same-domain seed")
@@ -48,9 +105,11 @@ def execute_exact_method(query, sites, provider, catalog, bound, root, seed, met
         origin_anchor=query["origin"], destination_anchor=query["destination"],
         site_catalog_sha256=catalog.site_catalog_sha256)
     solved = (_solve_problem(problem, verified_primary_upper=seed["lex_key"][0],
-        singleton_bound=bound.singleton_bound) if method == "flat" else
+        singleton_bound=bound.singleton_bound,
+        checkpoint_hook=checkpoint_hook) if method == "flat" else
         _solve_hierarchical_problem(problem, True, root,
-            verified_primary_upper=seed["lex_key"][0], bound_provider=bound))
+            verified_primary_upper=seed["lex_key"][0], bound_provider=bound,
+            checkpoint_hook=checkpoint_hook))
     bounded = solved if method == "flat" else solved.bounded
     witness = bounded.result.witness
     if witness is not None:
@@ -63,7 +122,8 @@ def execute_exact_method(query, sites, provider, catalog, bound, root, seed, met
 
 
 def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
-        manifest_path: Path, manifest_sha256: str, row_id: str, out: Path):
+        manifest_path: Path, manifest_sha256: str, row_id: str, out: Path,
+        previous_checkpoint_path: Path | None = None):
     from microplan.routing import ExactRouter
     from scripts.m5d_one_query_runner import load_graph
     if sha(manifest_path) != manifest_sha256:
@@ -150,15 +210,43 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
             router_factory=lambda conservative: ExactRouter(conservative,
                 native_config, out / "landmark_native"))
         append_phase(out, "bounds_verified", landmark_sha256=bound.landmark_sha256)
+        seed_payload = {"schema": "hiroute.m5d.main_seed.v1", "row_id": row_id,
+            "manifest_sha256": manifest_sha256,
+            "sparse_domain_sha256": catalog.domain_sha256,
+            "query_sha256": binding["query_sha256"],
+            "lex_key": str(seed["lex_key"]), "sequence": seed["sequence"],
+            "charges": [str(value) for value in seed["charges"]],
+            "certified_depth": seed["max_depth"]}
+        seed_bytes = canon(seed_payload)
+        save_bytes_atomic(out / "seed.json", seed_bytes)
+        external = {"graph_nodes": manifest["input_sha256"]["graph_nodes"],
+            "graph_edges": manifest["input_sha256"]["graph_edges"],
+            "router": hashlib.sha256(canon([router.provenance["source_sha256"],
+                sha(out / "road_native/routing.so")])).hexdigest(),
+            "anchors": binding["anchor_catalog_sha256"],
+            "sites": binding["site_catalog_sha256"],
+            "query": binding["query_sha256"],
+            "hierarchy": query["hierarchy_sha256"],
+            "landmark": bound.landmark_sha256,
+            "seed": hashlib.sha256(seed_bytes).hexdigest(),
+            "policy": manifest_sha256,
+            "runtime": hashlib.sha256(canon([sys.executable, sys.version])).hexdigest()}
+        layer_domain = hashlib.sha256(canon({"sparse": catalog.domain_sha256,
+            "external": external})).hexdigest()
+        previous = (previous_checkpoint_path.read_bytes()
+                    if previous_checkpoint_path is not None else None)
+        hook = DurableLayerReplay(out / "layer_checkpoint.json",
+            mode=row["method"], domain_sha256=layer_domain,
+            external_source_sha256=external, previous_checkpoint=previous)
         append_phase(out, "search_started", method=row["method"])
         bounded, witness_replayed = execute_exact_method(query, sites, provider,
-            catalog, bound, root, seed, row["method"])
-        append_phase(out, "search_finished", status=bounded.result.status,
-            key=str(bounded.result.key))
+            catalog, bound, root, seed, row["method"], checkpoint_hook=hook)
+        outcome = exact_outcome(bounded.result)
+        append_phase(out, "search_finished", exact_outcome=outcome)
         append_phase(out, "terminal_verified", witness_present=witness_replayed)
         save_status(out, {"row_id": row_id,
-            "status": bounded.result.status,
-            "exact_key": str(bounded.result.key),
+            "status": outcome["status"],
+            "exact_outcome": outcome,
             "witness_independently_replayed": witness_replayed,
             "seed_j": str(seed["lex_key"][0]),
             "certified_depth": seed["max_depth"],
@@ -172,4 +260,5 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
 
 if __name__ == "__main__":
     run(*(Path(value) for value in sys.argv[1:6]),
-        sys.argv[6], sys.argv[7], Path(sys.argv[8]))
+        sys.argv[6], sys.argv[7], Path(sys.argv[8]),
+        Path(sys.argv[9]) if len(sys.argv) > 9 else None)

@@ -16,7 +16,7 @@ def run(root: Path, candidate_path: Path, queries_path: Path,
         pool_path: Path, full_path: Path, charged_before: float, out: Path):
     candidate, queries, pools, full = (json.loads(path.read_bytes()) for path in
         (candidate_path, queries_path, pool_path, full_path))
-    if (candidate["query_count"] != queries["query_count"] != 48 or
+    if (candidate["query_count"] != 48 or queries["query_count"] != 48 or
             queries["binding_count"] != 96 or len(candidate["rows"]) != 192 or
             full["target_query_ids"] != candidate["true_full_universe_query_ids"] or
             full["source_sha256"]["queries"] != sha(queries_path) or

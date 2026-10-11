@@ -30,13 +30,15 @@ class ResourceReceipt:
     stdout_path: str
     stderr_path: str
     receipt_path: str
+    cpu_quota_percent: int | None = None
+    thread_environment: dict[str, str] | None = None
 
 
 def _properties(unit: str) -> dict[str, str]:
     command = ["systemctl", "--user", "show", unit, "--no-pager",
                "-p", "ActiveState", "-p", "SubState", "-p", "Result",
                "-p", "ExecMainStatus", "-p", "CPUUsageNSec",
-               "-p", "MemoryPeak", "-p", "MemoryMax"]
+               "-p", "MemoryPeak", "-p", "MemoryMax", "-p", "CPUQuotaPerSecUSec"]
     command.extend(["-p", "MemorySwapMax", "-p", "KillMode", "-p", "RuntimeMaxUSec",
                     "-p", "ControlGroup"])
     result = subprocess.run(command, check=True, text=True, capture_output=True)
@@ -71,11 +73,13 @@ def _group_empty(control_group: str) -> bool:
 
 def run_supervised(argv: tuple[str, ...], *, cwd: Path, output_dir: Path,
                    wall_seconds: int, memory_bytes: int,
-                   pythonpath: Path | None = None) -> ResourceReceipt:
+                   pythonpath: Path | None = None,
+                   cpu_quota_percent: int | None = None) -> ResourceReceipt:
     if (not argv or any(type(value) is not str or not value or "\0" in value for value in argv)
             or not Path(argv[0]).is_absolute() or not Path(argv[0]).is_file()
             or type(wall_seconds) is not int or wall_seconds < 1
-            or type(memory_bytes) is not int or memory_bytes < 1):
+            or type(memory_bytes) is not int or memory_bytes < 1 or
+            cpu_quota_percent not in (None, 100)):
         raise ValueError("Absolute executable and positive finite limits required")
     cwd = Path(cwd).resolve(strict=True)
     output_dir = Path(output_dir).resolve(strict=True)
@@ -98,6 +102,15 @@ def run_supervised(argv: tuple[str, ...], *, cwd: Path, output_dir: Path,
                "--property=TimeoutStopSec=1s",
                "--property=StandardOutput=append:" + str(stdout),
                "--property=StandardError=append:" + str(stderr)]
+    if cpu_quota_percent is not None:
+        command.append("--property=CPUQuota=100%")
+        thread_environment = {name: "1" for name in
+            ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS",
+             "NUMEXPR_NUM_THREADS")}
+        command.extend("--setenv=" + name + "=" + value
+                       for name, value in thread_environment.items())
+    else:
+        thread_environment = None
     if pythonpath is not None:
         path = Path(pythonpath).resolve(strict=True)
         if not path.is_dir():
@@ -126,7 +139,9 @@ def run_supervised(argv: tuple[str, ...], *, cwd: Path, output_dir: Path,
                 fields.get("MemorySwapMax") != "0" or
                 fields.get("KillMode") != "control-group" or
                 _duration_us(fields.get("RuntimeMaxUSec", "")) != wall_seconds * 1_000_000 or
-                not re.fullmatch(r"[0-9]+", fields.get("ExecMainStatus", ""))):
+                not re.fullmatch(r"[0-9]+", fields.get("ExecMainStatus", "")) or
+                (cpu_quota_percent is not None and
+                 _duration_us(fields.get("CPUQuotaPerSecUSec", "")) != 1_000_000)):
             raise RuntimeError("Cgroup CPU, peak memory or enforced limit receipt missing")
         control_group = fields.get("ControlGroup", "")
         if not _group_empty(control_group):
@@ -135,7 +150,8 @@ def run_supervised(argv: tuple[str, ...], *, cwd: Path, output_dir: Path,
         receipt = ResourceReceipt(unit, control_group, fields["Result"], int(fields["ExecMainStatus"]),
                                int(fields["CPUUsageNSec"]), int(fields["MemoryPeak"]),
                                memory_bytes, time.monotonic_ns() - started,
-                               str(stdout), str(stderr), str(receipt_path))
+                               str(stdout), str(stderr), str(receipt_path),
+                               cpu_quota_percent, thread_environment)
     except Exception as error:
         failure = error
     finally:
@@ -203,4 +219,5 @@ def run_m5d_phase(argv: tuple[str, ...], *, cwd: Path, output_dir: Path,
         raise ValueError("Unknown M5-D resource phase")
     return run_supervised(argv, cwd=cwd, output_dir=output_dir,
                           wall_seconds=wall_seconds, memory_bytes=memory_bytes,
-                          pythonpath=pythonpath)
+                          pythonpath=pythonpath,
+                          cpu_quota_percent=100 if phase == "main" else None)
