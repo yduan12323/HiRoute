@@ -1,6 +1,6 @@
 {
   "schema": "hiroute.m5d.sparse_functionality_cpu_debit.v1",
-  "status": "failed_recovery_preserved_no_optimum_claim",
+  "status": "fresh_process_early_layer_recovery_passed_no_optimum_claim",
   "budget_policy": {
     "pilot_functionality_wall_seconds_per_unit": 120,
     "memory_bytes_per_unit": 4294967296,
@@ -33,9 +33,45 @@
       "recovery_receipt_present": false,
       "post_run_control_group": "",
       "post_run_process_seen": false
+    },
+    {
+      "kind": "fixed_od02_n8_same_process_boundary_diagnostic",
+      "source_commit": "81ab961d4e61065ed53e56ddc0a8d2ac9fdb716b",
+      "result": "success_same_process_only",
+      "wall_limit_seconds": 120,
+      "wall_elapsed_ns": 29124146938,
+      "cgroup_cpu_usage_ns": 30208911000,
+      "peak_memory_bytes": 2247024640,
+      "unit_receipt_sha256": "9964f5b186e04eee61ecd04f8568a3ccd76e3b49862b63872f0e96cbb5232023",
+      "boundary_receipt_sha256": "dc94ae54f2158d1ce9fa4066f082085a41c74dbfb4a2459dd08f6da802fda7f7"
+    },
+    {
+      "kind": "fixed_od02_n8_current_source_checkpoint_create",
+      "source_commit": "1734742915be570d220792276056ce60985e9164",
+      "result": "success_checkpoint_created",
+      "wall_limit_seconds": 120,
+      "wall_elapsed_ns": 28521845918,
+      "cgroup_cpu_usage_ns": 29681017000,
+      "peak_memory_bytes": 2236727296,
+      "unit_receipt_sha256": "ccdd96552c241a6435b02bb8857d134a983319a4e7f2fdf820b3a6cab5b37056",
+      "checkpoint_sha256": "36f9fa3bf6672cc76ff4352b5b88769ffe957b5116ae05bc07bb2811fccd384d",
+      "boundary_receipt_sha256": "18287d9b32a7116c05e007b86e2f4dac27fc9b0337bc169c3b0508f65956434b"
+    },
+    {
+      "kind": "fixed_od02_n8_fresh_process_boundary_resume",
+      "source_commit": "1734742915be570d220792276056ce60985e9164",
+      "result": "success_boundary_only",
+      "wall_limit_seconds": 120,
+      "wall_elapsed_ns": 28652963438,
+      "cgroup_cpu_usage_ns": 29723166000,
+      "peak_memory_bytes": 2242265088,
+      "unit_receipt_sha256": "8735401701a79da5aa014f30baf8fe87e40179de929132c8859be8a0a6fd9766",
+      "boundary_receipt_sha256": "19d6c688df32bbd3de02e8288a85530fae45aa5e8",
+      "replayed_restore_layers": 2,
+      "boundary_sha256": "3b8cde8428eda263d786acdd1380734951ee21714f9f97eb0a490b6bb447ff1e"
     }
   ],
-  "new_cgroup_cpu_hours_debited": 0.06883109611111111,
-  "evidence_archive_sha256": "6c5d50371581d3280b5a4dca5491c402cf1ed0d87c6b6f856a14b1958ded651c",
+  "new_cgroup_cpu_hours_debited": 0.09372362222222222,
+  "evidence_archive_sha256": ["6c5d50371581d3280b5a4dca5491c402cf1ed0d87c6b6f856a14b1958ded651c", "b186436485332b1ba813a892d7527423744d4ff44a8adcfe6bd989049d957e0f"],
   "server_originals_preserved": true
 }
