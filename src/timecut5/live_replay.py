@@ -11,15 +11,14 @@ import json
 from pathlib import Path
 
 
-_SOURCES = ("bounded.py", "hierarchy.py", "real_adapter.py", "road_provider.py",
-            "road_landmark.py", "deployable.py", "pwa.py", "probe.py",
-            "provenance.py", "live_replay.py")
+_EXTERNAL = {"graph_nodes", "graph_edges", "router", "anchors", "sites",
+             "query", "hierarchy", "landmark", "seed", "policy", "runtime"}
 
 
 def source_manifest() -> dict[str, str]:
     root = Path(__file__).resolve().parent
-    return {name: hashlib.sha256((root / name).read_bytes()).hexdigest()
-            for name in _SOURCES}
+    return {path.name: hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in sorted(root.glob("*.py"))}
 
 
 def _canonical(value) -> bytes:
@@ -38,7 +37,7 @@ class ExactLayerReplay:
                  external_source_sha256: dict[str, str],
                  previous_checkpoint: bytes | None = None,
                  stop_after_depth: int | None = None):
-        if type(external_source_sha256) is not dict or not external_source_sha256:
+        if type(external_source_sha256) is not dict or set(external_source_sha256) != _EXTERNAL:
             raise ValueError("Complete external source hashes required")
         if mode not in ("flat", "hier") or any(
                 type(value) is not str or len(value) != 64 or

@@ -181,6 +181,12 @@ class RoadProviderTest(unittest.TestCase):
             landmark_anchor="road:0", site_catalog_sha256=site_catalog_digest(collision),
             router_factory=lambda _: LandmarkRouter())
         self.assertEqual(alias_bound.landmarks[0].from_landmark["road:0"], 0)
+        external = {name: "b" * 64 for name in
+            ("graph_nodes", "graph_edges", "router", "anchors", "sites",
+             "query", "hierarchy", "landmark", "seed", "policy", "runtime")}
+        with self.assertRaisesRegex(ValueError, "Complete external"):
+            ExactLayerReplay(mode="flat", domain_sha256="d" * 64,
+                external_source_sha256={"graph_nodes": "b" * 64})
         for mode in ("flat", "hier"):
             def solve(hook):
                 instance = problem()
@@ -196,11 +202,11 @@ class RoadProviderTest(unittest.TestCase):
                         bound_provider=indexed))
             original = solve(None)
             stopped = ExactLayerReplay(mode=mode, domain_sha256="d" * 64,
-                external_source_sha256={"graph": "b" * 64}, stop_after_depth=1)
+                external_source_sha256=external, stop_after_depth=1)
             with self.assertRaises(LayerCheckpointStop) as interrupted:
                 solve(stopped)
             restored = ExactLayerReplay(mode=mode, domain_sha256="d" * 64,
-                external_source_sha256={"graph": "b" * 64},
+                external_source_sha256=external,
                 previous_checkpoint=interrupted.exception.checkpoint_bytes)
             resumed = solve(restored)
             restored.finish()
@@ -209,16 +215,22 @@ class RoadProviderTest(unittest.TestCase):
                              (resumed.result if mode == "flat" else resumed.bounded.result).key)
             with self.assertRaises(ValueError):
                 ExactLayerReplay(mode=mode, domain_sha256="e" * 64,
-                    external_source_sha256={"graph": "b" * 64},
+                    external_source_sha256=external,
                     previous_checkpoint=interrupted.exception.checkpoint_bytes)
             altered = json.loads(interrupted.exception.checkpoint_bytes)
             altered["layers"][1]["state_sha256"] = "0" * 64
             tampered = ExactLayerReplay(mode=mode, domain_sha256="d" * 64,
-                external_source_sha256={"graph": "b" * 64},
+                external_source_sha256=external,
                 previous_checkpoint=json.dumps(altered, sort_keys=True,
                     separators=(",", ":")).encode())
             with self.assertRaisesRegex(ValueError, "OPEN"):
                 solve(tampered)
+            altered["search_source_sha256"]["bounded.py"] = "0" * 64
+            with self.assertRaisesRegex(ValueError, "source"):
+                ExactLayerReplay(mode=mode, domain_sha256="d" * 64,
+                    external_source_sha256=external,
+                    previous_checkpoint=json.dumps(altered, sort_keys=True,
+                        separators=(",", ":")).encode())
 
 
 if __name__ == "__main__":
