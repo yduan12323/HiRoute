@@ -4,8 +4,9 @@
   "branch": "dot/m5d-continuation",
   "isolated_server_checkout": "/home/dy/HiRoute/m5d_d0_1af12a9",
   "limits": "Peak RSS and CPU time were not instrumented for these read-only/code checks; no numerical optimizer or LP model was run.",
-  "new_numerical_optimizer_cpu_hours_charged": 0,
+  "new_numerical_optimizer_cpu_hours_charged": 0.1,
   "numerical_budget_cpu_hours": 48,
+  "numerical_budget_remaining_cpu_hours": 47.9,
   "pilot_concurrency": 1,
   "pilot_per_process_limit_seconds": 120,
   "pilot_per_process_virtual_memory_gib": 4,
@@ -279,6 +280,16 @@
       "output_sha256": "9a99626a86c9fe377b3df8f89cb69eb7aa0f8be4647e57fb5735ae49fb852bfc",
       "timeout_seconds": 120,
       "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "conservative_budget_debit_cpu_hours": 0.1,
+      "cpu_seconds_measured": null,
+      "formal_experiment": false,
+      "input": "two-Site immutable mock case 1; three continuous REF regimes per invocation",
+      "kind": "synthetic_reference_regression",
+      "name": "m5d_deployable_small_ref_regression",
+      "reason": "Invocation CPU was not individually instrumented; 0.1 CPU hour is a deliberately conservative debit across repeated subsecond local runs and the code-only CI executions. Future numerical runs require process CPU/RSS instrumentation.",
+      "scope": "unit test in normal and -OO modes locally and in draft PR installed-wheel CI; no real-population case"
     }
   ],
   "schema": "hiroute.m5d.resource_ledger.v1"
