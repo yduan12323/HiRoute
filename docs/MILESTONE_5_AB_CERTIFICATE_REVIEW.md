@@ -12,6 +12,10 @@ For each of the 20 LP rows, the frozen auditor rechecks the exact rational prima
 
 The recovered patch lacks 52 raw v2 streamed REF regime files. Their report-level `fully_replayed` status cannot be independently checked against those missing raw bytes. Original frozen REF records likewise have no raw certificate replay here. Those provenance limits apply to the 1,311 B rows using streamed REF reports and 240 using original frozen reports; the 20 independent LP rows are bound by their separate certificates. The retained B primary-bound claim is conditional on the authenticated reference reports where they supply an infimum.
 
+## Follow-up: independent B closure and current-source candidate
+
+The [independent B64 checker](historical_ab_audit/b_ref_admission_check.py) now verifies all 1,551 historical trace events without the missing 52 raw REF streams or stored pass flags. Its [event receipt](historical_ab_audit/b64_independent_admission_20261011.json) records 716 rational sequence-superset bounds and 835 structural empties. Two historically labeled `certified_empty_by_prefix_superset` nodes have nonempty static supersets; the required bound inequality holds, but exact emptiness is not established. This closes visited-node bound safety only, not every historical REF result certificate. The [current-source final candidate review](MILESTONE_5_V_FINAL_CANDIDATE_REVIEW.md) reports new exact-source A/B observations and the remaining M5-V gates.
+
 ## A: bounded observational events
 
 The 56 new HIER traces from 28 retained A cases have 995 Region decisions and 119 unreachable enqueues. The exact event keys remain in `ab_gap_ledger_20261011.json`. The 848 Region decisions with `bound ≤` saved global primary infimum retain their historical REF-report dependence. The other 147 Region decisions and all 119 unreachable enqueues now have local, no-LP checks:

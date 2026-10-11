@@ -1,0 +1,70 @@
+{
+  "candidate_source_commit": "d51367ca5a8a109d3a76c35ebbc55ac4edc361bf",
+  "controlled_76_sha256": "15b38d2d925ec35fba278812a61e3723d883f723b98954155812d6e74d28c562",
+  "controlled_execution_sha256": "adf3632fa4025909c8b9a283df3d139b135382108c6470ca542790bd1df229cc",
+  "current_archive_manifest_sha256": "f97a7a90f90e768eb6a3eaed6504b263ceac0650e917986d7b603a01db766b27",
+  "current_archive_sha256": "a1b5f66ea163aae6613c151ed5b0be8476da23f06152e05c4c026c40a1013290",
+  "gates": {
+    "A28_four_mode": {
+      "receipt_sha256": "a9b4cce314e3fc3885cfdb5e82adc993eb5961412958fcc958c83bfb015b3d4f",
+      "rows": 112,
+      "status": "passed_scoped_H4_current_source"
+    },
+    "A28_visited_bounds_and_partition": {
+      "counts": {
+        "independent_sequence_bound": 859,
+        "independent_structural_empty": 255
+      },
+      "events": 1114,
+      "receipt_sha256": "c16f8405d458ed6c484062ac4d915ad36d9cc47eea544beb65f76fe16102bc9a",
+      "static_partitions": 341,
+      "status": "passed_new_current_source"
+    },
+    "AB92_D1_dominance": {
+      "counts": {
+        "arrangement_cells": 2533,
+        "calls": 367,
+        "cases": 92,
+        "input_cut_mappings": 3526,
+        "input_pieces": 2996,
+        "output_pieces": 2337
+      },
+      "receipt_sha256": "4d88c33dbabe26a13be7ed8fb0c3dc9fe651faad392c4e479e82e5a9b2a9f4c5",
+      "status": "passed_new_current_source"
+    },
+    "B64_four_mode": {
+      "receipt_sha256": "96051007f480e75b867f6439233c561072ef6bb729f27f26b4d50d53479c3684",
+      "rows": 256,
+      "status": "passed_scoped_H4_current_source"
+    },
+    "B64_visited_bounds_and_partition": {
+      "counts": {
+        "independent_sequence_bound": 716,
+        "independent_structural_empty": 835
+      },
+      "events": 1551,
+      "receipt_sha256": "25d264a72da6bbf18a48a0e24f25aeefa558580568515b73b990b5952bc54c3c",
+      "static_partitions": 461,
+      "status": "passed_new_current_source"
+    },
+    "original_250_plus_10_operator_reset": {
+      "status": "open_original_identities_and_v2_semantic_mapping"
+    },
+    "original_76_independent_REF": {
+      "finite_regimes": 11072,
+      "receipt_sha256": "820d7ba30af0fccbc143812400ca708cba728f7763f9aff7efec1fcb6d937582",
+      "status": "passed_new_current_source"
+    },
+    "original_C32_full_matrix": {
+      "status": "open_original_representation_and_identity_receipts"
+    },
+    "remaining_A_B_full_independent_REF": {
+      "scope": "only keys not supported by accepted source/input-bound independent certificates; do not rerun all A/B",
+      "status": "open_selective_mathematical_authority"
+    },
+    "whole_M5_V": {
+      "status": "not_accepted"
+    }
+  },
+  "schema": "hiroute-m5-v-finite-candidate-gate-ledger-v1"
+}

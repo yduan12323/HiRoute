@@ -12,8 +12,10 @@
     "ab_gap_ledger_20261011.json": "689aec55f3a4a2cd6288bfc47f3bfb7b27d8bcb544417f5525b0c6a081ee819e",
     "b64_g8_node_reaudit_20261011.json": "eae6ba7c88bdc09a5e8d55a6ac2d5516553d2f869eb6895dc7eb8713b25acece",
     "b64_g8_node_reaudit_20261011_independent.json": "c349e27e637d4fd90c65322bed21b53741d35e1f377f5c6dc0b207f5a9ddc09f",
+    "b64_independent_admission_20261011.json": "6fe30ad30675e7f95bd03ca339a227971b5b15a62855d8af64e5fbc0259b4233",
     "b_node_evidence_review_20261011.json": "e2c35c1efebdb4b6989d42c805c31b10bdad10ef2afaaaaafb0b011e5385b652",
     "b_original_audit_evidence.tar.gz": "7c57a97c21fa5ee04b42453c582134c36f1c3a48558afc679fa0b2352e7dc33e",
+    "b_ref_admission_check.py": "9733a2824f465600e63c9d9ced331438775e665c01ba4468cec174dec4433a74",
     "build_ab_gap_receipt.py": "d01b7a070a233f875e41b38479a53195421938e06be919c07a485e3a832d597b",
     "check_ab_dominance.py": "0d6a575f729723ebbf250aca5b1a2cd7879b7152d89c48e02b5a0f19fe986ff4",
     "verify_b_node_evidence.py": "8c499c88b1b8c9478f71df779c2ec83a006b5bd79e902a915fd69b313a989936"
