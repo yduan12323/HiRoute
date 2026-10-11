@@ -107,6 +107,146 @@ class TableFreeRoadSelectedLegProvider:
         return leg
 
 
+class TableFreeRegionBoundProvider:
+    """Indexed ALT bounds certified from graph edges, without selected-leg minima."""
+
+    def __init__(self, leg_provider: TableFreeRoadSelectedLegProvider, sites: Mapping,
+                 root, *, destination_anchor: str, landmark_anchor: str, router_factory):
+        from .deployable import RegionLandmarkSummary, member_set_digest
+        from .road_landmark import certify_integer_landmark
+        from .hierarchy import Region
+        if (not isinstance(root, Region) or set(root.members) != set(sites) or
+                destination_anchor not in leg_provider.anchor_nodes):
+            raise ValueError("Table-free Region root must cover every Site")
+        if any(sid != site.site_id or site.anchor_id not in leg_provider.anchor_nodes or
+               not site.effects or not set(site.effects) <= {"C", "S", "CS"}
+               for sid, site in sites.items()):
+            raise ValueError("Invalid table-free Region Site catalog")
+        self.leg_provider, self.sites, self.root = leg_provider, dict(sites), root
+        self.graph_sha256 = hashlib.sha256((leg_provider.source_sha256["nodes"] +
+            leg_provider.source_sha256["edges"]).encode()).hexdigest()
+        distances, certificate = certify_integer_landmark(leg_provider.graph,
+            leg_provider.anchor_nodes, landmark_anchor, router_factory,
+            graph_nodes_sha256=leg_provider.source_sha256["nodes"],
+            graph_edges_sha256=leg_provider.source_sha256["edges"])
+        self.landmark_certificate = certificate
+        self.landmark_sha256 = hashlib.sha256(certificate).hexdigest()
+        self.landmarks = (distances,)
+        self._summary = {}
+        self._regions = {}
+        def visit(region):
+            if region.identifier in self._regions or len(set(region.members)) != len(region.members):
+                raise ValueError("Duplicate Region identity or Site")
+            self._regions[region.identifier] = region
+            if region.children:
+                covered = [site for child in region.children for site in child.members]
+                if len(covered) != len(set(covered)) or set(covered) != set(region.members):
+                    raise ValueError("Region children do not partition their parent")
+            for child in region.children:
+                visit(child)
+            if region.members:
+                summary = RegionLandmarkSummary(member_set_digest(region.members),
+                    self.graph_sha256, self.landmark_sha256,
+                    (min(distances.from_landmark[self.sites[s].anchor_id]
+                         for s in region.members),),
+                    (max(distances.to_landmark[self.sites[s].anchor_id]
+                         for s in region.members),))
+                self._summary[region.identifier] = summary
+        visit(root)
+        self._action_bits = {action: 1 << index for index, action in enumerate(
+            (site, effect) for site in sorted(sites)
+            for effect in sorted(sites[site].effects)
+            if sites[site].anchor_id != destination_anchor)}
+        self._actions, self._action_masks = {}, {}
+        for region_id, region in self._regions.items():
+            for remaining in (0, 1):
+                for effect in ("C", "S", "CS"):
+                    selected = (() if effect in ("S", "CS") and not remaining else
+                        tuple((site, effect) for site in region.members
+                              if (site, effect) in self._action_bits))
+                    self._actions[region_id, effect, remaining] = selected
+                    self._action_masks[region_id, effect, remaining] = sum(
+                        self._action_bits[action] for action in selected)
+        self.online_queries = self.online_internal_member_accesses = 0
+        self.online_leaf_action_reads = self.online_mask_word_work = 0
+
+    def _incoming(self, source, region):
+        from math import floor
+        from .deployable import directed_alt_region_bound, member_set_digest
+        value = directed_alt_region_bound(source, self.landmarks,
+            self._summary[region.identifier], graph_sha256=self.graph_sha256,
+            landmark_sha256=self.landmark_sha256,
+            member_set_sha256=member_set_digest(region.members))
+        return Fraction(floor(value))
+
+    def bound(self, problem, pieces, region, effect):
+        self.online_queries += 1
+        if not pieces or not self.action_mask(region, effect, pieces[0].state.remaining_schedule):
+            return None, 0
+        state = pieces[0].state
+        lower_time = min(p.slope * p.domain.affine_infimum(p.slope)[0] + p.intercept
+                         for p in pieces)
+        time = lower_time + self._incoming(state.anchor, region) + problem.overhead
+        if effect in ("S", "CS"):
+            a, _, duration = problem.schedule
+            time = max(a, time) + duration
+        return time - problem.start + problem.penalty * (state.stop_count + 1), 0
+
+    def singleton_bound(self, problem, pieces, site, effect):
+        if not pieces:
+            return None
+        if (site, effect) not in self._action_bits:
+            raise ValueError("Unknown table-free Site action")
+        self.online_queries += 1
+        state = pieces[0].state
+        if effect in ("S", "CS") and not state.remaining_schedule:
+            return None
+        source = state.anchor
+        distance = self.landmarks[0]
+        terms = [0]
+        anchor = problem.site_anchor(site)
+        for left, right in ((distance.from_landmark[anchor],
+                            distance.from_landmark[source]),
+                            (distance.to_landmark[source],
+                             distance.to_landmark[anchor])):
+            if math.isfinite(left) and math.isfinite(right):
+                terms.append(left - right)
+        lower_time = min(p.slope * p.domain.affine_infimum(p.slope)[0] + p.intercept
+                         for p in pieces)
+        time = lower_time + Fraction(max(terms)) + problem.overhead
+        if effect in ("S", "CS"):
+            a, _, duration = problem.schedule
+            time = max(a, time) + duration
+        return time - problem.start + problem.penalty * (state.stop_count + 1)
+
+    def action_mask(self, region, effect, remaining):
+        mask = self._action_masks[region.identifier, effect, remaining]
+        self.online_mask_word_work += max(1, (mask.bit_length() + 63) // 64)
+        return mask
+
+    def mask_or(self, left, right):
+        self.online_mask_word_work += max(1, (max(left, right).bit_length() + 63) // 64)
+        return left | right
+
+    def mask_overlap(self, left, right):
+        self.online_mask_word_work += max(1, (max(left, right).bit_length() + 63) // 64)
+        return bool(left & right)
+
+    def mask_equal(self, left, right):
+        self.online_mask_word_work += max(1, (max(left, right).bit_length() + 63) // 64)
+        return left == right
+
+    def leaf_actions(self, region, effect, remaining):
+        if region.children:
+            self.online_internal_member_accesses += 1
+            raise ValueError("Internal Region member expansion is forbidden")
+        self.online_leaf_action_reads += 1
+        return self._actions[region.identifier, effect, remaining]
+
+    def action_bit(self, action):
+        return self._action_bits[action]
+
+
 class RoadSelectedLegProvider:
     def __init__(self, graph, router, table: ImmutableLegTable,
                  anchor_nodes: Mapping[str, int], *, nodes_sha256: str,

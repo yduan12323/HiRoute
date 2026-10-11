@@ -46,6 +46,66 @@ class _OnDemandRealLegs(AbstractMapping):
         return sum(leg.reachable for leg in self.table.legs.values())
 
 
+class _TableFreeRealLegs(AbstractMapping):
+    """Exact selected-leg lookup; iteration exposes cached pairs only."""
+    def __init__(self, provider, rate):
+        self.provider, self.rate = provider, rate
+
+    def __getitem__(self, pair):
+        source, target = pair
+        leg = self.provider.leg(source, target)
+        if not leg.reachable:
+            raise KeyError(pair)
+        return RealLegPrimitive(leg.time, leg.energy(self.rate), leg.actual_length,
+                                source, target, self.provider.source_sha256["anchors"])
+
+    def __iter__(self):
+        return (pair for pair, leg in self.provider.legs.items() if leg.reachable)
+
+    def __len__(self):
+        return sum(leg.reachable for leg in self.provider.legs.values())
+
+
+class TableFreeRealProblem(Problem):
+    """Accepted physical transitions fed by source-bound native selected legs.
+
+    This adapter opens no ordered-leg table. Seed and bound admission remain
+    separate obligations of the caller before an exact result can be claimed.
+    """
+    def __init__(self, query: Mapping, sites: Mapping, provider, *,
+                 origin_anchor: str, destination_anchor: str):
+        from .road_provider import TableFreeRoadSelectedLegProvider
+        if not isinstance(provider, TableFreeRoadSelectedLegProvider):
+            raise ValueError("Table-free native selected-leg provider required")
+        if (origin_anchor not in provider.anchor_nodes or
+                destination_anchor not in provider.anchor_nodes or
+                "edges" in query or "leg_payload_sha256" in query):
+            raise ValueError("Table-free query conflicts with selected-road source")
+        site_rows = dict(sites)
+        if not site_rows or any(
+                sid != site.site_id or site.anchor_id not in provider.anchor_nodes or
+                not site.effects or not set(site.effects) <= {"C", "S", "CS"}
+                for sid, site in site_rows.items()):
+            raise ValueError("Invalid table-free Site catalog")
+        declared = {sid: list(site.effects) for sid, site in site_rows.items()}
+        for key, expected in (("origin", origin_anchor), ("destination", destination_anchor),
+                              ("sites", declared)):
+            if key in query and query[key] != expected:
+                raise ValueError(f"Query conflicts with table-free {key}")
+        configured = dict(query, origin=origin_anchor,
+                          destination=destination_anchor, sites=declared)
+        self._configure_query(configured)
+        self.site_anchors = MappingProxyType({sid: site.anchor_id
+                                              for sid, site in site_rows.items()})
+        self.legs = _TableFreeRealLegs(provider, self.rate)
+        self.provider = provider
+
+    def onward_time_lower_bound(self, anchor: str) -> R:
+        if anchor not in self.provider.anchor_nodes:
+            raise ValueError("Unknown physical anchor")
+        return R(0)
+
+
 class RealProblem(Problem):
     """Physical query over immutable accepted direct legs, never a graph."""
     def __init__(self, query: Mapping, table: ImmutableLegTable, *, leg_cache=None):

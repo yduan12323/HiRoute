@@ -7,8 +7,12 @@ import unittest
 import numpy as np
 
 from timecut5.real_legs import (ImmutableLegTable, NUMERICS, SCHEMA,
-                                TIE_POLICY, encode_binary64)
-from timecut5.road_provider import RoadSelectedLegProvider, TableFreeRoadSelectedLegProvider
+                                TIE_POLICY, RealSite, encode_binary64)
+from timecut5.real_adapter import TableFreeRealProblem
+from timecut5.bounded import _solve_problem
+from timecut5.hierarchy import Region, _solve_hierarchical_problem
+from timecut5.road_provider import (RoadSelectedLegProvider,
+    TableFreeRoadSelectedLegProvider, TableFreeRegionBoundProvider)
 from timecut5.road_landmark import certify_integer_landmark
 
 
@@ -126,6 +130,46 @@ class RoadProviderTest(unittest.TestCase):
             certify_integer_landmark(graph, {f"road:{i}": i for i in range(3)},
                 "road:0", lambda _: Router(bad=True),
                 graph_nodes_sha256="b" * 64, graph_edges_sha256="c" * 64)
+
+    def test_table_free_real_adapter_executes_both_exact_engines(self):
+        table, graph = self.fixture()
+        anchors = {f"road:{i}": i for i in range(3)}
+        catalog_sha = hashlib.sha256(json.dumps(anchors, sort_keys=True,
+            separators=(",", ":")).encode()).hexdigest()
+        def problem():
+            provider = TableFreeRoadSelectedLegProvider(graph, NativeStub(), anchors,
+                nodes_sha256="b" * 64, edges_sha256="c" * 64,
+                router_sha256="a" * 64, anchor_catalog_sha256=catalog_sha)
+            query = dict(H_ref=1, start_time_s=0, initial_energy_kwh=1,
+                capacity_kwh=2, minimum_energy_kwh=0, reserve_kwh=0,
+                consumption_kwh_per_m="1/10", overhead_s=1, lambda_stop_s=0,
+                schedule=None, charging_segments=[[0, 2, 1, 0]])
+            return TableFreeRealProblem(query, table.sites, provider,
+                origin_anchor="road:0", destination_anchor="road:2")
+        class LandmarkRouter:
+            provenance = {"source_sha256": "f" * 64}
+            def full(self, root, reverse=False):
+                zeros = np.zeros(3)
+                return zeros, zeros.copy(), np.array([-1, -1, -1])
+            def close(self):
+                pass
+        flat_problem, hier_problem = problem(), problem()
+        root = Region(0, ("s1",))
+        bound = TableFreeRegionBoundProvider(hier_problem.provider, table.sites,
+            root, destination_anchor="road:2", landmark_anchor="road:0",
+            router_factory=lambda _: LandmarkRouter())
+        self.assertEqual(json.loads(bound.landmark_certificate)["audited"][0]["checked_edges"], 4)
+        self.assertEqual(set(hier_problem.provider.legs), set())
+        flat = _solve_problem(flat_problem, singleton_bound=bound.singleton_bound)
+        hier = _solve_hierarchical_problem(hier_problem, True, root,
+            bound_provider=bound)
+        self.assertEqual(flat.result.key, hier.bounded.result.key)
+        self.assertEqual(flat.result.key[2], 1)
+        collision = {"road:0": RealSite("road:0", "road:1", ("C",))}
+        alias_bound = TableFreeRegionBoundProvider(hier_problem.provider, collision,
+            Region(1, ("road:0",)), destination_anchor="road:2",
+            landmark_anchor="road:0", router_factory=lambda _: LandmarkRouter())
+        self.assertEqual(alias_bound.landmarks[0].from_landmark["road:0"], 0)
 
 
 if __name__ == "__main__":
