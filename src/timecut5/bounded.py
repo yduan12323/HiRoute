@@ -248,7 +248,8 @@ def solve_bounded(case: Mapping, dominance: bool = True) -> BoundedResult:
 
 
 def _solve_problem(problem: Problem, dominance: bool = True, *, reducer=None,
-                   verified_primary_upper: R | None = None) -> BoundedResult:
+                   verified_primary_upper: R | None = None,
+                   singleton_bound=None) -> BoundedResult:
     reducer = reduce_frontier if reducer is None else reducer
     if verified_primary_upper is not None and (type(verified_primary_upper) is not R or
                                                verified_primary_upper < 0):
@@ -258,17 +259,32 @@ def _solve_problem(problem: Problem, dominance: bool = True, *, reducer=None,
     attempted = 0
     feasible = 1
     maximum = 1
+    incumbent_j = verified_primary_upper
+
+    def update_incumbent(finished):
+        nonlocal incumbent_j
+        if singleton_bound is None:
+            return
+        for piece in finished:
+            energy = piece.domain.approach_optimizer(piece.slope, R(1))
+            witness = piece.at(energy).approach(R(1))
+            key = _replay_problem(problem, witness)
+            if incumbent_j is None or key[0] < incumbent_j:
+                incumbent_j = key[0]
+
     for depth in range(problem.bound + 1):
         for group in layer:
-            terminals.extend(problem.finish(group))
+            finished = problem.finish(group)
+            terminals.extend(finished)
+            update_incumbent(finished)
         if depth == problem.bound:
             break
         next_pieces = []
         for group in layer:
             if group[0].state.anchor == problem.destination:
                 continue
-            if (verified_primary_upper is not None and
-                    prefix_primary_lower_bound(problem, group) > verified_primary_upper):
+            if (incumbent_j is not None and
+                    prefix_primary_lower_bound(problem, group) > incumbent_j):
                 continue
             for site, effects in sorted(problem.sites.items()):
                 if problem.site_anchor(site) == problem.destination:
@@ -276,11 +292,16 @@ def _solve_problem(problem: Problem, dominance: bool = True, *, reducer=None,
                 for effect in sorted(set(effects)):
                     if effect in ("S", "CS") and not group[0].state.remaining_schedule:
                         continue
+                    if singleton_bound is not None:
+                        bound = singleton_bound(problem, group, site, effect)
+                        if bound is None or (incumbent_j is not None and bound > incumbent_j):
+                            continue
                     attempted += 1
                     output = problem.advance(group, site, effect)
                     if output:
                         feasible += 1
                         next_pieces.extend(output)
+                        update_incumbent(problem.finish(output))
         if dominance:
             by_state = defaultdict(list)
             for p in next_pieces:

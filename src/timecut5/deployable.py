@@ -15,6 +15,8 @@ import json
 from math import floor, isfinite, isnan
 from pathlib import Path
 import re
+import sys
+import time
 from typing import Callable, Mapping
 
 from .real_legs import ImmutableLegTable, NUMERICS, SelectedLeg, TIE_POLICY
@@ -611,6 +613,7 @@ class RegionBoundProvider:
     def __init__(self, domain: QueryDomain, root, *,
                  landmarks: tuple[LandmarkDistances, ...] = (),
                  summaries: Mapping[int, RegionLandmarkSummary] | None = None):
+        setup_started_ns = time.perf_counter_ns()
         from .hierarchy import Region
         if not isinstance(domain, QueryDomain) or not isinstance(root, Region):
             raise ValueError("Bound query and original Region root required")
@@ -657,6 +660,7 @@ class RegionBoundProvider:
         self._action_masks = {}
         self.online_internal_member_accesses = 0
         self.online_leaf_action_reads = 0
+        self.online_mask_word_work = 0
         for region_id, region in regions.items():
             for remaining in (0, 1):
                 for effect in ("C", "S", "CS"):
@@ -667,7 +671,11 @@ class RegionBoundProvider:
                     self._action_masks[region_id, effect, remaining] = sum(
                         self._action_bits[action] for action in selected)
         self._bounds = {}
+        self._single_incoming = {}
         for source in table.anchors:
+            for site_id, effect in self._action_bits:
+                leg = table.leg(source, table.site(site_id).anchor_id)
+                self._single_incoming[source, site_id, effect] = leg.time if leg.reachable else None
             for region_id, region in regions.items():
                 for effect in ("C", "S", "CS"):
                     candidates = []
@@ -695,6 +703,12 @@ class RegionBoundProvider:
                     # A selected Site->destination leg is not an onward bound:
                     # later semantic stops may yield a shorter nonmetric route.
                     self._bounds[source, region_id, effect] = incoming_bound
+        self.setup_elapsed_ns = time.perf_counter_ns() - setup_started_ns
+        self.setup_index_entries = (len(self._action_masks) + len(self._bounds) +
+                                    len(self._single_incoming))
+        self.setup_index_shallow_bytes = sum(map(sys.getsizeof,
+            (self._action_bits, self._actions, self._action_masks,
+             self._bounds, self._single_incoming)))
 
     def bound(self, problem, pieces, region, effect):
         if not pieces:
@@ -714,8 +728,37 @@ class RegionBoundProvider:
             time = max(a, time) + duration
         return (time - problem.start + problem.penalty * (state.stop_count + 1), 0)
 
+    def singleton_bound(self, problem, pieces, site, effect):
+        """Same safe next-action clock bound, indexed by one Site/effect."""
+        self.online_queries += 1
+        state = pieces[0].state
+        incoming = self._single_incoming[state.anchor, site, effect]
+        if incoming is None:
+            return None
+        lower_time = min(p.slope * p.domain.affine_infimum(p.slope)[0] + p.intercept
+                         for p in pieces)
+        time = lower_time + incoming + problem.overhead
+        if effect in ("S", "CS"):
+            a, _, duration = problem.schedule
+            time = max(a, time) + duration
+        return time - problem.start + problem.penalty * (state.stop_count + 1)
+
     def action_mask(self, region, effect, remaining):
-        return self._action_masks[region.identifier, effect, remaining]
+        mask = self._action_masks[region.identifier, effect, remaining]
+        self.online_mask_word_work += max(1, (mask.bit_length() + 63) // 64)
+        return mask
+
+    def mask_or(self, left, right):
+        self.online_mask_word_work += max(1, (max(left, right).bit_length() + 63) // 64)
+        return left | right
+
+    def mask_overlap(self, left, right):
+        self.online_mask_word_work += max(1, (max(left, right).bit_length() + 63) // 64)
+        return bool(left & right)
+
+    def mask_equal(self, left, right):
+        self.online_mask_word_work += max(1, (max(left, right).bit_length() + 63) // 64)
+        return left == right
 
     def leaf_actions(self, region, effect, remaining):
         if region.children:
@@ -739,6 +782,10 @@ class DeployablePairResult:
     hier_provider_queries: int
     hier_online_internal_member_accesses: int
     hier_online_leaf_action_reads: int
+    hier_online_mask_word_work: int
+    region_setup_elapsed_ns: int
+    region_setup_index_entries: int
+    region_setup_index_shallow_bytes: int
     shared_seed_cache_misses: int
     flat_cache_hits: int
     flat_cache_misses: int
@@ -862,7 +909,8 @@ def solve_deployable_pair(certificate: SeedDepthCertificate, hierarchy_bytes: by
         raise ValueError("FLAT/HIER seed cache preparation differs")
     shared_seed_cache_misses = flat_cache.misses
     flat = _solve_problem(RealProblem(bounded_query, table, leg_cache=flat_cache),
-                          verified_primary_upper=fresh.seed.primary_j)
+                          verified_primary_upper=fresh.seed.primary_j,
+                          singleton_bound=provider.singleton_bound)
     hier = _solve_hierarchical_problem(RealProblem(bounded_query, table, leg_cache=hier_cache), True, root,
                                        verified_primary_upper=fresh.seed.primary_j,
                                        bound_provider=provider)
@@ -877,6 +925,10 @@ def solve_deployable_pair(certificate: SeedDepthCertificate, hierarchy_bytes: by
                                 hier.bound_member_scans, provider.online_queries,
                                 provider.online_internal_member_accesses,
                                 provider.online_leaf_action_reads,
+                                provider.online_mask_word_work,
+                                provider.setup_elapsed_ns,
+                                provider.setup_index_entries,
+                                provider.setup_index_shallow_bytes,
                                 shared_seed_cache_misses,
                                 flat_cache.hits, flat_cache.misses,
                                 hier_cache.hits, hier_cache.misses)

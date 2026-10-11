@@ -166,7 +166,8 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
             if indexed:
                 expected = 0
                 for effect in ("C", "S", "CS"):
-                    expected |= bound_provider.action_mask(root, effect, state.remaining_schedule)
+                    expected = bound_provider.mask_or(expected, bound_provider.action_mask(
+                        root, effect, state.remaining_schedule))
                 covered = 0
             else:
                 expected = {a for effect in ("C", "S", "CS")
@@ -179,9 +180,9 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
             def cover(action_set):
                 nonlocal covered
                 if indexed:
-                    if covered & action_set:
+                    if bound_provider.mask_overlap(covered, action_set):
                         raise AssertionError("Hierarchy covers a next action more than once")
-                    covered |= action_set
+                    covered = bound_provider.mask_or(covered, action_set)
                     return
                 if covered.intersection(action_set):
                     raise AssertionError("Hierarchy covers a next action more than once")
@@ -235,7 +236,8 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                     cover(action_set)
                     audit.append(dict(reason="strict_primary", lower_bound=bound,
                                       incumbent_key=incumbent_key, incumbent_witness=incumbent_witness,
-                                      region=region.identifier, region_members=region.members,
+                                      region=region.identifier,
+                                      region_members=() if indexed else region.members,
                                       state=state, effect=effect, prefix=group[0].pi,
                                       actions=() if indexed else action_set,
                                       current_frontier=tuple((p.domain.lo,p.domain.hi,p.domain.left_closed,
@@ -252,10 +254,10 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                         child_mask = 0
                         for child in region.children:
                             mask = bound_provider.action_mask(child, effect, state.remaining_schedule)
-                            if child_mask & mask:
+                            if bound_provider.mask_overlap(child_mask, mask):
                                 raise AssertionError("Children overlap in action partition")
-                            child_mask |= mask
-                        if child_mask != action_set:
+                            child_mask = bound_provider.mask_or(child_mask, mask)
+                        if not bound_provider.mask_equal(child_mask, action_set):
                             raise AssertionError("Children are not an exact action partition")
                     else:
                         child_actions = [a for child in region.children
@@ -281,7 +283,8 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                                 dict(group_id=group_id,source='leaf',advance_id=advance_id),
                                 lambda:problem.finish(output))
                             update_incumbent(finished,group_id,'leaf')
-            if covered != expected:
+            if not (bound_provider.mask_equal(covered, expected) if indexed
+                    else covered == expected):
                 raise AssertionError("Hierarchy lost a statically legal next action")
             trace.emit('expansion_end',group_id=group_id,
                        covered_actions=[] if indexed else sorted(covered),

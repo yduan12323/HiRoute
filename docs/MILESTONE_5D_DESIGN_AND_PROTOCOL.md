@@ -14,6 +14,8 @@ Construct a deterministic feasible seed independently of REF and of either FLAT/
 
 Persist OPEN state, domain/source hashes, incumbent witness, certified lower bound, and checkpoint version. Resume only after exact bindings match. Prune by primary lower bound only when `L_J > U_J`; equality remains live for Q/H/Π. A Region lower bound over a parent superset may bound a child subset; a child proof cannot certify its parent, and a superset bound is not exact inherited-mask emptiness. Report queue, route, seed, proof, and verifier work separately.
 
+The small-domain paired solver now gives FLAT the same verified seed, a per-Site/effect lower bound corresponding to HIER's leaf bound, and an incumbent that tightens only after physical replay. Both keep equality live. HIER's indexed mask operations have word-count work and are part of online search cost; zero internal Region member accesses does not mean zero coverage work. Region setup reports elapsed time, index entries, and shallow index bytes separately. These are diagnostic measurements, not a full process-group CPU/RSS receipt.
+
 ## D3: route and Region interfaces
 
 Freeze a directed route-cache key containing graph hash, source/target anchor, direction policy, selected-route tie policy, floating-point accumulation contract, backend/compiler version, and landmark version. A cache hit returns the same selected route time and actual length; it never reroutes a chosen leg as a different edge. Setup scans, landmark construction, cache misses, and memory count in cost. Validate pair against accepted full-label output on a prespecified real subset before exporting. Preserve signed-zero provenance on identity legs.
