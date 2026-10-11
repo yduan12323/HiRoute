@@ -1,7 +1,7 @@
 {
   "admission_scope": "recovered_authenticated_historical_optional_coalesced_C32_H4_evidence",
-  "fresh_physical_replay": false,
-  "fresh_ref_verification": false,
+  "fresh_physical_replay": true,
+  "fresh_ref_verification": true,
   "frozen_source_matches": 11,
   "historical_independent_review_retained": true,
   "historical_source_manifest_path": "docs/historical_c32_source_78eb446/MANIFEST.json",
