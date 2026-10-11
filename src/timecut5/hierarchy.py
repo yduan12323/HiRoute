@@ -209,13 +209,14 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                     pruned += 1
                     cover(action_set)
                     audit.append(dict(reason="strict_primary", lower_bound=bound,
-                                      verified_primary_upper=verified_primary_upper,
                                       incumbent_key=incumbent_key, incumbent_witness=incumbent_witness,
                                       region=region.identifier, region_members=region.members,
                                       state=state, effect=effect, prefix=group[0].pi, actions=action_set,
                                       current_frontier=tuple((p.domain.lo,p.domain.hi,p.domain.left_closed,
                                           p.domain.right_closed,p.slope,p.intercept,p.chi,p.rho,p.pi)
-                                          for p in group)))
+                                          for p in group),
+                                      **({"verified_primary_upper": verified_primary_upper}
+                                         if verified_primary_upper is not None else {})))
                     continue
                 if upper_j is not None and bound == upper_j:
                     equality += 1
