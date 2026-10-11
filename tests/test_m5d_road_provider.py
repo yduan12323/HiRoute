@@ -23,6 +23,7 @@ from timecut5.sparse_seed import (SparseSeedCatalog, admit_sparse_seed,
     first_feasible_proposal_baseline, replay_sparse_seed)
 from timecut5.deployable import constructive_seed_candidates
 from timecut5.systemd_supervisor import run_m5d_phase
+from scripts.m5d_main_row import execute_exact_method
 
 
 class NativeStub:
@@ -348,11 +349,28 @@ class RoadProviderTest(unittest.TestCase):
             self.assertEqual(replay_sparse_seed(query, catalog,
                 baseline["sequence"], baseline["charges"])["lex_key"],
                 baseline["lex_key"])
+            self.assertEqual(provider.source_run_count, 3)
+            class LandmarkRouter:
+                provenance = {"source_sha256": "f" * 64}
+                def full(self, root, reverse=False):
+                    zeros = np.zeros(3)
+                    return zeros, zeros.copy(), np.array([-1, -1, -1])
+                def close(self):
+                    pass
+            root = Region(0, ("s1",))
+            bounds = TableFreeRegionBoundProvider(provider, table.sites,
+                root, destination_anchor="road:2", landmark_anchor="road:0",
+                site_catalog_sha256=site_catalog_digest(table.sites),
+                router_factory=lambda _: LandmarkRouter())
+            for method in ("flat", "hier"):
+                solved, replayed = execute_exact_method(query, table.sites,
+                    provider, catalog, bounds, root, admission, method)
+                self.assertTrue(replayed)
+                self.assertIsNotNone(solved.result.key)
             outcome = replay_sparse_seed(query, catalog, (("s1", "C"),), (1,))
             self.assertEqual(outcome["lex_key"][0], 4)
             self.assertEqual(outcome["edge_witnesses"], ((0,), (1,)))
             self.assertLess(len(provider.legs), len(anchors) ** 2)
-            self.assertEqual(provider.source_run_count, 3)
             long_query = dict(query, H_ref=5)
             repeated = (("s1", "C"),) * 5
             small_charges = (Fraction(1, 5),) * 5
