@@ -13,11 +13,14 @@ import hashlib
 import inspect
 import json
 from pathlib import Path
+import sys
 from types import SimpleNamespace
 import time
 
 import numpy as np
 import pandas as pd
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from microplan.routing import ExactRouter
 from timecut5.deployable import (DomainBinding, LandmarkDistances, QueryDomain,
