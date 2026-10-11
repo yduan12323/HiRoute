@@ -20,6 +20,7 @@ from timecut5.road_provider import (RoadSelectedLegProvider,
 from timecut5.road_landmark import certify_integer_landmark
 from timecut5.sparse_seed import SparseSeedCatalog, admit_sparse_seed, replay_sparse_seed
 from timecut5.deployable import constructive_seed_candidates
+from timecut5.systemd_supervisor import run_m5d_phase
 
 
 class NativeStub:
@@ -42,6 +43,26 @@ class NativeStub:
 
 
 class RoadProviderTest(unittest.TestCase):
+    def test_functionality_supervisor_rejects_historical_180_seconds(self):
+        with patch("timecut5.systemd_supervisor.run_supervised") as launch:
+            with self.assertRaisesRegex(ValueError, "at most 120s"):
+                run_m5d_phase(("/bin/true",), cwd=Path("."), output_dir=Path("."),
+                    wall_seconds=180, memory_bytes=4 * 1024**3,
+                    phase="functionality")
+            with self.assertRaisesRegex(ValueError, "at most 120s"):
+                run_m5d_phase(("/bin/true",), cwd=Path("."), output_dir=Path("."),
+                    wall_seconds=120, memory_bytes=8 * 1024**3,
+                    phase="pilot")
+            with self.assertRaisesRegex(ValueError, "frozen phase"):
+                run_m5d_phase(("/bin/true",), cwd=Path("."), output_dir=Path("."),
+                    wall_seconds=600, memory_bytes=8 * 1024**3,
+                    phase="main", remaining_cpu_seconds=600)
+            launch.assert_not_called()
+            run_m5d_phase(("/bin/true",), cwd=Path("."), output_dir=Path("."),
+                wall_seconds=120, memory_bytes=4 * 1024**3,
+                phase="functionality")
+            launch.assert_called_once()
+
     def fixture(self):
         anchors = ["road:0", "road:1", "road:2"]
         rows = NativeStub().full_edges

@@ -35,7 +35,8 @@ def array_hash(graph):
 
 
 def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
-        recover: bool = False):
+        recover: bool = False, boundary_seed_receipt: Path | None = None,
+        old_checkpoint: Path | None = None):
     started = time.monotonic_ns()
     pools_path = inputs / "formal_pools_20261011_v2/pools.json"
     slate_path = inputs / "results/milestone_5d/continuation_20261011/fixed_12od_candidate_slate.json"
@@ -99,7 +100,27 @@ def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
                 intercepts[i]] for i in range(len(slopes))],
             sparse_domain_sha256=catalog.domain_sha256,
             hierarchy_sha256=hierarchy_sha)
-        admission = admit_sparse_seed(query, catalog)
+        if boundary_seed_receipt is None:
+            admission = admit_sparse_seed(query, catalog)
+        else:
+            from timecut5.sparse_seed import replay_sparse_seed
+            prior = json.loads(boundary_seed_receipt.read_bytes())
+            if (prior.get("sparse_domain_sha256") != catalog.domain_sha256 or
+                    prior.get("query_sha256") != hashlib.sha256(canon(query)).hexdigest() or
+                    prior.get("candidate_sha256") != candidate_sha or
+                    prior.get("loaded_graph_arrays_sha256") != loaded_arrays_sha or
+                    prior.get("status") != "verified"):
+                raise ValueError("Prior seed proposal differs from complete source domain")
+            sequence = tuple(tuple(event) for event in prior["seed"]["sequence"])
+            charges = tuple(R(value) for value in prior["seed"]["charges"])
+            fresh = replay_sparse_seed(query, catalog, sequence, charges)
+            depth = fresh["lex_key"][0] // (R(query["overhead_s"]) + R(query["lambda_stop_s"]))
+            if (str(fresh["lex_key"][0]) != prior["seed"]["lex_key"][0] or
+                    depth != prior["seed"]["max_depth"]):
+                raise ValueError("Fresh sparse seed differs from retained proposal")
+            admission = {"status": "verified", "lex_key": fresh["lex_key"],
+                "sequence": sequence, "charges": charges, "max_depth": depth,
+                "proposal_count": 1, "accepted_count": 1}
         report = {"schema": "hiroute.m5d.od02_n8_sparse_seed_probe.v1",
             "status": admission["status"], "row_id": query["case_id"],
             "source_commit": __import__("subprocess").check_output(
@@ -129,10 +150,10 @@ def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
             json.dump(report, stream, sort_keys=True, default=str)
             stream.write("\n")
         print(json.dumps(report, sort_keys=True, default=str), flush=True)
-        if recover:
-            from timecut5.bounded import _solve_problem
+        if recover or boundary_seed_receipt is not None:
+            from timecut5.bounded import _solve_problem, prefix_primary_lower_bound
             from timecut5.hierarchy import build_regions
-            from timecut5.live_replay import ExactLayerReplay, LayerCheckpointStop
+            from timecut5.live_replay import ExactLayerReplay, LayerCheckpointStop, source_manifest
             from timecut5.real_adapter import TableFreeRealProblem
             from timecut5.road_provider import TableFreeRegionBoundProvider
             from timecut5.real_legs import TIE_POLICY
@@ -169,6 +190,72 @@ def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
                 return _solve_problem(problem, checkpoint_hook=hook,
                     verified_primary_upper=admission["lex_key"][0],
                     singleton_bound=bound.singleton_bound)
+
+            if boundary_seed_receipt is not None:
+                if old_checkpoint is not None:
+                    old = json.loads(old_checkpoint.read_bytes())
+                    if old.get("search_source_sha256") == source_manifest():
+                        raise ValueError("Historical checkpoint unexpectedly shares current source")
+                    try:
+                        ExactLayerReplay(mode="flat", domain_sha256=domain_sha,
+                            external_source_sha256=external,
+                            previous_checkpoint=old_checkpoint.read_bytes())
+                    except ValueError:
+                        pass
+                    else:
+                        raise ValueError("Old source checkpoint was unexpectedly admitted")
+                class BoundaryRecorder:
+                    def __init__(self, hook):
+                        self.hook, self.rows = hook, []
+                    def __call__(self, depth, layer, terminals, incumbent, counters):
+                        problem = TableFreeRealProblem(exact_query, sites, provider,
+                            origin_anchor=origin, destination_anchor=destination,
+                            site_catalog_sha256=catalog.site_catalog_sha256)
+                        lb = min((prefix_primary_lower_bound(problem, group)
+                                  for group in layer), default=None)
+                        self.rows.append({"depth": depth,
+                            "open_sha256": hashlib.sha256(repr(layer).encode()).hexdigest(),
+                            "terminals_sha256": hashlib.sha256(repr(terminals).encode()).hexdigest(),
+                            "incumbent": str(incumbent), "open_prefix_lb": str(lb),
+                            "counters": counters})
+                        self.hook(depth, layer, terminals, incumbent, counters)
+                def stop_at(depth, previous=None):
+                    hook = ExactLayerReplay(mode="flat", domain_sha256=domain_sha,
+                        external_source_sha256=external,
+                        previous_checkpoint=previous, stop_after_depth=depth)
+                    recorder = BoundaryRecorder(hook)
+                    started_cpu = time.process_time_ns()
+                    try:
+                        solve(recorder)
+                    except LayerCheckpointStop as stopped:
+                        return stopped.checkpoint_bytes, recorder.rows, hook.replayed_restore_layers, time.process_time_ns()-started_cpu
+                    raise ValueError("Early exact layer boundary was not reached")
+                reference, reference_rows, _, reference_cpu = stop_at(2)
+                first, first_rows, _, first_cpu = stop_at(1)
+                (out / "layer_checkpoint.json").write_bytes(first)
+                resumed, resumed_rows, replayed, replay_cpu = stop_at(2, first)
+                if reference != resumed or reference_rows != resumed_rows or first_rows != reference_rows[:2] or replayed != 2:
+                    raise ValueError("Same-engine early layer replay differs from uninterrupted boundary")
+                result = {"schema": "hiroute.m5d.od02_n8_early_layer_recovery.v1",
+                    "status": "boundary_verified_no_optimum_claim",
+                    "source_commit": report["source_commit"], "domain_sha256": domain_sha,
+                    "external_source_sha256": external,
+                    "checkpoint_sha256": hashlib.sha256(first).hexdigest(),
+                    "reference_boundary_sha256": hashlib.sha256(reference).hexdigest(),
+                    "resumed_boundary_sha256": hashlib.sha256(resumed).hexdigest(),
+                    "reference_rows": reference_rows, "resumed_rows": resumed_rows,
+                    "replayed_restore_layers": replayed,
+                    "reference_process_cpu_ns": reference_cpu,
+                    "interrupted_process_cpu_ns": first_cpu,
+                    "replay_process_cpu_ns": replay_cpu,
+                    "total_search_process_cpu_ns": reference_cpu+first_cpu+replay_cpu,
+                    "source_run_count": provider.source_run_count,
+                    "requested_pair_count": len(provider.legs)}
+                with (out / "early_recovery_receipt.json").open("x") as stream:
+                    json.dump(result, stream, sort_keys=True, default=str)
+                    stream.write("\n")
+                print(json.dumps(result, sort_keys=True, default=str), flush=True)
+                return
 
             def key_and_replay(solved):
                 key = solved.result.key
@@ -232,6 +319,12 @@ def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
 
 
 if __name__ == "__main__":
-    if len(sys.argv) not in (5, 6) or (len(sys.argv) == 6 and sys.argv[5] != "recover"):
-        raise ValueError("Expected four paths and optional recover mode")
-    run(*(Path(value) for value in sys.argv[1:5]), recover=len(sys.argv) == 6)
+    if len(sys.argv) == 5:
+        run(*(Path(value) for value in sys.argv[1:5]))
+    elif len(sys.argv) == 6 and sys.argv[5] == "recover":
+        run(*(Path(value) for value in sys.argv[1:5]), recover=True)
+    elif len(sys.argv) == 7:
+        run(*(Path(value) for value in sys.argv[1:5]),
+            boundary_seed_receipt=Path(sys.argv[5]), old_checkpoint=Path(sys.argv[6]))
+    else:
+        raise ValueError("Expected fixed OD02 paths and optional recovery inputs")

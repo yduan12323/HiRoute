@@ -168,3 +168,39 @@ def run_supervised(argv: tuple[str, ...], *, cwd: Path, output_dir: Path,
         stream.flush()
         os.fsync(stream.fileno())
     return receipt
+
+
+def run_m5d_phase(argv: tuple[str, ...], *, cwd: Path, output_dir: Path,
+                  wall_seconds: int, memory_bytes: int, phase: str,
+                  pythonpath: Path | None = None,
+                  frozen_main_phase: tuple[bytes, str] | None = None,
+                  remaining_cpu_seconds: int | None = None) -> ResourceReceipt:
+    """Apply the M5-D phase ceiling before creating any supervised unit."""
+    if phase in ("pilot", "functionality"):
+        if (type(wall_seconds) is not int or wall_seconds < 1 or wall_seconds > 120 or
+                type(memory_bytes) is not int or memory_bytes < 1 or
+                memory_bytes > 4 * 1024**3 or frozen_main_phase is not None):
+            raise ValueError("Pilot/functionality limit is at most 120s and 4GiB")
+    elif phase == "main":
+        import hashlib
+        import json
+        if (type(frozen_main_phase) is not tuple or len(frozen_main_phase) != 2 or
+                type(frozen_main_phase[0]) is not bytes or
+                hashlib.sha256(frozen_main_phase[0]).hexdigest() != frozen_main_phase[1]):
+            raise ValueError("Main run requires an exact frozen phase manifest")
+        try:
+            manifest = json.loads(frozen_main_phase[0])
+        except (UnicodeDecodeError, json.JSONDecodeError) as error:
+            raise ValueError("Invalid frozen main phase") from error
+        if (type(manifest) is not dict or manifest.get("schema") != "hiroute.m5d.frozen_main_phase.v1" or
+                manifest.get("wall_seconds") != wall_seconds or
+                manifest.get("memory_bytes") != memory_bytes or
+                type(wall_seconds) is not int or not 1 <= wall_seconds <= 600 or
+                type(memory_bytes) is not int or not 1 <= memory_bytes <= 8 * 1024**3 or
+                type(remaining_cpu_seconds) is not int or remaining_cpu_seconds < wall_seconds):
+            raise ValueError("Main limit or remaining budget differs from frozen phase")
+    else:
+        raise ValueError("Unknown M5-D resource phase")
+    return run_supervised(argv, cwd=cwd, output_dir=output_dir,
+                          wall_seconds=wall_seconds, memory_bytes=memory_bytes,
+                          pythonpath=pythonpath)
