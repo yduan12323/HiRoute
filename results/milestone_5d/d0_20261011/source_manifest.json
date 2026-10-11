@@ -1,0 +1,60 @@
+{
+  "baseline_commit": "1af12a96ca7de909f5971e49f118322117bf07ec",
+  "baseline_tree": "c988128dd236a7ffec597434d1e477e2aa4ffb7f",
+  "branch": "dot/m5d-deployable",
+  "files": {
+    "RESEARCH_SPEC_v0.2.md": {
+      "bytes": 27328,
+      "sha256": "2ad0b9666646bd4d7ebea6e601422a02720b186c3302f604b23bfffa80c5226f"
+    },
+    "ci/m5-requirements.txt": {
+      "bytes": 18508,
+      "sha256": "a5b29211964333cf3bea99e18f0446ddbd0d3fff6f541f1aa11be9148decfe72"
+    },
+    "ci/run_m5_bootstrap_code.py": {
+      "bytes": 1643,
+      "sha256": "5317efac1e524dc39e04befd50b1f3a742e1a8712112f4f2a6d5b0be1d02b43e"
+    },
+    "ci/run_m5_code_only.py": {
+      "bytes": 7451,
+      "sha256": "4068fb02ed931a49bbcdc76ac7b5108927cc439e299d4bd17269e99f76919f40"
+    },
+    "configs/regional_100km_candidate.yaml": {
+      "bytes": 1217,
+      "sha256": "7ba54743cafb68dd6b40eb1feb49782773ca6c69c86874508caa58cace56e8d1"
+    },
+    "docs/MILESTONE_5_C32_RETAINED_ADMISSION.md": {
+      "bytes": 13206,
+      "sha256": "b979fa83d3f1dda44ac9851664e5764c7ea7f20aeda7d4b84dc8ede037ee02c6"
+    },
+    "docs/MILESTONE_5_IMMUTABLE_REAL_LEG_CONTRACT.md": {
+      "bytes": 8761,
+      "sha256": "ed8bd28fff52531bfe52a57fa09c169db37cf1dc3833e60d99d93399828c3afe"
+    },
+    "docs/MILESTONE_5_TIME_CUT_CONTRACT_V2.md": {
+      "bytes": 12190,
+      "sha256": "ee8ceaad8b4200fe2ba02e08b846f2ce913fdfe35b5f2a09c62d005c02d9170c"
+    },
+    "docs/MILESTONE_5_TIME_CUT_PWA_DESIGN_V2.md": {
+      "bytes": 9127,
+      "sha256": "a110fbd8b3de1021c82229996cab25ccf5ffff867e30b8f68b627d589e867bb2"
+    },
+    "docs/MILESTONE_5_TIME_CUT_THEORY_REVIEW_V2.md": {
+      "bytes": 41525,
+      "sha256": "3ac83460925cbb43949c73de4c663d4ed9d4454bfca4594b7ee75f6115559bf8"
+    },
+    "docs/MILESTONE_5_V_FINAL_CANDIDATE_REVIEW.md": {
+      "bytes": 11450,
+      "sha256": "d249e618d53565a37766e814cfd860c4fff7653a5c58bf6c9c984fbcf5599890"
+    },
+    "docs/MILESTONE_5_V_R12_FINAL_ACCEPTANCE.md": {
+      "bytes": 4903,
+      "sha256": "1d3883cae7e98f74efe6429a4967c6bfd9eb2f80bf2dc67f2ba3ede1a3aab1e8"
+    }
+  },
+  "linux_environment": "isolated /home/dy/HiRoute/m5d_d0_1af12a9/.venv Python 3.11.16; ci/m5-requirements.txt",
+  "platform_local": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "production_observed_head": "1af12a96ca7de909f5971e49f118322117bf07ec (externally fast-forwarded before M5-D inspection)",
+  "python_local": "3.14.5",
+  "schema": "hiroute.m5d.d0.local_manifest.v1"
+}
