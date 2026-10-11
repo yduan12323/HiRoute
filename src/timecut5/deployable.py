@@ -779,6 +779,7 @@ class DeployablePairResult:
     flat_attempted_extensions: int
     hier_leaf_actions: int
     hier_bound_member_scans: int
+    flat_provider_queries: int
     hier_provider_queries: int
     hier_online_internal_member_accesses: int
     hier_online_leaf_action_reads: int
@@ -862,6 +863,7 @@ def solve_deployable_pair(certificate: SeedDepthCertificate, hierarchy_bytes: by
                           verifier_source_sha256: Mapping[str, str], *,
                           landmarks: tuple[LandmarkDistances, ...] = (),
                           summaries: Mapping[int, RegionLandmarkSummary] | None = None,
+                          selected_leg_provider=None,
                           prepared_checkpoint: bytes | None = None
                           ) -> DeployablePairResult:
     """Run exact FLAT/HIER over the same certified finite-depth domain.
@@ -890,13 +892,24 @@ def solve_deployable_pair(certificate: SeedDepthCertificate, hierarchy_bytes: by
     root = original_region_view(table, restriction)
     bounded_query = dict(query, H_ref=fresh.max_depth)
     provider = RegionBoundProvider(domain, root, landmarks=landmarks, summaries=summaries)
+    if selected_leg_provider is not None:
+        from .road_provider import RoadSelectedLegProvider
+        if (not isinstance(selected_leg_provider, RoadSelectedLegProvider) or
+                selected_leg_provider.table.payload_sha256 != table.payload_sha256):
+            raise ValueError("Road provider must bind the identical frozen table")
+    def selected_leg(source, target):
+        leg = (table.leg(source, target) if selected_leg_provider is None
+               else selected_leg_provider.leg(source, target))
+        if leg != table.leg(source, target):
+            raise ValueError("Road provider disagrees with the bound selected leg")
+        return leg
     route_contract = RouteContract(domain.binding.graph_sha256,
         hashlib.sha256(json.dumps(table.router_sha256, sort_keys=True).encode()).hexdigest(),
         domain.binding.landmark_sha256, hashlib.sha256(TIE_POLICY.encode()).hexdigest(),
         hashlib.sha256(table.direction_policy.encode()).hexdigest(),
         hashlib.sha256(NUMERICS.encode()).hexdigest(), direction_policy=table.direction_policy)
-    flat_cache = SelectedLegCache(route_contract, table.leg)
-    hier_cache = SelectedLegCache(route_contract, table.leg)
+    flat_cache = SelectedLegCache(route_contract, selected_leg)
+    hier_cache = SelectedLegCache(route_contract, selected_leg)
     current = table.origin_anchor
     for site_id, _ in fresh.sequence:
         target = table.site(site_id).anchor_id
@@ -911,6 +924,7 @@ def solve_deployable_pair(certificate: SeedDepthCertificate, hierarchy_bytes: by
     flat = _solve_problem(RealProblem(bounded_query, table, leg_cache=flat_cache),
                           verified_primary_upper=fresh.seed.primary_j,
                           singleton_bound=provider.singleton_bound)
+    flat_provider_queries = provider.online_queries
     hier = _solve_hierarchical_problem(RealProblem(bounded_query, table, leg_cache=hier_cache), True, root,
                                        verified_primary_upper=fresh.seed.primary_j,
                                        bound_provider=provider)
@@ -922,7 +936,8 @@ def solve_deployable_pair(certificate: SeedDepthCertificate, hierarchy_bytes: by
         raise ValueError("FLAT/HIER exact outcomes disagree in the certified domain")
     return DeployablePairResult(fresh, flat_outcome, hier_outcome,
                                 flat.attempted_extensions, hier.leaf_actions,
-                                hier.bound_member_scans, provider.online_queries,
+                                hier.bound_member_scans, flat_provider_queries,
+                                provider.online_queries - flat_provider_queries,
                                 provider.online_internal_member_accesses,
                                 provider.online_leaf_action_reads,
                                 provider.online_mask_word_work,

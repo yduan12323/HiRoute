@@ -20,6 +20,7 @@ import uuid
 @dataclass(frozen=True)
 class ResourceReceipt:
     unit: str
+    control_group: str
     result: str
     exit_status: int
     cpu_usage_ns: int
@@ -36,7 +37,8 @@ def _properties(unit: str) -> dict[str, str]:
                "-p", "ActiveState", "-p", "SubState", "-p", "Result",
                "-p", "ExecMainStatus", "-p", "CPUUsageNSec",
                "-p", "MemoryPeak", "-p", "MemoryMax"]
-    command.extend(["-p", "MemorySwapMax", "-p", "KillMode", "-p", "RuntimeMaxUSec"])
+    command.extend(["-p", "MemorySwapMax", "-p", "KillMode", "-p", "RuntimeMaxUSec",
+                    "-p", "ControlGroup"])
     result = subprocess.run(command, check=True, text=True, capture_output=True)
     return dict(line.split("=", 1) for line in result.stdout.splitlines() if "=" in line)
 
@@ -51,8 +53,25 @@ def _duration_us(value: str) -> int | None:
     return int(total) if total == int(total) else None
 
 
+def _group_empty(control_group: str) -> bool:
+    # systemd clears ControlGroup after the last task exits even while a
+    # RemainAfterExit service keeps its accounting properties available.
+    if control_group == "":
+        return True
+    if not control_group.startswith("/user.slice/") or ".." in Path(control_group).parts:
+        raise RuntimeError("Invalid or missing user cgroup identity")
+    events = Path("/sys/fs/cgroup") / control_group.lstrip("/") / "cgroup.events"
+    if not events.exists():
+        return True
+    values = dict(line.split() for line in events.read_text().splitlines())
+    if values.get("populated") not in ("0", "1"):
+        raise RuntimeError("Cgroup population could not be verified")
+    return values["populated"] == "0"
+
+
 def run_supervised(argv: tuple[str, ...], *, cwd: Path, output_dir: Path,
-                   wall_seconds: int, memory_bytes: int) -> ResourceReceipt:
+                   wall_seconds: int, memory_bytes: int,
+                   pythonpath: Path | None = None) -> ResourceReceipt:
     if (not argv or any(type(value) is not str or not value or "\0" in value for value in argv)
             or not Path(argv[0]).is_absolute() or not Path(argv[0]).is_file()
             or type(wall_seconds) is not int or wall_seconds < 1
@@ -78,12 +97,21 @@ def run_supervised(argv: tuple[str, ...], *, cwd: Path, output_dir: Path,
                "--property=KillMode=control-group",
                "--property=TimeoutStopSec=1s",
                "--property=StandardOutput=append:" + str(stdout),
-               "--property=StandardError=append:" + str(stderr), "--", *argv]
+               "--property=StandardError=append:" + str(stderr)]
+    if pythonpath is not None:
+        path = Path(pythonpath).resolve(strict=True)
+        if not path.is_dir():
+            raise ValueError("Existing Python source directory required")
+        command.append("--setenv=PYTHONPATH=" + str(path))
+    command.extend(("--", *argv))
     started = time.monotonic_ns()
     launched = False
+    receipt = None
+    failure = None
+    control_group = None
     try:
-        subprocess.run(command, check=True, text=True, capture_output=True)
         launched = True
+        subprocess.run(command, check=True, text=True, capture_output=True)
         deadline = started + (wall_seconds + 10) * 1_000_000_000
         while True:
             fields = _properties(unit)
@@ -100,18 +128,43 @@ def run_supervised(argv: tuple[str, ...], *, cwd: Path, output_dir: Path,
                 _duration_us(fields.get("RuntimeMaxUSec", "")) != wall_seconds * 1_000_000 or
                 not re.fullmatch(r"[0-9]+", fields.get("ExecMainStatus", ""))):
             raise RuntimeError("Cgroup CPU, peak memory or enforced limit receipt missing")
+        control_group = fields.get("ControlGroup", "")
+        if not _group_empty(control_group):
+            raise RuntimeError("Unit exited while descendants remain in its cgroup")
         receipt_path = output_dir / (unit + ".receipt.json")
-        receipt = ResourceReceipt(unit, fields["Result"], int(fields["ExecMainStatus"]),
+        receipt = ResourceReceipt(unit, control_group, fields["Result"], int(fields["ExecMainStatus"]),
                                int(fields["CPUUsageNSec"]), int(fields["MemoryPeak"]),
                                memory_bytes, time.monotonic_ns() - started,
                                str(stdout), str(stderr), str(receipt_path))
-        with receipt_path.open("x") as stream:
-            json.dump(asdict(receipt), stream, sort_keys=True)
+    except Exception as error:
+        failure = error
+    finally:
+        if launched:
+            stopped = subprocess.run(["systemctl", "--user", "stop", unit],
+                                     text=True, capture_output=True)
+            if stopped.returncode != 0:
+                failure = RuntimeError("Transient unit cleanup failed: " + stopped.stderr.strip())
+            elif control_group is not None:
+                try:
+                    if not _group_empty(control_group):
+                        failure = RuntimeError("Cgroup remains populated after cleanup")
+                except Exception as error:
+                    failure = error
+    if failure is not None:
+        failure_path = output_dir / (unit + ".failure.json")
+        with failure_path.open("x") as stream:
+            json.dump({"unit": unit, "error": str(failure), "control_group": control_group,
+                       "stdout_path": str(stdout), "stderr_path": str(stderr)}, stream,
+                      sort_keys=True)
             stream.write("\n")
             stream.flush()
             os.fsync(stream.fileno())
-        return receipt
-    finally:
-        if launched:
-            subprocess.run(["systemctl", "--user", "stop", unit],
-                           text=True, capture_output=True)
+        raise failure
+    if receipt is None:
+        raise RuntimeError("Missing supervisor receipt")
+    with Path(receipt.receipt_path).open("x") as stream:
+        json.dump(asdict(receipt), stream, sort_keys=True)
+        stream.write("\n")
+        stream.flush()
+        os.fsync(stream.fileno())
+    return receipt

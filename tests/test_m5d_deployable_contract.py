@@ -210,6 +210,7 @@ class DeployableContractTest(unittest.TestCase):
         self.assertEqual(pair.flat.status, SolveStatus.ATTAINED_OPTIMUM)
         self.assertEqual(pair.flat, pair.hier)
         self.assertEqual(pair.hier_bound_member_scans, 0)
+        self.assertGreater(pair.flat_provider_queries, 0)
         self.assertGreater(pair.hier_provider_queries, 0)
         self.assertEqual(pair.hier_online_internal_member_accesses, 0)
         self.assertGreater(pair.hier_online_leaf_action_reads, 0)
@@ -269,6 +270,7 @@ class DeployableContractTest(unittest.TestCase):
                                                  mode=mode)
             partial = interrupted.run(max_steps=1, max_open_prefixes=1000)
             self.assertEqual(partial.status, SolveStatus.TIME_LIMIT)
+            self.assertEqual(partial.stop_reason, "step_budget_exhausted")
             self.assertGreater(partial.open_prefixes, 0)
             resumed = ResumableExactSearch(result, hierarchy_bytes, verifier_hashes,
                                             mode=mode, checkpoint_bytes=partial.checkpoint_bytes)
@@ -284,9 +286,15 @@ class DeployableContractTest(unittest.TestCase):
             with self.assertRaises(ValueError):
                 ResumableExactSearch(result, hierarchy_bytes, verifier_hashes,
                                      mode=mode, checkpoint_bytes=json.dumps(tampered).encode())
+            tampered = json.loads(partial.checkpoint_bytes)
+            tampered["search_source_manifest"]["resumable.py"] = "0" * 64
+            with self.assertRaises(ValueError):
+                ResumableExactSearch(result, hierarchy_bytes, verifier_hashes,
+                                     mode=mode, checkpoint_bytes=json.dumps(tampered).encode())
         limited = ResumableExactSearch(result, hierarchy_bytes, verifier_hashes,
                                        mode="flat").run(max_steps=1, max_open_prefixes=1)
         self.assertEqual(limited.status, SolveStatus.MEMORY_LIMIT)
+        self.assertEqual(limited.stop_reason, "symbolic_open_count_limit")
         restarted_limited = ResumableExactSearch(result, hierarchy_bytes, verifier_hashes,
             mode="flat", checkpoint_bytes=limited.checkpoint_bytes).run(
                 max_steps=0, max_open_prefixes=1)

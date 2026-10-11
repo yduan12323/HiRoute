@@ -27,6 +27,7 @@ TESTS = (
     "tests/test_real_export_input.py",
     "tests/test_m5d_charge_gate.py",
     "tests/test_m5d_deployable_contract.py",
+    "tests/test_m5d_road_provider.py",
     "tests/test_reference5_real_adapter.py",
     "tests/test_family_checker_v1.py",
     "tests/test_family_optimized_validation_v2.py",

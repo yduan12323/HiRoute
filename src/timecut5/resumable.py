@@ -11,6 +11,7 @@ from dataclasses import dataclass
 from fractions import Fraction
 import hashlib
 import json
+from pathlib import Path
 from types import SimpleNamespace
 from typing import Mapping
 
@@ -22,6 +23,17 @@ from .deployable import (QueryDomain, RegionBoundProvider, SearchOutcome,
 from .probe import terminal
 from .real_adapter import RealProblem, original_region_view
 from .real_legs import restrict_frozen_tree
+
+
+_SEARCH_SOURCES = ("resumable.py", "bounded.py", "deployable.py", "hierarchy.py",
+                   "probe.py", "pwa.py", "real_adapter.py", "real_legs.py",
+                   "provenance.py", "road_provider.py", "road_landmark.py")
+
+
+def _search_source_manifest() -> dict[str, str]:
+    root = Path(__file__).resolve().parent
+    return {name: hashlib.sha256((root / name).read_bytes()).hexdigest()
+            for name in _SEARCH_SOURCES}
 
 
 def _canonical(value) -> bytes:
@@ -39,6 +51,7 @@ def _decode_prefix(value):
 @dataclass(frozen=True)
 class SearchStepReceipt:
     status: SolveStatus
+    stop_reason: str
     outcome: SearchOutcome
     checkpoint_bytes: bytes
     processed_prefixes: int
@@ -78,6 +91,7 @@ class ResumableExactSearch:
         self.provider = RegionBoundProvider(self.domain, self.root)
         self.prepared_sha256 = hashlib.sha256(prepared_checkpoint_bytes(
             fresh, hierarchy_bytes)).hexdigest()
+        self.search_source_manifest = _search_source_manifest()
         self.open = [()]
         self.closed = []
         self.terminals = []
@@ -135,8 +149,9 @@ class ResumableExactSearch:
         self.open.extend(children)
 
     def checkpoint(self) -> bytes:
-        return _canonical({"schema": "hiroute.m5d.symbolic_open.v1",
+        return _canonical({"schema": "hiroute.m5d.symbolic_open.v2",
                            "prepared_sha256": self.prepared_sha256,
+                           "search_source_manifest": self.search_source_manifest,
                            "mode": self.mode,
                            "closed": self.closed,
                            "open": self.open,
@@ -150,10 +165,12 @@ class ResumableExactSearch:
         except (UnicodeDecodeError, json.JSONDecodeError) as error:
             raise ValueError("Invalid symbolic OPEN checkpoint bytes") from error
         if (type(saved) is not dict or set(saved) != {"schema", "prepared_sha256",
+                "search_source_manifest",
                 "mode", "closed", "open", "terminal_piece_count", "complete",
                 "max_open_prefixes"} or
-                saved["schema"] != "hiroute.m5d.symbolic_open.v1" or
+                saved["schema"] != "hiroute.m5d.symbolic_open.v2" or
                 saved["prepared_sha256"] != self.prepared_sha256 or
+                saved["search_source_manifest"] != self.search_source_manifest or
                 saved["mode"] != self.mode or type(saved["closed"]) is not list or
                 type(saved["open"]) is not list or
                 type(saved["max_open_prefixes"]) is not int or
@@ -193,7 +210,10 @@ class ResumableExactSearch:
             _independent_attained_replay(self.domain, SimpleNamespace(result=exact),
                                          outcome, self.certificate.max_depth)
             status = outcome.status
-        return SearchStepReceipt(status, outcome, self.checkpoint(), len(self.closed),
+        reason = ("symbolic_open_count_limit" if status is SolveStatus.MEMORY_LIMIT else
+                  "step_budget_exhausted" if status is SolveStatus.TIME_LIMIT else
+                  "complete_exact_search")
+        return SearchStepReceipt(status, reason, outcome, self.checkpoint(), len(self.closed),
                                  len(self.open), self.restore_replayed_prefixes,
                                  self.provider.online_queries,
                                  self.provider.online_internal_member_accesses)
