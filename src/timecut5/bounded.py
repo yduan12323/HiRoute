@@ -317,6 +317,8 @@ def _solve_problem(problem: Problem, dominance: bool = True, *, reducer=None,
     result = terminal(terminals, problem.destination, problem.reserve, problem.start, problem.penalty)
     if result.witness is not None:
         _replay_problem(problem, result.witness)
+    if checkpoint_hook is not None and callable(getattr(checkpoint_hook, "finish", None)):
+        checkpoint_hook.finish()
     return BoundedResult(result, problem.bound, dominance, attempted, feasible, len(terminals), maximum)
 
 

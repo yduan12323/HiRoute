@@ -311,6 +311,8 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
     result = terminal(terminals, problem.destination, problem.reserve, problem.start, problem.penalty)
     if result.witness is not None:
         _replay_problem(problem, result.witness)
+    if checkpoint_hook is not None and callable(getattr(checkpoint_hook, "finish", None)):
+        checkpoint_hook.finish()
     bounded = BoundedResult(result, problem.bound, dominance, attempted, feasible, len(terminals), maximum)
     trace.emit('run_end',canonical=bounded.canonical(),terminal_families=trace.family_ids(terminals),
                terminal_witness=provenance.witness_dict(result.witness) if result.witness else None,

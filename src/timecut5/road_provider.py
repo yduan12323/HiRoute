@@ -138,6 +138,7 @@ class TableFreeRegionBoundProvider:
         self.landmarks = (distances,)
         self._summary = {}
         self._regions = {}
+        self._member_hash = {}
         def visit(region):
             if region.identifier in self._regions or len(set(region.members)) != len(region.members):
                 raise ValueError("Duplicate Region identity or Site")
@@ -149,13 +150,15 @@ class TableFreeRegionBoundProvider:
             for child in region.children:
                 visit(child)
             if region.members:
-                summary = RegionLandmarkSummary(member_set_digest(region.members),
+                member_hash = member_set_digest(region.members)
+                summary = RegionLandmarkSummary(member_hash,
                     self.graph_sha256, self.landmark_sha256,
                     (min(distances.from_landmark[self.sites[s].anchor_id]
                          for s in region.members),),
                     (max(distances.to_landmark[self.sites[s].anchor_id]
                          for s in region.members),))
                 self._summary[region.identifier] = summary
+                self._member_hash[region.identifier] = member_hash
         visit(root)
         self._action_bits = {action: 1 << index for index, action in enumerate(
             (site, effect) for site in sorted(sites)
@@ -176,12 +179,17 @@ class TableFreeRegionBoundProvider:
 
     def _incoming(self, source, region):
         from math import floor
-        from .deployable import directed_alt_region_bound, member_set_digest
+        from .deployable import directed_alt_region_bound
+        self._check_region(region)
         value = directed_alt_region_bound(source, self.landmarks,
             self._summary[region.identifier], graph_sha256=self.graph_sha256,
             landmark_sha256=self.landmark_sha256,
-            member_set_sha256=member_set_digest(region.members))
+            member_set_sha256=self._member_hash[region.identifier])
         return Fraction(floor(value))
+
+    def _check_region(self, region):
+        if self._regions.get(region.identifier) is not region:
+            raise ValueError("Region identity differs from bound candidate universe")
 
     def bound(self, problem, pieces, region, effect):
         self.online_queries += 1
@@ -224,6 +232,7 @@ class TableFreeRegionBoundProvider:
         return time - problem.start + problem.penalty * (state.stop_count + 1)
 
     def action_mask(self, region, effect, remaining):
+        self._check_region(region)
         mask = self._action_masks[region.identifier, effect, remaining]
         self.online_mask_word_work += max(1, (mask.bit_length() + 63) // 64)
         return mask
@@ -241,6 +250,7 @@ class TableFreeRegionBoundProvider:
         return left == right
 
     def leaf_actions(self, region, effect, remaining):
+        self._check_region(region)
         if region.children:
             self.online_internal_member_accesses += 1
             raise ValueError("Internal Region member expansion is forbidden")

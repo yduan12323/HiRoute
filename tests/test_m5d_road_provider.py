@@ -3,6 +3,7 @@ import hashlib
 import json
 from types import SimpleNamespace
 import unittest
+from unittest.mock import patch
 
 import numpy as np
 
@@ -225,12 +226,62 @@ class RoadProviderTest(unittest.TestCase):
                     separators=(",", ":")).encode())
             with self.assertRaisesRegex(ValueError, "OPEN"):
                 solve(tampered)
+            complete_hook = ExactLayerReplay(mode=mode, domain_sha256="d" * 64,
+                external_source_sha256=external)
+            solve(complete_hook)
+            extra = json.loads(complete_hook.checkpoint_bytes())
+            extra["layers"].append({"depth": len(extra["layers"]),
+                                    "state_sha256": "0" * 64})
+            long_checkpoint = ExactLayerReplay(mode=mode, domain_sha256="d" * 64,
+                external_source_sha256=external,
+                previous_checkpoint=json.dumps(extra, sort_keys=True,
+                    separators=(",", ":")).encode())
+            with self.assertRaisesRegex(ValueError, "checkpointed OPEN"):
+                solve(long_checkpoint)
             altered["search_source_sha256"]["bounded.py"] = "0" * 64
             with self.assertRaisesRegex(ValueError, "source"):
                 ExactLayerReplay(mode=mode, domain_sha256="d" * 64,
                     external_source_sha256=external,
                     previous_checkpoint=json.dumps(altered, sort_keys=True,
                         separators=(",", ":")).encode())
+
+    def test_online_region_bound_uses_setup_member_binding(self):
+        table, graph = self.fixture()
+        anchors = {f"road:{i}": i for i in range(3)}
+        catalog_sha = hashlib.sha256(json.dumps(anchors, sort_keys=True,
+            separators=(",", ":")).encode()).hexdigest()
+        provider = TableFreeRoadSelectedLegProvider(graph, NativeStub(), anchors,
+            nodes_sha256="b" * 64, edges_sha256="c" * 64,
+            router_sha256="a" * 64, anchor_catalog_sha256=catalog_sha)
+        class GuardMembers(tuple):
+            armed = False
+            def __iter__(self):
+                if self.armed:
+                    raise AssertionError("online Region member iteration")
+                return super().__iter__()
+        members = GuardMembers(("s1",))
+        root = Region(0, members)
+        class LandmarkRouter:
+            provenance = {"source_sha256": "f" * 64}
+            def full(self, root, reverse=False):
+                zeros = np.zeros(3)
+                return zeros, zeros.copy(), np.array([-1, -1, -1])
+            def close(self):
+                pass
+        bound = TableFreeRegionBoundProvider(provider, table.sites, root,
+            destination_anchor="road:2", landmark_anchor="road:0",
+            site_catalog_sha256=site_catalog_digest(table.sites),
+            router_factory=lambda _: LandmarkRouter())
+        members.armed = True
+        with patch("timecut5.deployable.member_set_digest",
+                   side_effect=AssertionError("online member rehash")):
+            self.assertEqual(bound._incoming("road:0", root), 0)
+            self.assertNotEqual(bound.action_mask(root, "C", 0), 0)
+            self.assertEqual(bound.online_internal_member_accesses, 0)
+            with self.assertRaisesRegex(ValueError, "Region identity"):
+                bound.action_mask(Region(0, ("s1",)), "C", 0)
+            with self.assertRaisesRegex(ValueError, "Region identity"):
+                bound._incoming("road:0", Region(0, ("s1",)))
 
 
 if __name__ == "__main__":
