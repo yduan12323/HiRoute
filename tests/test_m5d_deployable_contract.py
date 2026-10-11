@@ -22,6 +22,7 @@ from timecut5.resumable import ResumableExactSearch
 from timecut5.real_legs import NUMERICS, TIE_POLICY
 from validation.reference5.real_input import IndependentLegTable
 from validation.reference5.real_solver import replay_real_witness, solve_real_case
+from validation.reference5 import real_solver
 
 
 D = "a" * 64
@@ -111,11 +112,16 @@ class DeployableContractTest(unittest.TestCase):
         proposals = constructive_seed_candidates(query, table)
         self.assertTrue(proposals)
         independently_feasible = []
+        prepared = real_solver.prepare_real_case(query, independent)
         for sequence, charges in proposals:
             try:
-                independently_feasible.append(replay_real_witness(query, independent, sequence, charges))
+                original = replay_real_witness(query, independent, sequence, charges)
             except (ValueError, AssertionError):
-                pass
+                with self.assertRaises((ValueError, AssertionError)):
+                    real_solver._replay_real(prepared, sequence, charges)
+            else:
+                self.assertEqual(real_solver._replay_real(prepared, sequence, charges), original)
+                independently_feasible.append(original)
         self.assertTrue(independently_feasible)
         self.assertTrue(all(result["witness_replayed"] for result in independently_feasible))
         with self.assertRaises(ValueError):

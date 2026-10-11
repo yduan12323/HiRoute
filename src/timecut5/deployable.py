@@ -252,18 +252,26 @@ def construct_verified_seed(domain: QueryDomain, verifier_source_sha256: Mapping
         if source is None or hashlib.sha256(Path(source).read_bytes()).hexdigest() != declared:
             raise ValueError("Approved verifier source closure mismatch")
     replay = real_solver.replay_real_witness_bytes
+    prepared_replay = real_solver._replay_real
     if (replay.__module__ != real_solver.__name__ or
-            inspect.getsourcefile(replay) != inspect.getsourcefile(real_solver)):
+            inspect.getsourcefile(replay) != inspect.getsourcefile(real_solver) or
+            prepared_replay.__module__ != real_solver.__name__ or
+            inspect.getsourcefile(prepared_replay) != inspect.getsourcefile(real_solver)):
         raise ValueError("Approved verifier entrypoint changed")
     query, table = domain.open()
     proposals = constructive_seed_candidates(query, table)
-    # The caller's independently reviewed replay parses the same immutable
-    # bytes. The production wheel does not import the reference package.
+    # Parse the independently reviewed REF table and physical case once. Its
+    # replay function reads the prepared case but does not mutate it. A fresh
+    # byte-level REF parse/replay below rechecks the chosen winner before any
+    # bound or depth certificate is issued.
+    independent_table = real_input.IndependentLegTable.from_bytes(
+        domain.table_bytes, domain.table_sha256)
+    prepared = real_solver.prepare_real_case(_json_object(domain.query_bytes),
+                                             independent_table)
     accepted = []
     for sequence, charges in proposals:
         try:
-            result = replay(_json_object(domain.query_bytes), domain.table_bytes, domain.table_sha256,
-                            sequence, charges)
+            result = prepared_replay(prepared, sequence, charges)
         except (ValueError, AssertionError):
             continue
         if (type(result) is not dict or result.get("witness_replayed") is not True
@@ -280,6 +288,12 @@ def construct_verified_seed(domain: QueryDomain, verifier_source_sha256: Mapping
     if not accepted:
         return SearchOutcome(domain.binding, SolveStatus.INCUMBENT_SEARCH_FAILED)
     j, _, _, sequence, charges = min(accepted)
+    winner = replay(_json_object(domain.query_bytes), domain.table_bytes,
+                    domain.table_sha256, sequence, charges)
+    if (type(winner) is not dict or winner.get("witness_replayed") is not True or
+            winner.get("lex_key") != (j, sum(charges, Fraction(0)), len(sequence), sequence) or
+            winner.get("charges") != charges):
+        raise ValueError("Fresh-byte independent seed replay disagrees with prepared replay")
     witness_bytes = json.dumps({"sequence": sequence,
                                "charges": [str(value) for value in charges]},
                               sort_keys=True, separators=(",", ":")).encode()
