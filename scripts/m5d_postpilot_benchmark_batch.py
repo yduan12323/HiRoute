@@ -24,9 +24,9 @@ def main(root: Path):
     cert = root / "preflight_20261011_alt_gate/landmark_certificate.json"
     for row in rows:
         for method in ("flat", "hier"):
-            out = root / ("postpilot_benchmark_" + row["row_id"] + "_" + method)
+            out = root / ("postpilot_benchmark_v2_" + row["row_id"] + "_" + method)
             out.mkdir(exist_ok=False)
-            command = (python, str(root / "scripts/m5d_pilot_exact_row.py"),
+            command = (python, str(root / "scripts/m5d_pilot_exact_row_v2.py"),
                 str(root), graph, str(out), str(cert), row["od_id"],
                 str(row["candidate_prefix_count"]), row["activity"], method)
             receipt = run_supervised(command, cwd=root, output_dir=out,

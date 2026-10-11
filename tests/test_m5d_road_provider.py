@@ -156,6 +156,13 @@ class RoadProviderTest(unittest.TestCase):
             def close(self):
                 pass
         flat_problem, hier_problem = problem(), problem()
+        with self.assertRaisesRegex(ValueError, "Site catalog bytes"):
+            TableFreeRealProblem(dict(H_ref=0, start_time_s=0,
+                initial_energy_kwh=1, capacity_kwh=2, minimum_energy_kwh=0,
+                reserve_kwh=0, consumption_kwh_per_m="1/10", overhead_s=1,
+                lambda_stop_s=0, schedule=None, charging_segments=[[0, 2, 1, 0]]),
+                table.sites, hier_problem.provider, origin_anchor="road:0",
+                destination_anchor="road:2", site_catalog_sha256="0" * 64)
         root = Region(0, ("s1",))
         bound = TableFreeRegionBoundProvider(hier_problem.provider, table.sites,
             root, destination_anchor="road:2", landmark_anchor="road:0",
