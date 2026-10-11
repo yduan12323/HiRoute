@@ -37,7 +37,9 @@ def array_hash(graph):
 def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
         recover: bool = False, boundary_seed_receipt: Path | None = None,
         old_checkpoint: Path | None = None, boundary_stage: str | None = None,
-        stage_checkpoint: Path | None = None):
+        stage_checkpoint: Path | None = None, prefix_count: int = 8):
+    if type(prefix_count) is not int or prefix_count not in (8, 32, 128):
+        raise ValueError("Only frozen OD02 8/32/128 candidate prefixes are admitted")
     started = time.monotonic_ns()
     pools_path = inputs / "formal_pools_20261011_v2/pools.json"
     slate_path = inputs / "results/milestone_5d/continuation_20261011/fixed_12od_candidate_slate.json"
@@ -45,16 +47,16 @@ def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
     if pools["slate_sha256"] != sha(slate_path):
         raise ValueError("Frozen population/slate binding differs")
     pool = next(row for row in pools["pools"] if row["od_id"] == "OD02")
-    site_rows = pool["sites"][:8]
-    if len(site_rows) != 8 or len({row["site_id"] for row in site_rows}) != 8:
-        raise ValueError("Fixed OD02 N8 Site universe differs")
+    site_rows = pool["sites"][:prefix_count]
+    if len(site_rows) != prefix_count or len({row["site_id"] for row in site_rows}) != prefix_count:
+        raise ValueError("Fixed OD02 Site universe differs")
     sites = {row["site_id"]: RealSite(row["site_id"], row["anchor_id"],
                                       tuple(row["effects"])) for row in site_rows}
     origin = f"road:{pool['origin_anchor']}"
     destination = f"road:{pool['destination_anchor']}"
     anchors = list(dict.fromkeys([origin] + [row["anchor_id"] for row in site_rows] + [destination]))
-    if len(anchors) != 10 or anchors[0] != origin or anchors[-1] != destination:
-        raise ValueError("Fixed Site/endpoint physical anchors collide")
+    if anchors[0] != origin or anchors[-1] != destination or origin == destination:
+        raise ValueError("Fixed endpoint physical anchors collide")
     anchor_nodes = {anchor: int(anchor.removeprefix("road:")) for anchor in anchors}
     if any(f"road:{node}" != anchor for anchor, node in anchor_nodes.items()):
         raise ValueError("Noncanonical dense road anchor")
@@ -89,7 +91,7 @@ def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
             ("energy_breakpoints_kwh", "slopes_s_per_kwh", "intercepts_s"))
         if len(breaks) != len(slopes) + 1 or len(slopes) != len(intercepts):
             raise ValueError("Frozen charging primitive differs")
-        query = dict(case_id="OD02_energy_only_soc3_10_n8", origin=origin,
+        query = dict(case_id=f"OD02_energy_only_soc3_10_n{prefix_count}", origin=origin,
             destination=destination, H_ref=4, start_time_s=state["start_time_s"],
             initial_energy_kwh=state["initial_energy_kwh"],
             capacity_kwh=state["capacity_kwh"],
@@ -334,7 +336,9 @@ def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 5:
+    if len(sys.argv) == 6 and sys.argv[5] in ("8", "32", "128"):
+        run(*(Path(value) for value in sys.argv[1:5]), prefix_count=int(sys.argv[5]))
+    elif len(sys.argv) == 5:
         run(*(Path(value) for value in sys.argv[1:5]))
     elif len(sys.argv) == 6 and sys.argv[5] == "recover":
         run(*(Path(value) for value in sys.argv[1:5]), recover=True)
