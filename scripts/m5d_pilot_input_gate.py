@@ -46,9 +46,10 @@ def run(root, graph_dir, out, certificate, od_id, prefix_count, mode):
     cert=json.loads(certificate.read_text())
     graph,metadata_sha=load_graph(graph_dir,cert["graph_nodes_sha256"],cert["graph_edges_sha256"])
     sites=pool["sites"][:prefix_count]
-    anchors=[f"road:{pool['origin_anchor']}"]+[item["anchor_id"] for item in sites]+[f"road:{pool['destination_anchor']}"]
-    if len(set(anchors))!=prefix_count+2:
-        raise ValueError("Duplicate candidate anchor")
+    anchors=list(dict.fromkeys([f"road:{pool['origin_anchor']}"]+
+        [item["anchor_id"] for item in sites]+[f"road:{pool['destination_anchor']}"]))
+    if anchors[0]!=f"road:{pool['origin_anchor']}" or anchors[-1]!=f"road:{pool['destination_anchor']}":
+        raise ValueError("Endpoint and candidate anchors overlap")
     nodes=[int(a.removeprefix("road:")) for a in anchors]
     router=ExactRouter(graph,{"compiler":"g++","compiler_flags":["-O3","-std=c++17"]},out/"native")
     legs=[]
