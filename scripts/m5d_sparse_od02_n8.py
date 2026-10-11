@@ -34,7 +34,8 @@ def array_hash(graph):
     return digest.hexdigest()
 
 
-def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path):
+def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
+        recover: bool = False):
     started = time.monotonic_ns()
     pools_path = inputs / "formal_pools_20261011_v2/pools.json"
     slate_path = inputs / "results/milestone_5d/continuation_20261011/fixed_12od_candidate_slate.json"
@@ -128,9 +129,109 @@ def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path):
             json.dump(report, stream, sort_keys=True, default=str)
             stream.write("\n")
         print(json.dumps(report, sort_keys=True, default=str), flush=True)
+        if recover:
+            from timecut5.bounded import _solve_problem
+            from timecut5.hierarchy import build_regions
+            from timecut5.live_replay import ExactLayerReplay, LayerCheckpointStop
+            from timecut5.real_adapter import TableFreeRealProblem
+            from timecut5.road_provider import TableFreeRegionBoundProvider
+            from timecut5.real_legs import TIE_POLICY
+            if admission["status"] != "verified":
+                raise ValueError("No verified seed for exact recovery probe")
+            root = build_regions(sites)
+            root_sha = hashlib.sha256(repr(root).encode()).hexdigest()
+            bound = TableFreeRegionBoundProvider(provider, sites, root,
+                destination_anchor=destination, landmark_anchor=origin,
+                site_catalog_sha256=catalog.site_catalog_sha256,
+                router_factory=lambda conservative: ExactRouter(conservative,
+                    {"compiler": "g++", "compiler_flags": ["-O3", "-std=c++17"]},
+                    out / "landmark_native"))
+            runtime_sha = hashlib.sha256(canon([sys.executable, sys.version])).hexdigest()
+            seed_sha = hashlib.sha256(canon([str(admission["lex_key"]),
+                str(admission["sequence"]), str(admission["charges"])])).hexdigest()
+            external = {"graph_nodes": nodes_sha, "graph_edges": edges_sha,
+                "router": hashlib.sha256(canon([router.provenance["source_sha256"],
+                    sha(out / "native/routing.so")])).hexdigest(),
+                "anchors": anchor_sha, "sites": catalog.site_catalog_sha256,
+                "query": hashlib.sha256(canon(query)).hexdigest(),
+                "hierarchy": root_sha,
+                "landmark": bound.landmark_sha256, "seed": seed_sha,
+                "policy": hashlib.sha256(TIE_POLICY.encode()).hexdigest(),
+                "runtime": runtime_sha}
+            domain_sha = hashlib.sha256(canon({"sparse": catalog.domain_sha256,
+                "arrays": loaded_arrays_sha, "external": external})).hexdigest()
+            exact_query = dict(query, H_ref=admission["max_depth"])
+
+            def solve(hook):
+                problem = TableFreeRealProblem(exact_query, sites, provider,
+                    origin_anchor=origin, destination_anchor=destination,
+                    site_catalog_sha256=catalog.site_catalog_sha256)
+                return _solve_problem(problem, checkpoint_hook=hook,
+                    verified_primary_upper=admission["lex_key"][0],
+                    singleton_bound=bound.singleton_bound)
+
+            def key_and_replay(solved):
+                key = solved.result.key
+                witness = solved.result.witness
+                if witness is not None:
+                    charges = tuple(event.departure_energy - event.arrival_energy
+                        for event in witness.events if event.effect in ("C", "CS"))
+                    replay = replay_sparse_seed(query, catalog, witness.pi, charges)
+                    if replay["lex_key"] != key:
+                        raise ValueError("Independent selected-edge terminal replay differs")
+                return key
+
+            from timecut5.sparse_seed import replay_sparse_seed
+            baseline_cpu = time.process_time_ns()
+            baseline = solve(None)
+            baseline_cpu = time.process_time_ns() - baseline_cpu
+            baseline_key = key_and_replay(baseline)
+            interrupt = ExactLayerReplay(mode="flat", domain_sha256=domain_sha,
+                external_source_sha256=external, stop_after_depth=1)
+            interrupted_cpu = time.process_time_ns()
+            try:
+                solve(interrupt)
+            except LayerCheckpointStop as stopped:
+                checkpoint = stopped.checkpoint_bytes
+            else:
+                raise ValueError("Safe layer interruption was not reached")
+            interrupted_cpu = time.process_time_ns() - interrupted_cpu
+            (out / "layer_checkpoint.json").write_bytes(checkpoint)
+            restored = ExactLayerReplay(mode="flat", domain_sha256=domain_sha,
+                external_source_sha256=external, previous_checkpoint=checkpoint)
+            replay_cpu = time.process_time_ns()
+            resumed = solve(restored)
+            replay_cpu = time.process_time_ns() - replay_cpu
+            resumed_key = key_and_replay(resumed)
+            if (baseline.result.status != resumed.result.status or
+                    baseline_key != resumed_key or
+                    baseline.attempted_extensions != resumed.attempted_extensions or
+                    baseline.feasible_extensions != resumed.feasible_extensions):
+                raise ValueError("Interrupted exact search differs from uninterrupted same-domain search")
+            recovery = {"schema": "hiroute.m5d.od02_n8_same_engine_recovery.v1",
+                "status": "passed", "source_commit": report["source_commit"],
+                "domain_sha256": domain_sha, "external_source_sha256": external,
+                "checkpoint_sha256": hashlib.sha256(checkpoint).hexdigest(),
+                "checkpoint_layers": len(interrupt.layers),
+                "replayed_restore_layers": restored.replayed_restore_layers,
+                "baseline_status": baseline.result.status,
+                "resumed_status": resumed.result.status,
+                "baseline_key": str(baseline_key), "resumed_key": str(resumed_key),
+                "baseline_process_cpu_ns": baseline_cpu,
+                "interrupted_process_cpu_ns": interrupted_cpu,
+                "replay_process_cpu_ns": replay_cpu,
+                "total_search_process_cpu_ns": baseline_cpu + interrupted_cpu + replay_cpu,
+                "source_run_count": provider.source_run_count,
+                "requested_pair_count": len(provider.legs)}
+            with (out / "recovery_receipt.json").open("x") as stream:
+                json.dump(recovery, stream, sort_keys=True)
+                stream.write("\n")
+            print(json.dumps(recovery, sort_keys=True), flush=True)
     finally:
         router.close()
 
 
 if __name__ == "__main__":
-    run(*(Path(value) for value in sys.argv[1:5]))
+    if len(sys.argv) not in (5, 6) or (len(sys.argv) == 6 and sys.argv[5] != "recover"):
+        raise ValueError("Expected four paths and optional recover mode")
+    run(*(Path(value) for value in sys.argv[1:5]), recover=len(sys.argv) == 6)
