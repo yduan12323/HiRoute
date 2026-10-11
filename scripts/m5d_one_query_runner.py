@@ -24,6 +24,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from microplan.routing import ExactRouter
 from timecut5.deployable import (DomainBinding, LandmarkDistances, QueryDomain,
+    RegionBoundProvider,
     RegionLandmarkSummary, SearchOutcome, construct_verified_seed,
     member_set_digest, solve_deployable_pair)
 from timecut5.real_adapter import original_region_view
@@ -200,6 +201,10 @@ def run(args):
             for child in region.children:
                 summarize(child)
         summarize(original_root)
+        provider_setup_started = time.monotonic_ns()
+        checked_region_provider = RegionBoundProvider(domain, original_root,
+            landmarks=(distances,), summaries=summaries)
+        provider_setup_ns = time.monotonic_ns() - provider_setup_started
         hashes = verifier_hashes()
         seed_started = time.monotonic_ns()
         seed = construct_verified_seed(domain, hashes)
@@ -216,6 +221,8 @@ def run(args):
             "road_witnesses_sha256": sha(output / "road_witnesses.json"),
             "seed_j": str(seed.seed.primary_j), "seed_h": len(seed.sequence),
             "certified_max_depth": seed.max_depth, "seed_elapsed_ns": seed_ns,
+            "preflight_region_setup_elapsed_ns": provider_setup_ns,
+            "preflight_region_index_entries": checked_region_provider.setup_index_entries,
             "setup_elapsed_ns": time.monotonic_ns() - started}
         if args.mode == "solve":
             solved = solve_deployable_pair(seed, hierarchy_bytes, hashes,
