@@ -11,6 +11,7 @@
       "admission_sha256": "38192f8d2874179be4c1c30b2db124aafdc896d43035ea7f4375d397f8c825df",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_cold_check",
       "case_id": "A01_one_charging_segment",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -26,7 +27,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "8d6be336044215abeb26aad73431c742ac55cc1eb0ab1df85defee06609187c1",
       "population": "A28",
@@ -44,6 +44,7 @@
       "admission_sha256": "023783c5bf859c705f17969d78a66708c308f91f687a00c8c010fea8739daf9b",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "A02_exactly_one_charging_breakpoint",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -59,7 +60,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "7487674102fe28bfcb15e49ac7043a54785f48684b8d9095c510ada21d487e17",
       "new_producer_receipt_sha256": "f84c7ccb72fb6f5969fa81d2306d6b44ce475682f3b002c2ada5eb84d9a39282",
@@ -79,6 +79,7 @@
       "admission_sha256": "8171974088c965f55f90dae6b3dd10fafef057fd59882cd7718143bdcb3201fb",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "A03_multiple_charging_breakpoints",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -94,7 +95,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "d4cf3de061a73dce94c05ae934ff2a72e37f2ff99f74dac8ea0555bad6aaa7fa",
       "new_producer_receipt_sha256": "8a2b4e054e8da271805471e9d4abd407bd563b72f8896f276adaa11cc8f8e326",
@@ -114,6 +114,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "A09_CS_charge_dominant",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -129,7 +130,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "e8728320ed51ab89f60263f63f4963ff936812e09acb7f2f768b5e9c180daeac",
       "population": "A28",
@@ -147,6 +147,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "A10_CS_schedule_dominant",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -162,7 +163,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "b53c3b5d01f9afa730658a93a4590f162a6147b57f4ee9d337cbadaf8117913e",
       "population": "A28",
@@ -180,6 +180,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "A11_CS_exact_active_branch_boundary",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -195,7 +196,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "f8fd98ae2104b22717425c722548eaea0c5ab06447c8375cccca64d76a502f13",
       "population": "A28",
@@ -213,6 +213,7 @@
       "admission_sha256": "5b7fd3e351ca2bbec9711578d5dcbbbbaa3ba4dcaf1454eb5b3f786a7c362f6e",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_cold_check",
       "case_id": "A13_primary_positive_charge_infimum",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -220,7 +221,6 @@
         "status": "primary_unattained"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "b99d4997981f8cd43df6ce4f09c350c63cfaac2fd864d541f43d4116fc2e488e",
       "population": "A28",
@@ -238,6 +238,7 @@
       "admission_sha256": "75df81461232387162c9561f2ef744f8fb8ed8d6cdb9ccd0a0a4dea08f8d34b1",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "A13_secondary_positive_charge_infimum",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -246,7 +247,6 @@
         "status": "secondary_unattained"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "53c194f9b2fcd258f2b99764b984d6006535caaa71c6d9dc51b026b9f82b5a33",
       "new_producer_receipt_sha256": "d1b970b007ff1a89839afb2d535efdf366ac8e85c9e033449c19a5261ea963e6",
@@ -306,6 +306,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "A16_primary_charge_site_tuple_tie",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -321,7 +322,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "dfefbc57beb68aca721078bab68ea56a573bc6e2c72a43ae63d44dd8ba6fe9e1",
       "population": "A28",
@@ -339,6 +339,7 @@
       "admission_sha256": "4e5d66f820e880fb7570f8bf2267c6c5ee15d5dc5ce3f9f9d54a51d2d61d1381",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_cold_check",
       "case_id": "A17_energy_floor_tight",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -354,7 +355,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "b10125bdb03ed6c5eff634887e334461c1af34f0286ecf741b51510c1c40bfbe",
       "population": "A28",
@@ -372,6 +372,7 @@
       "admission_sha256": "48e95accfa336a35eea5b975a0a3a80165cd78dfa5ad92c5e1cc2442dd444c3a",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "A18_capacity_tight",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -387,7 +388,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "20ea37d41bd27c50caa6766eddf20aa438f8c17e838aea70927b652a9d6de9b2",
       "new_producer_receipt_sha256": "5177160dbf432e0b12f7435c6a7b2504b8a99f380a656552b683cca6b48a733a",
@@ -407,13 +407,13 @@
       "admission_sha256": "f6104475653186d3b5689c3f12265ef0dab10188dd09b3aeebbc615990ddada8",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "A18_capacity_overflow_infeasible",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
         "status": "infeasible_within_H_ref"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "b7428021c1a376d2f8ae7efa91fa5c36d84245838eee0c6a785b4b169eefba18",
       "new_producer_receipt_sha256": "e41c853c38590d17509305c4d4be39d9cac7acc82d2c6ef41092d4e94d8f5b92",
@@ -433,6 +433,7 @@
       "admission_sha256": "c12a381125bfdb8629b373b7a07dad57863aa7959459de73ea3306887ed4cab1",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "A19_two_charge_redistribution",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -452,7 +453,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "60fdbc4c5c47085362581fcc4d440679a0e959434c8fef8076a3b2fd18d023cf",
       "new_producer_receipt_sha256": "ee9dcfef8e866a6d2e42bbdb891c3f98c1fc41baa3f8804aa1813896b9340fcb",
@@ -472,6 +472,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "A20_repeated_site_cycle",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -487,7 +488,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "8ef42dd21e8bcce4e0f7a203c970848087bedcfea87f67796c5c163206cfdc45",
       "population": "A28",
@@ -505,6 +505,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "A20_incumbent_depth_bound",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -515,7 +516,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "60e49620e5b77196cae63331773e7ea9683866eae54918d6f41a0c72d897b466",
       "population": "A28",
@@ -533,6 +533,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "S01_service_deadline_equality",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -548,7 +549,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "fdd14e05c9b1a087b73651183f6a341fe41323906dba9e547efd91584f6e81a2",
       "population": "A28",
@@ -566,6 +566,7 @@
       "admission_sha256": "87a9f41d48bcb30297562ce16ab0ff72250870889833d57f52210beef560eec3",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "S02_C_then_S",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -585,7 +586,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "92c22f23dec5bc8a9cc9af6f9582cce9bd74033733b53a5acf2ca1bfe4b1126a",
       "new_producer_receipt_sha256": "1fd33a90abd5350b3f8b5b210e925c7100b5767ed8d967e1fddcfd50f67bfcea",
@@ -605,6 +605,7 @@
       "admission_sha256": "8d8ac021daeb2d4f22cc250aa068c5b70eaf2d78504be7ec646bee18554fa8e4",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "S03_S_then_C",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -624,7 +625,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "ee095bc6e72a8abf1bc97e7bdb2e537e1880bfc129522ec49badfa5342f26a08",
       "new_producer_receipt_sha256": "770d818c34c6e0b359d971bed005bf36f42abeb2c655da77c5a162b7d8509b1f",
@@ -644,6 +644,7 @@
       "admission_sha256": "479430cc6d00a9e79f217ca507ddb3e746bceea8e6684f1744f0b6fe7b67ec18",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "S04_C_then_CS",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -663,7 +664,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "7ec18907c586d47f766320e24e9138941d3ce3253c4235557611f755167bdd12",
       "new_producer_receipt_sha256": "5fa7bb1473bdca9eaea74988860e3bd2e85bd9bdb1ddc03a1ce1b052b1303d45",
@@ -683,6 +683,7 @@
       "admission_sha256": "7384f6175f927c040630bf6306a7eab2b1170037157b43e0d3ce91448a83cc7f",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "S05_CS_then_C",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -702,7 +703,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "2448edddafee14058a41b88712bb26892d76738d760fdf82a43e57e8a00d72d3",
       "new_producer_receipt_sha256": "e0b932d09b2460005c2dcba31d0631b36a18ffb4c67b5d8cde7c2bc0f8ffa42b",
@@ -722,6 +722,7 @@
       "admission_sha256": "436d9a87cb30dbff0503552528663401450cf401414364cd864e53a5bb782251",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "S06_three_charges",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -745,7 +746,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "dcea1f115cfa3efc60bb31b29f8ecdce53af12e51ec5028b6f325b9a7503ccef",
       "new_producer_receipt_sha256": "c1cc3e749dc335248f079edaff711d104d9f1e619a383c79029f7d044c8fce22",
@@ -763,13 +763,13 @@
     {
       "authority_class": "admitted_independent_no_lp_structural_final",
       "case_id": "S07_effect_free_via_site_excluded",
+      "historical_missing_reason": null,
       "historical_reference_source": "retained_original_certificates_replayed",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
         "status": "infeasible_within_H_ref"
       },
       "missing_final_result_authority": false,
-      "missing_reason": null,
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "85fa1326b6b02d49147a1303dc80d477dc080ef860a943256a2f93d1586522da",
       "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
@@ -789,6 +789,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "S08_C_S_CS_distinct_same_site",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -804,7 +805,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": true,
       "narrative_analytic_certificate_sha256": "09e1c2f170efd6df3a7779e95d5b443fc04ea9d5662ca806e64fcc24eb6ea705",
       "population": "A28",
@@ -822,6 +822,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "SUP_A05_disconnected_physical_union",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -832,7 +833,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": false,
       "population": "A28",
       "reported_finite_regimes": 14761,
@@ -849,6 +849,7 @@
       "admission_sha256": "88d99d1310463322e8d7a3ad314c915a336f126e33d8f68104e2e9bab0a81083",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "SUP_A08_physical_schedule_switch",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -868,7 +869,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": false,
       "new_producer_receipt_sha256": "f221585b219c8a30e27ce5c8265a2d8fe807e6541f682da49c899ceb50af8cf7",
       "new_proof_sha256": "c9f3c7b38ee156dada4fddf9608fca912f4b0095c2d5a9052725b876f668273a",
@@ -887,6 +887,7 @@
       "admission_sha256": "3192921e0af460ff86c07853dee3b68b007c35bf0852c4fecdebe685db2932e6",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "SUP_A14_unique_physical_interior",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -906,7 +907,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": false,
       "new_producer_receipt_sha256": "b38db0c133b7bd78f8234779f062ba75bd363675862fbb494ce5b042bc0273f7",
       "new_proof_sha256": "dfcb79fa409cb0d1d6bfea4b68ed2aaad4e34e0d54a7ee3b619e8cf0a72ef484",
@@ -925,6 +925,7 @@
       "admission_sha256": "bb23b25394f938320daab262b89f7f3d6f70fdb8ae1109dac1608cb9b78896e5",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "SUP_A06_physical_quotient_intersection",
+      "historical_missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "historical_reference_source": "new_d91c148",
       "historical_stream_replayed_claim": true,
       "key_or_infimum": {
@@ -940,7 +941,6 @@
         "status": "attained_optimum"
       },
       "missing_final_result_authority": false,
-      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
       "narrative_analytic_certificate_present": false,
       "new_producer_receipt_sha256": "4c502ecf97558aef3ea411280f2b82281c12127011c4a4e05dddcd31f98ed5e1",
       "new_proof_sha256": "e4259574da5fb1b4e9813d452014060488a7938457953526d36ccded049ea219",
@@ -1097,6 +1097,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B07",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 88192,
       "historical_stream_bytes": 2040174,
       "historical_stream_replayed_claim": true,
@@ -1114,7 +1115,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 122404,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B07/report.json",
@@ -1129,6 +1129,7 @@
       "admission_sha256": "40e4a61f759ed2c35d1d392a0f6ac8e2a7ebfebaa39aaddc6e3c6e62a1a0668d",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "B08",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 88220,
       "historical_stream_bytes": 1933720,
       "historical_stream_replayed_claim": true,
@@ -1146,7 +1147,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "new_producer_receipt_sha256": "4c68e3d0fe634ae90e52d844f5ff1bba62bf110d557744dfdefd15757765de40",
       "new_proof_sha256": "8a8bbbfa3c44edcc8685d7ade492941c6fcd9fc2c2e5979ca6e9306c90ec2208",
       "population": "B64",
@@ -1301,6 +1301,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B15",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 87816,
       "historical_stream_bytes": 2185009,
       "historical_stream_replayed_claim": true,
@@ -1318,7 +1319,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 122404,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B15/report.json",
@@ -1333,6 +1333,7 @@
       "admission_sha256": "814abc431bd0c1593449213a92d15cb6c2f19a61029d7f86da5024d45c30770e",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "B16",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 87444,
       "historical_stream_bytes": 2113477,
       "historical_stream_replayed_claim": true,
@@ -1350,7 +1351,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "new_producer_receipt_sha256": "d9223582b38db0068ea92768ff704cbeaf915323d5305e0dffd4f1b95a72189b",
       "new_proof_sha256": "261b32d3850f47a2edbac23c83e4c6a8ea11741ef4c7acd5dff726e4673ad6ad",
       "population": "B64",
@@ -1367,6 +1367,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B17",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 84744,
       "historical_stream_bytes": 106351,
       "historical_stream_replayed_claim": true,
@@ -1379,7 +1380,6 @@
         []
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 7381,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B17/report.json",
@@ -1394,6 +1394,7 @@
       "admission_sha256": "8186febdc34046387002a179b6881f9718da2e9dba9d1aa7e0415199b84906cf",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "B18",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 84992,
       "historical_stream_bytes": 104820,
       "historical_stream_replayed_claim": true,
@@ -1411,7 +1412,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "new_producer_receipt_sha256": "be511d703e4fddab45a2236b2fe1d2a3c93029f69b01f17773e0c28a6bd9b199",
       "new_proof_sha256": "a6ab9e00b66bc2bc2b5fc2f503852aad898d32bd77ddc0212c1aa666543f02e5",
       "population": "B64",
@@ -1428,6 +1428,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B19",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 85512,
       "historical_stream_bytes": 106273,
       "historical_stream_replayed_claim": true,
@@ -1440,7 +1441,6 @@
         []
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 7381,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B19/report.json",
@@ -1455,6 +1455,7 @@
       "admission_sha256": "f132c6c06fd2103bf4a7051417421704c6c6a6079ce78a74cc59e16d2a19f4ac",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "B20",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 85040,
       "historical_stream_bytes": 104747,
       "historical_stream_replayed_claim": true,
@@ -1472,7 +1473,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "new_producer_receipt_sha256": "eb64790745a1083402be2c46d0faaca9bc3f8b216b358d75ff2d913357ae7660",
       "new_proof_sha256": "816892074682574feec5c82a58ceaa716e2ce8222108fba385b0905214470cc5",
       "population": "B64",
@@ -1487,6 +1487,7 @@
     {
       "authority_class": "admitted_independent_no_lp_structural_final",
       "case_id": "B21",
+      "historical_missing_reason": null,
       "historical_peak_rss_kib": 81928,
       "historical_stream_bytes": 537,
       "historical_stream_replayed_claim": true,
@@ -1494,7 +1495,6 @@
       "historical_wall_seconds": 0.0024354360029974487,
       "key": null,
       "missing_final_result_authority": false,
-      "missing_reason": null,
       "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
       "population": "B64",
       "reported_finite_regimes": 0,
@@ -1509,6 +1509,7 @@
     {
       "authority_class": "admitted_independent_no_lp_structural_final",
       "case_id": "B22",
+      "historical_missing_reason": null,
       "historical_peak_rss_kib": 82876,
       "historical_stream_bytes": 536,
       "historical_stream_replayed_claim": true,
@@ -1516,7 +1517,6 @@
       "historical_wall_seconds": 0.0024059829993348103,
       "key": null,
       "missing_final_result_authority": false,
-      "missing_reason": null,
       "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
       "population": "B64",
       "reported_finite_regimes": 0,
@@ -1533,6 +1533,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B23",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 87384,
       "historical_stream_bytes": 2008042,
       "historical_stream_replayed_claim": true,
@@ -1550,7 +1551,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 120764,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B23/report.json",
@@ -1565,6 +1565,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B24",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 87080,
       "historical_stream_bytes": 1902171,
       "historical_stream_replayed_claim": true,
@@ -1582,7 +1583,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 120764,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B24/report.json",
@@ -1597,6 +1597,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B25",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 84460,
       "historical_stream_bytes": 105388,
       "historical_stream_replayed_claim": true,
@@ -1609,7 +1610,6 @@
         []
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 7381,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B25/report.json",
@@ -1624,6 +1624,7 @@
       "admission_sha256": "20d986b32fbf7be24e7156ca2a90fad44872ed999574eaa91561542efb88bb1d",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "B26",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 84576,
       "historical_stream_bytes": 108332,
       "historical_stream_replayed_claim": true,
@@ -1641,7 +1642,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "new_producer_receipt_sha256": "4e92ba4a77e7ddf0abcf4dd576bcdebf5795bd4a69b5639082da67b36be8902e",
       "new_proof_sha256": "4a4cb872c28824ed8a65df09be141da83cf89d45e7f663874149c4b6f28a5b1a",
       "population": "B64",
@@ -1658,6 +1658,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B27",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 84276,
       "historical_stream_bytes": 105313,
       "historical_stream_replayed_claim": true,
@@ -1670,7 +1671,6 @@
         []
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 7381,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B27/report.json",
@@ -1685,6 +1685,7 @@
       "admission_sha256": "503cdbef4426bb7f14c89e7e5d0911ed363ed76209718afcb8af7767a296d6a4",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "B28",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 84640,
       "historical_stream_bytes": 108252,
       "historical_stream_replayed_claim": true,
@@ -1702,7 +1703,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "new_producer_receipt_sha256": "185969ad543ee16d51a6173cecd840d9eae56b9a14320449933dbb3313c9cdab",
       "new_proof_sha256": "4a4cb872c28824ed8a65df09be141da83cf89d45e7f663874149c4b6f28a5b1a",
       "population": "B64",
@@ -1717,6 +1717,7 @@
     {
       "authority_class": "admitted_independent_no_lp_structural_final",
       "case_id": "B29",
+      "historical_missing_reason": null,
       "historical_peak_rss_kib": 81324,
       "historical_stream_bytes": 537,
       "historical_stream_replayed_claim": true,
@@ -1724,7 +1725,6 @@
       "historical_wall_seconds": 0.002305792000697693,
       "key": null,
       "missing_final_result_authority": false,
-      "missing_reason": null,
       "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
       "population": "B64",
       "reported_finite_regimes": 0,
@@ -1739,6 +1739,7 @@
     {
       "authority_class": "admitted_independent_no_lp_structural_final",
       "case_id": "B30",
+      "historical_missing_reason": null,
       "historical_peak_rss_kib": 81196,
       "historical_stream_bytes": 536,
       "historical_stream_replayed_claim": true,
@@ -1746,7 +1747,6 @@
       "historical_wall_seconds": 0.0023312800003623124,
       "key": null,
       "missing_final_result_authority": false,
-      "missing_reason": null,
       "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
       "population": "B64",
       "reported_finite_regimes": 0,
@@ -1763,6 +1763,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B31",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 86628,
       "historical_stream_bytes": 2152467,
       "historical_stream_replayed_claim": true,
@@ -1780,7 +1781,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 120764,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B31/report.json",
@@ -1795,6 +1795,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B32",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 87172,
       "historical_stream_bytes": 2079408,
       "historical_stream_replayed_claim": true,
@@ -1812,7 +1813,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 120764,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B32/report.json",
@@ -1827,6 +1827,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B33",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 84124,
       "historical_stream_bytes": 211666,
       "historical_stream_replayed_claim": true,
@@ -1839,7 +1840,6 @@
         []
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 14761,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B33/report.json",
@@ -1854,6 +1854,7 @@
       "admission_sha256": "a27ccbf95e7fdc01d25848ff722a8bc094d475e7cb3b28c4f8f67203eb304448",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "B34",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 84636,
       "historical_stream_bytes": 208748,
       "historical_stream_replayed_claim": true,
@@ -1871,7 +1872,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "new_producer_receipt_sha256": "98dfa6cadf9675fb4e1422f3ba144c8ad2b143ea36fe171b7c9219ed56cb936b",
       "new_proof_sha256": "0cadea575b66415b14842ce2c7075384b0189e0e7beddf5813dfa9b23b4ef5f7",
       "population": "B64",
@@ -1888,6 +1888,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B35",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 83804,
       "historical_stream_bytes": 106277,
       "historical_stream_replayed_claim": true,
@@ -1900,7 +1901,6 @@
         []
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 7381,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B35/report.json",
@@ -1915,6 +1915,7 @@
       "admission_sha256": "fc1eb11da947a31951a150d7f602accaa2069a690cab4175fbde00fc7e0d2c52",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "B36",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 83944,
       "historical_stream_bytes": 104843,
       "historical_stream_replayed_claim": true,
@@ -1932,7 +1933,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "new_producer_receipt_sha256": "2cae2a88c57df82e094d75bb0024352675c0b74d218a6849e580f20c60250e52",
       "new_proof_sha256": "28b2f5cc0654a39fe180d17068bf87d11a63ff64b6ada92f901a58773f65329c",
       "population": "B64",
@@ -1947,6 +1947,7 @@
     {
       "authority_class": "admitted_independent_no_lp_structural_final",
       "case_id": "B37",
+      "historical_missing_reason": null,
       "historical_peak_rss_kib": 81748,
       "historical_stream_bytes": 515,
       "historical_stream_replayed_claim": true,
@@ -1954,7 +1955,6 @@
       "historical_wall_seconds": 0.0021357449986680876,
       "key": null,
       "missing_final_result_authority": false,
-      "missing_reason": null,
       "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
       "population": "B64",
       "reported_finite_regimes": 0,
@@ -1969,6 +1969,7 @@
     {
       "authority_class": "admitted_independent_no_lp_structural_final",
       "case_id": "B38",
+      "historical_missing_reason": null,
       "historical_peak_rss_kib": 81408,
       "historical_stream_bytes": 518,
       "historical_stream_replayed_claim": true,
@@ -1976,7 +1977,6 @@
       "historical_wall_seconds": 0.0022901280026417226,
       "key": null,
       "missing_final_result_authority": false,
-      "missing_reason": null,
       "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
       "population": "B64",
       "reported_finite_regimes": 0,
@@ -1993,6 +1993,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B39",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 86792,
       "historical_stream_bytes": 2008143,
       "historical_stream_replayed_claim": true,
@@ -2010,7 +2011,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 120766,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B39/report.json",
@@ -2025,6 +2025,7 @@
       "admission_sha256": "8921b79ff19fc0d9fff64464bd3436ab1c0669cc2eb9dd480a1427331a2d6d6c",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "B40",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 87096,
       "historical_stream_bytes": 1902406,
       "historical_stream_replayed_claim": true,
@@ -2042,7 +2043,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "new_producer_receipt_sha256": "645de8a6c7632b50934f1236d18932216aa064090b74a5a272772a745b7de2fc",
       "new_proof_sha256": "8bda30dc9937874fb97243dc97eafd1234bee30739b664462c922ec9951d8f7b",
       "population": "B64",
@@ -2059,6 +2059,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B41",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 84368,
       "historical_stream_bytes": 209954,
       "historical_stream_replayed_claim": true,
@@ -2071,7 +2072,6 @@
         []
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 14761,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B41/report.json",
@@ -2086,6 +2086,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B42",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 83672,
       "historical_stream_bytes": 220286,
       "historical_stream_replayed_claim": true,
@@ -2098,7 +2099,6 @@
         []
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 14761,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B42/report.json",
@@ -2113,6 +2113,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B43",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 84184,
       "historical_stream_bytes": 105319,
       "historical_stream_replayed_claim": true,
@@ -2125,7 +2126,6 @@
         []
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 7381,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B43/report.json",
@@ -2140,6 +2140,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B44",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 84576,
       "historical_stream_bytes": 108212,
       "historical_stream_replayed_claim": true,
@@ -2152,7 +2153,6 @@
         []
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 7381,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B44/report.json",
@@ -2165,6 +2165,7 @@
     {
       "authority_class": "admitted_independent_no_lp_structural_final",
       "case_id": "B45",
+      "historical_missing_reason": null,
       "historical_peak_rss_kib": 82044,
       "historical_stream_bytes": 519,
       "historical_stream_replayed_claim": true,
@@ -2172,7 +2173,6 @@
       "historical_wall_seconds": 0.002558922002208419,
       "key": null,
       "missing_final_result_authority": false,
-      "missing_reason": null,
       "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
       "population": "B64",
       "reported_finite_regimes": 0,
@@ -2187,6 +2187,7 @@
     {
       "authority_class": "admitted_independent_no_lp_structural_final",
       "case_id": "B46",
+      "historical_missing_reason": null,
       "historical_peak_rss_kib": 81664,
       "historical_stream_bytes": 519,
       "historical_stream_replayed_claim": true,
@@ -2194,7 +2195,6 @@
       "historical_wall_seconds": 0.0022914799992577173,
       "key": null,
       "missing_final_result_authority": false,
-      "missing_reason": null,
       "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
       "population": "B64",
       "reported_finite_regimes": 0,
@@ -2211,6 +2211,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B47",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 86632,
       "historical_stream_bytes": 2152545,
       "historical_stream_replayed_claim": true,
@@ -2228,7 +2229,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 120766,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B47/report.json",
@@ -2243,6 +2243,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B48",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 87224,
       "historical_stream_bytes": 2079928,
       "historical_stream_replayed_claim": true,
@@ -2260,7 +2261,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 120766,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B48/report.json",
@@ -2275,6 +2275,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B49",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 89208,
       "historical_stream_bytes": 1635438,
       "historical_stream_replayed_claim": true,
@@ -2287,7 +2288,6 @@
         []
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 111151,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B49/report.json",
@@ -2302,6 +2302,7 @@
       "admission_sha256": "39d2ad7fea6d2f7af1ccb17258a666707abedf96241f3bb6a64ea94f75a3094d",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "B50",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 87232,
       "historical_stream_bytes": 1458521,
       "historical_stream_replayed_claim": true,
@@ -2319,7 +2320,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "new_producer_receipt_sha256": "8b34e871c54f522d701e0cd8415cdb33d712c690031e0d194b32289796aeeb63",
       "new_proof_sha256": "b03215f972df44a1bfdc41b57691353fc792cca61cedd6abc6ea2876470b5f53",
       "population": "B64",
@@ -2336,6 +2336,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B51",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 84872,
       "historical_stream_bytes": 106306,
       "historical_stream_replayed_claim": true,
@@ -2348,7 +2349,6 @@
         []
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 7381,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B51/report.json",
@@ -2363,6 +2363,7 @@
       "admission_sha256": "dc4c90434dc91ddf35e9c31820f3072364bba86a5774206264ee6494a04974ed",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "B52",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 84912,
       "historical_stream_bytes": 104773,
       "historical_stream_replayed_claim": true,
@@ -2380,7 +2381,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "new_producer_receipt_sha256": "f209d8a03f9e6b9afeb57b86d20cb626f2455e8f12eed81d542b67de5edbd504",
       "new_proof_sha256": "618e053369f00f4f9d5b43fb180e98d99511d3c8f9252d6aa2c5da75ca29074a",
       "population": "B64",
@@ -2395,6 +2395,7 @@
     {
       "authority_class": "admitted_independent_no_lp_structural_final",
       "case_id": "B53",
+      "historical_missing_reason": null,
       "historical_peak_rss_kib": 82252,
       "historical_stream_bytes": 583,
       "historical_stream_replayed_claim": true,
@@ -2402,7 +2403,6 @@
       "historical_wall_seconds": 0.0033217509990208782,
       "key": null,
       "missing_final_result_authority": false,
-      "missing_reason": null,
       "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
       "population": "B64",
       "reported_finite_regimes": 0,
@@ -2417,6 +2417,7 @@
     {
       "authority_class": "admitted_independent_no_lp_structural_final",
       "case_id": "B54",
+      "historical_missing_reason": null,
       "historical_peak_rss_kib": 81444,
       "historical_stream_bytes": 582,
       "historical_stream_replayed_claim": true,
@@ -2424,7 +2425,6 @@
       "historical_wall_seconds": 0.0033503740014566574,
       "key": null,
       "missing_final_result_authority": false,
-      "missing_reason": null,
       "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
       "population": "B64",
       "reported_finite_regimes": 0,
@@ -2441,6 +2441,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B55",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 87816,
       "historical_stream_bytes": 2118575,
       "historical_stream_replayed_claim": true,
@@ -2458,7 +2459,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 127120,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B55/report.json",
@@ -2473,6 +2473,7 @@
       "admission_sha256": "6c09a87c6692c4913040bd4f81faa99f5c88e9a85190674fd87ff19a88399a92",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "B56",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 87660,
       "historical_stream_bytes": 2008569,
       "historical_stream_replayed_claim": true,
@@ -2490,7 +2491,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "new_producer_receipt_sha256": "cd95530942c0ffff0bc66d21a7f7fb863c1e08249356e443d146312e6887702e",
       "new_proof_sha256": "dba47f5bcd65fac9c39a1ca289a36400255618f60920d533e95a01af9ad2ec1a",
       "population": "B64",
@@ -2507,6 +2507,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B57",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 87972,
       "historical_stream_bytes": 1720203,
       "historical_stream_replayed_claim": true,
@@ -2519,7 +2520,6 @@
         []
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 111151,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B57/report.json",
@@ -2534,6 +2534,7 @@
       "admission_sha256": "d25c481b9eab41452c11d47ce6098cee5b3a8f0510cfd3e8b2852b9754f5cd31",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "B58",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 90432,
       "historical_stream_bytes": 1620500,
       "historical_stream_replayed_claim": true,
@@ -2551,7 +2552,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "new_producer_receipt_sha256": "3a4b65a16b991fd45e2c4d470ca6bd3c0e4fecde6a7809bc10c524a6a273c79d",
       "new_proof_sha256": "57f17493efe5f1d08241a6e4453ddd25a972693a4341ed576f23be257df1ded2",
       "population": "B64",
@@ -2568,6 +2568,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B59",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 84464,
       "historical_stream_bytes": 105344,
       "historical_stream_replayed_claim": true,
@@ -2580,7 +2581,6 @@
         []
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 7381,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B59/report.json",
@@ -2595,6 +2595,7 @@
       "admission_sha256": "7daf844763a1fd459fa44e88c17d32da3a6a6ae90bdb954067087ad2d7f4f7fb",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "B60",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 84524,
       "historical_stream_bytes": 108277,
       "historical_stream_replayed_claim": true,
@@ -2612,7 +2613,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "new_producer_receipt_sha256": "ef58626129efb8d79969ec7ee23a238989538e6e7826d07424ee8042f97367c2",
       "new_proof_sha256": "2dad4791bc4adf972dd4cd9330ca8910e7f3965a5bc5600fc68dec9fd6c9a6ba",
       "population": "B64",
@@ -2627,6 +2627,7 @@
     {
       "authority_class": "admitted_independent_no_lp_structural_final",
       "case_id": "B61",
+      "historical_missing_reason": null,
       "historical_peak_rss_kib": 80688,
       "historical_stream_bytes": 586,
       "historical_stream_replayed_claim": true,
@@ -2634,7 +2635,6 @@
       "historical_wall_seconds": 0.003046497000468662,
       "key": null,
       "missing_final_result_authority": false,
-      "missing_reason": null,
       "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
       "population": "B64",
       "reported_finite_regimes": 0,
@@ -2649,6 +2649,7 @@
     {
       "authority_class": "admitted_independent_no_lp_structural_final",
       "case_id": "B62",
+      "historical_missing_reason": null,
       "historical_peak_rss_kib": 81988,
       "historical_stream_bytes": 583,
       "historical_stream_replayed_claim": true,
@@ -2656,7 +2657,6 @@
       "historical_wall_seconds": 0.0030986750025476795,
       "key": null,
       "missing_final_result_authority": false,
-      "missing_reason": null,
       "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
       "population": "B64",
       "reported_finite_regimes": 0,
@@ -2673,6 +2673,7 @@
       "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
       "authority_class": "admitted_independent_no_lp_full_key_proof",
       "case_id": "B63",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 87468,
       "historical_stream_bytes": 2265408,
       "historical_stream_replayed_claim": true,
@@ -2690,7 +2691,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "population": "B64",
       "reported_finite_regimes": 127120,
       "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B63/report.json",
@@ -2705,6 +2705,7 @@
       "admission_sha256": "6fc3745c54bdf034821912ddbac03bb29d1ca6c87eabf9cee696d454c1f0b398",
       "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
       "case_id": "B64",
+      "historical_missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "historical_peak_rss_kib": 88444,
       "historical_stream_bytes": 2191220,
       "historical_stream_replayed_claim": true,
@@ -2722,7 +2723,6 @@
         ]
       ],
       "missing_final_result_authority": false,
-      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
       "new_producer_receipt_sha256": "34cfb497ec0a7ebba2877640231ced8c32c13ce966e04bab33a40fb6ccf85a6a",
       "new_proof_sha256": "49b903081966e9f49b2287c749d197b6e956caf51d93160ea990916d635ba3b2",
       "population": "B64",
@@ -2736,7 +2736,7 @@
     }
   ],
   "schema": "m5_v_final_result_authority_complete_v4",
-  "scope": "retained independent archive audit plus new complete no-LP structural final checker; no LP rerun",
+  "scope": "Bounded H4 A28/B64 final-result authority at each row's pinned source and input. The completed ledger combines retained, analytic, and targeted exact-LP certificate paths; the 29 targeted cases were newly solved and independently cold-checked.",
   "structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
   "summary": {
     "A_missing": 0,

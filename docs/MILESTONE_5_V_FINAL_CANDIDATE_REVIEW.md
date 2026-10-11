@@ -1,6 +1,6 @@
 # M5-V finite final candidate review — 2026-10-11
 
-**Decision:** the A28/B64 bounded H4 **current-source candidate** now has complete, independently checked visited-node bound and static action-partition evidence, plus 368/368 four-mode comparisons to retained results. This is a scoped new acceptance on the exact current source and frozen inputs, not retroactive acceptance of the lost original A execution and not whole original M5-V. Whole M5-V still has the finite gates below.
+**Decision:** the A28/B64 bounded H4 **current-source candidate** now has complete, independently checked visited-node bound and static action-partition evidence, plus 368/368 four-mode comparisons to retained results. This is a scoped new acceptance on the exact current source and frozen inputs, not retroactive acceptance of the lost original A execution or the missing original combined manifest. The later [R12 final scoped acceptance](MILESTONE_5_V_R12_FINAL_ACCEPTANCE.md) consolidates the closed gates and source boundaries.
 
 ## Source, branch, and controlled exit
 
