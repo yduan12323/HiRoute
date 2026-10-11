@@ -29,8 +29,9 @@
         "input_pieces": 2996,
         "output_pieces": 2337
       },
+      "independence_limit": "checker reuses production reduction, arrangement and predicate helpers; FLAT and HIER share pwa.reduce_frontier",
       "receipt_sha256": "4d88c33dbabe26a13be7ed8fb0c3dc9fe651faad392c4e479e82e5a9b2a9f4c5",
-      "status": "passed_new_current_source"
+      "status": "instrumented_current_source_observation_plus_theorem_3_1_conditional_continuation"
     },
     "B64_four_mode": {
       "receipt_sha256": "96051007f480e75b867f6439233c561072ef6bb729f27f26b4d50d53479c3684",
@@ -48,15 +49,26 @@
       "status": "passed_new_current_source"
     },
     "original_250_plus_10_operator_reset": {
-      "status": "open_original_identities_and_v2_semantic_mapping"
+      "current_v2_frontier_checks": 216,
+      "current_v2_symbolic_cases": 172,
+      "frontier_sha256": "fce0f4fe6b98053c5e9923e4a044f55e7b1aad786514b093005fdb6e87d63b0b",
+      "inventory_path": "docs/MILESTONE_5_OPERATOR_RESET_INVENTORY.md",
+      "random_C": 75,
+      "random_CS": 75,
+      "residual": "Drive/S/three-way 50-object populations and exact reset fixture/law mapping; no wholesale C/CS rerun",
+      "status": "partially_mapped_current_source",
+      "validation_sha256": "a7db12993ae5bd9a052c61d1e3baadbdeda6d08b0c82e39cc29fa06112372a1b"
     },
     "original_76_independent_REF": {
       "finite_regimes": 11072,
       "receipt_sha256": "820d7ba30af0fccbc143812400ca708cba728f7763f9aff7efec1fcb6d937582",
-      "status": "passed_new_current_source"
+      "status": "passed_fresh_current_source_replay_of_previously_certified_case"
     },
     "original_C32_full_matrix": {
-      "status": "open_original_representation_and_identity_receipts"
+      "limitations": "no literal uncoalesced execution or inferred C01 FLAT acceptance",
+      "rows": 128,
+      "source_diff_since_2cc1ff2": "none_in_src_timecut5_or_validation_reference5",
+      "status": "passed_scoped_optional_coalesced_C32_H4_fixed_inputs_at_admitted_source"
     },
     "remaining_A_B_full_independent_REF": {
       "scope": "only keys not supported by accepted source/input-bound independent certificates; do not rerun all A/B",

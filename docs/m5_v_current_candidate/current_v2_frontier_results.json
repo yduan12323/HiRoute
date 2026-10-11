@@ -1,0 +1,1090 @@
+{
+  "frontiers": 9,
+  "checks": 216,
+  "open_cells": 2197,
+  "singletons": 2413,
+  "operator_witnesses": 1854,
+  "cases": [
+    {
+      "name": "rho_tradeoff_survives_then_plateau/envelope_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/envelope_order_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/envelope_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/envelope_order_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/R_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/R_idempotence",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/D_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/D_family_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/D_family_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/D_congruence",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/D_reduced_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/S_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/S_family_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/S_family_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/S_congruence",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/S_reduced_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/C_independent",
+      "open_cells": 12,
+      "singletons": 13
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/C_family_0",
+      "open_cells": 9,
+      "singletons": 10
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/C_family_1",
+      "open_cells": 9,
+      "singletons": 10
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/C_congruence",
+      "open_cells": 5,
+      "singletons": 6
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/C_reduced_independent",
+      "open_cells": 12,
+      "singletons": 13
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/CS_independent",
+      "open_cells": 17,
+      "singletons": 18
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/CS_family_0",
+      "open_cells": 14,
+      "singletons": 15
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/CS_family_1",
+      "open_cells": 15,
+      "singletons": 16
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/CS_congruence",
+      "open_cells": 12,
+      "singletons": 13
+    },
+    {
+      "name": "rho_tradeoff_survives_then_plateau/CS_reduced_independent",
+      "open_cells": 17,
+      "singletons": 18
+    },
+    {
+      "name": "strict_rho_overrides_pi/envelope_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "strict_rho_overrides_pi/envelope_order_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "strict_rho_overrides_pi/envelope_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "strict_rho_overrides_pi/envelope_order_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "strict_rho_overrides_pi/R_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "strict_rho_overrides_pi/R_idempotence",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "strict_rho_overrides_pi/D_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "strict_rho_overrides_pi/D_family_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "strict_rho_overrides_pi/D_family_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "strict_rho_overrides_pi/D_congruence",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "strict_rho_overrides_pi/D_reduced_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "strict_rho_overrides_pi/S_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "strict_rho_overrides_pi/S_family_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "strict_rho_overrides_pi/S_family_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "strict_rho_overrides_pi/S_congruence",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "strict_rho_overrides_pi/S_reduced_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "strict_rho_overrides_pi/C_independent",
+      "open_cells": 12,
+      "singletons": 13
+    },
+    {
+      "name": "strict_rho_overrides_pi/C_family_0",
+      "open_cells": 9,
+      "singletons": 10
+    },
+    {
+      "name": "strict_rho_overrides_pi/C_family_1",
+      "open_cells": 9,
+      "singletons": 10
+    },
+    {
+      "name": "strict_rho_overrides_pi/C_congruence",
+      "open_cells": 3,
+      "singletons": 4
+    },
+    {
+      "name": "strict_rho_overrides_pi/C_reduced_independent",
+      "open_cells": 12,
+      "singletons": 13
+    },
+    {
+      "name": "strict_rho_overrides_pi/CS_independent",
+      "open_cells": 17,
+      "singletons": 18
+    },
+    {
+      "name": "strict_rho_overrides_pi/CS_family_0",
+      "open_cells": 15,
+      "singletons": 16
+    },
+    {
+      "name": "strict_rho_overrides_pi/CS_family_1",
+      "open_cells": 14,
+      "singletons": 15
+    },
+    {
+      "name": "strict_rho_overrides_pi/CS_congruence",
+      "open_cells": 12,
+      "singletons": 13
+    },
+    {
+      "name": "strict_rho_overrides_pi/CS_reduced_independent",
+      "open_cells": 16,
+      "singletons": 17
+    },
+    {
+      "name": "equal_rho_pi_still_matters/envelope_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "equal_rho_pi_still_matters/envelope_order_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "equal_rho_pi_still_matters/envelope_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "equal_rho_pi_still_matters/envelope_order_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "equal_rho_pi_still_matters/R_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "equal_rho_pi_still_matters/R_idempotence",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "equal_rho_pi_still_matters/D_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "equal_rho_pi_still_matters/D_family_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "equal_rho_pi_still_matters/D_family_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "equal_rho_pi_still_matters/D_congruence",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "equal_rho_pi_still_matters/D_reduced_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "equal_rho_pi_still_matters/S_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "equal_rho_pi_still_matters/S_family_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "equal_rho_pi_still_matters/S_family_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "equal_rho_pi_still_matters/S_congruence",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "equal_rho_pi_still_matters/S_reduced_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "equal_rho_pi_still_matters/C_independent",
+      "open_cells": 12,
+      "singletons": 13
+    },
+    {
+      "name": "equal_rho_pi_still_matters/C_family_0",
+      "open_cells": 9,
+      "singletons": 10
+    },
+    {
+      "name": "equal_rho_pi_still_matters/C_family_1",
+      "open_cells": 9,
+      "singletons": 10
+    },
+    {
+      "name": "equal_rho_pi_still_matters/C_congruence",
+      "open_cells": 5,
+      "singletons": 6
+    },
+    {
+      "name": "equal_rho_pi_still_matters/C_reduced_independent",
+      "open_cells": 12,
+      "singletons": 13
+    },
+    {
+      "name": "equal_rho_pi_still_matters/CS_independent",
+      "open_cells": 17,
+      "singletons": 18
+    },
+    {
+      "name": "equal_rho_pi_still_matters/CS_family_0",
+      "open_cells": 14,
+      "singletons": 15
+    },
+    {
+      "name": "equal_rho_pi_still_matters/CS_family_1",
+      "open_cells": 15,
+      "singletons": 16
+    },
+    {
+      "name": "equal_rho_pi_still_matters/CS_congruence",
+      "open_cells": 12,
+      "singletons": 13
+    },
+    {
+      "name": "equal_rho_pi_still_matters/CS_reduced_independent",
+      "open_cells": 17,
+      "singletons": 18
+    },
+    {
+      "name": "singleton_closed_beats_open/envelope_0",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "singleton_closed_beats_open/envelope_order_0",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "singleton_closed_beats_open/R_independent",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "singleton_closed_beats_open/R_idempotence",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "singleton_closed_beats_open/D_independent",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "singleton_closed_beats_open/D_family_0",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "singleton_closed_beats_open/D_congruence",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "singleton_closed_beats_open/D_reduced_independent",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "singleton_closed_beats_open/S_independent",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "singleton_closed_beats_open/S_family_0",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "singleton_closed_beats_open/S_congruence",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "singleton_closed_beats_open/S_reduced_independent",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "singleton_closed_beats_open/C_independent",
+      "open_cells": 9,
+      "singletons": 10
+    },
+    {
+      "name": "singleton_closed_beats_open/C_family_0",
+      "open_cells": 9,
+      "singletons": 10
+    },
+    {
+      "name": "singleton_closed_beats_open/C_congruence",
+      "open_cells": 3,
+      "singletons": 4
+    },
+    {
+      "name": "singleton_closed_beats_open/C_reduced_independent",
+      "open_cells": 9,
+      "singletons": 10
+    },
+    {
+      "name": "singleton_closed_beats_open/CS_independent",
+      "open_cells": 15,
+      "singletons": 16
+    },
+    {
+      "name": "singleton_closed_beats_open/CS_family_0",
+      "open_cells": 15,
+      "singletons": 16
+    },
+    {
+      "name": "singleton_closed_beats_open/CS_congruence",
+      "open_cells": 10,
+      "singletons": 11
+    },
+    {
+      "name": "singleton_closed_beats_open/CS_reduced_independent",
+      "open_cells": 14,
+      "singletons": 15
+    },
+    {
+      "name": "disjoint_domains_and_holes/envelope_0",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "disjoint_domains_and_holes/envelope_order_0",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "disjoint_domains_and_holes/envelope_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "disjoint_domains_and_holes/envelope_order_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "disjoint_domains_and_holes/R_independent",
+      "open_cells": 4,
+      "singletons": 5
+    },
+    {
+      "name": "disjoint_domains_and_holes/R_idempotence",
+      "open_cells": 4,
+      "singletons": 5
+    },
+    {
+      "name": "disjoint_domains_and_holes/D_independent",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "disjoint_domains_and_holes/D_family_0",
+      "open_cells": 0,
+      "singletons": 1
+    },
+    {
+      "name": "disjoint_domains_and_holes/D_family_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "disjoint_domains_and_holes/D_congruence",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "disjoint_domains_and_holes/D_reduced_independent",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "disjoint_domains_and_holes/S_independent",
+      "open_cells": 4,
+      "singletons": 5
+    },
+    {
+      "name": "disjoint_domains_and_holes/S_family_0",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "disjoint_domains_and_holes/S_family_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "disjoint_domains_and_holes/S_congruence",
+      "open_cells": 4,
+      "singletons": 5
+    },
+    {
+      "name": "disjoint_domains_and_holes/S_reduced_independent",
+      "open_cells": 4,
+      "singletons": 5
+    },
+    {
+      "name": "disjoint_domains_and_holes/C_independent",
+      "open_cells": 35,
+      "singletons": 36
+    },
+    {
+      "name": "disjoint_domains_and_holes/C_family_0",
+      "open_cells": 27,
+      "singletons": 28
+    },
+    {
+      "name": "disjoint_domains_and_holes/C_family_1",
+      "open_cells": 5,
+      "singletons": 6
+    },
+    {
+      "name": "disjoint_domains_and_holes/C_congruence",
+      "open_cells": 9,
+      "singletons": 10
+    },
+    {
+      "name": "disjoint_domains_and_holes/C_reduced_independent",
+      "open_cells": 35,
+      "singletons": 36
+    },
+    {
+      "name": "disjoint_domains_and_holes/CS_independent",
+      "open_cells": 21,
+      "singletons": 22
+    },
+    {
+      "name": "disjoint_domains_and_holes/CS_family_0",
+      "open_cells": 19,
+      "singletons": 20
+    },
+    {
+      "name": "disjoint_domains_and_holes/CS_family_1",
+      "open_cells": 9,
+      "singletons": 10
+    },
+    {
+      "name": "disjoint_domains_and_holes/CS_congruence",
+      "open_cells": 12,
+      "singletons": 13
+    },
+    {
+      "name": "disjoint_domains_and_holes/CS_reduced_independent",
+      "open_cells": 21,
+      "singletons": 22
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/envelope_0",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/envelope_order_0",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/R_independent",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/R_idempotence",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/D_independent",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/D_family_0",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/D_congruence",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/D_reduced_independent",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/S_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/S_family_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/S_congruence",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/S_reduced_independent",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/C_independent",
+      "open_cells": 14,
+      "singletons": 15
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/C_family_0",
+      "open_cells": 14,
+      "singletons": 15
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/C_congruence",
+      "open_cells": 3,
+      "singletons": 4
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/C_reduced_independent",
+      "open_cells": 14,
+      "singletons": 15
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/CS_independent",
+      "open_cells": 65,
+      "singletons": 66
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/CS_family_0",
+      "open_cells": 65,
+      "singletons": 66
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/CS_congruence",
+      "open_cells": 13,
+      "singletons": 14
+    },
+    {
+      "name": "affine_crossing_and_chi_tie/CS_reduced_independent",
+      "open_cells": 65,
+      "singletons": 66
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/envelope_0",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/envelope_order_0",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/R_independent",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/R_idempotence",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/D_independent",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/D_family_0",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/D_congruence",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/D_reduced_independent",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/S_independent",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/S_family_0",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/S_congruence",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/S_reduced_independent",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/C_independent",
+      "open_cells": 9,
+      "singletons": 10
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/C_family_0",
+      "open_cells": 9,
+      "singletons": 10
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/C_congruence",
+      "open_cells": 3,
+      "singletons": 4
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/C_reduced_independent",
+      "open_cells": 9,
+      "singletons": 10
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/CS_independent",
+      "open_cells": 15,
+      "singletons": 16
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/CS_family_0",
+      "open_cells": 15,
+      "singletons": 16
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/CS_congruence",
+      "open_cells": 10,
+      "singletons": 11
+    },
+    {
+      "name": "equivalent_duplicates_keep_one/CS_reduced_independent",
+      "open_cells": 14,
+      "singletons": 15
+    },
+    {
+      "name": "excluded_deadline_face/envelope_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "excluded_deadline_face/envelope_order_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "excluded_deadline_face/envelope_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "excluded_deadline_face/envelope_order_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "excluded_deadline_face/R_independent",
+      "open_cells": 4,
+      "singletons": 5
+    },
+    {
+      "name": "excluded_deadline_face/R_idempotence",
+      "open_cells": 4,
+      "singletons": 5
+    },
+    {
+      "name": "excluded_deadline_face/D_independent",
+      "open_cells": 3,
+      "singletons": 4
+    },
+    {
+      "name": "excluded_deadline_face/D_family_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "excluded_deadline_face/D_family_1",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "excluded_deadline_face/D_congruence",
+      "open_cells": 3,
+      "singletons": 4
+    },
+    {
+      "name": "excluded_deadline_face/D_reduced_independent",
+      "open_cells": 3,
+      "singletons": 4
+    },
+    {
+      "name": "excluded_deadline_face/S_independent",
+      "open_cells": 5,
+      "singletons": 6
+    },
+    {
+      "name": "excluded_deadline_face/S_family_0",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "excluded_deadline_face/S_family_1",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "excluded_deadline_face/S_congruence",
+      "open_cells": 5,
+      "singletons": 6
+    },
+    {
+      "name": "excluded_deadline_face/S_reduced_independent",
+      "open_cells": 5,
+      "singletons": 6
+    },
+    {
+      "name": "excluded_deadline_face/C_independent",
+      "open_cells": 24,
+      "singletons": 25
+    },
+    {
+      "name": "excluded_deadline_face/C_family_0",
+      "open_cells": 6,
+      "singletons": 7
+    },
+    {
+      "name": "excluded_deadline_face/C_family_1",
+      "open_cells": 12,
+      "singletons": 13
+    },
+    {
+      "name": "excluded_deadline_face/C_congruence",
+      "open_cells": 8,
+      "singletons": 9
+    },
+    {
+      "name": "excluded_deadline_face/C_reduced_independent",
+      "open_cells": 24,
+      "singletons": 25
+    },
+    {
+      "name": "excluded_deadline_face/CS_independent",
+      "open_cells": 122,
+      "singletons": 123
+    },
+    {
+      "name": "excluded_deadline_face/CS_family_0",
+      "open_cells": 20,
+      "singletons": 21
+    },
+    {
+      "name": "excluded_deadline_face/CS_family_1",
+      "open_cells": 75,
+      "singletons": 76
+    },
+    {
+      "name": "excluded_deadline_face/CS_congruence",
+      "open_cells": 21,
+      "singletons": 22
+    },
+    {
+      "name": "excluded_deadline_face/CS_reduced_independent",
+      "open_cells": 122,
+      "singletons": 123
+    },
+    {
+      "name": "rational_disjoint_singleton/envelope_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rational_disjoint_singleton/envelope_order_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rational_disjoint_singleton/envelope_1",
+      "open_cells": 0,
+      "singletons": 1
+    },
+    {
+      "name": "rational_disjoint_singleton/envelope_order_1",
+      "open_cells": 0,
+      "singletons": 1
+    },
+    {
+      "name": "rational_disjoint_singleton/R_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rational_disjoint_singleton/R_idempotence",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rational_disjoint_singleton/D_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rational_disjoint_singleton/D_family_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rational_disjoint_singleton/D_family_1",
+      "open_cells": 0,
+      "singletons": 1
+    },
+    {
+      "name": "rational_disjoint_singleton/D_congruence",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rational_disjoint_singleton/D_reduced_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rational_disjoint_singleton/S_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rational_disjoint_singleton/S_family_0",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rational_disjoint_singleton/S_family_1",
+      "open_cells": 0,
+      "singletons": 1
+    },
+    {
+      "name": "rational_disjoint_singleton/S_congruence",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rational_disjoint_singleton/S_reduced_independent",
+      "open_cells": 1,
+      "singletons": 2
+    },
+    {
+      "name": "rational_disjoint_singleton/C_independent",
+      "open_cells": 43,
+      "singletons": 44
+    },
+    {
+      "name": "rational_disjoint_singleton/C_family_0",
+      "open_cells": 25,
+      "singletons": 26
+    },
+    {
+      "name": "rational_disjoint_singleton/C_family_1",
+      "open_cells": 2,
+      "singletons": 3
+    },
+    {
+      "name": "rational_disjoint_singleton/C_congruence",
+      "open_cells": 3,
+      "singletons": 4
+    },
+    {
+      "name": "rational_disjoint_singleton/C_reduced_independent",
+      "open_cells": 43,
+      "singletons": 44
+    },
+    {
+      "name": "rational_disjoint_singleton/CS_independent",
+      "open_cells": 150,
+      "singletons": 151
+    },
+    {
+      "name": "rational_disjoint_singleton/CS_family_0",
+      "open_cells": 131,
+      "singletons": 132
+    },
+    {
+      "name": "rational_disjoint_singleton/CS_family_1",
+      "open_cells": 4,
+      "singletons": 5
+    },
+    {
+      "name": "rational_disjoint_singleton/CS_congruence",
+      "open_cells": 27,
+      "singletons": 28
+    },
+    {
+      "name": "rational_disjoint_singleton/CS_reduced_independent",
+      "open_cells": 150,
+      "singletons": 151
+    }
+  ],
+  "restricted_multistop_witnesses": 3
+}
