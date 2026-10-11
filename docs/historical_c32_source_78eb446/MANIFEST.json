@@ -4,6 +4,10 @@
     "docs/historical_c32_source_78eb446/review_receipts/ref_review_attempt01_failure.json": "ebea9b65e6e37b14a214c015d13ce0321a73a81bbd21c7f3418b5198173e2fb2",
     "docs/historical_c32_source_78eb446/review_receipts/ref_review_attempt02.log": "a6356871a807c43753dbf41e709c867bdff599626e65737e2efddc121a896b7c",
     "docs/historical_c32_source_78eb446/review_receipts/ref_review_result.json": "dca7e9ca36e610a89ee15c3ac8fa0d3e5f313d2e5aebc568e3ad56f685055334",
+    "docs/historical_c32_source_78eb446/review_receipts/selection_rebuild_attempt01.log": "75e35f108cc12ef011ea63c3b97e669f3176afe9608f8f1f905293fb9dafc030",
+    "docs/historical_c32_source_78eb446/review_receipts/selection_rebuild_attempt03.log": "b6340c1570d86d15c949b475d9dbdd45609d4cd68639312feee2932a9b1772c9",
+    "docs/historical_c32_source_78eb446/review_receipts/selection_rebuild_result.json": "b3119a72d9787cd2dc1493678f9ff5d76d76cb9c9fbfec77dd102a55dbd6aae6",
+    "docs/historical_c32_source_78eb446/review_scripts/c32_selection_rebuild.py": "57236b6e3e5921a0c4b2518fd677ab4f609417798c0fcb12e24d019e9bd17d17",
     "docs/historical_c32_source_78eb446/review_scripts/run_noopt_ref_review.py": "dea341a79fc140abc318a82a9195519f9158e1e51932dd7223507d07f733052a",
     "docs/historical_c32_source_78eb446/review_scripts/run_readonly_replay.py": "826cb467261a769ccbb515a531f6cd77fe9f987bf979d22736bf7501ef1fa9dd"
   },

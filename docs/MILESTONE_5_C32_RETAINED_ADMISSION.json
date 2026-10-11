@@ -5,7 +5,7 @@
   "frozen_source_matches": 11,
   "historical_independent_review_retained": true,
   "historical_source_manifest_path": "docs/historical_c32_source_78eb446/MANIFEST.json",
-  "mathematical_parity_gate": "pending_full_deterministic_selection_replay_and_independent_representation_equivalence_review",
+  "mathematical_parity_gate": "passed_scoped_optional_coalesced_C32_H4_fixed_inputs",
   "modes": {
     "flat_d0": 32,
     "flat_d1": 32,
@@ -30,9 +30,23 @@
     "status": "passed",
     "strict_bound_families": 96
   },
-  "report_sha256": "941a80e422eca1d218f20a53f251dd9e126468808a09ab8abe4a210031620306",
+  "report_sha256": "b979fa83d3f1dda44ac9851664e5764c7ea7f20aeda7d4b84dc8ede037ee02c6",
+  "representation_equivalence_review": {
+    "literal_traced_G8": false,
+    "runner_comparator_bytes_reviewed": false,
+    "scope": "five_exact_historical_source_snapshots_plus_four_matching_public_dependency_bytes_fixed_untraced_operators",
+    "status": "passed"
+  },
   "retained_file_count": 1420,
   "schema": "hiroute-c32-retained-admission-v1",
+  "selection_rebuild": {
+    "original_intermediate_files_recovered": false,
+    "pools": 16,
+    "receipt_sha256": "b3119a72d9787cd2dc1493678f9ff5d76d76cb9c9fbfec77dd102a55dbd6aae6",
+    "source_hashes": 6,
+    "states": 32,
+    "status": "passed"
+  },
   "source_input_result_binding": "passed",
   "uncoalesced_execution_claim": false,
   "zip_sha256": "b7b648c762f2f9e3eb394023ca8c531d31bbff5c251e558368b110162ef803ba"
