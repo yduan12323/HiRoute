@@ -287,6 +287,10 @@ class DeployableContractTest(unittest.TestCase):
         limited = ResumableExactSearch(result, hierarchy_bytes, verifier_hashes,
                                        mode="flat").run(max_steps=1, max_open_prefixes=1)
         self.assertEqual(limited.status, SolveStatus.MEMORY_LIMIT)
+        restarted_limited = ResumableExactSearch(result, hierarchy_bytes, verifier_hashes,
+            mode="flat", checkpoint_bytes=limited.checkpoint_bytes).run(
+                max_steps=0, max_open_prefixes=1)
+        self.assertEqual(restarted_limited.status, SolveStatus.MEMORY_LIMIT)
 
     def test_retained_schedule_already_satisfied_and_two_charge_seed(self):
         fixture = Path(__file__).resolve().parents[1] / "results/milestone_5_real_leg_contract/mock_solver_cases.json"

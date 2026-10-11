@@ -175,8 +175,9 @@ class ResumableExactSearch:
         if self._frozen_open_limit is not None and self._frozen_open_limit != max_open_prefixes:
             raise ValueError("OPEN memory policy changed across checkpoint")
         self._frozen_open_limit = max_open_prefixes
-        status = SolveStatus.TIME_LIMIT
-        for _ in range(max_steps):
+        status = (SolveStatus.MEMORY_LIMIT if len(self.open) > max_open_prefixes
+                  else SolveStatus.TIME_LIMIT)
+        for _ in range(0 if status is SolveStatus.MEMORY_LIMIT else max_steps):
             if not self.open:
                 break
             self._step()
