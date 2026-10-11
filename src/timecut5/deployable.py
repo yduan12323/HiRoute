@@ -15,7 +15,7 @@ from math import floor, isfinite, isnan
 import re
 from typing import Callable, Mapping
 
-from .real_legs import ImmutableLegTable, SelectedLeg
+from .real_legs import ImmutableLegTable, NUMERICS, SelectedLeg, TIE_POLICY
 
 _SHA = re.compile(r"[0-9a-f]{64}\Z")
 
@@ -23,6 +23,21 @@ _SHA = re.compile(r"[0-9a-f]{64}\Z")
 def _sha(value: str, name: str) -> None:
     if not isinstance(value, str) or _SHA.fullmatch(value) is None:
         raise ValueError(f"{name} must be a lowercase SHA-256 digest")
+
+
+def _verified_sources(sources: Mapping, fields: set[str]) -> dict[str, str]:
+    if not isinstance(sources, Mapping) or set(sources) != fields:
+        raise ValueError("Complete exact source set required")
+    result = {}
+    for name, pair in sources.items():
+        if type(pair) is not tuple or len(pair) != 2 or type(pair[0]) is not bytes:
+            raise ValueError(f"{name} requires bytes and declared digest")
+        _sha(pair[1], name)
+        actual = hashlib.sha256(pair[0]).hexdigest()
+        if actual != pair[1]:
+            raise ValueError(f"{name} byte closure mismatch")
+        result[name] = actual
+    return result
 
 
 @dataclass(frozen=True)
@@ -42,6 +57,10 @@ class DomainBinding:
     def __post_init__(self) -> None:
         for name in self.__dataclass_fields__:
             _sha(getattr(self, name), name)
+
+    @classmethod
+    def from_verified_bytes(cls, sources: Mapping) -> DomainBinding:
+        return cls(**_verified_sources(sources, set(cls.__dataclass_fields__)))
 
 
 class SolveStatus(str, Enum):
@@ -196,10 +215,29 @@ class RouteContract:
     tie_policy_sha256: str
     direction_policy_sha256: str
     numerical_contract_sha256: str
+    tie_policy: str = TIE_POLICY
+    direction_policy: str = "forward_per_source_v1"
+    numerical_contract: str = NUMERICS
 
     def __post_init__(self) -> None:
         for name in self.__dataclass_fields__:
-            _sha(getattr(self, name), name)
+            if name.endswith("_sha256"):
+                _sha(getattr(self, name), name)
+        if (self.tie_policy != TIE_POLICY or self.direction_policy not in
+                ("forward_per_source_v1", "explicit_per_leg_v1") or
+                self.numerical_contract != NUMERICS):
+            raise ValueError("Unrecognized selected-leg route policy")
+
+    @classmethod
+    def from_verified_bytes(cls, sources: Mapping, *, direction_policy: str) -> RouteContract:
+        fields = {name for name in cls.__dataclass_fields__ if name.endswith("_sha256")}
+        digests = _verified_sources(sources, fields)
+        for name, literal in (("tie_policy_sha256", TIE_POLICY),
+                              ("direction_policy_sha256", direction_policy),
+                              ("numerical_contract_sha256", NUMERICS)):
+            if sources[name][0] != literal.encode():
+                raise ValueError(f"{name} bytes do not encode the declared policy")
+        return cls(**digests, direction_policy=direction_policy)
 
 
 class SelectedLegCache:
@@ -245,6 +283,9 @@ class SelectedLegCache:
             elif (value.time <= 0 or value.actual_length <= 0 or value.label_direction not in
                   ("forward_from_source", "reverse_from_target")):
                 raise ValueError("Selected nonidentity leg lacks a valid directed route")
+            if (source != target and self.contract.direction_policy == "forward_per_source_v1"
+                    and value.label_direction != "forward_from_source"):
+                raise ValueError("Selected leg violates forward-per-source route policy")
         elif value.time is not None or value.actual_length is not None:
             raise ValueError("Unreachable leg has finite constants")
         self._cache[key] = value

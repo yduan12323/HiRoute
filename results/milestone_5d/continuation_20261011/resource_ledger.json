@@ -148,6 +148,65 @@
       "output_sha256": "1b5049f18866585f9a8c009a0887e6d0eadd954036059a639d6d51a7b7538027",
       "timeout_seconds": 120,
       "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "exit_code": 0,
+      "kind": "code_tests",
+      "log_sha256": "e21cbcdb34412286817bab4a04bdaa5bf1240f1987137d366b3839b2951c7645",
+      "name": "byte_closure_route_policy_tests_v5",
+      "tests_per_mode": 5,
+      "timeout_seconds_per_mode": 120,
+      "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "exit_code": 0,
+      "kind": "read_only_no_optimizer",
+      "name": "source_bound_one_stop_preflight_v5",
+      "output_sha256": "927bff3b4933c089040614b18ce0c5df130739aa007a138ecf64450544395901",
+      "timeout_seconds": 120,
+      "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "exit_code": 0,
+      "kind": "accepted_code_gate",
+      "log_sha256": "1bec5b8eec6c0a3fe781c6c50b81ceb52f75049da9fcb36ec75b7613e4cc8323",
+      "name": "exact_commit_568fa2a_code_only",
+      "subtests": 752,
+      "tests": 400,
+      "wall_seconds": 58.5
+    },
+    {
+      "exit_code": 0,
+      "groups_normal": [
+        50,
+        37,
+        50
+      ],
+      "groups_optimized": [
+        50,
+        37,
+        50
+      ],
+      "kind": "accepted_code_gate",
+      "log_sha256": "13f94a1960c68fff7afff50cee5ed514621999aadb681e817e7eb578954b88d3",
+      "name": "exact_commit_568fa2a_bootstrap"
+    },
+    {
+      "exit_code": 0,
+      "kind": "code_tests",
+      "log_sha256": "89bb134389077491c00f4756ee2b96eb4c5cacebb4baf804881258d0c39250a0",
+      "name": "final_policy_byte_tests_v6",
+      "tests_per_mode": 5,
+      "timeout_seconds_per_mode": 120,
+      "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "exit_code": 0,
+      "kind": "read_only_no_optimizer",
+      "name": "final_policy_byte_one_stop_preflight_v6",
+      "output_sha256": "d735371adb4344c2c0da70831d80a2936fd39782a54ca62b2384ded9e923ee5f",
+      "timeout_seconds": 120,
+      "ulimit_virtual_memory_gib": 4
     }
   ],
   "schema": "hiroute.m5d.resource_ledger.v1"

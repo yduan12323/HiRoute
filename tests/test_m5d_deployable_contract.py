@@ -1,4 +1,5 @@
 from fractions import Fraction as F
+import hashlib
 import json
 from math import inf
 from pathlib import Path
@@ -11,6 +12,7 @@ from timecut5.deployable import (
     directed_alt_region_bound, member_set_digest,
 )
 from timecut5.real_legs import ImmutableLegTable, SelectedLeg
+from timecut5.real_legs import NUMERICS, TIE_POLICY
 from validation.reference5.real_input import IndependentLegTable
 from validation.reference5.real_solver import replay_real_witness
 
@@ -25,6 +27,32 @@ def domain():
 
 
 class DeployableContractTest(unittest.TestCase):
+    def test_byte_closure_and_route_policy(self):
+        sources = {name: (name.encode(), hashlib.sha256(name.encode()).hexdigest())
+                   for name in DomainBinding.__dataclass_fields__}
+        bound = DomainBinding.from_verified_bytes(sources)
+        self.assertEqual(bound.graph_sha256, sources["graph_sha256"][1])
+        tampered = dict(sources, graph_sha256=(b"changed", sources["graph_sha256"][1]))
+        with self.assertRaises(ValueError):
+            DomainBinding.from_verified_bytes(tampered)
+        with self.assertRaises(ValueError):
+            DomainBinding.from_verified_bytes({k: v for k, v in sources.items() if k != "graph_sha256"})
+        route_bytes = {name: name.encode() for name in RouteContract.__dataclass_fields__
+                       if name.endswith("_sha256")}
+        route_bytes.update(tie_policy_sha256=TIE_POLICY.encode(),
+                           direction_policy_sha256=b"forward_per_source_v1",
+                           numerical_contract_sha256=NUMERICS.encode())
+        route_sources = {name: (value, hashlib.sha256(value).hexdigest())
+                         for name, value in route_bytes.items()}
+        contract = RouteContract.from_verified_bytes(route_sources, direction_policy="forward_per_source_v1")
+        with self.assertRaises(ValueError):
+            RouteContract.from_verified_bytes(route_sources, direction_policy="explicit_per_leg_v1")
+        def reverse_provider(a, b):
+            return SelectedLeg(a, b, True, F(1), F(1), "reverse_from_target",
+                               float(1).hex(), float(1).hex())
+        with self.assertRaises(ValueError):
+            SelectedLegCache(contract, reverse_provider).leg("a", "b")
+
     def test_status_and_same_domain_depth_gate(self):
         bound = domain()
         seed = VerifiedSeed(bound, F(3600), E, F_HASH)
