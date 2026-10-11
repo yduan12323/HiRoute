@@ -18,6 +18,7 @@ from timecut5.deployable import (
 from timecut5.real_legs import ImmutableLegTable, SelectedLeg, restrict_frozen_tree
 from timecut5.hierarchy import Region
 from timecut5.real_adapter import solve_bounded_real
+from timecut5.resumable import ResumableExactSearch
 from timecut5.real_legs import NUMERICS, TIE_POLICY
 from validation.reference5.real_input import IndependentLegTable
 from validation.reference5.real_solver import replay_real_witness, solve_real_case
@@ -259,6 +260,29 @@ class DeployableContractTest(unittest.TestCase):
             solve_deployable_pair(result, hierarchy_bytes, verifier_hashes,
                                   prepared_checkpoint=checkpoint.replace(
                                       b"before_search_no_open_state", b"partial_open_state"))
+        for mode in ("flat", "hier"):
+            interrupted = ResumableExactSearch(result, hierarchy_bytes, verifier_hashes,
+                                                 mode=mode)
+            partial = interrupted.run(max_steps=1, max_open_prefixes=1000)
+            self.assertEqual(partial.status, SolveStatus.TIME_LIMIT)
+            self.assertGreater(partial.open_prefixes, 0)
+            resumed = ResumableExactSearch(result, hierarchy_bytes, verifier_hashes,
+                                            mode=mode, checkpoint_bytes=partial.checkpoint_bytes)
+            with self.assertRaises(ValueError):
+                resumed.run(max_steps=1, max_open_prefixes=1001)
+            complete = resumed.run(max_steps=1000, max_open_prefixes=1000)
+            self.assertEqual(complete.status, SolveStatus.ATTAINED_OPTIMUM)
+            self.assertTrue(same_exact_outcome(complete.outcome, pair.flat))
+            self.assertEqual(complete.replayed_restore_prefixes, 1)
+            self.assertEqual(complete.online_internal_member_accesses, 0)
+            tampered = json.loads(partial.checkpoint_bytes)
+            tampered["open"] = []
+            with self.assertRaises(ValueError):
+                ResumableExactSearch(result, hierarchy_bytes, verifier_hashes,
+                                     mode=mode, checkpoint_bytes=json.dumps(tampered).encode())
+        limited = ResumableExactSearch(result, hierarchy_bytes, verifier_hashes,
+                                       mode="flat").run(max_steps=1, max_open_prefixes=1)
+        self.assertEqual(limited.status, SolveStatus.MEMORY_LIMIT)
 
     def test_retained_schedule_already_satisfied_and_two_charge_seed(self):
         fixture = Path(__file__).resolve().parents[1] / "results/milestone_5_real_leg_contract/mock_solver_cases.json"

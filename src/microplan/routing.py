@@ -27,6 +27,7 @@ class ExactRouter:
         self.lib.graph_create.restype = pointer
         self.lib.graph_free.argtypes = [pointer]
         self.lib.graph_full.argtypes = [pointer, integer, ctypes.c_int, doubles, doubles, ints]
+        self.lib.graph_full_edges.argtypes = [pointer, integer, ctypes.c_int, doubles, doubles, ints, ints]
         self.lib.graph_pairs.argtypes = [pointer, integer, ints, ints, ctypes.c_double, doubles, doubles]
         self.lib.graph_gateways.argtypes = [pointer, ints, integer, ctypes.c_double, doubles, doubles, ints, ints,
                                           ctypes.c_double, doubles, ctypes.POINTER(integer)]
@@ -49,6 +50,16 @@ class ExactRouter:
         cost, length, parent = np.empty(n), np.empty(n), np.empty(n, dtype=np.int64)
         self.lib.graph_full(self.handle, root, reverse, cost, length, parent)
         return cost, length, parent
+
+    def full_edges(self, root, reverse=False):
+        """Return selected labels and their exact predecessor edge identities."""
+        if not 0 <= root < self.graph.node_count:
+            raise ValueError('Invalid root')
+        n = self.graph.node_count
+        cost, length = np.empty(n), np.empty(n)
+        parent, parent_edge = np.empty(n, dtype=np.int64), np.empty(n, dtype=np.int64)
+        self.lib.graph_full_edges(self.handle, root, reverse, cost, length, parent, parent_edge)
+        return cost, length, parent, parent_edge
 
     def pairs(self, first_nodes, second_nodes, cutoff):
         first, second = [np.ascontiguousarray(a, dtype=np.int64) for a in (first_nodes, second_nodes)]
