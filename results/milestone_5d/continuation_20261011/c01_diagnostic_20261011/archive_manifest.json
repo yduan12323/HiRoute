@@ -1,0 +1,74 @@
+{
+  "failed_preflight_source_commit": "aab86565082ba463f0044bd72ef50cba3e87589c",
+  "files": [
+    {
+      "path": "preflight_20261011_aab8656/hiroute-m5d-f092e69126494c5689063976780d7fd0.service.receipt.json",
+      "sha256": "c7b700eb2d9494ccf5df07a6ffaa6a92f98e46b135b72a9e2ec1022776d5a891",
+      "size_bytes": 673
+    },
+    {
+      "path": "preflight_20261011_aab8656/hiroute-m5d-f092e69126494c5689063976780d7fd0.service.stderr",
+      "sha256": "76ec1ea6a6380d36c64805e999a3604e0942dc568e54f5fe11941e81bd3fe3d4",
+      "size_bytes": 250
+    },
+    {
+      "path": "preflight_20261011_aab8656/hiroute-m5d-f092e69126494c5689063976780d7fd0.service.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "preflight_20261011_aab8656/supervision_summary.json",
+      "sha256": "b6c80fc4ce45b429479e23b7379ddba584c3416b9b45663514ce19b7084edd22",
+      "size_bytes": 1491
+    },
+    {
+      "path": "preflight_20261011_importfix/hiroute-m5d-a461a762d66d42a69982073537642f56.service.receipt.json",
+      "sha256": "b44043a61ff987d66f7626b1974b976fed9f1614526afa51c6ee630ef74b8640",
+      "size_bytes": 680
+    },
+    {
+      "path": "preflight_20261011_importfix/hiroute-m5d-a461a762d66d42a69982073537642f56.service.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "preflight_20261011_importfix/hiroute-m5d-a461a762d66d42a69982073537642f56.service.stdout",
+      "sha256": "c2bb58c1b47c108d488dc5772e73193a37fa75296e05205c7c943dbccdaddc29",
+      "size_bytes": 1692
+    },
+    {
+      "path": "preflight_20261011_importfix/landmark_certificate.json",
+      "sha256": "d1992e7edd1a7e333695578b8979d6c9ee9ee7e44e6fba0ec3899f2075c56e4c",
+      "size_bytes": 1046
+    },
+    {
+      "path": "preflight_20261011_importfix/landmark_native/routing.so",
+      "sha256": "795a7b8ad99f93381bf28bc7dd16ae676716b2da407bba9a5b35612c8b511cd6",
+      "size_bytes": 47152
+    },
+    {
+      "path": "preflight_20261011_importfix/query_result.json",
+      "sha256": "c2bb58c1b47c108d488dc5772e73193a37fa75296e05205c7c943dbccdaddc29",
+      "size_bytes": 1692
+    },
+    {
+      "path": "preflight_20261011_importfix/road_native/routing.so",
+      "sha256": "795a7b8ad99f93381bf28bc7dd16ae676716b2da407bba9a5b35612c8b511cd6",
+      "size_bytes": 47152
+    },
+    {
+      "path": "preflight_20261011_importfix/road_witnesses.json",
+      "sha256": "624d0e3717fd30864c58183d6515046bc14714a9bc8b89569e2c065ef205e04e",
+      "size_bytes": 814515
+    },
+    {
+      "path": "preflight_20261011_importfix/supervision_summary.json",
+      "sha256": "edd5bab325336ae64bfddd8e65f956a5b8c5b4052aa322dc402e432916e8fefe",
+      "size_bytes": 1562
+    }
+  ],
+  "preserve_server_originals": true,
+  "schema": "hiroute.m5d.c01_diagnostic_archive.v1",
+  "source_server_root": "/home/dy/HiRoute/m5d_c01_aab8656",
+  "successful_preflight_source_commit": "8d6a9d4ed1ce3342876b8ce209c0b6a05bb47b91"
+}

@@ -1,0 +1,40 @@
+{
+  "all_compute_cpu_hours_charged_conservative": 9.115122969444444,
+  "archive_manifest_sha256": "22e2e30b9b8744ce031d84b749653af41a2171c2401e9a981849419b6e37eca5",
+  "limitations": "Historical 8 CPUh and new 1 CPUh are planning reserves, not measurements. Separate FLAT and HIER historical warm C01 runs timed out after search-start markers; neither has an exact key. OD00 pool is geographic input only, with no qualified multi-charge seed or route certificate.",
+  "new_measured_cgroup_cpu_hours": 0.06774954472222222,
+  "new_runs": [
+    {
+      "complete_exact_key": false,
+      "cpu_usage_ns": 121250808000,
+      "memory_peak_bytes": 1818173440,
+      "mode": "hier",
+      "name": "hier_20261011_7b075ff",
+      "result": "timeout",
+      "search_started_sha256": "cc2c7cd3644202d0b3caadd5e8d9d558ae2b8bdf57d5996337674832b023d340",
+      "wall_elapsed_ns": 120149178523
+    },
+    {
+      "complete_exact_key": false,
+      "cpu_usage_ns": 121302595000,
+      "memory_peak_bytes": 1831288832,
+      "mode": "flat",
+      "name": "flat_20261011_7b075ff",
+      "result": "timeout",
+      "search_started_sha256": "013d1339dd2ce8a0270024706048bf89e6a69673a2c712f8f425efdf037de8aa",
+      "wall_elapsed_ns": 120179146633
+    },
+    {
+      "cpu_usage_ns": 1344958000,
+      "memory_peak_bytes": 131944448,
+      "name": "pool_od00_20261011_v1",
+      "pool_sha256": "dab41e69dc6f60c2e0a890238c58e60d8b3c590f73bafcca049cb8d2b229fd4f",
+      "result": "success",
+      "wall_elapsed_ns": 841009022
+    }
+  ],
+  "prior_addendum_sha256": "a50a5194b871683b6562007083601b48f57457cefdfab7ae2b8be89c457af48d",
+  "prior_charged_cpu_hours": 9.047373424722222,
+  "remaining_of_48_cpu_hours": 38.88487703055556,
+  "schema": "hiroute.m5d.resource_addendum.v3"
+}

@@ -1,0 +1,44 @@
+{
+  "additional_code_ci_and_supervisor_smoke_planning_reserve_cpu_hours": 1.0,
+  "additional_measured_cgroup_cpu_hours": 0.013700418333333334,
+  "additional_measured_cgroup_cpu_seconds": 49.321506,
+  "all_compute_cpu_hours_charged_conservative": 9.013700418333332,
+  "base_conservative_cpu_hours": 8.0,
+  "base_ledger_sha256": "0401235ae30dc7f038f4308203eb308d2b9369128a2a1c44fafb68e4dd2c10db",
+  "limitations": "The earlier 8-hour debit and new 1-hour code/CI/smoke reserve are conservative planning charges, not measured CPU certificates. The three C01 cgroup receipts are measured CPU and peak memory.",
+  "remaining_of_48_cpu_hours": 38.98629958166667,
+  "runs": [
+    {
+      "cpu_usage_ns": 1610360000,
+      "exit_status": 1,
+      "memory_peak_bytes": 110960640,
+      "phase": "preflight_20261011_aab8656",
+      "query_result_sha256": null,
+      "result": "exit-code",
+      "supervision_summary_sha256": "b6c80fc4ce45b429479e23b7379ddba584c3416b9b45663514ce19b7084edd22",
+      "wall_elapsed_ns": 1010258183
+    },
+    {
+      "cpu_usage_ns": 24525997000,
+      "exit_status": 0,
+      "memory_peak_bytes": 1808138240,
+      "phase": "preflight_20261011_importfix",
+      "query_result_sha256": "c2bb58c1b47c108d488dc5772e73193a37fa75296e05205c7c943dbccdaddc29",
+      "result": "success",
+      "supervision_summary_sha256": "edd5bab325336ae64bfddd8e65f956a5b8c5b4052aa322dc402e432916e8fefe",
+      "wall_elapsed_ns": 23467286940
+    },
+    {
+      "cpu_usage_ns": 23185149000,
+      "exit_status": 0,
+      "memory_peak_bytes": 1910435840,
+      "phase": "preflight_20261011_alt_gate",
+      "query_result_sha256": "54609d669da6abd4b47351e19bd80edf199639d17c979eda9989c62e951bbdb8",
+      "result": "success",
+      "supervision_summary_sha256": "8ff2ad9ee532069306bb8977ec203408b4a514eef8cb37f0db05e54a96c08bc2",
+      "wall_elapsed_ns": 22248903782
+    }
+  ],
+  "schema": "hiroute.m5d.resource_addendum.v1",
+  "scope": "one historical fixed C01 eight-Site diagnostic preflight; no formal slate or LP pilot"
+}

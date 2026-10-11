@@ -1,0 +1,28 @@
+{
+  "files_sha256": {
+    "c01_diagnostic_20261011/flat_20261011_7b075ff/hiroute-m5d-a166963998434b6fad6ae513411d4fff.service.receipt.json": "addf5c05b54890bdc801e6299835d328be93e4ded6f4b57d39ad92e1140ec6ff",
+    "c01_diagnostic_20261011/flat_20261011_7b075ff/hiroute-m5d-a166963998434b6fad6ae513411d4fff.service.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "c01_diagnostic_20261011/flat_20261011_7b075ff/hiroute-m5d-a166963998434b6fad6ae513411d4fff.service.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "c01_diagnostic_20261011/flat_20261011_7b075ff/landmark_certificate.json": "d1992e7edd1a7e333695578b8979d6c9ee9ee7e44e6fba0ec3899f2075c56e4c",
+    "c01_diagnostic_20261011/flat_20261011_7b075ff/landmark_native/routing.so": "795a7b8ad99f93381bf28bc7dd16ae676716b2da407bba9a5b35612c8b511cd6",
+    "c01_diagnostic_20261011/flat_20261011_7b075ff/road_native/routing.so": "795a7b8ad99f93381bf28bc7dd16ae676716b2da407bba9a5b35612c8b511cd6",
+    "c01_diagnostic_20261011/flat_20261011_7b075ff/road_witnesses.json": "b84839883a5c362380dbf8befd05c7dd624a91c85f1511d331bc7f523864caac",
+    "c01_diagnostic_20261011/flat_20261011_7b075ff/search_started.json": "013d1339dd2ce8a0270024706048bf89e6a69673a2c712f8f425efdf037de8aa",
+    "c01_diagnostic_20261011/flat_20261011_7b075ff/supervision_summary.json": "8f610f54cca48eb274828763e41119ad17b4d7aa7851c0ea865c4ea9c266d888",
+    "c01_diagnostic_20261011/hier_20261011_7b075ff/hiroute-m5d-832d47c342144a3e967fdfb88809c6d0.service.receipt.json": "7e88c907d50107b5c830e99700ff712f4300dc78d7ac9035095c6b23b3730fcc",
+    "c01_diagnostic_20261011/hier_20261011_7b075ff/hiroute-m5d-832d47c342144a3e967fdfb88809c6d0.service.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "c01_diagnostic_20261011/hier_20261011_7b075ff/hiroute-m5d-832d47c342144a3e967fdfb88809c6d0.service.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "c01_diagnostic_20261011/hier_20261011_7b075ff/landmark_certificate.json": "d1992e7edd1a7e333695578b8979d6c9ee9ee7e44e6fba0ec3899f2075c56e4c",
+    "c01_diagnostic_20261011/hier_20261011_7b075ff/landmark_native/routing.so": "795a7b8ad99f93381bf28bc7dd16ae676716b2da407bba9a5b35612c8b511cd6",
+    "c01_diagnostic_20261011/hier_20261011_7b075ff/road_native/routing.so": "795a7b8ad99f93381bf28bc7dd16ae676716b2da407bba9a5b35612c8b511cd6",
+    "c01_diagnostic_20261011/hier_20261011_7b075ff/road_witnesses.json": "bfa2beb23343896e7b516f59bb3c02070d98abfec2a3ae400b1f453cb2b43058",
+    "c01_diagnostic_20261011/hier_20261011_7b075ff/search_started.json": "cc2c7cd3644202d0b3caadd5e8d9d558ae2b8bdf57d5996337674832b023d340",
+    "c01_diagnostic_20261011/hier_20261011_7b075ff/supervision_summary.json": "7f109f095fe5d77d379a657a52e68a6d01e80bb985e13b19f680f0066a7342fb",
+    "pool_od00_20261011_v1/hiroute-m5d-75a42e8e18024977a2b0bd9b02e62dc3.service.receipt.json": "65475670ceb514426d139ad8573e20b14b5cfe781faaf4da9e5fd0fa3c6f665c",
+    "pool_od00_20261011_v1/hiroute-m5d-75a42e8e18024977a2b0bd9b02e62dc3.service.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "pool_od00_20261011_v1/hiroute-m5d-75a42e8e18024977a2b0bd9b02e62dc3.service.stdout": "e0e4346ec1cef597bca97e3e026b4e623eda527ef4e7ae12d97c344591db324d",
+    "pool_od00_20261011_v1/pool.json": "dab41e69dc6f60c2e0a890238c58e60d8b3c590f73bafcca049cb8d2b229fd4f"
+  },
+  "schema": "hiroute.m5d.diagnostic_archive_manifest.v3",
+  "scope": "new separate historical C01 diagnostics and OD00 candidate selection"
+}
