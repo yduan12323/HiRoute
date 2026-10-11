@@ -237,11 +237,12 @@ def construct_verified_seed(domain: QueryDomain, verifier_source_sha256: Mapping
     its exact source dependencies; no REF optimizer or solver result is read.
     """
     if not isinstance(domain, QueryDomain) or set(verifier_source_sha256) != {
-            "real_solver", "real_input", "model", "solver"}:
+            "package", "real_solver", "real_input", "model", "solver", "lp"}:
         raise ValueError("Complete approved verifier source closure required")
-    from validation.reference5 import model, real_input, real_solver, solver
-    modules = {"real_solver": real_solver, "real_input": real_input,
-               "model": model, "solver": solver}
+    import validation.reference5 as package
+    from validation.reference5 import lp, model, real_input, real_solver, solver
+    modules = {"package": package, "real_solver": real_solver,
+               "real_input": real_input, "model": model, "solver": solver, "lp": lp}
     for name, module in modules.items():
         declared = verifier_source_sha256[name]
         _sha(declared, name)

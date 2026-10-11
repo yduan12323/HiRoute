@@ -154,10 +154,12 @@ class DeployableContractTest(unittest.TestCase):
         binding = DomainBinding(**digests)
         domain = QueryDomain(binding, query_bytes, candidate_bytes, table_bytes,
                              case["table_sha256"])
-        from validation.reference5 import model, real_input, real_solver, solver
+        import validation.reference5 as package
+        from validation.reference5 import lp, model, real_input, real_solver, solver
         verifier_hashes = {name: hashlib.sha256(Path(inspect.getsourcefile(module)).read_bytes()).hexdigest()
-                           for name, module in (("real_solver", real_solver),
-                               ("real_input", real_input), ("model", model), ("solver", solver))}
+                           for name, module in (("package", package), ("real_solver", real_solver),
+                               ("real_input", real_input), ("model", model),
+                               ("solver", solver), ("lp", lp))}
         result = construct_verified_seed(domain, verifier_hashes)
         self.assertNotIsInstance(result, SearchOutcome)
         self.assertEqual(result.seed.domain, binding)
