@@ -36,7 +36,8 @@ def array_hash(graph):
 
 def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
         recover: bool = False, boundary_seed_receipt: Path | None = None,
-        old_checkpoint: Path | None = None):
+        old_checkpoint: Path | None = None, boundary_stage: str | None = None,
+        stage_checkpoint: Path | None = None):
     started = time.monotonic_ns()
     pools_path = inputs / "formal_pools_20261011_v2/pools.json"
     slate_path = inputs / "results/milestone_5d/continuation_20261011/fixed_12od_candidate_slate.json"
@@ -177,7 +178,7 @@ def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
                 "query": hashlib.sha256(canon(query)).hexdigest(),
                 "hierarchy": root_sha,
                 "landmark": bound.landmark_sha256, "seed": seed_sha,
-                "policy": hashlib.sha256(TIE_POLICY.encode()).hexdigest(),
+                "policy": hashlib.sha256(canon([TIE_POLICY, sha(Path(__file__))])).hexdigest(),
                 "runtime": runtime_sha}
             domain_sha = hashlib.sha256(canon({"sparse": catalog.domain_sha256,
                 "arrays": loaded_arrays_sha, "external": external})).hexdigest()
@@ -231,18 +232,32 @@ def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
                         return stopped.checkpoint_bytes, recorder.rows, hook.replayed_restore_layers, time.process_time_ns()-started_cpu
                     raise ValueError("Early exact layer boundary was not reached")
                 reference, reference_rows, _, reference_cpu = stop_at(2)
-                first, first_rows, _, first_cpu = stop_at(1)
-                (out / "layer_checkpoint.json").write_bytes(first)
-                resumed, resumed_rows, replayed, replay_cpu = stop_at(2, first)
-                if reference != resumed or reference_rows != resumed_rows or first_rows != reference_rows[:2] or replayed != 2:
-                    raise ValueError("Same-engine early layer replay differs from uninterrupted boundary")
+                first = first_rows = None
+                first_cpu = replay_cpu = replayed = 0
+                resumed = resumed_rows = None
+                if boundary_stage in (None, "create"):
+                    first, first_rows, _, first_cpu = stop_at(1)
+                    (out / "layer_checkpoint.json").write_bytes(first)
+                    if first_rows != reference_rows[:2]:
+                        raise ValueError("Initial checkpoint differs from reference prefix")
+                if boundary_stage in (None, "resume"):
+                    if boundary_stage == "resume":
+                        if stage_checkpoint is None:
+                            raise ValueError("Fresh-process resume needs prior checkpoint")
+                        first = stage_checkpoint.read_bytes()
+                    resumed, resumed_rows, replayed, replay_cpu = stop_at(2, first)
+                    if reference != resumed or reference_rows != resumed_rows or replayed != 2:
+                        raise ValueError("Same-engine early layer replay differs from uninterrupted boundary")
                 result = {"schema": "hiroute.m5d.od02_n8_early_layer_recovery.v1",
-                    "status": "boundary_verified_no_optimum_claim",
+                    "status": ("checkpoint_created_no_optimum_claim" if boundary_stage == "create"
+                        else "fresh_process_boundary_verified_no_optimum_claim" if boundary_stage == "resume"
+                        else "same_process_boundary_verified_no_optimum_claim"),
+                    "stage": boundary_stage or "combined",
                     "source_commit": report["source_commit"], "domain_sha256": domain_sha,
                     "external_source_sha256": external,
                     "checkpoint_sha256": hashlib.sha256(first).hexdigest(),
                     "reference_boundary_sha256": hashlib.sha256(reference).hexdigest(),
-                    "resumed_boundary_sha256": hashlib.sha256(resumed).hexdigest(),
+                    "resumed_boundary_sha256": hashlib.sha256(resumed).hexdigest() if resumed is not None else None,
                     "reference_rows": reference_rows, "resumed_rows": resumed_rows,
                     "replayed_restore_layers": replayed,
                     "reference_process_cpu_ns": reference_cpu,
@@ -323,8 +338,11 @@ if __name__ == "__main__":
         run(*(Path(value) for value in sys.argv[1:5]))
     elif len(sys.argv) == 6 and sys.argv[5] == "recover":
         run(*(Path(value) for value in sys.argv[1:5]), recover=True)
-    elif len(sys.argv) == 7:
+    elif len(sys.argv) in (7, 8, 9):
         run(*(Path(value) for value in sys.argv[1:5]),
-            boundary_seed_receipt=Path(sys.argv[5]), old_checkpoint=Path(sys.argv[6]))
+            boundary_seed_receipt=Path(sys.argv[5]),
+            old_checkpoint=Path(sys.argv[6]) if sys.argv[6] != "-" else None,
+            boundary_stage=(sys.argv[7] if len(sys.argv) > 7 else None),
+            stage_checkpoint=Path(sys.argv[8]) if len(sys.argv) > 8 else None)
     else:
         raise ValueError("Expected fixed OD02 paths and optional recovery inputs")
