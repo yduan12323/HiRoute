@@ -649,6 +649,23 @@ class RegionBoundProvider:
                     if not isinstance(value, (int, float)) or isnan(value) or value < 0 or (
                             isfinite(value) and (value > 2**53 or value != floor(value))):
                         raise ValueError("ALT distances require exact nonnegative integer seconds")
+        self._action_bits = {action: 1 << index for index, action in enumerate(
+            (site, effect) for site in sorted(table.sites)
+            for effect in sorted(table.site(site).effects)
+            if table.site(site).anchor_id != table.destination_anchor)}
+        self._actions = {}
+        self._action_masks = {}
+        self.online_internal_member_accesses = 0
+        self.online_leaf_action_reads = 0
+        for region_id, region in regions.items():
+            for remaining in (0, 1):
+                for effect in ("C", "S", "CS"):
+                    selected = (() if effect in ("S", "CS") and not remaining else
+                        tuple((site, effect) for site in region.members
+                              if (site, effect) in self._action_bits))
+                    self._actions[region_id, effect, remaining] = selected
+                    self._action_masks[region_id, effect, remaining] = sum(
+                        self._action_bits[action] for action in selected)
         self._bounds = {}
         for source in table.anchors:
             for region_id, region in regions.items():
@@ -697,6 +714,19 @@ class RegionBoundProvider:
             time = max(a, time) + duration
         return (time - problem.start + problem.penalty * (state.stop_count + 1), 0)
 
+    def action_mask(self, region, effect, remaining):
+        return self._action_masks[region.identifier, effect, remaining]
+
+    def leaf_actions(self, region, effect, remaining):
+        if region.children:
+            self.online_internal_member_accesses += 1
+            raise ValueError("Internal Region member expansion is forbidden")
+        self.online_leaf_action_reads += 1
+        return self._actions[region.identifier, effect, remaining]
+
+    def action_bit(self, action):
+        return self._action_bits[action]
+
 
 @dataclass(frozen=True)
 class DeployablePairResult:
@@ -707,6 +737,8 @@ class DeployablePairResult:
     hier_leaf_actions: int
     hier_bound_member_scans: int
     hier_provider_queries: int
+    hier_online_internal_member_accesses: int
+    hier_online_leaf_action_reads: int
     shared_seed_cache_misses: int
     flat_cache_hits: int
     flat_cache_misses: int
@@ -751,6 +783,32 @@ def _outcome_from_terminal(binding: DomainBinding, bounded) -> SearchOutcome:
         return SearchOutcome(binding, SolveStatus.INFIMUM_UNATTAINED_Q,
                              j=result.primary_infimum, q=result.secondary_infimum)
     raise ValueError("Certified seed contradicts empty or unknown terminal result")
+
+
+def same_exact_outcome(left: SearchOutcome, right: SearchOutcome) -> bool:
+    """Compare mathematical status/key, not equally valid witness encodings."""
+    return (left.domain == right.domain and
+            (left.status, left.j, left.q, left.h, left.pi) ==
+            (right.status, right.j, right.q, right.h, right.pi))
+
+
+def _independent_attained_replay(domain: QueryDomain, bounded,
+                                 outcome: SearchOutcome, max_depth: int) -> None:
+    if outcome.status is not SolveStatus.ATTAINED_OPTIMUM:
+        return
+    from validation.reference5.real_solver import replay_real_witness_bytes
+    witness = bounded.result.witness
+    if outcome.h > max_depth:
+        raise ValueError("Attained witness exceeds certified search depth")
+    charges = tuple(event.departure_energy - event.arrival_energy
+                    for event in witness.events if event.effect in ("C", "CS"))
+    query = _json_object(domain.query_bytes)
+    query["H_ref"] = max(query["H_ref"], outcome.h)
+    replay = replay_real_witness_bytes(query,
+        domain.table_bytes, domain.table_sha256, witness.pi, charges)
+    if (replay["J"], replay["Q_total"], replay["H"], replay["site_action_tuple"]) != (
+            outcome.j, outcome.q, outcome.h, outcome.pi):
+        raise ValueError("Independent witness replay disagrees with exact outcome")
 
 
 def solve_deployable_pair(certificate: SeedDepthCertificate, hierarchy_bytes: bytes,
@@ -803,17 +861,22 @@ def solve_deployable_pair(certificate: SeedDepthCertificate, hierarchy_bytes: by
     if (flat_cache.misses, flat_cache.hits) != (hier_cache.misses, hier_cache.hits):
         raise ValueError("FLAT/HIER seed cache preparation differs")
     shared_seed_cache_misses = flat_cache.misses
-    flat = _solve_problem(RealProblem(bounded_query, table, leg_cache=flat_cache))
+    flat = _solve_problem(RealProblem(bounded_query, table, leg_cache=flat_cache),
+                          verified_primary_upper=fresh.seed.primary_j)
     hier = _solve_hierarchical_problem(RealProblem(bounded_query, table, leg_cache=hier_cache), True, root,
                                        verified_primary_upper=fresh.seed.primary_j,
                                        bound_provider=provider)
     flat_outcome = _outcome_from_terminal(domain.binding, flat)
     hier_outcome = _outcome_from_terminal(domain.binding, hier.bounded)
-    if flat_outcome != hier_outcome:
+    _independent_attained_replay(domain, flat, flat_outcome, fresh.max_depth)
+    _independent_attained_replay(domain, hier.bounded, hier_outcome, fresh.max_depth)
+    if not same_exact_outcome(flat_outcome, hier_outcome):
         raise ValueError("FLAT/HIER exact outcomes disagree in the certified domain")
     return DeployablePairResult(fresh, flat_outcome, hier_outcome,
                                 flat.attempted_extensions, hier.leaf_actions,
                                 hier.bound_member_scans, provider.online_queries,
+                                provider.online_internal_member_accesses,
+                                provider.online_leaf_action_reads,
                                 shared_seed_cache_misses,
                                 flat_cache.hits, flat_cache.misses,
                                 hier_cache.hits, hier_cache.misses)

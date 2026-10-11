@@ -11,11 +11,13 @@ from timecut5.deployable import (
     RegionLandmarkSummary, RouteContract,
     SearchOutcome, SelectedLegCache, SolveStatus, VerifiedSeed,
     certified_depth, check_region_summary_offline, construct_verified_seed,
-    constructive_seed_candidates, prepared_checkpoint_bytes, solve_deployable_pair,
+    constructive_seed_candidates, prepared_checkpoint_bytes, same_exact_outcome,
+    solve_deployable_pair,
     directed_alt_region_bound, member_set_digest,
 )
 from timecut5.real_legs import ImmutableLegTable, SelectedLeg, restrict_frozen_tree
 from timecut5.hierarchy import Region
+from timecut5.real_adapter import solve_bounded_real
 from timecut5.real_legs import NUMERICS, TIE_POLICY
 from validation.reference5.real_input import IndependentLegTable
 from validation.reference5.real_solver import replay_real_witness, solve_real_case
@@ -72,6 +74,13 @@ class DeployableContractTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             SearchOutcome(bound, SolveStatus.ATTAINED_OPTIMUM, j=F(10), q=F(1),
                           h=1, pi=(("site", "C"),))
+        first = SearchOutcome(bound, SolveStatus.ATTAINED_OPTIMUM, F(10), F(1), 1,
+                              (("site", "C"),), E)
+        second = SearchOutcome(bound, SolveStatus.ATTAINED_OPTIMUM, F(10), F(1), 1,
+                               (("site", "C"),), F_HASH)
+        self.assertTrue(same_exact_outcome(first, second))
+        self.assertNotEqual(first.executable_witness_sha256,
+                            second.executable_witness_sha256)
 
     def test_directed_cache_preserves_selected_length(self):
         calls = []
@@ -201,9 +210,15 @@ class DeployableContractTest(unittest.TestCase):
         self.assertEqual(pair.flat, pair.hier)
         self.assertEqual(pair.hier_bound_member_scans, 0)
         self.assertGreater(pair.hier_provider_queries, 0)
+        self.assertEqual(pair.hier_online_internal_member_accesses, 0)
+        self.assertGreater(pair.hier_online_leaf_action_reads, 0)
         self.assertEqual(pair.shared_seed_cache_misses, 3)
         self.assertGreaterEqual(pair.flat_cache_misses, pair.shared_seed_cache_misses)
         self.assertGreaterEqual(pair.hier_cache_misses, pair.shared_seed_cache_misses)
+        unseeded_flat = solve_bounded_real(dict(query, H_ref=result.max_depth), table).inner
+        self.assertEqual(pair.flat.j, unseeded_flat.result.key[0])
+        self.assertLessEqual(pair.flat_attempted_extensions,
+                             unseeded_flat.attempted_extensions)
         keys = set(table.anchors) | set(table.sites)
         landmark = LandmarkDistances({key: 0 for key in keys},
                                      {key: inf for key in keys})

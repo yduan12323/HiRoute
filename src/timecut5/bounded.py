@@ -228,6 +228,15 @@ def _groups(pieces):
     return tuple(tuple(group) for group in groups.values())
 
 
+def prefix_primary_lower_bound(problem: Problem, pieces: tuple[CutPiece, ...]) -> R:
+    """Ignore all future nonnegative travel/stop time; safe for every suffix."""
+    if not pieces:
+        raise ValueError("Nonempty prefix frontier required")
+    clock = min(p.slope * p.domain.affine_infimum(p.slope)[0] + p.intercept
+                for p in pieces)
+    return clock - problem.start + problem.penalty * pieces[0].state.stop_count
+
+
 def solve_bounded(case: Mapping, dominance: bool = True) -> BoundedResult:
     """Exhaust every legal next action through H_ref; optional safe reduction.
 
@@ -238,8 +247,12 @@ def solve_bounded(case: Mapping, dominance: bool = True) -> BoundedResult:
     return _solve_problem(Problem(case),dominance)
 
 
-def _solve_problem(problem: Problem, dominance: bool = True, *, reducer=None) -> BoundedResult:
+def _solve_problem(problem: Problem, dominance: bool = True, *, reducer=None,
+                   verified_primary_upper: R | None = None) -> BoundedResult:
     reducer = reduce_frontier if reducer is None else reducer
+    if verified_primary_upper is not None and (type(verified_primary_upper) is not R or
+                                               verified_primary_upper < 0):
+        raise ValueError("Verified primary upper bound must be an exact nonnegative rational")
     layer = ((problem.initial_piece(),),)
     terminals = []
     attempted = 0
@@ -253,6 +266,9 @@ def _solve_problem(problem: Problem, dominance: bool = True, *, reducer=None) ->
         next_pieces = []
         for group in layer:
             if group[0].state.anchor == problem.destination:
+                continue
+            if (verified_primary_upper is not None and
+                    prefix_primary_lower_bound(problem, group) > verified_primary_upper):
                 continue
             for site, effects in sorted(problem.sites.items()):
                 if problem.site_anchor(site) == problem.destination:

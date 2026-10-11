@@ -14,7 +14,7 @@ from typing import Mapping
 
 from . import invocation_trace as trace
 from . import provenance
-from .bounded import BoundedResult, Problem, _groups, _replay_problem
+from .bounded import BoundedResult, Problem, _groups, _replay_problem, prefix_primary_lower_bound
 from .probe import Witness, terminal
 from .pwa import CutPiece, reduce_frontier
 
@@ -156,39 +156,63 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
             if state.anchor == problem.destination:
                 trace.emit('skip_terminal',group_id=group_id)
                 continue
+            if (verified_primary_upper is not None and
+                    prefix_primary_lower_bound(problem, group) > verified_primary_upper):
+                trace.emit('skip_strict_primary_prefix', group_id=group_id,
+                           verified_primary_upper=verified_primary_upper)
+                continue
             trace.emit('expansion_start',group_id=group_id)
-            expected = {a for effect in ("C", "S", "CS")
-                        for a in actions(problem, root, effect, state.remaining_schedule)}
-            covered = set()
+            indexed = bound_provider is not None
+            if indexed:
+                expected = 0
+                for effect in ("C", "S", "CS"):
+                    expected |= bound_provider.action_mask(root, effect, state.remaining_schedule)
+                covered = 0
+            else:
+                expected = {a for effect in ("C", "S", "CS")
+                            for a in actions(problem, root, effect, state.remaining_schedule)}
+                covered = set()
             queue = []
             sequence_number = 0
             query_ids = {}
 
             def cover(action_set):
+                nonlocal covered
+                if indexed:
+                    if covered & action_set:
+                        raise AssertionError("Hierarchy covers a next action more than once")
+                    covered |= action_set
+                    return
                 if covered.intersection(action_set):
                     raise AssertionError("Hierarchy covers a next action more than once")
                 covered.update(action_set)
 
             def enqueue(region, effect):
                 nonlocal scans, sequence_number
-                action_set = actions(problem, region, effect, state.remaining_schedule)
+                action_set = (bound_provider.action_mask(region, effect, state.remaining_schedule)
+                              if indexed else actions(problem, region, effect, state.remaining_schedule))
                 if not action_set:
                     trace.emit('query',group_id=group_id,region_id=region.identifier,effect=effect,
-                               actions=action_set,bound=None,classification='empty_actions',queue_serial=None)
+                               actions=() if indexed else action_set,bound=None,
+                               classification='empty_actions',queue_serial=None)
                     return
                 bound, paid = (region_bound(problem, group, region, effect) if bound_provider is None
                                else bound_provider.bound(problem, group, region, effect))
                 scans += paid
                 if bound is None:
                     trace.emit('query',group_id=group_id,region_id=region.identifier,effect=effect,
-                               actions=action_set,bound=None,classification='unreachable',queue_serial=None)
+                               actions=() if indexed else action_set,bound=None,
+                               classification='unreachable',queue_serial=None)
                     cover(action_set)
                     audit.append(dict(reason="unreachable", region=region.identifier,
-                                      effect=effect, prefix=group[0].pi, actions=action_set))
+                                      effect=effect, prefix=group[0].pi,
+                                      actions=() if indexed else action_set,
+                                      **({"action_mask": action_set} if indexed else {})))
                     return
                 sequence_number += 1
                 query_ids[sequence_number]=trace.emit('query',group_id=group_id,
-                    region_id=region.identifier,effect=effect,actions=action_set,bound=bound,
+                    region_id=region.identifier,effect=effect,
+                    actions=() if indexed else action_set,bound=bound,
                     classification='queued',queue_serial=sequence_number)
                 heapq.heappush(queue, (bound, effect, region.identifier, sequence_number, region))
 
@@ -204,32 +228,47 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                           'split' if region.children else 'leaf')
                 trace.emit('pop',group_id=group_id,query_seq=query_ids[popped_serial],
                            decision=decision,incumbent_key=incumbent_key)
-                action_set = actions(problem, region, effect, state.remaining_schedule)
+                action_set = (bound_provider.action_mask(region, effect, state.remaining_schedule)
+                              if indexed else actions(problem, region, effect, state.remaining_schedule))
                 if upper_j is not None and bound > upper_j:
                     pruned += 1
                     cover(action_set)
                     audit.append(dict(reason="strict_primary", lower_bound=bound,
                                       incumbent_key=incumbent_key, incumbent_witness=incumbent_witness,
                                       region=region.identifier, region_members=region.members,
-                                      state=state, effect=effect, prefix=group[0].pi, actions=action_set,
+                                      state=state, effect=effect, prefix=group[0].pi,
+                                      actions=() if indexed else action_set,
                                       current_frontier=tuple((p.domain.lo,p.domain.hi,p.domain.left_closed,
                                           p.domain.right_closed,p.slope,p.intercept,p.chi,p.rho,p.pi)
                                           for p in group),
                                       **({"verified_primary_upper": verified_primary_upper}
-                                         if verified_primary_upper is not None else {})))
+                                         if verified_primary_upper is not None else {}),
+                                      **({"action_mask": action_set} if indexed else {})))
                     continue
                 if upper_j is not None and bound == upper_j:
                     equality += 1
                 if region.children:
-                    child_actions = [a for child in region.children
-                                     for a in actions(problem, child, effect, state.remaining_schedule)]
-                    if len(child_actions) != len(set(child_actions)) or set(child_actions) != set(action_set):
-                        raise AssertionError("Children are not an exact disjoint action partition")
+                    if indexed:
+                        child_mask = 0
+                        for child in region.children:
+                            mask = bound_provider.action_mask(child, effect, state.remaining_schedule)
+                            if child_mask & mask:
+                                raise AssertionError("Children overlap in action partition")
+                            child_mask |= mask
+                        if child_mask != action_set:
+                            raise AssertionError("Children are not an exact action partition")
+                    else:
+                        child_actions = [a for child in region.children
+                                         for a in actions(problem, child, effect, state.remaining_schedule)]
+                        if len(child_actions) != len(set(child_actions)) or set(child_actions) != set(action_set):
+                            raise AssertionError("Children are not an exact disjoint action partition")
                     for child in region.children:
                         enqueue(child, effect)
                 else:
-                    for site, effect in action_set:
-                        cover(((site, effect),))
+                    leaf_set = (bound_provider.leaf_actions(region, effect, state.remaining_schedule)
+                                if indexed else action_set)
+                    for site, effect in leaf_set:
+                        cover(bound_provider.action_bit((site, effect)) if indexed else ((site, effect),))
                         leaf_actions += 1
                         attempted += 1
                         output=trace.invoke('advance',group,dict(group_id=group_id,site=site,effect=effect),
@@ -244,7 +283,9 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                             update_incumbent(finished,group_id,'leaf')
             if covered != expected:
                 raise AssertionError("Hierarchy lost a statically legal next action")
-            trace.emit('expansion_end',group_id=group_id,covered_actions=sorted(covered))
+            trace.emit('expansion_end',group_id=group_id,
+                       covered_actions=[] if indexed else sorted(covered),
+                       **({"covered_mask": covered} if indexed else {}))
             coverage_groups += 1
         if dominance:
             by_state = defaultdict(list)
