@@ -62,6 +62,24 @@ class SparseSeedCatalog:
         return self.provider.leg(source, target)
 
 
+def validate_sparse_query(query: Mapping, catalog: SparseSeedCatalog):
+    """Apply the independent full physical-input checks without a leg table."""
+    from validation.reference5.model import normalize_case
+    def has_float(value):
+        if type(value) is float:
+            return True
+        if isinstance(value, Mapping):
+            return any(has_float(item) for item in value.values())
+        if isinstance(value, (list, tuple)):
+            return any(has_float(item) for item in value)
+        return False
+    if (not isinstance(query, Mapping) or "sites" in query or "edges" in query or
+            has_float(query)):
+        raise ValueError("Sparse query must not override the bound Site/edge domain or use floats")
+    declared = {sid: list(site.effects) for sid, site in catalog.sites.items()}
+    return normalize_case(dict(query, sites=declared, edges=[]))
+
+
 def replay_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, sequence, charges):
     """Independently replay exact physical events and every selected edge."""
     if (query.get("sparse_domain_sha256") != catalog.domain_sha256 or
@@ -69,6 +87,7 @@ def replay_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, sequence, cha
             query.get("destination") != catalog.destination_anchor or
             query.get("hierarchy_sha256") != catalog.hierarchy_sha256):
         raise ValueError("Sparse query differs from full source domain")
+    validate_sparse_query(query, catalog)
     sequence, charges = tuple(map(tuple, sequence)), tuple(map(R, charges))
     if len(sequence) > query["H_ref"] or len(charges) != sum(
             effect in ("C", "CS") for _, effect in sequence):
@@ -84,7 +103,7 @@ def replay_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, sequence, cha
     if pending not in (0, 1) or pending and schedule is None:
         raise ValueError("Invalid schedule state")
     segments = tuple(tuple(map(R, row)) for row in query["charging_segments"])
-    current, charge_index, visited = catalog.origin_anchor, 0, set()
+    current, charge_index = catalog.origin_anchor, 0
     edges_used = []
 
     def edge_leg(source, target):
@@ -109,9 +128,8 @@ def replay_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, sequence, cha
         return leg.time, leg.actual_length * rate
 
     for site_id, effect in sequence:
-        if site_id in visited or site_id not in catalog.sites:
-            raise SeedInfeasible("Unknown or repeated Site")
-        visited.add(site_id)
+        if site_id not in catalog.sites:
+            raise SeedInfeasible("Unknown Site")
         site = catalog.sites[site_id]
         if (effect not in site.effects or site.anchor_id == catalog.destination_anchor or
                 current == catalog.destination_anchor or
@@ -156,6 +174,7 @@ def replay_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, sequence, cha
 def admit_sparse_seed(query: Mapping, catalog: SparseSeedCatalog):
     """Select the best independently replayed deterministic proposal and depth."""
     from .deployable import constructive_seed_candidates
+    validate_sparse_query(query, catalog)
     accepted = []
     proposals = constructive_seed_candidates(query, catalog)
     for sequence, charges in proposals:

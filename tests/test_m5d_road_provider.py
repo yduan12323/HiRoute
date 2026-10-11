@@ -1,6 +1,7 @@
 """Tiny directed path witnesses for the real-road provider boundary."""
 import hashlib
 import json
+from fractions import Fraction
 from pathlib import Path
 import tempfile
 from types import SimpleNamespace
@@ -345,6 +346,25 @@ class RoadProviderTest(unittest.TestCase):
             self.assertEqual(outcome["edge_witnesses"], ((0,), (1,)))
             self.assertLess(len(provider.legs), len(anchors) ** 2)
             self.assertEqual(provider.source_run_count, 3)
+            long_query = dict(query, H_ref=5)
+            repeated = (("s1", "C"),) * 5
+            small_charges = (Fraction(1, 5),) * 5
+            terminal = replay_sparse_seed(long_query, catalog, repeated, small_charges)
+            self.assertEqual(terminal["lex_key"],
+                (Fraction(8), Fraction(1), 5, repeated))
+            with self.assertRaisesRegex(ValueError, "dimensions"):
+                replay_sparse_seed(dict(long_query, H_ref=4), catalog,
+                                   repeated, small_charges)
+            malformed = (
+                dict(query, charging_segments=[[0, 1, 1, 0], [Fraction(3, 2), 2, 1, 0]]),
+                dict(query, charging_segments=[[0, 2, -1, 0]]),
+                dict(query, overhead_s=0),
+                dict(query, lambda_stop_s=-1),
+                dict(query, schedule={"a": 2, "b": 1, "D": 0}),
+            )
+            for invalid in malformed:
+                with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                    admit_sparse_seed(invalid, catalog)
             with self.assertRaisesRegex(ValueError, "candidate universe"):
                 SparseSeedCatalog(provider, table.sites,
                     origin_anchor="road:0", destination_anchor="road:2",

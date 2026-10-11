@@ -17,6 +17,7 @@ from timecut5.real_adapter import site_catalog_digest
 from timecut5.real_legs import RealSite
 from timecut5.road_provider import TableFreeRoadSelectedLegProvider
 from timecut5.sparse_seed import SparseSeedCatalog, admit_sparse_seed
+from validation.reference5 import model as independent_model
 
 
 def canon(value):
@@ -134,6 +135,7 @@ def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
             "loader_source_sha256": sha(Path(__import__("scripts.m5d_one_query_runner",
                 fromlist=["load_graph"]).__file__)),
             "router_source_sha256": router.provenance["source_sha256"],
+            "independent_physical_validator_sha256": sha(Path(independent_model.__file__)),
             "router_binary_sha256": sha(out / "native/routing.so"),
             "anchor_catalog_sha256": anchor_sha,
             "site_catalog_sha256": catalog.site_catalog_sha256,
@@ -180,7 +182,8 @@ def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
                 "query": hashlib.sha256(canon(query)).hexdigest(),
                 "hierarchy": root_sha,
                 "landmark": bound.landmark_sha256, "seed": seed_sha,
-                "policy": hashlib.sha256(canon([TIE_POLICY, sha(Path(__file__))])).hexdigest(),
+                "policy": hashlib.sha256(canon([TIE_POLICY, sha(Path(__file__)),
+                    sha(Path(independent_model.__file__))])).hexdigest(),
                 "runtime": runtime_sha}
             domain_sha = hashlib.sha256(canon({"sparse": catalog.domain_sha256,
                 "arrays": loaded_arrays_sha, "external": external})).hexdigest()
@@ -280,7 +283,7 @@ def run(inputs: Path, graph_dir: Path, cert_path: Path, out: Path,
                 if witness is not None:
                     charges = tuple(event.departure_energy - event.arrival_energy
                         for event in witness.events if event.effect in ("C", "CS"))
-                    replay = replay_sparse_seed(query, catalog, witness.pi, charges)
+                    replay = replay_sparse_seed(exact_query, catalog, witness.pi, charges)
                     if replay["lex_key"] != key:
                         raise ValueError("Independent selected-edge terminal replay differs")
                 return key
