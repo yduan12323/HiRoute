@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from fractions import Fraction as R
+from collections.abc import Mapping as AbstractMapping
 from types import MappingProxyType
 from typing import Mapping
 
@@ -27,9 +28,27 @@ class RealLegPrimitive:
     table_sha256: str
 
 
+class _OnDemandRealLegs(AbstractMapping):
+    def __init__(self, table, rate, cache):
+        self.table, self.rate, self.cache = table, rate, cache
+
+    def __getitem__(self, pair):
+        leg = self.cache.leg(*pair)
+        if not leg.reachable:
+            raise KeyError(pair)
+        return RealLegPrimitive(leg.time, leg.energy(self.rate), leg.actual_length,
+                                *pair, self.table.payload_sha256)
+
+    def __iter__(self):
+        return (pair for pair, leg in self.table.legs.items() if leg.reachable)
+
+    def __len__(self):
+        return sum(leg.reachable for leg in self.table.legs.values())
+
+
 class RealProblem(Problem):
     """Physical query over immutable accepted direct legs, never a graph."""
-    def __init__(self, query: Mapping, table: ImmutableLegTable):
+    def __init__(self, query: Mapping, table: ImmutableLegTable, *, leg_cache=None):
         if not isinstance(table,ImmutableLegTable):
             raise TypeError("A validated immutable leg table is required")
         if "edges" in query:
@@ -45,9 +64,15 @@ class RealProblem(Problem):
         self._configure_query(configured)
         self.table=table
         self.site_anchors=MappingProxyType({sid:site.anchor_id for sid,site in table.sites.items()})
-        self.legs=MappingProxyType({pair:RealLegPrimitive(leg.time,leg.energy(self.rate),leg.actual_length,
-                                                      *pair,table.payload_sha256)
-                                   for pair,leg in table.legs.items() if leg.reachable})
+        if leg_cache is None:
+            self.legs=MappingProxyType({pair:RealLegPrimitive(leg.time,leg.energy(self.rate),leg.actual_length,
+                                                          *pair,table.payload_sha256)
+                                       for pair,leg in table.legs.items() if leg.reachable})
+        else:
+            from .deployable import SelectedLegCache
+            if not isinstance(leg_cache, SelectedLegCache):
+                raise ValueError("On-demand real legs require a validated selected-leg cache")
+            self.legs=_OnDemandRealLegs(table,self.rate,leg_cache)
 
     def onward_time_lower_bound(self, anchor: str) -> R:
         if anchor not in self.table.anchors:

@@ -98,8 +98,13 @@ def solve_hierarchical(case: Mapping, dominance: bool = True, leaf_size: int = 1
 
 
 def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
-                                incumbent: Witness | None = None, *, reducer=None) -> HierarchyResult:
+                                incumbent: Witness | None = None, *, reducer=None,
+                                verified_primary_upper: R | None = None,
+                                bound_provider=None) -> HierarchyResult:
     reducer = reduce_frontier if reducer is None else reducer
+    if verified_primary_upper is not None and (type(verified_primary_upper) is not R or
+                                                verified_primary_upper < 0):
+        raise ValueError("Verified primary upper bound must be an exact nonnegative rational")
     trace.start_run(problem,dominance,root,incumbent)
     incumbent_key = None
     incumbent_witness = None
@@ -171,7 +176,8 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                     trace.emit('query',group_id=group_id,region_id=region.identifier,effect=effect,
                                actions=action_set,bound=None,classification='empty_actions',queue_serial=None)
                     return
-                bound, paid = region_bound(problem, group, region, effect)
+                bound, paid = (region_bound(problem, group, region, effect) if bound_provider is None
+                               else bound_provider.bound(problem, group, region, effect))
                 scans += paid
                 if bound is None:
                     trace.emit('query',group_id=group_id,region_id=region.identifier,effect=effect,
@@ -191,15 +197,19 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
             while queue:
                 bound, effect, _, popped_serial, region = heapq.heappop(queue)
                 nodes += 1
-                decision=('prune' if incumbent_key is not None and bound>incumbent_key[0] else
+                upper_j = min((value for value in (verified_primary_upper,
+                          incumbent_key[0] if incumbent_key is not None else None)
+                          if value is not None), default=None)
+                decision=('prune' if upper_j is not None and bound>upper_j else
                           'split' if region.children else 'leaf')
                 trace.emit('pop',group_id=group_id,query_seq=query_ids[popped_serial],
                            decision=decision,incumbent_key=incumbent_key)
                 action_set = actions(problem, region, effect, state.remaining_schedule)
-                if incumbent_key is not None and bound > incumbent_key[0]:
+                if upper_j is not None and bound > upper_j:
                     pruned += 1
                     cover(action_set)
                     audit.append(dict(reason="strict_primary", lower_bound=bound,
+                                      verified_primary_upper=verified_primary_upper,
                                       incumbent_key=incumbent_key, incumbent_witness=incumbent_witness,
                                       region=region.identifier, region_members=region.members,
                                       state=state, effect=effect, prefix=group[0].pi, actions=action_set,
@@ -207,7 +217,7 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                                           p.domain.right_closed,p.slope,p.intercept,p.chi,p.rho,p.pi)
                                           for p in group)))
                     continue
-                if incumbent_key is not None and bound == incumbent_key[0]:
+                if upper_j is not None and bound == upper_j:
                     equality += 1
                 if region.children:
                     child_actions = [a for child in region.children

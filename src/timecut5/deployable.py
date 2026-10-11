@@ -20,6 +20,8 @@ from typing import Callable, Mapping
 from .real_legs import ImmutableLegTable, NUMERICS, SelectedLeg, TIE_POLICY
 
 _SHA = re.compile(r"[0-9a-f]{64}\Z")
+_MOBILITY_POLICY = b"unrestricted"
+_DEPTH_POLICY = b"positive_overhead_verified_seed_v1"
 
 
 def _json_object(data: bytes) -> dict:
@@ -175,6 +177,9 @@ class QueryDomain:
                                 (self.table_bytes, self.table_sha256)):
             if hashlib.sha256(value).hexdigest() != expected:
                 raise ValueError("Query domain byte closure mismatch")
+        if (self.binding.mobility_budget_sha256 != hashlib.sha256(_MOBILITY_POLICY).hexdigest()
+                or self.binding.depth_policy_sha256 != hashlib.sha256(_DEPTH_POLICY).hexdigest()):
+            raise ValueError("Only unrestricted mobility and verified-seed depth are implemented")
         query, table = self.open()
         if (table.hierarchy_sha256 != self.binding.hierarchy_sha256 or
                 query.get("leg_payload_sha256") != table.payload_sha256 or
@@ -202,28 +207,51 @@ class SeedDepthCertificate:
     charges: tuple[Fraction, ...]
 
     def __post_init__(self) -> None:
+        query, table = self.domain.open()
+        def scalar(name):
+            value = query.get(name)
+            if type(value) not in (str, int):
+                raise ValueError(f"Non-exact {name} in bound query")
+            return Fraction(value)
         if (self.seed.domain != self.domain.binding or type(self.max_depth) is not int or
                 self.max_depth < 0 or len(self.sequence) > self.max_depth or
                 len(self.charges) != sum(effect in ("C", "CS") for _, effect in self.sequence)):
             raise ValueError("Seed depth certificate is inconsistent")
+        witness_bytes = json.dumps({"sequence": self.sequence,
+                                    "charges": [str(value) for value in self.charges]},
+                                   sort_keys=True, separators=(",", ":")).encode()
+        if (self.max_depth != certified_depth(self.seed, self.domain.binding,
+                            scalar("overhead_s"), scalar("lambda_stop_s")) or
+                self.seed.witness_sha256 != hashlib.sha256(witness_bytes).hexdigest() or
+                any(site not in table.sites or effect not in table.site(site).effects
+                    for site, effect in self.sequence)):
+            raise ValueError("Seed depth, witness digest or Site membership mismatch")
 
 
-def construct_verified_seed(domain: QueryDomain, replay: Callable,
-                            verifier_source_path: Path, verifier_source_sha256: str
+def construct_verified_seed(domain: QueryDomain, verifier_source_sha256: Mapping[str, str]
                             ) -> SeedDepthCertificate | SearchOutcome:
     """Construct, independently replay, then certify an equality-inclusive depth.
 
     A failed finite proposal search is explicitly inconclusive. The replay
-    callable must come from the exact hashed source file supplied by caller;
-    no REF optimizer, FLAT/HIER result or diagnostic H4 result is consulted.
+    implementation is the fixed tree-independent REF replay entrypoint and
+    its exact source dependencies; no REF optimizer or solver result is read.
     """
-    if not isinstance(domain, QueryDomain) or not callable(replay):
-        raise ValueError("Bound query and independent replay callable required")
-    _sha(verifier_source_sha256, "verifier_source_sha256")
-    source = inspect.getsourcefile(replay)
-    if (source is None or Path(source).resolve() != Path(verifier_source_path).resolve() or
-            hashlib.sha256(Path(source).read_bytes()).hexdigest() != verifier_source_sha256):
-        raise ValueError("Independent verifier callable/source binding mismatch")
+    if not isinstance(domain, QueryDomain) or set(verifier_source_sha256) != {
+            "real_solver", "real_input", "model", "solver"}:
+        raise ValueError("Complete approved verifier source closure required")
+    from validation.reference5 import model, real_input, real_solver, solver
+    modules = {"real_solver": real_solver, "real_input": real_input,
+               "model": model, "solver": solver}
+    for name, module in modules.items():
+        declared = verifier_source_sha256[name]
+        _sha(declared, name)
+        source = inspect.getsourcefile(module)
+        if source is None or hashlib.sha256(Path(source).read_bytes()).hexdigest() != declared:
+            raise ValueError("Approved verifier source closure mismatch")
+    replay = real_solver.replay_real_witness_bytes
+    if (replay.__module__ != real_solver.__name__ or
+            inspect.getsourcefile(replay) != inspect.getsourcefile(real_solver)):
+        raise ValueError("Approved verifier entrypoint changed")
     query, table = domain.open()
     proposals = constructive_seed_candidates(query, table)
     # The caller's independently reviewed replay parses the same immutable
@@ -231,7 +259,7 @@ def construct_verified_seed(domain: QueryDomain, replay: Callable,
     accepted = []
     for sequence, charges in proposals:
         try:
-            result = replay(query, domain.table_bytes, domain.table_sha256,
+            result = replay(_json_object(domain.query_bytes), domain.table_bytes, domain.table_sha256,
                             sequence, charges)
         except (ValueError, AssertionError):
             continue
@@ -252,10 +280,12 @@ def construct_verified_seed(domain: QueryDomain, replay: Callable,
     witness_bytes = json.dumps({"sequence": sequence,
                                "charges": [str(value) for value in charges]},
                               sort_keys=True, separators=(",", ":")).encode()
+    closure_bytes = json.dumps(dict(sorted(verifier_source_sha256.items())),
+                               sort_keys=True, separators=(",", ":")).encode()
     seed = VerifiedSeed(domain.binding, j, hashlib.sha256(witness_bytes).hexdigest(),
-                        verifier_source_sha256)
+                        hashlib.sha256(closure_bytes).hexdigest())
     def exact(name: str) -> Fraction:
-        value = query.get(name)
+        value = _json_object(domain.query_bytes).get(name)
         if type(value) not in (str, int):
             raise ValueError(f"Non-exact {name} in bound query")
         return Fraction(value)
@@ -275,7 +305,7 @@ def certified_depth(seed: VerifiedSeed, domain: DomainBinding,
 
 
 def constructive_seed_candidates(query: Mapping, table: ImmutableLegTable) -> tuple:
-    """Deterministic zero/one-stop proposals for an independent replay checker.
+    """Deterministic bounded proposals for an independent replay checker.
 
     This only constructs candidate sequences and charge quantities from frozen
     selected legs. It does not read REF/FLAT/HIER outputs, solve a continuous
@@ -303,9 +333,12 @@ def constructive_seed_candidates(query: Mapping, table: ImmutableLegTable) -> tu
             or not floor_energy <= reserve <= capacity or consumption <= 0):
         raise ValueError("Invalid seed battery or diagnostic depth domain")
     has_schedule = query.get("schedule") is not None
+    remaining = query.get("initial_remaining_schedule", int(has_schedule))
+    if type(remaining) is not int or remaining not in (0, 1) or (remaining and not has_schedule):
+        raise ValueError("Invalid initial remaining schedule state")
     result = []
     direct = table.leg(table.origin_anchor, table.destination_anchor)
-    if not has_schedule and direct.reachable and initial - direct.energy(consumption) >= reserve:
+    if not remaining and direct.reachable and initial - direct.energy(consumption) >= reserve:
         result.append(((), ()))
     if bound == 0:
         return tuple(result)
@@ -322,7 +355,7 @@ def constructive_seed_candidates(query: Mapping, table: ImmutableLegTable) -> tu
             continue
         terminal_need = outbound.energy(consumption) + reserve - arrival
         for effect in sorted(site.effects):
-            if has_schedule != (effect in ("S", "CS")):
+            if (effect in ("S", "CS")) != bool(remaining):
                 continue
             if effect == "S":
                 if terminal_need <= 0:
@@ -336,6 +369,71 @@ def constructive_seed_candidates(query: Mapping, table: ImmutableLegTable) -> tu
             amount = max(terminal_need, min(Fraction(1), headroom) / 2)
             if 0 < amount <= headroom:
                 result.append((((site_id, effect),), (amount,)))
+    if bound < 2:
+        return tuple(result)
+    # A small deterministic beam explores physical progress for a feasible
+    # multi-charge seed. This is only a proposal generator: independent replay
+    # checks the exact service/charge clock and all physical constraints.
+    schedule = query.get("schedule")
+    overhead = exact_field("overhead_s")
+    segments = tuple(tuple(Fraction(value) for value in row)
+                     for row in query.get("charging_segments", ()))
+    def charge_time(lo: Fraction, hi: Fraction) -> Fraction:
+        return sum((max(Fraction(0), min(hi, b) - max(lo, a)) * slope
+                    for a, b, slope, _ in segments), Fraction(0))
+    frontier = [(table.origin_anchor, initial, exact_field("start_time_s"),
+                 remaining, (), ())]
+    for depth in range(1, min(bound, 8) + 1):
+        expanded = []
+        for anchor, energy, clock, pending, sequence, charges in frontier:
+            for site_id in sorted(table.sites):
+                if site_id in (event[0] for event in sequence):
+                    continue
+                site = table.site(site_id)
+                if site.anchor_id == table.destination_anchor:
+                    continue
+                inbound = table.leg(anchor, site.anchor_id)
+                if not inbound.reachable:
+                    continue
+                arrival = energy - inbound.energy(consumption)
+                if arrival < floor_energy:
+                    continue
+                release = clock + inbound.time + overhead
+                for effect in sorted(site.effects):
+                    if effect in ("S", "CS") and not pending:
+                        continue
+                    amounts = (Fraction(0),) if effect == "S" else (
+                        capacity - arrival, min(Fraction(1), capacity - arrival) / 2)
+                    for amount in amounts:
+                        if effect != "S" and amount <= 0:
+                            continue
+                        done = release + (charge_time(arrival, arrival + amount)
+                                          if effect != "S" else 0)
+                        if effect in ("S", "CS"):
+                            a, b, duration = (Fraction(schedule[k]) for k in ("a", "b", "D"))
+                            service_start = max(a, release)
+                            if service_start > b:
+                                continue
+                            done = max(done, service_start + duration)
+                        new_pending = 0 if effect in ("S", "CS") else pending
+                        new_sequence = sequence + ((site_id, effect),)
+                        new_charges = charges + ((amount,) if effect != "S" else ())
+                        new_energy = arrival + amount
+                        outbound = table.leg(site.anchor_id, table.destination_anchor)
+                        if (not new_pending and outbound.reachable and
+                                new_energy - outbound.energy(consumption) >= reserve):
+                            result.append((new_sequence, new_charges))
+                        if depth < bound:
+                            progress = (outbound.actual_length if outbound.reachable
+                                        else Fraction(10**30))
+                            expanded.append(((new_pending, progress, done, -new_energy,
+                                              new_sequence, new_charges),
+                                             (site.anchor_id, new_energy, done, new_pending,
+                                              new_sequence, new_charges)))
+        expanded.sort(key=lambda row: row[0])
+        frontier = [state for _, state in expanded[:64]]
+        if not frontier:
+            break
     return tuple(result)
 
 
@@ -499,3 +597,222 @@ def directed_alt_region_bound(source: str, landmarks: tuple[LandmarkDistances, .
         if isfinite(to_source) and isfinite(high_to):
             bound = max(bound, to_source - high_to)
     return bound
+
+
+class RegionBoundProvider:
+    """Offline-checked directed Region bounds; online lookup scans no members.
+
+    Optional ALT is capped by the immutable table's exact minimum selected-leg
+    time for every source/Region/effect. This makes the online bound safe even
+    if an external landmark source has a rounding or graph-policy mismatch.
+    """
+
+    def __init__(self, domain: QueryDomain, root, *,
+                 landmarks: tuple[LandmarkDistances, ...] = (),
+                 summaries: Mapping[int, RegionLandmarkSummary] | None = None):
+        from .hierarchy import Region
+        if not isinstance(domain, QueryDomain) or not isinstance(root, Region):
+            raise ValueError("Bound query and original Region root required")
+        _, table = domain.open()
+        summaries = {} if summaries is None else summaries
+        self.domain = domain
+        self.root = root
+        self.online_queries = 0
+        self.online_member_leg_lookups = 0
+        regions = {}
+        def visit(region):
+            if region.identifier in regions or len(set(region.members)) != len(region.members):
+                raise ValueError("Invalid Region identity or duplicate member")
+            regions[region.identifier] = region
+            if region.children:
+                covered = [site for child in region.children for site in child.members]
+                if len(covered) != len(set(covered)) or set(covered) != set(region.members):
+                    raise ValueError("Children do not partition parent Region")
+            for child in region.children:
+                visit(child)
+        visit(root)
+        nonempty_ids = {region_id for region_id, region in regions.items() if region.members}
+        if set(root.members) != set(table.sites) or set(summaries) not in (set(), nonempty_ids):
+            raise ValueError("Region or summary coverage differs from candidate domain")
+        if summaries:
+            for region_id, region in regions.items():
+                if not region.members:
+                    continue
+                summary = summaries[region_id]
+                if (summary.graph_sha256 != domain.binding.graph_sha256 or
+                        summary.landmark_sha256 != domain.binding.landmark_sha256 or
+                        not check_region_summary_offline(region.members, landmarks, summary)):
+                    raise ValueError("Uncertified Region landmark extrema")
+            for distances in landmarks:
+                for value in (*distances.from_landmark.values(), *distances.to_landmark.values()):
+                    if not isinstance(value, (int, float)) or isnan(value) or value < 0 or (
+                            isfinite(value) and (value > 2**53 or value != floor(value))):
+                        raise ValueError("ALT distances require exact nonnegative integer seconds")
+        self._bounds = {}
+        for source in table.anchors:
+            for region_id, region in regions.items():
+                for effect in ("C", "S", "CS"):
+                    candidates = []
+                    for site_id in region.members:
+                        site = table.site(site_id)
+                        if effect not in site.effects or site.anchor_id == table.destination_anchor:
+                            continue
+                        incoming = table.leg(source, site.anchor_id)
+                        if incoming.reachable:
+                            candidates.append(incoming.time)
+                    if not candidates:
+                        self._bounds[source, region_id, effect] = None
+                        continue
+                    min_in = min(candidates)
+                    if summaries:
+                        alt = directed_alt_region_bound(source, landmarks,
+                            summaries[region_id], graph_sha256=domain.binding.graph_sha256,
+                            landmark_sha256=domain.binding.landmark_sha256,
+                            member_set_sha256=member_set_digest(region.members))
+                        incoming_bound = Fraction(floor(alt))
+                        if incoming_bound > min_in:
+                            raise ValueError("ALT exceeds an immutable selected-leg minimum")
+                    else:
+                        incoming_bound = min_in
+                    # A selected Site->destination leg is not an onward bound:
+                    # later semantic stops may yield a shorter nonmetric route.
+                    self._bounds[source, region_id, effect] = incoming_bound
+
+    def bound(self, problem, pieces, region, effect):
+        if not pieces:
+            return None, 0
+        self.online_queries += 1
+        state = pieces[0].state
+        if effect in ("S", "CS") and not state.remaining_schedule:
+            return None, 0
+        incoming = self._bounds.get((state.anchor, region.identifier, effect))
+        if incoming is None:
+            return None, 0
+        lower_time = min(p.slope * p.domain.affine_infimum(p.slope)[0] + p.intercept
+                         for p in pieces)
+        time = lower_time + incoming + problem.overhead
+        if effect in ("S", "CS"):
+            a, _, duration = problem.schedule
+            time = max(a, time) + duration
+        return (time - problem.start + problem.penalty * (state.stop_count + 1), 0)
+
+
+@dataclass(frozen=True)
+class DeployablePairResult:
+    certificate: SeedDepthCertificate
+    flat: SearchOutcome
+    hier: SearchOutcome
+    flat_attempted_extensions: int
+    hier_leaf_actions: int
+    hier_bound_member_scans: int
+    hier_provider_queries: int
+    shared_seed_cache_misses: int
+    flat_cache_hits: int
+    flat_cache_misses: int
+    hier_cache_hits: int
+    hier_cache_misses: int
+
+
+def prepared_checkpoint_bytes(certificate: SeedDepthCertificate,
+                              hierarchy_bytes: bytes) -> bytes:
+    """Fail-closed restart token before OPEN exists; no partial-state resume."""
+    if not isinstance(certificate, SeedDepthCertificate) or type(hierarchy_bytes) is not bytes:
+        raise ValueError("Bound seed certificate and original hierarchy bytes required")
+    if hashlib.sha256(hierarchy_bytes).hexdigest() != certificate.domain.binding.hierarchy_sha256:
+        raise ValueError("Hierarchy differs from checkpoint domain")
+    payload = {"schema": "hiroute.m5d.prepared_restart.v1",
+               "phase": "before_search_no_open_state",
+               "domain": {name: getattr(certificate.domain.binding, name)
+                          for name in DomainBinding.__dataclass_fields__},
+               "table_sha256": certificate.domain.table_sha256,
+               "seed_witness_sha256": certificate.seed.witness_sha256,
+               "verifier_closure_sha256": certificate.seed.independent_verifier_sha256,
+               "certified_max_depth": certificate.max_depth,
+               "hierarchy_sha256": certificate.domain.binding.hierarchy_sha256}
+    return json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+
+
+def _outcome_from_terminal(binding: DomainBinding, bounded) -> SearchOutcome:
+    from . import provenance
+    result = bounded.result
+    if result.status == "attained_optimum":
+        j, q, h, pi = result.key
+        if result.witness is None:
+            raise ValueError("Attained key lacks executable witness")
+        payload = json.dumps(provenance.witness_dict(result.witness),
+                             sort_keys=True, separators=(",", ":")).encode()
+        return SearchOutcome(binding, SolveStatus.ATTAINED_OPTIMUM, j, q, h, pi,
+                             hashlib.sha256(payload).hexdigest())
+    if result.status == "infimum_unattained" and result.unattained_component == "J":
+        return SearchOutcome(binding, SolveStatus.INFIMUM_UNATTAINED_J,
+                             j=result.primary_infimum)
+    if result.status == "infimum_unattained" and result.unattained_component == "Q":
+        return SearchOutcome(binding, SolveStatus.INFIMUM_UNATTAINED_Q,
+                             j=result.primary_infimum, q=result.secondary_infimum)
+    raise ValueError("Certified seed contradicts empty or unknown terminal result")
+
+
+def solve_deployable_pair(certificate: SeedDepthCertificate, hierarchy_bytes: bytes,
+                          verifier_source_sha256: Mapping[str, str], *,
+                          landmarks: tuple[LandmarkDistances, ...] = (),
+                          summaries: Mapping[int, RegionLandmarkSummary] | None = None,
+                          prepared_checkpoint: bytes | None = None
+                          ) -> DeployablePairResult:
+    """Run exact FLAT/HIER over the same certified finite-depth domain.
+
+    Rebuild the seed proof from immutable bytes before search. No external
+    certificate field is trusted as a search cap or pruning incumbent. The
+    accepted bounded solvers retain their old diagnostic public entrypoints.
+    """
+    from .bounded import _solve_problem
+    from .hierarchy import _solve_hierarchical_problem
+    from .real_adapter import RealProblem, original_region_view
+    from .real_legs import restrict_frozen_tree
+    if not isinstance(certificate, SeedDepthCertificate) or type(hierarchy_bytes) is not bytes:
+        raise ValueError("Verified seed and frozen original hierarchy bytes required")
+    domain = certificate.domain
+    fresh = construct_verified_seed(domain, verifier_source_sha256)
+    if not isinstance(fresh, SeedDepthCertificate) or fresh != certificate:
+        raise ValueError("Seed certificate failed independent replay or depth recheck")
+    if prepared_checkpoint is not None and (
+            type(prepared_checkpoint) is not bytes or
+            prepared_checkpoint != prepared_checkpoint_bytes(fresh, hierarchy_bytes)):
+        raise ValueError("Checkpoint cannot resume an unverified or partial OPEN state")
+    query, table = domain.open()
+    restriction = restrict_frozen_tree(hierarchy_bytes, domain.binding.hierarchy_sha256,
+                                       list(table.sites))
+    root = original_region_view(table, restriction)
+    bounded_query = dict(query, H_ref=fresh.max_depth)
+    provider = RegionBoundProvider(domain, root, landmarks=landmarks, summaries=summaries)
+    route_contract = RouteContract(domain.binding.graph_sha256,
+        hashlib.sha256(json.dumps(table.router_sha256, sort_keys=True).encode()).hexdigest(),
+        domain.binding.landmark_sha256, hashlib.sha256(TIE_POLICY.encode()).hexdigest(),
+        hashlib.sha256(table.direction_policy.encode()).hexdigest(),
+        hashlib.sha256(NUMERICS.encode()).hexdigest(), direction_policy=table.direction_policy)
+    flat_cache = SelectedLegCache(route_contract, table.leg)
+    hier_cache = SelectedLegCache(route_contract, table.leg)
+    current = table.origin_anchor
+    for site_id, _ in fresh.sequence:
+        target = table.site(site_id).anchor_id
+        flat_cache.leg(current, target)
+        hier_cache.leg(current, target)
+        current = target
+    flat_cache.leg(current, table.destination_anchor)
+    hier_cache.leg(current, table.destination_anchor)
+    if (flat_cache.misses, flat_cache.hits) != (hier_cache.misses, hier_cache.hits):
+        raise ValueError("FLAT/HIER seed cache preparation differs")
+    shared_seed_cache_misses = flat_cache.misses
+    flat = _solve_problem(RealProblem(bounded_query, table, leg_cache=flat_cache))
+    hier = _solve_hierarchical_problem(RealProblem(bounded_query, table, leg_cache=hier_cache), True, root,
+                                       verified_primary_upper=fresh.seed.primary_j,
+                                       bound_provider=provider)
+    flat_outcome = _outcome_from_terminal(domain.binding, flat)
+    hier_outcome = _outcome_from_terminal(domain.binding, hier.bounded)
+    if flat_outcome != hier_outcome:
+        raise ValueError("FLAT/HIER exact outcomes disagree in the certified domain")
+    return DeployablePairResult(fresh, flat_outcome, hier_outcome,
+                                flat.attempted_extensions, hier.leaf_actions,
+                                hier.bound_member_scans, provider.online_queries,
+                                shared_seed_cache_misses,
+                                flat_cache.hits, flat_cache.misses,
+                                hier_cache.hits, hier_cache.misses)
