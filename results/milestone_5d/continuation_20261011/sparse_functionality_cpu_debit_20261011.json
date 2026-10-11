@@ -1,6 +1,6 @@
 {
   "schema": "hiroute.m5d.sparse_functionality_cpu_debit.v1",
-  "status": "n8_seed_and_early_recovery_passed_n32_n128_qualification_timed_out_no_optimum_claim",
+  "status": "n8_seed_recovery_feasible_value_passed_n32_n128_qualification_timed_out_no_optimum_claim",
   "budget_policy": {
     "pilot_functionality_wall_seconds_per_unit": 120,
     "memory_bytes_per_unit": 4294967296,
@@ -89,9 +89,20 @@
       "cgroup_cpu_usage_ns": 121344119000,
       "peak_memory_bytes": 1724338176,
       "unit_receipt_sha256": "cb6d38dd74d34faf5790efc56c36884d050dcbc79b10e3caee6df387d88ca38e"
+    },
+    {
+      "kind": "fixed_od02_n8_first_feasible_transport_comparator",
+      "source_commit": "ee361eed042fec894039b56d6a61de5731ff3798",
+      "result": "success_zero_within_stream_J_gain",
+      "wall_limit_seconds": 120,
+      "wall_elapsed_ns": 56364562964,
+      "cgroup_cpu_usage_ns": 57540435000,
+      "peak_memory_bytes": 1739608064,
+      "unit_receipt_sha256": "0d115b8b8fc50da70e9a828d953e6c9e8cdec6edc939a13fe0066d2392bc67e9",
+      "presearch_receipt_sha256": "44dc11746e26dcb44fe5b6c084cce22faf2e122824fa17bd9007f0c86dd30627"
     }
   ],
-  "new_cgroup_cpu_hours_debited": 0.16111587944444444,
-  "evidence_archive_sha256": ["6c5d50371581d3280b5a4dca5491c402cf1ed0d87c6b6f856a14b1958ded651c", "b186436485332b1ba813a892d7527423744d4ff44a8adcfe6bd989049d957e0f", "2a54383770d095900694f7e6f6d173947362ec10cc32ff89dc226681e45c10db"],
+  "new_cgroup_cpu_hours_debited": 0.1770993336111111,
+  "evidence_archive_sha256": ["6c5d50371581d3280b5a4dca5491c402cf1ed0d87c6b6f856a14b1958ded651c", "b186436485332b1ba813a892d7527423744d4ff44a8adcfe6bd989049d957e0f", "2a54383770d095900694f7e6f6d173947362ec10cc32ff89dc226681e45c10db", "b59a26f0ce72af9bb01b404c8144fe3f658e2a37580dd78fc4ea0d56226795a1"],
   "server_originals_preserved": true
 }

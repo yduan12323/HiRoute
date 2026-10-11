@@ -14,8 +14,15 @@ timeout supplies no such comparison.
 The local directed three-anchor regression verifies a one-stop feasible
 construction and independent edge/physical replay in normal Python and `-OO`.
 It also checks that its key is no better than the selected minimum. The fixed
-real OD02 N8 probe is the only planned real small-domain value calculation;
-larger-domain and fleet-level value are not inferred from it.
+real OD02 N8 probe at source `ee361ee` completed under 120 s and 4 GiB:
+the first feasible proposal was ordinal 0 of 93 and equalled the best seed,
+`J = 20740584436525316127/687194767360000` seconds, with two charging
+stops. The measured within-stream improvement was exactly zero. This does
+not establish zero benefit over other feasible constructions or full-domain
+FLAT/HIER search. Its byte-bound receipt is preserved in
+`/Users/dy/Documents/Codex/2026-10-09/task/m5d_sparse_value_n8_20261011.tar.gz`
+(SHA-256 `b59a26f0ce72af9bb01b404c8144fe3f658e2a37580dd78fc4ea0d56226795a1`).
+Larger-domain and fleet-level value are not inferred from it.
 
 Related primary literature shows why partial recharging, time windows and
 nonlinear charging should be modeled explicitly, but none of these methods is
