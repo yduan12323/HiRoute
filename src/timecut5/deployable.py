@@ -328,13 +328,18 @@ def constructive_seed_candidates(query: Mapping, table: ImmutableLegTable) -> tu
     selected legs. It does not read REF/FLAT/HIER outputs, solve a continuous
     optimization problem, or certify that a proposal is feasible.
     """
-    if not isinstance(table, ImmutableLegTable) or not isinstance(query, Mapping):
-        raise ValueError("Frozen table and exact query required")
-    for key, expected in (("origin", table.origin_anchor),
-                          ("destination", table.destination_anchor),
-                          ("leg_payload_sha256", table.payload_sha256),
-                          ("selection_certificate_sha256", table.selection_certificate_sha256),
-                          ("hierarchy_sha256", table.hierarchy_sha256)):
+    from .sparse_seed import SparseSeedCatalog
+    if not isinstance(table, (ImmutableLegTable, SparseSeedCatalog)) or not isinstance(query, Mapping):
+        raise ValueError("Bound selected-leg source and exact query required")
+    bindings = (("origin", table.origin_anchor),
+                ("destination", table.destination_anchor),
+                ("hierarchy_sha256", table.hierarchy_sha256))
+    if isinstance(table, ImmutableLegTable):
+        bindings += (("leg_payload_sha256", table.payload_sha256),
+                     ("selection_certificate_sha256", table.selection_certificate_sha256))
+    else:
+        bindings += (("sparse_domain_sha256", table.domain_sha256),)
+    for key, expected in bindings:
         if query.get(key) != expected:
             raise ValueError(f"Unbound seed query field {key}")
     def exact_field(key: str) -> Fraction:

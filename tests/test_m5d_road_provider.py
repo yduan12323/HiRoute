@@ -1,6 +1,8 @@
 """Tiny directed path witnesses for the real-road provider boundary."""
 import hashlib
 import json
+from pathlib import Path
+import tempfile
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
@@ -16,6 +18,8 @@ from timecut5.live_replay import ExactLayerReplay, LayerCheckpointStop
 from timecut5.road_provider import (RoadSelectedLegProvider,
     TableFreeRoadSelectedLegProvider, TableFreeRegionBoundProvider)
 from timecut5.road_landmark import certify_integer_landmark
+from timecut5.sparse_seed import SparseSeedCatalog, admit_sparse_seed, replay_sparse_seed
+from timecut5.deployable import constructive_seed_candidates
 
 
 class NativeStub:
@@ -282,6 +286,57 @@ class RoadProviderTest(unittest.TestCase):
                 bound.action_mask(Region(0, ("s1",)), "C", 0)
             with self.assertRaisesRegex(ValueError, "Region identity"):
                 bound._incoming("road:0", Region(0, ("s1",)))
+
+    def test_sparse_seed_replays_edges_and_binds_full_candidate_universe(self):
+        table, graph = self.fixture()
+        anchors = {f"road:{i}": i for i in range(3)}
+        catalog_sha = hashlib.sha256(json.dumps(anchors, sort_keys=True,
+            separators=(",", ":")).encode()).hexdigest()
+        with tempfile.TemporaryDirectory() as directory:
+            nodes, edges = Path(directory) / "nodes", Path(directory) / "edges"
+            nodes.write_bytes(b"full original nodes")
+            edges.write_bytes(b"full original edges")
+            provider = TableFreeRoadSelectedLegProvider(graph, NativeStub(), anchors,
+                nodes_sha256=hashlib.sha256(nodes.read_bytes()).hexdigest(),
+                edges_sha256=hashlib.sha256(edges.read_bytes()).hexdigest(),
+                router_sha256="a" * 64, anchor_catalog_sha256=catalog_sha)
+            candidate_sha = hashlib.sha256(b'["s1"]').hexdigest()
+            catalog = SparseSeedCatalog(provider, table.sites,
+                origin_anchor="road:0", destination_anchor="road:2",
+                nodes_path=nodes, edges_path=edges,
+                site_catalog_sha256=site_catalog_digest(table.sites),
+                hierarchy_sha256="e" * 64, candidate_sha256=candidate_sha)
+            query = dict(origin="road:0", destination="road:2", H_ref=1,
+                sparse_domain_sha256=catalog.domain_sha256,
+                hierarchy_sha256="e" * 64, start_time_s=0,
+                initial_energy_kwh=1, capacity_kwh=2,
+                minimum_energy_kwh=0, reserve_kwh=0,
+                consumption_kwh_per_m="1/10", overhead_s=1,
+                lambda_stop_s=0, schedule=None,
+                charging_segments=[[0, 2, 1, 0]])
+            proposals = constructive_seed_candidates(query, catalog)
+            self.assertTrue(proposals)
+            admission = admit_sparse_seed(query, catalog)
+            self.assertEqual(admission["status"], "verified")
+            self.assertEqual(admission["max_depth"], admission["lex_key"][0])
+            outcome = replay_sparse_seed(query, catalog, (("s1", "C"),), (1,))
+            self.assertEqual(outcome["lex_key"][0], 4)
+            self.assertEqual(outcome["edge_witnesses"], ((0,), (1,)))
+            self.assertLess(len(provider.legs), len(anchors) ** 2)
+            self.assertEqual(provider.source_run_count, 3)
+            with self.assertRaisesRegex(ValueError, "candidate universe"):
+                SparseSeedCatalog(provider, table.sites,
+                    origin_anchor="road:0", destination_anchor="road:2",
+                    nodes_path=nodes, edges_path=edges,
+                    site_catalog_sha256=site_catalog_digest(table.sites),
+                    hierarchy_sha256="e" * 64, candidate_sha256="0" * 64)
+            edges.write_bytes(b"modified")
+            with self.assertRaisesRegex(ValueError, "graph bytes"):
+                SparseSeedCatalog(provider, table.sites,
+                    origin_anchor="road:0", destination_anchor="road:2",
+                    nodes_path=nodes, edges_path=edges,
+                    site_catalog_sha256=site_catalog_digest(table.sites),
+                    hierarchy_sha256="e" * 64, candidate_sha256=candidate_sha)
 
 
 if __name__ == "__main__":
