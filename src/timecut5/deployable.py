@@ -10,14 +10,34 @@ from dataclasses import dataclass
 from enum import Enum
 from fractions import Fraction
 import hashlib
+import inspect
 import json
 from math import floor, isfinite, isnan
+from pathlib import Path
 import re
 from typing import Callable, Mapping
 
 from .real_legs import ImmutableLegTable, NUMERICS, SelectedLeg, TIE_POLICY
 
 _SHA = re.compile(r"[0-9a-f]{64}\Z")
+
+
+def _json_object(data: bytes) -> dict:
+    def unique_pairs(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError("Duplicate JSON key in bound query")
+            result[key] = value
+        return result
+    try:
+        result = json.loads(data, object_pairs_hook=unique_pairs,
+                            parse_constant=lambda _: (_ for _ in ()).throw(ValueError("Nonfinite JSON")))
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise ValueError("Invalid query bytes") from error
+    if type(result) is not dict:
+        raise ValueError("Query must be a JSON object")
+    return result
 
 
 def _sha(value: str, name: str) -> None:
@@ -129,6 +149,118 @@ class VerifiedSeed:
             raise ValueError("Seed must bind a domain and finite nonnegative exact J")
         _sha(self.witness_sha256, "witness_sha256")
         _sha(self.independent_verifier_sha256, "independent_verifier_sha256")
+
+
+@dataclass(frozen=True)
+class QueryDomain:
+    """Byte-closed query and selected-leg table for seed construction.
+
+    The full graph/policy/population closure is supplied by DomainBinding;
+    this boundary additionally checks the concrete query, candidate IDs and
+    immutable selected-leg payload before any seed proposal is made.
+    """
+    binding: DomainBinding
+    query_bytes: bytes
+    candidate_bytes: bytes
+    table_bytes: bytes
+    table_sha256: str
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.binding, DomainBinding) or any(type(x) is not bytes for x in
+              (self.query_bytes, self.candidate_bytes, self.table_bytes)):
+            raise ValueError("Query domain requires a bound source and immutable bytes")
+        _sha(self.table_sha256, "table_sha256")
+        for value, expected in ((self.query_bytes, self.binding.query_sha256),
+                                (self.candidate_bytes, self.binding.candidate_set_sha256),
+                                (self.table_bytes, self.table_sha256)):
+            if hashlib.sha256(value).hexdigest() != expected:
+                raise ValueError("Query domain byte closure mismatch")
+        query, table = self.open()
+        if (table.hierarchy_sha256 != self.binding.hierarchy_sha256 or
+                query.get("leg_payload_sha256") != table.payload_sha256 or
+                query.get("selection_certificate_sha256") != table.selection_certificate_sha256):
+            raise ValueError("Query, table or hierarchy provenance mismatch")
+        try:
+            candidates = json.loads(self.candidate_bytes)
+        except (UnicodeDecodeError, json.JSONDecodeError) as error:
+            raise ValueError("Invalid candidate set bytes") from error
+        if (type(candidates) is not list or candidates != sorted(table.sites) or
+                len(set(candidates)) != len(candidates)):
+            raise ValueError("Candidate IDs differ from the immutable table")
+
+    def open(self) -> tuple[dict, ImmutableLegTable]:
+        return _json_object(self.query_bytes), ImmutableLegTable.from_bytes(
+            self.table_bytes, self.table_sha256)
+
+
+@dataclass(frozen=True)
+class SeedDepthCertificate:
+    domain: QueryDomain
+    seed: VerifiedSeed
+    max_depth: int
+    sequence: tuple[tuple[str, str], ...]
+    charges: tuple[Fraction, ...]
+
+    def __post_init__(self) -> None:
+        if (self.seed.domain != self.domain.binding or type(self.max_depth) is not int or
+                self.max_depth < 0 or len(self.sequence) > self.max_depth or
+                len(self.charges) != sum(effect in ("C", "CS") for _, effect in self.sequence)):
+            raise ValueError("Seed depth certificate is inconsistent")
+
+
+def construct_verified_seed(domain: QueryDomain, replay: Callable,
+                            verifier_source_path: Path, verifier_source_sha256: str
+                            ) -> SeedDepthCertificate | SearchOutcome:
+    """Construct, independently replay, then certify an equality-inclusive depth.
+
+    A failed finite proposal search is explicitly inconclusive. The replay
+    callable must come from the exact hashed source file supplied by caller;
+    no REF optimizer, FLAT/HIER result or diagnostic H4 result is consulted.
+    """
+    if not isinstance(domain, QueryDomain) or not callable(replay):
+        raise ValueError("Bound query and independent replay callable required")
+    _sha(verifier_source_sha256, "verifier_source_sha256")
+    source = inspect.getsourcefile(replay)
+    if (source is None or Path(source).resolve() != Path(verifier_source_path).resolve() or
+            hashlib.sha256(Path(source).read_bytes()).hexdigest() != verifier_source_sha256):
+        raise ValueError("Independent verifier callable/source binding mismatch")
+    query, table = domain.open()
+    proposals = constructive_seed_candidates(query, table)
+    # The caller's independently reviewed replay parses the same immutable
+    # bytes. The production wheel does not import the reference package.
+    accepted = []
+    for sequence, charges in proposals:
+        try:
+            result = replay(query, domain.table_bytes, domain.table_sha256,
+                            sequence, charges)
+        except (ValueError, AssertionError):
+            continue
+        if (type(result) is not dict or result.get("witness_replayed") is not True
+                or result.get("H") != len(sequence)
+                or result.get("site_action_tuple") != sequence or
+                result.get("charges") != charges or
+                type(result.get("J")) is not Fraction or result["J"] < 0 or
+                type(result.get("Q_total")) is not Fraction or
+                result["Q_total"] != sum(charges, Fraction(0)) or
+                result.get("lex_key") != (result["J"], result["Q_total"],
+                                          len(sequence), sequence)):
+            raise ValueError("Independent replay returned an inconsistent witness")
+        accepted.append((result["J"], result["Q_total"], len(sequence), sequence, charges))
+    if not accepted:
+        return SearchOutcome(domain.binding, SolveStatus.INCUMBENT_SEARCH_FAILED)
+    j, _, _, sequence, charges = min(accepted)
+    witness_bytes = json.dumps({"sequence": sequence,
+                               "charges": [str(value) for value in charges]},
+                              sort_keys=True, separators=(",", ":")).encode()
+    seed = VerifiedSeed(domain.binding, j, hashlib.sha256(witness_bytes).hexdigest(),
+                        verifier_source_sha256)
+    def exact(name: str) -> Fraction:
+        value = query.get(name)
+        if type(value) not in (str, int):
+            raise ValueError(f"Non-exact {name} in bound query")
+        return Fraction(value)
+    depth = certified_depth(seed, domain.binding, exact("overhead_s"), exact("lambda_stop_s"))
+    return SeedDepthCertificate(domain, seed, depth, sequence, charges)
 
 
 def certified_depth(seed: VerifiedSeed, domain: DomainBinding,

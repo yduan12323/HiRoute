@@ -1,20 +1,22 @@
 from fractions import Fraction as F
 import hashlib
+import inspect
 import json
 from math import inf
 from pathlib import Path
 import unittest
 
 from timecut5.deployable import (
-    DomainBinding, LandmarkDistances, RegionLandmarkSummary, RouteContract,
+    DomainBinding, LandmarkDistances, QueryDomain, RegionLandmarkSummary, RouteContract,
     SearchOutcome, SelectedLegCache, SolveStatus, VerifiedSeed,
-    certified_depth, check_region_summary_offline, constructive_seed_candidates,
+    certified_depth, check_region_summary_offline, construct_verified_seed,
+    constructive_seed_candidates,
     directed_alt_region_bound, member_set_digest,
 )
 from timecut5.real_legs import ImmutableLegTable, SelectedLeg
 from timecut5.real_legs import NUMERICS, TIE_POLICY
 from validation.reference5.real_input import IndependentLegTable
-from validation.reference5.real_solver import replay_real_witness
+from validation.reference5.real_solver import replay_real_witness, replay_real_witness_bytes
 
 
 D = "a" * 64
@@ -128,6 +130,56 @@ class DeployableContractTest(unittest.TestCase):
                         member_set_sha256=D)
         bad = RegionLandmarkSummary(member_hash, D, F_HASH, (9, 1), (inf, 4))
         self.assertFalse(check_region_summary_offline(("x", "y"), landmarks, bad))
+
+    def test_bound_query_independent_seed_to_depth(self):
+        fixture = Path(__file__).resolve().parents[1] / "results/milestone_5_real_leg_contract/mock_solver_cases.json"
+        case = json.loads(fixture.read_text())[1]
+        table_bytes = json.dumps(case["table"], sort_keys=True, separators=(",", ":")).encode()
+        table = ImmutableLegTable.from_bytes(table_bytes, case["table_sha256"])
+        query = dict(case["query"], leg_payload_sha256=table.payload_sha256,
+                     selection_certificate_sha256=table.selection_certificate_sha256,
+                     hierarchy_sha256=table.hierarchy_sha256)
+        query_bytes = json.dumps(query, sort_keys=True, separators=(",", ":")).encode()
+        candidate_bytes = json.dumps(sorted(table.sites)).encode()
+        digests = {name: hashlib.sha256(name.encode()).hexdigest()
+                   for name in DomainBinding.__dataclass_fields__}
+        digests.update(query_sha256=hashlib.sha256(query_bytes).hexdigest(),
+                       candidate_set_sha256=hashlib.sha256(candidate_bytes).hexdigest(),
+                       hierarchy_sha256=table.hierarchy_sha256)
+        binding = DomainBinding(**digests)
+        domain = QueryDomain(binding, query_bytes, candidate_bytes, table_bytes,
+                             case["table_sha256"])
+        verifier_file = Path(inspect.getsourcefile(replay_real_witness_bytes))
+        verifier_hash = hashlib.sha256(verifier_file.read_bytes()).hexdigest()
+        result = construct_verified_seed(domain, replay_real_witness_bytes, verifier_file,
+                                         verifier_hash)
+        self.assertNotIsInstance(result, SearchOutcome)
+        self.assertEqual(result.seed.domain, binding)
+        self.assertEqual(result.seed.independent_verifier_sha256, verifier_hash)
+        self.assertEqual(result.max_depth, certified_depth(result.seed, binding,
+                         F(query["overhead_s"]), F(query["lambda_stop_s"])))
+        self.assertLessEqual(len(result.sequence), result.max_depth)
+        independent = IndependentLegTable.from_bytes(table_bytes, case["table_sha256"])
+        self.assertEqual(result.seed.primary_j,
+                         replay_real_witness(query, independent, result.sequence,
+                                             result.charges)["J"])
+        with self.assertRaises(ValueError):
+            QueryDomain(binding, query_bytes, b"[]", table_bytes, case["table_sha256"])
+        duplicated = query_bytes[:-1] + b',"origin":"tampered"}'
+        duplicated_binding = DomainBinding(**dict(digests,
+                           query_sha256=hashlib.sha256(duplicated).hexdigest()))
+        with self.assertRaisesRegex(ValueError, "Duplicate JSON key"):
+            QueryDomain(duplicated_binding, duplicated, candidate_bytes, table_bytes,
+                        case["table_sha256"])
+        with self.assertRaises(ValueError):
+            construct_verified_seed(domain, replay_real_witness_bytes, verifier_file, D)
+
+        def reject_all(*_args):
+            raise ValueError("No proposal accepted")
+        test_source = Path(__file__)
+        failed = construct_verified_seed(domain, reject_all, test_source,
+                                         hashlib.sha256(test_source.read_bytes()).hexdigest())
+        self.assertEqual(failed.status, SolveStatus.INCUMBENT_SEARCH_FAILED)
 
 
 if __name__ == "__main__":

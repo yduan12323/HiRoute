@@ -217,6 +217,12 @@ def replay_real_witness(query, table, sequence, charges):
     return _replay_real(prepare_real_case(query, table), sequence, charges)
 
 
+def replay_real_witness_bytes(query, table_bytes, table_sha256, sequence, charges):
+    """Independently parse and replay a seed from the exact table bytes."""
+    table = IndependentLegTable.from_bytes(table_bytes, table_sha256)
+    return replay_real_witness(query, table, sequence, charges)
+
+
 def estimate_real_regimes(query, table, *, keep_exclusions=True):
     return physical_sequence_preflight(prepare_real_case(query, table), keep_exclusions=keep_exclusions)
 
