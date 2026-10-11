@@ -362,6 +362,8 @@ class RoadProviderTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "dimensions"):
                 replay_sparse_seed(dict(long_query, H_ref=4), catalog,
                                    repeated, small_charges)
+            with self.assertRaisesRegex(ValueError, "non-boolean"):
+                replay_sparse_seed(query, catalog, (("s1", "C"),), (True,))
             malformed = (
                 dict(query, charging_segments=[[0, 1, 1, 0], [Fraction(3, 2), 2, 1, 0]]),
                 dict(query, charging_segments=[[0, 2, -1, 0]]),

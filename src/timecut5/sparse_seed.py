@@ -88,6 +88,9 @@ def replay_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, sequence, cha
             query.get("hierarchy_sha256") != catalog.hierarchy_sha256):
         raise ValueError("Sparse query differs from full source domain")
     validate_sparse_query(query, catalog)
+    charges = tuple(charges)
+    if any(type(amount) not in (int, str, R) for amount in charges):
+        raise ValueError("Seed charge quantities must be exact non-boolean rationals")
     sequence, charges = tuple(map(tuple, sequence)), tuple(map(R, charges))
     if len(sequence) > query["H_ref"] or len(charges) != sum(
             effect in ("C", "CS") for _, effect in sequence):
