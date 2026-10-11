@@ -18,7 +18,7 @@ def main():
     parser.add_argument("--states-sha256", required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--python", type=Path, required=True)
-    parser.add_argument("--mode", choices=("preflight", "solve"), required=True)
+    parser.add_argument("--mode", choices=("preflight", "solve", "flat", "hier"), required=True)
     args = parser.parse_args()
     root = args.repo.resolve(strict=True)
     output = args.output_dir

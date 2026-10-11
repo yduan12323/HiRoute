@@ -12,6 +12,7 @@ from fractions import Fraction
 import hashlib
 import inspect
 import json
+import os
 from pathlib import Path
 import sys
 from types import SimpleNamespace
@@ -24,10 +25,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from microplan.routing import ExactRouter
 from timecut5.deployable import (DomainBinding, LandmarkDistances, QueryDomain,
-    RegionBoundProvider,
+    RegionBoundProvider, RouteContract, SelectedLegCache, _independent_attained_replay,
+    _outcome_from_terminal,
     RegionLandmarkSummary, SearchOutcome, construct_verified_seed,
     member_set_digest, solve_deployable_pair)
-from timecut5.real_adapter import original_region_view
+from timecut5.real_adapter import RealProblem, original_region_view
 from timecut5.real_legs import ImmutableLegTable, NUMERICS, TIE_POLICY, restrict_frozen_tree
 from timecut5.road_landmark import certify_integer_landmark
 from timecut5.road_provider import RoadSelectedLegProvider
@@ -224,6 +226,17 @@ def run(args):
             "preflight_region_setup_elapsed_ns": provider_setup_ns,
             "preflight_region_index_entries": checked_region_provider.setup_index_entries,
             "setup_elapsed_ns": time.monotonic_ns() - started}
+        if args.mode in ("solve", "flat", "hier"):
+            marker = {"schema": "hiroute.m5d.search_started.v1", "mode": args.mode,
+                "domain_query_sha256": binding.query_sha256,
+                "table_sha256": table.payload_sha256,
+                "seed_j": str(seed.seed.primary_j), "certified_max_depth": seed.max_depth,
+                "setup_elapsed_ns": time.monotonic_ns() - started}
+            with (output / "search_started.json").open("x") as stream:
+                json.dump(marker, stream, sort_keys=True)
+                stream.write("\n")
+                stream.flush()
+                os.fsync(stream.fileno())
         if args.mode == "solve":
             solved = solve_deployable_pair(seed, hierarchy_bytes, hashes,
                 landmarks=(distances,), summaries=summaries,
@@ -238,6 +251,47 @@ def run(args):
                 hier_online_internal_member_accesses=solved.hier_online_internal_member_accesses,
                 hier_online_mask_word_work=solved.hier_online_mask_word_work,
                 region_setup_elapsed_ns=solved.region_setup_elapsed_ns)
+        elif args.mode in ("flat", "hier"):
+            from timecut5.bounded import _solve_problem
+            from timecut5.hierarchy import _solve_hierarchical_problem
+            contract = RouteContract(binding.graph_sha256,
+                hashlib.sha256(json.dumps(table.router_sha256, sort_keys=True).encode()).hexdigest(),
+                binding.landmark_sha256, hashlib.sha256(TIE_POLICY.encode()).hexdigest(),
+                hashlib.sha256(table.direction_policy.encode()).hexdigest(),
+                hashlib.sha256(NUMERICS.encode()).hexdigest(),
+                direction_policy=table.direction_policy)
+            cache = SelectedLegCache(contract, road.leg)
+            current = table.origin_anchor
+            for site_id, _ in seed.sequence:
+                target = table.site(site_id).anchor_id
+                cache.leg(current, target)
+                current = target
+            cache.leg(current, table.destination_anchor)
+            problem = RealProblem(dict(query, H_ref=seed.max_depth), table,
+                                  leg_cache=cache)
+            if args.mode == "flat":
+                bounded = _solve_problem(problem, verified_primary_upper=seed.seed.primary_j,
+                    singleton_bound=checked_region_provider.singleton_bound)
+                search_metrics = {"flat_attempted_extensions": bounded.attempted_extensions}
+            else:
+                hierarchical = _solve_hierarchical_problem(problem, True, original_root,
+                    verified_primary_upper=seed.seed.primary_j,
+                    bound_provider=checked_region_provider)
+                bounded = hierarchical.bounded
+                search_metrics = {"hier_leaf_actions": hierarchical.leaf_actions,
+                    "hier_bound_member_scans": hierarchical.bound_member_scans,
+                    "hier_online_internal_member_accesses":
+                        checked_region_provider.online_internal_member_accesses,
+                    "hier_online_mask_word_work":
+                        checked_region_provider.online_mask_word_work}
+            outcome = _outcome_from_terminal(binding, bounded)
+            _independent_attained_replay(domain, bounded, outcome, seed.max_depth)
+            report.update(status=outcome.status.value,
+                exact_key={"J": str(outcome.j), "Q": str(outcome.q),
+                           "H": outcome.h, "Pi": outcome.pi},
+                provider_queries=checked_region_provider.online_queries,
+                cache_hits=cache.hits, cache_misses=cache.misses,
+                **search_metrics)
         report["total_elapsed_ns"] = time.monotonic_ns() - started
         with (output / "query_result.json").open("x") as stream:
             json.dump(report, stream, sort_keys=True)
@@ -254,7 +308,7 @@ def main():
     parser.add_argument("--graph-dir", type=Path, required=True)
     parser.add_argument("--states-sha256", required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
-    parser.add_argument("--mode", choices=("preflight", "solve"), required=True)
+    parser.add_argument("--mode", choices=("preflight", "solve", "flat", "hier"), required=True)
     print(json.dumps(run(parser.parse_args()), sort_keys=True))
 
 
