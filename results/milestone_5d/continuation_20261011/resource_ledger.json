@@ -1,0 +1,154 @@
+{
+  "aggregate_memory_limit_gib": 16,
+  "base_main_commit": "fae2b71b342cb95fb7f578cfe031252d7e31700a",
+  "branch": "dot/m5d-continuation",
+  "isolated_server_checkout": "/home/dy/HiRoute/m5d_d0_1af12a9",
+  "limits": "Peak RSS and CPU time were not instrumented for these read-only/code checks; no numerical optimizer or LP model was run.",
+  "new_numerical_optimizer_cpu_hours_charged": 0,
+  "numerical_budget_cpu_hours": 48,
+  "pilot_concurrency": 1,
+  "pilot_per_process_limit_seconds": 120,
+  "pilot_per_process_virtual_memory_gib": 4,
+  "runs": [
+    {
+      "cpu_seconds": null,
+      "elapsed_wall_seconds": 0.13046730705536902,
+      "exit_code": 0,
+      "kind": "read_only_no_optimizer",
+      "name": "retained_32_state_one_stop_preflight",
+      "output_sha256": "eb1a975824ba682b74ce70ed5e6b4f571541997fcaeede7aef1ad8f56139a41e",
+      "peak_rss_bytes": null,
+      "timeout_seconds": 120,
+      "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "cpu_seconds": null,
+      "exit_code": 0,
+      "kind": "code_tests",
+      "log_sha256": "13512562bc41251397583a7471dfa1cf762d2cd585cca6a6c8f8b74521fffc25",
+      "name": "deployable_contract_tests_normal_and_optimized",
+      "peak_rss_bytes": null,
+      "tests_per_mode": 4,
+      "timeout_seconds_per_mode": 120,
+      "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "exit_code": 134,
+      "kind": "read_only_no_optimizer",
+      "log_sha256": "75e35f108cc12ef011ea63c3b97e669f3176afe9608f8f1f905293fb9dafc030",
+      "name": "same_map_supply_initial",
+      "reason": "numerical library thread creation failed under constrained virtual memory; original log retained",
+      "timeout_seconds": 120,
+      "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "elapsed_wall_seconds": 5.786417447961867,
+      "exit_code": 0,
+      "kind": "read_only_no_optimizer",
+      "name": "same_map_supply_singlethread",
+      "output_sha256": "daa6eca9f468f121f41a968b72467ab0ba2cfa7def1c65fb38a7590e893dc8ed",
+      "thread_limits": "OPENBLAS_NUM_THREADS=OMP_NUM_THREADS=MKL_NUM_THREADS=1",
+      "timeout_seconds": 120,
+      "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "exit_code": 1,
+      "kind": "code_tests",
+      "log_sha256": "dfb047a03d876caf16a4b12b1c1f2c83cc34d1e179df55e3b9997953ac554fb7",
+      "name": "deployable_contract_tests_v2_mismatch",
+      "reason": "staged server test fixture lagged updated binary64 validation; source and fixture synced before retry"
+    },
+    {
+      "exit_code": 0,
+      "kind": "code_tests",
+      "log_sha256": "13512562bc41251397583a7471dfa1cf762d2cd585cca6a6c8f8b74521fffc25",
+      "name": "deployable_contract_tests_v3",
+      "tests_per_mode": 4,
+      "timeout_seconds_per_mode": 120,
+      "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "cpu_seconds": null,
+      "elapsed_wall_seconds": 0.13988834782503545,
+      "exit_code": 0,
+      "kind": "read_only_no_optimizer",
+      "name": "retained_32_state_one_stop_preflight_v3",
+      "output_sha256": "a97dfa67796a28635f2a38955a1ec7e49ca69ff35b4ac1ba5e3fc5b54b84a3fe",
+      "peak_rss_bytes": null,
+      "timeout_seconds": 120,
+      "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "exit_code": 1,
+      "kind": "read_only_graph_screen",
+      "log_sha256": "316ba27a70e433bc67eeb570a733672de3318188c691330e63aee5feca42483b",
+      "name": "igraph_extrema_distance_attempt",
+      "reason": "igraph graph construction exceeded 4 GiB; limit unchanged",
+      "timeout_seconds": 120,
+      "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "exit_code": 0,
+      "kind": "read_only_graph_screen",
+      "name": "native_pair_screen_initial",
+      "output_sha256": "329df3be37a22260f0634b36eb514c21f6ecfdedc928293c8a45c3fa95b7a093",
+      "result": "geographically farthest pair disconnected both directions",
+      "timeout_seconds": 120,
+      "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "exit_code": 1,
+      "kind": "read_only_graph_screen",
+      "log_sha256": "74021578d49edd89886adcc47f2aeb50e3cefe0913b72921d58ee12f8521a762",
+      "name": "all_pairs_native_serialization_failure",
+      "reason": "NumPy integer JSON serialization after routing; original log retained",
+      "timeout_seconds": 120,
+      "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "elapsed_wall_seconds": 24.837839954998344,
+      "exit_code": 0,
+      "kind": "read_only_graph_screen",
+      "name": "all_pairs_native_float_screen",
+      "output_sha256": "f4f6b36371758e5c6a24e327f89683fc6ee5f60f1272fa33e1cd1dd672df0666",
+      "timeout_seconds": 120,
+      "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "elapsed_wall_seconds": 23.70931973680854,
+      "exit_code": 0,
+      "kind": "read_only_graph_screen",
+      "name": "all_pairs_integer_micrometer_lower_bound",
+      "output_sha256": "ee8938e036c0ba5f14c9254742aed953557fcadbfe3572d39ff57f73523f95b1",
+      "timeout_seconds": 120,
+      "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "elapsed_wall_seconds": 25.42534734494984,
+      "exit_code": 0,
+      "kind": "read_only_graph_proof_check",
+      "name": "all_edge_potential_check",
+      "output_sha256": "d613b021495af21446e23e46aaacf5e05e197265d17b9e9e2f3b9ba21070a90c",
+      "timeout_seconds": 120,
+      "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "exit_code": 0,
+      "kind": "code_tests",
+      "log_sha256": "13512562bc41251397583a7471dfa1cf762d2cd585cca6a6c8f8b74521fffc25",
+      "name": "final_source_contract_tests_v4",
+      "tests_per_mode": 4,
+      "timeout_seconds_per_mode": 120,
+      "ulimit_virtual_memory_gib": 4
+    },
+    {
+      "exit_code": 0,
+      "kind": "read_only_no_optimizer",
+      "name": "final_source_one_stop_preflight_v4",
+      "output_sha256": "1b5049f18866585f9a8c009a0887e6d0eadd954036059a639d6d51a7b7538027",
+      "timeout_seconds": 120,
+      "ulimit_virtual_memory_gib": 4
+    }
+  ],
+  "schema": "hiroute.m5d.resource_ledger.v1"
+}
