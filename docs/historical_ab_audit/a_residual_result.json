@@ -1,0 +1,2135 @@
+{
+  "schema": "hiroute-a-residual-no-lp-checks-v1",
+  "rows": [
+    {
+      "case_id": "A13_secondary_positive_charge_infimum",
+      "dominance": false,
+      "trace_sha256": "d9b6f4b1315e7eec8eb4ccc53a99f2b4a9bce6c01af2f78f15020def342d2c5a",
+      "event_index": 39,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A13_secondary_positive_charge_infimum",
+      "dominance": true,
+      "trace_sha256": "713148355b0562f84ee5d233968f522beed715b2158f00a84fed23aab126b99e",
+      "event_index": 39,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": false,
+      "trace_sha256": "07c7a183911156a4cc5f6f587c3a546d800d079e082df388091092045b50449d",
+      "event_index": 39,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": false,
+      "trace_sha256": "07c7a183911156a4cc5f6f587c3a546d800d079e082df388091092045b50449d",
+      "event_index": 65,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": false,
+      "trace_sha256": "07c7a183911156a4cc5f6f587c3a546d800d079e082df388091092045b50449d",
+      "event_index": 93,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": false,
+      "trace_sha256": "07c7a183911156a4cc5f6f587c3a546d800d079e082df388091092045b50449d",
+      "event_index": 115,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        },
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": false,
+      "trace_sha256": "07c7a183911156a4cc5f6f587c3a546d800d079e082df388091092045b50449d",
+      "event_index": 140,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": false,
+      "trace_sha256": "07c7a183911156a4cc5f6f587c3a546d800d079e082df388091092045b50449d",
+      "event_index": 163,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        },
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": false,
+      "trace_sha256": "07c7a183911156a4cc5f6f587c3a546d800d079e082df388091092045b50449d",
+      "event_index": 189,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": false,
+      "trace_sha256": "07c7a183911156a4cc5f6f587c3a546d800d079e082df388091092045b50449d",
+      "event_index": 204,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        },
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": false,
+      "trace_sha256": "07c7a183911156a4cc5f6f587c3a546d800d079e082df388091092045b50449d",
+      "event_index": 218,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        },
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": false,
+      "trace_sha256": "07c7a183911156a4cc5f6f587c3a546d800d079e082df388091092045b50449d",
+      "event_index": 228,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        },
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        },
+        {
+          "site": "4r:node/3",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": false,
+      "trace_sha256": "07c7a183911156a4cc5f6f587c3a546d800d079e082df388091092045b50449d",
+      "event_index": 239,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": false,
+      "trace_sha256": "07c7a183911156a4cc5f6f587c3a546d800d079e082df388091092045b50449d",
+      "event_index": 255,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        },
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": false,
+      "trace_sha256": "07c7a183911156a4cc5f6f587c3a546d800d079e082df388091092045b50449d",
+      "event_index": 269,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        },
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": false,
+      "trace_sha256": "07c7a183911156a4cc5f6f587c3a546d800d079e082df388091092045b50449d",
+      "event_index": 279,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        },
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        },
+        {
+          "site": "4r:node/3",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": true,
+      "trace_sha256": "c016386a5c3e0a6f934a6c8a98de1f111e2d6ba2bcfccb280e3092fe3a33b9ca",
+      "event_index": 39,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": true,
+      "trace_sha256": "c016386a5c3e0a6f934a6c8a98de1f111e2d6ba2bcfccb280e3092fe3a33b9ca",
+      "event_index": 65,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": true,
+      "trace_sha256": "c016386a5c3e0a6f934a6c8a98de1f111e2d6ba2bcfccb280e3092fe3a33b9ca",
+      "event_index": 93,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": true,
+      "trace_sha256": "c016386a5c3e0a6f934a6c8a98de1f111e2d6ba2bcfccb280e3092fe3a33b9ca",
+      "event_index": 115,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        },
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": true,
+      "trace_sha256": "c016386a5c3e0a6f934a6c8a98de1f111e2d6ba2bcfccb280e3092fe3a33b9ca",
+      "event_index": 136,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        },
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": true,
+      "trace_sha256": "c016386a5c3e0a6f934a6c8a98de1f111e2d6ba2bcfccb280e3092fe3a33b9ca",
+      "event_index": 161,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": true,
+      "trace_sha256": "c016386a5c3e0a6f934a6c8a98de1f111e2d6ba2bcfccb280e3092fe3a33b9ca",
+      "event_index": 189,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": true,
+      "trace_sha256": "c016386a5c3e0a6f934a6c8a98de1f111e2d6ba2bcfccb280e3092fe3a33b9ca",
+      "event_index": 204,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        },
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": true,
+      "trace_sha256": "c016386a5c3e0a6f934a6c8a98de1f111e2d6ba2bcfccb280e3092fe3a33b9ca",
+      "event_index": 218,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        },
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": true,
+      "trace_sha256": "c016386a5c3e0a6f934a6c8a98de1f111e2d6ba2bcfccb280e3092fe3a33b9ca",
+      "event_index": 228,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        },
+        {
+          "site": "4r:node/2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        },
+        {
+          "site": "4r:node/3",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "dominance": true,
+      "trace_sha256": "c016386a5c3e0a6f934a6c8a98de1f111e2d6ba2bcfccb280e3092fe3a33b9ca",
+      "event_index": 239,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "4r:node/1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A16_primary_charge_site_tuple_tie",
+      "dominance": false,
+      "trace_sha256": "4c78ec303828a858c1114ff75f3ba90c0c7a1b25039d89a9467cef49bff1f65d",
+      "event_index": 36,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "b",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A16_primary_charge_site_tuple_tie",
+      "dominance": false,
+      "trace_sha256": "4c78ec303828a858c1114ff75f3ba90c0c7a1b25039d89a9467cef49bff1f65d",
+      "event_index": 48,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A16_primary_charge_site_tuple_tie",
+      "dominance": false,
+      "trace_sha256": "4c78ec303828a858c1114ff75f3ba90c0c7a1b25039d89a9467cef49bff1f65d",
+      "event_index": 78,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "b",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A16_primary_charge_site_tuple_tie",
+      "dominance": false,
+      "trace_sha256": "4c78ec303828a858c1114ff75f3ba90c0c7a1b25039d89a9467cef49bff1f65d",
+      "event_index": 90,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A16_primary_charge_site_tuple_tie",
+      "dominance": false,
+      "trace_sha256": "4c78ec303828a858c1114ff75f3ba90c0c7a1b25039d89a9467cef49bff1f65d",
+      "event_index": 104,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "b",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A16_primary_charge_site_tuple_tie",
+      "dominance": false,
+      "trace_sha256": "4c78ec303828a858c1114ff75f3ba90c0c7a1b25039d89a9467cef49bff1f65d",
+      "event_index": 116,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A16_primary_charge_site_tuple_tie",
+      "dominance": true,
+      "trace_sha256": "39a9a6a25720fd21a3e9b52c9faf8bbf3b6f0da96872a3640b6c7e1d355f9810",
+      "event_index": 36,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "b",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A16_primary_charge_site_tuple_tie",
+      "dominance": true,
+      "trace_sha256": "39a9a6a25720fd21a3e9b52c9faf8bbf3b6f0da96872a3640b6c7e1d355f9810",
+      "event_index": 48,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A16_primary_charge_site_tuple_tie",
+      "dominance": true,
+      "trace_sha256": "39a9a6a25720fd21a3e9b52c9faf8bbf3b6f0da96872a3640b6c7e1d355f9810",
+      "event_index": 78,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "b",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A16_primary_charge_site_tuple_tie",
+      "dominance": true,
+      "trace_sha256": "39a9a6a25720fd21a3e9b52c9faf8bbf3b6f0da96872a3640b6c7e1d355f9810",
+      "event_index": 90,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A16_primary_charge_site_tuple_tie",
+      "dominance": true,
+      "trace_sha256": "39a9a6a25720fd21a3e9b52c9faf8bbf3b6f0da96872a3640b6c7e1d355f9810",
+      "event_index": 104,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "b",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A16_primary_charge_site_tuple_tie",
+      "dominance": true,
+      "trace_sha256": "39a9a6a25720fd21a3e9b52c9faf8bbf3b6f0da96872a3640b6c7e1d355f9810",
+      "event_index": 116,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A18_capacity_overflow_infeasible",
+      "dominance": false,
+      "trace_sha256": "96bbfb4bab1999174d5045e88ab690aa1ed2acb1767aa584c234640b32b7b529",
+      "event_index": 2,
+      "kind": "global_capacity_impossibility",
+      "direct_origin_destination_energy": "7",
+      "initial_energy": "2",
+      "site_destination_energy": "6",
+      "capacity": "5",
+      "certified": true
+    },
+    {
+      "case_id": "A18_capacity_overflow_infeasible",
+      "dominance": false,
+      "trace_sha256": "96bbfb4bab1999174d5045e88ab690aa1ed2acb1767aa584c234640b32b7b529",
+      "event_index": 7,
+      "kind": "global_capacity_impossibility",
+      "direct_origin_destination_energy": "7",
+      "initial_energy": "2",
+      "site_destination_energy": "6",
+      "capacity": "5",
+      "certified": true
+    },
+    {
+      "case_id": "A18_capacity_overflow_infeasible",
+      "dominance": false,
+      "trace_sha256": "96bbfb4bab1999174d5045e88ab690aa1ed2acb1767aa584c234640b32b7b529",
+      "event_index": 12,
+      "kind": "global_capacity_impossibility",
+      "direct_origin_destination_energy": "7",
+      "initial_energy": "2",
+      "site_destination_energy": "6",
+      "capacity": "5",
+      "certified": true
+    },
+    {
+      "case_id": "A18_capacity_overflow_infeasible",
+      "dominance": false,
+      "trace_sha256": "96bbfb4bab1999174d5045e88ab690aa1ed2acb1767aa584c234640b32b7b529",
+      "event_index": 17,
+      "kind": "global_capacity_impossibility",
+      "direct_origin_destination_energy": "7",
+      "initial_energy": "2",
+      "site_destination_energy": "6",
+      "capacity": "5",
+      "certified": true
+    },
+    {
+      "case_id": "A18_capacity_overflow_infeasible",
+      "dominance": true,
+      "trace_sha256": "512e9b7d45772d460bef108c9275f28fe277caa956da5b4c717dad52937d538f",
+      "event_index": 2,
+      "kind": "global_capacity_impossibility",
+      "direct_origin_destination_energy": "7",
+      "initial_energy": "2",
+      "site_destination_energy": "6",
+      "capacity": "5",
+      "certified": true
+    },
+    {
+      "case_id": "A18_capacity_overflow_infeasible",
+      "dominance": true,
+      "trace_sha256": "512e9b7d45772d460bef108c9275f28fe277caa956da5b4c717dad52937d538f",
+      "event_index": 7,
+      "kind": "global_capacity_impossibility",
+      "direct_origin_destination_energy": "7",
+      "initial_energy": "2",
+      "site_destination_energy": "6",
+      "capacity": "5",
+      "certified": true
+    },
+    {
+      "case_id": "A18_capacity_overflow_infeasible",
+      "dominance": true,
+      "trace_sha256": "512e9b7d45772d460bef108c9275f28fe277caa956da5b4c717dad52937d538f",
+      "event_index": 12,
+      "kind": "global_capacity_impossibility",
+      "direct_origin_destination_energy": "7",
+      "initial_energy": "2",
+      "site_destination_energy": "6",
+      "capacity": "5",
+      "certified": true
+    },
+    {
+      "case_id": "A18_capacity_overflow_infeasible",
+      "dominance": true,
+      "trace_sha256": "512e9b7d45772d460bef108c9275f28fe277caa956da5b4c717dad52937d538f",
+      "event_index": 17,
+      "kind": "global_capacity_impossibility",
+      "direct_origin_destination_energy": "7",
+      "initial_energy": "2",
+      "site_destination_energy": "6",
+      "capacity": "5",
+      "certified": true
+    },
+    {
+      "case_id": "A19_two_charge_redistribution",
+      "dominance": false,
+      "trace_sha256": "94918b5297c5d65c1db3a8b9c775b8760337a938bd27d125b61ebc5b8e5a0584",
+      "event_index": 37,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "x",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A19_two_charge_redistribution",
+      "dominance": false,
+      "trace_sha256": "94918b5297c5d65c1db3a8b9c775b8760337a938bd27d125b61ebc5b8e5a0584",
+      "event_index": 57,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "x",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A19_two_charge_redistribution",
+      "dominance": false,
+      "trace_sha256": "94918b5297c5d65c1db3a8b9c775b8760337a938bd27d125b61ebc5b8e5a0584",
+      "event_index": 66,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "x",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A19_two_charge_redistribution",
+      "dominance": true,
+      "trace_sha256": "9a9badb317df79be9b41886d2ec2b6b070eaa6d0932c8a4d85745c2089b09919",
+      "event_index": 37,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "x",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "A19_two_charge_redistribution",
+      "dominance": true,
+      "trace_sha256": "9a9badb317df79be9b41886d2ec2b6b070eaa6d0932c8a4d85745c2089b09919",
+      "event_index": 57,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "x",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S02_C_then_S",
+      "dominance": false,
+      "trace_sha256": "41c6e0c22b065856417a322e44bcf2141e66e73ab05d617738d71123e5910b98",
+      "event_index": 43,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S02_C_then_S",
+      "dominance": false,
+      "trace_sha256": "41c6e0c22b065856417a322e44bcf2141e66e73ab05d617738d71123e5910b98",
+      "event_index": 60,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S02_C_then_S",
+      "dominance": true,
+      "trace_sha256": "7c3abb960ce147f8bac4d38d84b30cac989fb951c327ca5467c9f65b404533b0",
+      "event_index": 43,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S02_C_then_S",
+      "dominance": true,
+      "trace_sha256": "7c3abb960ce147f8bac4d38d84b30cac989fb951c327ca5467c9f65b404533b0",
+      "event_index": 60,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S03_S_then_C",
+      "dominance": false,
+      "trace_sha256": "f3fd8eb946b7b97631231e01120953f06b4ae04d932b607c22ca52026585cfa0",
+      "event_index": 16,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "S",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S03_S_then_C",
+      "dominance": false,
+      "trace_sha256": "f3fd8eb946b7b97631231e01120953f06b4ae04d932b607c22ca52026585cfa0",
+      "event_index": 33,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "S",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S03_S_then_C",
+      "dominance": false,
+      "trace_sha256": "f3fd8eb946b7b97631231e01120953f06b4ae04d932b607c22ca52026585cfa0",
+      "event_index": 50,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "S",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S03_S_then_C",
+      "dominance": true,
+      "trace_sha256": "5ec1371de296fb248afc1307213c75438621a04f96930c457970c5bdf4eef120",
+      "event_index": 16,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "S",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S03_S_then_C",
+      "dominance": true,
+      "trace_sha256": "5ec1371de296fb248afc1307213c75438621a04f96930c457970c5bdf4eef120",
+      "event_index": 33,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "S",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S03_S_then_C",
+      "dominance": true,
+      "trace_sha256": "5ec1371de296fb248afc1307213c75438621a04f96930c457970c5bdf4eef120",
+      "event_index": 50,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "S",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S04_C_then_CS",
+      "dominance": false,
+      "trace_sha256": "4c58aac770ea66f2eafd6ae0e79c2afb1c678aa6c5fbaef091b8811af62a45a1",
+      "event_index": 75,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S04_C_then_CS",
+      "dominance": false,
+      "trace_sha256": "4c58aac770ea66f2eafd6ae0e79c2afb1c678aa6c5fbaef091b8811af62a45a1",
+      "event_index": 94,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S04_C_then_CS",
+      "dominance": false,
+      "trace_sha256": "4c58aac770ea66f2eafd6ae0e79c2afb1c678aa6c5fbaef091b8811af62a45a1",
+      "event_index": 103,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S04_C_then_CS",
+      "dominance": false,
+      "trace_sha256": "4c58aac770ea66f2eafd6ae0e79c2afb1c678aa6c5fbaef091b8811af62a45a1",
+      "event_index": 137,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S04_C_then_CS",
+      "dominance": false,
+      "trace_sha256": "4c58aac770ea66f2eafd6ae0e79c2afb1c678aa6c5fbaef091b8811af62a45a1",
+      "event_index": 158,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S04_C_then_CS",
+      "dominance": true,
+      "trace_sha256": "f7923488246b41ded5302b63dafc1218a4ab27ad2e0b23f815182b205e9d1d78",
+      "event_index": 75,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S04_C_then_CS",
+      "dominance": true,
+      "trace_sha256": "f7923488246b41ded5302b63dafc1218a4ab27ad2e0b23f815182b205e9d1d78",
+      "event_index": 94,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S04_C_then_CS",
+      "dominance": true,
+      "trace_sha256": "f7923488246b41ded5302b63dafc1218a4ab27ad2e0b23f815182b205e9d1d78",
+      "event_index": 103,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S04_C_then_CS",
+      "dominance": true,
+      "trace_sha256": "f7923488246b41ded5302b63dafc1218a4ab27ad2e0b23f815182b205e9d1d78",
+      "event_index": 137,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": false,
+      "trace_sha256": "f05d26117f93dbb5ebf22d9fd6a28b4716a3fc683fc1e2809a6489ac4fb28096",
+      "event_index": 70,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "S",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": false,
+      "trace_sha256": "f05d26117f93dbb5ebf22d9fd6a28b4716a3fc683fc1e2809a6489ac4fb28096",
+      "event_index": 71,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "CS",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": false,
+      "trace_sha256": "f05d26117f93dbb5ebf22d9fd6a28b4716a3fc683fc1e2809a6489ac4fb28096",
+      "event_index": 75,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": false,
+      "trace_sha256": "f05d26117f93dbb5ebf22d9fd6a28b4716a3fc683fc1e2809a6489ac4fb28096",
+      "event_index": 107,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": false,
+      "trace_sha256": "f05d26117f93dbb5ebf22d9fd6a28b4716a3fc683fc1e2809a6489ac4fb28096",
+      "event_index": 135,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "S",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": false,
+      "trace_sha256": "f05d26117f93dbb5ebf22d9fd6a28b4716a3fc683fc1e2809a6489ac4fb28096",
+      "event_index": 136,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "CS",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": false,
+      "trace_sha256": "f05d26117f93dbb5ebf22d9fd6a28b4716a3fc683fc1e2809a6489ac4fb28096",
+      "event_index": 140,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": false,
+      "trace_sha256": "f05d26117f93dbb5ebf22d9fd6a28b4716a3fc683fc1e2809a6489ac4fb28096",
+      "event_index": 146,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "S",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": false,
+      "trace_sha256": "f05d26117f93dbb5ebf22d9fd6a28b4716a3fc683fc1e2809a6489ac4fb28096",
+      "event_index": 147,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "CS",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": false,
+      "trace_sha256": "f05d26117f93dbb5ebf22d9fd6a28b4716a3fc683fc1e2809a6489ac4fb28096",
+      "event_index": 151,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": false,
+      "trace_sha256": "f05d26117f93dbb5ebf22d9fd6a28b4716a3fc683fc1e2809a6489ac4fb28096",
+      "event_index": 183,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": false,
+      "trace_sha256": "f05d26117f93dbb5ebf22d9fd6a28b4716a3fc683fc1e2809a6489ac4fb28096",
+      "event_index": 192,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": true,
+      "trace_sha256": "ce3c46621f7fbcfec5561f46a7ee78b3023ec7e3d7197ea6b2f90429ef2a109a",
+      "event_index": 70,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "S",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": true,
+      "trace_sha256": "ce3c46621f7fbcfec5561f46a7ee78b3023ec7e3d7197ea6b2f90429ef2a109a",
+      "event_index": 71,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "CS",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": true,
+      "trace_sha256": "ce3c46621f7fbcfec5561f46a7ee78b3023ec7e3d7197ea6b2f90429ef2a109a",
+      "event_index": 75,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": true,
+      "trace_sha256": "ce3c46621f7fbcfec5561f46a7ee78b3023ec7e3d7197ea6b2f90429ef2a109a",
+      "event_index": 118,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": true,
+      "trace_sha256": "ce3c46621f7fbcfec5561f46a7ee78b3023ec7e3d7197ea6b2f90429ef2a109a",
+      "event_index": 124,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "S",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": true,
+      "trace_sha256": "ce3c46621f7fbcfec5561f46a7ee78b3023ec7e3d7197ea6b2f90429ef2a109a",
+      "event_index": 125,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "CS",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": true,
+      "trace_sha256": "ce3c46621f7fbcfec5561f46a7ee78b3023ec7e3d7197ea6b2f90429ef2a109a",
+      "event_index": 129,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S05_CS_then_C",
+      "dominance": true,
+      "trace_sha256": "ce3c46621f7fbcfec5561f46a7ee78b3023ec7e3d7197ea6b2f90429ef2a109a",
+      "event_index": 161,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "s",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S06_three_charges",
+      "dominance": false,
+      "trace_sha256": "1c1d8047213c453b935a7e3797b7721a1edc220f4ff927ebd929c7f53a230430",
+      "event_index": 55,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S06_three_charges",
+      "dominance": false,
+      "trace_sha256": "1c1d8047213c453b935a7e3797b7721a1edc220f4ff927ebd929c7f53a230430",
+      "event_index": 87,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S06_three_charges",
+      "dominance": false,
+      "trace_sha256": "1c1d8047213c453b935a7e3797b7721a1edc220f4ff927ebd929c7f53a230430",
+      "event_index": 102,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S06_three_charges",
+      "dominance": false,
+      "trace_sha256": "1c1d8047213c453b935a7e3797b7721a1edc220f4ff927ebd929c7f53a230430",
+      "event_index": 117,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S06_three_charges",
+      "dominance": false,
+      "trace_sha256": "1c1d8047213c453b935a7e3797b7721a1edc220f4ff927ebd929c7f53a230430",
+      "event_index": 121,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S06_three_charges",
+      "dominance": true,
+      "trace_sha256": "5d70ccdc4904ef3744bd05b0a6f5a8b5eb58c77af05e957dabda18c607b21f1c",
+      "event_index": 55,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S06_three_charges",
+      "dominance": true,
+      "trace_sha256": "5d70ccdc4904ef3744bd05b0a6f5a8b5eb58c77af05e957dabda18c607b21f1c",
+      "event_index": 87,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S06_three_charges",
+      "dominance": true,
+      "trace_sha256": "5d70ccdc4904ef3744bd05b0a6f5a8b5eb58c77af05e957dabda18c607b21f1c",
+      "event_index": 102,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c1",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "S06_three_charges",
+      "dominance": true,
+      "trace_sha256": "5d70ccdc4904ef3744bd05b0a6f5a8b5eb58c77af05e957dabda18c607b21f1c",
+      "event_index": 106,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c2",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A08_physical_schedule_switch",
+      "dominance": false,
+      "trace_sha256": "8cdf816c078cacbeb10181f3d884e0fb63cc77159e8b499e8c4f8b3474695fea",
+      "event_index": 35,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A08_physical_schedule_switch",
+      "dominance": true,
+      "trace_sha256": "2cf3419701140153bcc0982388539a599fa28bb5a4f1b09f7ed7c18655e190ab",
+      "event_index": 35,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "c",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": false,
+      "trace_sha256": "7ed3a4ebf39793cfca5f494fe8dbe95bc32c1466ddcd6ecda1291e2e4c09f6de",
+      "event_index": 93,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "S",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": false,
+      "trace_sha256": "7ed3a4ebf39793cfca5f494fe8dbe95bc32c1466ddcd6ecda1291e2e4c09f6de",
+      "event_index": 94,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "CS",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": false,
+      "trace_sha256": "7ed3a4ebf39793cfca5f494fe8dbe95bc32c1466ddcd6ecda1291e2e4c09f6de",
+      "event_index": 97,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": false,
+      "trace_sha256": "7ed3a4ebf39793cfca5f494fe8dbe95bc32c1466ddcd6ecda1291e2e4c09f6de",
+      "event_index": 139,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": false,
+      "trace_sha256": "7ed3a4ebf39793cfca5f494fe8dbe95bc32c1466ddcd6ecda1291e2e4c09f6de",
+      "event_index": 180,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "S",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": false,
+      "trace_sha256": "7ed3a4ebf39793cfca5f494fe8dbe95bc32c1466ddcd6ecda1291e2e4c09f6de",
+      "event_index": 181,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "CS",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": false,
+      "trace_sha256": "7ed3a4ebf39793cfca5f494fe8dbe95bc32c1466ddcd6ecda1291e2e4c09f6de",
+      "event_index": 184,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": false,
+      "trace_sha256": "7ed3a4ebf39793cfca5f494fe8dbe95bc32c1466ddcd6ecda1291e2e4c09f6de",
+      "event_index": 213,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "S",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": false,
+      "trace_sha256": "7ed3a4ebf39793cfca5f494fe8dbe95bc32c1466ddcd6ecda1291e2e4c09f6de",
+      "event_index": 214,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "CS",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": false,
+      "trace_sha256": "7ed3a4ebf39793cfca5f494fe8dbe95bc32c1466ddcd6ecda1291e2e4c09f6de",
+      "event_index": 217,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": false,
+      "trace_sha256": "7ed3a4ebf39793cfca5f494fe8dbe95bc32c1466ddcd6ecda1291e2e4c09f6de",
+      "event_index": 237,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": false,
+      "trace_sha256": "7ed3a4ebf39793cfca5f494fe8dbe95bc32c1466ddcd6ecda1291e2e4c09f6de",
+      "event_index": 257,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": false,
+      "trace_sha256": "7ed3a4ebf39793cfca5f494fe8dbe95bc32c1466ddcd6ecda1291e2e4c09f6de",
+      "event_index": 277,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": false,
+      "trace_sha256": "7ed3a4ebf39793cfca5f494fe8dbe95bc32c1466ddcd6ecda1291e2e4c09f6de",
+      "event_index": 286,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": false,
+      "trace_sha256": "7ed3a4ebf39793cfca5f494fe8dbe95bc32c1466ddcd6ecda1291e2e4c09f6de",
+      "event_index": 306,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": true,
+      "trace_sha256": "84f7634958a27d24c60968fcbf782f5227bc9d42f0d24b802ac6b74022d3ee02",
+      "event_index": 93,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "S",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": true,
+      "trace_sha256": "84f7634958a27d24c60968fcbf782f5227bc9d42f0d24b802ac6b74022d3ee02",
+      "event_index": 94,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "CS",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": true,
+      "trace_sha256": "84f7634958a27d24c60968fcbf782f5227bc9d42f0d24b802ac6b74022d3ee02",
+      "event_index": 97,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": true,
+      "trace_sha256": "84f7634958a27d24c60968fcbf782f5227bc9d42f0d24b802ac6b74022d3ee02",
+      "event_index": 117,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": true,
+      "trace_sha256": "84f7634958a27d24c60968fcbf782f5227bc9d42f0d24b802ac6b74022d3ee02",
+      "event_index": 147,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "S",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": true,
+      "trace_sha256": "84f7634958a27d24c60968fcbf782f5227bc9d42f0d24b802ac6b74022d3ee02",
+      "event_index": 148,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "CS",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": true,
+      "trace_sha256": "84f7634958a27d24c60968fcbf782f5227bc9d42f0d24b802ac6b74022d3ee02",
+      "event_index": 151,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A14_unique_physical_interior",
+      "dominance": true,
+      "trace_sha256": "84f7634958a27d24c60968fcbf782f5227bc9d42f0d24b802ac6b74022d3ee02",
+      "event_index": 171,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A06_physical_quotient_intersection",
+      "dominance": false,
+      "trace_sha256": "bd01e20898812082c506c1144901f397fcd2469f6d372d749776a71a29e138e2",
+      "event_index": 14,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    },
+    {
+      "case_id": "SUP_A06_physical_quotient_intersection",
+      "dominance": true,
+      "trace_sha256": "a8fd52175bdfb6fc6d5a911302e151fe8763b98a08c7187972a966d797974c89",
+      "event_index": 14,
+      "kind": "independent_directed_leg_reachability",
+      "checks": [
+        {
+          "site": "a",
+          "effect": "C",
+          "current_to_site_exists": false,
+          "site_to_destination_exists": true
+        }
+      ],
+      "certified": true
+    }
+  ],
+  "counts": {
+    "('independent_directed_leg_reachability', True)": 119,
+    "('global_capacity_impossibility', True)": 8
+  },
+  "source_case_sha256": {
+    "A01_one_charging_segment": "e018394cf5ea1bf346260db73495a1061d28e98458c167cbd2fcf15b9576545a",
+    "A02_exactly_one_charging_breakpoint": "a0601fbf93390d6c78a8df53459ff7eb1d1e3bb8597354bde1d3c07d460275e5",
+    "A03_multiple_charging_breakpoints": "e824b8cb1744d369232dffceb4da28eba879fc52677eb344cf75d5e8a280e435",
+    "A09_CS_charge_dominant": "fcb0719333b1c4b06b4578f6035f9bd911c4036989a4c955922868eace82a0f0",
+    "A10_CS_schedule_dominant": "16795c9b785b17828cd032925269260e44a31ae427dae23648b0c41022ddc437",
+    "A11_CS_exact_active_branch_boundary": "bdea23c8977a0709d0d05fb49260ca7b6021c4fd68ee663d94dd1d502b28d11d",
+    "A13_primary_positive_charge_infimum": "d451f459ca65fbba1549943a77a312a06d83b20f3e87bf7eef2022f40370efbf",
+    "A13_secondary_positive_charge_infimum": "252096d43932cc7b086d88e7dc565992f9c365906b4f8131c5d298a76835e115",
+    "A15_waiting_erases_prefix_time_advantage": "a7e76e41646fc61a0a033402a017225f823945087048042dfeb6ec857f2d9f2c",
+    "A16_primary_charge_site_tuple_tie": "32c3a3f3bd99d96d700210966c1f6c6ea8c101761d4d22857006bbda44552633",
+    "A17_energy_floor_tight": "64768561e67b1fdfb02b2693ee1b64692d3405cb489c5994f8d09a1b69449471",
+    "A18_capacity_tight": "dc8fa8e7558ad8150708e052dbf96eb0be9ec6672b5a3e301aa32299015fcb4e",
+    "A18_capacity_overflow_infeasible": "c362ced58b7b09bd467975e616563cb16833ea2434f809876defdab78e6ef2bc",
+    "A19_two_charge_redistribution": "7412efe8fab5e612a822539d9cf3defc99bc14d21fd6203ead5d8e9cef93504a",
+    "A20_repeated_site_cycle": "1697a4fd8f47c70f75c34ca69f21053d77a68218158457227cfddbe957c4110f",
+    "A20_incumbent_depth_bound": "20f1cc3da4461542f25b28d0905768a4e429ed95580b3ba38a07eeca8def1ccf",
+    "S01_service_deadline_equality": "d2d393ab15f4759e34107ca91b3565a0c414ae881c7b3ebb77a8fe153a0411cb",
+    "S02_C_then_S": "f0bec09aca1f38f5fc8f308a2ddf1286f2840418ceefd5c2205e381d44e54a9c",
+    "S03_S_then_C": "4c7f3f060a0aca29752e02831f490d6e2f8e6df55cd7d2a88e17c61bacfe0d5b",
+    "S04_C_then_CS": "ec88aa0e8689d10d113afa1f17fcaf629274a28926b6d79b352765cd1cfd1042",
+    "S05_CS_then_C": "ae45c8d1ca20c2e28702c235419ea84f1abb454257d0a0d0ea458c8835183f90",
+    "S06_three_charges": "9180373aeb3f8f1ab6f3d752a9ddf79fc1d406970315a5455a73841a44abcbe4",
+    "S07_effect_free_via_site_excluded": "0e6e8fad6719e0c81fb98bbf0184cc0f376a00593d5f381100c7c0e9ba862431",
+    "S08_C_S_CS_distinct_same_site": "fd72b50d29af2cf50f73c243fb97c3891af9e50c7717810eb0d3e2d4e6fe392e",
+    "SUP_A05_disconnected_physical_union": "91f3d996b07b4d4a8587ca0b7e7e260e56ecf2662682ea844fc184d36c2c324c",
+    "SUP_A08_physical_schedule_switch": "c8ac810e341bb3bf67b088c94809325f87dfa756698b2ee408392993794fce43",
+    "SUP_A14_unique_physical_interior": "acb96eb42c2c8ae58c972a85ded701490561080e856c79addb76ae8972b5e324",
+    "SUP_A06_physical_quotient_intersection": "f6d47bf24c88c9ef82d41ead818cc2ee06e78120b6c40d638845d4ec8c64d097"
+  }
+}

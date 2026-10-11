@@ -1,0 +1,27 @@
+{
+  "files": {
+    "a_analytic_superset.py": "e7e143cc3b86bfb6c3d19cc4f71b606b6957d627bbd6e6bb4c64aef8e2cc7952",
+    "a_analytic_superset_result.json": "de330ee7b207b7fde7f0a31581803383032e4537e951cf708454796ee7fa35c2",
+    "a_residual_checks.py": "4dcccf2dd6e197681439257e9855ef980fdfadd06a1079e1928407247a317ae5",
+    "a_residual_result.json": "be2b34ec5d6b7062790d69992c13333fc93c3b37f5c40de85d8ce1ce50694535",
+    "a_targeted_traces.tar.gz": "990eea881ad7bf13d6be5131d1ad24de3257e2c757b97c6ede16a51a68a780ea",
+    "a_trace_stage.tar.gz": "24e707f4ab92b8123651163dd3c5cc529bc5d327a985597928f61edc3b19a1d8",
+    "a_trace_stage/run_a_targeted_traces.py": "a94b0b8fd176f76b87f6f479f2b4fc40eae7543c6af1c70b786435da158abdaf",
+    "ab_dominance_receipt_20261011.json": "c6251cc339ce5e9f4254311aee2f07e835548f74aa75876d8d6abe6a72dee660",
+    "ab_dominance_trace_bindings_20261011.json": "55c5016a9f6171b94f9adfb44eb15a39b4b779903139c04ffbcc5cd0bf3c5f9b",
+    "ab_gap_ledger_20261011.json": "689aec55f3a4a2cd6288bfc47f3bfb7b27d8bcb544417f5525b0c6a081ee819e",
+    "b64_g8_node_reaudit_20261011.json": "eae6ba7c88bdc09a5e8d55a6ac2d5516553d2f869eb6895dc7eb8713b25acece",
+    "b64_g8_node_reaudit_20261011_independent.json": "c349e27e637d4fd90c65322bed21b53741d35e1f377f5c6dc0b207f5a9ddc09f",
+    "b_node_evidence_review_20261011.json": "e2c35c1efebdb4b6989d42c805c31b10bdad10ef2afaaaaafb0b011e5385b652",
+    "b_original_audit_evidence.tar.gz": "7c57a97c21fa5ee04b42453c582134c36f1c3a48558afc679fa0b2352e7dc33e",
+    "build_ab_gap_receipt.py": "d01b7a070a233f875e41b38479a53195421938e06be919c07a485e3a832d597b",
+    "check_ab_dominance.py": "0d6a575f729723ebbf250aca5b1a2cd7879b7152d89c48e02b5a0f19fe986ff4",
+    "verify_b_node_evidence.py": "8c499c88b1b8c9478f71df779c2ec83a006b5bd79e902a915fd69b313a989936"
+  },
+  "notes": [
+    "b_original_audit_evidence.tar.gz is a lossless selected-file repack of checkpoint patch bytes; absent v2 raw regime streams are not fabricated.",
+    "a_targeted_traces.tar.gz contains new observational A traces and receipt, not the missing original Stage A stream.",
+    "a_trace_stage.tar.gz contains the isolated B-frozen 579c6db source and A inputs used for bounded replay."
+  ],
+  "schema": "hiroute-ab-audit-publication-manifest-v1"
+}

@@ -1,5 +1,7 @@
 # A/B finite proof gaps from retained evidence
 
+Follow-up: [MILESTONE_5_AB_CERTIFICATE_REVIEW.md](MILESTONE_5_AB_CERTIFICATE_REVIEW.md) records the later bounded certificate checks for the 139, 8, and 119 A events, the B source replay, and the remaining historical provenance limits. This page preserves the earlier preflight state.
+
 This review uses the recovered `HiRoute-C32-128-checkpoint-a2c4a7f.zip` patch and the separately retained A inputs. It did not rerun any A/B REF population. The frozen production verifier at `/home/dy/HiRoute/project` was not updated.
 
 ## B64
