@@ -1,6 +1,7 @@
 name: M5 code-only regression
 
 on:
+  workflow_dispatch:
   pull_request:
     branches: [main, codex/milestone-4r-b1]
   push:
