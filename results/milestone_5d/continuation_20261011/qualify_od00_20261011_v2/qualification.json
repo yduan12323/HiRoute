@@ -1,0 +1,22 @@
+{
+  "candidate_count": 32,
+  "elapsed_ns": 41590577965,
+  "graph_edges_sha256": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+  "graph_metadata_sha256": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd",
+  "graph_nodes_sha256": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+  "pool_sha256": "dab41e69dc6f60c2e0a890238c58e60d8b3c590f73bafcca049cb8d2b229fd4f",
+  "qualification": "road_energy_proposal_only_schedule_and_exact_replay_pending",
+  "qualified_executable_seed": false,
+  "role": "directed_real_road_energy_path_proposal_not_schedule_or_exact_seed",
+  "route_prefix_site_ids": [
+    "4r:node/11787531967",
+    "4r:node/4439711122"
+  ],
+  "route_prefix_site_indices": [
+    4,
+    1
+  ],
+  "schema": "hiroute.m5d.od00_road_qualification.v1",
+  "slate_sha256": "68917b71ff74cc13a4f35d2b7c7fb7ca577e572295c2d091bb0a0957a3789b95",
+  "source_route_runs": 33
+}

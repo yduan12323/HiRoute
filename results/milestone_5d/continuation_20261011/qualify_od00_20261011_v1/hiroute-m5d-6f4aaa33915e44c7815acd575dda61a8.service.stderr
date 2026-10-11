@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/dy/HiRoute/m5d_c01_aab8656/scripts/m5d_qualify_od00.py", line 93, in <module>
+    run(Path(sys.argv[1]),Path(sys.argv[2]),Path(sys.argv[3]),Path(sys.argv[4]))
+  File "/home/dy/HiRoute/m5d_c01_aab8656/scripts/m5d_qualify_od00.py", line 25, in run
+    pool, slate = json.loads(pool_file.read_text()), json.loads(slate_file.read_text())
+                             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dy/miniconda3/envs/hiroute/lib/python3.11/pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dy/miniconda3/envs/hiroute/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/dy/HiRoute/m5d_c01_aab8656/results/milestone_5d/continuation_20261011/pool_od00_20261011_v1/pool.json'

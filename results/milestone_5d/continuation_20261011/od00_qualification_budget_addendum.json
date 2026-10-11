@@ -1,0 +1,24 @@
+{
+  "all_compute_cpu_hours_charged_conservative": 9.127787065277778,
+  "limits": "OD00 road energy proposal is not an executable schedule/charging seed. Earlier 9 CPUh includes planning reserves rather than measured CPU.",
+  "new_measured_cgroup_cpu_hours": 0.012664095833333333,
+  "prior_charged_cpu_hours": 9.115122969444444,
+  "remaining_of_48_cpu_hours": 38.87221293472222,
+  "runs": [
+    {
+      "cpu_usage_ns": 1690689000,
+      "memory_peak_bytes": 117608448,
+      "name": "qualify_od00_20261011_v1",
+      "result": "exit-code",
+      "wall_elapsed_ns": 1202479753
+    },
+    {
+      "cpu_usage_ns": 43900056000,
+      "memory_peak_bytes": 1716178944,
+      "name": "qualify_od00_20261011_v2",
+      "result": "success",
+      "wall_elapsed_ns": 42702890636
+    }
+  ],
+  "schema": "hiroute.m5d.resource_addendum.v4"
+}
