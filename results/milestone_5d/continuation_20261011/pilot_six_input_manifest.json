@@ -1,0 +1,250 @@
+{
+  "base_query_count": 6,
+  "cold_warm": "each method fresh isolated process; full table setup included; current complete leg table is warm selected-leg input and not table-free deployment",
+  "concurrency": 1,
+  "failure_rule": "incumbent_search_failed row retained in denominator; other fixed rows continue; no candidate or window replacement",
+  "per_method_memory_limit_bytes": 4294967296,
+  "per_method_wall_limit_seconds": 120,
+  "policy_candidate_sha256": "ecfed35a831d7903b1e8e53905415c76b77de0aa3a423ae067bad7baf548d9f8",
+  "pool_sha256": "4b93c90b0f4f77364cd9e58b5a779bccd11fb7b99819646c8096ed4f122fe937",
+  "rows": [
+    {
+      "activity": "energy_only",
+      "candidate_prefix_count": 8,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD00",
+      "row_id": "OD00_energy_only_soc3_10_n8",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_only",
+      "candidate_prefix_count": 16,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD00",
+      "row_id": "OD00_energy_only_soc3_10_n16",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_only",
+      "candidate_prefix_count": 32,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD00",
+      "row_id": "OD00_energy_only_soc3_10_n32",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "candidate_prefix_count": 8,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD00",
+      "row_id": "OD00_energy_and_scheduled_soc3_10_n8",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "candidate_prefix_count": 16,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD00",
+      "row_id": "OD00_energy_and_scheduled_soc3_10_n16",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "candidate_prefix_count": 32,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD00",
+      "row_id": "OD00_energy_and_scheduled_soc3_10_n32",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_only",
+      "candidate_prefix_count": 8,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD01",
+      "row_id": "OD01_energy_only_soc3_10_n8",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_only",
+      "candidate_prefix_count": 16,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD01",
+      "row_id": "OD01_energy_only_soc3_10_n16",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_only",
+      "candidate_prefix_count": 32,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD01",
+      "row_id": "OD01_energy_only_soc3_10_n32",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "candidate_prefix_count": 8,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD01",
+      "row_id": "OD01_energy_and_scheduled_soc3_10_n8",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "candidate_prefix_count": 16,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD01",
+      "row_id": "OD01_energy_and_scheduled_soc3_10_n16",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "candidate_prefix_count": 32,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD01",
+      "row_id": "OD01_energy_and_scheduled_soc3_10_n32",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_only",
+      "candidate_prefix_count": 8,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD02",
+      "row_id": "OD02_energy_only_soc3_10_n8",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_only",
+      "candidate_prefix_count": 16,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD02",
+      "row_id": "OD02_energy_only_soc3_10_n16",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_only",
+      "candidate_prefix_count": 32,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD02",
+      "row_id": "OD02_energy_only_soc3_10_n32",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "candidate_prefix_count": 8,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD02",
+      "row_id": "OD02_energy_and_scheduled_soc3_10_n8",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "candidate_prefix_count": 16,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD02",
+      "row_id": "OD02_energy_and_scheduled_soc3_10_n16",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "candidate_prefix_count": 32,
+      "initial_solution_status": "pending",
+      "methods": [
+        "FLAT",
+        "HIER"
+      ],
+      "od_id": "OD02",
+      "row_id": "OD02_energy_and_scheduled_soc3_10_n32",
+      "same_domain_seed_required_for_search": true,
+      "soc": "3/10"
+    }
+  ],
+  "schema": "hiroute.m5d.pilot_six_inputs.v1",
+  "selection_rule": "first_three_frozen_OD_ids_in_slate_order_cross_low_SOC_3_10_and_both_activity_modes",
+  "slate_sha256": "68917b71ff74cc13a4f35d2b7c7fb7ca577e572295c2d091bb0a0957a3789b95",
+  "status": "fixed_before_any_formal_performance_run"
+}
