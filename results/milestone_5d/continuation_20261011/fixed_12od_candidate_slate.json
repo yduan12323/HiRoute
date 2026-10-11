@@ -1,0 +1,884 @@
+{
+  "no_optimization_or_route_calls": true,
+  "no_replacement_after_exact_results": true,
+  "not_final_holdout": true,
+  "od": [
+    {
+      "certified_road_distance_lower_bound_micrometers": 455418375335,
+      "destination_anchor": 1816667,
+      "destination_grid_cell": [
+        10,
+        13
+      ],
+      "destination_site": "4r:way/533590269",
+      "od_id": "OD00",
+      "origin_anchor": 400875,
+      "origin_grid_cell": [
+        0,
+        3
+      ],
+      "origin_site": "4r:way/1244665094"
+    },
+    {
+      "certified_road_distance_lower_bound_micrometers": 452490111362,
+      "destination_anchor": 1816667,
+      "destination_grid_cell": [
+        10,
+        13
+      ],
+      "destination_site": "4r:way/533590269",
+      "od_id": "OD01",
+      "origin_anchor": 335560,
+      "origin_grid_cell": [
+        0,
+        4
+      ],
+      "origin_site": "4r:node/7815927657"
+    },
+    {
+      "certified_road_distance_lower_bound_micrometers": 460034251167,
+      "destination_anchor": 1906607,
+      "destination_grid_cell": [
+        12,
+        13
+      ],
+      "destination_site": "4r:node/5153555022",
+      "od_id": "OD02",
+      "origin_anchor": 1014886,
+      "origin_grid_cell": [
+        1,
+        3
+      ],
+      "origin_site": "4r:way/297222149"
+    },
+    {
+      "certified_road_distance_lower_bound_micrometers": 462267358176,
+      "destination_anchor": 1816667,
+      "destination_grid_cell": [
+        10,
+        13
+      ],
+      "destination_site": "4r:way/533590269",
+      "od_id": "OD03",
+      "origin_anchor": 5243181,
+      "origin_grid_cell": [
+        4,
+        0
+      ],
+      "origin_site": "4r:way/1061391049"
+    },
+    {
+      "certified_road_distance_lower_bound_micrometers": 460924128886,
+      "destination_anchor": 1816667,
+      "destination_grid_cell": [
+        10,
+        13
+      ],
+      "destination_site": "4r:way/533590269",
+      "od_id": "OD04",
+      "origin_anchor": 4812719,
+      "origin_grid_cell": [
+        5,
+        0
+      ],
+      "origin_site": "4r:way/768503887"
+    },
+    {
+      "certified_road_distance_lower_bound_micrometers": 462591842021,
+      "destination_anchor": 1816667,
+      "destination_grid_cell": [
+        10,
+        13
+      ],
+      "destination_site": "4r:way/533590269",
+      "od_id": "OD05",
+      "origin_anchor": 3977380,
+      "origin_grid_cell": [
+        6,
+        0
+      ],
+      "origin_site": "4r:way/489266673"
+    },
+    {
+      "certified_road_distance_lower_bound_micrometers": 450321278708,
+      "destination_anchor": 5289152,
+      "destination_grid_cell": [
+        6,
+        13
+      ],
+      "destination_site": "4r:way/1083041017",
+      "od_id": "OD06",
+      "origin_anchor": 2674409,
+      "origin_grid_cell": [
+        7,
+        0
+      ],
+      "origin_site": "4r:way/258653391"
+    },
+    {
+      "certified_road_distance_lower_bound_micrometers": 460355525082,
+      "destination_anchor": 3190137,
+      "destination_grid_cell": [
+        3,
+        0
+      ],
+      "destination_site": "4r:way/1340115332",
+      "od_id": "OD07",
+      "origin_anchor": 5788209,
+      "origin_grid_cell": [
+        7,
+        13
+      ],
+      "origin_site": "4r:way/1435107677"
+    },
+    {
+      "certified_road_distance_lower_bound_micrometers": 450999194533,
+      "destination_anchor": 5788209,
+      "destination_grid_cell": [
+        7,
+        13
+      ],
+      "destination_site": "4r:way/1435107677",
+      "od_id": "OD08",
+      "origin_anchor": 952172,
+      "origin_grid_cell": [
+        8,
+        0
+      ],
+      "origin_site": "4r:way/468029925"
+    },
+    {
+      "certified_road_distance_lower_bound_micrometers": 462594002030,
+      "destination_anchor": 3190137,
+      "destination_grid_cell": [
+        3,
+        0
+      ],
+      "destination_site": "4r:way/1340115332",
+      "od_id": "OD09",
+      "origin_anchor": 1269879,
+      "origin_grid_cell": [
+        10,
+        12
+      ],
+      "origin_site": "4r:node/5637124132"
+    },
+    {
+      "certified_road_distance_lower_bound_micrometers": 455560307578,
+      "destination_anchor": 400875,
+      "destination_grid_cell": [
+        0,
+        3
+      ],
+      "destination_site": "4r:way/1244665094",
+      "od_id": "OD10",
+      "origin_anchor": 1816667,
+      "origin_grid_cell": [
+        10,
+        13
+      ],
+      "origin_site": "4r:way/533590269"
+    },
+    {
+      "certified_road_distance_lower_bound_micrometers": 451846507760,
+      "destination_anchor": 400875,
+      "destination_grid_cell": [
+        0,
+        3
+      ],
+      "destination_site": "4r:way/1244665094",
+      "od_id": "OD11",
+      "origin_anchor": 5543284,
+      "origin_grid_cell": [
+        11,
+        12
+      ],
+      "origin_site": "4r:way/918611987"
+    }
+  ],
+  "od_count": 12,
+  "qualification_count_is_pending_not_negative": true,
+  "qualified_multi_charge_query_count": 0,
+  "queries": [
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD00",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD00",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD00",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD00",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD01",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD01",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD01",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD01",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD02",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD02",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD02",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD02",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD03",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD03",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD03",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD03",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD04",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD04",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD04",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD04",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD05",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD05",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD05",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD05",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD06",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD06",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD06",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD06",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD07",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD07",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD07",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD07",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD08",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD08",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD08",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD08",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD09",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD09",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD09",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD09",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD10",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD10",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD10",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD10",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD11",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "18",
+      "minimum_required_charges_by_distance": "at_least_2",
+      "od_id": "OD11",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "3/10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_only",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD11",
+      "qualification": "input_gate_pending",
+      "schedule_support": "not_applicable",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "activity": "energy_and_scheduled",
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "eligible_nested_32_128_site_pools": "unknown",
+      "executable_multi_charge_witness": "unknown",
+      "initial_energy_kwh": "228/5",
+      "minimum_required_charges_by_distance": "unknown",
+      "od_id": "OD11",
+      "qualification": "input_gate_pending",
+      "schedule_support": "unknown",
+      "soc": "19/25",
+      "terminal_reserve_kwh": "6"
+    }
+  ],
+  "query_count": 48,
+  "schema": "hiroute.m5d.fixed_12od_candidate_slate.v1",
+  "selection_rule": "three lexicographically earliest geographic-grid origins in each fixed latitude band 0-3, 4-6, 7-9, 10-13; for each choose the lexicographically earliest destination grid cell among independently proved >450001m directed pairs",
+  "source_sha256": {
+    "grid14_aggregate.json": "a42a9b6f4c097ca4dd763c1414c3084ce1847df65ac5fd7ac9bc9c0ff361c41b",
+    "query_states_resolved.json": "d4bd50215c8035552ca47a9bf4e175d580eb265a2e9acbeff5d574c60b08b57c",
+    "tool": "a36c30c729b4cb9c71811316426ef0ca0284d5a64eef63ca5f5a440f200d6918"
+  }
+}
