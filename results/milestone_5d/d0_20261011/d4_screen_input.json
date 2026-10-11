@@ -1,0 +1,295 @@
+{
+  "distance_certified": false,
+  "distance_source_sha256": "f38c0a81f42564e4f220d5c82de43d4454abfd8e962b09979d3dbdc8a447dcea",
+  "query_source_sha256": "d4bd50215c8035552ca47a9bf4e175d580eb265a2e9acbeff5d574c60b08b57c",
+  "states": [
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "18",
+      "od_id": "OD00",
+      "road_distance_lower_m": "286035.1200000007",
+      "state_id": "C01",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "18",
+      "od_id": "OD00",
+      "road_distance_lower_m": "286035.1200000007",
+      "state_id": "C02",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "228/5",
+      "od_id": "OD00",
+      "road_distance_lower_m": "286035.1200000007",
+      "state_id": "C03",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "228/5",
+      "od_id": "OD00",
+      "road_distance_lower_m": "286035.1200000007",
+      "state_id": "C04",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "18",
+      "od_id": "OD01",
+      "road_distance_lower_m": "275938.8270000002",
+      "state_id": "C05",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "18",
+      "od_id": "OD01",
+      "road_distance_lower_m": "275938.8270000002",
+      "state_id": "C06",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "228/5",
+      "od_id": "OD01",
+      "road_distance_lower_m": "275938.8270000002",
+      "state_id": "C07",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "228/5",
+      "od_id": "OD01",
+      "road_distance_lower_m": "275938.8270000002",
+      "state_id": "C08",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "18",
+      "od_id": "OD02",
+      "road_distance_lower_m": "96522.12399999988",
+      "state_id": "C09",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "18",
+      "od_id": "OD02",
+      "road_distance_lower_m": "96522.12399999988",
+      "state_id": "C10",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "228/5",
+      "od_id": "OD02",
+      "road_distance_lower_m": "96522.12399999988",
+      "state_id": "C11",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "228/5",
+      "od_id": "OD02",
+      "road_distance_lower_m": "96522.12399999988",
+      "state_id": "C12",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "18",
+      "od_id": "OD03",
+      "road_distance_lower_m": "78368.83499999996",
+      "state_id": "C13",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "18",
+      "od_id": "OD03",
+      "road_distance_lower_m": "78368.83499999996",
+      "state_id": "C14",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "228/5",
+      "od_id": "OD03",
+      "road_distance_lower_m": "78368.83499999996",
+      "state_id": "C15",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "228/5",
+      "od_id": "OD03",
+      "road_distance_lower_m": "78368.83499999996",
+      "state_id": "C16",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "18",
+      "od_id": "OD04",
+      "road_distance_lower_m": "156103.82100000014",
+      "state_id": "C17",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "18",
+      "od_id": "OD04",
+      "road_distance_lower_m": "156103.82100000014",
+      "state_id": "C18",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "228/5",
+      "od_id": "OD04",
+      "road_distance_lower_m": "156103.82100000014",
+      "state_id": "C19",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "228/5",
+      "od_id": "OD04",
+      "road_distance_lower_m": "156103.82100000014",
+      "state_id": "C20",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "18",
+      "od_id": "OD05",
+      "road_distance_lower_m": "113893.5869999999",
+      "state_id": "C21",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "18",
+      "od_id": "OD05",
+      "road_distance_lower_m": "113893.5869999999",
+      "state_id": "C22",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "228/5",
+      "od_id": "OD05",
+      "road_distance_lower_m": "113893.5869999999",
+      "state_id": "C23",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "228/5",
+      "od_id": "OD05",
+      "road_distance_lower_m": "113893.5869999999",
+      "state_id": "C24",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "18",
+      "od_id": "OD06",
+      "road_distance_lower_m": "70735.79700000002",
+      "state_id": "C25",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "18",
+      "od_id": "OD06",
+      "road_distance_lower_m": "70735.79700000002",
+      "state_id": "C26",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "228/5",
+      "od_id": "OD06",
+      "road_distance_lower_m": "70735.79700000002",
+      "state_id": "C27",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "228/5",
+      "od_id": "OD06",
+      "road_distance_lower_m": "70735.79700000002",
+      "state_id": "C28",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "18",
+      "od_id": "OD07",
+      "road_distance_lower_m": "122756.65900000001",
+      "state_id": "C29",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "18",
+      "od_id": "OD07",
+      "road_distance_lower_m": "122756.65900000001",
+      "state_id": "C30",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "228/5",
+      "od_id": "OD07",
+      "road_distance_lower_m": "122756.65900000001",
+      "state_id": "C31",
+      "terminal_reserve_kwh": "6"
+    },
+    {
+      "capacity_kwh": "60",
+      "consumption_kwh_per_m": "1/6250",
+      "initial_energy_kwh": "228/5",
+      "od_id": "OD07",
+      "road_distance_lower_m": "122756.65900000001",
+      "state_id": "C32",
+      "terminal_reserve_kwh": "6"
+    }
+  ]
+}

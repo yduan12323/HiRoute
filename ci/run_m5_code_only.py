@@ -25,6 +25,7 @@ TESTS = (
     "tests/test_real_leg_contract.py",
     "tests/test_real_solver_adapter.py",
     "tests/test_real_export_input.py",
+    "tests/test_m5d_charge_gate.py",
     "tests/test_reference5_real_adapter.py",
     "tests/test_family_checker_v1.py",
     "tests/test_family_optimized_validation_v2.py",
@@ -116,6 +117,7 @@ def main() -> None:
                 copy_file(source.relative_to(ROOT), tooling)
         for relative in (*TESTS, *FIXTURES, "tests/conftest.py"):
             copy_file(relative, tooling)
+        copy_file("scripts/m5d_charge_gate.py", tooling)
         (tooling / "pytest.ini").write_text("[pytest]\naddopts = -ra\n")
         env["PYTHONPATH"] = str(tooling)
         origin_check = """
