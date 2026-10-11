@@ -1,0 +1,52 @@
+{
+  "adapted_review_artifacts": {
+    "docs/historical_c32_source_78eb446/review_receipts/physical_replay_result.json": "e2c477ab93d852358b03b8827e5f26af4ee7c55e4f050bdb6f370d14fe3792a7",
+    "docs/historical_c32_source_78eb446/review_receipts/ref_review_attempt01_failure.json": "ebea9b65e6e37b14a214c015d13ce0321a73a81bbd21c7f3418b5198173e2fb2",
+    "docs/historical_c32_source_78eb446/review_receipts/ref_review_attempt02.log": "a6356871a807c43753dbf41e709c867bdff599626e65737e2efddc121a896b7c",
+    "docs/historical_c32_source_78eb446/review_receipts/ref_review_result.json": "dca7e9ca36e610a89ee15c3ac8fa0d3e5f313d2e5aebc568e3ad56f685055334",
+    "docs/historical_c32_source_78eb446/review_scripts/run_noopt_ref_review.py": "dea341a79fc140abc318a82a9195519f9158e1e51932dd7223507d07f733052a",
+    "docs/historical_c32_source_78eb446/review_scripts/run_readonly_replay.py": "826cb467261a769ccbb515a531f6cd77fe9f987bf979d22736bf7501ef1fa9dd"
+  },
+  "copied_original_bytes": {
+    "src/timecut5/bounded.py": {
+      "sha256": "05efed386b1351922747bc77ad23d7572827da9d31f2c60fcb41bc526c9ae794",
+      "snapshot_path": "docs/historical_c32_source_78eb446/src/timecut5/bounded.py"
+    },
+    "src/timecut5/coalesce.py": {
+      "sha256": "1d74f1ff8e8f40725a0d7e8b5a23be54dededea98a09e91c643d2678bb3d8be7",
+      "snapshot_path": "docs/historical_c32_source_78eb446/src/timecut5/coalesce.py"
+    },
+    "src/timecut5/coalesced_solver.py": {
+      "sha256": "f990e2938aec37b84fd52fd202c27db0f2bf71099af445dd87fa76a38f0a8b89",
+      "snapshot_path": "docs/historical_c32_source_78eb446/src/timecut5/coalesced_solver.py"
+    },
+    "src/timecut5/hierarchy.py": {
+      "sha256": "5fbf19fa26dac595a9fc45c5087fc44f090b3133f270530280b18954806e4552",
+      "snapshot_path": "docs/historical_c32_source_78eb446/src/timecut5/hierarchy.py"
+    },
+    "src/timecut5/pwa.py": {
+      "sha256": "717519aecb50bc4e45266b1179390a3f5d9ea6b2bd3ef3df3c926a55b122e3b9",
+      "snapshot_path": "docs/historical_c32_source_78eb446/src/timecut5/pwa.py"
+    }
+  },
+  "freeze_source_sha256": {
+    "experiments/time_cut_v2/coalescing/run_real_case.py": "46474827ee37066341dca9acf024eacd72689fda1f88c2e2cd2c3f89f4b88899",
+    "experiments/time_cut_v2/real_export/compare_production_result.py": "9f732a40ed186d5c0cebecc26ccf6bfeea2ea7375a0a6a5276a8843c484e99f4",
+    "src/timecut5/bounded.py": "05efed386b1351922747bc77ad23d7572827da9d31f2c60fcb41bc526c9ae794",
+    "src/timecut5/coalesce.py": "1d74f1ff8e8f40725a0d7e8b5a23be54dededea98a09e91c643d2678bb3d8be7",
+    "src/timecut5/coalesced_solver.py": "f990e2938aec37b84fd52fd202c27db0f2bf71099af445dd87fa76a38f0a8b89",
+    "src/timecut5/hierarchy.py": "5fbf19fa26dac595a9fc45c5087fc44f090b3133f270530280b18954806e4552",
+    "src/timecut5/probe.py": "79226bd7dcf9ff9ceb326e2caf6cee1c471312a6e178ac024a77c27f2ea02b6d",
+    "src/timecut5/pwa.py": "717519aecb50bc4e45266b1179390a3f5d9ea6b2bd3ef3df3c926a55b122e3b9",
+    "src/timecut5/real_adapter.py": "daa25b6c9fdd2f48a567da2fb443c2672f32d7de6a1f2b26a5b857de9c492cb2",
+    "src/timecut5/real_export_input.py": "d79ce09a65e84087bb835f1a7ae8a70de9e4bb53af56a555e1e9c4c6c7bd7a4f",
+    "src/timecut5/real_legs.py": "c3ec4140bde1defb04faecdf2ab92dfa3f61c5f61bc3112d9b76f3d7914c5227"
+  },
+  "historical_source_commit_claim": "78eb446adf07d45ff796ef4c560807329667a64c",
+  "public_git_blobs": {
+    "src/timecut5/coalesce.py": "819af8953e28a1b651cf8741edded03531f541a4",
+    "src/timecut5/coalesced_solver.py": "a07e69cf3f2645c25ef1bbfb30a3f1b1050e27b1"
+  },
+  "schema": "hiroute-c32-frozen-source-review-snapshot-v1",
+  "source": "user-supplied HiRoute-C32-128-checkpoint-a2c4a7f.zip plus HiRoute-M5-bounded-checkpoint-579c6db.zip; all eleven SHA-256 values matched in isolated recovery tree"
+}
