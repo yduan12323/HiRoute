@@ -1,6 +1,6 @@
 {
   "schema": "hiroute.m5d.sparse_functionality_cpu_debit.v1",
-  "status": "fresh_process_early_layer_recovery_passed_no_optimum_claim",
+  "status": "n8_seed_and_early_recovery_passed_n32_n128_qualification_timed_out_no_optimum_claim",
   "budget_policy": {
     "pilot_functionality_wall_seconds_per_unit": 120,
     "memory_bytes_per_unit": 4294967296,
@@ -69,9 +69,29 @@
       "boundary_receipt_sha256": "19d6c688df32bbd3de02e8288a85530fae45aa5e8",
       "replayed_restore_layers": 2,
       "boundary_sha256": "3b8cde8428eda263d786acdd1380734951ee21714f9f97eb0a490b6bb447ff1e"
+    },
+    {
+      "kind": "fixed_od02_n32_sparse_seed_qualification",
+      "source_commit": "9454926e3428309190db9fdea66fa2870ed1eaea",
+      "result": "timeout_no_seed_receipt",
+      "wall_limit_seconds": 120,
+      "wall_elapsed_ns": 120115402085,
+      "cgroup_cpu_usage_ns": 121268007000,
+      "peak_memory_bytes": 1735909376,
+      "unit_receipt_sha256": "75d4afa3ec5d1756f765df9d56228cb64bf09442dc24eed0b81d77167da1893d"
+    },
+    {
+      "kind": "fixed_od02_n128_sparse_seed_qualification",
+      "source_commit": "9454926e3428309190db9fdea66fa2870ed1eaea",
+      "result": "timeout_no_seed_receipt",
+      "wall_limit_seconds": 120,
+      "wall_elapsed_ns": 120108356335,
+      "cgroup_cpu_usage_ns": 121344119000,
+      "peak_memory_bytes": 1724338176,
+      "unit_receipt_sha256": "cb6d38dd74d34faf5790efc56c36884d050dcbc79b10e3caee6df387d88ca38e"
     }
   ],
-  "new_cgroup_cpu_hours_debited": 0.09372362222222222,
-  "evidence_archive_sha256": ["6c5d50371581d3280b5a4dca5491c402cf1ed0d87c6b6f856a14b1958ded651c", "b186436485332b1ba813a892d7527423744d4ff44a8adcfe6bd989049d957e0f"],
+  "new_cgroup_cpu_hours_debited": 0.16111587944444444,
+  "evidence_archive_sha256": ["6c5d50371581d3280b5a4dca5491c402cf1ed0d87c6b6f856a14b1958ded651c", "b186436485332b1ba813a892d7527423744d4ff44a8adcfe6bd989049d957e0f", "2a54383770d095900694f7e6f6d173947362ec10cc32ff89dc226681e45c10db"],
   "server_originals_preserved": true
 }
