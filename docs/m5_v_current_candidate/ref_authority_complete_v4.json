@@ -1,0 +1,2753 @@
+{
+  "analytic_receipt_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+  "evidence_limit": "All 92 bounded A/B final-result rows have independent admitted final-key authority at their pinned source/input. The 29 newly generated rows have complete exact regime certificates and separate no-optimizer cold checks; this does not extend the H4 bound or C32 scope.",
+  "new_ref_archive_sha256": "77f9a968c2508c29a084c361549801303b5653544703cd663ad31783f49e26c1",
+  "new_ref_audit_sha256": "cd8f26bdca77c66da57553a7317d87c9a8e91a073b932e27ff83ddc5bfe9468f",
+  "new_ref_manifest_sha256": "71bb2931556e336824233b4a60aad40aa7ec403620129a8df1a1fe5addd75419",
+  "paths_are_local_evidence_locations": true,
+  "rows": [
+    {
+      "admission_path": "/Users/dy/Documents/Codex/2026-10-09/task/ref_recovery_design_20261011/runs/A01_one_charging_segment/cold_check_receipt.json",
+      "admission_sha256": "38192f8d2874179be4c1c30b2db124aafdc896d43035ea7f4375d397f8c825df",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_cold_check",
+      "case_id": "A01_one_charging_segment",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 1,
+        "J": "7",
+        "Q_total": "2",
+        "site_action_tuple": [
+          [
+            "x",
+            "C"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "8d6be336044215abeb26aad73431c742ac55cc1eb0ab1df85defee06609187c1",
+      "population": "A28",
+      "reported_finite_regimes": 5,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "a6a15d40e680f8c5e6f27f7f0c8718c38ef0e7812ef4f39e095166f8b10852f6",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "a3cbcf3fe0d05ba915d4975fdc580afed36e36ae12261ca0e12bb2869c2dbac8",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs/A02_exactly_one_charging_breakpoint/cold_check_receipt.json",
+      "admission_sha256": "023783c5bf859c705f17969d78a66708c308f91f687a00c8c010fea8739daf9b",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "A02_exactly_one_charging_breakpoint",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 1,
+        "J": "7",
+        "Q_total": "2",
+        "site_action_tuple": [
+          [
+            "x",
+            "C"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "7487674102fe28bfcb15e49ac7043a54785f48684b8d9095c510ada21d487e17",
+      "new_producer_receipt_sha256": "f84c7ccb72fb6f5969fa81d2306d6b44ce475682f3b002c2ada5eb84d9a39282",
+      "new_proof_sha256": "52ee86382ab5c17b9a000997e1fddc7209044c690e5a12b2996df245370806eb",
+      "population": "A28",
+      "reported_finite_regimes": 341,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "a9111af47b56c32ccd427c553893fe126e847493db5489edce596c0e9bd4d955",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "0d330bf5998bdc9bd7670843c418477517b8884d2b6317cee5f1e063f39a11f7",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/A03_multiple_charging_breakpoints/cold_check_receipt.json",
+      "admission_sha256": "8171974088c965f55f90dae6b3dd10fafef057fd59882cd7718143bdcb3201fb",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "A03_multiple_charging_breakpoints",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 1,
+        "J": "12",
+        "Q_total": "4",
+        "site_action_tuple": [
+          [
+            "x",
+            "C"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "d4cf3de061a73dce94c05ae934ff2a72e37f2ff99f74dac8ea0555bad6aaa7fa",
+      "new_producer_receipt_sha256": "8a2b4e054e8da271805471e9d4abd407bd563b72f8896f276adaa11cc8f8e326",
+      "new_proof_sha256": "afa99b1767894b267551682d7dce04569f49b308f8f61d7c48e03e3467024682",
+      "population": "A28",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "fba83aecad528e22d7fd375e390d63a7e5a8efd8ab1d11c9ead605e8b7bad257",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "88d366c89d4b6e6fc00c59defb4ad86767cfde060f0ffcbacede7f9ad77fe027",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "A09_CS_charge_dominant",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 1,
+        "J": "23",
+        "Q_total": "2",
+        "site_action_tuple": [
+          [
+            "x",
+            "CS"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "e8728320ed51ab89f60263f63f4963ff936812e09acb7f2f768b5e9c180daeac",
+      "population": "A28",
+      "reported_finite_regimes": 60,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "b44b9273cca23bdcb3efee01f6cd2c0f928eeab75122c6d544b784146957f8ce",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "9847ee796609bf4db28c2cde40c07f7f8e733ee4c76e8eefa4250c86a1aac660",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "A10_CS_schedule_dominant",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 1,
+        "J": "13",
+        "Q_total": "2",
+        "site_action_tuple": [
+          [
+            "x",
+            "CS"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "b53c3b5d01f9afa730658a93a4590f162a6147b57f4ee9d337cbadaf8117913e",
+      "population": "A28",
+      "reported_finite_regimes": 60,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "570ca0ad111e4462a1eb337ff857b48470a8c7698da23091d7155670eaa16aa9",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "5b628d15a5f2304cf070b929e7d0873f6de1ddc6c24699cec6c0d032604abe33",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "A11_CS_exact_active_branch_boundary",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 1,
+        "J": "13",
+        "Q_total": "2",
+        "site_action_tuple": [
+          [
+            "x",
+            "CS"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "f8fd98ae2104b22717425c722548eaea0c5ab06447c8375cccca64d76a502f13",
+      "population": "A28",
+      "reported_finite_regimes": 60,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "77b178499d94f4c7d096d0248db5288d346222c90c864af259c606946b96af4c",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "02f2087fe4249b2d8f0b63d948c43298844ca20c047e0addd82bfff78fb39e70",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "/Users/dy/Documents/Codex/2026-10-09/task/ref_recovery_design_20261011/runs/A13_primary_positive_charge_infimum/cold_check_receipt.json",
+      "admission_sha256": "5b7fd3e351ca2bbec9711578d5dcbbbbaa3ba4dcaf1454eb5b3f786a7c362f6e",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_cold_check",
+      "case_id": "A13_primary_positive_charge_infimum",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "primary_infimum": "4",
+        "status": "primary_unattained"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "b99d4997981f8cd43df6ce4f09c350c63cfaac2fd864d541f43d4116fc2e488e",
+      "population": "A28",
+      "reported_finite_regimes": 5,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "14d1ce736fa4f1f0e46e5c5141691f92faafdf6ee41f4b9a3b9b6826255ff390",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "b0a75fa9679cacae6da6322c7ff5815e136eb87d7556863bba396b1c78f9ead4",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "primary_unattained"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs/A13_secondary_positive_charge_infimum/cold_check_receipt.json",
+      "admission_sha256": "75df81461232387162c9561f2ef744f8fb8ed8d6cdb9ccd0a0a4dea08f8d34b1",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "A13_secondary_positive_charge_infimum",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "J": "14",
+        "secondary_infimum": "0",
+        "status": "secondary_unattained"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "53c194f9b2fcd258f2b99764b984d6006535caaa71c6d9dc51b026b9f82b5a33",
+      "new_producer_receipt_sha256": "d1b970b007ff1a89839afb2d535efdf366ac8e85c9e033449c19a5261ea963e6",
+      "new_proof_sha256": "a9186a6e97135388cedab6eed3c62994dfb451e5c2d9c53bfee936d524fd6644",
+      "population": "A28",
+      "reported_finite_regimes": 8,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "170fe6e56027dc17b42a0a2eba4e7424c513cb335f80fc66ea448a785eddace4",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "7dae5b16be11528cc537348d194246764f9c4ac49f5f2d6b35ca328e3fe16cfb",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "secondary_unattained"
+    },
+    {
+      "admission_path": "/Users/dy/Documents/Codex/2026-10-09/task/m5_final_review_20261011/current_76_ref_receipt.json",
+      "admission_sha256": "820d7ba30af0fccbc143812400ca708cba728f7763f9aff7efec1fcb6d937582",
+      "authority_class": "admitted_current_source_full_ref_replay",
+      "case_id": "A15_waiting_erases_prefix_time_advantage",
+      "historical_reference_source": "retained_original_certificates_replayed",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 3,
+        "J": "44950",
+        "Q_total": "76",
+        "site_action_tuple": [
+          [
+            "4r:node/2",
+            "C"
+          ],
+          [
+            "4r:node/3",
+            "C"
+          ],
+          [
+            "4r:node/4",
+            "S"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "02230a57bb5d9dd3ca6be61eac5355b7aa2be7af0ba5007683b5ce5529c03c6b",
+      "population": "A28",
+      "reported_finite_regimes": 11072,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "3a60594db48d294841e670294aef0f14a937d83670359ceefee3d5bac84e67f8",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "2717109eecd428671b12b6d32df6e5e111545a787bdae67777e08f83fe5b49b8",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "A16_primary_charge_site_tuple_tie",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 1,
+        "J": "13",
+        "Q_total": "2",
+        "site_action_tuple": [
+          [
+            "a",
+            "CS"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "dfefbc57beb68aca721078bab68ea56a573bc6e2c72a43ae63d44dd8ba6fe9e1",
+      "population": "A28",
+      "reported_finite_regimes": 120,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "b411d39e13e57ab6cbd54c35d30e68a836d948a0fc583314ed923afa9e1aef97",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "4486bfb48cfe1f7e3a747dcff47d63f7e46631ea00344578433b8bf467efab7d",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "/Users/dy/Documents/Codex/2026-10-09/task/ref_recovery_design_20261011/runs/A17_energy_floor_tight/cold_check_receipt.json",
+      "admission_sha256": "4e5d66f820e880fb7570f8bf2267c6c5ee15d5dc5ce3f9f9d54a51d2d61d1381",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_cold_check",
+      "case_id": "A17_energy_floor_tight",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 1,
+        "J": "6",
+        "Q_total": "3",
+        "site_action_tuple": [
+          [
+            "x",
+            "C"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "b10125bdb03ed6c5eff634887e334461c1af34f0286ecf741b51510c1c40bfbe",
+      "population": "A28",
+      "reported_finite_regimes": 5,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "8e45f5ddc0669314e7abfb478713fb3c98d56afad8e4b0d653cd9d026dd923d3",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "6379b50166fc9323455c75acf5d440e44604a0fc555dbc3329689bdeee1d1e58",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs/A18_capacity_tight/cold_check_receipt.json",
+      "admission_sha256": "48e95accfa336a35eea5b975a0a3a80165cd78dfa5ad92c5e1cc2442dd444c3a",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "A18_capacity_tight",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 1,
+        "J": "11",
+        "Q_total": "4",
+        "site_action_tuple": [
+          [
+            "x",
+            "C"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "20ea37d41bd27c50caa6766eddf20aa438f8c17e838aea70927b652a9d6de9b2",
+      "new_producer_receipt_sha256": "5177160dbf432e0b12f7435c6a7b2504b8a99f380a656552b683cca6b48a733a",
+      "new_proof_sha256": "ed7959637559c8cf1deab5f1131111c6eda101d68cf41843e3759e0e9455f202",
+      "population": "A28",
+      "reported_finite_regimes": 5,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "f795f9f60fe72785284df8fe0aabc421210e59852a759432130c537e3830800a",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "4e05eb206dfcb6b0eb1201bc0325123504f06fa2f85df51eb43c49b120a4f106",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs/A18_capacity_overflow_infeasible/cold_check_receipt.json",
+      "admission_sha256": "f6104475653186d3b5689c3f12265ef0dab10188dd09b3aeebbc615990ddada8",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "A18_capacity_overflow_infeasible",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "status": "infeasible_within_H_ref"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "b7428021c1a376d2f8ae7efa91fa5c36d84245838eee0c6a785b4b169eefba18",
+      "new_producer_receipt_sha256": "e41c853c38590d17509305c4d4be39d9cac7acc82d2c6ef41092d4e94d8f5b92",
+      "new_proof_sha256": "cd8a9bd6371e0cfe27ac35b5463cecd3bd2c6695960a57ab56e9e30871d4f4b6",
+      "population": "A28",
+      "reported_finite_regimes": 5,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "11008e2ae4518bdb8bdf58b33bac5d0d54faab027137aa978bc3efefd4282aa4",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "12e125d4000a47baa73b209df39577f21301766d749a78e5a624ef10ab009d85",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "infeasible_within_H_ref"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs/A19_two_charge_redistribution/cold_check_receipt.json",
+      "admission_sha256": "c12a381125bfdb8629b373b7a07dad57863aa7959459de73ea3306887ed4cab1",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "A19_two_charge_redistribution",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 2,
+        "J": "11",
+        "Q_total": "6",
+        "site_action_tuple": [
+          [
+            "x",
+            "C"
+          ],
+          [
+            "y",
+            "C"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "60fdbc4c5c47085362581fcc4d440679a0e959434c8fef8076a3b2fd18d023cf",
+      "new_producer_receipt_sha256": "ee9dcfef8e866a6d2e42bbdb891c3f98c1fc41baa3f8804aa1813896b9340fcb",
+      "new_proof_sha256": "6fd80b1d0c50ce8de2b1c523f10a8039fad3b3b4a7edceec4e44af70b42cb951",
+      "population": "A28",
+      "reported_finite_regimes": 15,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "59a089e2e0f6ee7abc81a3c8969db3ab804b12b602791bd7958242440191fa77",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "98d8739a76e3c9bbc05dc5362197bead094545d615d07a98c457212e7ae7008f",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "A20_repeated_site_cycle",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 1,
+        "J": "13",
+        "Q_total": "2",
+        "site_action_tuple": [
+          [
+            "x",
+            "CS"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "8ef42dd21e8bcce4e0f7a203c970848087bedcfea87f67796c5c163206cfdc45",
+      "population": "A28",
+      "reported_finite_regimes": 60,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "38c79b94798b1d4664406db8de55f98f566ca393486c86e0c4765a1ad0ed7baa",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "f1b7c8071923309b984a0d5ed3952bb3c8f219133b7dec455fbfab5c77dabd4b",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "A20_incumbent_depth_bound",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 0,
+        "J": "2",
+        "Q_total": "0",
+        "site_action_tuple": [],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "60e49620e5b77196cae63331773e7ea9683866eae54918d6f41a0c72d897b466",
+      "population": "A28",
+      "reported_finite_regimes": 5,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "f4c65dda77dcf4903c8b70932ffaf25a8775e999fa66518076130fb54297895c",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "dd9d5d0d7e5cf744b2be4865669351c14fbac8411851a1cd224a39c3f4952096",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "S01_service_deadline_equality",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 1,
+        "J": "5",
+        "Q_total": "0",
+        "site_action_tuple": [
+          [
+            "x",
+            "S"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "fdd14e05c9b1a087b73651183f6a341fe41323906dba9e547efd91584f6e81a2",
+      "population": "A28",
+      "reported_finite_regimes": 2,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "8e2423f35efb6f4923009663feac465a36b9fef8ae080f74401610b03b7fb8c1",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "8fa4a846776f74b84d42eac4150fc4a4803cdd4a0b082f5c4a5e27b8d6a0179a",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs/S02_C_then_S/cold_check_receipt.json",
+      "admission_sha256": "87a9f41d48bcb30297562ce16ab0ff72250870889833d57f52210beef560eec3",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "S02_C_then_S",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 2,
+        "J": "9",
+        "Q_total": "2",
+        "site_action_tuple": [
+          [
+            "c",
+            "C"
+          ],
+          [
+            "s",
+            "S"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "92c22f23dec5bc8a9cc9af6f9582cce9bd74033733b53a5acf2ca1bfe4b1126a",
+      "new_producer_receipt_sha256": "1fd33a90abd5350b3f8b5b210e925c7100b5767ed8d967e1fddcfd50f67bfcea",
+      "new_proof_sha256": "c9814f43c7ff0613307c909e84b8773d2c20ba026fea1f2f7def9c8a070d801f",
+      "population": "A28",
+      "reported_finite_regimes": 8,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "97604e2229477a6de666e857330265808170508884f0698613a2ff7e06d159d8",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "d31b4012229a6b295ef3781daadd3a73057b8bf758aac80c2845d828e277ce10",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs/S03_S_then_C/cold_check_receipt.json",
+      "admission_sha256": "8d8ac021daeb2d4f22cc250aa068c5b70eaf2d78504be7ec646bee18554fa8e4",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "S03_S_then_C",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 2,
+        "J": "10",
+        "Q_total": "3",
+        "site_action_tuple": [
+          [
+            "s",
+            "S"
+          ],
+          [
+            "c",
+            "C"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "ee095bc6e72a8abf1bc97e7bdb2e537e1880bfc129522ec49badfa5342f26a08",
+      "new_producer_receipt_sha256": "770d818c34c6e0b359d971bed005bf36f42abeb2c655da77c5a162b7d8509b1f",
+      "new_proof_sha256": "94a975b64dbfbe4ec00e28024d34f4d2b5f4b4cba24c23c0bbc82e018daa0836",
+      "population": "A28",
+      "reported_finite_regimes": 8,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "18614b141e28fb915f23c2eeb2023cae8c30549dd49324168423d4f09be37238",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "d8faf19d0af2ed62f47b0bed9e03ea020bfc7c1a415315523c88ba22afc494b4",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs/S04_C_then_CS/cold_check_receipt.json",
+      "admission_sha256": "479430cc6d00a9e79f217ca507ddb3e746bceea8e6684f1744f0b6fe7b67ec18",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "S04_C_then_CS",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 2,
+        "J": "10",
+        "Q_total": "5",
+        "site_action_tuple": [
+          [
+            "c",
+            "C"
+          ],
+          [
+            "s",
+            "CS"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "7ec18907c586d47f766320e24e9138941d3ce3253c4235557611f755167bdd12",
+      "new_producer_receipt_sha256": "5fa7bb1473bdca9eaea74988860e3bd2e85bd9bdb1ddc03a1ce1b052b1303d45",
+      "new_proof_sha256": "8708b5f433d83056da09ada15f6059c7348df3fd0851b767703a1046202ee603",
+      "population": "A28",
+      "reported_finite_regimes": 120,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "da5daf0815f40e7ece36b3d281ae22bdbd7cebcff84fe3666864a0b871c433a2",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "11c4ce95e358b616ef92dac39d5aa61c6e0b66bfe9f3c237ac52afec1117f5af",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs/S05_CS_then_C/cold_check_receipt.json",
+      "admission_sha256": "7384f6175f927c040630bf6306a7eab2b1170037157b43e0d3ce91448a83cc7f",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "S05_CS_then_C",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 2,
+        "J": "10",
+        "Q_total": "5",
+        "site_action_tuple": [
+          [
+            "s",
+            "CS"
+          ],
+          [
+            "c",
+            "C"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "2448edddafee14058a41b88712bb26892d76738d760fdf82a43e57e8a00d72d3",
+      "new_producer_receipt_sha256": "e0b932d09b2460005c2dcba31d0631b36a18ffb4c67b5d8cde7c2bc0f8ffa42b",
+      "new_proof_sha256": "30861b1cfd454b088aec3bd50731ea5ca55b7312f6c3d56de4cc72d1ed4e7aa1",
+      "population": "A28",
+      "reported_finite_regimes": 120,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "3b3cca92f9f2158d6d42abb4e74a1426110cda0e1bc6c4a80b0657143a264beb",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "f2792339dbef4785294642daae4c62aa86329d6b807469bf326989e31f9b59bc",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs/S06_three_charges/cold_check_receipt.json",
+      "admission_sha256": "436d9a87cb30dbff0503552528663401450cf401414364cd864e53a5bb782251",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "S06_three_charges",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 3,
+        "J": "16",
+        "Q_total": "9",
+        "site_action_tuple": [
+          [
+            "c1",
+            "C"
+          ],
+          [
+            "c2",
+            "C"
+          ],
+          [
+            "c3",
+            "C"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "dcea1f115cfa3efc60bb31b29f8ecdce53af12e51ec5028b6f325b9a7503ccef",
+      "new_producer_receipt_sha256": "c1cc3e749dc335248f079edaff711d104d9f1e619a383c79029f7d044c8fce22",
+      "new_proof_sha256": "410f503ff2cf9f00b9df1468127419e8a8d6efe93e4313f9b2d9bcb9c5722c95",
+      "population": "A28",
+      "reported_finite_regimes": 35,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "28e8d661905137bab3cc5ebddb7adbf7f05581358bdc8e49fd30fa954f4600cd",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "0a347567cb9be78c8125b455cb6bc1e206f94c26abe048a906b9e432ed6af13e",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "authority_class": "admitted_independent_no_lp_structural_final",
+      "case_id": "S07_effect_free_via_site_excluded",
+      "historical_reference_source": "retained_original_certificates_replayed",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "status": "infeasible_within_H_ref"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": null,
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "85fa1326b6b02d49147a1303dc80d477dc080ef860a943256a2f93d1586522da",
+      "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
+      "population": "A28",
+      "reported_finite_regimes": 1,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "21b823eada97043ecd1ad26160dd95aa0043187d5ec599a281c3c6d5db258161",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "b6c53b43eedf71786e22932335536f32d37e86c7cfeee0cdd6b2a3c882190eb5",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "infeasible_within_H_ref",
+      "targeted_no_lp_candidate": "selected direct o-to-z energy 20 > capacity and initial 10; v has empty effects, so via-v cannot be a semantic stop; certify complete legal sequence set and source-bound terminal/direct-leg checks."
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "S08_C_S_CS_distinct_same_site",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 1,
+        "J": "13",
+        "Q_total": "0",
+        "site_action_tuple": [
+          [
+            "x",
+            "S"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": true,
+      "narrative_analytic_certificate_sha256": "09e1c2f170efd6df3a7779e95d5b443fc04ea9d5662ca806e64fcc24eb6ea705",
+      "population": "A28",
+      "reported_finite_regimes": 60,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "188d3bd16774bfa8aff44506250f6398fd95d3f120f0a9560ffe6ffac8694c22",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "3d79795956e63cf5ada6ac4d73a49e5a70598169701447eda4b226d664b614f2",
+      "source_case_object_sha256": "4cb8c8cc9a103d6dc913ec79bff8f023a02b78b2ca0bb72a5e731de728b90f6c",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_cases_h4.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "SUP_A05_disconnected_physical_union",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 0,
+        "J": "2",
+        "Q_total": "0",
+        "site_action_tuple": [],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": false,
+      "population": "A28",
+      "reported_finite_regimes": 14761,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "2d34385a720ebac25e5461654f0a67d7fbb1507ec284ef2df3a70dd69bd2621b",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "1b09f4895df68dd67e0362f88988c9f05c10e9bbf628ded24807bf577bc43a30",
+      "source_case_object_sha256": "9b6537c39200af8dff3fe2638ccde99117670fa8561deee151ea037eba68700f",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_supplement.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs/SUP_A08_physical_schedule_switch/cold_check_receipt.json",
+      "admission_sha256": "88d99d1310463322e8d7a3ad314c915a336f126e33d8f68104e2e9bab0a81083",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "SUP_A08_physical_schedule_switch",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 2,
+        "J": "2200",
+        "Q_total": "8",
+        "site_action_tuple": [
+          [
+            "c",
+            "C"
+          ],
+          [
+            "s",
+            "S"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": false,
+      "new_producer_receipt_sha256": "f221585b219c8a30e27ce5c8265a2d8fe807e6541f682da49c899ceb50af8cf7",
+      "new_proof_sha256": "c9f3c7b38ee156dada4fddf9608fca912f4b0095c2d5a9052725b876f668273a",
+      "population": "A28",
+      "reported_finite_regimes": 1640,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "3dd5d0e5090e554577bc173ffa5c084e7553b43c069105de694a46cb646b4a4d",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "1b09f4895df68dd67e0362f88988c9f05c10e9bbf628ded24807bf577bc43a30",
+      "source_case_object_sha256": "b7436a2993db8e0f58a5a7eb0f094cf1d5456b41871464a01ca329bae34a76ca",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_supplement.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/SUP_A14_unique_physical_interior/cold_check_receipt.json",
+      "admission_sha256": "3192921e0af460ff86c07853dee3b68b007c35bf0852c4fecdebe685db2932e6",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "SUP_A14_unique_physical_interior",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 2,
+        "J": "5883",
+        "Q_total": "70",
+        "site_action_tuple": [
+          [
+            "a",
+            "CS"
+          ],
+          [
+            "b",
+            "C"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": false,
+      "new_producer_receipt_sha256": "b38db0c133b7bd78f8234779f062ba75bd363675862fbb494ce5b042bc0273f7",
+      "new_proof_sha256": "dfcb79fa409cb0d1d6bfea4b68ed2aaad4e34e0d54a7ee3b619e8cf0a72ef484",
+      "population": "A28",
+      "reported_finite_regimes": 296552,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "b8262e87e2e4e5a17bf4ca1087d24d971ae98f75dfa2730d94282ea4591add97",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "1b09f4895df68dd67e0362f88988c9f05c10e9bbf628ded24807bf577bc43a30",
+      "source_case_object_sha256": "38cdb14bd4f118c84db2c8d1ba332822ee24a3ef5fab89900da9ca502fbbd78a",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_supplement.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs/SUP_A06_physical_quotient_intersection/cold_check_receipt.json",
+      "admission_sha256": "bb23b25394f938320daab262b89f7f3d6f70fdb8ae1109dac1608cb9b78896e5",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "SUP_A06_physical_quotient_intersection",
+      "historical_reference_source": "new_d91c148",
+      "historical_stream_replayed_claim": true,
+      "key_or_infimum": {
+        "H": 1,
+        "J": "6",
+        "Q_total": "1",
+        "site_action_tuple": [
+          [
+            "b",
+            "C"
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "missing_final_result_authority": false,
+      "missing_reason": "Original A stream_execution_v1 per-case regime bytes and source identity files are absent from recovered archive; summary replay flag cannot authenticate raw certificates.",
+      "narrative_analytic_certificate_present": false,
+      "new_producer_receipt_sha256": "4c502ecf97558aef3ea411280f2b82281c12127011c4a4e05dddcd31f98ed5e1",
+      "new_proof_sha256": "e4259574da5fb1b4e9813d452014060488a7938457953526d36ccded049ea219",
+      "population": "A28",
+      "reported_finite_regimes": 681,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/FINAL_STAGE_A_RESULTS.json",
+      "retained_result_row_sha256": "61c278ea2eb50b346f7270293dbebbd7fc4ccff30c6ef1e49c0cb7ddb21edb09",
+      "retained_result_sha256": "163949bdf649412ecdd094b07de5ddbd8a436c7db4ca360851fe98d523de5c5c",
+      "source_case_file_sha256": "121770eb0bef153d313dea7b02d7ab8156f846b3331cf896676a3cf72b5b6bd4",
+      "source_case_object_sha256": "4aaaf00a67f6f09981c9239c53d555ea0f97572454230a77b0ed24acc449463e",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_coalescing_prototype/frozen_A/physical_merge_supplement.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "/Users/dy/Documents/Codex/2026-10-07/task/hiroute-code/docs/MILESTONE_5_B_MISSING_CERTIFICATE_RECOVERY.json",
+      "admission_sha256": "41bf7431e70fc7fb07b9e9651bdd562512e6ad3bdd4d4f4720e5bfafe288360a",
+      "archive_case_receipt_sha256": "0250e072d8f5a14deefe6a8b912e15e29dcc86deebf26fa18735062919a76cfd",
+      "archive_path": "/Users/dy/Documents/Codex/2026-10-07/task/b-missing-12.001.success.tar.gz",
+      "archive_sha256": "6f293fb6a7167ced9ca1500e6627abf019d1cf9c451f886c0bfb5b352fbe6e51",
+      "authority_class": "admitted_scoped_independent_ref_recovery",
+      "case_id": "B01",
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "population": "B64",
+      "recovered_reference_sha256": "53d565ce173b6aa41016370b09ff7fc892b60f91faf448753d2a5e318d1c9d78",
+      "reported_finite_regimes": 35983,
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "ed0667422f0e643fef15d06e65bb141040235c6661a14dfbc6b77e0a05211a2a",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "/Users/dy/Documents/Codex/2026-10-07/task/hiroute-code/docs/MILESTONE_5_B_MISSING_CERTIFICATE_RECOVERY.json",
+      "admission_sha256": "41bf7431e70fc7fb07b9e9651bdd562512e6ad3bdd4d4f4720e5bfafe288360a",
+      "archive_case_receipt_sha256": "fd62ee2bbdadcc9c562b03cff429e7b9c31bc1e7eb4f0122899d8726a98fdbf3",
+      "archive_path": "/Users/dy/Documents/Codex/2026-10-07/task/b-missing-12.001.success.tar.gz",
+      "archive_sha256": "6f293fb6a7167ced9ca1500e6627abf019d1cf9c451f886c0bfb5b352fbe6e51",
+      "authority_class": "admitted_scoped_independent_ref_recovery",
+      "case_id": "B02",
+      "key": [
+        "3564",
+        "24",
+        1,
+        [
+          [
+            "u",
+            "C"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "population": "B64",
+      "recovered_reference_sha256": "31e10ee23116b9f3ffc42998a5ec3e3735cff46bdf70678fbc028ff329c1e849",
+      "reported_finite_regimes": 35983,
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "ff479e9832816592e572a65411e8571a05f0d5a0769691e9f5b47358301552da",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "/Users/dy/Documents/Codex/2026-10-07/task/hiroute-code/docs/MILESTONE_5_B_MISSING_CERTIFICATE_RECOVERY.json",
+      "admission_sha256": "41bf7431e70fc7fb07b9e9651bdd562512e6ad3bdd4d4f4720e5bfafe288360a",
+      "archive_case_receipt_sha256": "582314155cbc9c3cd6781d3c754cdd763d570adcb7693aec66d0823ad5d67d47",
+      "archive_path": "/Users/dy/Documents/Codex/2026-10-07/task/b-missing-12.001.success.tar.gz",
+      "archive_sha256": "6f293fb6a7167ced9ca1500e6627abf019d1cf9c451f886c0bfb5b352fbe6e51",
+      "authority_class": "admitted_scoped_independent_ref_recovery",
+      "case_id": "B03",
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "population": "B64",
+      "recovered_reference_sha256": "af930488e388d1cdae43d500bca879fe59ecebf4b42adebcc4bec8b4226fa1cb",
+      "reported_finite_regimes": 7381,
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "ab313f48ceba78fadc01c8948544bc5dd647372bce8aeb8f13ead7ddb335d813",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "/Users/dy/Documents/Codex/2026-10-07/task/hiroute-code/docs/MILESTONE_5_B_MISSING_CERTIFICATE_RECOVERY.json",
+      "admission_sha256": "41bf7431e70fc7fb07b9e9651bdd562512e6ad3bdd4d4f4720e5bfafe288360a",
+      "archive_case_receipt_sha256": "ad32c9b55b404028276dc67d6348844134363d702b6a4140007311cf70a9f4e6",
+      "archive_path": "/Users/dy/Documents/Codex/2026-10-07/task/b-missing-12.001.success.tar.gz",
+      "archive_sha256": "6f293fb6a7167ced9ca1500e6627abf019d1cf9c451f886c0bfb5b352fbe6e51",
+      "authority_class": "admitted_scoped_independent_ref_recovery",
+      "case_id": "B04",
+      "key": [
+        "3564",
+        "24",
+        1,
+        [
+          [
+            "u",
+            "C"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "population": "B64",
+      "recovered_reference_sha256": "20721384b637cfc5f804546aa471032d3b3e9016f03b5f31602994291827159c",
+      "reported_finite_regimes": 7381,
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "39a31fe6b3948337e4f8b8ec69f5e2d8c9dccb3fb5d4e4909eeec520290a5f7d",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "/Users/dy/Documents/Codex/2026-10-07/task/hiroute-code/docs/MILESTONE_5_B_MISSING_CERTIFICATE_RECOVERY.json",
+      "admission_sha256": "41bf7431e70fc7fb07b9e9651bdd562512e6ad3bdd4d4f4720e5bfafe288360a",
+      "archive_case_receipt_sha256": "72d14b8f81d45c8e897f1f77c65fb32376e9341137b6d220a0ef82de1c5fbb2e",
+      "archive_path": "/Users/dy/Documents/Codex/2026-10-07/task/b-missing-12.001.success.tar.gz",
+      "archive_sha256": "6f293fb6a7167ced9ca1500e6627abf019d1cf9c451f886c0bfb5b352fbe6e51",
+      "authority_class": "admitted_scoped_independent_ref_recovery",
+      "case_id": "B05",
+      "key": null,
+      "missing_final_result_authority": false,
+      "population": "B64",
+      "recovered_reference_sha256": "c7da5b91efcdd1066f08d694285310d0dc5c2353328ff722e5dac62412b0b8d5",
+      "reported_finite_regimes": 0,
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "004d7b4efa72638fa9b5d4aedbe0de78222313e5d968e32cd838f515f63e4717",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "infeasible_within_H_ref"
+    },
+    {
+      "admission_path": "/Users/dy/Documents/Codex/2026-10-07/task/hiroute-code/docs/MILESTONE_5_B_MISSING_CERTIFICATE_RECOVERY.json",
+      "admission_sha256": "41bf7431e70fc7fb07b9e9651bdd562512e6ad3bdd4d4f4720e5bfafe288360a",
+      "archive_case_receipt_sha256": "1b5ecffd4f5073963047b6c13b151411810da69189c19a8449e6ec2c02453a62",
+      "archive_path": "/Users/dy/Documents/Codex/2026-10-07/task/b-missing-12.001.success.tar.gz",
+      "archive_sha256": "6f293fb6a7167ced9ca1500e6627abf019d1cf9c451f886c0bfb5b352fbe6e51",
+      "authority_class": "admitted_scoped_independent_ref_recovery",
+      "case_id": "B06",
+      "key": null,
+      "missing_final_result_authority": false,
+      "population": "B64",
+      "recovered_reference_sha256": "e270059eb3e0d28790f674a05c28c2628800c15e6cab6aa1721cb9e8898a5751",
+      "reported_finite_regimes": 0,
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "0aedcaad145343c0c500d05b963a5e6aef5a08d213d0159f0395282585f56d29",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "infeasible_within_H_ref"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B07",
+      "historical_peak_rss_kib": 88192,
+      "historical_stream_bytes": 2040174,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "3c6130fbdceae8a659d445288baa517617d8f648ba918d0d465b4a8ba78c746d",
+      "historical_wall_seconds": 840.3806036399983,
+      "key": [
+        "6600",
+        "0",
+        1,
+        [
+          [
+            "v",
+            "S"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 122404,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B07/report.json",
+      "retained_result_sha256": "e6a8aa3b5ca4d4094045e13421703ddb83f165b9bed549a0da77065aae934e69",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "9d48ecbf43580667c874c0a2c2af886e2527aa49f465d8008a9c7a4e4ded6868",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/B08/cold_check_receipt.json",
+      "admission_sha256": "40e4a61f759ed2c35d1d392a0f6ac8e2a7ebfebaa39aaddc6e3c6e62a1a0668d",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "B08",
+      "historical_peak_rss_kib": 88220,
+      "historical_stream_bytes": 1933720,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "c8b5602ee7bf3f92c7f2bd4db0796bfb529f12aac09d10db79bbe33147e62174",
+      "historical_wall_seconds": 833.8901906950014,
+      "key": [
+        "7200",
+        "24",
+        1,
+        [
+          [
+            "u",
+            "CS"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "new_producer_receipt_sha256": "4c68e3d0fe634ae90e52d844f5ff1bba62bf110d557744dfdefd15757765de40",
+      "new_proof_sha256": "8a8bbbfa3c44edcc8685d7ade492941c6fcd9fc2c2e5979ca6e9306c90ec2208",
+      "population": "B64",
+      "reported_finite_regimes": 122404,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B08/report.json",
+      "retained_result_sha256": "055b47926192a04eb0ca402fd02b1f57feeab757dd66e5bd7f942f9452b543b1",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "743890b96b71bd2e705fd7de04676753f436762966c80874bcc3907207c157e4",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "/Users/dy/Documents/Codex/2026-10-07/task/hiroute-code/docs/MILESTONE_5_B_MISSING_CERTIFICATE_RECOVERY.json",
+      "admission_sha256": "41bf7431e70fc7fb07b9e9651bdd562512e6ad3bdd4d4f4720e5bfafe288360a",
+      "archive_case_receipt_sha256": "12bf70b9d8b28d5a3fd0c44da002cfce37be814bc8be32a9766dc09e79f705a6",
+      "archive_path": "/Users/dy/Documents/Codex/2026-10-07/task/b-missing-12.001.success.tar.gz",
+      "archive_sha256": "6f293fb6a7167ced9ca1500e6627abf019d1cf9c451f886c0bfb5b352fbe6e51",
+      "authority_class": "admitted_scoped_independent_ref_recovery",
+      "case_id": "B09",
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "population": "B64",
+      "recovered_reference_sha256": "89a3bfee105bcfebdbc504541142fd596ca76e215aed0790bf9e02966fdd2ddd",
+      "reported_finite_regimes": 35983,
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "7f90d591b19913ce1ab72a26cf7cc15eb7893c269f4f121754787a4f87816131",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "/Users/dy/Documents/Codex/2026-10-07/task/hiroute-code/docs/MILESTONE_5_B_MISSING_CERTIFICATE_RECOVERY.json",
+      "admission_sha256": "41bf7431e70fc7fb07b9e9651bdd562512e6ad3bdd4d4f4720e5bfafe288360a",
+      "archive_case_receipt_sha256": "15577f6dd60250b433d0a14815459fee46bc382a5896468dc0fc5ae968d29ffa",
+      "archive_path": "/Users/dy/Documents/Codex/2026-10-07/task/b-missing-12.001.success.tar.gz",
+      "archive_sha256": "6f293fb6a7167ced9ca1500e6627abf019d1cf9c451f886c0bfb5b352fbe6e51",
+      "authority_class": "admitted_scoped_independent_ref_recovery",
+      "case_id": "B10",
+      "key": [
+        "2916",
+        "6",
+        1,
+        [
+          [
+            "u",
+            "C"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "population": "B64",
+      "recovered_reference_sha256": "ac14e1b14bd903bfde57abaaaec4871b634809a0cde32f5af9c58e65026de945",
+      "reported_finite_regimes": 35983,
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "81c50cfaaf90d74882d9376c3cf1c8f70a25bab4a91ef79476f90af87f13cab0",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "/Users/dy/Documents/Codex/2026-10-07/task/hiroute-code/docs/MILESTONE_5_B_MISSING_CERTIFICATE_RECOVERY.json",
+      "admission_sha256": "41bf7431e70fc7fb07b9e9651bdd562512e6ad3bdd4d4f4720e5bfafe288360a",
+      "archive_case_receipt_sha256": "4c860ef5bddff1fbd306753f17835a68e7db61d15165b4b7a34ea9a4657e7931",
+      "archive_path": "/Users/dy/Documents/Codex/2026-10-07/task/b-missing-12.001.success.tar.gz",
+      "archive_sha256": "6f293fb6a7167ced9ca1500e6627abf019d1cf9c451f886c0bfb5b352fbe6e51",
+      "authority_class": "admitted_scoped_independent_ref_recovery",
+      "case_id": "B11",
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "population": "B64",
+      "recovered_reference_sha256": "5622401ca2b177a5afc95c7ccd96a7c17f31fe9a782cb0b5db7a8895b84a38eb",
+      "reported_finite_regimes": 7381,
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "8247db1ff3d2f61acd0e6c78d218c60d79b880820f2ffa4337589d85bf5e24f4",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "/Users/dy/Documents/Codex/2026-10-07/task/hiroute-code/docs/MILESTONE_5_B_MISSING_CERTIFICATE_RECOVERY.json",
+      "admission_sha256": "41bf7431e70fc7fb07b9e9651bdd562512e6ad3bdd4d4f4720e5bfafe288360a",
+      "archive_case_receipt_sha256": "e61b4078f511397772555cee28bed32521624e5dd959f0103d14ebd41bff3394",
+      "archive_path": "/Users/dy/Documents/Codex/2026-10-07/task/b-missing-12.001.success.tar.gz",
+      "archive_sha256": "6f293fb6a7167ced9ca1500e6627abf019d1cf9c451f886c0bfb5b352fbe6e51",
+      "authority_class": "admitted_scoped_independent_ref_recovery",
+      "case_id": "B12",
+      "key": [
+        "2916",
+        "6",
+        1,
+        [
+          [
+            "u",
+            "C"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "population": "B64",
+      "recovered_reference_sha256": "49c71f4d61bb9b3eff93ad3f5198f4897d04235669eb53b9235ffd2ce8475f5b",
+      "reported_finite_regimes": 7381,
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "b12fe18f750e7da2f8e6aa00283eba6a710deed6e693a500f322a323eb523165",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "/Users/dy/Documents/Codex/2026-10-07/task/hiroute-code/docs/MILESTONE_5_B_MISSING_CERTIFICATE_RECOVERY.json",
+      "admission_sha256": "41bf7431e70fc7fb07b9e9651bdd562512e6ad3bdd4d4f4720e5bfafe288360a",
+      "archive_case_receipt_sha256": "31388c78e3430b1330b6b3a8a8de3f18a60fd70b4b0daf482ab7c2d6e0421dcb",
+      "archive_path": "/Users/dy/Documents/Codex/2026-10-07/task/b-missing-12.001.success.tar.gz",
+      "archive_sha256": "6f293fb6a7167ced9ca1500e6627abf019d1cf9c451f886c0bfb5b352fbe6e51",
+      "authority_class": "admitted_scoped_independent_ref_recovery",
+      "case_id": "B13",
+      "key": null,
+      "missing_final_result_authority": false,
+      "population": "B64",
+      "recovered_reference_sha256": "abd484c47a587c2d2689a4e322411884de1aba555a62407a09b4c6cb7ee3a32d",
+      "reported_finite_regimes": 0,
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "3ae0f64219d152c357b0581e291812b2a6676d3476c23e004df94d577bd9e11f",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "infeasible_within_H_ref"
+    },
+    {
+      "admission_path": "/Users/dy/Documents/Codex/2026-10-07/task/hiroute-code/docs/MILESTONE_5_B_MISSING_CERTIFICATE_RECOVERY.json",
+      "admission_sha256": "41bf7431e70fc7fb07b9e9651bdd562512e6ad3bdd4d4f4720e5bfafe288360a",
+      "archive_case_receipt_sha256": "6cc61b7b6b9d0cb5521fe988b3c88a9e6857d5980682fc668302474d354a93d3",
+      "archive_path": "/Users/dy/Documents/Codex/2026-10-07/task/b-missing-12.001.success.tar.gz",
+      "archive_sha256": "6f293fb6a7167ced9ca1500e6627abf019d1cf9c451f886c0bfb5b352fbe6e51",
+      "authority_class": "admitted_scoped_independent_ref_recovery",
+      "case_id": "B14",
+      "key": null,
+      "missing_final_result_authority": false,
+      "population": "B64",
+      "recovered_reference_sha256": "8df4608b4f753788085eca3ebbf7956926162d786f0e1e9d868aaa723903b310",
+      "reported_finite_regimes": 0,
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "a223c54607b09a843ab4dda75164377cce225de04f6fb843a2f78a521c6c8c39",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "infeasible_within_H_ref"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B15",
+      "historical_peak_rss_kib": 87816,
+      "historical_stream_bytes": 2185009,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "844d8de1142510f8846ae70ba4a7aaff0d4638877e9618dd9b8dc0689b1084e7",
+      "historical_wall_seconds": 864.1132282440012,
+      "key": [
+        "6600",
+        "0",
+        1,
+        [
+          [
+            "v",
+            "S"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 122404,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B15/report.json",
+      "retained_result_sha256": "ee666f2faebc30ac9729d9f44d2aa21c42e9d64d58044053bfecd77cabd1c47c",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "f8a0564375077b39ed65f23f8855950eb6781f135cbd4e7181f5791982249248",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/B16/cold_check_receipt.json",
+      "admission_sha256": "814abc431bd0c1593449213a92d15cb6c2f19a61029d7f86da5024d45c30770e",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "B16",
+      "historical_peak_rss_kib": 87444,
+      "historical_stream_bytes": 2113477,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "208b2b27e4e2751eb082ca5ceebe3ff0e695dd64888af6bfd8d4c6461b8950db",
+      "historical_wall_seconds": 844.4755556609998,
+      "key": [
+        "7200",
+        "6",
+        1,
+        [
+          [
+            "u",
+            "CS"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "new_producer_receipt_sha256": "d9223582b38db0068ea92768ff704cbeaf915323d5305e0dffd4f1b95a72189b",
+      "new_proof_sha256": "261b32d3850f47a2edbac23c83e4c6a8ea11741ef4c7acd5dff726e4673ad6ad",
+      "population": "B64",
+      "reported_finite_regimes": 122404,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B16/report.json",
+      "retained_result_sha256": "0a7833ea860694d1b0f7ea720006483274639d89ff000cbe464c8480f48ec37e",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "4e2f4d9c9fbb074c52cef25fcd2f37e89f03f52a462c400ce92372d28e083586",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B17",
+      "historical_peak_rss_kib": 84744,
+      "historical_stream_bytes": 106351,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "6c4444e516ede07751c78ddef75b3e84fd0206b573036244253500922fc278e0",
+      "historical_wall_seconds": 49.61148069800038,
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B17/report.json",
+      "retained_result_sha256": "fa28648c46ce436d740ee647f20d7bc0e8c8da14001e135f8b41526e1789617d",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "c6b3fba5b67b35441ae6c44b46ceac96b1333fbb5014eff7927791f79165f9a4",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/B18/cold_check_receipt.json",
+      "admission_sha256": "8186febdc34046387002a179b6881f9718da2e9dba9d1aa7e0415199b84906cf",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "B18",
+      "historical_peak_rss_kib": 84992,
+      "historical_stream_bytes": 104820,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "56b62896633709c6c54b1eedbd6c24d548ab912ddce9ec3f78ca1e5727102b41",
+      "historical_wall_seconds": 47.13757242099746,
+      "key": [
+        "3564",
+        "24",
+        1,
+        [
+          [
+            "u",
+            "C"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "new_producer_receipt_sha256": "be511d703e4fddab45a2236b2fe1d2a3c93029f69b01f17773e0c28a6bd9b199",
+      "new_proof_sha256": "a6ab9e00b66bc2bc2b5fc2f503852aad898d32bd77ddc0212c1aa666543f02e5",
+      "population": "B64",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B18/report.json",
+      "retained_result_sha256": "27a69b2d27842809468899f80786aa9fb0e7003084e0da3401073b26f8f704b4",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "9332ba96a113ea7e92e235d145ec18372d42638578a213e4b498cf4a1e212111",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B19",
+      "historical_peak_rss_kib": 85512,
+      "historical_stream_bytes": 106273,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "d5ce4668f3ed6b23dcb1ed71d535a9478a91fdb2c7c9f2752ca9971e85bb48cd",
+      "historical_wall_seconds": 47.681660005000595,
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B19/report.json",
+      "retained_result_sha256": "00b19dfc43dac025c62fb9c5e77ac9e22a3ffda43e878588599e347ab2d21b9e",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "0af08313440f16d819e7542f6a6060cb3f0f5de775e73c9585adf44bca7833ae",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/B20/cold_check_receipt.json",
+      "admission_sha256": "f132c6c06fd2103bf4a7051417421704c6c6a6079ce78a74cc59e16d2a19f4ac",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "B20",
+      "historical_peak_rss_kib": 85040,
+      "historical_stream_bytes": 104747,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "2be074d339c528f16722f6d663b8adf259d8d3f0321038d25f7ea29dbbf7da57",
+      "historical_wall_seconds": 49.24397606899947,
+      "key": [
+        "3564",
+        "24",
+        1,
+        [
+          [
+            "u",
+            "C"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "new_producer_receipt_sha256": "eb64790745a1083402be2c46d0faaca9bc3f8b216b358d75ff2d913357ae7660",
+      "new_proof_sha256": "816892074682574feec5c82a58ceaa716e2ce8222108fba385b0905214470cc5",
+      "population": "B64",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B20/report.json",
+      "retained_result_sha256": "508a0635f91179188ee379a24109299be5ac567154aea2d2a842b8a332d27b62",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "fcd305b4fcf11bf2c93ef78519668a5fbba216ecd330d59346d915a026f9317c",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "authority_class": "admitted_independent_no_lp_structural_final",
+      "case_id": "B21",
+      "historical_peak_rss_kib": 81928,
+      "historical_stream_bytes": 537,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "9348cdca1a626618d217c8881b305d2bdd1f37a25d8d1302299a46529f847323",
+      "historical_wall_seconds": 0.0024354360029974487,
+      "key": null,
+      "missing_final_result_authority": false,
+      "missing_reason": null,
+      "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
+      "population": "B64",
+      "reported_finite_regimes": 0,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B21/report.json",
+      "retained_result_sha256": "83073d5b9c5423981aed6f4359168cf10a11bba3f5af6fc7136e7bbcbcb22bcd",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "1b3479bfc9d484cbd3cc04b2e33d441545b4fae3121047238f0c0f9863ac8296",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "infeasible_within_H_ref",
+      "targeted_no_lp_candidate": "Zero reported regimes; independently prove complete selected-leg/terminal-sequence exclusion before admission."
+    },
+    {
+      "authority_class": "admitted_independent_no_lp_structural_final",
+      "case_id": "B22",
+      "historical_peak_rss_kib": 82876,
+      "historical_stream_bytes": 536,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "81b73604979689cbe3ca1e77f6fa7da57ba46811b5bed2a64bb4617c7b8072f5",
+      "historical_wall_seconds": 0.0024059829993348103,
+      "key": null,
+      "missing_final_result_authority": false,
+      "missing_reason": null,
+      "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
+      "population": "B64",
+      "reported_finite_regimes": 0,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B22/report.json",
+      "retained_result_sha256": "ed5adc1b7524f61cf0201cddb767646350868f86298b6ddc5a1de9f5b64dd42a",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "7a1c1348c9f62076b78668d7fbd6f0d54a0cf452acb7227c1ca69587fdfae8c7",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "infeasible_within_H_ref",
+      "targeted_no_lp_candidate": "Zero reported regimes; independently prove complete selected-leg/terminal-sequence exclusion before admission."
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B23",
+      "historical_peak_rss_kib": 87384,
+      "historical_stream_bytes": 2008042,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "b5737899cc24944e44df6f4291d1ac583fe121d9f703044c8f22db967bf32d6e",
+      "historical_wall_seconds": 836.0962120360018,
+      "key": [
+        "7200",
+        "0",
+        1,
+        [
+          [
+            "u",
+            "S"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 120764,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B23/report.json",
+      "retained_result_sha256": "e6cc0f64a5a5bed76bb4aa22d1d8d0134db7350fe7a07636a9a0c40786e117a9",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "03e0a0313bdd0408f8d7f457a6de7ba6d0e49f4ef61064f356522815c6421e4a",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B24",
+      "historical_peak_rss_kib": 87080,
+      "historical_stream_bytes": 1902171,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "37a3e29181b935a460274859e304159495250cdd0699437ba507bc33a91d8c9c",
+      "historical_wall_seconds": 829.1082584159994,
+      "key": [
+        "7200",
+        "24",
+        1,
+        [
+          [
+            "u",
+            "CS"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 120764,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B24/report.json",
+      "retained_result_sha256": "1ff89b7f357d29b79c0bca58f63a7539826708e2a5abe29e1efd0206a6a4ad27",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "181bf73d41d39b858d20f7d212115edcc6d67f1d84b7855d6014486a7faa6eab",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B25",
+      "historical_peak_rss_kib": 84460,
+      "historical_stream_bytes": 105388,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "d5e6ecb6f7a6972389a7cf2b851a38f2971e7a1e0dd4fa8321969783a2aae4d3",
+      "historical_wall_seconds": 48.23260314000072,
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B25/report.json",
+      "retained_result_sha256": "a6e98d7f95bdf710f040f8b9cac092af87cdeff0f3617ee3cd76e6fcda689bcb",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "9c53318b49bd6960656364656d9111379fe79b91af0d330b6a9d171a50387195",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/B26/cold_check_receipt.json",
+      "admission_sha256": "20d986b32fbf7be24e7156ca2a90fad44872ed999574eaa91561542efb88bb1d",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "B26",
+      "historical_peak_rss_kib": 84576,
+      "historical_stream_bytes": 108332,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "3dc35e2da1c15f4d46629ad523f835514826db7067f3986c0f4fd94f6a6f3656",
+      "historical_wall_seconds": 48.901045555001474,
+      "key": [
+        "2916",
+        "6",
+        1,
+        [
+          [
+            "u",
+            "C"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "new_producer_receipt_sha256": "4e92ba4a77e7ddf0abcf4dd576bcdebf5795bd4a69b5639082da67b36be8902e",
+      "new_proof_sha256": "4a4cb872c28824ed8a65df09be141da83cf89d45e7f663874149c4b6f28a5b1a",
+      "population": "B64",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B26/report.json",
+      "retained_result_sha256": "2c6f6d49cf4b27ea77ed50e05748a690db9b88be1eeffdf905fa334f1c9d528c",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "ecaec6a4dc321fe45f54d192f908b32efbb1a16fe5fd715fca3f263de2bcd63d",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B27",
+      "historical_peak_rss_kib": 84276,
+      "historical_stream_bytes": 105313,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "421f931ba2970e3db1b4baf89f822dbbb5e17c3971085b8f89fb942a17f760e7",
+      "historical_wall_seconds": 48.561098997000954,
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B27/report.json",
+      "retained_result_sha256": "8711983a45c578e691b32a243f9034a891b0ef2a60d50431bcbeaf562b12f5be",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "1d475835f4b1c3971cc80ecc41c38d309e14173774acc3418726060b785f2a90",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/B28/cold_check_receipt.json",
+      "admission_sha256": "503cdbef4426bb7f14c89e7e5d0911ed363ed76209718afcb8af7767a296d6a4",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "B28",
+      "historical_peak_rss_kib": 84640,
+      "historical_stream_bytes": 108252,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "eaa2d528c6762b1fa152bcde989fe40eadbbd63963fc6b649186898f4580e1c9",
+      "historical_wall_seconds": 49.78812234299767,
+      "key": [
+        "2916",
+        "6",
+        1,
+        [
+          [
+            "u",
+            "C"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "new_producer_receipt_sha256": "185969ad543ee16d51a6173cecd840d9eae56b9a14320449933dbb3313c9cdab",
+      "new_proof_sha256": "4a4cb872c28824ed8a65df09be141da83cf89d45e7f663874149c4b6f28a5b1a",
+      "population": "B64",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B28/report.json",
+      "retained_result_sha256": "23273eac0f20d28248ff4e5845f5927d851640adc294b9e5bc80c8fe6c1fa8cb",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "11cd748f8116c8a03fdad7d1626af28172c169ad5526faa2d46cc40efc403894",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "authority_class": "admitted_independent_no_lp_structural_final",
+      "case_id": "B29",
+      "historical_peak_rss_kib": 81324,
+      "historical_stream_bytes": 537,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "97f61d2ab76e6ee993291aa79880759590b8d5ad28e37b50e70b1a7844c53a12",
+      "historical_wall_seconds": 0.002305792000697693,
+      "key": null,
+      "missing_final_result_authority": false,
+      "missing_reason": null,
+      "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
+      "population": "B64",
+      "reported_finite_regimes": 0,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B29/report.json",
+      "retained_result_sha256": "7373cba9f6f547ee8eb644d0a9cd41e6ea32b2ee9afb86d7c4a33892115f8b55",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "46110b03d9a6d0583a829982ecee11db171f8f71c668cc20552bf80215eb711b",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "infeasible_within_H_ref",
+      "targeted_no_lp_candidate": "Zero reported regimes; independently prove complete selected-leg/terminal-sequence exclusion before admission."
+    },
+    {
+      "authority_class": "admitted_independent_no_lp_structural_final",
+      "case_id": "B30",
+      "historical_peak_rss_kib": 81196,
+      "historical_stream_bytes": 536,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "8bb3eddb3969c43cb802db7ccfcfdfd480be880e01763e0391f643fe545b0ea9",
+      "historical_wall_seconds": 0.0023312800003623124,
+      "key": null,
+      "missing_final_result_authority": false,
+      "missing_reason": null,
+      "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
+      "population": "B64",
+      "reported_finite_regimes": 0,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B30/report.json",
+      "retained_result_sha256": "3d7f8d7845fa10b8b1647dd88418ca2385e4354105d27fb140260331339928bb",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "77ad8c2772c7ac36b3eac72d4eb3190fb75cf41148d3c6f6343459b559052e99",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "infeasible_within_H_ref",
+      "targeted_no_lp_candidate": "Zero reported regimes; independently prove complete selected-leg/terminal-sequence exclusion before admission."
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B31",
+      "historical_peak_rss_kib": 86628,
+      "historical_stream_bytes": 2152467,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "0b15802a97cdebad0139881c2253b1573172e9ab5afaa6d0909314049a3fe388",
+      "historical_wall_seconds": 803.055391758,
+      "key": [
+        "7200",
+        "0",
+        1,
+        [
+          [
+            "u",
+            "S"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 120764,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B31/report.json",
+      "retained_result_sha256": "48970ef47f970d80bc5adb1bee2c03b4d608a053ae7aa954ed57650698ebf5f9",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "da03f209199226d322f1fa9e41a12a5a529e78c57312bcdb04eb93ffaddaa3d3",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B32",
+      "historical_peak_rss_kib": 87172,
+      "historical_stream_bytes": 2079408,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "665db6d0eb134548c263b3e5f6712a25fdaea98daa3114c5969ac94bf3acd137",
+      "historical_wall_seconds": 830.3013338929995,
+      "key": [
+        "7200",
+        "6",
+        1,
+        [
+          [
+            "u",
+            "CS"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 120764,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B32/report.json",
+      "retained_result_sha256": "006b5a85782e0bab5e542024a1ca78c89b441f468e5986cf07ca2785abe97dc2",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "ab51241c97f5df5b9f4a0806cd96ae62f16a15f745c149eba2f363a4c93d3b97",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B33",
+      "historical_peak_rss_kib": 84124,
+      "historical_stream_bytes": 211666,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "b3357300e7ab3821a421a209217ee228b436e8a62e9f487c282f372b20db8aa2",
+      "historical_wall_seconds": 98.0044245930003,
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 14761,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B33/report.json",
+      "retained_result_sha256": "c9e1a92e730458126af7724127d9784630e6cf346370ed52ee242efe08809297",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "6082149466a1bc0e62fe8ad4c717565b145186b0dc3ad1d22fa7b45a7574aa0f",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/B34/cold_check_receipt.json",
+      "admission_sha256": "a27ccbf95e7fdc01d25848ff722a8bc094d475e7cb3b28c4f8f67203eb304448",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "B34",
+      "historical_peak_rss_kib": 84636,
+      "historical_stream_bytes": 208748,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "317b49cda9bd587163b1f6a09289935eb6ce6b6290c730aa2d8fec5c5faac043",
+      "historical_wall_seconds": 98.17533578599978,
+      "key": [
+        "3132",
+        "12",
+        1,
+        [
+          [
+            "u",
+            "C"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "new_producer_receipt_sha256": "98dfa6cadf9675fb4e1422f3ba144c8ad2b143ea36fe171b7c9219ed56cb936b",
+      "new_proof_sha256": "0cadea575b66415b14842ce2c7075384b0189e0e7beddf5813dfa9b23b4ef5f7",
+      "population": "B64",
+      "reported_finite_regimes": 14761,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B34/report.json",
+      "retained_result_sha256": "6e8c219f1b16b2c3e0e4696044cab0f0dde57bbc2a18d398b1b6b8ac6459de41",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "c431f4b8f02c654e5e77a9ed912ffd0eef30fad0ad27c8123386358a11bd42d9",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B35",
+      "historical_peak_rss_kib": 83804,
+      "historical_stream_bytes": 106277,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "77e3ceaf49f700dc310b02ef337c56b6e216750230cbac5987fb593314841588",
+      "historical_wall_seconds": 47.86866041900066,
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B35/report.json",
+      "retained_result_sha256": "29c0b03a038ad58165f8df8d40e37d06f9cad06481f4c53aada50531fd94767f",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "7f8d470509c518049ead1f959dcbe3a7a33cf624957be167a7e26eafcdfac034",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/B36/cold_check_receipt.json",
+      "admission_sha256": "fc1eb11da947a31951a150d7f602accaa2069a690cab4175fbde00fc7e0d2c52",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "B36",
+      "historical_peak_rss_kib": 83944,
+      "historical_stream_bytes": 104843,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "9dde41da8e7b08ec24ade007939d3fa61ae001116a9436905dd97dbbb8cc4e18",
+      "historical_wall_seconds": 49.13379694900141,
+      "key": [
+        "3132",
+        "12",
+        1,
+        [
+          [
+            "u",
+            "C"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "new_producer_receipt_sha256": "2cae2a88c57df82e094d75bb0024352675c0b74d218a6849e580f20c60250e52",
+      "new_proof_sha256": "28b2f5cc0654a39fe180d17068bf87d11a63ff64b6ada92f901a58773f65329c",
+      "population": "B64",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B36/report.json",
+      "retained_result_sha256": "ba0cb1dc9e6e5bd7fcf61087b663da9bf430e6bd6cdd34ab238377f2e254ac1b",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "3b93b717aaf678509c4346e69c6802a480254840382cd6e146e31034e662aa61",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "authority_class": "admitted_independent_no_lp_structural_final",
+      "case_id": "B37",
+      "historical_peak_rss_kib": 81748,
+      "historical_stream_bytes": 515,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "92f71e18aea271cc71e5cac0f3be563caf48e6587b497cff8e49c61269a03465",
+      "historical_wall_seconds": 0.0021357449986680876,
+      "key": null,
+      "missing_final_result_authority": false,
+      "missing_reason": null,
+      "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
+      "population": "B64",
+      "reported_finite_regimes": 0,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B37/report.json",
+      "retained_result_sha256": "4c7aa9a970962614a5daf6f3b325cae2a12df78651cb96e088d2ca95a436d653",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "96ede09d257dd005861e976fa55a8b29e5063b1ca147458f7295c153a2be9607",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "infeasible_within_H_ref",
+      "targeted_no_lp_candidate": "Zero reported regimes; independently prove complete selected-leg/terminal-sequence exclusion before admission."
+    },
+    {
+      "authority_class": "admitted_independent_no_lp_structural_final",
+      "case_id": "B38",
+      "historical_peak_rss_kib": 81408,
+      "historical_stream_bytes": 518,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "cb0e23448ad652b2943a21c921f455e981879d732e014c6b7af6c95029a041e9",
+      "historical_wall_seconds": 0.0022901280026417226,
+      "key": null,
+      "missing_final_result_authority": false,
+      "missing_reason": null,
+      "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
+      "population": "B64",
+      "reported_finite_regimes": 0,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B38/report.json",
+      "retained_result_sha256": "d41465b19958e1d8b71b398e703d1f548a4b6040e9f19eb5a91d9e72e99a444a",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "709ca72b12d1d63aefa9c0e5bd8b6fb2c59aeccf2a281cc81d17f91a63e9ca15",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "infeasible_within_H_ref",
+      "targeted_no_lp_candidate": "Zero reported regimes; independently prove complete selected-leg/terminal-sequence exclusion before admission."
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B39",
+      "historical_peak_rss_kib": 86792,
+      "historical_stream_bytes": 2008143,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "cb596ad8b6125467d55d5e3805d022012542b449c11a84da83fc93dfbf0ef778",
+      "historical_wall_seconds": 817.3993826879996,
+      "key": [
+        "7000",
+        "0",
+        1,
+        [
+          [
+            "v",
+            "S"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 120766,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B39/report.json",
+      "retained_result_sha256": "6ea57892d72df3b24769920086a42083643797fd3524895a1a65b18f8396b91c",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "694e99a868cb9c16d52afe726eb371ab8095f4ac9ba3be8cfd0460e17d1ac13e",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/B40/cold_check_receipt.json",
+      "admission_sha256": "8921b79ff19fc0d9fff64464bd3436ab1c0669cc2eb9dd480a1427331a2d6d6c",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "B40",
+      "historical_peak_rss_kib": 87096,
+      "historical_stream_bytes": 1902406,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "486e5a27667dcb871db530a5030dafa4c052ff7171142d586df231cf3b46b846",
+      "historical_wall_seconds": 819.5825725530012,
+      "key": [
+        "7200",
+        "12",
+        1,
+        [
+          [
+            "u",
+            "CS"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "new_producer_receipt_sha256": "645de8a6c7632b50934f1236d18932216aa064090b74a5a272772a745b7de2fc",
+      "new_proof_sha256": "8bda30dc9937874fb97243dc97eafd1234bee30739b664462c922ec9951d8f7b",
+      "population": "B64",
+      "reported_finite_regimes": 120766,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B40/report.json",
+      "retained_result_sha256": "7a6ec8a1e240fecffc11c4a6822c7d8e2aae6ca553facf4722019f6b80af80bc",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "90cc3e684ea0ca87074d0fcd48e10834b96fd215fc2203b976f74cb49084e004",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B41",
+      "historical_peak_rss_kib": 84368,
+      "historical_stream_bytes": 209954,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "01b3967732b8d21d7fb2e53544753425ec15b52704ca4b6dcf00b690d962c62c",
+      "historical_wall_seconds": 94.98083657299867,
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 14761,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B41/report.json",
+      "retained_result_sha256": "2d6e57f800c4bcd1282447fb142cf2d17d57edbf3d75e13215eb5efedf280da3",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "7180b439e394a658667509bd666d8327f18c4ea298fe0a839e22cf0950150f66",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B42",
+      "historical_peak_rss_kib": 83672,
+      "historical_stream_bytes": 220286,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "9d12ce791ef76e404ac913e2ad538d65a530d3525b463ca9e389a5db84b2810e",
+      "historical_wall_seconds": 98.67021444000056,
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 14761,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B42/report.json",
+      "retained_result_sha256": "b9ba52c88ccef96a5b84e0583d3529d1b506c1a029d4ead785ec526d9c5bf1da",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "c5711a3ef78fddd2e4bd37fb83caa3bf9f8fda298027bc1aa0a27d1ba7c31aee",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B43",
+      "historical_peak_rss_kib": 84184,
+      "historical_stream_bytes": 105319,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "7b97ad1430917b393829e49223a745572f445b7a66095971d2ea1d4c5dbd9359",
+      "historical_wall_seconds": 46.346113986001,
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B43/report.json",
+      "retained_result_sha256": "7839892f4dc52c4a0c61989f4ed26372ef1dc204c515fa4dc46b02b63b6fd255",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "2edddcf0ece6399f610ebba0c187836750f3151b96abaad6949772c1620796e9",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B44",
+      "historical_peak_rss_kib": 84576,
+      "historical_stream_bytes": 108212,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "5b6f03807b5d4d2812e83a76c6a08817e1e80b35dafe447cd324449876adf367",
+      "historical_wall_seconds": 47.66650970000046,
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B44/report.json",
+      "retained_result_sha256": "29aadfca90243dca60694a9e32fb028dc7261a9168d761a7d648acc063c5399e",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "faaf1942c4bf61ea5c9b70da3c69b26a85324e8b095efd70b116345fbf79926e",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "authority_class": "admitted_independent_no_lp_structural_final",
+      "case_id": "B45",
+      "historical_peak_rss_kib": 82044,
+      "historical_stream_bytes": 519,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "27430e61259e00e1bde3d6001bcd15cb6326b7ab6b01ee9f57761fa931fe150e",
+      "historical_wall_seconds": 0.002558922002208419,
+      "key": null,
+      "missing_final_result_authority": false,
+      "missing_reason": null,
+      "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
+      "population": "B64",
+      "reported_finite_regimes": 0,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B45/report.json",
+      "retained_result_sha256": "c7b1638b81ecb4689c4f86d59f21691fcc44170468315199387279c7ac55b0c8",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "35981973d334f56c560a687a3491dfc7a0d67ca9c25a0cda3585cc0b54758d91",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "infeasible_within_H_ref",
+      "targeted_no_lp_candidate": "Zero reported regimes; independently prove complete selected-leg/terminal-sequence exclusion before admission."
+    },
+    {
+      "authority_class": "admitted_independent_no_lp_structural_final",
+      "case_id": "B46",
+      "historical_peak_rss_kib": 81664,
+      "historical_stream_bytes": 519,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "97fdc69d1335b07e7f6d33df103484ebf4f0aa5c655261b78731ddf5dff69d87",
+      "historical_wall_seconds": 0.0022914799992577173,
+      "key": null,
+      "missing_final_result_authority": false,
+      "missing_reason": null,
+      "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
+      "population": "B64",
+      "reported_finite_regimes": 0,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B46/report.json",
+      "retained_result_sha256": "9d357e2e621feeb6af00b1fd95054626d994dee44542a28b557f106ecad299e6",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "496d6a39dbaf4641d41b3bf066b9e7f5f9e9ec04847a2f9bdbcd7b50bdf9c6a0",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "infeasible_within_H_ref",
+      "targeted_no_lp_candidate": "Zero reported regimes; independently prove complete selected-leg/terminal-sequence exclusion before admission."
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B47",
+      "historical_peak_rss_kib": 86632,
+      "historical_stream_bytes": 2152545,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "1d66defa1486a97115f4ff18a4f22dede2c7b12f721c84cfce89157d96761595",
+      "historical_wall_seconds": 807.7536652980016,
+      "key": [
+        "7000",
+        "0",
+        1,
+        [
+          [
+            "v",
+            "S"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 120766,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B47/report.json",
+      "retained_result_sha256": "0dae917a8f76e6db8f37991d445c36031e5c389dbed03d239286d14d0ec39af1",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "d3ec98c2db5100322c2639560694295163476c7b053e9d13bfb538fe5d77dfeb",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B48",
+      "historical_peak_rss_kib": 87224,
+      "historical_stream_bytes": 2079928,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "9adfbb5f0fc2ca7f94dd7e872b49115e73360f2af4d2c5cfdeb7435800b3a8f6",
+      "historical_wall_seconds": 810.7488674190026,
+      "key": [
+        "7000",
+        "0",
+        1,
+        [
+          [
+            "v",
+            "S"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 120766,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B48/report.json",
+      "retained_result_sha256": "0a21bed034605185e4638045daa49e288ad549ed1e108a3a5ef4810d9ca759ae",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "93a59d2916f8ad8a507d9ce52653264bb78b912d06649ecffe95a08349025f78",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B49",
+      "historical_peak_rss_kib": 89208,
+      "historical_stream_bytes": 1635438,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "d309048028205a5cefb21ffb9301fe79fe5c5e10e0ef28bae53d52ae6894b70c",
+      "historical_wall_seconds": 760.3167359649997,
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 111151,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B49/report.json",
+      "retained_result_sha256": "18b3ae82e7133e7625d865af687b753cada1af2e1fb33a3a8038de0ec7cf51a2",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "8a6a6188afc59f6c294965d1a91f8f95c2e87c86e73f3199f67840c6bc5bb045",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/B50/cold_check_receipt.json",
+      "admission_sha256": "39d2ad7fea6d2f7af1ccb17258a666707abedf96241f3bb6a64ea94f75a3094d",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "B50",
+      "historical_peak_rss_kib": 87232,
+      "historical_stream_bytes": 1458521,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "7f576c8cce9a6af02a7232731a47d5b0f570906d2d3ed9327b15eb4a0f90b8a4",
+      "historical_wall_seconds": 771.4897497879974,
+      "key": [
+        "3564",
+        "24",
+        1,
+        [
+          [
+            "u",
+            "C"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "new_producer_receipt_sha256": "8b34e871c54f522d701e0cd8415cdb33d712c690031e0d194b32289796aeeb63",
+      "new_proof_sha256": "b03215f972df44a1bfdc41b57691353fc792cca61cedd6abc6ea2876470b5f53",
+      "population": "B64",
+      "reported_finite_regimes": 111151,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B50/report.json",
+      "retained_result_sha256": "87bdd5724964b2f15b030852a0741b308f95d7a27d223bbb9e62f233d0adb9b8",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "4e0fedf4d16074651bd604a7399bce631db874199250ba51135c99f35924461d",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B51",
+      "historical_peak_rss_kib": 84872,
+      "historical_stream_bytes": 106306,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "0eda6557fee17e06c99f019fef2b9aa337482627c487c5a3821e00748f167ca3",
+      "historical_wall_seconds": 47.509046141,
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B51/report.json",
+      "retained_result_sha256": "447f14326c72d48cd981444e52e453aa18770ea045470665a0690680d7f28a93",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "1f853a645a79ddf0b37d21f3b2e27bb95cd043fd548811b785cb241c1107e60e",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/B52/cold_check_receipt.json",
+      "admission_sha256": "dc4c90434dc91ddf35e9c31820f3072364bba86a5774206264ee6494a04974ed",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "B52",
+      "historical_peak_rss_kib": 84912,
+      "historical_stream_bytes": 104773,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "2ca5fba33bc7cb61ab172b2b50ca2fd69363253534e9a78f9e06a6558b849a1c",
+      "historical_wall_seconds": 47.29465283399986,
+      "key": [
+        "3564",
+        "24",
+        1,
+        [
+          [
+            "u",
+            "C"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "new_producer_receipt_sha256": "f209d8a03f9e6b9afeb57b86d20cb626f2455e8f12eed81d542b67de5edbd504",
+      "new_proof_sha256": "618e053369f00f4f9d5b43fb180e98d99511d3c8f9252d6aa2c5da75ca29074a",
+      "population": "B64",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B52/report.json",
+      "retained_result_sha256": "b8ea4578539a4a0f9b5c42beb28c233a6ae80e38fc671ec3c6e1354a0edb7f95",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "8d71189d3c6260d63e6f5242a1f9daf2a9663abd16e8cf93ecb7f8d150d7dd00",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "authority_class": "admitted_independent_no_lp_structural_final",
+      "case_id": "B53",
+      "historical_peak_rss_kib": 82252,
+      "historical_stream_bytes": 583,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "a1bca6eefd178ed7bc2588952c8f95350755dd7e5abb20d8b47726005d0fc9d4",
+      "historical_wall_seconds": 0.0033217509990208782,
+      "key": null,
+      "missing_final_result_authority": false,
+      "missing_reason": null,
+      "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
+      "population": "B64",
+      "reported_finite_regimes": 0,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B53/report.json",
+      "retained_result_sha256": "ea7adafab808309005c0974b4f7134247d8220bfe70805ea9290273b3d657abe",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "be4ab5be89fb4ae8cb10c96737af7b10ee06022a79e7a498dabfd35d047b4e59",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "infeasible_within_H_ref",
+      "targeted_no_lp_candidate": "Zero reported regimes; independently prove complete selected-leg/terminal-sequence exclusion before admission."
+    },
+    {
+      "authority_class": "admitted_independent_no_lp_structural_final",
+      "case_id": "B54",
+      "historical_peak_rss_kib": 81444,
+      "historical_stream_bytes": 582,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "b982f7eba08356e0203f0d75c950f02ab14d09044b5a64b99ae9af61dc17bbce",
+      "historical_wall_seconds": 0.0033503740014566574,
+      "key": null,
+      "missing_final_result_authority": false,
+      "missing_reason": null,
+      "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
+      "population": "B64",
+      "reported_finite_regimes": 0,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B54/report.json",
+      "retained_result_sha256": "e21d8e420cc9844a4a415b7bb7fb02d579924047939a00f1c7db90b937db3ef5",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "ce5c89fe3b072d90737a11363c805b1a8ebb1a40daf86d0d4e41fdd097fcc1cc",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "infeasible_within_H_ref",
+      "targeted_no_lp_candidate": "Zero reported regimes; independently prove complete selected-leg/terminal-sequence exclusion before admission."
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B55",
+      "historical_peak_rss_kib": 87816,
+      "historical_stream_bytes": 2118575,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "16d102d243f400d412d135317f0d9c92f5adcc0acb2e4eeb02de8cdfa0586e3c",
+      "historical_wall_seconds": 922.1926332519979,
+      "key": [
+        "6700",
+        "0",
+        1,
+        [
+          [
+            "v",
+            "S"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 127120,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B55/report.json",
+      "retained_result_sha256": "4cdfdae2b0f99b24c53c93fb62eb09e2d0f28c008c438c7285e92da0dca858ad",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "65329ba92b2096cb6105e4adf995411fba2bbb853dac409d08654ce35b69cc53",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/B56/cold_check_receipt.json",
+      "admission_sha256": "6c09a87c6692c4913040bd4f81faa99f5c88e9a85190674fd87ff19a88399a92",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "B56",
+      "historical_peak_rss_kib": 87660,
+      "historical_stream_bytes": 2008569,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "ed8a9f9ea6a6a5536f0dccadcbd7ef519392ea23df7300cb1a492640cfe3cc3b",
+      "historical_wall_seconds": 896.544835466997,
+      "key": [
+        "7200",
+        "24",
+        1,
+        [
+          [
+            "u",
+            "CS"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "new_producer_receipt_sha256": "cd95530942c0ffff0bc66d21a7f7fb863c1e08249356e443d146312e6887702e",
+      "new_proof_sha256": "dba47f5bcd65fac9c39a1ca289a36400255618f60920d533e95a01af9ad2ec1a",
+      "population": "B64",
+      "reported_finite_regimes": 127120,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B56/report.json",
+      "retained_result_sha256": "ddbab84b503a87ccec05e873f0aec6bcf285c45d7803623f33f02d4215336b80",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "4d795b1fcbfc9f574e64c9dfff7b1e532a5b37f470912ac775f5724ceb8edfee",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B57",
+      "historical_peak_rss_kib": 87972,
+      "historical_stream_bytes": 1720203,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "ee42e5fb97e23022eb0c26c1fbe08976e9aef21db69b5bfaecf1dec2bb0cde65",
+      "historical_wall_seconds": 793.4108175299989,
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 111151,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B57/report.json",
+      "retained_result_sha256": "e3baeb7f4f6f093c6337f94b9f590218fff08df93c4794d8cdfd13e6dbf1e86b",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "b9e7d336bac715498ceb6175e38bca6d8bf2a7d042094f7f3e6ae73c283301d3",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/B58/cold_check_receipt.json",
+      "admission_sha256": "d25c481b9eab41452c11d47ce6098cee5b3a8f0510cfd3e8b2852b9754f5cd31",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "B58",
+      "historical_peak_rss_kib": 90432,
+      "historical_stream_bytes": 1620500,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "3f42fc13c932f158f438fa686e1b7735f5118d875480daafb4d4073158910cb9",
+      "historical_wall_seconds": 769.9696810589994,
+      "key": [
+        "2916",
+        "6",
+        1,
+        [
+          [
+            "u",
+            "C"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "new_producer_receipt_sha256": "3a4b65a16b991fd45e2c4d470ca6bd3c0e4fecde6a7809bc10c524a6a273c79d",
+      "new_proof_sha256": "57f17493efe5f1d08241a6e4453ddd25a972693a4341ed576f23be257df1ded2",
+      "population": "B64",
+      "reported_finite_regimes": 111151,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B58/report.json",
+      "retained_result_sha256": "c138ec83a723add8e1c18e0dc64c6716f902918bef678ab5a153b58c759e576f",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "db12081a2732712b2ada3900fe9af726a979b00b8228d90b72879cbd9448becb",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B59",
+      "historical_peak_rss_kib": 84464,
+      "historical_stream_bytes": 105344,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "f881de2873aadca1efe9dc694e731ffcc781c8d2b9a69c53d67f3501ab6b9b68",
+      "historical_wall_seconds": 51.492685629000334,
+      "key": [
+        "1800",
+        "0",
+        0,
+        []
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B59/report.json",
+      "retained_result_sha256": "f636abe31c1e91cb755618e07ce4c68fb83428ae2c0b52a92cbec817da5347b2",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "b94a9e1eb027e7d7c7125691651fda511e7994627270b6c937f9ad29845aa3d5",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/B60/cold_check_receipt.json",
+      "admission_sha256": "7daf844763a1fd459fa44e88c17d32da3a6a6ae90bdb954067087ad2d7f4f7fb",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "B60",
+      "historical_peak_rss_kib": 84524,
+      "historical_stream_bytes": 108277,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "ae74f362229cd56b1726d32fb65f5b2fd4b9bd541854fac4def4efcbf8fc4389",
+      "historical_wall_seconds": 55.19740274700234,
+      "key": [
+        "2916",
+        "6",
+        1,
+        [
+          [
+            "u",
+            "C"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "new_producer_receipt_sha256": "ef58626129efb8d79969ec7ee23a238989538e6e7826d07424ee8042f97367c2",
+      "new_proof_sha256": "2dad4791bc4adf972dd4cd9330ca8910e7f3965a5bc5600fc68dec9fd6c9a6ba",
+      "population": "B64",
+      "reported_finite_regimes": 7381,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B60/report.json",
+      "retained_result_sha256": "e5ddc755fe509f7d31669f90524bd3bcabf1a255ea3acfcaf3f7a01bafb9ab54",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "5ee8df4c704906a1f0df10c0c0c39270926f21def067595f81e8ae9feaf274a0",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "authority_class": "admitted_independent_no_lp_structural_final",
+      "case_id": "B61",
+      "historical_peak_rss_kib": 80688,
+      "historical_stream_bytes": 586,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "6148fc002d9b26d02a0db0957bd0d2529439173c4054afa570edb8b21ed35e9b",
+      "historical_wall_seconds": 0.003046497000468662,
+      "key": null,
+      "missing_final_result_authority": false,
+      "missing_reason": null,
+      "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
+      "population": "B64",
+      "reported_finite_regimes": 0,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B61/report.json",
+      "retained_result_sha256": "a581df4e537076119cd5165db6202d7c02029fbf3ad26ed4c57766b93dd2293e",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "45f585433d0aa526f21c3d5bb2b3967bb4f52b4390dcf2fd29ec689c32aa48d6",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "infeasible_within_H_ref",
+      "targeted_no_lp_candidate": "Zero reported regimes; independently prove complete selected-leg/terminal-sequence exclusion before admission."
+    },
+    {
+      "authority_class": "admitted_independent_no_lp_structural_final",
+      "case_id": "B62",
+      "historical_peak_rss_kib": 81988,
+      "historical_stream_bytes": 583,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "7870a1ed4f4aa93297f3f993ee0d35b7098fe60d4a285c30987aaf196e05314b",
+      "historical_wall_seconds": 0.0030986750025476795,
+      "key": null,
+      "missing_final_result_authority": false,
+      "missing_reason": null,
+      "no_lp_structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
+      "population": "B64",
+      "reported_finite_regimes": 0,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B62/report.json",
+      "retained_result_sha256": "ebafb9945cafe753bf8418ca75f49992db0672f8f72acc52881296fc7e337ab3",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "ae1444ded4a3b1ff52d9084cfdc7303cdb8eacbad3e8b4d0501cca7fa101ab43",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "infeasible_within_H_ref",
+      "targeted_no_lp_candidate": "Zero reported regimes; independently prove complete selected-leg/terminal-sequence exclusion before admission."
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/analytic_full_result_receipt.json",
+      "admission_sha256": "d874cf8cbb634c266e62253562f0e0f4022a9c441bf815d96573857e5e0c6868",
+      "authority_class": "admitted_independent_no_lp_full_key_proof",
+      "case_id": "B63",
+      "historical_peak_rss_kib": 87468,
+      "historical_stream_bytes": 2265408,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "0b7b5eeeb748cbbf5206e6626ac6b20bf370e3d0feb011cd243e0a9e47a256b4",
+      "historical_wall_seconds": 865.1892450409978,
+      "key": [
+        "6700",
+        "0",
+        1,
+        [
+          [
+            "v",
+            "S"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "population": "B64",
+      "reported_finite_regimes": 127120,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B63/report.json",
+      "retained_result_sha256": "d29cc430226f60b7b019fb63c2b9300ccff16f6d53fd74edff6367c80ea3d4f3",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "f1bfb9d0fa51a3411ff1fc616a79bee22623c5f9390fa3150dc702974985061e",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    },
+    {
+      "admission_path": "docs/m5_v_current_candidate/ref_recovery_29_evidence.tar.gz::runs_stream/B64/cold_check_receipt.json",
+      "admission_sha256": "6fc3745c54bdf034821912ddbac03bb29d1ca6c87eabf9cee696d454c1f0b398",
+      "authority_class": "admitted_new_full_ref_exact_certificates_and_independent_cold_check",
+      "case_id": "B64",
+      "historical_peak_rss_kib": 88444,
+      "historical_stream_bytes": 2191220,
+      "historical_stream_replayed_claim": true,
+      "historical_stream_sha256": "5a72bde5fbf164f7da136f4df18f23ee1c082767ed7016f8b9dd893718996b43",
+      "historical_wall_seconds": 860.2834697619983,
+      "key": [
+        "7200",
+        "6",
+        1,
+        [
+          [
+            "u",
+            "CS"
+          ]
+        ]
+      ],
+      "missing_final_result_authority": false,
+      "missing_reason": "v2 report gives stream digest and fully_replayed claim, but corresponding raw per-regime stream is absent from recovered archive; stored report is not its own authority.",
+      "new_producer_receipt_sha256": "34cfb497ec0a7ebba2877640231ced8c32c13ce966e04bab33a40fb6ccf85a6a",
+      "new_proof_sha256": "49b903081966e9f49b2287c749d197b6e956caf51d93160ea990916d635ba3b2",
+      "population": "B64",
+      "reported_finite_regimes": 127120,
+      "retained_result_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/bound_audit/v2/runs/B64/report.json",
+      "retained_result_sha256": "a860d3342aaf651127b86fd33091c16b3f3327bf69e268b8d976ee7085e6af63",
+      "source_case_file_sha256": "61a1d3f86da1c750ef127f7827f4ef68d2b5aa21babc314691ce095ed498f037",
+      "source_case_object_sha256": "c081fe02a5387788aa4c1ae3bde1b45b9ae0cb7a2c2aedb1c72fdd680e7839a2",
+      "source_case_path": "/Users/dy/Documents/Codex/2026-10-09/task/c32_checkpoint_recovery_20261011/ab_evidence_tree/results/milestone_5_acceptance_b64/acceptance_populations/stage_b/cases.json",
+      "status": "attained_optimum"
+    }
+  ],
+  "schema": "m5_v_final_result_authority_complete_v4",
+  "scope": "retained independent archive audit plus new complete no-LP structural final checker; no LP rerun",
+  "structural_receipt_sha256": "c88ce2023ae776a4ea55a1166310f05320842b76c7f93ed9866d68a035979275",
+  "summary": {
+    "A_missing": 0,
+    "B_missing": 0,
+    "admitted": 92,
+    "cases": 92,
+    "missing_final_result_authority": 0,
+    "new_full_ref_regimes_final": 1215463,
+    "new_full_ref_rows_final": 29,
+    "new_full_ref_rows_initial": 3,
+    "new_independent_analytic_rows": 34,
+    "overlap_ref_and_analytic_rows": 1
+  }
+}
