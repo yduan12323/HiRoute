@@ -1,0 +1,21 @@
+{
+  "admission_scope": "optional_coalesced_C32_H4_fixed_selected_sites_parity",
+  "fresh_physical_replay": false,
+  "fresh_ref_verification": false,
+  "frozen_source_matches": 11,
+  "historical_independent_review_retained": true,
+  "modes": {
+    "flat_d0": 32,
+    "flat_d1": 32,
+    "hier_d0": 32,
+    "hier_d1": 32
+  },
+  "read_only_audit": "complete",
+  "read_only_audit_passed": 128,
+  "read_only_audit_sha256": "e1d6da444b2beeb8c0726fba716bcf0c24d4b5deb237ecfce514ccaed36b2aaa",
+  "report_sha256": "9dece6b66cabc31abc2bc9128bbfa10480f158d20e0e896ddffebafcbc1304c7",
+  "retained_file_count": 1420,
+  "schema": "hiroute-c32-retained-admission-v1",
+  "uncoalesced_execution_claim": false,
+  "zip_sha256": "b7b648c762f2f9e3eb394023ca8c531d31bbff5c251e558368b110162ef803ba"
+}
