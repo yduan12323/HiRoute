@@ -1,0 +1,26 @@
+{
+  "H": 2,
+  "J": "107522479661589342937/3435973836800000",
+  "charges": [
+    "4343025712299507/85899345920000",
+    "8494257907649457/214748364800000"
+  ],
+  "elapsed_ns": 42989963255,
+  "graph_metadata_sha256": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd",
+  "pool_sha256": "dab41e69dc6f60c2e0a890238c58e60d8b3c590f73bafcca049cb8d2b229fd4f",
+  "schema": "hiroute.m5d.od00_development_ref_replay.v1",
+  "scope": "first32_no_activity_preregistration_development_not_formal_pilot",
+  "sequence": [
+    [
+      "4r:node/11787531967",
+      "C"
+    ],
+    [
+      "4r:node/4439711122",
+      "C"
+    ]
+  ],
+  "source_route_runs": 34,
+  "table_sha256": "2db388fc5d5926a9ce8707e0ca5d17629e21a61d1a93afb98dda09cb29ee9b66",
+  "witness_replayed": true
+}
