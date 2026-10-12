@@ -15,14 +15,12 @@ import os
 from pathlib import Path
 import re
 import resource
-import shutil
+import stat
 import subprocess
 import sys
 import time
+import types
 import uuid
-
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from timecut5.systemd_supervisor import run_m5d_phase
 
 WORKERS_MAX = 5
 WORKERS_START = 4
@@ -33,6 +31,14 @@ ROW_WALL_SECONDS = 600
 ROW_MEMORY_BYTES = 8 * 1024**3
 HOST_MEMORY_RESERVE_BYTES = 8 * 1024**3
 MAIN_CPU_CEILING_NS = 117000 * 10**9
+FINALIZE_CPU_GUARD_NS = 60 * 10**9
+PARALLEL_STATE_SCHEMA = "hiroute.m5d.parallel_continuation_state.v3"
+AMENDMENT_SCHEMA = "hiroute.m5d.parallel_continuation_amendment.v3"
+OLD_MAIN_PID = 2286454
+OLD_MAIN_SOURCE = Path("/home/dy/HiRoute/m5d_main_9e52c05")
+OLD_MAIN_OUTPUT = Path("/home/dy/HiRoute/m5d_main_a99f534_20261011")
+OLD_MAIN_OBSERVED_UNIT = "hiroute-m5d-e90e6586228344ae87393389e149c470.service"
+TRUSTED_PYTHON = Path("/home/dy/miniconda3/envs/hiroute/bin/python3.11")
 
 
 def sha_bytes(data: bytes) -> str:
@@ -41,6 +47,25 @@ def sha_bytes(data: bytes) -> str:
 
 def sha_file(path: Path) -> str:
     return sha_bytes(Path(path).read_bytes())
+
+
+def stable_row_file(path: Path, row_out: Path) -> tuple[bytes, str]:
+    path, row_out = Path(path), Path(row_out)
+    row_info = os.lstat(row_out)
+    if stat.S_ISLNK(row_info.st_mode) or not stat.S_ISDIR(row_info.st_mode):
+        raise ValueError("Row output is not a real directory")
+    info = os.lstat(path)
+    if (stat.S_ISLNK(info.st_mode) or not stat.S_ISREG(info.st_mode) or
+            info.st_nlink != 1 or path.parent.resolve(strict=True) != row_out.resolve(strict=True)):
+        raise ValueError("Row evidence is not a unique row-local regular file")
+    raw = path.read_bytes()
+    after = os.lstat(path)
+    if ((info.st_dev, info.st_ino, info.st_nlink, info.st_size, info.st_mtime_ns,
+         info.st_ctime_ns) !=
+        (after.st_dev, after.st_ino, after.st_nlink, after.st_size, after.st_mtime_ns,
+         after.st_ctime_ns)):
+        raise ValueError("Row evidence changed while being checked")
+    return raw, sha_bytes(raw)
 
 
 def canon(value) -> bytes:
@@ -81,23 +106,65 @@ def fsync_directory(path: Path) -> None:
 
 def durable_receipt_sha(receipt, row_out: Path) -> str:
     path = Path(receipt.receipt_path)
-    info = os.lstat(path)
-    if (path.is_symlink() or not path.is_file() or info.st_nlink != 1 or
-            path.parent.resolve() != row_out.resolve()):
-        raise ValueError("Supervisor receipt is not a unique row-local regular file")
-    raw = path.read_bytes()
-    after = os.lstat(path)
-    if ((info.st_dev, info.st_ino, info.st_nlink, info.st_size, info.st_mtime_ns,
-         info.st_ctime_ns) !=
-        (after.st_dev, after.st_ino, after.st_nlink, after.st_size, after.st_mtime_ns,
-         after.st_ctime_ns)):
-        raise ValueError("Supervisor receipt changed while being checked")
+    raw, digest = stable_row_file(path, row_out)
     if json.loads(raw) != asdict(receipt):
         raise ValueError("Durable supervisor receipt differs from the returned receipt")
     with path.open("rb") as stream:
         os.fsync(stream.fileno())
     fsync_directory(row_out)
-    return sha_bytes(raw)
+    return digest
+
+
+def durable_claim_sha(row_out: Path, claim: dict) -> str:
+    path = Path(row_out) / "parallel_claim.json"
+    raw, digest = stable_row_file(path, row_out)
+    if raw != json.dumps(claim, sort_keys=True).encode() + b"\n" or json.loads(raw) != claim:
+        raise ValueError("Durable row claim differs from the admitted row")
+    with path.open("rb") as stream:
+        os.fsync(stream.fileno())
+    fsync_directory(row_out)
+    return digest
+
+
+def validate_supervisor_binding(source: Path, source_hashes: dict):
+    relative = "src/timecut5/systemd_supervisor.py"
+    expected = source_hashes.get(relative)
+    target = (Path(source) / relative).resolve(strict=True)
+    raw = target.read_bytes()
+    if (not isinstance(expected, str) or re.fullmatch(r"[0-9a-f]{64}", expected) is None or
+            sha_bytes(raw) != expected):
+        raise ValueError("M5-D supervisor differs from the frozen source hash")
+    module = types.ModuleType("_hiroute_verified_m5d_supervisor_" + uuid.uuid4().hex)
+    module.__file__ = str(target)
+    sys.modules[module.__name__] = module
+    try:
+        exec(compile(raw, str(target), "exec"), module.__dict__)
+    except Exception:
+        sys.modules.pop(module.__name__, None)
+        raise
+    if sha_file(target) != expected:
+        raise ValueError("M5-D supervisor changed while being loaded")
+    runner = getattr(module, "run_m5d_phase", None)
+    if (not callable(runner) or
+            Path(runner.__code__.co_filename).resolve(strict=True) != target):
+        raise ValueError("Verified M5-D supervisor entry point is missing")
+    return runner
+
+
+def validate_python_runtime(handoff: dict) -> str:
+    expected = handoff.get("python_runtime")
+    if type(expected) is not dict or set(expected) != {
+            "executable_path", "executable_sha256", "implementation", "version", "cache_tag"}:
+        raise ValueError("Handoff lacks the complete verified Python runtime fingerprint")
+    executable = Path(sys.executable).resolve(strict=True)
+    if (str(executable) != str(TRUSTED_PYTHON.resolve()) or
+            expected.get("executable_path") != str(executable) or
+            expected.get("executable_sha256") != sha_file(executable) or
+            expected.get("implementation") != sys.implementation.name or
+            expected.get("version") != sys.version.split()[0] or
+            expected.get("cache_tag") != getattr(sys.implementation, "cache_tag", None)):
+        raise ValueError("Running Python differs from the previously verified runtime fingerprint")
+    return str(executable)
 
 
 def advance_state_prefix(rows, state, ledger, manifest_sha: str, state_path: Path) -> None:
@@ -198,6 +265,18 @@ def active_memory_samples(active: dict) -> tuple[list[dict], bool]:
     valid = True
     for future, (row, row_out, _token) in active.items():
         if future.done():
+            # A completed Future remains active until its receipt and cleanup
+            # are reconciled. Reserve the whole cap and surface exceptions so
+            # a completion cannot silently free admission headroom.
+            try:
+                error = future.exception()
+            except Exception as caught:
+                error = caught
+            samples.append({"row_id": row["row_id"], "unit": None,
+                "memory_current_bytes": 0, "memory_max_bytes": ROW_MEMORY_BYTES,
+                "memory_current_path": None, "source": "unreconciled-future-full-cap-reserve"})
+            if error is not None:
+                valid = False
             continue
         candidates = sorted(row_out.glob("hiroute-m5d-*.stdout"))
         if len(candidates) > 1:
@@ -222,6 +301,14 @@ def active_memory_samples(active: dict) -> tuple[list[dict], bool]:
     return samples, valid
 
 
+def reconcile_completed_futures(active: dict, reconcile) -> bool:
+    """Collect every finished worker before another row admission."""
+    finished = [future for future in active if future.done()]
+    for future in finished:
+        reconcile(future)
+    return bool(finished)
+
+
 def budget_admission(charged_cpu_ns: int, remaining_rows: int,
                      outside_available_seconds: int | float,
                      host_cpu_ns_used: int) -> dict:
@@ -233,7 +320,7 @@ def budget_admission(charged_cpu_ns: int, remaining_rows: int,
         raise ValueError("Invalid parallel continuation budget sample")
     outside_available_ns = int(Decimal(str(outside_available_seconds)) * 10**9)
     cgroup_required_ns = charged_cpu_ns + remaining_rows * ROW_CPU_RESERVATION_NS
-    outside_required_ns = (remaining_rows + 1) * HOST_CPU_GUARD_NS
+    outside_required_ns = (remaining_rows * HOST_CPU_GUARD_NS + FINALIZE_CPU_GUARD_NS)
     outside_left_ns = max(0, outside_available_ns - host_cpu_ns_used)
     return {"charged_cpu_ns": charged_cpu_ns, "remaining_row_count": remaining_rows,
         "row_cpu_reservation_ns": ROW_CPU_RESERVATION_NS,
@@ -245,6 +332,16 @@ def budget_admission(charged_cpu_ns: int, remaining_rows: int,
         "outside_required_ns": outside_required_ns,
         "admitted": (cgroup_required_ns <= MAIN_CPU_CEILING_NS and
                      outside_left_ns >= outside_required_ns)}
+
+
+def paused_cpu_budget_failure(cpu_count: int, charged_cpu_ns: int, remaining_rows: int,
+                              outside_available_seconds: int | float,
+                              host_cpu_ns_used: int) -> tuple[str | None, dict]:
+    sample = budget_admission(charged_cpu_ns, remaining_rows,
+                              outside_available_seconds, host_cpu_ns_used)
+    if cpu_count < WORKERS_START and not sample["admitted"]:
+        return "budget_exhausted", sample
+    return None, sample
 
 
 def _is_supervisor_or_verification_failure(completed: dict) -> bool:
@@ -301,7 +398,7 @@ def durable_ramp_receipts(launch_order: list[str], completed: dict) -> tuple[lis
 
 
 def validate_amendment(amendment, manifest_sha: str, controller_sha: str):
-    if (amendment.get("schema") != "hiroute.m5d.parallel_continuation_amendment.v2" or
+    if (amendment.get("schema") != AMENDMENT_SCHEMA or
             amendment.get("manifest_sha256") != manifest_sha or
             amendment.get("controller_sha256") != controller_sha or
             amendment.get("max_workers") != WORKERS_MAX or
@@ -316,34 +413,257 @@ def validate_amendment(amendment, manifest_sha: str, controller_sha: str):
             amendment.get("memory_bytes_per_row") != ROW_MEMORY_BYTES or
             amendment.get("host_memory_reserve_bytes") != HOST_MEMORY_RESERVE_BYTES or
             amendment.get("host_cpu_guard_seconds_per_row") != 60 or
+            amendment.get("finalize_cpu_guard_seconds") != 60 or
+            amendment.get("old_scheduler_pid") != OLD_MAIN_PID or
+            amendment.get("old_scheduler_source") != str(OLD_MAIN_SOURCE) or
+            amendment.get("old_scheduler_output") != str(OLD_MAIN_OUTPUT) or
+            amendment.get("trusted_python_path") != str(TRUSTED_PYTHON) or
             amendment.get("memory_current_source") != "systemd-cgroup-v2-memory.current"):
         raise ValueError("Parallel continuation amendment or source binding differs")
 
 
-def validate_handoff(handoff, manifest_sha: str, state_bytes: bytes):
-    if (handoff.get("schema") != "hiroute.m5d.parallel_handoff.v1" or
+def validate_handoff(handoff, manifest_sha: str):
+    identity = handoff.get("old_scheduler_identity")
+    identity_fields = {"pid", "start_ticks", "source_root", "output_root", "cmdline_sha256"}
+    owned = handoff.get("old_owned_units")
+    runtime = handoff.get("python_runtime")
+    if (handoff.get("schema") != "hiroute.m5d.parallel_handoff.v2" or
             handoff.get("manifest_sha256") != manifest_sha or
-            handoff.get("main_state_sha256") != sha_bytes(state_bytes) or
             handoff.get("old_scheduler_gone") is not True or
             handoff.get("old_main_units_empty") is not True or
             handoff.get("review_approved") is not True or
             type(handoff.get("outside_main_available_cpu_seconds")) not in (int, float) or
             handoff["outside_main_available_cpu_seconds"] < 0 or
             type(handoff.get("main_host_cpu_ns")) is not int or
-            handoff["main_host_cpu_ns"] < 0):
-        raise ValueError("Reviewed, terminal and source-bound handoff required")
+            handoff["main_host_cpu_ns"] < 0 or
+            type(identity) is not dict or set(identity) != identity_fields or
+            identity.get("pid") != OLD_MAIN_PID or
+            type(identity.get("start_ticks")) is not int or identity["start_ticks"] <= 0 or
+            identity.get("source_root") != str(OLD_MAIN_SOURCE) or
+            identity.get("output_root") != str(OLD_MAIN_OUTPUT) or
+            not isinstance(identity.get("cmdline_sha256"), str) or
+            re.fullmatch(r"[0-9a-f]{64}", identity["cmdline_sha256"]) is None or
+            handoff.get("old_scheduler_identity_sha256") != sha_bytes(canon(identity)) or
+            type(owned) is not list or not owned or
+            type(runtime) is not dict or
+            runtime.get("executable_path") != str(TRUSTED_PYTHON)):
+        raise ValueError("Reviewed handoff lacks the exact old-process and Python runtime bindings")
+    names = []
+    for item in owned:
+        if (type(item) is not dict or set(item) != {"unit", "control_group"} or
+                not isinstance(item.get("unit"), str) or
+                re.fullmatch(r"hiroute-m5d-[0-9a-f]{32}\.service", item["unit"]) is None or
+                not isinstance(item.get("control_group"), str)):
+            raise ValueError("Handoff old-unit inventory is malformed")
+        names.append(item["unit"])
+    if (len(names) != len(set(names)) or OLD_MAIN_OBSERVED_UNIT not in names):
+        raise ValueError("Handoff does not bind the observed old row-unit inventory")
+    return identity, owned
 
 
-def current_main_processes(source: Path, output: Path) -> bool:
+def proc_start_ticks(pid: int, proc_root: Path = Path("/proc")) -> int | None:
+    try:
+        raw = (Path(proc_root) / str(pid) / "stat").read_text()
+    except FileNotFoundError:
+        return None
+    close = raw.rfind(")")
+    fields = raw[close + 2:].split() if close >= 0 else []
+    if len(fields) <= 19 or not fields[19].isdigit():
+        raise RuntimeError("Process start identity could not be read")
+    return int(fields[19])
+
+
+def current_main_processes(identity: dict) -> bool:
+    pid = identity["pid"]
+    if proc_start_ticks(pid) == identity["start_ticks"]:
+        return True
     text = subprocess.check_output(["ps", "-eo", "args="], text=True)
     return any("scripts/m5d_main_batch.py" in line and
-               str(source) in line and str(output) in line for line in text.splitlines())
+               str(OLD_MAIN_SOURCE) in line and str(OLD_MAIN_OUTPUT) in line
+               for line in text.splitlines())
+
+
+def _cgroup_populated(control_group: str, cgroup_root: Path = Path("/sys/fs/cgroup")) -> bool:
+    if control_group == "":
+        return False
+    if (not control_group.startswith("/user.slice/") or
+            ".." in Path(control_group).parts):
+        raise RuntimeError("Invalid old row cgroup identity")
+    root = Path(cgroup_root).resolve(strict=True)
+    group = (root / control_group.lstrip("/")).resolve()
+    if root not in group.parents:
+        raise RuntimeError("Old row cgroup escaped the cgroup root")
+    events = group / "cgroup.events"
+    if not events.exists():
+        return False
+    fields = dict(line.split() for line in events.read_text().splitlines())
+    if fields.get("populated") not in ("0", "1"):
+        raise RuntimeError("Old row cgroup population could not be verified")
+    return fields["populated"] == "1"
 
 
 def active_main_units() -> list[str]:
     lines = subprocess.check_output(["systemctl", "--user", "list-units",
-        "--type=service", "--state=running", "--no-legend", "--plain"], text=True)
-    return [line for line in lines.splitlines() if "m5d_main_row.py" in line]
+        "--all", "--type=service", "--no-legend", "--plain"], text=True)
+    units = []
+    for line in lines.splitlines():
+        fields = line.split()
+        if not fields or re.fullmatch(r"hiroute-m5d-[0-9a-f]{32}\.service", fields[0]) is None:
+            continue
+        result = subprocess.check_output(["systemctl", "--user", "show", fields[0],
+            "--no-pager", "-p", "ActiveState", "-p", "ControlGroup", "-p", "ExecStart"],
+            text=True)
+        properties = dict(item.split("=", 1) for item in result.splitlines() if "=" in item)
+        if "m5d_main_row.py" not in properties.get("ExecStart", ""):
+            continue
+        active = properties.get("ActiveState") in ("active", "activating", "deactivating", "reloading")
+        populated = _cgroup_populated(properties.get("ControlGroup", ""))
+        if active or populated:
+            units.append(fields[0])
+    return units
+
+
+def old_owned_units_empty(owned_units: list[dict]) -> bool:
+    for item in owned_units:
+        result = subprocess.run(["systemctl", "--user", "show", item["unit"],
+            "--no-pager", "-p", "LoadState", "-p", "ActiveState", "-p",
+            "ControlGroup", "-p", "ExecStart"], check=True, text=True,
+            capture_output=True, timeout=5)
+        fields = dict(line.split("=", 1) for line in result.stdout.splitlines() if "=" in line)
+        active = fields.get("ActiveState") in ("active", "activating", "deactivating", "reloading")
+        control_group = fields.get("ControlGroup", "") or item["control_group"]
+        exec_start = fields.get("ExecStart", "")
+        if active or _cgroup_populated(control_group):
+            return False
+        if fields.get("LoadState") not in ("loaded", "not-found"):
+            return False
+        if fields.get("LoadState") != "not-found" and (
+                "m5d_main_row.py" not in exec_start or
+                str(OLD_MAIN_SOURCE) not in exec_start):
+            return False
+    return True
+
+
+def validate_completed_evidence(rows, state: dict, ledger: dict, output: Path,
+                                manifest_sha: str, amendment_sha: str) -> None:
+    completed = ledger.get("completed")
+    launch_order = ledger.get("launch_order")
+    admissions = ledger.get("admissions")
+    start_index = ledger.get("start_index")
+    if (ledger.get("schema") != PARALLEL_STATE_SCHEMA or
+            type(start_index) is not int or not 0 <= start_index <= len(rows) or
+            type(completed) is not dict or type(launch_order) is not list or
+            type(admissions) is not list or len(admissions) != len(launch_order) or
+            len(launch_order) != len(set(launch_order)) or set(completed) != set(launch_order)):
+        raise ValueError("Continuation admission and completion inventory is incomplete")
+    row_index = {row["row_id"]: index for index, row in enumerate(rows)}
+    if any(type(row_id) is not str or row_id not in row_index or
+           row_index[row_id] < start_index for row_id in launch_order):
+        raise ValueError("Continuation ledger names a row outside its fixed suffix")
+    if [row_index[row_id] for row_id in launch_order] != sorted(
+            row_index[row_id] for row_id in launch_order):
+        raise ValueError("Continuation admission order differs from the frozen manifest")
+
+    for row_id, admission in zip(launch_order, admissions):
+        record = completed[row_id]
+        if (type(admission) is not dict or admission.get("row_id") != row_id or
+                admission.get("manifest_index") != row_index[row_id] or
+                record.get("manifest_index") != row_index[row_id] or
+                record.get("admission_sha256") != sha_bytes(canon(admission)) or
+                type(record.get("row_result")) is not dict or
+                record.get("status") != record["row_result"].get("status") or
+                record["row_result"].get("denominator_included") is not True or
+                type(record.get("receipt_durable")) is not bool or
+                type(record.get("charged_cpu_ns")) is not int or record["charged_cpu_ns"] < 0):
+            raise ValueError(f"Continuation completion fields differ for {row_id}")
+
+        token = record.get("claim_token")
+        claim_sha = record.get("claim_sha256")
+        if (not isinstance(token, str) or re.fullmatch(r"[0-9a-f]{32}", token) is None or
+                not isinstance(claim_sha, str) or re.fullmatch(r"[0-9a-f]{64}", claim_sha) is None):
+            raise ValueError(f"Continuation row claim is not pinned for {row_id}")
+        claim = {"schema": "hiroute.m5d.parallel_row_claim.v2",
+            "row_id": row_id, "manifest_sha256": manifest_sha,
+            "amendment_sha256": amendment_sha, "claim": token,
+            "manifest_index": row_index[row_id],
+            "admission_sha256": record["admission_sha256"],
+            "regime": admission.get("regime")}
+        row_out = Path(output) / row_id
+        if durable_claim_sha(row_out, claim) != claim_sha:
+            raise ValueError(f"Durable row claim hash differs for {row_id}")
+
+        if not record["receipt_durable"]:
+            if (not _is_supervisor_or_verification_failure(record) or
+                    record.get("receipt_path") is not None or
+                    record.get("receipt_sha256") is not None or not ledger.get("stopped")):
+                raise ValueError(f"Unreceipted completion is not a terminal failure for {row_id}")
+            continue
+
+        receipt_path = record.get("receipt_path")
+        receipt_sha = record.get("receipt_sha256")
+        if (not isinstance(receipt_path, str) or not Path(receipt_path).is_absolute() or
+                not isinstance(receipt_sha, str) or
+                re.fullmatch(r"[0-9a-f]{64}", receipt_sha) is None or
+                record["row_result"].get("receipt_path") != receipt_path):
+            raise ValueError(f"Durable supervisor receipt is not pinned for {row_id}")
+        raw, digest = stable_row_file(Path(receipt_path), row_out)
+        if digest != receipt_sha:
+            raise ValueError(f"Durable supervisor receipt hash differs for {row_id}")
+        receipt = json.loads(raw)
+        required_receipt_fields = {"unit", "control_group", "result", "exit_status",
+            "cpu_usage_ns", "memory_peak_bytes", "memory_limit_bytes", "wall_elapsed_ns",
+            "stdout_path", "stderr_path", "receipt_path", "cpu_quota_percent",
+            "thread_environment"}
+        if (type(receipt) is not dict or set(receipt) != required_receipt_fields or
+                receipt.get("receipt_path") != receipt_path or
+                Path(receipt_path).name != receipt.get("unit", "") + ".receipt.json" or
+                re.fullmatch(r"hiroute-m5d-[0-9a-f]{32}\.service", receipt.get("unit", "")) is None or
+                record["row_result"].get("cgroup_cpu_usage_ns") != receipt.get("cpu_usage_ns") or
+                record["row_result"].get("cgroup_memory_peak_bytes") != receipt.get("memory_peak_bytes") or
+                record["row_result"].get("cgroup_memory_limit_bytes") != receipt.get("memory_limit_bytes") or
+                record["row_result"].get("wall_elapsed_ns") != receipt.get("wall_elapsed_ns")):
+            raise ValueError(f"Supervisor receipt contents differ from completion for {row_id}")
+        cpu = receipt.get("cpu_usage_ns")
+        expected_charge = cpu if type(cpu) is int and cpu >= 0 else ROW_CPU_RESERVATION_NS
+        if record.get("charged_cpu_ns") != expected_charge:
+            raise ValueError(f"Supervisor CPU charge differs from receipt for {row_id}")
+        if receipt.get("result") == "success" and receipt.get("exit_status") == 0:
+            status_path = row_out / "status.json"
+            if status_path.exists():
+                status_bytes, _ = stable_row_file(status_path, row_out)
+                status = json.loads(status_bytes)
+                expected_status = record["row_result"].get("source_row_status",
+                    record["row_result"].get("pre_pair_status"))
+                if (type(status) is not dict or any(
+                        (expected_status if key == "status" and
+                         expected_status is not None else record["row_result"].get(key)) != value
+                        for key, value in status.items())):
+                    raise ValueError(f"Row status bytes differ from completion for {row_id}")
+            elif record["row_result"].get("status") != "verification_failed_missing_status":
+                raise ValueError(f"Missing row status is not recorded as failure for {row_id}")
+    if (type(ledger.get("charged_cpu_ns_at_start")) is not int or
+            type(ledger.get("charged_cpu_ns")) is not int or
+            ledger["charged_cpu_ns_at_start"] < 0 or
+            ledger["charged_cpu_ns"] != ledger["charged_cpu_ns_at_start"] + sum(
+                record["charged_cpu_ns"] for record in completed.values()) or
+            type(state.get("charged_cpu_ns")) is not int or
+            state["charged_cpu_ns"] > ledger["charged_cpu_ns"]):
+        raise ValueError("Continuation cumulative CPU charge differs from durable completions")
+    for row_id, result in state.get("rows", {}).items():
+        if row_index[row_id] < start_index:
+            continue
+        record = completed.get(row_id)
+        if record is not None:
+            if result != record["row_result"]:
+                raise ValueError(f"Main state differs from durable completion for {row_id}")
+        elif (not ledger.get("stopped") or type(result) is not dict or
+                result.get("status") not in ("budget_exhausted_unrun", "verification_blocked_unrun") or
+                result.get("denominator_included") is not True):
+            raise ValueError(f"Main state contains an unbound suffix row {row_id}")
+    if ledger.get("stopped") is True and state.get("stopped") is not True:
+        raise ValueError("Stopped continuation ledger lacks a stopped main state")
+    if ledger.get("stopped") is not True and state.get("stopped") is True:
+        raise ValueError("Main state stopped without a terminal continuation ledger")
 
 
 def phase_name(row_out: Path):
@@ -386,6 +706,7 @@ def verify_pair_consistency(rows, states):
 def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
         full_path: Path, manifest_path: Path, amendment_path: Path,
         handoff_path: Path, output: Path):
+    process_cpu_baseline = host_cpu_ns()
     source, output = Path(source).resolve(strict=True), Path(output).resolve(strict=True)
     manifest_bytes = Path(manifest_path).read_bytes()
     manifest_sha = sha_bytes(manifest_bytes)
@@ -401,6 +722,7 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
     amendment = json.loads(amendment_bytes)
     controller_sha = sha_file(Path(__file__).resolve())
     validate_amendment(amendment, manifest_sha, controller_sha)
+    supervisor_runner = validate_supervisor_binding(source, manifest.get("source_sha256", {}))
     for name, expected in manifest["source_sha256"].items():
         if sha_file(source / name) != expected:
             raise ValueError(f"Frozen numerical source differs: {name}")
@@ -425,14 +747,17 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
     lock_path = output / "parallel_continuation.lock"
     with lock_path.open("a+") as lock:
         fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
-        if current_main_processes(source, output) or active_main_units():
-            raise ValueError("Old scheduler or main row unit is still active")
         handoff_bytes = Path(handoff_path).read_bytes()
         handoff_sha = sha_bytes(handoff_bytes)
         handoff = json.loads(handoff_bytes)
+        old_identity, old_owned_units = validate_handoff(handoff, manifest_sha)
+        runtime_executable = validate_python_runtime(handoff)
+        if (current_main_processes(old_identity) or active_main_units() or
+                not old_owned_units_empty(old_owned_units)):
+            raise ValueError("Old dispatcher or one of its row cgroups is still active")
         if ledger_path.exists():
             ledger = json.loads(ledger_path.read_bytes())
-            if (ledger.get("schema") != "hiroute.m5d.parallel_continuation_state.v2" or
+            if (ledger.get("schema") != PARALLEL_STATE_SCHEMA or
                     ledger.get("manifest_sha256") != manifest_sha or
                     ledger.get("amendment_sha256") != amendment_sha or
                     ledger.get("handoff_sha256") != handoff_sha or
@@ -441,10 +766,6 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
                 raise ValueError("Continuation resume bindings differ")
             if ledger.get("inflight"):
                 raise ValueError("Interrupted in-flight rows need receipt review; refusing rerun")
-            if ledger.get("stopped"):
-                if state.get("stopped") is not True:
-                    raise ValueError("Stopped continuation ledger lacks a stopped main state")
-                return ledger
             completed = ledger.get("completed")
             if (type(completed) is not dict or type(ledger.get("launch_order")) is not list or
                     type(ledger.get("admissions")) is not list or
@@ -457,28 +778,14 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
             if any(type(row.get("charged_cpu_ns")) is not int or row["charged_cpu_ns"] < 0
                    for row in completed.values()):
                 raise ValueError("Continuation completion CPU charge is invalid")
-            expected_charge = ledger["charged_cpu_ns_at_start"] + sum(
-                row["charged_cpu_ns"] for row in completed.values())
-            if expected_charge != ledger["charged_cpu_ns"]:
-                raise ValueError("Continuation cumulative CPU charge differs from its receipts")
-            row_index = {row["row_id"]: index for index, row in enumerate(rows)}
-            if any(row_id not in row_index or row_index[row_id] < ledger["start_index"]
-                   for row_id in completed):
-                raise ValueError("Continuation ledger names a row outside its fixed suffix")
-            for row_id, status in state["rows"].items():
-                if row_index[row_id] >= ledger["start_index"]:
-                    record = completed.get(row_id)
-                    if (record is None or
-                            status.get("status") != record.get("row_result", {}).get("status")):
-                        raise ValueError("Main state differs from a durable parallel completion")
-            if state["charged_cpu_ns"] > ledger["charged_cpu_ns"]:
-                raise ValueError("Main state CPU charge exceeds the continuation ledger")
-            if state.get("stopped") and not ledger.get("stopped"):
-                raise ValueError("Main denominator stopped without a terminal continuation ledger")
+            validate_completed_evidence(rows, state, ledger, output, manifest_sha, amendment_sha)
+            if ledger.get("stopped"):
+                return ledger
             advance_state_prefix(rows, state, ledger, manifest_sha, state_path)
         else:
-            validate_handoff(handoff, manifest_sha, state_bytes)
-            ledger = {"schema": "hiroute.m5d.parallel_continuation_state.v2",
+            if handoff.get("main_state_sha256") != sha_bytes(state_bytes):
+                raise ValueError("Handoff does not bind the exact terminal main state")
+            ledger = {"schema": PARALLEL_STATE_SCHEMA,
                 "manifest_sha256": manifest_sha,
                 "amendment_sha256": amendment_sha,
                 "handoff_sha256": handoff_sha,
@@ -533,7 +840,7 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
             raise ValueError("Recorded boundary row directory disappeared")
         save_atomic(ledger_path, ledger)
 
-        baseline_host_cpu = host_cpu_ns()
+        baseline_host_cpu = process_cpu_baseline
         prior_host_cpu = ledger["host_cpu_ns"]
 
         def update_host():
@@ -574,6 +881,18 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
             inflight = ledger["inflight"].get(row_id)
             if inflight is None or inflight.get("claim") != token:
                 raise ValueError("Completion does not match its durable row claim")
+            claim = {"schema": "hiroute.m5d.parallel_row_claim.v2",
+                "row_id": row_id, "manifest_sha256": manifest_sha,
+                "amendment_sha256": amendment_sha, "claim": token,
+                "manifest_index": row_index[row_id],
+                "admission_sha256": inflight["admission_sha256"],
+                "regime": inflight["regime"]}
+            claim_sha = None
+            claim_error = None
+            try:
+                claim_sha = durable_claim_sha(row_out, claim)
+            except Exception as error:
+                claim_error = str(error)
             receipt = None
             receipt_sha = None
             receipt_is_durable = False
@@ -612,13 +931,21 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
                         receipt.memory_peak_bytes > ROW_MEMORY_BYTES or
                         receipt.wall_elapsed_ns > (ROW_WALL_SECONDS + 10) * 10**9 or
                         receipt.thread_environment != expected_threads):
+                    result.setdefault("source_row_status", result.get("status"))
                     result["status"] = "verification_failed_resource_contract"
                 if _is_supervisor_or_verification_failure(result):
                     failure = result["status"]
 
+            if claim_error is not None:
+                result.setdefault("source_row_status", result.get("status"))
+                result["status"] = "verification_failed_claim_durability"
+                result["claim_error"] = claim_error
+                failure = result["status"]
+
             result["batch_and_waited_child_cpu_ns"] = ledger["host_cpu_ns"]
             record = {"status": result["status"], "row_result": result,
                 "charged_cpu_ns": charged,
+                "claim_token": token, "claim_sha256": claim_sha,
                 "receipt_durable": receipt_is_durable,
                 "receipt_path": receipt.receipt_path if receipt_is_durable else None,
                 "receipt_sha256": receipt_sha if receipt_is_durable else None,
@@ -637,11 +964,17 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
             if pair:
                 for pair_id in pair:
                     if pair_id in ledger["completed"]:
+                        pair_result = ledger["completed"][pair_id]["row_result"]
+                        pair_result.setdefault("source_row_status", pair_result.get("status"))
+                        pair_result["pre_pair_status"] = pair_result.get("status")
                         ledger["completed"][pair_id]["status"] = \
                             "verification_failed_method_disagreement"
-                        ledger["completed"][pair_id]["row_result"]["status"] = \
-                            "verification_failed_method_disagreement"
+                        pair_result["status"] = "verification_failed_method_disagreement"
                     if pair_id in state["rows"]:
+                        state["rows"][pair_id].setdefault("source_row_status",
+                            state["rows"][pair_id].get("status"))
+                        state["rows"][pair_id]["pre_pair_status"] = \
+                            state["rows"][pair_id].get("status")
                         state["rows"][pair_id]["status"] = \
                             "verification_failed_method_disagreement"
                 failure = "verification_failed_method_disagreement"
@@ -664,9 +997,17 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
                 target_workers = worker_target(effective_cpu_count(), ledger["launch_order"],
                     ledger["completed"], failure)
                 if target_workers == 0:
+                    update_host()
+                    failure, cpu_sample = paused_cpu_budget_failure(
+                        effective_cpu_count(), ledger["charged_cpu_ns"],
+                        current_remaining_rows(), handoff["outside_main_available_cpu_seconds"],
+                        ledger["host_cpu_ns"])
+                    if failure is not None:
+                        continue
                     pause_admission("fewer_than_four_effective_cpus", {
                         "effective_cpu_count": effective_cpu_count(),
-                        "required_initial_workers": WORKERS_START})
+                        "required_initial_workers": WORKERS_START,
+                        "budget": cpu_sample})
                     if active:
                         wait(active, timeout=1, return_when=FIRST_COMPLETED)
                     else:
@@ -676,6 +1017,8 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
                 slots = target_workers - len(active)
                 blocked = False
                 while slots > 0 and cursor < len(pending) and failure is None:
+                    if reconcile_completed_futures(active, record_completion):
+                        break
                     update_host()
                     remaining_rows = current_remaining_rows()
                     cpu_sample = budget_admission(ledger["charged_cpu_ns"],
@@ -748,6 +1091,8 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
                             "fifth_admitted_row_id": row_id,
                             "memory_admission": memory_sample,
                             "budget_admission": cpu_sample})
+                    if reconcile_completed_futures(active, record_completion):
+                        break
                     close_admission_pause(row_id)
                     ledger["admissions"].append(admission)
                     ledger["launch_order"].append(row_id)
@@ -775,10 +1120,10 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
                         json.dump(claim, stream, sort_keys=True)
                         stream.write("\n"); stream.flush(); os.fsync(stream.fileno())
                     fsync_directory(row_out)
-                    command = (sys.executable, str(source / "scripts/m5d_main_row.py"),
+                    command = (runtime_executable, str(source / "scripts/m5d_main_row.py"),
                         str(source), str(graph_dir), str(pool_path), str(queries_path),
                         str(manifest_path), manifest_sha, row_id, str(row_out))
-                    future = executor.submit(run_m5d_phase, command,
+                    future = executor.submit(supervisor_runner, command,
                         cwd=source, output_dir=row_out,
                         wall_seconds=ROW_WALL_SECONDS, memory_bytes=ROW_MEMORY_BYTES,
                         phase="main", frozen_main_phase=(manifest_bytes, manifest_sha),

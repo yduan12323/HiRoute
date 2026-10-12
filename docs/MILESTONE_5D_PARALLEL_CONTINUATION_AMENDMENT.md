@@ -14,9 +14,19 @@ production checkout are not rewritten by this controller.
 The coordinator starts only after the old scheduler has exited and all of its
 row units are empty. It verifies the manifest, state, source and input hashes,
 and requires a separately reviewed handoff bound to the exact durable main
-state. One empty precreated boundary-row directory can be adopted. Every new
-row gets an exclusive claim and is launched through the existing systemd
-supervisor under the unchanged per-row limits.
+state. The handoff binds PID 2286454, its `/proc` start ticks and command-line
+hash, the original source and output roots, and the complete set of old row
+unit IDs with their cgroup paths. The controller independently scans process
+arguments, checks the exact PID/start identity, inspects systemd `ExecStart`
+properties for generic `hiroute-m5d-<uuid>.service` names, and checks every
+owned cgroup. A handoff is rejected if any identity or cgroup detail is absent.
+The handoff also pins the trusted `/home/dy/miniconda3/envs/hiroute/bin/python3.11`
+binary by SHA-256, implementation, version and cache tag; that exact runtime
+launches each row. One empty precreated boundary-row directory can be adopted.
+Every new row gets an exclusive claim and is launched through the existing
+systemd supervisor under the unchanged per-row limits. The controller and
+loaded supervisor must come from the same frozen source tree, whose supervisor
+file is also bound by the manifest source hash.
 
 The initial regime targets four workers. The ramp gate is fixed in the
 amendment: the first four rows launched by this controller must each have a
@@ -55,7 +65,10 @@ Before every claim, the coordinator also checks the existing 117,000-second
 main cgroup ceiling, 610-second reservation per unfinished row, 60-second
 outside-main guard per row, and reviewed remaining outside-main budget. A
 failed budget check stops further admissions and preserves all fixed row
-identities in the denominator.
+identities in the denominator. The controller captures its outside-main CPU
+baseline before source and evidence validation, and reserves another 60 seconds
+for final state/ledger writes. A pause for fewer than four effective CPUs still
+rechecks the aggregate budget and stops if that budget is exhausted.
 
 ## Durable state and failure handling
 
@@ -67,15 +80,22 @@ before the supervised worker starts. The fifth-slot admission also records the
 separate 4-to-5 ramp event.
 
 Completions may arrive out of order. The private continuation ledger records
-each durable receipt and charge; the shared main state advances only across a
-contiguous manifest prefix. Resume replays already recorded completions into
-that prefix. Any unresolved in-flight claim is fail-closed and requires manual
-receipt review; it is never automatically rerun. A supervisor or verification
-failure stops new admissions while already claimed rows are collected and
-charged.
+each durable receipt, row claim, and charge; the shared main state advances
+only across a contiguous manifest prefix. Before a resumed ledger advances
+state or admits a row, the controller rechecks every completed row's admission
+record, claim bytes/hash, receipt bytes/hash, receipt-to-state fields, and
+aggregate charge. Any unresolved in-flight claim is fail-closed and requires
+manual receipt review; it is never automatically rerun. A finished Future is
+reconciled before the next claim, remains reserved at its full 8-GiB cap until
+then, and blocks admission when it completed with an error. A supervisor or
+verification failure stops new admissions while already claimed rows are
+collected and charged.
 
-The code-only gate exercises resource arithmetic, cgroup sampling, receipt
-durability, outcome-independent ramp eligibility, out-of-order prefix
-reconciliation, and a mocked four-to-five transition. The mocked test launches
-no numerical row. Live handoff, host measurements, and the transition remain
-subject to independent review before any parallel launch.
+The code-only gate exercises resource arithmetic, cgroup sampling, receipt and
+claim durability, outcome-independent ramp eligibility, out-of-order prefix
+reconciliation, runtime/source bindings, old-process and systemd-unit checks,
+the completed-Future admission race, and a mocked four-to-five transition. The
+mocked test launches no numerical row. The retained snapshot does not contain
+the old PID's start ticks or the Python binary hash; those exact values and the
+complete unit inventory still need to be captured and independently reviewed.
+This remains an unvalidated draft and does not authorize a live continuation.

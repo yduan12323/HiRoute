@@ -4,6 +4,8 @@ from dataclasses import asdict
 import hashlib
 import json
 from pathlib import Path
+import shutil
+import sys
 import tempfile
 import threading
 from types import SimpleNamespace
@@ -45,6 +47,14 @@ class ParallelContinuationTest(unittest.TestCase):
             110901 * 10**9, 10, 700, 40 * 10**9)["admitted"])
         self.assertFalse(parallel.budget_admission(
             110900 * 10**9, 10, 659.999999, 0)["admitted"])
+
+    def test_low_cpu_pause_still_stops_when_the_aggregate_budget_is_exhausted(self):
+        failure, sample = parallel.paused_cpu_budget_failure(3, 0, 1, 59, 0)
+        self.assertEqual(failure, "budget_exhausted")
+        self.assertFalse(sample["admitted"])
+        failure, sample = parallel.paused_cpu_budget_failure(3, 0, 1, 120, 0)
+        self.assertIsNone(failure)
+        self.assertTrue(sample["admitted"])
 
     def test_ramp_uses_receipts_and_ignores_solver_outcomes(self):
         launch = [f"row{i}" for i in range(4)]
@@ -115,6 +125,153 @@ class ParallelContinuationTest(unittest.TestCase):
         self.assertEqual(rows[0]["memory_current_bytes"], 0)
         self.assertEqual(rows[0]["memory_max_bytes"], 8 * GiB)
 
+    def test_finished_error_future_keeps_full_cap_and_blocks_next_admission(self):
+        with tempfile.TemporaryDirectory() as directory:
+            row_out = Path(directory)
+            future = Future()
+            future.set_exception(RuntimeError("supervisor cleanup failed"))
+            active = {future: ({"row_id": "row0"}, row_out, "claim")}
+            samples, valid = parallel.active_memory_samples(active)
+            self.assertFalse(valid)
+            self.assertEqual(samples[0]["source"], "unreconciled-future-full-cap-reserve")
+            self.assertEqual(samples[0]["memory_max_bytes"] -
+                             samples[0]["memory_current_bytes"], 8 * GiB)
+            failures = []
+            claims = []
+
+            def reconcile(done):
+                failures.append(done.exception())
+
+            if not parallel.reconcile_completed_futures(active, reconcile):
+                claims.append("row1")
+            self.assertEqual(len(failures), 1)
+            self.assertEqual(claims, [])
+
+    def test_controller_requires_supervisor_from_verified_source_tree(self):
+        loaded = Path(parallel.__file__).resolve().parents[1] / "src/timecut5/systemd_supervisor.py"
+        hashes = {"src/timecut5/systemd_supervisor.py": parallel.sha_file(loaded)}
+        with tempfile.TemporaryDirectory() as directory:
+            other = Path(directory)
+            path = other / "src/timecut5/systemd_supervisor.py"
+            path.parent.mkdir(parents=True)
+            shutil.copyfile(loaded, path)
+            runner = parallel.validate_supervisor_binding(other, hashes)
+            self.assertEqual(Path(runner.__code__.co_filename).resolve(), path.resolve())
+            path.write_text(path.read_text() + "\n# changed after freeze\n")
+            with self.assertRaisesRegex(ValueError, "frozen source hash"):
+                parallel.validate_supervisor_binding(other, hashes)
+
+    def test_resume_rehashes_receipt_and_claim_before_advancing(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            row_id = "row000_flat"
+            row = {"row_id": row_id, "method": "flat"}
+            row_out = root / row_id
+            row_out.mkdir()
+            manifest_sha, amendment_sha = "a" * 64, "b" * 64
+            admission = {"row_id": row_id, "manifest_index": 0, "regime": "initial_4"}
+            admission_sha = parallel.sha_bytes(parallel.canon(admission))
+            token = "c" * 32
+            claim = {"schema": "hiroute.m5d.parallel_row_claim.v2",
+                "row_id": row_id, "manifest_sha256": manifest_sha,
+                "amendment_sha256": amendment_sha, "claim": token,
+                "manifest_index": 0, "admission_sha256": admission_sha,
+                "regime": "initial_4"}
+            claim_path = row_out / "parallel_claim.json"
+            claim_path.write_text(json.dumps(claim, sort_keys=True) + "\n")
+            unit = "hiroute-m5d-" + "1" * 32 + ".service"
+            receipt_path = row_out / (unit + ".receipt.json")
+            receipt = {"unit": unit, "control_group": "/user.slice/fixture/" + unit,
+                "result": "timeout", "exit_status": 15, "cpu_usage_ns": 123,
+                "memory_peak_bytes": 4096, "memory_limit_bytes": 8 * GiB,
+                "wall_elapsed_ns": 600 * 10**9, "stdout_path": str(row_out / (unit + ".stdout")),
+                "stderr_path": str(row_out / (unit + ".stderr")),
+                "receipt_path": str(receipt_path), "cpu_quota_percent": 100,
+                "thread_environment": {name: "1" for name in
+                    ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS",
+                     "NUMEXPR_NUM_THREADS")}}
+            receipt_raw = json.dumps(receipt, sort_keys=True).encode() + b"\n"
+            receipt_path.write_bytes(receipt_raw)
+            result = {"status": "time_limit", "denominator_included": True,
+                "receipt_path": str(receipt_path), "cgroup_cpu_usage_ns": 123,
+                "cgroup_memory_peak_bytes": 4096, "cgroup_memory_limit_bytes": 8 * GiB,
+                "wall_elapsed_ns": 600 * 10**9}
+            record = {"status": "time_limit", "row_result": result, "charged_cpu_ns": 123,
+                "claim_token": token, "claim_sha256": parallel.sha_file(claim_path),
+                "receipt_durable": True, "receipt_path": str(receipt_path),
+                "receipt_sha256": hashlib.sha256(receipt_raw).hexdigest(),
+                "manifest_index": 0, "admission_sha256": admission_sha}
+            ledger = {"schema": parallel.PARALLEL_STATE_SCHEMA, "start_index": 0,
+                "charged_cpu_ns_at_start": 10, "charged_cpu_ns": 133,
+                "completed": {row_id: record}, "launch_order": [row_id],
+                "admissions": [admission], "inflight": {}, "stopped": False}
+            state = {"rows": {row_id: result}, "charged_cpu_ns": 133, "stopped": False}
+            parallel.validate_completed_evidence([row], state, ledger, root,
+                manifest_sha, amendment_sha)
+            receipt_path.write_text("tampered")
+            with self.assertRaisesRegex(ValueError, "receipt hash differs"):
+                parallel.validate_completed_evidence([row], state, ledger, root,
+                    manifest_sha, amendment_sha)
+            receipt_path.write_bytes(receipt_raw)
+            claim_path.write_text("tampered")
+            with self.assertRaisesRegex(ValueError, "row claim differs"):
+                parallel.validate_completed_evidence([row], state, ledger, root,
+                    manifest_sha, amendment_sha)
+
+    def test_handoff_requires_start_identity_owned_units_and_runtime_pin(self):
+        identity = {"pid": parallel.OLD_MAIN_PID, "start_ticks": 4242,
+            "source_root": str(parallel.OLD_MAIN_SOURCE),
+            "output_root": str(parallel.OLD_MAIN_OUTPUT), "cmdline_sha256": "d" * 64}
+        handoff = {"schema": "hiroute.m5d.parallel_handoff.v2", "manifest_sha256": "a" * 64,
+            "old_scheduler_gone": True, "old_main_units_empty": True,
+            "review_approved": True, "outside_main_available_cpu_seconds": 1000,
+            "main_host_cpu_ns": 20, "old_scheduler_identity": identity,
+            "old_scheduler_identity_sha256": parallel.sha_bytes(parallel.canon(identity)),
+            "old_owned_units": [{"unit": parallel.OLD_MAIN_OBSERVED_UNIT, "control_group": ""}],
+            "python_runtime": {"executable_path": str(parallel.TRUSTED_PYTHON)}}
+        parallel.validate_handoff(handoff, "a" * 64)
+        handoff["old_scheduler_identity"].pop("start_ticks")
+        with self.assertRaisesRegex(ValueError, "old-process"):
+            parallel.validate_handoff(handoff, "a" * 64)
+
+    def test_active_main_units_inspects_execstart_for_generic_unit_names(self):
+        unit = "hiroute-m5d-" + "2" * 32 + ".service"
+        listing = f"{unit} loaded active running M5-D row\n"
+        props = ("ActiveState=active\nControlGroup=\nExecStart={{ path=/usr/bin/python3 ; "
+                 f"argv[]=/usr/bin/python3 {parallel.OLD_MAIN_SOURCE}/scripts/m5d_main_row.py ; }}\n")
+        with patch.object(parallel.subprocess, "check_output", side_effect=[listing, props]):
+            self.assertEqual(parallel.active_main_units(), [unit])
+
+    def test_old_dispatcher_search_uses_original_source_and_output_paths(self):
+        identity = {"pid": parallel.OLD_MAIN_PID, "start_ticks": 4242}
+        old_command = (f"/home/dy/miniconda3/envs/hiroute/bin/python "
+            f"{parallel.OLD_MAIN_SOURCE}/scripts/m5d_main_batch.py "
+            f"{parallel.OLD_MAIN_SOURCE} {parallel.OLD_MAIN_OUTPUT}")
+        with patch.object(parallel, "proc_start_ticks", return_value=None), \
+             patch.object(parallel.subprocess, "check_output", return_value=old_command):
+            self.assertTrue(parallel.current_main_processes(identity))
+
+    def test_handoff_unit_check_rejects_active_old_row_cgroup(self):
+        result = SimpleNamespace(returncode=0, stdout=(
+            "LoadState=loaded\nActiveState=active\nControlGroup=\n"
+            f"ExecStart={{ path=/usr/bin/python ; argv[]=/usr/bin/python "
+            f"{parallel.OLD_MAIN_SOURCE}/scripts/m5d_main_row.py ; }}\n"))
+        unit = {"unit": parallel.OLD_MAIN_OBSERVED_UNIT, "control_group": ""}
+        with patch.object(parallel.subprocess, "run", return_value=result):
+            self.assertFalse(parallel.old_owned_units_empty([unit]))
+
+    def test_runtime_fingerprint_rejects_changed_python_binary(self):
+        fingerprint = {"executable_path": str(Path(sys.executable).resolve()),
+            "executable_sha256": parallel.sha_file(Path(sys.executable).resolve()),
+            "implementation": sys.implementation.name, "version": sys.version.split()[0],
+            "cache_tag": sys.implementation.cache_tag}
+        with patch.object(parallel, "TRUSTED_PYTHON", Path(sys.executable).resolve()):
+            self.assertEqual(parallel.validate_python_runtime({"python_runtime": fingerprint}),
+                             str(Path(sys.executable).resolve()))
+            fingerprint["executable_sha256"] = "e" * 64
+            with self.assertRaisesRegex(ValueError, "runtime fingerprint"):
+                parallel.validate_python_runtime({"python_runtime": fingerprint})
+
     def test_contiguous_state_advances_after_out_of_order_receipts(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -137,6 +294,10 @@ class ParallelContinuationTest(unittest.TestCase):
             source = root / "source"
             output = root / "output"
             source.mkdir(); output.mkdir()
+            frozen_supervisor = source / "src/timecut5/systemd_supervisor.py"
+            frozen_supervisor.parent.mkdir(parents=True)
+            loaded_supervisor = Path(parallel.__file__).resolve().parents[1] / "src/timecut5/systemd_supervisor.py"
+            shutil.copyfile(loaded_supervisor, frozen_supervisor)
             inputs = {}
             for name in ("pool", "queries", "full"):
                 path = root / f"{name}.json"
@@ -146,7 +307,9 @@ class ParallelContinuationTest(unittest.TestCase):
                     for i in range(192)]
             manifest = {"schema": "hiroute.m5d.frozen_main_phase.v1", "rows": rows,
                 "wall_seconds": 600, "memory_bytes": 8 * GiB,
-                "main_cpu_seconds_ceiling": 117000, "source_sha256": {},
+                "main_cpu_seconds_ceiling": 117000,
+                "source_sha256": {"src/timecut5/systemd_supervisor.py":
+                    parallel.sha_file(frozen_supervisor)},
                 "input_sha256": {"pools": parallel.sha_file(inputs["pool"]),
                     "queries": parallel.sha_file(inputs["queries"]),
                     "full_universes": parallel.sha_file(inputs["full"])}}
@@ -160,16 +323,25 @@ class ParallelContinuationTest(unittest.TestCase):
             state_path = output / "state.json"
             state_path.write_text(json.dumps(state, sort_keys=True))
             handoff_path = root / "handoff.json"
+            identity = {"pid": parallel.OLD_MAIN_PID, "start_ticks": 4242,
+                "source_root": str(parallel.OLD_MAIN_SOURCE),
+                "output_root": str(parallel.OLD_MAIN_OUTPUT), "cmdline_sha256": "d" * 64}
             handoff_path.write_text(json.dumps({
-                "schema": "hiroute.m5d.parallel_handoff.v1",
+                "schema": "hiroute.m5d.parallel_handoff.v2",
                 "manifest_sha256": manifest_sha,
                 "main_state_sha256": parallel.sha_file(state_path),
                 "old_scheduler_gone": True, "old_main_units_empty": True,
                 "review_approved": True,
                 "outside_main_available_cpu_seconds": 10000,
-                "main_host_cpu_ns": 0}, sort_keys=True))
+                "main_host_cpu_ns": 0, "old_scheduler_identity": identity,
+                "old_scheduler_identity_sha256": parallel.sha_bytes(parallel.canon(identity)),
+                "old_owned_units": [{"unit": parallel.OLD_MAIN_OBSERVED_UNIT,
+                    "control_group": ""}],
+                "python_runtime": {"executable_path": str(parallel.TRUSTED_PYTHON),
+                    "executable_sha256": "e" * 64, "implementation": "CPython",
+                    "version": "3.11.0", "cache_tag": "cpython-311"}}, sort_keys=True))
             controller_sha = parallel.sha_file(Path(parallel.__file__))
-            amendment = {"schema": "hiroute.m5d.parallel_continuation_amendment.v2",
+            amendment = {"schema": parallel.AMENDMENT_SCHEMA,
                 "manifest_sha256": manifest_sha, "controller_sha256": controller_sha,
                 "max_workers": 5, "initial_workers": 4,
                 "ramp_after_durable_receipts": 4, "ramp_ignores_row_outcomes": True,
@@ -180,6 +352,11 @@ class ParallelContinuationTest(unittest.TestCase):
                 "memory_bytes_per_row": 8 * GiB,
                 "host_memory_reserve_bytes": 8 * GiB,
                 "host_cpu_guard_seconds_per_row": 60,
+                "finalize_cpu_guard_seconds": 60,
+                "old_scheduler_pid": parallel.OLD_MAIN_PID,
+                "old_scheduler_source": str(parallel.OLD_MAIN_SOURCE),
+                "old_scheduler_output": str(parallel.OLD_MAIN_OUTPUT),
+                "trusted_python_path": str(parallel.TRUSTED_PYTHON),
                 "memory_current_source": "systemd-cgroup-v2-memory.current"}
             amendment_path = root / "amendment.json"
             amendment_path.write_text(json.dumps(amendment, sort_keys=True))
@@ -232,10 +409,14 @@ class ParallelContinuationTest(unittest.TestCase):
 
             with (patch.object(parallel, "current_main_processes", return_value=False),
                   patch.object(parallel, "active_main_units", return_value=[]),
+                  patch.object(parallel, "old_owned_units_empty", return_value=True),
+                  patch.object(parallel, "validate_supervisor_binding",
+                               return_value=mock_row_runner),
+                  patch.object(parallel, "validate_python_runtime",
+                               return_value=sys.executable),
                   patch.object(parallel, "effective_cpu_count", return_value=12),
                   patch.object(parallel, "mem_available_bytes", return_value=64 * GiB),
-                  patch.object(parallel, "active_memory_samples", side_effect=fake_active_memory),
-                  patch.object(parallel, "run_m5d_phase", side_effect=mock_row_runner)):
+                  patch.object(parallel, "active_memory_samples", side_effect=fake_active_memory)):
                 final = parallel.run(source, root, inputs["pool"], inputs["queries"],
                     inputs["full"], manifest_path, amendment_path, handoff_path, output)
 
