@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 import sys
 
 
@@ -71,6 +72,12 @@ def freeze(root: Path, main_path: Path, queries_path: Path, pools_path: Path,
                 key: main["input_sha256"][key] for key in
                 ("graph_nodes", "graph_edges", "graph_metadata", "hierarchy")}},
         "wall_seconds": 600, "memory_bytes": 8 * 1024**3,
+        "runtime_sha256": hashlib.sha256(json.dumps([sys.executable, sys.version],
+            sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
+        "compiler_version_sha256": hashlib.sha256(subprocess.check_output(
+            ["g++", "--version"])).hexdigest(),
+        "compiler_flags": ["-O3", "-std=c++17"],
+        "cache_policy": "empty_each_row_native_dirs_same_deterministic_seed_prewarm",
         "cpu_quota_percent": 100, "row_reservation_cpu_seconds": 610,
         "total_reservation_cpu_seconds": 14640,
         "main_reservation_transfer_permitted": False,

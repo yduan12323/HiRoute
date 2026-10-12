@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
@@ -75,6 +76,12 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
     if (manifest.get("schema") != "hiroute.m5d.frozen_supplement.v1" or
             len(manifest.get("rows", [])) != 24):
         raise ValueError("Complete frozen supplement required")
+    if (manifest["runtime_sha256"] != hashlib.sha256(canon(
+            [sys.executable, sys.version])).hexdigest() or
+            manifest["compiler_version_sha256"] != hashlib.sha256(
+                subprocess.check_output(["g++", "--version"])).hexdigest() or
+            manifest["compiler_flags"] != ["-O3", "-std=c++17"]):
+        raise ValueError("Frozen runtime or native compiler differs")
     row = next((r for r in manifest["rows"] if r["row_id"] == row_id), None)
     if row is None:
         raise ValueError("Unknown supplemental row")
