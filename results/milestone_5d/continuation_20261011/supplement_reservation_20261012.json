@@ -1,0 +1,26 @@
+{
+  "schema": "hiroute.m5d.supplement_reservation.v1",
+  "status": "planning_reservation_no_execution_authority",
+  "basis": "budget_reconciliation_20261012.json",
+  "outside_main_allowance_cpu_seconds": "17867.9988",
+  "fixed_row_count": 24,
+  "reservation_per_row_cpu_seconds": 610,
+  "reserved_supplement_cpu_seconds": 14640,
+  "unassigned_preflight_verification_host_margin_cpu_seconds": "3227.9988",
+  "component_reserved_cpu_seconds": {
+    "full_universe_twelve_rows": 7320,
+    "same_alt_member_scan_four_rows": 2440,
+    "representative_repeat_four_rows": 2440,
+    "sequential_feasible_four_rows": 2440
+  },
+  "new_measured_debit_cpu_seconds": 0,
+  "main_reservation_cpu_seconds": 117000,
+  "main_reservation_transfer_permitted": false,
+  "launch_conditions": [
+    "main_scheduler_terminal_and_cgroup_empty",
+    "fresh_outside_main_receipt_reconciliation",
+    "independent_source_and_input_review",
+    "frozen_supplement_manifest_and_exact_source_ci",
+    "remaining_outside_main_allowance_covers_reservation_and_preflight_margin"
+  ]
+}
