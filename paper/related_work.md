@@ -16,6 +16,19 @@ The [TheMarex/charge repository](https://github.com/TheMarex/charge) is an exper
 
 ## Comparable internal baseline to implement
 
+**Current implementation boundary (2026-10-12):**
+`sequential_no_overlap_baseline` independently replays the fixed deterministic
+proposal stream under charge-then-service timing and selects its best feasible
+proposal. It is a bounded construction comparator, not the exact re-optimization
+described below. Its directed synthetic overlap test passes in normal and
+optimized Python; no source-bound real sequential main comparison has run.
+The earlier real OD02 N8 first-feasible diagnostic only compared seed selection
+within one proposal stream. The four-row real supplemental comparison is
+registered after main began in
+[`MILESTONE_5D_SUPPLEMENTAL_PROTOCOL.md`](../docs/MILESTONE_5D_SUPPLEMENTAL_PROTOCOL.md)
+and remains unrun. Do not attribute an exact sequential optimum or a real
+transport benefit to the current evidence.
+
 For the D5.4 internal *sequential charge-then-activity* baseline, retain exactly the same OD, candidate Site identities, selected directed road legs, battery and piecewise charging primitive, scheduled window, positive-charge rule, stop penalty, and finite search domain as the HiRoute comparison. At a single physical stop, charge first and then perform the scheduled activity: `dwell = overhead + charge_time + activity_duration` for a joint C/S event, with window compatibility checked at the actual activity start after charging. A shared vehicle stop contributes one H and one overhead. Pure C and pure S stops retain their ordinary semantics. This disallows overlap by a clearly stated baseline policy; it does not split one stop into two vehicle visits or charge overhead twice.
 
 The baseline must *re-optimize* route, Site sequence, continuous charge amounts, and schedule timing under this sequential policy. Merely delaying the activity on a HiRoute witness is a feasibility transformation, not a baseline optimum. A minimal implementation can reuse the existing exact physical replay and selected-leg inputs with a separate, source-bound stop-duration policy; it must not silently redefine the accepted HiRoute exact solver. First test toy cases where charge/activity overlap changes feasibility or the best key, a joint action counts once, a hard window ends exactly at service start, and positive charge approaches but does not attain an endpoint. Independently replay every emitted witness. If the baseline search is only heuristic, report a feasible incumbent and gap/status as available, never an exact optimum. Compare only rows where both policies share the frozen input contract and explicitly record unmatched or timed-out rows.
