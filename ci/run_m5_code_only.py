@@ -29,6 +29,7 @@ TESTS = (
     "tests/test_m5d_deployable_contract.py",
     "tests/test_m5d_road_provider.py",
     "tests/test_m5d_main_batch.py",
+    "tests/test_m5d_parallel_continuation.py",
     "tests/test_m5d_supplement.py",
     "tests/test_reference5_real_adapter.py",
     "tests/test_family_checker_v1.py",
@@ -124,6 +125,7 @@ def main() -> None:
         for script in ("m5d_charge_gate.py", "m5d_build_main_queries.py",
                        "m5d_freeze_main_phase.py", "m5d_main_batch.py",
                        "m5d_main_row.py", "m5d_one_query_runner.py",
+                       "m5d_parallel_continuation.py",
                        "m5d_supplement_alt.py", "m5d_supplement_freeze.py",
                        "m5d_supplement_row.py", "m5d_supplement_batch.py"):
             copy_file("scripts/" + script, tooling)
