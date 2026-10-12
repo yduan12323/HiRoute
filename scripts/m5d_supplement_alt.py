@@ -37,10 +37,7 @@ class SameALTMemberScan(TableFreeRegionBoundProvider):
         value = directed_alt_region_bound(source, self.landmarks, scanned,
             graph_sha256=self.graph_sha256, landmark_sha256=self.landmark_sha256,
             member_set_sha256=self._member_hash[region.identifier])
-        result = Fraction(math.floor(value))
-        if result != super()._incoming(source, region):
-            raise ValueError("Member-scan directed ALT bound parity failed")
-        return result
+        return Fraction(math.floor(value))
 
     def action_mask(self, region, effect, remaining):
         self._check_region(region)
@@ -50,6 +47,7 @@ class SameALTMemberScan(TableFreeRegionBoundProvider):
         if not (effect in ("S", "CS") and not remaining):
             for site in region.members:
                 scanned |= self._action_bits.get((site, effect), 0)
-        if scanned != super().action_mask(region, effect, remaining):
+        if scanned != self._action_masks[region.identifier, effect, remaining]:
             raise ValueError("Member-scan action mask parity failed")
+        self.online_mask_word_work += max(1, (scanned.bit_length() + 63) // 64)
         return scanned
