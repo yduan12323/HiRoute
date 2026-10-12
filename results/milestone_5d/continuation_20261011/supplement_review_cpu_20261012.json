@@ -1,0 +1,57 @@
+{
+  "compile_checks_included_in_conservative_envelope": true,
+  "conservative_main_scheduler_host_cpu_lower_bound_charge_seconds": 627,
+  "conservative_review_cycle_charge_seconds": 3,
+  "earlier_unreceipted_local_test_charge_seconds": 60,
+  "final_incremental_main_host_cpu_reconciliation_required": true,
+  "focused_local_test_cpu_seconds": [
+    {
+      "mode": "normal",
+      "self_and_children_cpu_seconds": "0.140357",
+      "tests": 5
+    },
+    {
+      "mode": "-OO",
+      "self_and_children_cpu_seconds": "0.310267",
+      "tests": 5
+    },
+    {
+      "mode": "normal",
+      "self_and_children_cpu_seconds": "0.125580",
+      "tests": 5
+    },
+    {
+      "mode": "-OO",
+      "self_and_children_cpu_seconds": "0.333412",
+      "tests": 5
+    },
+    {
+      "mode": "normal",
+      "self_and_children_cpu_seconds": "0.117498",
+      "tests": 6
+    },
+    {
+      "mode": "-OO",
+      "self_and_children_cpu_seconds": "0.304358",
+      "tests": 6
+    }
+  ],
+  "focused_test_cpu_total_seconds": "1.331472",
+  "kernel_clock_ticks_per_second": 100,
+  "main_completed_row_cgroup_cpu_ns_at_observation": 7653877647000,
+  "main_completed_rows_at_observation": 19,
+  "main_scheduler_observation_utc": "2026-10-12T02:47:20.246805+00:00",
+  "main_scheduler_pid": 2286454,
+  "main_scheduler_ticks": {
+    "self_system": 2330,
+    "self_user": 4712,
+    "waited_children_system": 32932,
+    "waited_children_user": 22697
+  },
+  "main_state_sha256_at_observation": "f6f4e4d6e54db9588c88a488ba4e22c0ecd1b410d38ad142e654b8805600e285",
+  "main_was_running": true,
+  "measured_main_scheduler_and_waited_children_cpu_seconds": "626.71",
+  "receipt_scope_note": "Main and supplemental row cgroup receipts exclude the Python batch and its systemd-run/systemctl children. The main host charge is an observed lower bound until terminal reconciliation. The supplement batch records RUSAGE_SELF plus waited RUSAGE_CHILDREN separately per row and subtracts that charge from outside-main availability.",
+  "schema": "hiroute.m5d.supplement_review_cpu.v1",
+  "source_test_sha256": "b8a00b0fcc98124ada3e2eea1c6328eaac93b6dce4b70dd8328ab7ef674e7033"
+}

@@ -11,8 +11,8 @@ from timecut5.road_provider import TableFreeRegionBoundProvider
 class SameALTMemberScan(TableFreeRegionBoundProvider):
     """Scan the same complete Region members for each online ALT/mask lookup.
 
-    The indexed implementation is still computed as an independent parity gate.
-    Every differing summary, action mask, or bound fails the row closed.
+    The indexed summary and mask remain independent parity gates.
+    Every differing summary or action mask fails the row closed.
     """
 
     def __init__(self, *args, **kwargs):
@@ -24,7 +24,7 @@ class SameALTMemberScan(TableFreeRegionBoundProvider):
     def _incoming(self, source, region):
         self._check_region(region)
         self.member_scan_summary_queries += 1
-        self.member_scan_reads += len(region.members)
+        self.member_scan_reads += 2 * len(region.members)
         distances = self.landmarks[0]
         scanned = RegionLandmarkSummary(self._member_hash[region.identifier],
             self.graph_sha256, self.landmark_sha256,
@@ -42,10 +42,10 @@ class SameALTMemberScan(TableFreeRegionBoundProvider):
     def action_mask(self, region, effect, remaining):
         self._check_region(region)
         self.member_scan_mask_queries += 1
-        self.member_scan_reads += len(region.members)
         scanned = 0
         if not (effect in ("S", "CS") and not remaining):
             for site in region.members:
+                self.member_scan_reads += 1
                 scanned |= self._action_bits.get((site, effect), 0)
         if scanned != self._action_masks[region.identifier, effect, remaining]:
             raise ValueError("Member-scan action mask parity failed")
