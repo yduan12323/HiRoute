@@ -13,6 +13,7 @@ import unittest
 from unittest.mock import patch
 
 from scripts import m5d_parallel_continuation as parallel
+from timecut5 import systemd_supervisor
 from timecut5.systemd_supervisor import ResourceReceipt
 
 
@@ -148,7 +149,7 @@ class ParallelContinuationTest(unittest.TestCase):
             self.assertEqual(claims, [])
 
     def test_controller_requires_supervisor_from_verified_source_tree(self):
-        loaded = Path(parallel.__file__).resolve().parents[1] / "src/timecut5/systemd_supervisor.py"
+        loaded = Path(systemd_supervisor.__file__).resolve()
         hashes = {"src/timecut5/systemd_supervisor.py": parallel.sha_file(loaded)}
         with tempfile.TemporaryDirectory() as directory:
             other = Path(directory)
@@ -289,6 +290,12 @@ class ParallelContinuationTest(unittest.TestCase):
             self.assertEqual(json.loads(path.read_text())["rows"]["row2"]["status"], "memory_limit")
 
     def test_full_handoff_mock_ramps_only_after_four_durable_rows(self):
+        self._run_full_handoff_mock()
+
+    def test_completion_at_ramp_boundary_does_not_persist_a_phantom_ramp(self):
+        self._run_full_handoff_mock(completion_at_ramp_boundary=True)
+
+    def _run_full_handoff_mock(self, *, completion_at_ramp_boundary=False):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             source = root / "source"
@@ -296,7 +303,7 @@ class ParallelContinuationTest(unittest.TestCase):
             source.mkdir(); output.mkdir()
             frozen_supervisor = source / "src/timecut5/systemd_supervisor.py"
             frozen_supervisor.parent.mkdir(parents=True)
-            loaded_supervisor = Path(parallel.__file__).resolve().parents[1] / "src/timecut5/systemd_supervisor.py"
+            loaded_supervisor = Path(systemd_supervisor.__file__).resolve()
             shutil.copyfile(loaded_supervisor, frozen_supervisor)
             inputs = {}
             for name in ("pool", "queries", "full"):
@@ -379,10 +386,11 @@ class ParallelContinuationTest(unittest.TestCase):
                 stderr = output_dir / (unit + ".stderr")
                 stdout.write_text("")
                 stderr.write_text("")
-                if ordinal < 4:
-                    first_four.wait(timeout=5)
-                else:
-                    ramp_five.wait(timeout=5)
+                if not completion_at_ramp_boundary:
+                    if ordinal < 4:
+                        first_four.wait(timeout=5)
+                    else:
+                        ramp_five.wait(timeout=5)
                 (output_dir / "status.json").write_text(json.dumps({
                     "status": "incumbent_search_failed"}))
                 receipt_path = output_dir / (unit + ".receipt.json")
@@ -407,6 +415,57 @@ class ParallelContinuationTest(unittest.TestCase):
                     if not future.done()]
                 return samples, True
 
+            class MockExecutor:
+                def __init__(self, **kwargs):
+                    self.futures = []
+
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, *args):
+                    return False
+
+                def submit(self, runner, *args, **kwargs):
+                    future = Future()
+                    future.task = (runner, args, kwargs)
+                    self.futures.append(future)
+                    return future
+
+            def complete_mock_future(future):
+                runner, args, kwargs = future.task
+                future.set_result(runner(*args, **kwargs))
+
+            def mock_wait(active, **kwargs):
+                for future in active:
+                    if not future.done():
+                        complete_mock_future(future)
+                return set(active), set()
+
+            boundary_armed = False
+            boundary_completed = False
+            original_ramp_receipts = parallel.durable_ramp_receipts
+            original_reconcile = parallel.reconcile_completed_futures
+            original_save = parallel.save_atomic
+            saved_ledgers = []
+
+            def arm_boundary(launch_order, completed):
+                nonlocal boundary_armed
+                if len(launch_order) == 8:
+                    boundary_armed = True
+                return original_ramp_receipts(launch_order, completed)
+
+            def reconcile_boundary(active, reconcile):
+                nonlocal boundary_completed
+                if boundary_armed and not boundary_completed:
+                    complete_mock_future(next(iter(active)))
+                    boundary_completed = True
+                return original_reconcile(active, reconcile)
+
+            def capture_save(path, value):
+                if path.name == "parallel_continuation_state.json":
+                    saved_ledgers.append(json.loads(json.dumps(value)))
+                original_save(path, value)
+
             with (patch.object(parallel, "current_main_processes", return_value=False),
                   patch.object(parallel, "active_main_units", return_value=[]),
                   patch.object(parallel, "old_owned_units_empty", return_value=True),
@@ -417,10 +476,29 @@ class ParallelContinuationTest(unittest.TestCase):
                   patch.object(parallel, "effective_cpu_count", return_value=12),
                   patch.object(parallel, "mem_available_bytes", return_value=64 * GiB),
                   patch.object(parallel, "active_memory_samples", side_effect=fake_active_memory)):
-                final = parallel.run(source, root, inputs["pool"], inputs["queries"],
-                    inputs["full"], manifest_path, amendment_path, handoff_path, output)
+                if completion_at_ramp_boundary:
+                    with (patch.object(parallel, "ThreadPoolExecutor", MockExecutor),
+                          patch.object(parallel, "wait", side_effect=mock_wait),
+                          patch.object(parallel, "durable_ramp_receipts", side_effect=arm_boundary),
+                          patch.object(parallel, "reconcile_completed_futures",
+                                       side_effect=reconcile_boundary),
+                          patch.object(parallel, "save_atomic", side_effect=capture_save)):
+                        final = parallel.run(source, root, inputs["pool"], inputs["queries"],
+                            inputs["full"], manifest_path, amendment_path, handoff_path, output)
+                else:
+                    final = parallel.run(source, root, inputs["pool"], inputs["queries"],
+                        inputs["full"], manifest_path, amendment_path, handoff_path, output)
 
             self.assertEqual(len(final["launch_order"]), 9)
+            if completion_at_ramp_boundary:
+                self.assertTrue(boundary_completed)
+                self.assertEqual(final["ramp_events"], [])
+                self.assertEqual(final["admissions"][-1]["regime"], "ramp_armed")
+                self.assertTrue(all(not saved["ramp_events"] for saved in saved_ledgers))
+                final_claim = output / final["launch_order"][-1] / "parallel_claim.json"
+                self.assertEqual(json.loads(final_claim.read_text())["regime"], "ramp_armed")
+                self.assertEqual(len(json.loads(state_path.read_text())["rows"]), 192)
+                return
             self.assertEqual(len(final["ramp_events"]), 1)
             event = final["ramp_events"][0]
             self.assertEqual(event["first_four_rows"], final["launch_order"][:4])

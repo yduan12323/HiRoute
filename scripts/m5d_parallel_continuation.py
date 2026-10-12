@@ -1075,6 +1075,7 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
                         "memory": memory_sample, "budget": cpu_sample}
                     token = uuid.uuid4().hex
                     admission_sha = sha_bytes(canon(admission))
+                    ramp_event = None
                     if regime == "ramped_5" and not ledger["ramp_events"]:
                         first_four, receipts_ok = durable_ramp_receipts(
                             ledger["launch_order"], ledger["completed"])
@@ -1082,7 +1083,7 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
                                 ledger["launch_order"], ledger["completed"], failure)):
                             failure = "verification_failed_ramp_receipt_gate"
                             break
-                        ledger["ramp_events"].append({
+                        ramp_event = {
                             "regime": "initial_4_to_ramped_5",
                             "monotonic_ns": time.monotonic_ns(),
                             "first_four_rows": first_four,
@@ -1090,10 +1091,12 @@ def run(source: Path, graph_dir: Path, pool_path: Path, queries_path: Path,
                                 ledger["completed"][key]["receipt_sha256"] for key in first_four],
                             "fifth_admitted_row_id": row_id,
                             "memory_admission": memory_sample,
-                            "budget_admission": cpu_sample})
+                            "budget_admission": cpu_sample}
                     if reconcile_completed_futures(active, record_completion):
                         break
                     close_admission_pause(row_id)
+                    if ramp_event is not None:
+                        ledger["ramp_events"].append(ramp_event)
                     ledger["admissions"].append(admission)
                     ledger["launch_order"].append(row_id)
                     ledger["inflight"][row_id] = {"claim": token,
