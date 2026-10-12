@@ -108,19 +108,28 @@ def run(source: Path, graph_dir: Path, pools: Path, queries: Path, full: Path,
         save(state_path, state)
     if state["stopped"]:
         return state
-    state["host_cpu_ns"] += max(0, host_cpu_ns() - invocation_cpu_start)
+    prior_host_cpu_ns = state["host_cpu_ns"]
+
+    def charge_host():
+        # Cumulative per invocation includes setup, prior state writes, this
+        # Python process and waited systemd-run/systemctl child processes.
+        state["host_cpu_ns"] = prior_host_cpu_ns + max(
+            0, host_cpu_ns() - invocation_cpu_start)
+
+    charge_host()
     save(state_path, state)
     for row in manifest["rows"]:
         row_id = row["row_id"]
         if row_id in state["rows"]:
             continue
         row_host_start = host_cpu_ns()
+        charge_host()
         available = reconciliation["available_cpu_seconds"] - (
             state["charged_cpu_ns"] + state["host_cpu_ns"]) / 1e9
         unspent_reservation = 14640 - state["charged_cpu_ns"] / 1e9
         if min(available - reconciliation["required_margin_cpu_seconds"],
                unspent_reservation + manifest["host_cpu_guard_seconds"]) < 610 + manifest["host_cpu_guard_seconds"]:
-            state["host_cpu_ns"] += max(0, host_cpu_ns() - row_host_start)
+            charge_host()
             for pending in manifest["rows"]:
                 state["rows"].setdefault(pending["row_id"],
                     {"status": "budget_exhausted_unrun", "denominator_included": True})
@@ -140,7 +149,7 @@ def run(source: Path, graph_dir: Path, pools: Path, queries: Path, full: Path,
                 wall_seconds=600, memory_bytes=8 * 1024**3,
                 pythonpath=source / "src", cpu_quota_percent=100)
         except Exception:
-            state["host_cpu_ns"] += max(0, host_cpu_ns() - row_host_start)
+            charge_host()
             state["rows"][row_id] = {"status": "supervisor_failed_cpu_unknown",
                 "denominator_included": True, "reached_phase": last_phase(row_out)}
             state["stopped"] = True
@@ -182,7 +191,7 @@ def run(source: Path, graph_dir: Path, pools: Path, queries: Path, full: Path,
                          status["prewarm_sha256"] != flat["prewarm_sha256"])):
                     status["status"] = "verification_failed_full_pair_parity"
         host_delta_ns = max(0, host_cpu_ns() - row_host_start)
-        state["host_cpu_ns"] += host_delta_ns
+        charge_host()
         status["batch_and_waited_child_cpu_ns"] = host_delta_ns
         if host_delta_ns > manifest["host_cpu_guard_seconds"] * 10**9:
             status["status"] = "verification_failed_host_cpu_guard"

@@ -34,9 +34,19 @@
       "mode": "-OO",
       "self_and_children_cpu_seconds": "0.304358",
       "tests": 6
+    },
+    {
+      "mode": "normal",
+      "self_and_children_cpu_seconds": "0.115879",
+      "tests": 6
+    },
+    {
+      "mode": "-OO",
+      "self_and_children_cpu_seconds": "0.300044",
+      "tests": 6
     }
   ],
-  "focused_test_cpu_total_seconds": "1.331472",
+  "focused_test_cpu_total_seconds": "1.747395",
   "kernel_clock_ticks_per_second": 100,
   "main_completed_row_cgroup_cpu_ns_at_observation": 7653877647000,
   "main_completed_rows_at_observation": 19,
