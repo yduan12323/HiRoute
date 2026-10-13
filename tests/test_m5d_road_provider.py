@@ -313,6 +313,14 @@ class RoadProviderTest(unittest.TestCase):
                 bound._incoming("road:0", Region(0, ("s1",)))
 
     def test_sparse_seed_replays_edges_and_binds_full_candidate_universe(self):
+        self._check_sparse_seed_replay(source_cache_max_bytes=128 * 1024 * 1024,
+                                      expected_source_runs=2)
+
+    def test_sparse_seed_replay_without_source_cache(self):
+        self._check_sparse_seed_replay(source_cache_max_bytes=0,
+                                      expected_source_runs=3)
+
+    def _check_sparse_seed_replay(self, *, source_cache_max_bytes, expected_source_runs):
         table, graph = self.fixture()
         anchors = {f"road:{i}": i for i in range(3)}
         catalog_sha = hashlib.sha256(json.dumps(anchors, sort_keys=True,
@@ -324,7 +332,8 @@ class RoadProviderTest(unittest.TestCase):
             provider = TableFreeRoadSelectedLegProvider(graph, NativeStub(), anchors,
                 nodes_sha256=hashlib.sha256(nodes.read_bytes()).hexdigest(),
                 edges_sha256=hashlib.sha256(edges.read_bytes()).hexdigest(),
-                router_sha256="a" * 64, anchor_catalog_sha256=catalog_sha)
+                router_sha256="a" * 64, anchor_catalog_sha256=catalog_sha,
+                source_cache_max_bytes=source_cache_max_bytes)
             candidate_sha = hashlib.sha256(b'["s1"]').hexdigest()
             catalog = SparseSeedCatalog(provider, table.sites,
                 origin_anchor="road:0", destination_anchor="road:2",
@@ -369,7 +378,12 @@ class RoadProviderTest(unittest.TestCase):
             transport = sequential_no_overlap_baseline(cs_query, cs_catalog)
             self.assertEqual(transport["status"], "feasible")
             self.assertEqual(transport["lex_key"], sequential["lex_key"])
-            self.assertEqual(provider.source_run_count, 3)
+            self.assertEqual(provider.source_run_count, expected_source_runs)
+            if source_cache_max_bytes:
+                self.assertGreater(provider.source_cache_hits, 0)
+            else:
+                self.assertEqual(provider.source_cache_bytes, 0)
+                self.assertEqual(provider.source_cache_hits, 0)
             class LandmarkRouter:
                 provenance = {"source_sha256": "f" * 64}
                 def full(self, root, reverse=False):
