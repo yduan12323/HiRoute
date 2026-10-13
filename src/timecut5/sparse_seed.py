@@ -9,6 +9,7 @@ from __future__ import annotations
 from fractions import Fraction as R
 import hashlib
 import json
+import time
 from pathlib import Path
 from typing import Mapping
 
@@ -213,35 +214,107 @@ def sequential_no_overlap_baseline(query: Mapping, catalog: SparseSeedCatalog):
             "source_run_count": catalog.provider.source_run_count}
 
 
-def admit_sparse_seed(query: Mapping, catalog: SparseSeedCatalog):
-    """Select the best independently replayed deterministic proposal and depth."""
-    from .deployable import constructive_seed_candidates
+def admit_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, *, observer=None):
+    """Replay proposals as generated, retaining the original finite-stream minimum.
+
+    Optional ``observer(event, **snapshot)`` receives immutable proposal tuples
+    and independent dictionaries. An ``incumbent`` event is an independently
+    replayed feasible upper bound, not the final finite-stream selection or an
+    exact optimum. Generation/source errors (including interruption) propagate;
+    no partial incumbent is silently returned as a completed seed certificate.
+    Observer errors also propagate. With no observer the return schema is
+    unchanged. The fresh final replay and depth check still occur only after
+    the entire proposal stream has completed successfully.
+    """
+    from .deployable import iter_constructive_seed_candidates
     validate_sparse_query(query, catalog)
-    accepted = []
-    proposals = constructive_seed_candidates(query, catalog)
-    for sequence, charges in proposals:
+    proposal_count = accepted_count = 0
+    best = None
+
+    def notify(event, **extra):
+        if observer is not None:
+            snapshot = dict(proposal_count=proposal_count,
+                            accepted_count=accepted_count,
+                            generation_complete=False,
+                            domain_sha256=catalog.domain_sha256,
+                            source_run_count=catalog.provider.source_run_count,
+                            exact_optimum_claimed=False)
+            snapshot.update(extra)
+            observer(event, **snapshot)
+
+    def measured(event, action):
+        notify(event + "_begin")
+        started = time.monotonic_ns(), time.process_time_ns()
         try:
-            result = replay_sparse_seed(query, catalog, sequence, charges)
-        except SeedInfeasible:
+            value = action()
+        except BaseException as error:
+            elapsed = dict(wall_ns=time.monotonic_ns() - started[0],
+                           cpu_ns=time.process_time_ns() - started[1])
+            try:
+                notify(event, outcome="end" if isinstance(error, StopIteration) else "error",
+                       error_type=type(error).__name__, error_message=str(error), **elapsed)
+            except BaseException as observer_error:
+                if isinstance(error, (StopIteration, SeedInfeasible)):
+                    raise
+                error.add_note("Streaming observer failed: " + repr(observer_error))
+            return None, error
+        elapsed = dict(wall_ns=time.monotonic_ns() - started[0],
+                       cpu_ns=time.process_time_ns() - started[1])
+        notify(event, outcome="success", **elapsed)
+        return value, None
+
+    notify("generation_begin")
+    proposals = iter_constructive_seed_candidates(query, catalog)
+    while True:
+        proposal, error = measured("generation_step", lambda: next(proposals))
+        if isinstance(error, StopIteration):
+            break
+        if error is not None:
+            raise error
+        sequence, charges = proposal
+        proposal_count += 1
+        notify("proposal", sequence=sequence, charges=charges)
+        notify("replay_attempt")
+        result, error = measured("replay_step", lambda: replay_sparse_seed(
+            query, catalog, sequence, charges))
+        if isinstance(error, SeedInfeasible):
+            notify("replay_rejected", reason=str(error))
             continue
-        accepted.append((result["lex_key"], sequence, charges))
-    if not accepted:
-        return {"status": "incumbent_search_failed", "proposal_count": len(proposals),
+        if error is not None:
+            raise error
+        accepted_count += 1
+        candidate = (result["lex_key"], sequence, charges)
+        if best is None or candidate < best:
+            best = candidate
+            notify("incumbent", lex_key=result["lex_key"], sequence=sequence,
+                   charges=charges, edge_witnesses=result["edge_witnesses"],
+                   status="replayed_feasible_incumbent")
+        else:
+            notify("replay_accepted")
+    notify("generation_end", generation_complete=True)
+    if best is None:
+        return {"status": "incumbent_search_failed", "proposal_count": proposal_count,
                 "domain_sha256": catalog.domain_sha256}
-    key, sequence, charges = min(accepted)
-    fresh = replay_sparse_seed(query, catalog, sequence, charges)
+    key, sequence, charges = best
+    fresh, error = measured("fresh_replay_step", lambda: replay_sparse_seed(
+        query, catalog, sequence, charges))
+    if error is not None:
+        raise error
     if fresh["lex_key"] != key:
         raise ValueError("Fresh selected-edge seed replay disagrees")
     minimum = R(query["overhead_s"]) + R(query["lambda_stop_s"])
     if minimum <= 0:
         raise ValueError("Positive stop lower cost required for depth certification")
     depth = key[0] // minimum
-    return {"status": "verified", "lex_key": key, "sequence": sequence,
+    result = {"status": "verified", "lex_key": key, "sequence": sequence,
             "charges": charges, "max_depth": depth,
-            "proposal_count": len(proposals), "accepted_count": len(accepted),
+            "proposal_count": proposal_count, "accepted_count": accepted_count,
             "domain_sha256": catalog.domain_sha256,
             "source_run_count": catalog.provider.source_run_count,
             "fresh_edge_witnesses": fresh["edge_witnesses"]}
+    notify("seed_verified", generation_complete=True, lex_key=key,
+           sequence=sequence, charges=charges, max_depth=depth)
+    return result
 
 
 def first_feasible_proposal_baseline(query: Mapping, catalog: SparseSeedCatalog):

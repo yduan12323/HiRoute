@@ -17,7 +17,10 @@ from pathlib import Path
 import re
 import sys
 import time
-from typing import Callable, Mapping
+from typing import Callable, Mapping, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .exact_feasible_incumbent import ExactFeasibleCertificate
 
 from .real_legs import ImmutableLegTable, NUMERICS, SelectedLeg, TIE_POLICY
 
@@ -322,6 +325,15 @@ def certified_depth(seed: VerifiedSeed, domain: DomainBinding,
 
 
 def constructive_seed_candidates(query: Mapping, table: ImmutableLegTable) -> tuple:
+    """Compatibility API: exhaust the same finite proposal stream into a tuple.
+
+    Validation and source errors are raised before this eager call returns, as
+    before. Iterator callers receive those errors when advancing the stream.
+    """
+    return tuple(iter_constructive_seed_candidates(query, table))
+
+
+def iter_constructive_seed_candidates(query: Mapping, table: ImmutableLegTable):
     """Deterministic bounded proposals for an independent replay checker.
 
     This only constructs candidate sequences and charge quantities from frozen
@@ -358,12 +370,11 @@ def constructive_seed_candidates(query: Mapping, table: ImmutableLegTable) -> tu
     remaining = query.get("initial_remaining_schedule", int(has_schedule))
     if type(remaining) is not int or remaining not in (0, 1) or (remaining and not has_schedule):
         raise ValueError("Invalid initial remaining schedule state")
-    result = []
     direct = table.leg(table.origin_anchor, table.destination_anchor)
     if not remaining and direct.reachable and initial - direct.energy(consumption) >= reserve:
-        result.append(((), ()))
+        yield ((), ())
     if bound == 0:
-        return tuple(result)
+        return
     for site_id in sorted(table.sites):
         site = table.site(site_id)
         if site.anchor_id == table.destination_anchor:
@@ -381,7 +392,7 @@ def constructive_seed_candidates(query: Mapping, table: ImmutableLegTable) -> tu
                 continue
             if effect == "S":
                 if terminal_need <= 0:
-                    result.append((((site_id, effect),), ()))
+                    yield (((site_id, effect),), ())
                 continue
             if effect not in ("C", "CS"):
                 continue
@@ -390,9 +401,9 @@ def constructive_seed_candidates(query: Mapping, table: ImmutableLegTable) -> tu
                 continue
             amount = max(terminal_need, min(Fraction(1), headroom) / 2)
             if 0 < amount <= headroom:
-                result.append((((site_id, effect),), (amount,)))
+                yield (((site_id, effect),), (amount,))
     if bound < 2:
-        return tuple(result)
+        return
     # A small deterministic beam explores physical progress for a feasible
     # multi-charge seed. This is only a proposal generator: independent replay
     # checks the exact service/charge clock and all physical constraints.
@@ -444,7 +455,7 @@ def constructive_seed_candidates(query: Mapping, table: ImmutableLegTable) -> tu
                         outbound = table.leg(site.anchor_id, table.destination_anchor)
                         if (not new_pending and outbound.reachable and
                                 new_energy - outbound.energy(consumption) >= reserve):
-                            result.append((new_sequence, new_charges))
+                            yield (new_sequence, new_charges)
                         if depth < bound:
                             progress = (outbound.actual_length if outbound.reachable
                                         else Fraction(10**30))
@@ -456,7 +467,7 @@ def constructive_seed_candidates(query: Mapping, table: ImmutableLegTable) -> tu
         frontier = [state for _, state in expanded[:64]]
         if not frontier:
             break
-    return tuple(result)
+    return
 
 
 @dataclass(frozen=True)
@@ -792,7 +803,7 @@ class RegionBoundProvider:
 
 @dataclass(frozen=True)
 class DeployablePairResult:
-    certificate: SeedDepthCertificate
+    certificate: SeedDepthCertificate | ExactFeasibleCertificate
     flat: SearchOutcome
     hier: SearchOutcome
     flat_attempted_extensions: int
@@ -905,6 +916,22 @@ def solve_deployable_pair(certificate: SeedDepthCertificate, hierarchy_bytes: by
             type(prepared_checkpoint) is not bytes or
             prepared_checkpoint != prepared_checkpoint_bytes(fresh, hierarchy_bytes)):
         raise ValueError("Checkpoint cannot resume an unverified or partial OPEN state")
+    return _solve_deployable_pair_verified(fresh, hierarchy_bytes,
+        landmarks=landmarks, summaries=summaries, selected_leg_provider=selected_leg_provider)
+
+
+def _solve_deployable_pair_verified(fresh, hierarchy_bytes, *, landmarks=(),
+                                    summaries=None, selected_leg_provider=None):
+    """Shared search body; callers must complete their distinct replay boundary.
+
+    Neither entrypoint can inject an unverified upper bound/depth. Keep Region,
+    original hierarchy, selected-leg caches and attained replay identical.
+    """
+    from .bounded import _solve_problem
+    from .hierarchy import _solve_hierarchical_problem
+    from .real_adapter import RealProblem, original_region_view
+    from .real_legs import restrict_frozen_tree
+    domain = fresh.domain
     query, table = domain.open()
     restriction = restrict_frozen_tree(hierarchy_bytes, domain.binding.hierarchy_sha256,
                                        list(table.sites))

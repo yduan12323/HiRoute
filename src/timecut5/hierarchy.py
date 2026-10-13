@@ -6,6 +6,8 @@ separate. Member scans are counted, so pruning is not a scalability claim.
 """
 from __future__ import annotations
 
+from . import exact_progress as progress
+
 from collections import defaultdict
 from dataclasses import dataclass
 from fractions import Fraction as R
@@ -97,11 +99,14 @@ def solve_hierarchical(case: Mapping, dominance: bool = True, leaf_size: int = 1
     return _solve_hierarchical_problem(problem,dominance,root,incumbent)
 
 
+@progress.solver
 def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                                 incumbent: Witness | None = None, *, reducer=None,
                                 verified_primary_upper: R | None = None,
                                 bound_provider=None, checkpoint_hook=None) -> HierarchyResult:
     reducer = reduce_frontier if reducer is None else reducer
+    if progress.enabled():
+        reducer = progress.operation("dominance_reducer")(reducer)
     if verified_primary_upper is not None and (type(verified_primary_upper) is not R or
                                                 verified_primary_upper < 0):
         raise ValueError("Verified primary upper bound must be an exact nonnegative rational")
@@ -130,6 +135,8 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                        witness=provenance.witness_dict(witness),key=key,improved=improved)
             if improved:
                 incumbent_key = key
+                progress.event("incumbent_improved", incumbent_primary_upper=
+                    min(key[0], verified_primary_upper) if verified_primary_upper is not None else key[0])
                 incumbent_witness = witness
                 if source != "externally_supplied_verified":
                     source = "own_search"
@@ -141,6 +148,8 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
     nodes = leaf_actions = scans = pruned = equality = coverage_groups = 0
     audit = []
     for depth in range(problem.bound + 1):
+        progress.layer("layer_start", depth, layer, len(terminals), attempted, feasible,
+            min((x for x in (verified_primary_upper, incumbent_key[0] if incumbent_key else None) if x is not None), default=None))
         if checkpoint_hook is not None:
             checkpoint_hook(depth, layer, tuple(terminals),
                             (incumbent_key, incumbent_witness),
@@ -153,6 +162,8 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
             terminals.extend(finished)
             update_incumbent(finished,group_id,'layer')
         if depth == problem.bound:
+            progress.layer("layer_end", depth, (), len(terminals), attempted, feasible,
+                min((x for x in (verified_primary_upper, incumbent_key[0] if incumbent_key else None) if x is not None), default=None))
             trace.emit('layer_end',depth=depth,reason='stop_bound',next_groups=[])
             break
         next_pieces = []
@@ -166,6 +177,7 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                 trace.emit('skip_strict_primary_prefix', group_id=group_id,
                            verified_primary_upper=verified_primary_upper)
                 continue
+            progress.expanded()
             trace.emit('expansion_start',group_id=group_id)
             indexed = bound_provider is not None
             if indexed:
@@ -225,8 +237,15 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
             for effect in ("C", "S", "CS"):
                 enqueue(root, effect)
             while queue:
+                progress.event("local_region_queue", local_queue_size=len(queue),
+                    local_queue_min_primary_lower_bound=queue[0][0],
+                    local_queue_scope="Current prefix only; excludes other prefixes and pending next layer")
                 bound, effect, _, popped_serial, region = heapq.heappop(queue)
+                progress.event("local_region_popped", local_queue_size=len(queue),
+                    local_queue_min_primary_lower_bound=queue[0][0] if queue else None,
+                    active_region_primary_lower_bound=bound)
                 nodes += 1
+                progress.event("region_node_expanded", region_nodes=nodes)
                 upper_j = min((value for value in (verified_primary_upper,
                           incumbent_key[0] if incumbent_key is not None else None)
                           if value is not None), default=None)
@@ -278,12 +297,15 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                         cover(bound_provider.action_bit((site, effect)) if indexed else ((site, effect),))
                         leaf_actions += 1
                         attempted += 1
+                        progress.event("advance_started", attempted=attempted, region_nodes=nodes)
                         output=trace.invoke('advance',group,dict(group_id=group_id,site=site,effect=effect),
                                             lambda:problem.advance(group,site,effect))
+                        progress.generated(len(output))
                         advance_id=trace.last_invocation()
                         if output:
                             feasible += 1
                             next_pieces.extend(output)
+                            progress.event("pending_frontier", pending_next_pieces=len(next_pieces), feasible=feasible)
                             finished=trace.invoke('finish',output,
                                 dict(group_id=group_id,source='leaf',advance_id=advance_id),
                                 lambda:problem.finish(output))
@@ -294,6 +316,7 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
             trace.emit('expansion_end',group_id=group_id,
                        covered_actions=[] if indexed else sorted(covered),
                        **({"covered_mask": covered} if indexed else {}))
+            progress.event("local_region_queue_drained", local_queue_size=0, local_queue_min_primary_lower_bound=None, active_region_primary_lower_bound=None)
             coverage_groups += 1
         if dominance:
             by_state = defaultdict(list)
@@ -306,6 +329,8 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
         layer = _groups(next_pieces)
         trace.emit('layer_end',depth=depth,reason='continue' if layer else 'empty',
                    next_groups=[trace.family_ids(group) for group in layer])
+        progress.layer("layer_end", depth, layer, len(terminals), attempted, feasible,
+            min((x for x in (verified_primary_upper, incumbent_key[0] if incumbent_key else None) if x is not None), default=None))
         if not layer:
             break
     result = terminal(terminals, problem.destination, problem.reserve, problem.start, problem.penalty)

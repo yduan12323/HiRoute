@@ -7,7 +7,11 @@ the frozen table. It caches only selected target legs and witnesses.
 """
 from __future__ import annotations
 
+from . import exact_progress as progress
+
+from collections import OrderedDict
 from fractions import Fraction
+import sys
 import hashlib
 import json
 import math
@@ -21,14 +25,22 @@ class TableFreeRoadSelectedLegProvider:
     """Route selected anchors from the graph without constructing a leg table.
 
     The caller supplies a byte-bound anchor catalog and graph/router identities.
-    A leg miss performs one forward native run; only the requested target path
-    is retained. The complete graph-label arrays are discarded after the run.
+    Requested target legs retain the exact native predecessor-edge witness.
+    A bounded, provider-local LRU can reuse owned source labels between targets.
+    Set source_cache_max_bytes=0 to retain the original uncached behavior.
+    Graph arrays and the router must remain immutable for the provider lifetime,
+    as already required by the selected-leg cache and byte bindings.
     """
 
     def __init__(self, graph, router, anchor_nodes: Mapping[str, int], *,
                  nodes_sha256: str, edges_sha256: str, router_sha256: str,
-                 anchor_catalog_sha256: str):
+                 anchor_catalog_sha256: str,
+                 source_cache_max_bytes: int = 128 * 1024 * 1024,
+                 source_cache_max_sources: int = 2):
         import re
+        if (type(source_cache_max_bytes) is not int or source_cache_max_bytes < 0 or
+                type(source_cache_max_sources) is not int or source_cache_max_sources < 0):
+            raise ValueError("Source cache limits must be nonnegative integers")
         hashes = (nodes_sha256, edges_sha256, router_sha256, anchor_catalog_sha256)
         if any(type(value) is not str or re.fullmatch(r"[0-9a-f]{64}", value) is None
                for value in hashes):
@@ -50,10 +62,85 @@ class TableFreeRoadSelectedLegProvider:
                                   tie_policy=hashlib.sha256(TIE_POLICY.encode()).hexdigest())
         self.legs: dict[tuple[str, str], SelectedLeg] = {}
         self.edge_witnesses: dict[tuple[str, str], tuple[int, ...] | None] = {}
+        self.source_cache_max_bytes = source_cache_max_bytes
+        self.source_cache_max_sources = source_cache_max_sources
+        self._source_labels = OrderedDict()
+        self.source_cache_bytes = 0
+        self.source_cache_hits = 0
+        self.source_cache_evictions = 0
+        self.source_cache_skips = 0
         self.source_run_count = 0
         self.route_wall_ns = 0
         self.route_process_cpu_ns = 0
 
+    @staticmethod
+    def source_cache_entry_bytes(node_count):
+        """Retained bytes for four native arrays, including ndarray/tuple objects."""
+        import numpy as np
+        if type(node_count) is not int or node_count < 0:
+            raise ValueError("Node count must be a nonnegative integer")
+        return (32 * node_count + 4 * sys.getsizeof(np.empty(0, dtype=np.float64))
+                + sys.getsizeof((None, None, None, None)))
+
+    def _evict_source_labels(self, size):
+        while self._source_labels and (
+                self.source_cache_bytes + size > self.source_cache_max_bytes or
+                len(self._source_labels) >= self.source_cache_max_sources):
+            _, (_, old_size) = self._source_labels.popitem(last=False)
+            self.source_cache_bytes -= old_size
+            self.source_cache_evictions += 1
+
+    @progress.operation('road_labels')
+    def _labels(self, source_node):
+        cached = self._source_labels.pop(source_node, None)
+        if cached is not None:
+            self._source_labels[source_node] = cached
+            self.source_cache_hits += 1
+            return cached[0]
+        if self.source_cache_max_bytes and self.source_cache_max_sources:
+            expected_size = self.source_cache_entry_bytes(self.graph.node_count)
+            if expected_size <= self.source_cache_max_bytes:
+                # Release the replacement entry before native output allocation,
+                # not merely before copying it. A failing route may lose only
+                # this performance cache, never selected-leg semantic state.
+                self._evict_source_labels(expected_size)
+        labels = self.router.full_edges(source_node)
+        self.source_run_count += 1
+        if not self.source_cache_max_bytes or not self.source_cache_max_sources:
+            return labels
+        # Only native, owned-copy-compatible binary64/int64 arrays are admitted.
+        # Never retain a caller's view or mutable scratch buffers. The budget
+        # includes each ndarray object and its data, not merely logical nbytes.
+        import numpy as np
+        expected = (np.dtype('float64'), np.dtype('float64'),
+                    np.dtype('int64'), np.dtype('int64'))
+        if len(labels) != 4 or any(
+                not isinstance(a, np.ndarray) or a.shape != (self.graph.node_count,) or
+                a.dtype != dtype for a, dtype in zip(labels, expected)):
+            self.source_cache_skips += 1
+            return labels
+        size = self.source_cache_entry_bytes(self.graph.node_count)
+        if size > self.source_cache_max_bytes:
+            self.source_cache_skips += 1
+            return labels
+        # Retain the guard for custom/native output subclasses as well.
+        self._evict_source_labels(size)
+        owned = tuple(a.copy(order='C') for a in labels)
+        for a in owned:
+            a.flags.writeable = False
+        actual_size = sys.getsizeof(owned) + sum(sys.getsizeof(a) for a in owned)
+        if actual_size > self.source_cache_max_bytes:
+            self.source_cache_skips += 1
+            return labels
+        while self._source_labels and self.source_cache_bytes + actual_size > self.source_cache_max_bytes:
+            _, (_, old_size) = self._source_labels.popitem(last=False)
+            self.source_cache_bytes -= old_size
+            self.source_cache_evictions += 1
+        self._source_labels[source_node] = owned, actual_size
+        self.source_cache_bytes += actual_size
+        return owned
+
+    @progress.operation('road_path')
     def _path(self, source_node, target_node, parent, parent_edge):
         if source_node == target_node:
             return ()
@@ -70,6 +157,7 @@ class TableFreeRoadSelectedLegProvider:
             node = prior
         return tuple(reversed(backward))
 
+    @progress.operation('road_leg')
     def leg(self, source: str, target: str) -> SelectedLeg:
         if source not in self.anchor_nodes or target not in self.anchor_nodes:
             raise ValueError("Unknown road anchor")
@@ -78,7 +166,7 @@ class TableFreeRoadSelectedLegProvider:
             return self.legs[key]
         started_wall, started_cpu = time.monotonic_ns(), time.process_time_ns()
         source_node, target_node = self.anchor_nodes[source], self.anchor_nodes[target]
-        costs, lengths, parents, edges = self.router.full_edges(source_node)
+        costs, lengths, parents, edges = self._labels(source_node)
         cost, length = float(costs[target_node]), float(lengths[target_node])
         if math.isinf(cost) and math.isinf(length):
             if int(parents[target_node]) != -1 or int(edges[target_node]) != -1:
@@ -101,7 +189,6 @@ class TableFreeRoadSelectedLegProvider:
         else:
             raise ValueError("Native selected labels have invalid reachability")
         self.legs[key], self.edge_witnesses[key] = leg, path
-        self.source_run_count += 1
         self.route_wall_ns += time.monotonic_ns() - started_wall
         self.route_process_cpu_ns += time.process_time_ns() - started_cpu
         return leg
@@ -191,6 +278,7 @@ class TableFreeRegionBoundProvider:
         if self._regions.get(region.identifier) is not region:
             raise ValueError("Region identity differs from bound candidate universe")
 
+    @progress.operation('road_bound')
     def bound(self, problem, pieces, region, effect):
         self.online_queries += 1
         if not pieces or not self.action_mask(region, effect, pieces[0].state.remaining_schedule):
@@ -204,6 +292,7 @@ class TableFreeRegionBoundProvider:
             time = max(a, time) + duration
         return time - problem.start + problem.penalty * (state.stop_count + 1), 0
 
+    @progress.operation('road_singleton_bound')
     def singleton_bound(self, problem, pieces, site, effect):
         if not pieces:
             return None
@@ -284,6 +373,7 @@ class RoadSelectedLegProvider:
         self.route_process_cpu_ns = 0
         self.policy_sha256 = hashlib.sha256(TIE_POLICY.encode()).hexdigest()
 
+    @progress.operation('road_path')
     def _path(self, source_node, target_node, parent, parent_edge):
         if source_node == target_node:
             return ()
@@ -339,6 +429,7 @@ class RoadSelectedLegProvider:
         self.route_wall_ns += time.monotonic_ns() - started_wall
         self.route_process_cpu_ns += time.process_time_ns() - started_cpu
 
+    @progress.operation('road_leg')
     def leg(self, source: str, target: str) -> SelectedLeg:
         if source not in self.anchor_nodes or target not in self.anchor_nodes:
             raise ValueError("Unknown road anchor")

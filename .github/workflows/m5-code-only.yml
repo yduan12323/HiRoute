@@ -46,3 +46,5 @@ jobs:
         run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_m5_code_only.py'
       - name: Test D0 bootstrap and one-block protocol boundaries
         run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_m5_bootstrap_code.py'
+      - name: Test opt-in recovery and bounded diagnostics
+        run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_m5_recovery_code.py'
