@@ -1,3 +1,20 @@
+## Representative synthetic ablations: 2026-10-14
+
+Separately reviewed tiny-domain evidence now records 64 correctness cells and
+192 descriptive reduction/coalescing timing rows, plus 36 exploratory routing
+cold/warm rows and a distinct 36-row post-review confirmation. All final cells
+passed their specified exact-outcome checks. The initial serialization-failed
+harness attempt and exploratory review-order deviation remain preserved and
+explicit. This uses frozen reference answers, not newly solved REF cases.
+
+See [the evidence and source-reconstruction index](../results/milestone_5d/representative_ablations_20261014/README.md).
+These results demonstrate synthetic correctness and selected-leg cache reuse;
+they do not establish production long-haul performance. Additional verified
+tightening, production table-free coalescing, the fixed 24-row production
+supplement, full D6 accounting and final D8 closure remain open. Original
+192-row main outcomes remain 148 timeouts, 44 seed failures and zero exact
+completions. M5-D remains incomplete.
+
 # Current research status
 
 ## Current checkpoint: 2026-10-14

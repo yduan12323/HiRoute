@@ -1,0 +1,127 @@
+{
+  "scheduled": 36,
+  "passed": 36,
+  "measured_solver_wall_seconds": 0.490520306,
+  "measured_audit_wall_seconds": 0.006105581,
+  "warmup_solver_wall_seconds": 0.263032943,
+  "warmup_audit_wall_seconds": 0.003144072,
+  "setup_wall_seconds": 0.365376968,
+  "peak_worker_rss_kib": 62008,
+  "rows": [
+    {
+      "case": "nonbest",
+      "method": "flat",
+      "paired_repeats": 3,
+      "median_cold_over_warm_solver_wall": 1.243656541721382,
+      "cold_source_runs": [
+        3,
+        3,
+        3
+      ],
+      "warm_source_runs": [
+        0,
+        0,
+        0
+      ],
+      "median_cold_solver_ms": 6.858634,
+      "median_warm_solver_ms": 5.957593,
+      "median_warmup_solver_ms": 8.820988
+    },
+    {
+      "case": "nonbest",
+      "method": "hier",
+      "paired_repeats": 3,
+      "median_cold_over_warm_solver_wall": 1.4129366533487062,
+      "cold_source_runs": [
+        3,
+        3,
+        3
+      ],
+      "warm_source_runs": [
+        0,
+        0,
+        0
+      ],
+      "median_cold_solver_ms": 9.186202,
+      "median_warm_solver_ms": 6.082288,
+      "median_warmup_solver_ms": 7.342317
+    },
+    {
+      "case": "charge_required",
+      "method": "flat",
+      "paired_repeats": 3,
+      "median_cold_over_warm_solver_wall": 1.104479214061563,
+      "cold_source_runs": [
+        7,
+        7,
+        7
+      ],
+      "warm_source_runs": [
+        0,
+        0,
+        0
+      ],
+      "median_cold_solver_ms": 26.140837,
+      "median_warm_solver_ms": 23.932457,
+      "median_warmup_solver_ms": 26.323685
+    },
+    {
+      "case": "charge_required",
+      "method": "hier",
+      "paired_repeats": 3,
+      "median_cold_over_warm_solver_wall": 1.0316262687282902,
+      "cold_source_runs": [
+        7,
+        7,
+        7
+      ],
+      "warm_source_runs": [
+        0,
+        0,
+        0
+      ],
+      "median_cold_solver_ms": 27.287312,
+      "median_warm_solver_ms": 25.69108,
+      "median_warmup_solver_ms": 25.722046
+    },
+    {
+      "case": "equality",
+      "method": "flat",
+      "paired_repeats": 3,
+      "median_cold_over_warm_solver_wall": 1.180063393428648,
+      "cold_source_runs": [
+        1,
+        1,
+        1
+      ],
+      "warm_source_runs": [
+        0,
+        0,
+        0
+      ],
+      "median_cold_solver_ms": 3.992437,
+      "median_warm_solver_ms": 3.184807,
+      "median_warmup_solver_ms": 3.84173
+    },
+    {
+      "case": "equality",
+      "method": "hier",
+      "paired_repeats": 3,
+      "median_cold_over_warm_solver_wall": 1.3225477494755988,
+      "cold_source_runs": [
+        1,
+        1,
+        1
+      ],
+      "warm_source_runs": [
+        0,
+        0,
+        0
+      ],
+      "median_cold_solver_ms": 4.349845,
+      "median_warm_solver_ms": 3.288989,
+      "median_warmup_solver_ms": 4.083399
+    }
+  ],
+  "note": "Tiny synthetic Python router, selected-leg cache only. CPU deltas may quantize to zero at these durations; do not infer zero routing CPU cost. Warmup and initial preparation excluded from measured query latency but reported separately; no long-haul speedup claim."
+}

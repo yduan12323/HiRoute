@@ -1,0 +1,259 @@
+{
+  "frozen_utc": "2026-10-14T04:03:18.790041+00:00",
+  "protocol_sha256": "45a07e6b586c1e9f20ce29228f689d1d40d04c52cfb616faafa2de28cc964c20",
+  "files": {
+    "run_cold_warm.py": "e38634cc57dffe3daa9ec992bbac483680152c2aae322f88a7e1aac8fb0d8f8b",
+    "COLD_WARM_PROTOCOL.json": "45a07e6b586c1e9f20ce29228f689d1d40d04c52cfb616faafa2de28cc964c20",
+    "source/fixture_source.py": "1e00a705dc834e778db598da3b3ab060a7411a14e8f02787ac4352771a8e2e1c",
+    "runtime/timecut5/coalesce.py": "6eca23bc52e1bfc4fcb7e2d9ba2100bc719bd168ad8837432e5f610b7c3a2de3",
+    "runtime/timecut5/streaming_seed_diagnostic.py": "fc9fbe533578e52f404d21f3ad790c22afe493263876f8d410cc3d611ced17ad",
+    "runtime/timecut5/coalesced_solver.py": "0669db53165ecdba37e97061e46e0669953e2b161739ca3fa6b4d4cb4d6aa73c",
+    "runtime/timecut5/feasible_incumbent.py": "0db8abef2ec895fae4d61c30e8f888366102c5e044e3f6301e00458c3a50f26e",
+    "runtime/timecut5/road_landmark.py": "163f9804e0f556e8aefd4b04d658de1c535465f0aa76a853a1d19693d58ee8b0",
+    "runtime/timecut5/exact_progress.py": "46f187b5eb86615a914e94919a638e1ebf0c7e1d4dc4160c54bdc3ad70021f38",
+    "runtime/timecut5/sparse_feasible_execution.py": "860239bad788b85cf2f4b0dc93fc7419b13f91354d4c61f55c00bd002e0d7e28",
+    "runtime/timecut5/sparse_seed.py": "bf306b744e0cbd760d1c4504e1f3d806f01a90345f10ae773a83c5ddbe4fe963",
+    "runtime/timecut5/road_provider.py": "be30b1801098e18995f031de444489276ef7cdd9d607b2fa187cf5f6ca776d8f",
+    "runtime/timecut5/hierarchy.py": "6b43c6b015fb9e8c3876d8c7dd87bc9497ce4f0a4051d53329f247cb6ab6e1ab",
+    "runtime/timecut5/deployable.py": "b25fd64cddc19dccb469f2545666c1bde13db1a17367ca00bbe4fa2c93a2c0ce",
+    "runtime/timecut5/bounded.py": "576af2635bfc436f406ce7e22a83a6d48997a43bf61be716b60cc376f0ff5294",
+    "runtime/timecut5/probe.py": "79226bd7dcf9ff9ceb326e2caf6cee1c471312a6e178ac024a77c27f2ea02b6d",
+    "runtime/timecut5/invocation_trace.py": "9cf2e1969a3446c0574d1885e0865dc1c209d2ceb10e86d14ef7c0b89227df77",
+    "runtime/timecut5/pwa.py": "b769fc3609d4d2040b00de6ad813384c7c00ea9c2e4c1249a4749bea4eea6c8b",
+    "runtime/timecut5/real_adapter.py": "c3b46270f044ed01f0b638b7abb34ea2727f1299275e26a3fb09a7bb1ae7b198",
+    "runtime/timecut5/real_legs.py": "c3ec4140bde1defb04faecdf2ab92dfa3f61c5f61bc3112d9b76f3d7914c5227",
+    "runtime/timecut5/provenance.py": "471a6cb75f8646988a4a21ee4998cab708e48de4a03e59b1e977a0813f526994",
+    "runtime/timecut5/__init__.py": "4f4f9ddd72b02aeaca5a2c9a8e1b7f99cfa710144e0ac78a781ba98c216c8d76",
+    "runtime/timecut5/exact_feasible_incumbent.py": "29d49b6d06a3d1cb33e19a4069411a8e7f497d2631069586940e5639553f8d4a",
+    "runtime/validation/reference5/lp.py": "c60a93ee484f381565f312b38b9ec9ae4e53147efa40b184d8b4a32a24e2900b",
+    "runtime/validation/reference5/real_solver.py": "845902dc29ba12519a83951ae906dfecf607ac641b5077ff97f16282eef64227",
+    "runtime/validation/reference5/real_input.py": "6e6c6c028da87bd23d31407a35fae324980c56318999873d0313534b17c64abb",
+    "runtime/validation/reference5/model.py": "b8b2e0254426775638695f9c2db8317937a0326e93fed4698645e2883c1d51a2",
+    "runtime/validation/reference5/solver.py": "f0a9ee5475dc7d68d3f63f2cc99a9a90f83035b2c6d6c174eb1c5173dd98d13f",
+    "runtime/validation/reference5/__init__.py": "bbcdda70ebe4e32366f2c712fa16383d1c6e1eda6289bb27a56f90f1ff2d04a7"
+  },
+  "cases": [
+    "nonbest",
+    "charge_required",
+    "equality"
+  ],
+  "rows": [
+    {
+      "case_id": "nonbest",
+      "method": "flat",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 0
+    },
+    {
+      "case_id": "nonbest",
+      "method": "flat",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 0
+    },
+    {
+      "case_id": "nonbest",
+      "method": "hier",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 0
+    },
+    {
+      "case_id": "nonbest",
+      "method": "hier",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 0
+    },
+    {
+      "case_id": "charge_required",
+      "method": "flat",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 0
+    },
+    {
+      "case_id": "charge_required",
+      "method": "flat",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 0
+    },
+    {
+      "case_id": "charge_required",
+      "method": "hier",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 0
+    },
+    {
+      "case_id": "charge_required",
+      "method": "hier",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 0
+    },
+    {
+      "case_id": "equality",
+      "method": "flat",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 0
+    },
+    {
+      "case_id": "equality",
+      "method": "flat",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 0
+    },
+    {
+      "case_id": "equality",
+      "method": "hier",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 0
+    },
+    {
+      "case_id": "equality",
+      "method": "hier",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 0
+    },
+    {
+      "case_id": "nonbest",
+      "method": "hier",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 1
+    },
+    {
+      "case_id": "nonbest",
+      "method": "hier",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 1
+    },
+    {
+      "case_id": "nonbest",
+      "method": "flat",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 1
+    },
+    {
+      "case_id": "nonbest",
+      "method": "flat",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 1
+    },
+    {
+      "case_id": "charge_required",
+      "method": "hier",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 1
+    },
+    {
+      "case_id": "charge_required",
+      "method": "hier",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 1
+    },
+    {
+      "case_id": "charge_required",
+      "method": "flat",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 1
+    },
+    {
+      "case_id": "charge_required",
+      "method": "flat",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 1
+    },
+    {
+      "case_id": "equality",
+      "method": "hier",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 1
+    },
+    {
+      "case_id": "equality",
+      "method": "hier",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 1
+    },
+    {
+      "case_id": "equality",
+      "method": "flat",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 1
+    },
+    {
+      "case_id": "equality",
+      "method": "flat",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 1
+    },
+    {
+      "case_id": "nonbest",
+      "method": "flat",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 2
+    },
+    {
+      "case_id": "nonbest",
+      "method": "flat",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 2
+    },
+    {
+      "case_id": "nonbest",
+      "method": "hier",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 2
+    },
+    {
+      "case_id": "nonbest",
+      "method": "hier",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 2
+    },
+    {
+      "case_id": "charge_required",
+      "method": "flat",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 2
+    },
+    {
+      "case_id": "charge_required",
+      "method": "flat",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 2
+    },
+    {
+      "case_id": "charge_required",
+      "method": "hier",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 2
+    },
+    {
+      "case_id": "charge_required",
+      "method": "hier",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 2
+    },
+    {
+      "case_id": "equality",
+      "method": "flat",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 2
+    },
+    {
+      "case_id": "equality",
+      "method": "flat",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 2
+    },
+    {
+      "case_id": "equality",
+      "method": "hier",
+      "condition": "cold_after_equal_seed_preparation",
+      "repeat": 2
+    },
+    {
+      "case_id": "equality",
+      "method": "hier",
+      "condition": "warm_after_same_method_solve",
+      "repeat": 2
+    }
+  ],
+  "total_wall_seconds": 180
+}

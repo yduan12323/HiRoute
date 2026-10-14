@@ -1,0 +1,202 @@
+{
+  "source_commit": "1a6bd82b4b96df04c6e849525cdb30f39ba79d55",
+  "entries": [
+    {
+      "workspace_path": "runtime/timecut5/__init__.py",
+      "repository_path": "src/timecut5/__init__.py",
+      "git_blob_sha": "3b4d09de685720d9e3f3ea962232e912aee122e9",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "4f4f9ddd72b02aeaca5a2c9a8e1b7f99cfa710144e0ac78a781ba98c216c8d76"
+    },
+    {
+      "workspace_path": "runtime/timecut5/bounded.py",
+      "repository_path": "src/timecut5/bounded.py",
+      "git_blob_sha": "f06e12dc7339de1f3a3d2af72570d95c27f49ea2",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "576af2635bfc436f406ce7e22a83a6d48997a43bf61be716b60cc376f0ff5294"
+    },
+    {
+      "workspace_path": "runtime/timecut5/coalesce.py",
+      "repository_path": "src/timecut5/coalesce.py",
+      "git_blob_sha": "6b0c9223e66331dc3646c323b1eb1c7179226750",
+      "append_lf_bytes": 1,
+      "workspace_sha256": "6eca23bc52e1bfc4fcb7e2d9ba2100bc719bd168ad8837432e5f610b7c3a2de3"
+    },
+    {
+      "workspace_path": "runtime/timecut5/coalesced_solver.py",
+      "repository_path": "src/timecut5/coalesced_solver.py",
+      "git_blob_sha": "9baaa5d361c1297fbce2b5eab21d395786ee6e3a",
+      "append_lf_bytes": 1,
+      "workspace_sha256": "0669db53165ecdba37e97061e46e0669953e2b161739ca3fa6b4d4cb4d6aa73c"
+    },
+    {
+      "workspace_path": "runtime/timecut5/deployable.py",
+      "repository_path": "src/timecut5/deployable.py",
+      "git_blob_sha": "41cc7ae73fed79adc319968eb5f35acea8ecdf3a",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "b25fd64cddc19dccb469f2545666c1bde13db1a17367ca00bbe4fa2c93a2c0ce"
+    },
+    {
+      "workspace_path": "runtime/timecut5/exact_feasible_incumbent.py",
+      "repository_path": "src/timecut5/exact_feasible_incumbent.py",
+      "git_blob_sha": "affa5124a70dd26307ece4fe395526294b926368",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "29d49b6d06a3d1cb33e19a4069411a8e7f497d2631069586940e5639553f8d4a"
+    },
+    {
+      "workspace_path": "runtime/timecut5/exact_progress.py",
+      "repository_path": "src/timecut5/exact_progress.py",
+      "git_blob_sha": "242caaa5fad6d770aba6e6ed46042cd0f8a6e33a",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "46f187b5eb86615a914e94919a638e1ebf0c7e1d4dc4160c54bdc3ad70021f38"
+    },
+    {
+      "workspace_path": "runtime/timecut5/feasible_incumbent.py",
+      "repository_path": "src/timecut5/feasible_incumbent.py",
+      "git_blob_sha": "eec6cd0222e3218e86ca67367a740ff712f10a2e",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "0db8abef2ec895fae4d61c30e8f888366102c5e044e3f6301e00458c3a50f26e"
+    },
+    {
+      "workspace_path": "runtime/timecut5/hierarchy.py",
+      "repository_path": "src/timecut5/hierarchy.py",
+      "git_blob_sha": "795d02ce675a8ef1b0caaffe82a019f8f922bf30",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "6b43c6b015fb9e8c3876d8c7dd87bc9497ce4f0a4051d53329f247cb6ab6e1ab"
+    },
+    {
+      "workspace_path": "runtime/timecut5/invocation_trace.py",
+      "repository_path": "src/timecut5/invocation_trace.py",
+      "git_blob_sha": "1be3ec0a50712792d5dad353241f303019232946",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "9cf2e1969a3446c0574d1885e0865dc1c209d2ceb10e86d14ef7c0b89227df77"
+    },
+    {
+      "workspace_path": "runtime/timecut5/probe.py",
+      "repository_path": "src/timecut5/probe.py",
+      "git_blob_sha": "756d9a1aac26e91b7eb45d638fc85ab65d9ee5a3",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "79226bd7dcf9ff9ceb326e2caf6cee1c471312a6e178ac024a77c27f2ea02b6d"
+    },
+    {
+      "workspace_path": "runtime/timecut5/provenance.py",
+      "repository_path": "src/timecut5/provenance.py",
+      "git_blob_sha": "e285edb146d9fb9f8c4ab8495106b274b83a4802",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "471a6cb75f8646988a4a21ee4998cab708e48de4a03e59b1e977a0813f526994"
+    },
+    {
+      "workspace_path": "runtime/timecut5/pwa.py",
+      "repository_path": "src/timecut5/pwa.py",
+      "git_blob_sha": "1ccc1a40f5232a1b512add063a34a73b490215d4",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "b769fc3609d4d2040b00de6ad813384c7c00ea9c2e4c1249a4749bea4eea6c8b"
+    },
+    {
+      "workspace_path": "runtime/timecut5/real_adapter.py",
+      "repository_path": "src/timecut5/real_adapter.py",
+      "git_blob_sha": "20f4d5c42ce90afd5a74fe2c0c03a89757bdd310",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "c3b46270f044ed01f0b638b7abb34ea2727f1299275e26a3fb09a7bb1ae7b198"
+    },
+    {
+      "workspace_path": "runtime/timecut5/real_legs.py",
+      "repository_path": "src/timecut5/real_legs.py",
+      "git_blob_sha": "c931bb76a492834cdbdcc6c80e7f0b4037d06feb",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "c3ec4140bde1defb04faecdf2ab92dfa3f61c5f61bc3112d9b76f3d7914c5227"
+    },
+    {
+      "workspace_path": "runtime/timecut5/road_landmark.py",
+      "repository_path": "src/timecut5/road_landmark.py",
+      "git_blob_sha": "a2d51cc5969d8834b69c318fee0ff948ba8b678e",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "163f9804e0f556e8aefd4b04d658de1c535465f0aa76a853a1d19693d58ee8b0"
+    },
+    {
+      "workspace_path": "runtime/timecut5/road_provider.py",
+      "repository_path": "src/timecut5/road_provider.py",
+      "git_blob_sha": "a79a5265cc173cef746dac1528249dcc83ee51fa",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "be30b1801098e18995f031de444489276ef7cdd9d607b2fa187cf5f6ca776d8f"
+    },
+    {
+      "workspace_path": "runtime/timecut5/sparse_feasible_execution.py",
+      "repository_path": "src/timecut5/sparse_feasible_execution.py",
+      "git_blob_sha": "6dbf01b8c21dad13f0fb8597916803d0e3efd691",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "860239bad788b85cf2f4b0dc93fc7419b13f91354d4c61f55c00bd002e0d7e28"
+    },
+    {
+      "workspace_path": "runtime/timecut5/sparse_seed.py",
+      "repository_path": "src/timecut5/sparse_seed.py",
+      "git_blob_sha": "dd34987314ce3b26f120a11a31d77bc25329d847",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "bf306b744e0cbd760d1c4504e1f3d806f01a90345f10ae773a83c5ddbe4fe963"
+    },
+    {
+      "workspace_path": "runtime/timecut5/streaming_seed_diagnostic.py",
+      "repository_path": "src/timecut5/streaming_seed_diagnostic.py",
+      "git_blob_sha": "c256903083e17b3b9121bdb283c7cd3759a7f637",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "fc9fbe533578e52f404d21f3ad790c22afe493263876f8d410cc3d611ced17ad"
+    },
+    {
+      "workspace_path": "runtime/validation/reference5/__init__.py",
+      "repository_path": "validation/reference5/__init__.py",
+      "git_blob_sha": "6c793e22a1b772667f8a37a55cc83b61b549f5bb",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "bbcdda70ebe4e32366f2c712fa16383d1c6e1eda6289bb27a56f90f1ff2d04a7"
+    },
+    {
+      "workspace_path": "runtime/validation/reference5/lp.py",
+      "repository_path": "validation/reference5/lp.py",
+      "git_blob_sha": "db4c4cc343d73e2d546158c4d68b9ee04a8e3cbf",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "c60a93ee484f381565f312b38b9ec9ae4e53147efa40b184d8b4a32a24e2900b"
+    },
+    {
+      "workspace_path": "runtime/validation/reference5/model.py",
+      "repository_path": "validation/reference5/model.py",
+      "git_blob_sha": "b28c454e6dbd623aafe7b7f515cd85cda4d96549",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "b8b2e0254426775638695f9c2db8317937a0326e93fed4698645e2883c1d51a2"
+    },
+    {
+      "workspace_path": "runtime/validation/reference5/real_input.py",
+      "repository_path": "validation/reference5/real_input.py",
+      "git_blob_sha": "d2d11bc09aac79b6088a1aa38a43abd555d3bb3f",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "6e6c6c028da87bd23d31407a35fae324980c56318999873d0313534b17c64abb"
+    },
+    {
+      "workspace_path": "runtime/validation/reference5/real_solver.py",
+      "repository_path": "validation/reference5/real_solver.py",
+      "git_blob_sha": "619b9ca905380e52826044a30a8e8af98ba77223",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "845902dc29ba12519a83951ae906dfecf607ac641b5077ff97f16282eef64227"
+    },
+    {
+      "workspace_path": "runtime/validation/reference5/solver.py",
+      "repository_path": "validation/reference5/solver.py",
+      "git_blob_sha": "1753d5cfbd655c1bf905be8862b2bc69937018d4",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "f0a9ee5475dc7d68d3f63f2cc99a9a90f83035b2c6d6c174eb1c5173dd98d13f"
+    },
+    {
+      "workspace_path": "source/fixture_source.py",
+      "repository_path": "tests/m5d_recovery/fixture_source.py",
+      "git_blob_sha": "5b62d8ccf557eb095317361dee2c3e1040ea3542",
+      "append_lf_bytes": 0,
+      "workspace_sha256": "1e00a705dc834e778db598da3b3ab060a7411a14e8f02787ac4352771a8e2e1c"
+    },
+    {
+      "workspace_path": "source/results/milestone_5_reference/frozen_cases_v2.json",
+      "repository_path": "results/milestone_5_reference/frozen_cases_v2.json",
+      "git_blob_sha": "4e456df3f97f108447538fca2484fc43af8e9caf",
+      "append_lf_bytes": 1,
+      "workspace_sha256": "650ba81e77fe85fe0ebc70cb9b89016e8b0e88e51f68e36f2a53fe7853161c1f"
+    }
+  ],
+  "confirmation": "Same runtime/ and source/ mapping applies inside confirmation_20261014T040625Z; copied scripts have identical bytes."
+}

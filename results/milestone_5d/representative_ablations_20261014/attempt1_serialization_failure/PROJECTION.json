@@ -1,0 +1,5 @@
+{
+  "raw_results_sha256": "de43f34fe60556b10dfaa57586596b58bc2533b7d26c8067ca921130379ceecc",
+  "projection": "Preserve every row and all fields except stderr, replaced by its SHA256 and failure summary.",
+  "rows": 64
+}

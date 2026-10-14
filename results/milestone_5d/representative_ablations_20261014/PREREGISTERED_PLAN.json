@@ -1,0 +1,511 @@
+{
+  "schema": "hiroute-d5.2-representative-plan-v1",
+  "created_utc": "2026-10-14T03:56:38.157392+00:00",
+  "source_commit": "1a6bd82b4b96df04c6e849525cdb30f39ba79d55",
+  "scope": "bounded synthetic correctness and representation ablations; not production long-haul acceptance",
+  "case_selection": "Eight named semantic strata selected by specification before any new measurement; no runtime-based replacement.",
+  "case_ids": [
+    "cs_waiting_dominant_positive_v2",
+    "cs_crosses_charging_breakpoint_positive_v2",
+    "cs_primary_unattained_positive_v2",
+    "cs_secondary_unattained_positive_v2",
+    "c_s_secondary_unattained_with_repeat_positive_v2",
+    "unsatisfied_service_bound_zero_positive_v2",
+    "deterministic_site_tuple_tie_positive_v2",
+    "cyclic_directed_graph_repeated_site_positive_v2"
+  ],
+  "cases_sha256": "650ba81e77fe85fe0ebc70cb9b89016e8b0e88e51f68e36f2a53fe7853161c1f",
+  "runtime_sources": {
+    "runtime/timecut5/__init__.py": "4f4f9ddd72b02aeaca5a2c9a8e1b7f99cfa710144e0ac78a781ba98c216c8d76",
+    "runtime/timecut5/bounded.py": "576af2635bfc436f406ce7e22a83a6d48997a43bf61be716b60cc376f0ff5294",
+    "runtime/timecut5/coalesce.py": "6eca23bc52e1bfc4fcb7e2d9ba2100bc719bd168ad8837432e5f610b7c3a2de3",
+    "runtime/timecut5/coalesced_solver.py": "0669db53165ecdba37e97061e46e0669953e2b161739ca3fa6b4d4cb4d6aa73c",
+    "runtime/timecut5/deployable.py": "b25fd64cddc19dccb469f2545666c1bde13db1a17367ca00bbe4fa2c93a2c0ce",
+    "runtime/timecut5/exact_feasible_incumbent.py": "29d49b6d06a3d1cb33e19a4069411a8e7f497d2631069586940e5639553f8d4a",
+    "runtime/timecut5/exact_progress.py": "46f187b5eb86615a914e94919a638e1ebf0c7e1d4dc4160c54bdc3ad70021f38",
+    "runtime/timecut5/feasible_incumbent.py": "0db8abef2ec895fae4d61c30e8f888366102c5e044e3f6301e00458c3a50f26e",
+    "runtime/timecut5/hierarchy.py": "6b43c6b015fb9e8c3876d8c7dd87bc9497ce4f0a4051d53329f247cb6ab6e1ab",
+    "runtime/timecut5/invocation_trace.py": "9cf2e1969a3446c0574d1885e0865dc1c209d2ceb10e86d14ef7c0b89227df77",
+    "runtime/timecut5/probe.py": "79226bd7dcf9ff9ceb326e2caf6cee1c471312a6e178ac024a77c27f2ea02b6d",
+    "runtime/timecut5/provenance.py": "471a6cb75f8646988a4a21ee4998cab708e48de4a03e59b1e977a0813f526994",
+    "runtime/timecut5/pwa.py": "b769fc3609d4d2040b00de6ad813384c7c00ea9c2e4c1249a4749bea4eea6c8b",
+    "runtime/timecut5/real_adapter.py": "c3b46270f044ed01f0b638b7abb34ea2727f1299275e26a3fb09a7bb1ae7b198",
+    "runtime/timecut5/real_legs.py": "c3ec4140bde1defb04faecdf2ab92dfa3f61c5f61bc3112d9b76f3d7914c5227",
+    "runtime/timecut5/road_landmark.py": "163f9804e0f556e8aefd4b04d658de1c535465f0aa76a853a1d19693d58ee8b0",
+    "runtime/timecut5/road_provider.py": "be30b1801098e18995f031de444489276ef7cdd9d607b2fa187cf5f6ca776d8f",
+    "runtime/timecut5/sparse_feasible_execution.py": "860239bad788b85cf2f4b0dc93fc7419b13f91354d4c61f55c00bd002e0d7e28",
+    "runtime/timecut5/sparse_seed.py": "bf306b744e0cbd760d1c4504e1f3d806f01a90345f10ae773a83c5ddbe4fe963",
+    "runtime/timecut5/streaming_seed_diagnostic.py": "fc9fbe533578e52f404d21f3ad790c22afe493263876f8d410cc3d611ced17ad"
+  },
+  "rows": [
+    {
+      "row_id": "cs_waiting_dominant_positive_v2__flat__r0__c0",
+      "case_id": "cs_waiting_dominant_positive_v2",
+      "method": "flat",
+      "reduction": false,
+      "coalescing": false
+    },
+    {
+      "row_id": "cs_waiting_dominant_positive_v2__flat__r0__c1",
+      "case_id": "cs_waiting_dominant_positive_v2",
+      "method": "flat",
+      "reduction": false,
+      "coalescing": true
+    },
+    {
+      "row_id": "cs_waiting_dominant_positive_v2__flat__r1__c0",
+      "case_id": "cs_waiting_dominant_positive_v2",
+      "method": "flat",
+      "reduction": true,
+      "coalescing": false
+    },
+    {
+      "row_id": "cs_waiting_dominant_positive_v2__flat__r1__c1",
+      "case_id": "cs_waiting_dominant_positive_v2",
+      "method": "flat",
+      "reduction": true,
+      "coalescing": true
+    },
+    {
+      "row_id": "cs_waiting_dominant_positive_v2__hier__r0__c0",
+      "case_id": "cs_waiting_dominant_positive_v2",
+      "method": "hier",
+      "reduction": false,
+      "coalescing": false
+    },
+    {
+      "row_id": "cs_waiting_dominant_positive_v2__hier__r0__c1",
+      "case_id": "cs_waiting_dominant_positive_v2",
+      "method": "hier",
+      "reduction": false,
+      "coalescing": true
+    },
+    {
+      "row_id": "cs_waiting_dominant_positive_v2__hier__r1__c0",
+      "case_id": "cs_waiting_dominant_positive_v2",
+      "method": "hier",
+      "reduction": true,
+      "coalescing": false
+    },
+    {
+      "row_id": "cs_waiting_dominant_positive_v2__hier__r1__c1",
+      "case_id": "cs_waiting_dominant_positive_v2",
+      "method": "hier",
+      "reduction": true,
+      "coalescing": true
+    },
+    {
+      "row_id": "cs_crosses_charging_breakpoint_positive_v2__flat__r0__c0",
+      "case_id": "cs_crosses_charging_breakpoint_positive_v2",
+      "method": "flat",
+      "reduction": false,
+      "coalescing": false
+    },
+    {
+      "row_id": "cs_crosses_charging_breakpoint_positive_v2__flat__r0__c1",
+      "case_id": "cs_crosses_charging_breakpoint_positive_v2",
+      "method": "flat",
+      "reduction": false,
+      "coalescing": true
+    },
+    {
+      "row_id": "cs_crosses_charging_breakpoint_positive_v2__flat__r1__c0",
+      "case_id": "cs_crosses_charging_breakpoint_positive_v2",
+      "method": "flat",
+      "reduction": true,
+      "coalescing": false
+    },
+    {
+      "row_id": "cs_crosses_charging_breakpoint_positive_v2__flat__r1__c1",
+      "case_id": "cs_crosses_charging_breakpoint_positive_v2",
+      "method": "flat",
+      "reduction": true,
+      "coalescing": true
+    },
+    {
+      "row_id": "cs_crosses_charging_breakpoint_positive_v2__hier__r0__c0",
+      "case_id": "cs_crosses_charging_breakpoint_positive_v2",
+      "method": "hier",
+      "reduction": false,
+      "coalescing": false
+    },
+    {
+      "row_id": "cs_crosses_charging_breakpoint_positive_v2__hier__r0__c1",
+      "case_id": "cs_crosses_charging_breakpoint_positive_v2",
+      "method": "hier",
+      "reduction": false,
+      "coalescing": true
+    },
+    {
+      "row_id": "cs_crosses_charging_breakpoint_positive_v2__hier__r1__c0",
+      "case_id": "cs_crosses_charging_breakpoint_positive_v2",
+      "method": "hier",
+      "reduction": true,
+      "coalescing": false
+    },
+    {
+      "row_id": "cs_crosses_charging_breakpoint_positive_v2__hier__r1__c1",
+      "case_id": "cs_crosses_charging_breakpoint_positive_v2",
+      "method": "hier",
+      "reduction": true,
+      "coalescing": true
+    },
+    {
+      "row_id": "cs_primary_unattained_positive_v2__flat__r0__c0",
+      "case_id": "cs_primary_unattained_positive_v2",
+      "method": "flat",
+      "reduction": false,
+      "coalescing": false
+    },
+    {
+      "row_id": "cs_primary_unattained_positive_v2__flat__r0__c1",
+      "case_id": "cs_primary_unattained_positive_v2",
+      "method": "flat",
+      "reduction": false,
+      "coalescing": true
+    },
+    {
+      "row_id": "cs_primary_unattained_positive_v2__flat__r1__c0",
+      "case_id": "cs_primary_unattained_positive_v2",
+      "method": "flat",
+      "reduction": true,
+      "coalescing": false
+    },
+    {
+      "row_id": "cs_primary_unattained_positive_v2__flat__r1__c1",
+      "case_id": "cs_primary_unattained_positive_v2",
+      "method": "flat",
+      "reduction": true,
+      "coalescing": true
+    },
+    {
+      "row_id": "cs_primary_unattained_positive_v2__hier__r0__c0",
+      "case_id": "cs_primary_unattained_positive_v2",
+      "method": "hier",
+      "reduction": false,
+      "coalescing": false
+    },
+    {
+      "row_id": "cs_primary_unattained_positive_v2__hier__r0__c1",
+      "case_id": "cs_primary_unattained_positive_v2",
+      "method": "hier",
+      "reduction": false,
+      "coalescing": true
+    },
+    {
+      "row_id": "cs_primary_unattained_positive_v2__hier__r1__c0",
+      "case_id": "cs_primary_unattained_positive_v2",
+      "method": "hier",
+      "reduction": true,
+      "coalescing": false
+    },
+    {
+      "row_id": "cs_primary_unattained_positive_v2__hier__r1__c1",
+      "case_id": "cs_primary_unattained_positive_v2",
+      "method": "hier",
+      "reduction": true,
+      "coalescing": true
+    },
+    {
+      "row_id": "cs_secondary_unattained_positive_v2__flat__r0__c0",
+      "case_id": "cs_secondary_unattained_positive_v2",
+      "method": "flat",
+      "reduction": false,
+      "coalescing": false
+    },
+    {
+      "row_id": "cs_secondary_unattained_positive_v2__flat__r0__c1",
+      "case_id": "cs_secondary_unattained_positive_v2",
+      "method": "flat",
+      "reduction": false,
+      "coalescing": true
+    },
+    {
+      "row_id": "cs_secondary_unattained_positive_v2__flat__r1__c0",
+      "case_id": "cs_secondary_unattained_positive_v2",
+      "method": "flat",
+      "reduction": true,
+      "coalescing": false
+    },
+    {
+      "row_id": "cs_secondary_unattained_positive_v2__flat__r1__c1",
+      "case_id": "cs_secondary_unattained_positive_v2",
+      "method": "flat",
+      "reduction": true,
+      "coalescing": true
+    },
+    {
+      "row_id": "cs_secondary_unattained_positive_v2__hier__r0__c0",
+      "case_id": "cs_secondary_unattained_positive_v2",
+      "method": "hier",
+      "reduction": false,
+      "coalescing": false
+    },
+    {
+      "row_id": "cs_secondary_unattained_positive_v2__hier__r0__c1",
+      "case_id": "cs_secondary_unattained_positive_v2",
+      "method": "hier",
+      "reduction": false,
+      "coalescing": true
+    },
+    {
+      "row_id": "cs_secondary_unattained_positive_v2__hier__r1__c0",
+      "case_id": "cs_secondary_unattained_positive_v2",
+      "method": "hier",
+      "reduction": true,
+      "coalescing": false
+    },
+    {
+      "row_id": "cs_secondary_unattained_positive_v2__hier__r1__c1",
+      "case_id": "cs_secondary_unattained_positive_v2",
+      "method": "hier",
+      "reduction": true,
+      "coalescing": true
+    },
+    {
+      "row_id": "c_s_secondary_unattained_with_repeat_positive_v2__flat__r0__c0",
+      "case_id": "c_s_secondary_unattained_with_repeat_positive_v2",
+      "method": "flat",
+      "reduction": false,
+      "coalescing": false
+    },
+    {
+      "row_id": "c_s_secondary_unattained_with_repeat_positive_v2__flat__r0__c1",
+      "case_id": "c_s_secondary_unattained_with_repeat_positive_v2",
+      "method": "flat",
+      "reduction": false,
+      "coalescing": true
+    },
+    {
+      "row_id": "c_s_secondary_unattained_with_repeat_positive_v2__flat__r1__c0",
+      "case_id": "c_s_secondary_unattained_with_repeat_positive_v2",
+      "method": "flat",
+      "reduction": true,
+      "coalescing": false
+    },
+    {
+      "row_id": "c_s_secondary_unattained_with_repeat_positive_v2__flat__r1__c1",
+      "case_id": "c_s_secondary_unattained_with_repeat_positive_v2",
+      "method": "flat",
+      "reduction": true,
+      "coalescing": true
+    },
+    {
+      "row_id": "c_s_secondary_unattained_with_repeat_positive_v2__hier__r0__c0",
+      "case_id": "c_s_secondary_unattained_with_repeat_positive_v2",
+      "method": "hier",
+      "reduction": false,
+      "coalescing": false
+    },
+    {
+      "row_id": "c_s_secondary_unattained_with_repeat_positive_v2__hier__r0__c1",
+      "case_id": "c_s_secondary_unattained_with_repeat_positive_v2",
+      "method": "hier",
+      "reduction": false,
+      "coalescing": true
+    },
+    {
+      "row_id": "c_s_secondary_unattained_with_repeat_positive_v2__hier__r1__c0",
+      "case_id": "c_s_secondary_unattained_with_repeat_positive_v2",
+      "method": "hier",
+      "reduction": true,
+      "coalescing": false
+    },
+    {
+      "row_id": "c_s_secondary_unattained_with_repeat_positive_v2__hier__r1__c1",
+      "case_id": "c_s_secondary_unattained_with_repeat_positive_v2",
+      "method": "hier",
+      "reduction": true,
+      "coalescing": true
+    },
+    {
+      "row_id": "unsatisfied_service_bound_zero_positive_v2__flat__r0__c0",
+      "case_id": "unsatisfied_service_bound_zero_positive_v2",
+      "method": "flat",
+      "reduction": false,
+      "coalescing": false
+    },
+    {
+      "row_id": "unsatisfied_service_bound_zero_positive_v2__flat__r0__c1",
+      "case_id": "unsatisfied_service_bound_zero_positive_v2",
+      "method": "flat",
+      "reduction": false,
+      "coalescing": true
+    },
+    {
+      "row_id": "unsatisfied_service_bound_zero_positive_v2__flat__r1__c0",
+      "case_id": "unsatisfied_service_bound_zero_positive_v2",
+      "method": "flat",
+      "reduction": true,
+      "coalescing": false
+    },
+    {
+      "row_id": "unsatisfied_service_bound_zero_positive_v2__flat__r1__c1",
+      "case_id": "unsatisfied_service_bound_zero_positive_v2",
+      "method": "flat",
+      "reduction": true,
+      "coalescing": true
+    },
+    {
+      "row_id": "unsatisfied_service_bound_zero_positive_v2__hier__r0__c0",
+      "case_id": "unsatisfied_service_bound_zero_positive_v2",
+      "method": "hier",
+      "reduction": false,
+      "coalescing": false
+    },
+    {
+      "row_id": "unsatisfied_service_bound_zero_positive_v2__hier__r0__c1",
+      "case_id": "unsatisfied_service_bound_zero_positive_v2",
+      "method": "hier",
+      "reduction": false,
+      "coalescing": true
+    },
+    {
+      "row_id": "unsatisfied_service_bound_zero_positive_v2__hier__r1__c0",
+      "case_id": "unsatisfied_service_bound_zero_positive_v2",
+      "method": "hier",
+      "reduction": true,
+      "coalescing": false
+    },
+    {
+      "row_id": "unsatisfied_service_bound_zero_positive_v2__hier__r1__c1",
+      "case_id": "unsatisfied_service_bound_zero_positive_v2",
+      "method": "hier",
+      "reduction": true,
+      "coalescing": true
+    },
+    {
+      "row_id": "deterministic_site_tuple_tie_positive_v2__flat__r0__c0",
+      "case_id": "deterministic_site_tuple_tie_positive_v2",
+      "method": "flat",
+      "reduction": false,
+      "coalescing": false
+    },
+    {
+      "row_id": "deterministic_site_tuple_tie_positive_v2__flat__r0__c1",
+      "case_id": "deterministic_site_tuple_tie_positive_v2",
+      "method": "flat",
+      "reduction": false,
+      "coalescing": true
+    },
+    {
+      "row_id": "deterministic_site_tuple_tie_positive_v2__flat__r1__c0",
+      "case_id": "deterministic_site_tuple_tie_positive_v2",
+      "method": "flat",
+      "reduction": true,
+      "coalescing": false
+    },
+    {
+      "row_id": "deterministic_site_tuple_tie_positive_v2__flat__r1__c1",
+      "case_id": "deterministic_site_tuple_tie_positive_v2",
+      "method": "flat",
+      "reduction": true,
+      "coalescing": true
+    },
+    {
+      "row_id": "deterministic_site_tuple_tie_positive_v2__hier__r0__c0",
+      "case_id": "deterministic_site_tuple_tie_positive_v2",
+      "method": "hier",
+      "reduction": false,
+      "coalescing": false
+    },
+    {
+      "row_id": "deterministic_site_tuple_tie_positive_v2__hier__r0__c1",
+      "case_id": "deterministic_site_tuple_tie_positive_v2",
+      "method": "hier",
+      "reduction": false,
+      "coalescing": true
+    },
+    {
+      "row_id": "deterministic_site_tuple_tie_positive_v2__hier__r1__c0",
+      "case_id": "deterministic_site_tuple_tie_positive_v2",
+      "method": "hier",
+      "reduction": true,
+      "coalescing": false
+    },
+    {
+      "row_id": "deterministic_site_tuple_tie_positive_v2__hier__r1__c1",
+      "case_id": "deterministic_site_tuple_tie_positive_v2",
+      "method": "hier",
+      "reduction": true,
+      "coalescing": true
+    },
+    {
+      "row_id": "cyclic_directed_graph_repeated_site_positive_v2__flat__r0__c0",
+      "case_id": "cyclic_directed_graph_repeated_site_positive_v2",
+      "method": "flat",
+      "reduction": false,
+      "coalescing": false
+    },
+    {
+      "row_id": "cyclic_directed_graph_repeated_site_positive_v2__flat__r0__c1",
+      "case_id": "cyclic_directed_graph_repeated_site_positive_v2",
+      "method": "flat",
+      "reduction": false,
+      "coalescing": true
+    },
+    {
+      "row_id": "cyclic_directed_graph_repeated_site_positive_v2__flat__r1__c0",
+      "case_id": "cyclic_directed_graph_repeated_site_positive_v2",
+      "method": "flat",
+      "reduction": true,
+      "coalescing": false
+    },
+    {
+      "row_id": "cyclic_directed_graph_repeated_site_positive_v2__flat__r1__c1",
+      "case_id": "cyclic_directed_graph_repeated_site_positive_v2",
+      "method": "flat",
+      "reduction": true,
+      "coalescing": true
+    },
+    {
+      "row_id": "cyclic_directed_graph_repeated_site_positive_v2__hier__r0__c0",
+      "case_id": "cyclic_directed_graph_repeated_site_positive_v2",
+      "method": "hier",
+      "reduction": false,
+      "coalescing": false
+    },
+    {
+      "row_id": "cyclic_directed_graph_repeated_site_positive_v2__hier__r0__c1",
+      "case_id": "cyclic_directed_graph_repeated_site_positive_v2",
+      "method": "hier",
+      "reduction": false,
+      "coalescing": true
+    },
+    {
+      "row_id": "cyclic_directed_graph_repeated_site_positive_v2__hier__r1__c0",
+      "case_id": "cyclic_directed_graph_repeated_site_positive_v2",
+      "method": "hier",
+      "reduction": true,
+      "coalescing": false
+    },
+    {
+      "row_id": "cyclic_directed_graph_repeated_site_positive_v2__hier__r1__c1",
+      "case_id": "cyclic_directed_graph_repeated_site_positive_v2",
+      "method": "hier",
+      "reduction": true,
+      "coalescing": true
+    }
+  ],
+  "correctness": {
+    "row_wall_seconds": 30,
+    "row_address_space_bytes": 4294967296,
+    "total_wall_seconds": 180,
+    "repeat": 1,
+    "expected": "Compare status and complete lexicographic key with frozen independent_expected; replay every attained witness; compare unattained infima; no canonical charging-vector equality."
+  },
+  "performance": {
+    "status": "not_started",
+    "repeat": 3,
+    "order": "same frozen row order; alternate method order by repetition; each row a fresh process",
+    "row_wall_seconds": 30,
+    "total_wall_seconds": 600,
+    "report": "All scheduled rows retained including unscheduled_after_batch_limit. Paired ratios only when both complete; report coverage and NA zero denominator. Tiny wall timings are descriptive, no OD uncertainty or production speed claim."
+  },
+  "other_axes": {
+    "tightening": "blocked_missing_verified_tightening_variant; ALT option on full-table path is not a tightening of exact selected-leg minima",
+    "cold_warm": "prepared_protocol_not_executed; tiny table-free fixture cases nonbest, charge_required, equality; fresh isolated per-method provider; warm selected-leg cache by one same-method untimed solve; reset counters but retain cache; charge warmup separately. Source-label caching remains off as fixture default.",
+    "production_coalescing": "not_exposed_in_tablefree_adapter; _Coalescing mixin exists only for Problem/RealProblem; requires explicit TableFreeRealProblem adapter and verification before real measurements"
+  },
+  "real_case_rule": "If production axes become ready, use already diagnosed OD06 scheduled low-SOC N128 and the identical saved feasible incumbent. Do not choose another OD after observing performance. New manifest required before measuring; existing failures remain in original 192 denominator."
+}
