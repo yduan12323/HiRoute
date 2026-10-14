@@ -1,5 +1,121 @@
 # Milestone 5D development evaluation — living report
 
+## Current evidence update: 2026-10-14
+
+**The original main matrix is terminal: 192/192 rows recorded, 148 time limits,
+44 failed initial-solution searches, and zero exact completions. M5-D remains
+in progress. No HIER computational benefit is demonstrated.** These are uploaded
+terminal snapshots, not a claim that any server process is currently running.
+The earlier dated observations are retained below for provenance and are no longer
+the current status.
+
+### Reproducible main-matrix audit
+
+Run from the repository root:
+
+```sh
+python scripts/summarize_m5d_terminal_state.py \
+  --manifest results/milestone_5d/terminal_state_audit_20261014/inputs/frozen_main_phase_v3_20261011.json \
+  --state results/milestone_5d/terminal_state_audit_20261014/inputs/main_state.public.json \
+  --parallel-state results/milestone_5d/terminal_state_audit_20261014/inputs/parallel_state.public.json \
+  --output /tmp/hiroute-terminal-audit
+python -m unittest discover -s tests -p test_m5d_terminal_summary.py
+python -OO -m unittest discover -s tests -p test_m5d_terminal_summary.py
+```
+
+The [machine-readable summary](../results/milestone_5d/terminal_state_audit_20261014/terminal_summary.json)
+and [all 192 normalized rows](../results/milestone_5d/terminal_state_audit_20261014/benchmark_results.jsonl)
+are generated from byte-hashed minimal public projections. Original uploaded raw
+state hashes are retained as provenance; raw scheduler tokens and host paths are
+not published. Each projection validates its schema, kind and canonical payload
+hash before summarization. The original private raw bytes cannot be reconstructed
+or independently authenticated from the public projection alone. The audit rejects duplicate JSON keys,
+missing/unexpected row IDs, manifest or continuation disagreement, denominator
+exclusion, unfinished states, and inconsistent CPU totals. It intentionally rejects
+new exact-status claims until a proof-aware audit is supplied; a status string
+alone is insufficient to establish exactness.
+
+- Denominator: 192 fixed rows, 96 FLAT/HIER bindings; none excluded.
+- Exact completion: 0/192. Time limits: 148/192 (77.0833%). Failed initial search:
+  44/192 (22.9167%). Neither class proves physical infeasibility.
+- Paired exact completions: 0/96. Paired end-to-end speedup and its confidence
+  interval are **NA**, not 1×. Equal timeout caps do not establish equal performance.
+- The first 93 serial rows omit the observed phase. Their phase remains **unknown**.
+  The 99 continuation rows record 73 `seed_started` timeouts and 26 `seed_failed`
+  outcomes. Do not generalize this to all 148 timeouts.
+- The 93 serial rows and 99 continuation rows form one matrix, not 291 rows.
+  The continuation's 4-to-5-worker ramp is recorded in its uploaded state; it is
+  a later execution amendment, not a rewriting of the original frozen limits.
+- Uploaded snapshots reference durable receipts, but this consolidation does not
+  re-fetch or independently revalidate every original server receipt. Missing
+  per-row fields such as early-row wall time remain null; no timings are invented.
+
+### CPU accounting and historical budget
+
+Cgroup CPU is 99,559.649486 seconds (27.6554581906 hours):
+48,608.328801 serial plus 50,951.320685 continuation seconds. The continuation's
+host/controller cumulative total is 4,265.765481 seconds (1.1849348558 hours).
+The known main-row-plus-continuation-host subtotal is 103,825.414967 seconds
+(28.8403930464 hours). Per-row host counters are cumulative snapshots and must
+**never be summed** or added again to that host total.
+
+The frozen manifest records a conservative pre-main debit of 10.536667 hours.
+Serial host overhead, transitions/final tails and reconciliation of the complete
+original 48-CPU-hour ledger remain outstanding. The known subtotal is not a
+complete project CPU total or proof that the original budget was satisfied.
+Later separately authorized diagnostics/continuation work has separate ledgers;
+it does not rewrite the original 192-row denominator or erase historical charges.
+
+### Later recovery evidence, separate from the main comparison
+
+The [supplemental evidence index](../results/milestone_5d/terminal_state_audit_20261014/supplemental_evidence_index.json)
+binds the retained evidence used in this section. These exploratory trials are
+not the preselected D5 supplement and do not replace failed main rows.
+
+- OD06 N32's reachable sites being S-only explains a candidate-coverage failure;
+  it does not mean broken charging equipment or global physical infeasibility.
+  The N128 domain has a physically replayed two-stop feasible witness. A feasible
+  incumbent is neither the completed heuristic minimum nor a global optimum.
+- Two real, table-free FLAT/HIER runs entered exact search using the same verified
+  incumbent and bounds, then both hit their 600-second end-to-end limits.
+- Subsequent instrumented 120-second exact-search windows with one- and two-source
+  caches show road-label work dominating completed operations in the sampled
+  prefixes. More observed pieces under the same cap is not full-query speedup.
+- Terminal-target early stopping did not demonstrate improvement. Its comparison
+  also changed compiler optimization from `-O3` to `-O2` with strict floating-point
+  options, so it cannot isolate an algorithm-only performance effect. It was not
+  promoted as the default routing implementation.
+- Existing completed-layer replay is available and charges reconstruction CPU.
+  Durable mid-layer improved-incumbent export and a global OPEN certificate remain
+  separate gaps. A current-prefix Region bound is not a global optimality gap.
+- The published recovery code at `1a6bd82b4b96df04c6e849525cdb30f39ba79d55`
+  passed [Python 3.11 installed-wheel CI](https://github.com/yduan12323/HiRoute/actions/runs/38420415748).
+  CI passing does not establish large-domain performance acceptance.
+
+### Remaining work and decision boundary
+
+1. D5: the fixed 24-row supplement remains unrun, including the separately frozen
+   complete-universe checks and designated comparison/repeat/transport work.
+   Reduction/coalescing/tightening/cold-warm contrasts are additional open items;
+   ordinary repeats do not satisfy them. A source-equivalent member-scan contrast
+   must not change both access strategy and bound semantics unnoticed.
+2. D6: finish the scoped correctness evidence mapping, independent witness and
+   full-key comparisons where exact results exist, per-stage costs and uncertainty,
+   and historical ledger reconciliation. Preserve all failure and censored rows.
+3. D8: consolidate related-work comparability, transportation value limitations,
+   claims/evidence and reproducible result indexes into the stable entrances.
+   This terminal-state audit repairs a stale entrance; it does not close all gaps.
+
+A negative conclusion is permitted by the taskbook. The main matrix supports
+“no computational benefit demonstrated on this matrix”; final classification as
+`M5D_COMPLETED_WITHOUT_DEMONSTRATED_BENEFIT` or `M5D_LIMITED_BY_DATA_OR_SCALE`
+requires closing or explicitly resolving the remaining deliverables, not silently
+marking them passed. No final holdout or merge is authorized by this report.
+
+## Historical observations (preserved verbatim)
+
+# Milestone 5D development evaluation — living report
+
 Status as of 2026-10-12 02:05 UTC: **main running; results and conclusions pending**. This document is a stable report shell and evidence index. The authoritative changing ledger is the server `state.json` at `/home/dy/HiRoute/m5d_main_a99f534_20261011/`; its receipts and phase logs are retained there. Do not infer an optimality, infeasibility, or HIER speed claim from this interim snapshot.
 
 ## Frozen question and denominator

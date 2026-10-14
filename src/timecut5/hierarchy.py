@@ -103,7 +103,7 @@ def solve_hierarchical(case: Mapping, dominance: bool = True, leaf_size: int = 1
 def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                                 incumbent: Witness | None = None, *, reducer=None,
                                 verified_primary_upper: R | None = None,
-                                bound_provider=None, checkpoint_hook=None) -> HierarchyResult:
+                                bound_provider=None, checkpoint_hook=None, incumbent_hook=None) -> HierarchyResult:
     reducer = reduce_frontier if reducer is None else reducer
     if progress.enabled():
         reducer = progress.operation("dominance_reducer")(reducer)
@@ -134,6 +134,8 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                        family_id=trace.family_id(piece),energy=energy,
                        witness=provenance.witness_dict(witness),key=key,improved=improved)
             if improved:
+                if incumbent_hook is not None:
+                    incumbent_hook(witness, key)
                 incumbent_key = key
                 progress.event("incumbent_improved", incumbent_primary_upper=
                     min(key[0], verified_primary_upper) if verified_primary_upper is not None else key[0])

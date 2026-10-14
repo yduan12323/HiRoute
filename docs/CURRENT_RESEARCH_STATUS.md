@@ -1,5 +1,33 @@
 # Current research status
 
+## Current checkpoint: 2026-10-14
+
+M5-V remains accepted within its historical scope. M5-D is **not complete**.
+The frozen 192-row main evaluation has finished recording outcomes: 148 timeouts,
+44 initial-solution failures, zero exact completions and no completed FLAT/HIER
+pair. The paired speedup is NA. Detailed evidence, reproducible commands, CPU
+accounting limits and remaining D5/D6/D8 work are in the stable
+[M5-D report](MILESTONE_5D_REPORT.md).
+
+Recovery work established a real two-stop feasible OD06 N128 witness and entered
+both exact solvers, but the bounded runs still timed out. Candidate-domain failure
+must not be described as global infeasibility. Code and installed-wheel CI are
+current through `1a6bd82b4b96df04c6e849525cdb30f39ba79d55`; this is a code-quality
+checkpoint, not large-scale performance acceptance. Completed-layer replay already
+exists. Mid-layer durable improved-incumbent export and a global OPEN certificate
+are distinct remaining capabilities.
+
+The preselected 24-row supplement and additional ablations remain unrun; the
+original CPU ledger still has unresolved host/transition components. Later
+exploratory work is accounted separately. M6-H is untouched. The project may
+legitimately conclude with no demonstrated benefit, after remaining deliverables
+are resolved. Do not treat the historical statements below as current running
+status or current input availability.
+
+## Historical 2026-10-11 observations (preserved verbatim)
+
+# Current research status
+
 As of 2026-10-11, Milestone 5-V r12 final acceptance is scoped to the accepted A/B H4 and C32 results and source-bound C01 HIER; it is not an unrestricted real-data deployment claim. Milestone 5-D D0/design checkpoint `a2f12f2595ff1789ca70822c19089b40938dbdf5` was merged as PR #11, merge commit `fae2b71b342cb95fb7f578cfe031252d7e31700a`. Further work uses `dot/m5d-continuation` from that exact main commit. The protocol is in [MILESTONE_5D_DESIGN_AND_PROTOCOL.md](MILESTONE_5D_DESIGN_AND_PROTOCOL.md). D1–D3 implementation is in progress; no formal M5-D comparison or final holdout has run.
 
 The isolated Linux D0 code-only suite passed 394 tests and 752 subtests in 62.2 s. The full bootstrap suite also passed all six normal/`-OO` groups (50, 37, and 50 tests in each mode). The macOS code-only and bootstrap attempts are retained as platform diagnostics: the accepted RSS interpretation assumes Linux units and bootstrap uses Linux CPU affinity. A first Linux bootstrap invocation hit an overly short 120 s **aggregate** watchdog, not a test failure. Logs remain in the isolated server checkout `/home/dy/HiRoute/m5d_d0_1af12a9/results/milestone_5d/d0_20261011/`. Local source hashes are recorded at `results/milestone_5d/d0_20261011/source_manifest.json`.

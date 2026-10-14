@@ -1,0 +1,2102 @@
+{
+  "kind": "parallel",
+  "original_sha256": "baac1d5d087e44ecb4dcfc7b93d5288231844b4dd56ec9688f15f8643bbb1c00",
+  "payload": {
+    "admissions": [
+      {
+        "manifest_index": 93,
+        "row_id": "OD05_energy_and_scheduled_soc19_25_n32_hier"
+      },
+      {
+        "manifest_index": 94,
+        "row_id": "OD05_energy_and_scheduled_soc19_25_n128_flat"
+      },
+      {
+        "manifest_index": 95,
+        "row_id": "OD05_energy_and_scheduled_soc19_25_n128_hier"
+      },
+      {
+        "manifest_index": 96,
+        "row_id": "OD06_energy_only_soc3_10_n32_flat"
+      },
+      {
+        "manifest_index": 97,
+        "row_id": "OD06_energy_only_soc3_10_n32_hier"
+      },
+      {
+        "manifest_index": 98,
+        "row_id": "OD06_energy_only_soc3_10_n128_flat"
+      },
+      {
+        "manifest_index": 99,
+        "row_id": "OD06_energy_only_soc3_10_n128_hier"
+      },
+      {
+        "manifest_index": 100,
+        "row_id": "OD06_energy_and_scheduled_soc3_10_n32_flat"
+      },
+      {
+        "manifest_index": 101,
+        "row_id": "OD06_energy_and_scheduled_soc3_10_n32_hier"
+      },
+      {
+        "manifest_index": 102,
+        "row_id": "OD06_energy_and_scheduled_soc3_10_n128_flat"
+      },
+      {
+        "manifest_index": 103,
+        "row_id": "OD06_energy_and_scheduled_soc3_10_n128_hier"
+      },
+      {
+        "manifest_index": 104,
+        "row_id": "OD06_energy_only_soc19_25_n32_flat"
+      },
+      {
+        "manifest_index": 105,
+        "row_id": "OD06_energy_only_soc19_25_n32_hier"
+      },
+      {
+        "manifest_index": 106,
+        "row_id": "OD06_energy_only_soc19_25_n128_flat"
+      },
+      {
+        "manifest_index": 107,
+        "row_id": "OD06_energy_only_soc19_25_n128_hier"
+      },
+      {
+        "manifest_index": 108,
+        "row_id": "OD06_energy_and_scheduled_soc19_25_n32_flat"
+      },
+      {
+        "manifest_index": 109,
+        "row_id": "OD06_energy_and_scheduled_soc19_25_n32_hier"
+      },
+      {
+        "manifest_index": 110,
+        "row_id": "OD06_energy_and_scheduled_soc19_25_n128_flat"
+      },
+      {
+        "manifest_index": 111,
+        "row_id": "OD06_energy_and_scheduled_soc19_25_n128_hier"
+      },
+      {
+        "manifest_index": 112,
+        "row_id": "OD07_energy_only_soc3_10_n32_flat"
+      },
+      {
+        "manifest_index": 113,
+        "row_id": "OD07_energy_only_soc3_10_n32_hier"
+      },
+      {
+        "manifest_index": 114,
+        "row_id": "OD07_energy_only_soc3_10_n128_flat"
+      },
+      {
+        "manifest_index": 115,
+        "row_id": "OD07_energy_only_soc3_10_n128_hier"
+      },
+      {
+        "manifest_index": 116,
+        "row_id": "OD07_energy_and_scheduled_soc3_10_n32_flat"
+      },
+      {
+        "manifest_index": 117,
+        "row_id": "OD07_energy_and_scheduled_soc3_10_n32_hier"
+      },
+      {
+        "manifest_index": 118,
+        "row_id": "OD07_energy_and_scheduled_soc3_10_n128_flat"
+      },
+      {
+        "manifest_index": 119,
+        "row_id": "OD07_energy_and_scheduled_soc3_10_n128_hier"
+      },
+      {
+        "manifest_index": 120,
+        "row_id": "OD07_energy_only_soc19_25_n32_flat"
+      },
+      {
+        "manifest_index": 121,
+        "row_id": "OD07_energy_only_soc19_25_n32_hier"
+      },
+      {
+        "manifest_index": 122,
+        "row_id": "OD07_energy_only_soc19_25_n128_flat"
+      },
+      {
+        "manifest_index": 123,
+        "row_id": "OD07_energy_only_soc19_25_n128_hier"
+      },
+      {
+        "manifest_index": 124,
+        "row_id": "OD07_energy_and_scheduled_soc19_25_n32_flat"
+      },
+      {
+        "manifest_index": 125,
+        "row_id": "OD07_energy_and_scheduled_soc19_25_n32_hier"
+      },
+      {
+        "manifest_index": 126,
+        "row_id": "OD07_energy_and_scheduled_soc19_25_n128_flat"
+      },
+      {
+        "manifest_index": 127,
+        "row_id": "OD07_energy_and_scheduled_soc19_25_n128_hier"
+      },
+      {
+        "manifest_index": 128,
+        "row_id": "OD08_energy_only_soc3_10_n32_flat"
+      },
+      {
+        "manifest_index": 129,
+        "row_id": "OD08_energy_only_soc3_10_n32_hier"
+      },
+      {
+        "manifest_index": 130,
+        "row_id": "OD08_energy_only_soc3_10_n128_flat"
+      },
+      {
+        "manifest_index": 131,
+        "row_id": "OD08_energy_only_soc3_10_n128_hier"
+      },
+      {
+        "manifest_index": 132,
+        "row_id": "OD08_energy_and_scheduled_soc3_10_n32_flat"
+      },
+      {
+        "manifest_index": 133,
+        "row_id": "OD08_energy_and_scheduled_soc3_10_n32_hier"
+      },
+      {
+        "manifest_index": 134,
+        "row_id": "OD08_energy_and_scheduled_soc3_10_n128_flat"
+      },
+      {
+        "manifest_index": 135,
+        "row_id": "OD08_energy_and_scheduled_soc3_10_n128_hier"
+      },
+      {
+        "manifest_index": 136,
+        "row_id": "OD08_energy_only_soc19_25_n32_flat"
+      },
+      {
+        "manifest_index": 137,
+        "row_id": "OD08_energy_only_soc19_25_n32_hier"
+      },
+      {
+        "manifest_index": 138,
+        "row_id": "OD08_energy_only_soc19_25_n128_flat"
+      },
+      {
+        "manifest_index": 139,
+        "row_id": "OD08_energy_only_soc19_25_n128_hier"
+      },
+      {
+        "manifest_index": 140,
+        "row_id": "OD08_energy_and_scheduled_soc19_25_n32_flat"
+      },
+      {
+        "manifest_index": 141,
+        "row_id": "OD08_energy_and_scheduled_soc19_25_n32_hier"
+      },
+      {
+        "manifest_index": 142,
+        "row_id": "OD08_energy_and_scheduled_soc19_25_n128_flat"
+      },
+      {
+        "manifest_index": 143,
+        "row_id": "OD08_energy_and_scheduled_soc19_25_n128_hier"
+      },
+      {
+        "manifest_index": 144,
+        "row_id": "OD09_energy_only_soc3_10_n32_flat"
+      },
+      {
+        "manifest_index": 145,
+        "row_id": "OD09_energy_only_soc3_10_n32_hier"
+      },
+      {
+        "manifest_index": 146,
+        "row_id": "OD09_energy_only_soc3_10_n128_flat"
+      },
+      {
+        "manifest_index": 147,
+        "row_id": "OD09_energy_only_soc3_10_n128_hier"
+      },
+      {
+        "manifest_index": 148,
+        "row_id": "OD09_energy_and_scheduled_soc3_10_n32_flat"
+      },
+      {
+        "manifest_index": 149,
+        "row_id": "OD09_energy_and_scheduled_soc3_10_n32_hier"
+      },
+      {
+        "manifest_index": 150,
+        "row_id": "OD09_energy_and_scheduled_soc3_10_n128_flat"
+      },
+      {
+        "manifest_index": 151,
+        "row_id": "OD09_energy_and_scheduled_soc3_10_n128_hier"
+      },
+      {
+        "manifest_index": 152,
+        "row_id": "OD09_energy_only_soc19_25_n32_flat"
+      },
+      {
+        "manifest_index": 153,
+        "row_id": "OD09_energy_only_soc19_25_n32_hier"
+      },
+      {
+        "manifest_index": 154,
+        "row_id": "OD09_energy_only_soc19_25_n128_flat"
+      },
+      {
+        "manifest_index": 155,
+        "row_id": "OD09_energy_only_soc19_25_n128_hier"
+      },
+      {
+        "manifest_index": 156,
+        "row_id": "OD09_energy_and_scheduled_soc19_25_n32_flat"
+      },
+      {
+        "manifest_index": 157,
+        "row_id": "OD09_energy_and_scheduled_soc19_25_n32_hier"
+      },
+      {
+        "manifest_index": 158,
+        "row_id": "OD09_energy_and_scheduled_soc19_25_n128_flat"
+      },
+      {
+        "manifest_index": 159,
+        "row_id": "OD09_energy_and_scheduled_soc19_25_n128_hier"
+      },
+      {
+        "manifest_index": 160,
+        "row_id": "OD10_energy_only_soc3_10_n32_flat"
+      },
+      {
+        "manifest_index": 161,
+        "row_id": "OD10_energy_only_soc3_10_n32_hier"
+      },
+      {
+        "manifest_index": 162,
+        "row_id": "OD10_energy_only_soc3_10_n128_flat"
+      },
+      {
+        "manifest_index": 163,
+        "row_id": "OD10_energy_only_soc3_10_n128_hier"
+      },
+      {
+        "manifest_index": 164,
+        "row_id": "OD10_energy_and_scheduled_soc3_10_n32_flat"
+      },
+      {
+        "manifest_index": 165,
+        "row_id": "OD10_energy_and_scheduled_soc3_10_n32_hier"
+      },
+      {
+        "manifest_index": 166,
+        "row_id": "OD10_energy_and_scheduled_soc3_10_n128_flat"
+      },
+      {
+        "manifest_index": 167,
+        "row_id": "OD10_energy_and_scheduled_soc3_10_n128_hier"
+      },
+      {
+        "manifest_index": 168,
+        "row_id": "OD10_energy_only_soc19_25_n32_flat"
+      },
+      {
+        "manifest_index": 169,
+        "row_id": "OD10_energy_only_soc19_25_n32_hier"
+      },
+      {
+        "manifest_index": 170,
+        "row_id": "OD10_energy_only_soc19_25_n128_flat"
+      },
+      {
+        "manifest_index": 171,
+        "row_id": "OD10_energy_only_soc19_25_n128_hier"
+      },
+      {
+        "manifest_index": 172,
+        "row_id": "OD10_energy_and_scheduled_soc19_25_n32_flat"
+      },
+      {
+        "manifest_index": 173,
+        "row_id": "OD10_energy_and_scheduled_soc19_25_n32_hier"
+      },
+      {
+        "manifest_index": 174,
+        "row_id": "OD10_energy_and_scheduled_soc19_25_n128_flat"
+      },
+      {
+        "manifest_index": 175,
+        "row_id": "OD10_energy_and_scheduled_soc19_25_n128_hier"
+      },
+      {
+        "manifest_index": 176,
+        "row_id": "OD11_energy_only_soc3_10_n32_flat"
+      },
+      {
+        "manifest_index": 177,
+        "row_id": "OD11_energy_only_soc3_10_n32_hier"
+      },
+      {
+        "manifest_index": 178,
+        "row_id": "OD11_energy_only_soc3_10_n128_flat"
+      },
+      {
+        "manifest_index": 179,
+        "row_id": "OD11_energy_only_soc3_10_n128_hier"
+      },
+      {
+        "manifest_index": 180,
+        "row_id": "OD11_energy_and_scheduled_soc3_10_n32_flat"
+      },
+      {
+        "manifest_index": 181,
+        "row_id": "OD11_energy_and_scheduled_soc3_10_n32_hier"
+      },
+      {
+        "manifest_index": 182,
+        "row_id": "OD11_energy_and_scheduled_soc3_10_n128_flat"
+      },
+      {
+        "manifest_index": 183,
+        "row_id": "OD11_energy_and_scheduled_soc3_10_n128_hier"
+      },
+      {
+        "manifest_index": 184,
+        "row_id": "OD11_energy_only_soc19_25_n32_flat"
+      },
+      {
+        "manifest_index": 185,
+        "row_id": "OD11_energy_only_soc19_25_n32_hier"
+      },
+      {
+        "manifest_index": 186,
+        "row_id": "OD11_energy_only_soc19_25_n128_flat"
+      },
+      {
+        "manifest_index": 187,
+        "row_id": "OD11_energy_only_soc19_25_n128_hier"
+      },
+      {
+        "manifest_index": 188,
+        "row_id": "OD11_energy_and_scheduled_soc19_25_n32_flat"
+      },
+      {
+        "manifest_index": 189,
+        "row_id": "OD11_energy_and_scheduled_soc19_25_n32_hier"
+      },
+      {
+        "manifest_index": 190,
+        "row_id": "OD11_energy_and_scheduled_soc19_25_n128_flat"
+      },
+      {
+        "manifest_index": 191,
+        "row_id": "OD11_energy_and_scheduled_soc19_25_n128_hier"
+      }
+    ],
+    "charged_cpu_ns": 99559649486000,
+    "charged_cpu_ns_at_start": 48608328801000,
+    "completed": {
+      "OD05_energy_and_scheduled_soc19_25_n128_flat": {
+        "charged_cpu_ns": 599888637000,
+        "manifest_index": 94,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 191544649000,
+          "cgroup_cpu_usage_ns": 599888637000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1761841152,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600161078610
+        },
+        "status": "time_limit"
+      },
+      "OD05_energy_and_scheduled_soc19_25_n128_hier": {
+        "charged_cpu_ns": 599674306000,
+        "manifest_index": 95,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 191557331000,
+          "cgroup_cpu_usage_ns": 599674306000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1789542400,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600146348297
+        },
+        "status": "time_limit"
+      },
+      "OD05_energy_and_scheduled_soc19_25_n32_hier": {
+        "charged_cpu_ns": 598312823000,
+        "manifest_index": 93,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 191515280000,
+          "cgroup_cpu_usage_ns": 598312823000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1741938688,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600123038469
+        },
+        "status": "time_limit"
+      },
+      "OD06_energy_and_scheduled_soc19_25_n128_flat": {
+        "charged_cpu_ns": 599854960000,
+        "manifest_index": 110,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 775428945000,
+          "cgroup_cpu_usage_ns": 599854960000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1757253632,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600117606187
+        },
+        "status": "time_limit"
+      },
+      "OD06_energy_and_scheduled_soc19_25_n128_hier": {
+        "charged_cpu_ns": 599804065000,
+        "manifest_index": 111,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 917076972000,
+          "cgroup_cpu_usage_ns": 599804065000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1761796096,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600095669670
+        },
+        "status": "time_limit"
+      },
+      "OD06_energy_and_scheduled_soc19_25_n32_flat": {
+        "charged_cpu_ns": 599863060000,
+        "manifest_index": 108,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 695071542000,
+          "cgroup_cpu_usage_ns": 599863060000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1777889280,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600103620281
+        },
+        "status": "time_limit"
+      },
+      "OD06_energy_and_scheduled_soc19_25_n32_hier": {
+        "charged_cpu_ns": 599741557000,
+        "manifest_index": 109,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 695115351000,
+          "cgroup_cpu_usage_ns": 599741557000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1761247232,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600124180271
+        },
+        "status": "time_limit"
+      },
+      "OD06_energy_and_scheduled_soc3_10_n128_flat": {
+        "charged_cpu_ns": 599706405000,
+        "manifest_index": 102,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 443231546000,
+          "cgroup_cpu_usage_ns": 599706405000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1739452416,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600146359770
+        },
+        "status": "time_limit"
+      },
+      "OD06_energy_and_scheduled_soc3_10_n128_hier": {
+        "charged_cpu_ns": 599706624000,
+        "manifest_index": 103,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 523427573000,
+          "cgroup_cpu_usage_ns": 599706624000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1794170880,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600116166093
+        },
+        "status": "time_limit"
+      },
+      "OD06_energy_and_scheduled_soc3_10_n32_flat": {
+        "charged_cpu_ns": 423191938000,
+        "manifest_index": 100,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 369143648000,
+          "cgroup_cpu_usage_ns": 423191938000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1770811392,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 423344734947
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD06_energy_and_scheduled_soc3_10_n32_hier": {
+        "charged_cpu_ns": 425737839000,
+        "manifest_index": 101,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 370286141000,
+          "cgroup_cpu_usage_ns": 425737839000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1771917312,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 425989213170
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD06_energy_only_soc19_25_n128_flat": {
+        "charged_cpu_ns": 599745991000,
+        "manifest_index": 106,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 664657929000,
+          "cgroup_cpu_usage_ns": 599745991000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1768697856,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600115477036
+        },
+        "status": "time_limit"
+      },
+      "OD06_energy_only_soc19_25_n128_hier": {
+        "charged_cpu_ns": 599727513000,
+        "manifest_index": 107,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 665531133000,
+          "cgroup_cpu_usage_ns": 599727513000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1760649216,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600148670946
+        },
+        "status": "time_limit"
+      },
+      "OD06_energy_only_soc19_25_n32_flat": {
+        "charged_cpu_ns": 104133874000,
+        "manifest_index": 104,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 412832340000,
+          "cgroup_cpu_usage_ns": 104133874000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1760571392,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 104264178260
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD06_energy_only_soc19_25_n32_hier": {
+        "charged_cpu_ns": 103465491000,
+        "manifest_index": 105,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 413681166000,
+          "cgroup_cpu_usage_ns": 103465491000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1760387072,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 103553322374
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD06_energy_only_soc3_10_n128_flat": {
+        "charged_cpu_ns": 599809856000,
+        "manifest_index": 98,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 271805051000,
+          "cgroup_cpu_usage_ns": 599809856000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1760038912,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600131396810
+        },
+        "status": "time_limit"
+      },
+      "OD06_energy_only_soc3_10_n128_hier": {
+        "charged_cpu_ns": 599712947000,
+        "manifest_index": 99,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 443169266000,
+          "cgroup_cpu_usage_ns": 599712947000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1768132608,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600144203578
+        },
+        "status": "time_limit"
+      },
+      "OD06_energy_only_soc3_10_n32_flat": {
+        "charged_cpu_ns": 95420800000,
+        "manifest_index": 96,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 31275518000,
+          "cgroup_cpu_usage_ns": 95420800000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1768419328,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 95537824413
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD06_energy_only_soc3_10_n32_hier": {
+        "charged_cpu_ns": 95067043000,
+        "manifest_index": 97,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 61576545000,
+          "cgroup_cpu_usage_ns": 95067043000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1850175488,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 95612339980
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD07_energy_and_scheduled_soc19_25_n128_flat": {
+        "charged_cpu_ns": 599863896000,
+        "manifest_index": 126,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1421089253000,
+          "cgroup_cpu_usage_ns": 599863896000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1743273984,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600130189630
+        },
+        "status": "time_limit"
+      },
+      "OD07_energy_and_scheduled_soc19_25_n128_hier": {
+        "charged_cpu_ns": 599869021000,
+        "manifest_index": 127,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1457300984000,
+          "cgroup_cpu_usage_ns": 599869021000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1754894336,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600100965133
+        },
+        "status": "time_limit"
+      },
+      "OD07_energy_and_scheduled_soc19_25_n32_flat": {
+        "charged_cpu_ns": 599908390000,
+        "manifest_index": 124,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1373564499000,
+          "cgroup_cpu_usage_ns": 599908390000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1763205120,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600147799407
+        },
+        "status": "time_limit"
+      },
+      "OD07_energy_and_scheduled_soc19_25_n32_hier": {
+        "charged_cpu_ns": 599734913000,
+        "manifest_index": 125,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1419921826000,
+          "cgroup_cpu_usage_ns": 599734913000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1756237824,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600142350853
+        },
+        "status": "time_limit"
+      },
+      "OD07_energy_and_scheduled_soc3_10_n128_flat": {
+        "charged_cpu_ns": 599876698000,
+        "manifest_index": 118,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1108748784000,
+          "cgroup_cpu_usage_ns": 599876698000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1757495296,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600143457899
+        },
+        "status": "time_limit"
+      },
+      "OD07_energy_and_scheduled_soc3_10_n128_hier": {
+        "charged_cpu_ns": 599733095000,
+        "manifest_index": 119,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1121519077000,
+          "cgroup_cpu_usage_ns": 599733095000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1743450112,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600097466462
+        },
+        "status": "time_limit"
+      },
+      "OD07_energy_and_scheduled_soc3_10_n32_flat": {
+        "charged_cpu_ns": 421953153000,
+        "manifest_index": 116,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 915936276000,
+          "cgroup_cpu_usage_ns": 421953153000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1756659712,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 422170411156
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD07_energy_and_scheduled_soc3_10_n32_hier": {
+        "charged_cpu_ns": 422145114000,
+        "manifest_index": 117,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 953167747000,
+          "cgroup_cpu_usage_ns": 422145114000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1757458432,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 422418850008
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD07_energy_only_soc19_25_n128_flat": {
+        "charged_cpu_ns": 599797704000,
+        "manifest_index": 122,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1205136493000,
+          "cgroup_cpu_usage_ns": 599797704000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1775382528,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600135420420
+        },
+        "status": "time_limit"
+      },
+      "OD07_energy_only_soc19_25_n128_hier": {
+        "charged_cpu_ns": 599906941000,
+        "manifest_index": 123,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1360924153000,
+          "cgroup_cpu_usage_ns": 599906941000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1775149056,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600109310748
+        },
+        "status": "time_limit"
+      },
+      "OD07_energy_only_soc19_25_n32_flat": {
+        "charged_cpu_ns": 599771114000,
+        "manifest_index": 120,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1167881460000,
+          "cgroup_cpu_usage_ns": 599771114000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1764302848,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600118104113
+        },
+        "status": "time_limit"
+      },
+      "OD07_energy_only_soc19_25_n32_hier": {
+        "charged_cpu_ns": 599737758000,
+        "manifest_index": 121,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1169023829000,
+          "cgroup_cpu_usage_ns": 599737758000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1770790912,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600110803245
+        },
+        "status": "time_limit"
+      },
+      "OD07_energy_only_soc3_10_n128_flat": {
+        "charged_cpu_ns": 384201814000,
+        "manifest_index": 114,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 856971669000,
+          "cgroup_cpu_usage_ns": 384201814000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1785638912,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 384358276186
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD07_energy_only_soc3_10_n128_hier": {
+        "charged_cpu_ns": 381883982000,
+        "manifest_index": 115,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 869653514000,
+          "cgroup_cpu_usage_ns": 381883982000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1778688000,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 382194115645
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD07_energy_only_soc3_10_n32_flat": {
+        "charged_cpu_ns": 102774201000,
+        "manifest_index": 112,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 708813225000,
+          "cgroup_cpu_usage_ns": 102774201000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1753616384,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 102908829624
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD07_energy_only_soc3_10_n32_hier": {
+        "charged_cpu_ns": 102481140000,
+        "manifest_index": 113,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 738259161000,
+          "cgroup_cpu_usage_ns": 102481140000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1743556608,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 102617060895
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD08_energy_and_scheduled_soc19_25_n128_flat": {
+        "charged_cpu_ns": 599826468000,
+        "manifest_index": 142,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2212946057000,
+          "cgroup_cpu_usage_ns": 599826468000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1772888064,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600104694555
+        },
+        "status": "time_limit"
+      },
+      "OD08_energy_and_scheduled_soc19_25_n128_hier": {
+        "charged_cpu_ns": 599842350000,
+        "manifest_index": 143,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2368875175000,
+          "cgroup_cpu_usage_ns": 599842350000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1771970560,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600091508415
+        },
+        "status": "time_limit"
+      },
+      "OD08_energy_and_scheduled_soc19_25_n32_flat": {
+        "charged_cpu_ns": 599850853000,
+        "manifest_index": 140,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2175445481000,
+          "cgroup_cpu_usage_ns": 599850853000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1753948160,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600150811224
+        },
+        "status": "time_limit"
+      },
+      "OD08_energy_and_scheduled_soc19_25_n32_hier": {
+        "charged_cpu_ns": 599752145000,
+        "manifest_index": 141,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2176587964000,
+          "cgroup_cpu_usage_ns": 599752145000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1787838464,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600134956261
+        },
+        "status": "time_limit"
+      },
+      "OD08_energy_and_scheduled_soc3_10_n128_flat": {
+        "charged_cpu_ns": 599689152000,
+        "manifest_index": 134,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1877003540000,
+          "cgroup_cpu_usage_ns": 599689152000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1770500096,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600131243752
+        },
+        "status": "time_limit"
+      },
+      "OD08_energy_and_scheduled_soc3_10_n128_hier": {
+        "charged_cpu_ns": 599752047000,
+        "manifest_index": 135,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1923371305000,
+          "cgroup_cpu_usage_ns": 599752047000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1762684928,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600166049614
+        },
+        "status": "time_limit"
+      },
+      "OD08_energy_and_scheduled_soc3_10_n32_flat": {
+        "charged_cpu_ns": 599822958000,
+        "manifest_index": 132,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1708942188000,
+          "cgroup_cpu_usage_ns": 599822958000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1762754560,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600139546244
+        },
+        "status": "time_limit"
+      },
+      "OD08_energy_and_scheduled_soc3_10_n32_hier": {
+        "charged_cpu_ns": 599878648000,
+        "manifest_index": 133,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1864204286000,
+          "cgroup_cpu_usage_ns": 599878648000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1788833792,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600114082121
+        },
+        "status": "time_limit"
+      },
+      "OD08_energy_only_soc19_25_n128_flat": {
+        "charged_cpu_ns": 599850740000,
+        "manifest_index": 138,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2116381370000,
+          "cgroup_cpu_usage_ns": 599850740000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1756721152,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600125868935
+        },
+        "status": "time_limit"
+      },
+      "OD08_energy_only_soc19_25_n128_hier": {
+        "charged_cpu_ns": 599743289000,
+        "manifest_index": 139,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2129119789000,
+          "cgroup_cpu_usage_ns": 599743289000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1759854592,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600133854873
+        },
+        "status": "time_limit"
+      },
+      "OD08_energy_only_soc19_25_n32_flat": {
+        "charged_cpu_ns": 599589857000,
+        "manifest_index": 136,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1924518205000,
+          "cgroup_cpu_usage_ns": 599589857000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1757921280,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600119667614
+        },
+        "status": "time_limit"
+      },
+      "OD08_energy_only_soc19_25_n32_hier": {
+        "charged_cpu_ns": 599794026000,
+        "manifest_index": 137,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1960755369000,
+          "cgroup_cpu_usage_ns": 599794026000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1773096960,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600106405229
+        },
+        "status": "time_limit"
+      },
+      "OD08_energy_only_soc3_10_n128_flat": {
+        "charged_cpu_ns": 599707049000,
+        "manifest_index": 130,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1671685101000,
+          "cgroup_cpu_usage_ns": 599707049000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1747615744,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600150642620
+        },
+        "status": "time_limit"
+      },
+      "OD08_energy_only_soc3_10_n128_hier": {
+        "charged_cpu_ns": 599895975000,
+        "manifest_index": 131,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1672864746000,
+          "cgroup_cpu_usage_ns": 599895975000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1760342016,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600154591872
+        },
+        "status": "time_limit"
+      },
+      "OD08_energy_only_soc3_10_n32_flat": {
+        "charged_cpu_ns": 599731403000,
+        "manifest_index": 128,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1612816103000,
+          "cgroup_cpu_usage_ns": 599731403000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1757474816,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600127789504
+        },
+        "status": "time_limit"
+      },
+      "OD08_energy_only_soc3_10_n32_hier": {
+        "charged_cpu_ns": 599775255000,
+        "manifest_index": 129,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 1625480471000,
+          "cgroup_cpu_usage_ns": 599775255000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1744130048,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600117158651
+        },
+        "status": "time_limit"
+      },
+      "OD09_energy_and_scheduled_soc19_25_n128_flat": {
+        "charged_cpu_ns": 599839808000,
+        "manifest_index": 158,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2932480844000,
+          "cgroup_cpu_usage_ns": 599839808000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1771491328,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600123185908
+        },
+        "status": "time_limit"
+      },
+      "OD09_energy_and_scheduled_soc19_25_n128_hier": {
+        "charged_cpu_ns": 599782222000,
+        "manifest_index": 159,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2933609007000,
+          "cgroup_cpu_usage_ns": 599782222000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1743433728,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600139505465
+        },
+        "status": "time_limit"
+      },
+      "OD09_energy_and_scheduled_soc19_25_n32_flat": {
+        "charged_cpu_ns": 599794423000,
+        "manifest_index": 156,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2916467811000,
+          "cgroup_cpu_usage_ns": 599794423000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1756057600,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600153876021
+        },
+        "status": "time_limit"
+      },
+      "OD09_energy_and_scheduled_soc19_25_n32_hier": {
+        "charged_cpu_ns": 599806900000,
+        "manifest_index": 157,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2919891547000,
+          "cgroup_cpu_usage_ns": 599806900000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1784827904,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600111120843
+        },
+        "status": "time_limit"
+      },
+      "OD09_energy_and_scheduled_soc3_10_n128_flat": {
+        "charged_cpu_ns": 599792948000,
+        "manifest_index": 150,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2620429298000,
+          "cgroup_cpu_usage_ns": 599792948000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1758867456,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600147654562
+        },
+        "status": "time_limit"
+      },
+      "OD09_energy_and_scheduled_soc3_10_n128_hier": {
+        "charged_cpu_ns": 599837136000,
+        "manifest_index": 151,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2663582261000,
+          "cgroup_cpu_usage_ns": 599837136000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1784221696,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600149160747
+        },
+        "status": "time_limit"
+      },
+      "OD09_energy_and_scheduled_soc3_10_n32_flat": {
+        "charged_cpu_ns": 473833337000,
+        "manifest_index": 148,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2412212649000,
+          "cgroup_cpu_usage_ns": 473833337000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1742577664,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 474028288654
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD09_energy_and_scheduled_soc3_10_n32_hier": {
+        "charged_cpu_ns": 474922294000,
+        "manifest_index": 149,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2415598091000,
+          "cgroup_cpu_usage_ns": 474922294000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1758203904,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 475153654399
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD09_energy_only_soc19_25_n128_flat": {
+        "charged_cpu_ns": 599777731000,
+        "manifest_index": 154,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2680554737000,
+          "cgroup_cpu_usage_ns": 599777731000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1772838912,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600081616176
+        },
+        "status": "time_limit"
+      },
+      "OD09_energy_only_soc19_25_n128_hier": {
+        "charged_cpu_ns": 599933063000,
+        "manifest_index": 155,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2872653903000,
+          "cgroup_cpu_usage_ns": 599933063000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1770221568,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600150514746
+        },
+        "status": "time_limit"
+      },
+      "OD09_energy_only_soc19_25_n32_flat": {
+        "charged_cpu_ns": 599826080000,
+        "manifest_index": 152,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2666953980000,
+          "cgroup_cpu_usage_ns": 599826080000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1759547392,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600147754853
+        },
+        "status": "time_limit"
+      },
+      "OD09_energy_only_soc19_25_n32_hier": {
+        "charged_cpu_ns": 599911396000,
+        "manifest_index": 153,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2679441895000,
+          "cgroup_cpu_usage_ns": 599911396000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1772003328,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600130166166
+        },
+        "status": "time_limit"
+      },
+      "OD09_energy_only_soc3_10_n128_flat": {
+        "charged_cpu_ns": 599872517000,
+        "manifest_index": 146,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2428012432000,
+          "cgroup_cpu_usage_ns": 599872517000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1778995200,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600105083637
+        },
+        "status": "time_limit"
+      },
+      "OD09_energy_only_soc3_10_n128_hier": {
+        "charged_cpu_ns": 599751962000,
+        "manifest_index": 147,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2429161593000,
+          "cgroup_cpu_usage_ns": 599751962000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1758973952,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600120917437
+        },
+        "status": "time_limit"
+      },
+      "OD09_energy_only_soc3_10_n32_flat": {
+        "charged_cpu_ns": 103140395000,
+        "manifest_index": 144,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2172463234000,
+          "cgroup_cpu_usage_ns": 103140395000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1779544064,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 103311428571
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD09_energy_only_soc3_10_n32_hier": {
+        "charged_cpu_ns": 102166942000,
+        "manifest_index": 145,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2215870244000,
+          "cgroup_cpu_usage_ns": 102166942000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1771188224,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 102276470457
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD10_energy_and_scheduled_soc19_25_n128_flat": {
+        "charged_cpu_ns": 599761769000,
+        "manifest_index": 174,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3616431418000,
+          "cgroup_cpu_usage_ns": 599761769000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1769709568,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600154026531
+        },
+        "status": "time_limit"
+      },
+      "OD10_energy_and_scheduled_soc19_25_n128_hier": {
+        "charged_cpu_ns": 599859047000,
+        "manifest_index": 175,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3617921747000,
+          "cgroup_cpu_usage_ns": 599859047000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1753149440,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600123667302
+        },
+        "status": "time_limit"
+      },
+      "OD10_energy_and_scheduled_soc19_25_n32_flat": {
+        "charged_cpu_ns": 599894776000,
+        "manifest_index": 172,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3581592642000,
+          "cgroup_cpu_usage_ns": 599894776000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1776414720,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600139093278
+        },
+        "status": "time_limit"
+      },
+      "OD10_energy_and_scheduled_soc19_25_n32_hier": {
+        "charged_cpu_ns": 599904205000,
+        "manifest_index": 173,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3585369403000,
+          "cgroup_cpu_usage_ns": 599904205000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1776791552,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600130444618
+        },
+        "status": "time_limit"
+      },
+      "OD10_energy_and_scheduled_soc3_10_n128_flat": {
+        "charged_cpu_ns": 599848109000,
+        "manifest_index": 166,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3213167542000,
+          "cgroup_cpu_usage_ns": 599848109000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1771601920,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600140128310
+        },
+        "status": "time_limit"
+      },
+      "OD10_energy_and_scheduled_soc3_10_n128_hier": {
+        "charged_cpu_ns": 599803696000,
+        "manifest_index": 167,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3328922099000,
+          "cgroup_cpu_usage_ns": 599803696000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1763811328,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600105662695
+        },
+        "status": "time_limit"
+      },
+      "OD10_energy_and_scheduled_soc3_10_n32_flat": {
+        "charged_cpu_ns": 423055610000,
+        "manifest_index": 164,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3111948154000,
+          "cgroup_cpu_usage_ns": 423055610000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1770237952,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 423309317966
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD10_energy_and_scheduled_soc3_10_n32_hier": {
+        "charged_cpu_ns": 424010194000,
+        "manifest_index": 165,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3113475844000,
+          "cgroup_cpu_usage_ns": 424010194000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1737408512,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 424184762827
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD10_energy_only_soc19_25_n128_flat": {
+        "charged_cpu_ns": 599820859000,
+        "manifest_index": 170,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3365063370000,
+          "cgroup_cpu_usage_ns": 599820859000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1760456704,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600160764910
+        },
+        "status": "time_limit"
+      },
+      "OD10_energy_only_soc19_25_n128_hier": {
+        "charged_cpu_ns": 599911207000,
+        "manifest_index": 171,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3465042266000,
+          "cgroup_cpu_usage_ns": 599911207000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1770303488,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600145905685
+        },
+        "status": "time_limit"
+      },
+      "OD10_energy_only_soc19_25_n32_flat": {
+        "charged_cpu_ns": 599753102000,
+        "manifest_index": 168,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3332724321000,
+          "cgroup_cpu_usage_ns": 599753102000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1754521600,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600105750965
+        },
+        "status": "time_limit"
+      },
+      "OD10_energy_only_soc19_25_n32_hier": {
+        "charged_cpu_ns": 599847645000,
+        "manifest_index": 169,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3363548648000,
+          "cgroup_cpu_usage_ns": 599847645000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1745702912,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600155834750
+        },
+        "status": "time_limit"
+      },
+      "OD10_energy_only_soc3_10_n128_flat": {
+        "charged_cpu_ns": 377815239000,
+        "manifest_index": 162,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3077137194000,
+          "cgroup_cpu_usage_ns": 377815239000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1775788032,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 377992719339
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD10_energy_only_soc3_10_n128_hier": {
+        "charged_cpu_ns": 379197494000,
+        "manifest_index": 163,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3080906115000,
+          "cgroup_cpu_usage_ns": 379197494000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1770147840,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 379478171112
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD10_energy_only_soc3_10_n32_flat": {
+        "charged_cpu_ns": 103416040000,
+        "manifest_index": 160,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2916707665000,
+          "cgroup_cpu_usage_ns": 103416040000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1770004480,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 103503766465
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD10_energy_only_soc3_10_n32_hier": {
+        "charged_cpu_ns": 101831464000,
+        "manifest_index": 161,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 2959792087000,
+          "cgroup_cpu_usage_ns": 101831464000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1782927360,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 101934562382
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD11_energy_and_scheduled_soc19_25_n128_flat": {
+        "charged_cpu_ns": 599815783000,
+        "manifest_index": 190,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 4262139104000,
+          "cgroup_cpu_usage_ns": 599815783000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1758461952,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600137705676
+        },
+        "status": "time_limit"
+      },
+      "OD11_energy_and_scheduled_soc19_25_n128_hier": {
+        "charged_cpu_ns": 599837185000,
+        "manifest_index": 191,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 4265754809000,
+          "cgroup_cpu_usage_ns": 599837185000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1760575488,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600147495536
+        },
+        "status": "time_limit"
+      },
+      "OD11_energy_and_scheduled_soc19_25_n32_flat": {
+        "charged_cpu_ns": 599727460000,
+        "manifest_index": 188,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 4246306754000,
+          "cgroup_cpu_usage_ns": 599727460000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1744113664,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600145924444
+        },
+        "status": "time_limit"
+      },
+      "OD11_energy_and_scheduled_soc19_25_n32_hier": {
+        "charged_cpu_ns": 599701281000,
+        "manifest_index": 189,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 4258642545000,
+          "cgroup_cpu_usage_ns": 599701281000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1770090496,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600144192416
+        },
+        "status": "time_limit"
+      },
+      "OD11_energy_and_scheduled_soc3_10_n128_flat": {
+        "charged_cpu_ns": 599845806000,
+        "manifest_index": 182,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3869795848000,
+          "cgroup_cpu_usage_ns": 599845806000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1782661120,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600141786509
+        },
+        "status": "time_limit"
+      },
+      "OD11_energy_and_scheduled_soc3_10_n128_hier": {
+        "charged_cpu_ns": 599745148000,
+        "manifest_index": 183,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 4033229877000,
+          "cgroup_cpu_usage_ns": 599745148000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1761005568,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600123170312
+        },
+        "status": "time_limit"
+      },
+      "OD11_energy_and_scheduled_soc3_10_n32_flat": {
+        "charged_cpu_ns": 465937452000,
+        "manifest_index": 180,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3781086178000,
+          "cgroup_cpu_usage_ns": 465937452000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1754304512,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 466198711377
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD11_energy_and_scheduled_soc3_10_n32_hier": {
+        "charged_cpu_ns": 470185855000,
+        "manifest_index": 181,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3813778046000,
+          "cgroup_cpu_usage_ns": 470185855000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1744150528,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 470465967326
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD11_energy_only_soc19_25_n128_flat": {
+        "charged_cpu_ns": 599867921000,
+        "manifest_index": 186,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 4085696029000,
+          "cgroup_cpu_usage_ns": 599867921000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1784422400,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600133960475
+        },
+        "status": "time_limit"
+      },
+      "OD11_energy_only_soc19_25_n128_hier": {
+        "charged_cpu_ns": 599869687000,
+        "manifest_index": 187,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 4121775920000,
+          "cgroup_cpu_usage_ns": 599869687000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1766371328,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600135797785
+        },
+        "status": "time_limit"
+      },
+      "OD11_energy_only_soc19_25_n32_flat": {
+        "charged_cpu_ns": 599744161000,
+        "manifest_index": 184,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 4055851750000,
+          "cgroup_cpu_usage_ns": 599744161000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1753321472,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600119485906
+        },
+        "status": "time_limit"
+      },
+      "OD11_energy_only_soc19_25_n32_hier": {
+        "charged_cpu_ns": 599856800000,
+        "manifest_index": 185,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 4065788026000,
+          "cgroup_cpu_usage_ns": 599856800000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1773432832,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600127539617
+        },
+        "status": "time_limit"
+      },
+      "OD11_energy_only_soc3_10_n128_flat": {
+        "charged_cpu_ns": 599824743000,
+        "manifest_index": 178,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3803785461000,
+          "cgroup_cpu_usage_ns": 599824743000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1759563776,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600148749040
+        },
+        "status": "time_limit"
+      },
+      "OD11_energy_only_soc3_10_n128_hier": {
+        "charged_cpu_ns": 599837004000,
+        "manifest_index": 179,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3833746687000,
+          "cgroup_cpu_usage_ns": 599837004000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1740726272,
+          "denominator_included": true,
+          "reached_phase": "seed_started",
+          "status": "time_limit",
+          "wall_elapsed_ns": 600115792982
+        },
+        "status": "time_limit"
+      },
+      "OD11_energy_only_soc3_10_n32_flat": {
+        "charged_cpu_ns": 102853347000,
+        "manifest_index": 176,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3508422701000,
+          "cgroup_cpu_usage_ns": 102853347000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1755648000,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 102975813359
+        },
+        "status": "incumbent_search_failed"
+      },
+      "OD11_energy_only_soc3_10_n32_hier": {
+        "charged_cpu_ns": 102244564000,
+        "manifest_index": 177,
+        "receipt_durable": true,
+        "row_result": {
+          "batch_and_waited_child_cpu_ns": 3551665061000,
+          "cgroup_cpu_usage_ns": 102244564000,
+          "cgroup_memory_limit_bytes": 8589934592,
+          "cgroup_memory_peak_bytes": 1771769856,
+          "denominator_included": true,
+          "reached_phase": "seed_failed",
+          "status": "incumbent_search_failed",
+          "wall_elapsed_ns": 102385741786
+        },
+        "status": "incumbent_search_failed"
+      }
+    },
+    "host_cpu_ns": 4265765481000,
+    "inflight": {},
+    "launch_order": [
+      "OD05_energy_and_scheduled_soc19_25_n32_hier",
+      "OD05_energy_and_scheduled_soc19_25_n128_flat",
+      "OD05_energy_and_scheduled_soc19_25_n128_hier",
+      "OD06_energy_only_soc3_10_n32_flat",
+      "OD06_energy_only_soc3_10_n32_hier",
+      "OD06_energy_only_soc3_10_n128_flat",
+      "OD06_energy_only_soc3_10_n128_hier",
+      "OD06_energy_and_scheduled_soc3_10_n32_flat",
+      "OD06_energy_and_scheduled_soc3_10_n32_hier",
+      "OD06_energy_and_scheduled_soc3_10_n128_flat",
+      "OD06_energy_and_scheduled_soc3_10_n128_hier",
+      "OD06_energy_only_soc19_25_n32_flat",
+      "OD06_energy_only_soc19_25_n32_hier",
+      "OD06_energy_only_soc19_25_n128_flat",
+      "OD06_energy_only_soc19_25_n128_hier",
+      "OD06_energy_and_scheduled_soc19_25_n32_flat",
+      "OD06_energy_and_scheduled_soc19_25_n32_hier",
+      "OD06_energy_and_scheduled_soc19_25_n128_flat",
+      "OD06_energy_and_scheduled_soc19_25_n128_hier",
+      "OD07_energy_only_soc3_10_n32_flat",
+      "OD07_energy_only_soc3_10_n32_hier",
+      "OD07_energy_only_soc3_10_n128_flat",
+      "OD07_energy_only_soc3_10_n128_hier",
+      "OD07_energy_and_scheduled_soc3_10_n32_flat",
+      "OD07_energy_and_scheduled_soc3_10_n32_hier",
+      "OD07_energy_and_scheduled_soc3_10_n128_flat",
+      "OD07_energy_and_scheduled_soc3_10_n128_hier",
+      "OD07_energy_only_soc19_25_n32_flat",
+      "OD07_energy_only_soc19_25_n32_hier",
+      "OD07_energy_only_soc19_25_n128_flat",
+      "OD07_energy_only_soc19_25_n128_hier",
+      "OD07_energy_and_scheduled_soc19_25_n32_flat",
+      "OD07_energy_and_scheduled_soc19_25_n32_hier",
+      "OD07_energy_and_scheduled_soc19_25_n128_flat",
+      "OD07_energy_and_scheduled_soc19_25_n128_hier",
+      "OD08_energy_only_soc3_10_n32_flat",
+      "OD08_energy_only_soc3_10_n32_hier",
+      "OD08_energy_only_soc3_10_n128_flat",
+      "OD08_energy_only_soc3_10_n128_hier",
+      "OD08_energy_and_scheduled_soc3_10_n32_flat",
+      "OD08_energy_and_scheduled_soc3_10_n32_hier",
+      "OD08_energy_and_scheduled_soc3_10_n128_flat",
+      "OD08_energy_and_scheduled_soc3_10_n128_hier",
+      "OD08_energy_only_soc19_25_n32_flat",
+      "OD08_energy_only_soc19_25_n32_hier",
+      "OD08_energy_only_soc19_25_n128_flat",
+      "OD08_energy_only_soc19_25_n128_hier",
+      "OD08_energy_and_scheduled_soc19_25_n32_flat",
+      "OD08_energy_and_scheduled_soc19_25_n32_hier",
+      "OD08_energy_and_scheduled_soc19_25_n128_flat",
+      "OD08_energy_and_scheduled_soc19_25_n128_hier",
+      "OD09_energy_only_soc3_10_n32_flat",
+      "OD09_energy_only_soc3_10_n32_hier",
+      "OD09_energy_only_soc3_10_n128_flat",
+      "OD09_energy_only_soc3_10_n128_hier",
+      "OD09_energy_and_scheduled_soc3_10_n32_flat",
+      "OD09_energy_and_scheduled_soc3_10_n32_hier",
+      "OD09_energy_and_scheduled_soc3_10_n128_flat",
+      "OD09_energy_and_scheduled_soc3_10_n128_hier",
+      "OD09_energy_only_soc19_25_n32_flat",
+      "OD09_energy_only_soc19_25_n32_hier",
+      "OD09_energy_only_soc19_25_n128_flat",
+      "OD09_energy_only_soc19_25_n128_hier",
+      "OD09_energy_and_scheduled_soc19_25_n32_flat",
+      "OD09_energy_and_scheduled_soc19_25_n32_hier",
+      "OD09_energy_and_scheduled_soc19_25_n128_flat",
+      "OD09_energy_and_scheduled_soc19_25_n128_hier",
+      "OD10_energy_only_soc3_10_n32_flat",
+      "OD10_energy_only_soc3_10_n32_hier",
+      "OD10_energy_only_soc3_10_n128_flat",
+      "OD10_energy_only_soc3_10_n128_hier",
+      "OD10_energy_and_scheduled_soc3_10_n32_flat",
+      "OD10_energy_and_scheduled_soc3_10_n32_hier",
+      "OD10_energy_and_scheduled_soc3_10_n128_flat",
+      "OD10_energy_and_scheduled_soc3_10_n128_hier",
+      "OD10_energy_only_soc19_25_n32_flat",
+      "OD10_energy_only_soc19_25_n32_hier",
+      "OD10_energy_only_soc19_25_n128_flat",
+      "OD10_energy_only_soc19_25_n128_hier",
+      "OD10_energy_and_scheduled_soc19_25_n32_flat",
+      "OD10_energy_and_scheduled_soc19_25_n32_hier",
+      "OD10_energy_and_scheduled_soc19_25_n128_flat",
+      "OD10_energy_and_scheduled_soc19_25_n128_hier",
+      "OD11_energy_only_soc3_10_n32_flat",
+      "OD11_energy_only_soc3_10_n32_hier",
+      "OD11_energy_only_soc3_10_n128_flat",
+      "OD11_energy_only_soc3_10_n128_hier",
+      "OD11_energy_and_scheduled_soc3_10_n32_flat",
+      "OD11_energy_and_scheduled_soc3_10_n32_hier",
+      "OD11_energy_and_scheduled_soc3_10_n128_flat",
+      "OD11_energy_and_scheduled_soc3_10_n128_hier",
+      "OD11_energy_only_soc19_25_n32_flat",
+      "OD11_energy_only_soc19_25_n32_hier",
+      "OD11_energy_only_soc19_25_n128_flat",
+      "OD11_energy_only_soc19_25_n128_hier",
+      "OD11_energy_and_scheduled_soc19_25_n32_flat",
+      "OD11_energy_and_scheduled_soc19_25_n32_hier",
+      "OD11_energy_and_scheduled_soc19_25_n128_flat",
+      "OD11_energy_and_scheduled_soc19_25_n128_hier"
+    ],
+    "manifest_sha256": "a575039c65b8ce31b4f725e389685c5cb78e71ae6df7c2a99d66da7b70ce1064",
+    "schema": "hiroute.m5d.parallel_continuation_state.v3",
+    "start_index": 93,
+    "stop_reason": "all_fixed_rows_completed",
+    "stopped": true
+  },
+  "payload_sha256": "e14ede61b9262af1a39a641686c7b18954ea3eed0449c87470604f8f2626f026",
+  "schema": "hiroute.m5d.public_state_projection.v1"
+}

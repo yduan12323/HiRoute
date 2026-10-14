@@ -255,7 +255,7 @@ def solve_bounded(case: Mapping, dominance: bool = True) -> BoundedResult:
 @progress.solver
 def _solve_problem(problem: Problem, dominance: bool = True, *, reducer=None,
                    verified_primary_upper: R | None = None,
-                   singleton_bound=None, checkpoint_hook=None) -> BoundedResult:
+                   singleton_bound=None, checkpoint_hook=None, incumbent_hook=None) -> BoundedResult:
     reducer = reduce_frontier if reducer is None else reducer
     if progress.enabled():
         reducer = progress.operation("dominance_reducer")(reducer)
@@ -268,16 +268,20 @@ def _solve_problem(problem: Problem, dominance: bool = True, *, reducer=None,
     feasible = 1
     maximum = 1
     incumbent_j = verified_primary_upper
+    recorded_key = None
 
     def update_incumbent(finished):
-        nonlocal incumbent_j
-        if singleton_bound is None:
+        nonlocal incumbent_j, recorded_key
+        if singleton_bound is None and incumbent_hook is None:
             return
         for piece in finished:
             energy = piece.domain.approach_optimizer(piece.slope, R(1))
             witness = piece.at(energy).approach(R(1))
             key = _replay_problem(problem, witness)
-            if incumbent_j is None or key[0] < incumbent_j:
+            if incumbent_hook is not None and (recorded_key is None or key < recorded_key):
+                incumbent_hook(witness, key)
+                recorded_key = key
+            if singleton_bound is not None and (incumbent_j is None or key[0] < incumbent_j):
                 incumbent_j = key[0]
                 progress.event("incumbent_improved", incumbent_primary_upper=incumbent_j)
 

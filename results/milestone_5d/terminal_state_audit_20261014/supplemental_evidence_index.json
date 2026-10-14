@@ -1,0 +1,40 @@
+{
+  "scope": "Later exploratory evidence, not replacement main rows or completion of the fixed 24-row supplement",
+  "entries": [
+    {
+      "label": "optimized_od06",
+      "path": "supplemental/optimized_od06.json",
+      "sha256": "a9b84b8879a093fbeea9e8f070bef8e328beb6213c28a955ad1761289eb496ce"
+    },
+    {
+      "label": "optimized_od06_independent_audit",
+      "path": "supplemental/optimized_od06_independent_audit.json",
+      "sha256": "5f5b9346a1c0b0c2bf548846e4c02373172ad2707298bf337318eda6706afb1b"
+    },
+    {
+      "label": "one_source_exact_diagnostics",
+      "path": "supplemental/one_source_exact_diagnostics.json",
+      "sha256": "aab8ba5cf187a694fb66d6d9791194e195760b89f5dc53ecf486a97a0be886df"
+    },
+    {
+      "label": "real_sparse_exact",
+      "path": "supplemental/real_sparse_exact.json",
+      "sha256": "bdcb30550ed86c47ebdc74051b03b3ad49bfed86e0b200936cc4d63aa9648dea"
+    },
+    {
+      "label": "cache2_trial",
+      "path": "supplemental/cache2_trial.json",
+      "sha256": "f9ebb1f394740030d4cb61d3e0f16a0190da32f8f452736b0918a1245e9b512a"
+    },
+    {
+      "label": "terminal_target_trial",
+      "path": "supplemental/terminal_target_trial.json",
+      "sha256": "497cd4e7910b85f1efd579b6fbc994ae9ac0f3a262a842fc0ec22b030a2649f4"
+    },
+    {
+      "label": "publication_receipt",
+      "path": "supplemental/publication_receipt.json",
+      "sha256": "adba44922de2047e3c09493f843c40d7dbc35ca94a38615b91ec8beca8531200"
+    }
+  ]
+}

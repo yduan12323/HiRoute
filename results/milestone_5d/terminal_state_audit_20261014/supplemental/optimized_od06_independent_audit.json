@@ -1,0 +1,197 @@
+{
+  "evidence_sha256": {
+    "runner/runs/OD06_energy_and_scheduled_soc3_10_n128_flat/supervision/receipt.json": "92ef30eb9802b8d31077326b55093264fa23675c8a0fa31d4dc02746e9d6a997",
+    "runner/runs/OD06_energy_and_scheduled_soc3_10_n128_flat/worker/diagnostic/snapshot.json": "00018dc1fc6a038d20ef74dc8f9918ff9b30df45ad9f6377a7f5428363235ff6",
+    "runner/runs/OD06_energy_and_scheduled_soc3_10_n32_flat/supervision/receipt.json": "ecf86dbef38e3c16f348650795eb151063086c9e964d5c3b8008f9c855aee7cf",
+    "runner/runs/OD06_energy_and_scheduled_soc3_10_n32_flat/worker/diagnostic/snapshot.json": "ea180740bacdd1b31b424b735ef3b646642d229ce0148e1d179d8aa3ec93b67c",
+    "runner/runs/OD06_energy_only_soc3_10_n32_flat/supervision/receipt.json": "da677dc90bb827ff4909398a7d7d6a822af91ef9ac791327a78d5c96b3e41176",
+    "runner/runs/OD06_energy_only_soc3_10_n32_flat/worker/diagnostic/snapshot.json": "252e225cf370dd5803624bfbf794f5337920ee57c3e775dbc9ff011313f4178a"
+  },
+  "interpretation": [
+    "n32: completed finite heuristic proposal stream with no emitted proposal; not domain infeasibility",
+    "n128: incomplete stream and no final fresh seed replay; persisted counts and source metrics are durable lower bounds, active generation/native call may be missing",
+    "historical comparison is not paired formal performance evidence; observer changes and early replay affect work mix",
+    "saved edge chains verify graph continuity and exact physical arithmetic; no route-optimality or global-optimality proof"
+  ],
+  "ledger_preparation_plus_measured_run_cpu_seconds": 2494.275618371,
+  "ledger_reserved_cpu_seconds": 3600,
+  "n128_saved_witness": {
+    "charges": [
+      "25602236554659519/429496729600000",
+      "5798646994280891/107374182400000"
+    ],
+    "completed_seed": false,
+    "edge_chain_lengths": [
+      5227,
+      7422,
+      1551
+    ],
+    "events": [
+      {
+        "arrival_kwh": "167567221340481/429496729600000",
+        "arrival_time_s": "7370213838602899/1099511627776",
+        "charge_completion_s": "36383956849408000847/3435973836800000",
+        "charge_kwh": "25602236554659519/429496729600000",
+        "departure_kwh": "60",
+        "departure_time_s": "1863454248521751/171798691840",
+        "effect": "CS",
+        "schedule_completion_s": "1863454248521751/171798691840",
+        "schedule_latest_start_slack_s": "4198793341661253/687194767360",
+        "schedule_start_s": "1399597780553751/171798691840",
+        "site": "4r:node/11118978435"
+      },
+      {
+        "arrival_kwh": "643803949719109/107374182400000",
+        "arrival_time_s": "17348188307732619/687194767360",
+        "charge_completion_s": "12424947169013335179/429496729600000",
+        "charge_kwh": "5798646994280891/107374182400000",
+        "departure_kwh": "60",
+        "departure_time_s": "12424947169013335179/429496729600000",
+        "effect": "C",
+        "site": "4r:node/7862947810"
+      }
+    ],
+    "exact_optimum": false,
+    "legs": [
+      {
+        "edge_count": 5227,
+        "length_m": "7563373911459519/68719476736",
+        "source": "road:2674409",
+        "target": "road:1391171",
+        "time_s": "7370213838602899/1099511627776"
+      },
+      {
+        "edge_count": 7422,
+        "length_m": "5798646994280891/17179869184",
+        "source": "road:1391171",
+        "target": "road:3042534",
+        "time_s": "1978874262729123/137438953472"
+      },
+      {
+        "edge_count": 1551,
+        "length_m": "8246955133854807/137438953472",
+        "source": "road:3042534",
+        "target": "road:5289152",
+        "time_s": "8265767282711685/2199023255552"
+      }
+    ],
+    "objective": "232876014671007378489/6871947673600000",
+    "objective_approx_seconds": 33887.92024212415,
+    "physically_feasible": true,
+    "remaining_schedule": 0,
+    "sequence": [
+      [
+        "4r:node/11118978435",
+        "CS"
+      ],
+      [
+        "4r:node/7862947810",
+        "C"
+      ]
+    ],
+    "shortest_path_or_native_tie_policy_independently_reverified": false,
+    "source_claim": "saved replayed feasible incumbent only",
+    "terminal_energy_kwh": "43292652418145193/858993459200000",
+    "terminal_time_s": "224629677462687378489/6871947673600000",
+    "total_charge_approx_kwh": 113.6139606399999,
+    "total_charge_kwh": "48796824531783083/429496729600000",
+    "unique_edges_read": 14200
+  },
+  "new_routing_calls": 0,
+  "new_seed_runs": 0,
+  "result": "passed",
+  "rows": [
+    {
+      "accepted_count": 0,
+      "charged_cpu_seconds": 137.82545428600002,
+      "cleanup_verified": true,
+      "historical": {
+        "native_calls_completed": 65,
+        "proposals_emitted_durable_lower_bound": 0,
+        "seed_status": "incumbent_search_failed",
+        "terminal_reason": "success",
+        "verified_accepted_count": 0,
+        "wall_seconds": 135.82674844100256
+      },
+      "proposal_count": 0,
+      "provider_metrics": {
+        "route_process_cpu_ns": 125679526086,
+        "route_wall_ns": 125760450256,
+        "source_cache_bytes": 188560456,
+        "source_cache_evictions": 63,
+        "source_cache_hits": 1,
+        "source_cache_skips": 0,
+        "source_run_count": 64
+      },
+      "reason": "success",
+      "result_status": "incumbent_search_failed",
+      "row_id": "OD06_energy_only_soc3_10_n32_flat",
+      "snapshot_status": "complete",
+      "wall_seconds": 133.56577467399984
+    },
+    {
+      "accepted_count": 0,
+      "charged_cpu_seconds": 146.537178641,
+      "cleanup_verified": true,
+      "historical": {
+        "native_calls_completed": 281,
+        "proposals_emitted_durable_lower_bound": 0,
+        "seed_status": null,
+        "terminal_reason": "wall_timeout",
+        "verified_accepted_count": 0,
+        "wall_seconds": 600.1565612810082
+      },
+      "proposal_count": 0,
+      "provider_metrics": {
+        "route_process_cpu_ns": 134101743415,
+        "route_wall_ns": 134218404802,
+        "source_cache_bytes": 188560456,
+        "source_cache_evictions": 70,
+        "source_cache_hits": 211,
+        "source_cache_skips": 0,
+        "source_run_count": 71
+      },
+      "reason": "success",
+      "result_status": "incumbent_search_failed",
+      "row_id": "OD06_energy_and_scheduled_soc3_10_n32_flat",
+      "snapshot_status": "complete",
+      "wall_seconds": 141.400906889
+    },
+    {
+      "accepted_count": 1791,
+      "charged_cpu_seconds": 619.912985444,
+      "cleanup_verified": true,
+      "historical": {
+        "native_calls_completed": 302,
+        "proposals_emitted_durable_lower_bound": 46,
+        "seed_status": null,
+        "terminal_reason": "wall_timeout",
+        "verified_accepted_count": 0,
+        "wall_seconds": 600.1495177409961
+      },
+      "proposal_count": 1791,
+      "provider_metrics": {
+        "route_process_cpu_ns": 565179596345,
+        "route_wall_ns": 565542748435,
+        "source_cache_bytes": 188560456,
+        "source_cache_evictions": 292,
+        "source_cache_hits": 5070,
+        "source_cache_skips": 0,
+        "source_run_count": 293
+      },
+      "reason": "wall_timeout",
+      "result_status": null,
+      "row_id": "OD06_energy_and_scheduled_soc3_10_n128_flat",
+      "snapshot_status": "incomplete",
+      "wall_seconds": 600.0768528559993
+    }
+  ],
+  "schema": "hiroute.independent_optimized_terminal_audit.v1",
+  "solver_calls": 0,
+  "verification_cpu_seconds": 2.956450358,
+  "verification_limits": {
+    "address_space_bytes": 8589934592,
+    "cpu_seconds": 60,
+    "one_cpu": true
+  }
+}

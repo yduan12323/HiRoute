@@ -48,3 +48,7 @@ jobs:
         run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_m5_bootstrap_code.py'
       - name: Test opt-in recovery and bounded diagnostics
         run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_m5_recovery_code.py'
+      - name: Test terminal report accounting and public projections
+        run: |
+          "$RUNNER_TEMP/m5-ci-venv/bin/python" -I -m unittest discover -s tests -p test_m5d_terminal_summary.py
+          "$RUNNER_TEMP/m5-ci-venv/bin/python" -I -OO -m unittest discover -s tests -p test_m5d_terminal_summary.py

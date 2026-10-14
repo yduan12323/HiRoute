@@ -1,0 +1,347 @@
+{
+  "charged_conservative_cpu_s": 315.58567316200003,
+  "interpretation": "Observed early work is dominated by repeated table-free road-label operations with cache eviction. No global gap, optimum, algorithm-performance ranking or cache-change speedup is established.",
+  "ledger_blocked": false,
+  "limitations": [
+    "Nested/inclusive timers include instrumentation and must not be summed.",
+    "Source-run deltas count completed calls; final operation may still be in flight.",
+    "Snapshot running status persists after external resource kill; supervisor receipt is terminal status.",
+    "Peak RSS sampled; address-space bound is per process, not hard aggregate RSS.",
+    "Conservative wait4 accounting may double count waited descendants.",
+    "Both rows are censored; full-depth complexity remains unknown."
+  ],
+  "manifest_sha256": "f5dcb77997b32b47ad0204a5aaad00e9bb37aaf2226ca509eb80ed6cd1bb68e4",
+  "next_question": "Investigate exact-routing request order/reuse within unchanged semantics before further broad exact searches; cache configuration was not changed in this experiment.",
+  "paired_comparison": {
+    "initial_state_comparison": "equal",
+    "terminal_comparison": "unavailable_search_censored"
+  },
+  "reserved_method_cpu_s": 740,
+  "rows": [
+    {
+      "active_stack": [
+        {
+          "stage": "advance",
+          "start_wall_ns": 17675002639252
+        },
+        {
+          "stage": "road_leg",
+          "start_wall_ns": 17675003797617
+        },
+        {
+          "stage": "road_labels",
+          "start_wall_ns": 17675003804111
+        }
+      ],
+      "charged_conservative_cpu_s": 156.077423935,
+      "cleanup_verified": true,
+      "counters": {
+        "attempted": 243,
+        "depth": 0,
+        "expanded_prefix_groups": 1,
+        "feasible": 28,
+        "frontier_groups": 1,
+        "frontier_pieces": 1,
+        "generated_advance_pieces": 39,
+        "incumbent_primary_upper": "232876014671007378489/6871947673600000",
+        "pending_next_pieces": 39,
+        "terminal_pieces": 0
+      },
+      "entry_provider_metrics": {
+        "selected_pairs": 3,
+        "source_cache_bytes": 188560456,
+        "source_cache_evictions": 2,
+        "source_cache_hits": 0,
+        "source_cache_skips": 0,
+        "source_run_count": 3
+      },
+      "exact_observed_through_cleanup_wall_s": 120.212493014,
+      "final_snapshot_at_exact_elapsed_s": 120.003945392,
+      "final_snapshot_status": "running",
+      "last_stage": "exact_engine_started",
+      "method": "flat",
+      "observer_io_error": null,
+      "persistence_cpu_s": 1.604015491,
+      "persistence_wall_s": 1.993484727,
+      "postentry_provider_deltas": {
+        "selected_pairs": 144,
+        "source_cache_bytes": 0,
+        "source_cache_evictions": 51,
+        "source_cache_hits": 93,
+        "source_cache_skips": 0,
+        "source_run_count": 51
+      },
+      "reason": "exact_wall_timeout",
+      "sampled_peak_rss_bytes": 2472726528,
+      "setup_wall_s": 36.13196294,
+      "status": "resource_censored_incomplete",
+      "terminal_result_exists": false,
+      "timings": {
+        "advance": {
+          "calls": 242,
+          "cpu_ns": 59474925048,
+          "errors": 0,
+          "wall_ns": 62285001923
+        },
+        "finish": {
+          "calls": 28,
+          "cpu_ns": 54499692626,
+          "errors": 0,
+          "wall_ns": 57161188808
+        },
+        "fm_eliminate": {
+          "calls": 86,
+          "cpu_ns": 28803445,
+          "errors": 0,
+          "wall_ns": 30375854
+        },
+        "initial_piece": {
+          "calls": 1,
+          "cpu_ns": 554841,
+          "errors": 0,
+          "wall_ns": 554535
+        },
+        "projection_build": {
+          "calls": 43,
+          "cpu_ns": 82475587,
+          "errors": 0,
+          "wall_ns": 88642658
+        },
+        "pwa_charge_pwa": {
+          "calls": 66,
+          "cpu_ns": 27098005,
+          "errors": 0,
+          "wall_ns": 28912153
+        },
+        "pwa_combined_pwa": {
+          "calls": 60,
+          "cpu_ns": 21888380,
+          "errors": 0,
+          "wall_ns": 24893986
+        },
+        "pwa_drive_pwa": {
+          "calls": 268,
+          "cpu_ns": 11176920,
+          "errors": 0,
+          "wall_ns": 11235653
+        },
+        "pwa_lower_envelope": {
+          "calls": 242,
+          "cpu_ns": 4184051,
+          "errors": 0,
+          "wall_ns": 4236524
+        },
+        "pwa_schedule_pwa": {
+          "calls": 116,
+          "cpu_ns": 87046400,
+          "errors": 0,
+          "wall_ns": 94296830
+        },
+        "pwa_stop": {
+          "calls": 242,
+          "cpu_ns": 134559886,
+          "errors": 0,
+          "wall_ns": 146540805
+        },
+        "road_labels": {
+          "calls": 144,
+          "cpu_ns": 112582882355,
+          "errors": 0,
+          "wall_ns": 117968375011
+        },
+        "road_leg": {
+          "calls": 268,
+          "cpu_ns": 113662409347,
+          "errors": 0,
+          "wall_ns": 119098080894
+        },
+        "road_path": {
+          "calls": 144,
+          "cpu_ns": 691816371,
+          "errors": 0,
+          "wall_ns": 720028343
+        },
+        "road_singleton_bound": {
+          "calls": 243,
+          "cpu_ns": 150093961,
+          "errors": 0,
+          "wall_ns": 176828637
+        }
+      },
+      "total_observed_wall_s": 156.34442300499722
+    },
+    {
+      "active_stack": [
+        {
+          "stage": "advance",
+          "start_wall_ns": 17860012721443
+        },
+        {
+          "stage": "road_leg",
+          "start_wall_ns": 17860013362532
+        },
+        {
+          "stage": "road_labels",
+          "start_wall_ns": 17860013368149
+        }
+      ],
+      "charged_conservative_cpu_s": 159.50824922700002,
+      "cleanup_verified": true,
+      "counters": {
+        "active_region_primary_lower_bound": "9349334768599699/1099511627776",
+        "attempted": 249,
+        "depth": 1,
+        "expanded_prefix_groups": 2,
+        "feasible": 29,
+        "frontier_groups": 28,
+        "frontier_pieces": 40,
+        "generated_advance_pieces": 40,
+        "incumbent_primary_upper": "232876014671007378489/6871947673600000",
+        "local_queue_min_primary_lower_bound": "11362540559057555/1099511627776",
+        "local_queue_scope": "Current prefix only; excludes other prefixes and pending next layer",
+        "local_queue_size": 15,
+        "pending_next_pieces": 0,
+        "region_nodes": 552,
+        "terminal_pieces": 0
+      },
+      "entry_provider_metrics": {
+        "selected_pairs": 3,
+        "source_cache_bytes": 188560456,
+        "source_cache_evictions": 2,
+        "source_cache_hits": 0,
+        "source_cache_skips": 0,
+        "source_run_count": 3
+      },
+      "exact_observed_through_cleanup_wall_s": 120.048231029,
+      "final_snapshot_at_exact_elapsed_s": 119.856338628,
+      "final_snapshot_status": "running",
+      "last_stage": "exact_engine_started",
+      "method": "hier",
+      "observer_io_error": null,
+      "persistence_cpu_s": 2.799466412,
+      "persistence_wall_s": 3.229611878,
+      "postentry_provider_deltas": {
+        "selected_pairs": 151,
+        "source_cache_bytes": -188560456,
+        "source_cache_evictions": 54,
+        "source_cache_hits": 98,
+        "source_cache_skips": 0,
+        "source_run_count": 53
+      },
+      "reason": "exact_wall_timeout",
+      "sampled_peak_rss_bytes": 3531309056,
+      "setup_wall_s": 39.747110682,
+      "status": "resource_censored_incomplete",
+      "terminal_result_exists": false,
+      "timings": {
+        "advance": {
+          "calls": 248,
+          "cpu_ns": 56360265727,
+          "errors": 0,
+          "wall_ns": 58668669344
+        },
+        "dominance_reducer": {
+          "calls": 27,
+          "cpu_ns": 22332210,
+          "errors": 0,
+          "wall_ns": 24261194
+        },
+        "finish": {
+          "calls": 57,
+          "cpu_ns": 56557500916,
+          "errors": 0,
+          "wall_ns": 59067562931
+        },
+        "fm_eliminate": {
+          "calls": 88,
+          "cpu_ns": 31276541,
+          "errors": 0,
+          "wall_ns": 32629253
+        },
+        "initial_piece": {
+          "calls": 1,
+          "cpu_ns": 836528,
+          "errors": 0,
+          "wall_ns": 836936
+        },
+        "projection_build": {
+          "calls": 44,
+          "cpu_ns": 83148135,
+          "errors": 0,
+          "wall_ns": 92928743
+        },
+        "pwa_charge_pwa": {
+          "calls": 66,
+          "cpu_ns": 22669496,
+          "errors": 0,
+          "wall_ns": 25499049
+        },
+        "pwa_combined_pwa": {
+          "calls": 60,
+          "cpu_ns": 30548990,
+          "errors": 0,
+          "wall_ns": 35346280
+        },
+        "pwa_drive_pwa": {
+          "calls": 302,
+          "cpu_ns": 18351037,
+          "errors": 0,
+          "wall_ns": 19003901
+        },
+        "pwa_lower_envelope": {
+          "calls": 248,
+          "cpu_ns": 4448396,
+          "errors": 0,
+          "wall_ns": 4866579
+        },
+        "pwa_reduce_frontier": {
+          "calls": 27,
+          "cpu_ns": 4956005,
+          "errors": 0,
+          "wall_ns": 6048734
+        },
+        "pwa_schedule_pwa": {
+          "calls": 122,
+          "cpu_ns": 83006286,
+          "errors": 0,
+          "wall_ns": 95508132
+        },
+        "pwa_stop": {
+          "calls": 248,
+          "cpu_ns": 135005832,
+          "errors": 0,
+          "wall_ns": 155124516
+        },
+        "road_bound": {
+          "calls": 567,
+          "cpu_ns": 573528878,
+          "errors": 0,
+          "wall_ns": 633300527
+        },
+        "road_labels": {
+          "calls": 151,
+          "cpu_ns": 110873010033,
+          "errors": 0,
+          "wall_ns": 115542273366
+        },
+        "road_leg": {
+          "calls": 302,
+          "cpu_ns": 112392103648,
+          "errors": 0,
+          "wall_ns": 117146737476
+        },
+        "road_path": {
+          "calls": 151,
+          "cpu_ns": 1025213278,
+          "errors": 0,
+          "wall_ns": 1077918296
+        }
+      },
+      "total_observed_wall_s": 159.79530677599905
+    }
+  ],
+  "schema": "hiroute.exact_diagnostics_two_row_results.v1",
+  "separate_preparation_allowance_s": 120,
+  "source_entries_verified": 93,
+  "two_rows_only": true
+}
