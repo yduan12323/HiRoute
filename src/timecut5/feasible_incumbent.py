@@ -82,6 +82,8 @@ def recover_feasible_incumbent(checkpoint_path, *, expected_checkpoint_sha256,
             snap.get('denominator_included') is not False):
         raise ValueError('Unsupported checkpoint provenance or claims')
     provider = catalog.provider
+    from .routing_config import require_full_verifier
+    require_full_verifier(provider, fresh=True)
     if (not isinstance(catalog, sparse_seed.SparseSeedCatalog) or
             provider.source_run_count != 0 or provider.legs or
             provider.edge_witnesses or provider._source_labels):
@@ -89,6 +91,7 @@ def recover_feasible_incumbent(checkpoint_path, *, expected_checkpoint_sha256,
     source = dict(provider.source_sha256)
     approved = dict(approved_verifier_sha256)
     def recheck():
+        require_full_verifier(provider, fresh=False)
         if (verifier_sources() != approved or
                 _file_sha(nodes_path) != source['nodes'] or
                 _file_sha(edges_path) != source['edges'] or

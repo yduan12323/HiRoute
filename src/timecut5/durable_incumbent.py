@@ -71,6 +71,18 @@ def _witness(value):
         tuple(map(tuple,value['pi'])),State(*value['state']),tuple(events))
 
 
+def _independent_replay(problem_factory, witness):
+    from .routing_config import require_full_verifier
+    problem = problem_factory()
+    provider = getattr(problem, 'provider', None)
+    if provider is not None:
+        require_full_verifier(provider, fresh=True)
+    result = _replay_problem(problem, witness)
+    if provider is not None:
+        require_full_verifier(provider, fresh=False)
+    return result
+
+
 def load_verified(path, *, problem_factory, binding_supplier):
     """Recover only feasible route evidence, using fresh independent replay.
 
@@ -90,7 +102,7 @@ def load_verified(path, *, problem_factory, binding_supplier):
             payload['method'] not in ('flat','hier') or payload['binding']!=expected):
         raise ValueError('Durable record schema/domain/source mismatch')
     witness=_witness(payload['witness'])
-    key=_replay_problem(problem_factory(),witness)
+    key=_independent_replay(problem_factory,witness)
     if encoded(key)!=encoded(payload['lex_key']) or _binding(binding_supplier())!=expected:
         raise ValueError('Replay key or current binding mismatch')
     return witness,key
@@ -123,7 +135,7 @@ class AtomicIncumbentStore:
         if _binding(self.binding_supplier())!=self.binding:
             raise ValueError('Current domain/source changed')
         # This replay is independent of the solver that emitted the candidate.
-        replayed=_replay_problem(self.problem_factory(),witness)
+        replayed=_independent_replay(self.problem_factory,witness)
         if replayed!=key or _binding(self.binding_supplier())!=self.binding:
             raise ValueError('Candidate key or current domain/source mismatch')
         if self.best_key is not None and key>=self.best_key:

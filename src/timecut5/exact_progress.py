@@ -98,7 +98,7 @@ class ExactSearchProgress:
             return {}
         result = {n:getattr(self.provider,n) for n in ('source_run_count',
             'source_cache_bytes','source_cache_hits','source_cache_evictions',
-            'source_cache_skips') if hasattr(self.provider,n)}
+            'source_cache_skips','target_run_count') if hasattr(self.provider,n)}
         result['selected_pairs'] = len(self.provider.legs)
         return result
 

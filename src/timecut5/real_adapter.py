@@ -50,12 +50,14 @@ class _OnDemandRealLegs(AbstractMapping):
 
 class _TableFreeRealLegs(AbstractMapping):
     """Exact selected-leg lookup; iteration exposes cached pairs only."""
-    def __init__(self, provider, rate):
+    def __init__(self, provider, rate, terminal_target=None):
         self.provider, self.rate = provider, rate
+        self.terminal_target = terminal_target
 
     def __getitem__(self, pair):
         source, target = pair
-        leg = self.provider.leg(source, target)
+        leg = self.provider.leg(source, target,
+            target_only=self.terminal_target is not None and target == self.terminal_target)
         if not leg.reachable:
             raise KeyError(pair)
         return RealLegPrimitive(leg.time, leg.energy(self.rate), leg.actual_length,
@@ -82,7 +84,8 @@ class TableFreeRealProblem(Problem):
     """
     def __init__(self, query: Mapping, sites: Mapping, provider, *,
                  origin_anchor: str, destination_anchor: str,
-                 site_catalog_sha256: str):
+                 site_catalog_sha256: str,
+                 terminal_target_routing: bool = False):
         from .road_provider import TableFreeRoadSelectedLegProvider
         if not isinstance(provider, TableFreeRoadSelectedLegProvider):
             raise ValueError("Table-free native selected-leg provider required")
@@ -108,7 +111,16 @@ class TableFreeRealProblem(Problem):
         self._configure_query(configured)
         self.site_anchors = MappingProxyType({sid: site.anchor_id
                                               for sid, site in site_rows.items()})
-        self.legs = _TableFreeRealLegs(provider, self.rate)
+        if type(terminal_target_routing) is not bool:
+            raise ValueError("Terminal target routing requires an explicit boolean")
+        if terminal_target_routing and (
+                not callable(getattr(provider.router, "target_edges", None)) or
+                getattr(provider.router, "role", None) != "search" or
+                getattr(provider.router, "mode", None) != "destination_target"):
+            raise ValueError("Explicit search-only destination-target router required")
+        self.terminal_target_routing = terminal_target_routing
+        self.legs = _TableFreeRealLegs(provider, self.rate,
+            destination_anchor if terminal_target_routing else None)
         self.provider = provider
         self.site_catalog_sha256 = site_catalog_sha256
 

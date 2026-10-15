@@ -60,6 +60,22 @@ class TableFreeRoadSelectedLegProvider:
         self.source_sha256 = dict(nodes=nodes_sha256, edges=edges_sha256,
                                   router=router_sha256, anchors=anchor_catalog_sha256,
                                   tie_policy=hashlib.sha256(TIE_POLICY.encode()).hexdigest())
+        # The legacy full-only source map stays byte-for-byte compatible. New
+        # explicit role contexts bind the authenticated native semantics/build.
+        if getattr(router, "role", None) is not None:
+            verify = getattr(router, "verify_artifact", None)
+            if not callable(verify) or not callable(getattr(router, "validate_binding", None)):
+                raise ValueError("Owned native boundary required for explicit roles")
+            verify()
+            artifact = getattr(router, "artifact", None)
+            if (not isinstance(artifact, dict) or
+                    any(type(artifact.get(k)) is not str or
+                        re.fullmatch(r"[0-9a-f]{64}", artifact[k]) is None
+                        for k in ("semantic_contract_sha256", "artifact_identity_sha256"))):
+                raise ValueError("Authenticated explicit-role native identity required")
+            self.source_sha256.update(
+                settlement_policy=artifact["semantic_contract_sha256"],
+                native_artifact=artifact["artifact_identity_sha256"])
         self.legs: dict[tuple[str, str], SelectedLeg] = {}
         self.edge_witnesses: dict[tuple[str, str], tuple[int, ...] | None] = {}
         self.source_cache_max_bytes = source_cache_max_bytes
@@ -70,6 +86,7 @@ class TableFreeRoadSelectedLegProvider:
         self.source_cache_evictions = 0
         self.source_cache_skips = 0
         self.source_run_count = 0
+        self.target_run_count = 0
         self.route_wall_ns = 0
         self.route_process_cpu_ns = 0
 
@@ -140,6 +157,20 @@ class TableFreeRoadSelectedLegProvider:
         self.source_cache_bytes += actual_size
         return owned
 
+    @progress.operation('road_labels')
+    def _target_labels(self, source_node, target_node):
+        # A full-source cache hit is already final for every target. Reuse it,
+        # preserving the original hit counter and LRU promotion behavior.
+        cached = self._source_labels.pop(source_node, None)
+        if cached is not None:
+            self._source_labels[source_node] = cached
+            self.source_cache_hits += 1
+            return cached[0]
+        labels = self.router.target_edges(source_node, target_node)
+        self.target_run_count += 1
+        # Never admit partial labels into the source-label LRU.
+        return labels
+
     @progress.operation('road_path')
     def _path(self, source_node, target_node, parent, parent_edge):
         if source_node == target_node:
@@ -158,7 +189,14 @@ class TableFreeRoadSelectedLegProvider:
         return tuple(reversed(backward))
 
     @progress.operation('road_leg')
-    def leg(self, source: str, target: str) -> SelectedLeg:
+    def leg(self, source: str, target: str, *, target_only: bool = False) -> SelectedLeg:
+        if type(target_only) is not bool:
+            raise ValueError("Explicit target boolean required")
+        if getattr(self.router, "role", None) is not None:
+            self.router.validate_binding()
+        if target_only and (getattr(self.router, "role", None) != "search" or
+                            getattr(self.router, "mode", None) != "destination_target"):
+            raise ValueError("Target execution is search-only and opt-in")
         if source not in self.anchor_nodes or target not in self.anchor_nodes:
             raise ValueError("Unknown road anchor")
         key = source, target
@@ -166,7 +204,8 @@ class TableFreeRoadSelectedLegProvider:
             return self.legs[key]
         started_wall, started_cpu = time.monotonic_ns(), time.process_time_ns()
         source_node, target_node = self.anchor_nodes[source], self.anchor_nodes[target]
-        costs, lengths, parents, edges = self._labels(source_node)
+        costs, lengths, parents, edges = (self._target_labels(source_node, target_node)
+            if target_only else self._labels(source_node))
         cost, length = float(costs[target_node]), float(lengths[target_node])
         if math.isinf(cost) and math.isinf(length):
             if int(parents[target_node]) != -1 or int(edges[target_node]) != -1:
