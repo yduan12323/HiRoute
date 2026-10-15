@@ -1,0 +1,100 @@
+{
+  "final_review": {
+    "both_saved_witnesses_freshly_verified": true,
+    "comparator_independently_reproduced": true,
+    "cumulative_cpu_total": "2608.570905435",
+    "exact_phase_prefix_requests": 569,
+    "finite_completed_prefix_description_valid": true,
+    "formal_whole_comparison_speed_gate": false,
+    "historical_retained": "1954.882898201",
+    "identical_completed_prefix": 902,
+    "limitations": [
+      "Forced kill cannot publish normal worker close status; no retrospective acceptance change.",
+      "Absent status establishes neither clean cap nor unseen observer health.",
+      "Two fixed orders on one known query with different observation budgets do not isolate order effects or general superiority.",
+      "Additional122 target completions excluded from common-prefix timing; nested durations overlap."
+    ],
+    "new_cpu_total": "653.688007234",
+    "report_sha256": "df9f60ba9aedfc9ade3c796b89efef143029a5f359bb7e8bf3561b259a786094",
+    "result_files_verified": 16,
+    "results_index_sha256": "2a70f930bd4fe085492a5dc343490290765098e77d565cf71222cc244fd8c32c",
+    "run_files_verified": 127,
+    "status": "approved_scoped_final_report",
+    "target_strict_full_key_improvement": true
+  },
+  "final_review_sha256": "29b7e818563eed9254856cd1101bb6311a6aea384f4c4fccc04433c2c8b62133",
+  "identical_physical_binding_verified": true,
+  "notice": "Hashes identify retained original artifacts, not independently replayable public inputs. Raw machine paths and the large original diagnostic/event archives are omitted. No runtime code or source installation is included.",
+  "original_evidence_index_sha256": "41f67acbe78472a5af60040b481172e8b45939bfe9d6519492f1f10aad1c7baa",
+  "original_files_sha256": {
+    "ANALYSIS_OUTPUT.json": "714a52c8dab2bd44abbb54c04a5d9c1d82941087f04a46b5e275bd278ec8a6f6",
+    "COMPARATOR_RESULT.json": "a108f54b4e6bda426bfd1c510be2ca793e1bfeb01a2fc03f9e6856beb15f11f8",
+    "COMPLETED_PREFIX.json": "8e74f66d537f9d5e67c8eec14ce99191bfc003fa99e40252e680c10084710868",
+    "COVERAGE.json": "3c4b08b31d0e004a3d7a31870d16db5b5b1f6b2471e9e19ba13eda2d9a294df6",
+    "DIAGNOSTIC_SPANS.json": "35969fcfbd9a504fd0a804d6c79a029d379b612aeb4691c0b3dd7cbddb4bd245",
+    "EVIDENCE_INDEX.json": "41f67acbe78472a5af60040b481172e8b45939bfe9d6519492f1f10aad1c7baa",
+    "FORMAL_GATE_ASSESSMENT.md": "18be0fe246f650c79a57d765871dac0444565975a57d59bf3c880d31524a7f78",
+    "INDEX.json": "242f1027fdaeee5f6ec3a1c66a8a24f43e3b80f29c32ad68a686a2d3cbeea1b6",
+    "ORDER_REVERSAL_CONTEXT.json": "7c163c61b46cff1c3cb1ff2ba110250173fe410a5c9fd385898ba15c09678353",
+    "PRESERVATION.json": "6755b1276aa387c5b23a8e7f9ecd621186ec05d13888dbaceb3f1f89cb4e989a",
+    "REPORT.md": "df9f60ba9aedfc9ade3c796b89efef143029a5f359bb7e8bf3561b259a786094",
+    "RESULT.json": "18cabad6e55cc7d5b4ef9fd5f39245d5a7300cba16a15c30383de87de1985cf6",
+    "SCAFFOLD_HISTORY.md": "b27a3e0d18caa4faadb4e261b0870419d8b2907f2f6f873ec29d09f65a70f9c3",
+    "STAGE_SUMMARY.json": "0a1f82f931143667adc7d3abbeca3e3031fba760c3ce65ba55fee281d1c83fcc",
+    "WORK_AND_WITNESSES.json": "b142f81240caef1233e45231a4f09467f0bf2593c1faf6a4996e7d270e3edebe",
+    "analyze_existing_evidence.py": "8b8bcf53e97f53d2edd6f886e51cf193447d289ebae6ef1ea66a14b9415a8233"
+  },
+  "original_hmax": 39,
+  "original_result_package_sha256": "2a70f930bd4fe085492a5dc343490290765098e77d565cf71222cc244fd8c32c",
+  "original_runtime_provenance_sha256": {
+    "full": "308ae322a1cfe58a9fbcbd01d8b19706935ddaf4307bc1167e920da624f62f28",
+    "target": "b5516bf893500028e8a276f6273bf60eb5cea0beab46b7f2abec513f4cde8cff"
+  },
+  "preservation": {
+    "candidate_package_files_verified_unchanged": 368,
+    "candidate_package_sha256": "1a7749c3864ba94bc62392b26a3fd84fa0cde8e2ec909bb23d700c55f63abd5e",
+    "historical_charge_evidence_verified_unchanged": 54,
+    "new_graph_or_routing_work": false,
+    "original_gate_unchanged": true,
+    "prospective_manifest_sha256": "030eb71ded3b3cec9ec9c6d9a1a4631abb85c112daa7a4d4cc7994030e064dbd",
+    "schema": "hiroute.v8_final_preservation.v1",
+    "source_closure_sha256": "2a3d11eb44049a4519cd0ea357806672da72d9f8b9db2f57ea4898ddeaefae2e",
+    "source_files_verified_unchanged": 204,
+    "terminal_run_files_verified_unchanged": 127
+  },
+  "publication_rechecked": {
+    "run_files_sha256": 127,
+    "used_files_sha256": 92
+  },
+  "shared_build_verified_all_roles_both_searches": true,
+  "shared_initial_key": [
+    "60345046666582454103/1717986918400000",
+    "51140252490566531/429496729600000",
+    2,
+    [
+      [
+        "4r:node/11118978435",
+        "CS"
+      ],
+      [
+        "4r:node/10088989871",
+        "C"
+      ]
+    ]
+  ],
+  "shared_native_build": {
+    "binary_sha256": "f771a5806d8704e3dff2596b4e632dace50da56303ea2677d8a8a3384a12c11c",
+    "compiler_flags": [
+      "-O3",
+      "-std=c++17"
+    ],
+    "compiler_sha256": "6b3696e4dcb85e1c949c732a02befa50e3983ecf94ce7e8e58d9d503b954b79d",
+    "compiler_version": "x86_64-linux-gnu-g++-14 (Debian 14.2.0-19) 14.2.0",
+    "link_flags": [
+      "-shared",
+      "-fPIC"
+    ],
+    "source_sha256": "e1df6b946fad721435fe61fa546c79a7c1d0d656990474b9916a96bb7931fc48",
+    "wrapper_sha256": "cddc6be1a6eb7441c54a3bc0411dd58f5f81f0be65892f214cb95a3ac5b022ef"
+  }
+}
