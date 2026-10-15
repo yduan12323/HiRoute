@@ -1,0 +1,583 @@
+{
+  "admitted_sha256": "8ab2ceeccabb1ed9431c51df9eeef124c7bc01864f85a71c66d60e47ba180f60",
+  "blocked_searches": 2,
+  "completed_best_replays": 4,
+  "completed_orchestration_debits": 113,
+  "completed_searches": 4,
+  "continuation_requires_separate_admission": true,
+  "failure": "OD10.verify_seed preflight exhausted remaining orchestration allowance; no verification worker launched; failed150 debit retained",
+  "full_orchestration_allowance_cpu_seconds": 120,
+  "limitations": [
+    "No optimality or gap claim; all four searches timed out",
+    "Work counters are sampled/censored, local Region queue bounds are not global",
+    "OD07 original128 exhausted heuristic only; fresh149-domain feasibility separately bound",
+    "OD10 preparation is provisional only; both blocked method rows remain in denominator",
+    "Controller pre/post CPU excludes core supervisor and numerical worker; source-level repeated prior-chain authentication is observed, per-operation CPU attribution unavailable"
+  ],
+  "method_rows": [
+    {
+      "best_key": [
+        "89231180441089702031/3435973836800000",
+        "59082310507418349/858993459200000",
+        2,
+        [
+          [
+            "4r:node/10652698226",
+            "C"
+          ],
+          [
+            "4r:node/12090131433",
+            "C"
+          ]
+        ]
+      ],
+      "case": "od02",
+      "common_seed_sha256": "1b248574633889ca891328443db93d48de669c02659ba427fac2d9464d796302",
+      "denominator_included": true,
+      "initial_key": [
+        "102542262038922263369/3435973836800000",
+        "80857457560385401/858993459200000",
+        2,
+        [
+          [
+            "4r:node/10652698226",
+            "C"
+          ],
+          [
+            "4r:node/10865655524",
+            "C"
+          ]
+        ]
+      ],
+      "method": "flat",
+      "original_max_depth": 33,
+      "postentry_provider_deltas": {
+        "region_bound_online_internal_member_accesses": 0,
+        "region_bound_online_leaf_action_reads": 0,
+        "region_bound_online_mask_word_work": 0,
+        "region_bound_online_queries": 351,
+        "selected_pairs": 240,
+        "source_cache_bytes": -188560456,
+        "source_cache_evictions": 47,
+        "source_cache_hits": 194,
+        "source_cache_skips": 0,
+        "source_run_count": 46
+      },
+      "quality": {
+        "global_lower_bound_available": false,
+        "global_optimality_gap": "NA",
+        "near_optimality_claimed": false,
+        "primary_improvement": "6655540798916280669/1717986918400000",
+        "primary_relative_improvement": "13311081597832561338/102542262038922263369",
+        "secondary_change": "5443786763241763/214748364800000",
+        "stop_count_change": 0,
+        "strict_full_key_improvement": true
+      },
+      "sampled_provider_metrics": {
+        "region_bound_online_internal_member_accesses": 0,
+        "region_bound_online_leaf_action_reads": 0,
+        "region_bound_online_mask_word_work": 0,
+        "region_bound_online_queries": 351,
+        "selected_pairs": 243,
+        "source_cache_bytes": 188560456,
+        "source_cache_evictions": 48,
+        "source_cache_hits": 194,
+        "source_cache_skips": 0,
+        "source_run_count": 49
+      },
+      "sampled_work": {
+        "attempted": 351,
+        "depth": 2,
+        "expanded_prefix_groups": 6,
+        "feasible": 160,
+        "frontier_groups": 46,
+        "frontier_pieces": 530,
+        "generated_advance_pieces": 1674,
+        "incumbent_primary_upper": "89231180441089702031/3435973836800000",
+        "pending_next_pieces": 870,
+        "terminal_pieces": 0
+      },
+      "status": "fresh_best_verified"
+    },
+    {
+      "best_key": [
+        "22500600618780404673/858993459200000",
+        "119086816876302471/1717986918400000",
+        2,
+        [
+          [
+            "4r:node/9569604034",
+            "C"
+          ],
+          [
+            "4r:node/12090131433",
+            "C"
+          ]
+        ]
+      ],
+      "case": "od02",
+      "common_seed_sha256": "1b248574633889ca891328443db93d48de669c02659ba427fac2d9464d796302",
+      "denominator_included": true,
+      "initial_key": [
+        "102542262038922263369/3435973836800000",
+        "80857457560385401/858993459200000",
+        2,
+        [
+          [
+            "4r:node/10652698226",
+            "C"
+          ],
+          [
+            "4r:node/10865655524",
+            "C"
+          ]
+        ]
+      ],
+      "method": "hier",
+      "original_max_depth": 33,
+      "postentry_provider_deltas": {
+        "region_bound_online_internal_member_accesses": 0,
+        "region_bound_online_leaf_action_reads": 68,
+        "region_bound_online_mask_word_work": 6415,
+        "region_bound_online_queries": 263,
+        "selected_pairs": 132,
+        "source_cache_bytes": -188560456,
+        "source_cache_evictions": 39,
+        "source_cache_hits": 94,
+        "source_cache_skips": 0,
+        "source_run_count": 38
+      },
+      "quality": {
+        "global_lower_bound_available": false,
+        "global_optimality_gap": "NA",
+        "near_optimality_claimed": false,
+        "primary_improvement": "12539859563800644677/3435973836800000",
+        "primary_relative_improvement": "1791408509114377811/14648894576988894767",
+        "secondary_change": "42628098244468331/1717986918400000",
+        "stop_count_change": 0,
+        "strict_full_key_improvement": true
+      },
+      "sampled_provider_metrics": {
+        "region_bound_online_internal_member_accesses": 0,
+        "region_bound_online_leaf_action_reads": 68,
+        "region_bound_online_mask_word_work": 6415,
+        "region_bound_online_queries": 263,
+        "selected_pairs": 135,
+        "source_cache_bytes": 188560456,
+        "source_cache_evictions": 40,
+        "source_cache_hits": 94,
+        "source_cache_skips": 0,
+        "source_run_count": 41
+      },
+      "sampled_work": {
+        "active_region_primary_lower_bound": "7337660293588765/549755813888",
+        "attempted": 105,
+        "depth": 1,
+        "expanded_prefix_groups": 2,
+        "feasible": 42,
+        "frontier_groups": 2,
+        "frontier_pieces": 12,
+        "generated_advance_pieces": 356,
+        "incumbent_primary_upper": "22500600618780404673/858993459200000",
+        "local_queue_min_primary_lower_bound": "7421772933113629/549755813888",
+        "local_queue_scope": "Current prefix only; excludes other prefixes and pending next layer",
+        "local_queue_size": 4,
+        "pending_next_pieces": 344,
+        "region_nodes": 259,
+        "terminal_pieces": 0
+      },
+      "status": "fresh_best_verified"
+    },
+    {
+      "best_key": [
+        "93527166760714364361/3435973836800000",
+        "6389683793563113/85899345920000",
+        2,
+        [
+          [
+            "4r:node/10088989871",
+            "C"
+          ],
+          [
+            "4r:node/11013731180",
+            "CS"
+          ]
+        ]
+      ],
+      "case": "od07",
+      "common_seed_sha256": "56b62553e404a3187c58bc74e7d0947a9f4f27e05ad84a3781bdd025a955e714",
+      "denominator_included": true,
+      "initial_key": [
+        "4631380169628339331/137438953472000",
+        "1882277661060431/17179869184000",
+        2,
+        [
+          [
+            "4r:node/4683740340",
+            "CS"
+          ],
+          [
+            "4r:node/10039741536",
+            "C"
+          ]
+        ]
+      ],
+      "method": "flat",
+      "original_max_depth": 37,
+      "postentry_provider_deltas": {
+        "region_bound_online_internal_member_accesses": 0,
+        "region_bound_online_leaf_action_reads": 0,
+        "region_bound_online_mask_word_work": 0,
+        "region_bound_online_queries": 337,
+        "selected_pairs": 207,
+        "source_cache_bytes": 0,
+        "source_cache_evictions": 52,
+        "source_cache_hits": 155,
+        "source_cache_skips": 0,
+        "source_run_count": 52
+      },
+      "quality": {
+        "global_lower_bound_available": false,
+        "global_optimality_gap": "NA",
+        "near_optimality_claimed": false,
+        "primary_improvement": "11128668739997059457/1717986918400000",
+        "primary_relative_improvement": "22257337479994118914/115784504240708483275",
+        "secondary_change": "1510852255869521/42949672960000",
+        "stop_count_change": 0,
+        "strict_full_key_improvement": true
+      },
+      "sampled_provider_metrics": {
+        "region_bound_online_internal_member_accesses": 0,
+        "region_bound_online_leaf_action_reads": 0,
+        "region_bound_online_mask_word_work": 0,
+        "region_bound_online_queries": 337,
+        "selected_pairs": 210,
+        "source_cache_bytes": 377120912,
+        "source_cache_evictions": 53,
+        "source_cache_hits": 155,
+        "source_cache_skips": 0,
+        "source_run_count": 55
+      },
+      "sampled_work": {
+        "attempted": 337,
+        "depth": 1,
+        "expanded_prefix_groups": 2,
+        "feasible": 111,
+        "frontier_groups": 87,
+        "frontier_pieces": 320,
+        "generated_advance_pieces": 572,
+        "incumbent_primary_upper": "93527166760714364361/3435973836800000",
+        "pending_next_pieces": 237,
+        "terminal_pieces": 0
+      },
+      "status": "fresh_best_verified"
+    },
+    {
+      "best_key": [
+        "4631380169628339331/137438953472000",
+        "1882277661060431/17179869184000",
+        2,
+        [
+          [
+            "4r:node/4683740340",
+            "CS"
+          ],
+          [
+            "4r:node/10039741536",
+            "C"
+          ]
+        ]
+      ],
+      "case": "od07",
+      "common_seed_sha256": "56b62553e404a3187c58bc74e7d0947a9f4f27e05ad84a3781bdd025a955e714",
+      "denominator_included": true,
+      "initial_key": [
+        "4631380169628339331/137438953472000",
+        "1882277661060431/17179869184000",
+        2,
+        [
+          [
+            "4r:node/4683740340",
+            "CS"
+          ],
+          [
+            "4r:node/10039741536",
+            "C"
+          ]
+        ]
+      ],
+      "method": "hier",
+      "original_max_depth": 37,
+      "postentry_provider_deltas": {
+        "region_bound_online_internal_member_accesses": 0,
+        "region_bound_online_leaf_action_reads": 244,
+        "region_bound_online_mask_word_work": 25080,
+        "region_bound_online_queries": 884,
+        "selected_pairs": 267,
+        "source_cache_bytes": -188560456,
+        "source_cache_evictions": 60,
+        "source_cache_hits": 208,
+        "source_cache_skips": 0,
+        "source_run_count": 59
+      },
+      "quality": {
+        "global_lower_bound_available": false,
+        "global_optimality_gap": "NA",
+        "near_optimality_claimed": false,
+        "primary_improvement": "0",
+        "primary_relative_improvement": "0",
+        "secondary_change": "0",
+        "stop_count_change": 0,
+        "strict_full_key_improvement": false
+      },
+      "sampled_provider_metrics": {
+        "region_bound_online_internal_member_accesses": 0,
+        "region_bound_online_leaf_action_reads": 244,
+        "region_bound_online_mask_word_work": 25080,
+        "region_bound_online_queries": 884,
+        "selected_pairs": 270,
+        "source_cache_bytes": 188560456,
+        "source_cache_evictions": 61,
+        "source_cache_hits": 208,
+        "source_cache_skips": 0,
+        "source_run_count": 62
+      },
+      "sampled_work": {
+        "active_region_primary_lower_bound": "8369496637327653/687194767360",
+        "attempted": 407,
+        "depth": 1,
+        "expanded_prefix_groups": 2,
+        "feasible": 199,
+        "frontier_groups": 87,
+        "frontier_pieces": 320,
+        "generated_advance_pieces": 1562,
+        "incumbent_primary_upper": "4631380169628339331/137438953472000",
+        "local_queue_min_primary_lower_bound": "8369496637327653/687194767360",
+        "local_queue_scope": "Current prefix only; excludes other prefixes and pending next layer",
+        "local_queue_size": 14,
+        "pending_next_pieces": 1227,
+        "region_nodes": 870,
+        "terminal_pieces": 0
+      },
+      "status": "fresh_best_verified"
+    },
+    {
+      "case": "od10",
+      "common_seed_freshly_verified": false,
+      "denominator_included": true,
+      "method": "flat",
+      "search_started": false,
+      "status": "blocked_by_global_controller_stop"
+    },
+    {
+      "case": "od10",
+      "common_seed_freshly_verified": false,
+      "denominator_included": true,
+      "method": "hier",
+      "search_started": false,
+      "status": "blocked_by_global_controller_stop"
+    }
+  ],
+  "planned_denominator": 6,
+  "schema": "hiroute.go1_stopped_result.v1",
+  "stage_charge_cpu_seconds": 1417.4445188309999,
+  "stage_results": [
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 26.084768775999997,
+      "containment_reason": "success",
+      "controller_prepost_cpu_seconds": 1.066971421,
+      "global_failure": false,
+      "outcome": "provisional_seed_saved",
+      "runtime_orchestration_debit_cpu_seconds": 5,
+      "stage": "od02.prepare",
+      "terminal": {
+        "sha256": "3de82fb55534330c5355d5cd20e0d01bb2c4713516f54e7ce4e5eeaa35add4c7"
+      }
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 19.973181686,
+      "containment_reason": "success",
+      "controller_prepost_cpu_seconds": 1.4108153099999998,
+      "global_failure": false,
+      "outcome": "verified_feasible_seed",
+      "runtime_orchestration_debit_cpu_seconds": 5,
+      "stage": "od02.verify_seed",
+      "terminal": {
+        "sha256": "6901f4c6633107d227d940eef6a4a361185ef09284c13726d5ef504ca537d3a5"
+      }
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 189.455295632,
+      "containment_reason": "exact_wall_timeout",
+      "controller_prepost_cpu_seconds": 1.6526087580000013,
+      "global_failure": false,
+      "outcome": "exact_timeout_feasible",
+      "runtime_orchestration_debit_cpu_seconds": 5,
+      "stage": "od02.flat.search",
+      "terminal": {
+        "sha256": "a12ecb3ec6c2474b342fafc072cd124c811e6521b7903e22c309380d9f5c32f1"
+      }
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 30.035250157,
+      "containment_reason": "success",
+      "controller_prepost_cpu_seconds": 1.6745018540000003,
+      "global_failure": false,
+      "outcome": "verified_best",
+      "runtime_orchestration_debit_cpu_seconds": 5,
+      "stage": "od02.flat.replay",
+      "terminal": {
+        "sha256": "d0f1204d4d96e5152187c5bfddd9c44d09d7f687901cbc487bb5db1bdcd58886"
+      }
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 203.135598678,
+      "containment_reason": "exact_wall_timeout",
+      "controller_prepost_cpu_seconds": 1.838706234,
+      "global_failure": false,
+      "outcome": "exact_timeout_feasible",
+      "runtime_orchestration_debit_cpu_seconds": 5,
+      "stage": "od02.hier.search",
+      "terminal": {
+        "sha256": "a29d557d83ad9725c3fcda782a256501a5920c0c3a7b29c45952b94725cced65"
+      }
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 39.95318125,
+      "containment_reason": "success",
+      "controller_prepost_cpu_seconds": 1.9245684760000001,
+      "global_failure": false,
+      "outcome": "verified_best",
+      "runtime_orchestration_debit_cpu_seconds": 5,
+      "stage": "od02.hier.replay",
+      "terminal": {
+        "sha256": "d966f1a78adc55113f94baaeb60797ab12e928e1c8e5ef7d11d0e30c83ad3f63"
+      }
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 258.596007102,
+      "containment_reason": "success",
+      "controller_prepost_cpu_seconds": 3.0041922839999997,
+      "global_failure": false,
+      "outcome": "provisional_seed_saved",
+      "runtime_orchestration_debit_cpu_seconds": 7,
+      "stage": "od07.prepare",
+      "terminal": {
+        "sha256": "2cf705caa6f32d78474406b89b7c90d22601a65015e1ec63bc0da275aad3bc3d"
+      }
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 19.537516080999996,
+      "containment_reason": "success",
+      "controller_prepost_cpu_seconds": 5.072128466000001,
+      "global_failure": false,
+      "outcome": "verified_feasible_seed",
+      "runtime_orchestration_debit_cpu_seconds": 9,
+      "stage": "od07.verify_seed",
+      "terminal": {
+        "sha256": "05969ebbeb2b26d0ae3a52e6df7fed8e19e28af6c4c4431b6ccd6aa0e10329b1"
+      }
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 189.96481395499998,
+      "containment_reason": "exact_wall_timeout",
+      "controller_prepost_cpu_seconds": 7.037108834999998,
+      "global_failure": false,
+      "outcome": "exact_timeout_feasible",
+      "runtime_orchestration_debit_cpu_seconds": 11,
+      "stage": "od07.hier.search",
+      "terminal": {
+        "sha256": "77d9ca7af1866261a950d0a8b893b11371be63d66897e79ef26bdff9172bf55a"
+      }
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 26.55254858,
+      "containment_reason": "success",
+      "controller_prepost_cpu_seconds": 8.390234915,
+      "global_failure": false,
+      "outcome": "verified_best",
+      "runtime_orchestration_debit_cpu_seconds": 12,
+      "stage": "od07.hier.replay",
+      "terminal": {
+        "sha256": "c56ff3509c1357d631f35cd3ac81b601dd88932786ac22873b0c2b199a0cb4cf"
+      }
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 216.681206195,
+      "containment_reason": "exact_wall_timeout",
+      "controller_prepost_cpu_seconds": 13.257455638000003,
+      "global_failure": false,
+      "outcome": "exact_timeout_feasible",
+      "runtime_orchestration_debit_cpu_seconds": 17,
+      "stage": "od07.flat.search",
+      "terminal": {
+        "sha256": "215a904ec7353b19214ea3e0ff79615e208480fd55560193d442374c1399bd35"
+      }
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 32.478311562,
+      "containment_reason": "success",
+      "controller_prepost_cpu_seconds": 10.131964196999999,
+      "global_failure": false,
+      "outcome": "verified_best",
+      "runtime_orchestration_debit_cpu_seconds": 14,
+      "stage": "od07.flat.replay",
+      "terminal": {
+        "sha256": "3a9b16a29de5a10c5f30290ea27fec84a6e588a119711efce6c4489726e1eab5"
+      }
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 14.996839177000002,
+      "containment_reason": "success",
+      "controller_prepost_cpu_seconds": 9.443682791,
+      "global_failure": false,
+      "outcome": "provisional_seed_saved",
+      "runtime_orchestration_debit_cpu_seconds": 13,
+      "stage": "od10.prepare",
+      "terminal": {
+        "sha256": "5a84a0e4fa815403c3771321bbdc69d3aac6bc4141db149174b19abd9f15b535"
+      }
+    },
+    {
+      "accounting_complete": false,
+      "cleanup_verified": false,
+      "conservative_charge_cpu_seconds": 150,
+      "containment_reason": null,
+      "global_failure": true,
+      "outcome": "controller_error",
+      "runtime_orchestration_debit_cpu_seconds": null,
+      "stage": "od10.verify_seed",
+      "terminal": {
+        "sha256": "62566c391b2a6c23da0fc50183bc7aa9485cffa02862f1be3f276ae08605f9d1"
+      }
+    }
+  ],
+  "state": "global_stop_preserved",
+  "total_conservative_cpu_seconds": 1537.4445188309999
+}
