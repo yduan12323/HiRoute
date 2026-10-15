@@ -379,17 +379,27 @@ def iter_constructive_seed_candidates(query: Mapping, table: ImmutableLegTable):
         site = table.site(site_id)
         if site.anchor_id == table.destination_anchor:
             continue
+        effects = tuple(effect for effect in sorted(site.effects)
+                        if effect in ("C", "S", "CS") and
+                        (effect in ("S", "CS")) == bool(remaining))
+        if not effects:
+            continue
         inbound = table.leg(table.origin_anchor, site.anchor_id)
-        outbound = table.leg(site.anchor_id, table.destination_anchor)
-        if not inbound.reachable or not outbound.reachable:
+        if not inbound.reachable:
             continue
         arrival = initial - inbound.energy(consumption)
         if arrival < floor_energy:
             continue
-        terminal_need = outbound.energy(consumption) + reserve - arrival
-        for effect in sorted(site.effects):
-            if (effect in ("S", "CS")) != bool(remaining):
+        # Reject charge-only actions with no headroom before routing outbound.
+        if capacity - arrival <= 0:
+            effects = tuple(effect for effect in effects if effect == "S")
+            if not effects:
                 continue
+        outbound = table.leg(site.anchor_id, table.destination_anchor)
+        if not outbound.reachable:
+            continue
+        terminal_need = outbound.energy(consumption) + reserve - arrival
+        for effect in effects:
             if effect == "S":
                 if terminal_need <= 0:
                     yield (((site_id, effect),), ())
