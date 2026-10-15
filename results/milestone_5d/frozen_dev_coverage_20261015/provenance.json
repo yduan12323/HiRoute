@@ -1,0 +1,32 @@
+{
+  "admitted_parent_sha256": "8067a5d5141f29028544c170e49467e38e38607244a064aea8a5a7ec41d9e095",
+  "all_original_inventory_hashes_rechecked": true,
+  "experimental_runtime_installed_by_this_publication": false,
+  "experimental_source_closure_sha256": "7a77a90e49411b58091047bccf3c6a086ca4b283f03157f07aa7ee04136b4da5",
+  "independent_physical_replay_rerun_by_publication": false,
+  "original_evidence_artifact_count": 161,
+  "original_evidence_inventory_sha256": "9836c023bd03b45182c1fb7ff397dbf9d510a70174a49f6d247bf2fa9c00fe71",
+  "original_selected_artifact_sha256": {
+    "od00_n32_durable_record": "56101d04af3b5ba87f99b9c6e58db8446e4b26cdecf1b38007127867d8603f8f",
+    "od00_n32_handoff": "d4645feebb2ccdf6132f9d4d8d380d857e604688f73f498774127bda5b9c49e4",
+    "od00_n32_initial_snapshot": "0d26d9e2293740a388ef310931abe9887442c5bc81a4b64e1ddaeddc799fe534",
+    "od00_n32_replay_result": "859de5f99d03467f4f153ff1df266feb4aa6b3dcf97775004038e6370c8ee71d",
+    "od00_n32_terminal": "e544a74a470161d7887a80819c1e2e523fad25cb23ce4aec381aa96e48283f34",
+    "od00_replay_terminal": "4e293b324b2d7bcd42571a01fbf554ee0184c1edbaf2e03e214ec10a6b36cfe2",
+    "od06_n128_durable_record": "017b610df587963b717ba3fa6b06671da6e99f9c31110eece09b1efee75730a0",
+    "od06_n128_handoff": "c5c4a2cb8032a3b0ca9e5f001ce78b6468464a346798a5da3c456daa26c4f7bf",
+    "od06_n128_initial_snapshot": "6305ac2bb761980f31426f37c0480b9d5aaa89c0c23b03c5f6eed956f1c14052",
+    "od06_n128_replay_result": "0cec2b87caa86fbe3b3ea1d69e069a4f02200f219c71048ab69fd9394ae1846f",
+    "od06_n128_terminal": "cc55c91e176481391ad5c1e1565982f8e371df0239777f8ab451262611906a1b",
+    "od06_replay_terminal": "117c55a6734cc5e0d619f60a0f64b9027080ff68d34c0ba820e4da775982e803",
+    "original_additive_audit": "6ca26b62109cf4a8764c6b57843d4202184daefa346b44ebbaea47b68f48e888",
+    "original_final_coverage_json": "3020c5f944d36c62cb62ebddcaafeadec77270fac8e5e14394d9b3ef309c934b",
+    "original_final_coverage_report": "44838a5618fc7334260194038626211b2840101f3c1f00fb256e9676770fbff6",
+    "original_final_evidence_inventory": "9836c023bd03b45182c1fb7ff397dbf9d510a70174a49f6d247bf2fa9c00fe71",
+    "original_final_review": "e495ea9e2dffa9004d99a30d22c083ac8e8b5699f7c5c42df05cc0bd3ef3544c",
+    "original_historical_n32_record": "78304031dbfca2c05885188254da109974b7e9927f69e5eb170513e8c105705f"
+  },
+  "schema": "hiroute.finite_dev_publication_provenance.v1",
+  "scope": "Report and minimal evidence projections only; not a standalone executable reproduction bundle. Original graph/native/runtime sources must be independently obtained and matched before any new physical replay.",
+  "source_file_count": 86
+}

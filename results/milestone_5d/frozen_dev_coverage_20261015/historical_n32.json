@@ -1,0 +1,68 @@
+{
+  "admitted_parent_sha256": "95a0d0169a03df9e56fff406683daf685d2cb3d8110d1a9bbc21c6dfd6c0d90c",
+  "attempts_launched": [
+    "od06_n32"
+  ],
+  "authoritative_outcome": "controller_error",
+  "candidate_domain_feasibility": "unknown",
+  "cause": "Observer writes diagnostic snapshot on generation_end even without a provisional incumbent; unknown authenticator rejects any snapshot path.",
+  "charge_cpu_seconds": 670,
+  "conservative_charge_plus_full_preparation_allowance_cpu_seconds": 790,
+  "contained_process_wall_seconds": 179.3551588319824,
+  "controller_receipt_complete": false,
+  "core_cleanup_verified": true,
+  "exact_started": false,
+  "exact_wall_seconds": null,
+  "gate_maximum_cpu_seconds": 2430,
+  "global_feasibility": "unknown",
+  "global_infeasibility_claimed": false,
+  "historical_outcome_reclassified": false,
+  "original_record_sha256": "78304031dbfca2c05885188254da109974b7e9927f69e5eb170513e8c105705f",
+  "permit_next": false,
+  "phase_observations": [
+    {
+      "cpu_ns": 9520953065,
+      "stage": "production_inputs_verified",
+      "wall_ns": 11015755928
+    },
+    {
+      "cpu_ns": 10903923222,
+      "edges": 11561067,
+      "nodes": 5892498,
+      "stage": "production_graph_loaded",
+      "wall_ns": 12398853407
+    },
+    {
+      "cpu_ns": 11047234735,
+      "role": "generation",
+      "stage": "native_build_started",
+      "wall_ns": 12543268445
+    },
+    {
+      "cpu_ns": 14329637524,
+      "role": "generation",
+      "stage": "native_build_verified",
+      "wall_ns": 98993972972
+    },
+    {
+      "cpu_ns": 17561883076,
+      "stage": "generation_provider_ready",
+      "wall_ns": 102229389792
+    }
+  ],
+  "preparation_allowance_cpu_seconds": 120,
+  "publication_kind": "historical_record_projection",
+  "remaining_stages": "blocked_after_controller_error_not_executed",
+  "replays_launched": [],
+  "search_attempts_completed_under_controller": 0,
+  "status": "stopped_controller_error",
+  "worker_observation": {
+    "accepted_count": 0,
+    "generation_complete": true,
+    "proposal_count": 0,
+    "provisional_incumbent": null,
+    "source_run_count": 15
+  },
+  "worker_returncode": 0,
+  "worker_wall_seconds": 177.828230832
+}

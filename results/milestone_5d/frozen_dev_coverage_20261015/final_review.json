@@ -1,0 +1,21 @@
+{
+  "additional_numerical_runs": 0,
+  "artifact_count": 161,
+  "artifact_mismatches": [],
+  "continuation_charge_plus_allowance_cpu_s": 616.911965031,
+  "continuation_stages": 4,
+  "cumulative_with_old790_cpu_s": 1406.911965031,
+  "index_sha256": "9836c023bd03b45182c1fb7ff397dbf9d510a70174a49f6d247bf2fa9c00fe71",
+  "old_N32": "controller_error retained; additive completed-zero-proposal observation only; never N32 feasibility/infeasibility",
+  "remaining_scope_limits": [
+    "No optimum or global-gap certificate",
+    "No holdout or generalized speed/method superiority",
+    "Classifier regressions are tiny tests; runtime source remains separately frozen"
+  ],
+  "replay_outcomes": {
+    "OD00_N32": "freshly verified initial one-stop witness; original Hmax28",
+    "OD06_N128": "freshly verified strict full-lex improved two-stop witness; original Hmax39"
+  },
+  "search_outcomes": "two exact timeouts with independently admitted saved routes",
+  "status": "approved_final_finite_DEV_evidence"
+}
