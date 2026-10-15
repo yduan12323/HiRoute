@@ -16,8 +16,8 @@ def main():
     script = """
 from pathlib import Path
 import resource, sys, unittest
-import microplan.routing, timecut5.routing_config
 resource.setrlimit(resource.RLIMIT_CPU, (90, 100))
+import microplan.routing, timecut5.routing_config
 for module in (microplan.routing, timecut5.routing_config):
     if not Path(module.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()):
         raise RuntimeError('Target-routing imports must remain inside the installed wheel')

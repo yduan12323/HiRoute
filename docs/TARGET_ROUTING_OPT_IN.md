@@ -127,3 +127,25 @@ using frozen experimental wrappers. It motivates this opt-in integration; it doe
 not establish broad speedup, cross-build equivalence, general production
 readiness, or whole-run timing acceptance. Defaults are unchanged, and no
 production activation or source publication is included in this candidate.
+
+## Reduced-dependency import boundary
+
+Importing `microplan.routing` or the explicit routing policy does not require the
+opportunity, envelope or graph-loading stack. `OpportunityId` in microplan model
+annotations is a type-only import; annotations remain postponed strings. Runtime
+type-hint introspection that resolves those annotations must supply the real
+`OpportunityId` in `localns`, after importing its owning package in an environment
+with its dependencies installed.
+
+`from microplan import generate_plans` remains available and returns the original
+`microplan.generation.generate_plans` function. Its import is deferred until that
+export is requested. Generation still requires its real envelope dependencies;
+missing dependencies raise normally and are not replaced with a fallback. Direct
+submodule imports retain the same behavior. This separation does not change the
+project dependency metadata or the hash-locked reduced code-only CI dependency set.
+
+The routing CI runner installs its CPU limit before importing package modules.
+Two additional cold installed-interpreter regressions block unused graph-related
+imports and verify that generation is genuinely deferred while retaining its real
+runtime dependency. The supported Python 3.11 gate must still run on the exact
+published revision; local Python 3.12 evidence is supplemental.
