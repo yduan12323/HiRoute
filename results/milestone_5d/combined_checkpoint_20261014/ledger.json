@@ -1,0 +1,571 @@
+{
+  "attempts": [
+    {
+      "charged_conservative_cpu_s": 144.76385110100003,
+      "layer_recovery_complete": false,
+      "method": "flat",
+      "mode": "search",
+      "receipt": {
+        "adapter_sha256": "fd45d9d8505afb593002fd343e332b372b9ffde91a3d7d8c538a06a4a3b66eb6",
+        "aggregate_memory_hard_limit": false,
+        "argv": [
+          "<PYTHON_INTERPRETER>",
+          "<WORKSPACE>/combined_checkpoint_trial/real_trial/worker.py",
+          "<WORKSPACE>/combined_checkpoint_trial/real_trial/search_flat",
+          "fd5fcf3eb9b4ba461dc1f2c53b50652c3fb034a085c47760e3f4e65951817204",
+          "flat",
+          "4",
+          "search"
+        ],
+        "cgroup_enforced": false,
+        "cleanup_verified": true,
+        "complete": true,
+        "conservative_wait4_cpu_seconds": 139.30610000000001,
+        "cpu_limit_kind": "per_process_CPU_and_one_core_affinity",
+        "error": null,
+        "limits": {
+          "address_space_bytes": 8589934592,
+          "cleanup_seconds": 3.0,
+          "cpu": 0,
+          "cpu_seconds": 295,
+          "wall_seconds": 300
+        },
+        "memory_limit_kind": "per_process_virtual_address_space",
+        "observed_pids": [
+          5,
+          8,
+          17,
+          18,
+          19,
+          20,
+          21,
+          23,
+          24,
+          26,
+          27,
+          29,
+          30,
+          32,
+          33
+        ],
+        "parent_cpu_seconds": 5.452057099,
+        "phase_watchdog": {
+          "exact_observed_wall_s": 120.076518122,
+          "exact_start_clock_latched": true,
+          "exact_wall_limit_s": 120,
+          "first_marker_observed_monotonic_ns": 84859891608086,
+          "marker": {
+            "domain_sha256": "707d2cdd5b44fa41b155a1f6cf12b809b1820c38b5aeb896da795d38b74bf83c",
+            "effective_query_sha256": "b00f3fdbe61d24c897946597cb136587df4e19da5760a272bb708b6ceef70bf1",
+            "manifest_sha256": "fd5fcf3eb9b4ba461dc1f2c53b50652c3fb034a085c47760e3f4e65951817204",
+            "method": "flat",
+            "parent_pid": 2,
+            "schema": "hiroute.exact_started.v1",
+            "source_closure_sha256": "7187cbcdc45986b5ea83d8f339a50b674f5960f360f2ad491966c1ea6e7a36d8",
+            "started_monotonic_ns": 84859876894525,
+            "worker_pid": 5
+          },
+          "marker_never_replaced_by_controller": true,
+          "marker_path": "<WORKSPACE>/combined_checkpoint_trial/real_trial/search_flat/exact_started.json",
+          "preparation_observed_wall_s": 24.983383367,
+          "preparation_wall_limit_s": 180
+        },
+        "reason": "exact_wall_timeout",
+        "returncode": -9,
+        "sampled_process_tree_peak_rss_bytes": 2663907328,
+        "schema": "hiroute.exploratory_cloud_receipt.v1",
+        "started_monotonic": 84834.893511158,
+        "thread_environment": {
+          "ARROW_NUM_THREADS": "1",
+          "BLIS_NUM_THREADS": "1",
+          "MKL_NUM_THREADS": "1",
+          "NUMEXPR_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "VECLIB_MAXIMUM_THREADS": "1"
+        },
+        "wait4_may_double_count_waited_descendants": true,
+        "wait4_records": [
+          {
+            "maxrss_kib": 2605288,
+            "pid": 5,
+            "system_s": 11.045778,
+            "user_s": 128.260322
+          }
+        ],
+        "wall_seconds": 145.0596351419954
+      },
+      "reserved_cpu_s": 370,
+      "result": null,
+      "separately_verified_witness": null,
+      "state": "finished",
+      "status": "resource_censored_incomplete"
+    },
+    {
+      "charged_conservative_cpu_s": 112.489948341,
+      "layer_recovery_complete": true,
+      "method": "flat",
+      "mode": "verify",
+      "receipt": {
+        "adapter_sha256": "fd45d9d8505afb593002fd343e332b372b9ffde91a3d7d8c538a06a4a3b66eb6",
+        "aggregate_memory_hard_limit": false,
+        "argv": [
+          "<PYTHON_INTERPRETER>",
+          "<WORKSPACE>/combined_checkpoint_trial/real_trial/worker.py",
+          "<WORKSPACE>/combined_checkpoint_trial/real_trial/verify_flat",
+          "fd5fcf3eb9b4ba461dc1f2c53b50652c3fb034a085c47760e3f4e65951817204",
+          "flat",
+          "4",
+          "verify"
+        ],
+        "cgroup_enforced": false,
+        "cleanup_verified": true,
+        "complete": true,
+        "conservative_wait4_cpu_seconds": 108.927909,
+        "cpu_limit_kind": "per_process_CPU_and_one_core_affinity",
+        "error": null,
+        "limits": {
+          "address_space_bytes": 8589934592,
+          "cleanup_seconds": 3.0,
+          "cpu": 0,
+          "cpu_seconds": 115,
+          "wall_seconds": 120
+        },
+        "memory_limit_kind": "per_process_virtual_address_space",
+        "observed_pids": [
+          5,
+          8,
+          17,
+          18,
+          19,
+          20,
+          21,
+          23,
+          24,
+          26,
+          27,
+          29,
+          30,
+          32,
+          33,
+          34
+        ],
+        "parent_cpu_seconds": 3.554409257,
+        "reason": "success",
+        "returncode": 0,
+        "sampled_process_tree_peak_rss_bytes": 2660597760,
+        "schema": "hiroute.exploratory_cloud_receipt.v1",
+        "started_monotonic": 85003.01941262,
+        "thread_environment": {
+          "ARROW_NUM_THREADS": "1",
+          "BLIS_NUM_THREADS": "1",
+          "MKL_NUM_THREADS": "1",
+          "NUMEXPR_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "VECLIB_MAXIMUM_THREADS": "1"
+        },
+        "wait4_may_double_count_waited_descendants": true,
+        "wait4_records": [
+          {
+            "maxrss_kib": 2613312,
+            "pid": 5,
+            "system_s": 11.995802,
+            "user_s": 96.932107
+          }
+        ],
+        "wall_seconds": 112.69341567400261
+      },
+      "reserved_cpu_s": 150,
+      "result": {
+        "checkpoint_sha256": "e720d0e62d26390274783fa74dcfb720f20e21bd86e36070756106426fa2a52b",
+        "depth": 1,
+        "exact_optimum_claimed": false,
+        "global_gap": null,
+        "layer_status": "same_domain_completed_layer_reconstructed",
+        "reconstruction_charged": true,
+        "status": "witness_and_layer_verified",
+        "witness_status": "verified_feasible_only"
+      },
+      "separately_verified_witness": {
+        "exact_optimum_claimed": false,
+        "lex_key": [
+          "232876014671007378489/6871947673600000",
+          "48796824531783083/429496729600000",
+          2,
+          [
+            [
+              "4r:node/11118978435",
+              "CS"
+            ],
+            [
+              "4r:node/7862947810",
+              "C"
+            ]
+          ]
+        ],
+        "record_sha256": "9fb540ac1b8d0aeb716f6b5551757d1789bddaefbbeab29dc5a3769911c9544b",
+        "status": "verified_feasible_only",
+        "witness": {
+          "energy": "43292652418145193/858993459200000",
+          "events": [
+            {
+              "arrival_energy": "18",
+              "arrival_time": "0",
+              "departure_energy": "18",
+              "departure_time": "0",
+              "effect": "initial",
+              "site": "road:2674409"
+            },
+            {
+              "arrival_energy": "18",
+              "arrival_time": "0",
+              "departure_energy": "167567221340481/429496729600000",
+              "departure_time": "7370213838602899/1099511627776",
+              "effect": "D",
+              "site": "road:1391171"
+            },
+            {
+              "arrival_energy": "167567221340481/429496729600000",
+              "arrival_time": "7370213838602899/1099511627776",
+              "departure_energy": "60",
+              "departure_time": "1863454248521751/171798691840",
+              "effect": "CS",
+              "site": "4r:node/11118978435"
+            },
+            {
+              "arrival_energy": "60",
+              "arrival_time": "1863454248521751/171798691840",
+              "departure_energy": "643803949719109/107374182400000",
+              "departure_time": "17348188307732619/687194767360",
+              "effect": "D",
+              "site": "road:3042534"
+            },
+            {
+              "arrival_energy": "643803949719109/107374182400000",
+              "arrival_time": "17348188307732619/687194767360",
+              "departure_energy": "60",
+              "departure_time": "12424947169013335179/429496729600000",
+              "effect": "C",
+              "site": "4r:node/7862947810"
+            },
+            {
+              "arrival_energy": "60",
+              "arrival_time": "12424947169013335179/429496729600000",
+              "departure_energy": "43292652418145193/858993459200000",
+              "departure_time": "224629677462687378489/6871947673600000",
+              "effect": "D",
+              "site": "road:5289152"
+            }
+          ],
+          "pi": [
+            [
+              "4r:node/11118978435",
+              "CS"
+            ],
+            [
+              "4r:node/7862947810",
+              "C"
+            ]
+          ],
+          "rho": "54300996645420973/858993459200000",
+          "state": [
+            "road:5289152",
+            0,
+            2
+          ],
+          "time": "224629677462687378489/6871947673600000"
+        }
+      },
+      "state": "finished",
+      "status": "success"
+    },
+    {
+      "charged_conservative_cpu_s": 143.730107291,
+      "layer_recovery_complete": false,
+      "method": "hier",
+      "mode": "search",
+      "receipt": {
+        "adapter_sha256": "fd45d9d8505afb593002fd343e332b372b9ffde91a3d7d8c538a06a4a3b66eb6",
+        "aggregate_memory_hard_limit": false,
+        "argv": [
+          "<PYTHON_INTERPRETER>",
+          "<WORKSPACE>/combined_checkpoint_trial/real_trial/worker.py",
+          "<WORKSPACE>/combined_checkpoint_trial/real_trial/search_hier",
+          "fd5fcf3eb9b4ba461dc1f2c53b50652c3fb034a085c47760e3f4e65951817204",
+          "hier",
+          "4",
+          "search"
+        ],
+        "cgroup_enforced": false,
+        "cleanup_verified": true,
+        "complete": true,
+        "conservative_wait4_cpu_seconds": 137.257819,
+        "cpu_limit_kind": "per_process_CPU_and_one_core_affinity",
+        "error": null,
+        "limits": {
+          "address_space_bytes": 8589934592,
+          "cleanup_seconds": 3.0,
+          "cpu": 0,
+          "cpu_seconds": 295,
+          "wall_seconds": 300
+        },
+        "memory_limit_kind": "per_process_virtual_address_space",
+        "observed_pids": [
+          6,
+          9,
+          18,
+          19,
+          21,
+          22,
+          24,
+          25,
+          27,
+          28,
+          30,
+          31,
+          33,
+          34
+        ],
+        "parent_cpu_seconds": 6.464036132,
+        "phase_watchdog": {
+          "exact_observed_wall_s": 120.084198793,
+          "exact_start_clock_latched": true,
+          "exact_wall_limit_s": 120,
+          "first_marker_observed_monotonic_ns": 85177786917206,
+          "marker": {
+            "domain_sha256": "707d2cdd5b44fa41b155a1f6cf12b809b1820c38b5aeb896da795d38b74bf83c",
+            "effective_query_sha256": "b00f3fdbe61d24c897946597cb136587df4e19da5760a272bb708b6ceef70bf1",
+            "manifest_sha256": "fd5fcf3eb9b4ba461dc1f2c53b50652c3fb034a085c47760e3f4e65951817204",
+            "method": "hier",
+            "parent_pid": 2,
+            "schema": "hiroute.exact_started.v1",
+            "source_closure_sha256": "7187cbcdc45986b5ea83d8f339a50b674f5960f360f2ad491966c1ea6e7a36d8",
+            "started_monotonic_ns": 85177766976358,
+            "worker_pid": 6
+          },
+          "marker_never_replaced_by_controller": true,
+          "marker_path": "<WORKSPACE>/combined_checkpoint_trial/real_trial/search_hier/exact_started.json",
+          "preparation_observed_wall_s": 23.925445039,
+          "preparation_wall_limit_s": 180
+        },
+        "reason": "exact_wall_timeout",
+        "returncode": -9,
+        "sampled_process_tree_peak_rss_bytes": 2635431936,
+        "schema": "hiroute.exploratory_cloud_receipt.v1",
+        "started_monotonic": 85153.841531319,
+        "thread_environment": {
+          "ARROW_NUM_THREADS": "1",
+          "BLIS_NUM_THREADS": "1",
+          "MKL_NUM_THREADS": "1",
+          "NUMEXPR_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "VECLIB_MAXIMUM_THREADS": "1"
+        },
+        "wait4_may_double_count_waited_descendants": true,
+        "wait4_records": [
+          {
+            "maxrss_kib": 2615360,
+            "pid": 6,
+            "system_s": 10.410485,
+            "user_s": 126.847334
+          }
+        ],
+        "wall_seconds": 144.0094026279985
+      },
+      "reserved_cpu_s": 370,
+      "result": null,
+      "separately_verified_witness": null,
+      "state": "finished",
+      "status": "resource_censored_incomplete"
+    },
+    {
+      "charged_conservative_cpu_s": 114.57423128599999,
+      "layer_recovery_complete": true,
+      "method": "hier",
+      "mode": "verify",
+      "receipt": {
+        "adapter_sha256": "fd45d9d8505afb593002fd343e332b372b9ffde91a3d7d8c538a06a4a3b66eb6",
+        "aggregate_memory_hard_limit": false,
+        "argv": [
+          "<PYTHON_INTERPRETER>",
+          "<WORKSPACE>/combined_checkpoint_trial/real_trial/worker.py",
+          "<WORKSPACE>/combined_checkpoint_trial/real_trial/verify_hier",
+          "fd5fcf3eb9b4ba461dc1f2c53b50652c3fb034a085c47760e3f4e65951817204",
+          "hier",
+          "4",
+          "verify"
+        ],
+        "cgroup_enforced": false,
+        "cleanup_verified": true,
+        "complete": true,
+        "conservative_wait4_cpu_seconds": 110.44159099999999,
+        "cpu_limit_kind": "per_process_CPU_and_one_core_affinity",
+        "error": null,
+        "limits": {
+          "address_space_bytes": 8589934592,
+          "cleanup_seconds": 3.0,
+          "cpu": 0,
+          "cpu_seconds": 115,
+          "wall_seconds": 120
+        },
+        "memory_limit_kind": "per_process_virtual_address_space",
+        "observed_pids": [
+          6,
+          9,
+          18,
+          19,
+          20,
+          21,
+          22,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34
+        ],
+        "parent_cpu_seconds": 4.124787556,
+        "reason": "success",
+        "returncode": 0,
+        "sampled_process_tree_peak_rss_bytes": 3909148672,
+        "schema": "hiroute.exploratory_cloud_receipt.v1",
+        "started_monotonic": 85320.361428291,
+        "thread_environment": {
+          "ARROW_NUM_THREADS": "1",
+          "BLIS_NUM_THREADS": "1",
+          "MKL_NUM_THREADS": "1",
+          "NUMEXPR_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "VECLIB_MAXIMUM_THREADS": "1"
+        },
+        "wait4_may_double_count_waited_descendants": true,
+        "wait4_records": [
+          {
+            "maxrss_kib": 2603204,
+            "pid": 6,
+            "system_s": 10.702643,
+            "user_s": 99.738948
+          }
+        ],
+        "wall_seconds": 114.75231241600704
+      },
+      "reserved_cpu_s": 150,
+      "result": {
+        "checkpoint_sha256": "f14f9dc4a172f8dafa5853465533c2cbdeacd34076048ea451838556df948df0",
+        "depth": 1,
+        "exact_optimum_claimed": false,
+        "global_gap": null,
+        "layer_status": "same_domain_completed_layer_reconstructed",
+        "reconstruction_charged": true,
+        "status": "witness_and_layer_verified",
+        "witness_status": "verified_feasible_only"
+      },
+      "separately_verified_witness": {
+        "exact_optimum_claimed": false,
+        "lex_key": [
+          "232876014671007378489/6871947673600000",
+          "48796824531783083/429496729600000",
+          2,
+          [
+            [
+              "4r:node/11118978435",
+              "CS"
+            ],
+            [
+              "4r:node/7862947810",
+              "C"
+            ]
+          ]
+        ],
+        "record_sha256": "727f39f0e965f0ad3ebd8b7aa73c414b873bc84f7433143e63a66dc1d33307c6",
+        "status": "verified_feasible_only",
+        "witness": {
+          "energy": "43292652418145193/858993459200000",
+          "events": [
+            {
+              "arrival_energy": "18",
+              "arrival_time": "0",
+              "departure_energy": "18",
+              "departure_time": "0",
+              "effect": "initial",
+              "site": "road:2674409"
+            },
+            {
+              "arrival_energy": "18",
+              "arrival_time": "0",
+              "departure_energy": "167567221340481/429496729600000",
+              "departure_time": "7370213838602899/1099511627776",
+              "effect": "D",
+              "site": "road:1391171"
+            },
+            {
+              "arrival_energy": "167567221340481/429496729600000",
+              "arrival_time": "7370213838602899/1099511627776",
+              "departure_energy": "60",
+              "departure_time": "1863454248521751/171798691840",
+              "effect": "CS",
+              "site": "4r:node/11118978435"
+            },
+            {
+              "arrival_energy": "60",
+              "arrival_time": "1863454248521751/171798691840",
+              "departure_energy": "643803949719109/107374182400000",
+              "departure_time": "17348188307732619/687194767360",
+              "effect": "D",
+              "site": "road:3042534"
+            },
+            {
+              "arrival_energy": "643803949719109/107374182400000",
+              "arrival_time": "17348188307732619/687194767360",
+              "departure_energy": "60",
+              "departure_time": "12424947169013335179/429496729600000",
+              "effect": "C",
+              "site": "4r:node/7862947810"
+            },
+            {
+              "arrival_energy": "60",
+              "arrival_time": "12424947169013335179/429496729600000",
+              "departure_energy": "43292652418145193/858993459200000",
+              "departure_time": "224629677462687378489/6871947673600000",
+              "effect": "D",
+              "site": "road:5289152"
+            }
+          ],
+          "pi": [
+            [
+              "4r:node/11118978435",
+              "CS"
+            ],
+            [
+              "4r:node/7862947810",
+              "C"
+            ]
+          ],
+          "rho": "54300996645420973/858993459200000",
+          "state": [
+            "road:5289152",
+            0,
+            2
+          ],
+          "time": "224629677462687378489/6871947673600000"
+        }
+      },
+      "state": "finished",
+      "status": "success"
+    }
+  ],
+  "blocked": false,
+  "manifest_sha256": "fd5fcf3eb9b4ba461dc1f2c53b50652c3fb034a085c47760e3f4e65951817204",
+  "preparation_cpu_debit_s": 120,
+  "preparation_debit_kind": "conservative allowance, not measured entire development cost",
+  "schema": "hiroute.combined_checkpoint_ledger.v1",
+  "total_reserved_cpu_s": 1160
+}

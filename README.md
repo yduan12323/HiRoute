@@ -1,5 +1,10 @@
 # HiRoute research infrastructure — Milestones 1–4R-A
 
+## Current M5 research
+
+Read [current research status](docs/CURRENT_RESEARCH_STATUS.md), [M5-D protocol](docs/MILESTONE_5D_DESIGN_AND_PROTOCOL.md), [measured report](docs/MILESTONE_5D_REPORT.md), and [paper positioning](docs/PAPER_POSITIONING.md). M5-D reports a scale-limited outcome with explicit residual requirements; the original 192-row main matrix has zero exact completions. Research-graph results do not certify real-world navigation safety.
+
+
 The authoritative formulation is [RESEARCH_SPEC_v0.2.md](RESEARCH_SPEC_v0.2.md); [RESEARCH_SPEC.md](RESEARCH_SPEC.md) preserves the earlier formulation. This implementation covers the frozen OSM driving graph and structurally validated Safe Detour Envelopes. Milestone 4A adds frozen structured opportunities and route-attached regions. Milestone 4B preserves its topology gateway and local microplan diagnostic. Milestone 4R-A adds a separate vehicle-stop substrate, continuous charging/stop planning reference and minimal uncertainty/query contracts. Structural correctness is with respect to the frozen directed graph; full legal or real-world route feasibility is not certified.
 
 ## Environment

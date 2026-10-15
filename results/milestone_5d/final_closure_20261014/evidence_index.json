@@ -1,0 +1,12 @@
+{
+  "acceptance": "results/milestone_5d/final_closure_20261014/acceptance.json",
+  "checkpoint_real_trial": "results/milestone_5d/combined_checkpoint_20261014",
+  "dispositions": "requirement_dispositions.json",
+  "figure": "paper/figures/original_main_status.svg",
+  "main": "results/milestone_5d/terminal_state_audit_20261014",
+  "portable_checkpoint": "docs/MILESTONE_5D_LAYER_ENVELOPE.md",
+  "schema": "hiroute.m5d.closure.index.v1",
+  "status": "bounded_evaluation_report_with_residual_requirements",
+  "supplement": "results/milestone_5d/fixed24_continuation_20261014",
+  "synthetic_ablations": "results/milestone_5d/representative_ablations_20261014/README.md"
+}

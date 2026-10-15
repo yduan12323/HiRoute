@@ -1,6 +1,6 @@
 # Milestone 5-D: deployable search design and preregistered protocol
 
-Status: design and data gate, 2026-10-11. D0 checkpoint `a2f12f2` was merged into main as `fae2b71`; D1–D3 continuation is on `dot/m5d-continuation`. This document authorizes no formal comparison, final holdout, or change to the accepted v2 semantics. The D0 source fingerprint is in `results/milestone_5d/d0_20261011/source_manifest.json`.
+Current delivery status: M5D_LIMITED_BY_DATA_OR_SCALE as of 2026-10-14, with residual implementation and accounting requirements explicitly recorded. The original main and fixed supplemental matrices are terminal with no exact completion. Current portable recovery code is 7dbd82. See [MILESTONE_5D_REPORT.md](MILESTONE_5D_REPORT.md) for actual outcomes and protocol amendments. Historical design/implementation snapshots below retain their original dates and are not current progress. No automatic main merge or holdout.
 
 ## D1: exact model and status contract
 

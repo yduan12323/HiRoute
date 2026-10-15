@@ -1,0 +1,70 @@
+{
+  "adapter_sha256": "fd45d9d8505afb593002fd343e332b372b9ffde91a3d7d8c538a06a4a3b66eb6",
+  "aggregate_memory_hard_limit": false,
+  "argv": [
+    "<PYTHON_INTERPRETER>",
+    "<WORKSPACE>/combined_checkpoint_trial/real_trial/worker.py",
+    "<WORKSPACE>/combined_checkpoint_trial/real_trial/verify_flat",
+    "fd5fcf3eb9b4ba461dc1f2c53b50652c3fb034a085c47760e3f4e65951817204",
+    "flat",
+    "4",
+    "verify"
+  ],
+  "cgroup_enforced": false,
+  "cleanup_verified": true,
+  "complete": true,
+  "conservative_wait4_cpu_seconds": 108.927909,
+  "cpu_limit_kind": "per_process_CPU_and_one_core_affinity",
+  "error": null,
+  "limits": {
+    "address_space_bytes": 8589934592,
+    "cleanup_seconds": 3.0,
+    "cpu": 0,
+    "cpu_seconds": 115,
+    "wall_seconds": 120
+  },
+  "memory_limit_kind": "per_process_virtual_address_space",
+  "observed_pids": [
+    5,
+    8,
+    17,
+    18,
+    19,
+    20,
+    21,
+    23,
+    24,
+    26,
+    27,
+    29,
+    30,
+    32,
+    33,
+    34
+  ],
+  "parent_cpu_seconds": 3.554409257,
+  "reason": "success",
+  "returncode": 0,
+  "sampled_process_tree_peak_rss_bytes": 2660597760,
+  "schema": "hiroute.exploratory_cloud_receipt.v1",
+  "started_monotonic": 85003.01941262,
+  "thread_environment": {
+    "ARROW_NUM_THREADS": "1",
+    "BLIS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "wait4_may_double_count_waited_descendants": true,
+  "wait4_records": [
+    {
+      "maxrss_kib": 2613312,
+      "pid": 5,
+      "system_s": 11.995802,
+      "user_s": 96.932107
+    }
+  ],
+  "wall_seconds": 112.69341567400261
+}

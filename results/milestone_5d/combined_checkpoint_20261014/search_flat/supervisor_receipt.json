@@ -1,0 +1,90 @@
+{
+  "adapter_sha256": "fd45d9d8505afb593002fd343e332b372b9ffde91a3d7d8c538a06a4a3b66eb6",
+  "aggregate_memory_hard_limit": false,
+  "argv": [
+    "<PYTHON_INTERPRETER>",
+    "<WORKSPACE>/combined_checkpoint_trial/real_trial/worker.py",
+    "<WORKSPACE>/combined_checkpoint_trial/real_trial/search_flat",
+    "fd5fcf3eb9b4ba461dc1f2c53b50652c3fb034a085c47760e3f4e65951817204",
+    "flat",
+    "4",
+    "search"
+  ],
+  "cgroup_enforced": false,
+  "cleanup_verified": true,
+  "complete": true,
+  "conservative_wait4_cpu_seconds": 139.30610000000001,
+  "cpu_limit_kind": "per_process_CPU_and_one_core_affinity",
+  "error": null,
+  "limits": {
+    "address_space_bytes": 8589934592,
+    "cleanup_seconds": 3.0,
+    "cpu": 0,
+    "cpu_seconds": 295,
+    "wall_seconds": 300
+  },
+  "memory_limit_kind": "per_process_virtual_address_space",
+  "observed_pids": [
+    5,
+    8,
+    17,
+    18,
+    19,
+    20,
+    21,
+    23,
+    24,
+    26,
+    27,
+    29,
+    30,
+    32,
+    33
+  ],
+  "parent_cpu_seconds": 5.452057099,
+  "phase_watchdog": {
+    "exact_observed_wall_s": 120.076518122,
+    "exact_start_clock_latched": true,
+    "exact_wall_limit_s": 120,
+    "first_marker_observed_monotonic_ns": 84859891608086,
+    "marker": {
+      "domain_sha256": "707d2cdd5b44fa41b155a1f6cf12b809b1820c38b5aeb896da795d38b74bf83c",
+      "effective_query_sha256": "b00f3fdbe61d24c897946597cb136587df4e19da5760a272bb708b6ceef70bf1",
+      "manifest_sha256": "fd5fcf3eb9b4ba461dc1f2c53b50652c3fb034a085c47760e3f4e65951817204",
+      "method": "flat",
+      "parent_pid": 2,
+      "schema": "hiroute.exact_started.v1",
+      "source_closure_sha256": "7187cbcdc45986b5ea83d8f339a50b674f5960f360f2ad491966c1ea6e7a36d8",
+      "started_monotonic_ns": 84859876894525,
+      "worker_pid": 5
+    },
+    "marker_never_replaced_by_controller": true,
+    "marker_path": "<WORKSPACE>/combined_checkpoint_trial/real_trial/search_flat/exact_started.json",
+    "preparation_observed_wall_s": 24.983383367,
+    "preparation_wall_limit_s": 180
+  },
+  "reason": "exact_wall_timeout",
+  "returncode": -9,
+  "sampled_process_tree_peak_rss_bytes": 2663907328,
+  "schema": "hiroute.exploratory_cloud_receipt.v1",
+  "started_monotonic": 84834.893511158,
+  "thread_environment": {
+    "ARROW_NUM_THREADS": "1",
+    "BLIS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "wait4_may_double_count_waited_descendants": true,
+  "wait4_records": [
+    {
+      "maxrss_kib": 2605288,
+      "pid": 5,
+      "system_s": 11.045778,
+      "user_s": 128.260322
+    }
+  ],
+  "wall_seconds": 145.0596351419954
+}
