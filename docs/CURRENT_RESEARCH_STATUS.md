@@ -58,3 +58,11 @@ The [paired OD07 diagnostic](../results/milestone_5d/od07_prefix_diagnostic_2026
 All 213 recorded HIER schedule-complete reachable finishes returned empty energy/reserve intervals; 72 schedule-incomplete finishes exited before routing. Completed terminal-source work dominated the measured scopes, not bound arithmetic. These are retrospective recorded-operation findings, not certified screening savings or causal proof that reordering improves HIER. Parent-finalized censored traces do not prove whole-stream completeness or unseen observer health.
 
 Numerical conservative charge is 855.301360969 CPU seconds including the full 240 allowance. Separately bounded finalizer/reporting costs, incomplete wrapper/analysis accounting and the initial failed timing wrapper are retained; no numerical retry occurred. No source/default activation accompanies this report.
+
+## 2026-10-16 Canonical-prefix ablation: no verified improvement
+
+The [OD07 canonical-order ablation](../results/milestone_5d/canonical_prefix_ablation_20261016/README.md) recorded the same 87 semantic depth-1 prefixes in a common order. Both HIER and FLAT retained the shared seed at the 120-second exact cutoff; both saved routes passed fresh replay with Hmax 37. Earlier insertion-order outcomes remain unchanged.
+
+FLAT recorded the productive child finish starting at 119.985938 seconds without a completion. For each method, 1,905 normalized root records matched the earlier insertion run; slower canonical root routing scopes are descriptive and unattributed, not evidence of a causal sorting penalty. No ordering benefit, irrelevance, optimum or global gap is established.
+
+Numerical conservative charge is 840.097081772 CPU seconds including the full 240 allowance. Reporting/finalizer accounting remains separate; the unexplained initial tiny CPU-ceiling failure is preserved. Censored traces, sequential order and uncontrolled runtime/cache conditions limit interpretation. No source/default activation accompanies this negative report.

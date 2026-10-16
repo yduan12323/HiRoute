@@ -1,0 +1,2177 @@
+[
+  {
+    "canonical_index": 0,
+    "indices": {
+      "canonical_flat": 0,
+      "canonical_hier": 0,
+      "insertion_flat": 0,
+      "insertion_hier": 9
+    },
+    "key": {
+      "anchor": "road:5187551",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/10088989871",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-2854351358440513/429496729600000"
+    },
+    "pieces": 6,
+    "prefix_id": "e4b0676cf288516292730854342331147f90f259a58514b9adbd1e68a13ea907",
+    "sequence": 1908,
+    "traversal_index": 0
+  },
+  {
+    "canonical_index": 1,
+    "indices": {
+      "canonical_flat": 1,
+      "canonical_hier": 1,
+      "insertion_flat": 2,
+      "insertion_hier": 41
+    },
+    "key": {
+      "anchor": "road:5187551",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/10088989871",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-2854351358440513/429496729600000"
+    },
+    "pieces": 8,
+    "prefix_id": "d9061f2d411be8cbe934fbf7922d0f48fdcf940c1bc46c5d7757e676273150af",
+    "sequence": 1909,
+    "traversal_index": 1
+  },
+  {
+    "canonical_index": 2,
+    "indices": {
+      "canonical_flat": 2,
+      "canonical_hier": 2,
+      "insertion_flat": 1,
+      "insertion_hier": 40
+    },
+    "key": {
+      "anchor": "road:5187551",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/10088989871",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-2854351358440513/429496729600000"
+    },
+    "pieces": 1,
+    "prefix_id": "70aceb5e0f1eb4e6dbb41fbf5547370775753abc729f0652e66608de3304dcf1",
+    "sequence": 1910,
+    "traversal_index": 2
+  },
+  {
+    "canonical_index": 3,
+    "indices": {
+      "canonical_flat": 3,
+      "canonical_hier": 3,
+      "insertion_flat": 3,
+      "insertion_hier": 6
+    },
+    "key": {
+      "anchor": "road:5626973",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/11067688236",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-1022361027158737/107374182400000"
+    },
+    "pieces": 6,
+    "prefix_id": "4fd2c17afbb12a783f9c43a6dccf1b3baf35e7d2fdbe2500132db91b074095a5",
+    "sequence": 1911,
+    "traversal_index": 3
+  },
+  {
+    "canonical_index": 4,
+    "indices": {
+      "canonical_flat": 4,
+      "canonical_hier": 4,
+      "insertion_flat": 5,
+      "insertion_hier": 43
+    },
+    "key": {
+      "anchor": "road:5626973",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/11067688236",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-1022361027158737/107374182400000"
+    },
+    "pieces": 8,
+    "prefix_id": "46f2b929c6f68e139a492d45d604cf2b14d2b7c10882dc7b3d037f1351e8aeb8",
+    "sequence": 1912,
+    "traversal_index": 4
+  },
+  {
+    "canonical_index": 5,
+    "indices": {
+      "canonical_flat": 5,
+      "canonical_hier": 5,
+      "insertion_flat": 4,
+      "insertion_hier": 42
+    },
+    "key": {
+      "anchor": "road:5626973",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/11067688236",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-1022361027158737/107374182400000"
+    },
+    "pieces": 1,
+    "prefix_id": "3db0fce57637785d8c52cc0d8d81d49278f0f9aa329f8a4f7417c39bc1d6f051",
+    "sequence": 1913,
+    "traversal_index": 5
+  },
+  {
+    "canonical_index": 6,
+    "indices": {
+      "canonical_flat": 6,
+      "canonical_hier": 6,
+      "insertion_flat": 6,
+      "insertion_hier": 4
+    },
+    "key": {
+      "anchor": "road:1761040",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/11067753859",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-8377029558443971/858993459200000"
+    },
+    "pieces": 6,
+    "prefix_id": "4e14ec2d1b2b12345b80d9500e22b64798e76ea1797e3b965460e1a73de6bcec",
+    "sequence": 1914,
+    "traversal_index": 6
+  },
+  {
+    "canonical_index": 7,
+    "indices": {
+      "canonical_flat": 7,
+      "canonical_hier": 7,
+      "insertion_flat": 8,
+      "insertion_hier": 47
+    },
+    "key": {
+      "anchor": "road:1761040",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/11067753859",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-8377029558443971/858993459200000"
+    },
+    "pieces": 8,
+    "prefix_id": "5d77e7aa66e18ab78f681bc8c1945db6468d3bc2bf6dce5132fe3098cd6dbceb",
+    "sequence": 1915,
+    "traversal_index": 7
+  },
+  {
+    "canonical_index": 8,
+    "indices": {
+      "canonical_flat": 8,
+      "canonical_hier": 8,
+      "insertion_flat": 7,
+      "insertion_hier": 46
+    },
+    "key": {
+      "anchor": "road:1761040",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/11067753859",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-8377029558443971/858993459200000"
+    },
+    "pieces": 1,
+    "prefix_id": "b32ab9f6221f5464badd420836c3dcc564c2faf87215b4e3e4db8e8f4fcfdfa9",
+    "sequence": 1916,
+    "traversal_index": 8
+  },
+  {
+    "canonical_index": 9,
+    "indices": {
+      "canonical_flat": 9,
+      "canonical_hier": 9,
+      "insertion_flat": 9,
+      "insertion_hier": 2
+    },
+    "key": {
+      "anchor": "road:5674063",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/11067793524",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-2052870809868831/214748364800000"
+    },
+    "pieces": 6,
+    "prefix_id": "ba705e200ad37d458a79e91d92d7a756a50f169f14d0cc90fba8de4be36378c6",
+    "sequence": 1917,
+    "traversal_index": 9
+  },
+  {
+    "canonical_index": 10,
+    "indices": {
+      "canonical_flat": 10,
+      "canonical_hier": 10,
+      "insertion_flat": 11,
+      "insertion_hier": 49
+    },
+    "key": {
+      "anchor": "road:5674063",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/11067793524",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-2052870809868831/214748364800000"
+    },
+    "pieces": 8,
+    "prefix_id": "2046d8ac64d67a4a4904abd8934f7d19fd3edeef96b42f11b5184a8b0264ebe1",
+    "sequence": 1918,
+    "traversal_index": 10
+  },
+  {
+    "canonical_index": 11,
+    "indices": {
+      "canonical_flat": 11,
+      "canonical_hier": 11,
+      "insertion_flat": 10,
+      "insertion_hier": 48
+    },
+    "key": {
+      "anchor": "road:5674063",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/11067793524",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-2052870809868831/214748364800000"
+    },
+    "pieces": 1,
+    "prefix_id": "c1a678a704d2d5cb9f99ebe965e6b4f7e6b6636046b6a34b661cd394d96c3434",
+    "sequence": 1919,
+    "traversal_index": 11
+  },
+  {
+    "canonical_index": 12,
+    "indices": {
+      "canonical_flat": 12,
+      "canonical_hier": 12,
+      "insertion_flat": 12,
+      "insertion_hier": 7
+    },
+    "key": {
+      "anchor": "road:5701646",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/12570759702",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-7755559747901727/858993459200000"
+    },
+    "pieces": 6,
+    "prefix_id": "b9be8300ac16d482d0cbbc7d27cb1659527c50eb89e7e051a9f340ec1f2a5562",
+    "sequence": 1920,
+    "traversal_index": 12
+  },
+  {
+    "canonical_index": 13,
+    "indices": {
+      "canonical_flat": 13,
+      "canonical_hier": 13,
+      "insertion_flat": 14,
+      "insertion_hier": 45
+    },
+    "key": {
+      "anchor": "road:5701646",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/12570759702",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-7755559747901727/858993459200000"
+    },
+    "pieces": 8,
+    "prefix_id": "f123318a719bfbb4e275a5e4628b2f841a17929e6fb4a78183ddc65abfb11194",
+    "sequence": 1921,
+    "traversal_index": 13
+  },
+  {
+    "canonical_index": 14,
+    "indices": {
+      "canonical_flat": 14,
+      "canonical_hier": 14,
+      "insertion_flat": 13,
+      "insertion_hier": 44
+    },
+    "key": {
+      "anchor": "road:5701646",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/12570759702",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-7755559747901727/858993459200000"
+    },
+    "pieces": 1,
+    "prefix_id": "0e141b28c5821de26ed0fc488526c9c1669a32e782e47f0f0ef7b7065b79601f",
+    "sequence": 1922,
+    "traversal_index": 14
+  },
+  {
+    "canonical_index": 15,
+    "indices": {
+      "canonical_flat": 15,
+      "canonical_hier": 15,
+      "insertion_flat": 15,
+      "insertion_hier": 14
+    },
+    "key": {
+      "anchor": "road:2493205",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13057608171",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-354776891493713/107374182400000"
+    },
+    "pieces": 6,
+    "prefix_id": "860e411854885e514507307755ceed3c0c5ecb6565641e80fd1d7d5fa9ca87cc",
+    "sequence": 1923,
+    "traversal_index": 15
+  },
+  {
+    "canonical_index": 16,
+    "indices": {
+      "canonical_flat": 16,
+      "canonical_hier": 16,
+      "insertion_flat": 17,
+      "insertion_hier": 25
+    },
+    "key": {
+      "anchor": "road:2493205",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13057608171",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-354776891493713/107374182400000"
+    },
+    "pieces": 8,
+    "prefix_id": "85e9c0864c172b44086e315069e43256505028b41003ec09a0abe8560c99e84f",
+    "sequence": 1924,
+    "traversal_index": 16
+  },
+  {
+    "canonical_index": 17,
+    "indices": {
+      "canonical_flat": 17,
+      "canonical_hier": 17,
+      "insertion_flat": 16,
+      "insertion_hier": 24
+    },
+    "key": {
+      "anchor": "road:2493205",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13057608171",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-354776891493713/107374182400000"
+    },
+    "pieces": 1,
+    "prefix_id": "319fdcb0976573b26b628a7d8cec5d9ac670c98f4568476283c0a21ba1abe36a",
+    "sequence": 1925,
+    "traversal_index": 17
+  },
+  {
+    "canonical_index": 18,
+    "indices": {
+      "canonical_flat": 18,
+      "canonical_hier": 18,
+      "insertion_flat": 18,
+      "insertion_hier": 11
+    },
+    "key": {
+      "anchor": "road:894568",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13165793258",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-544686927845001/85899345920000"
+    },
+    "pieces": 6,
+    "prefix_id": "224560b5d7fb0f4b67d9402e4292f7bee30f878dbe9cd1c3315080ccdbe93ea3",
+    "sequence": 1926,
+    "traversal_index": 18
+  },
+  {
+    "canonical_index": 19,
+    "indices": {
+      "canonical_flat": 19,
+      "canonical_hier": 19,
+      "insertion_flat": 20,
+      "insertion_hier": 23
+    },
+    "key": {
+      "anchor": "road:894568",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13165793258",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-544686927845001/85899345920000"
+    },
+    "pieces": 8,
+    "prefix_id": "2fac05866629f05bc2123158786270183fe8b7fff9a68fd9d2e73489cc09ce7e",
+    "sequence": 1927,
+    "traversal_index": 19
+  },
+  {
+    "canonical_index": 20,
+    "indices": {
+      "canonical_flat": 20,
+      "canonical_hier": 20,
+      "insertion_flat": 19,
+      "insertion_hier": 22
+    },
+    "key": {
+      "anchor": "road:894568",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13165793258",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-544686927845001/85899345920000"
+    },
+    "pieces": 1,
+    "prefix_id": "2b24ec69e75dfdb036b5e7d3725ee76b3d18f0735baba9216308f192186bfb34",
+    "sequence": 1928,
+    "traversal_index": 20
+  },
+  {
+    "canonical_index": 21,
+    "indices": {
+      "canonical_flat": 21,
+      "canonical_hier": 21,
+      "insertion_flat": 21,
+      "insertion_hier": 13
+    },
+    "key": {
+      "anchor": "road:736912",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13233106766",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-393442042518177/107374182400000"
+    },
+    "pieces": 6,
+    "prefix_id": "81638184abeca61b4372fca172e74c8b3638993c26b4b0786d10662efb317bd2",
+    "sequence": 1929,
+    "traversal_index": 21
+  },
+  {
+    "canonical_index": 22,
+    "indices": {
+      "canonical_flat": 22,
+      "canonical_hier": 22,
+      "insertion_flat": 23,
+      "insertion_hier": 57
+    },
+    "key": {
+      "anchor": "road:736912",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13233106766",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-393442042518177/107374182400000"
+    },
+    "pieces": 8,
+    "prefix_id": "a96ef1fe396f5e9ccfe0921fd57457685f2f4188a68fca674c30878d7524609f",
+    "sequence": 1930,
+    "traversal_index": 22
+  },
+  {
+    "canonical_index": 23,
+    "indices": {
+      "canonical_flat": 23,
+      "canonical_hier": 23,
+      "insertion_flat": 22,
+      "insertion_hier": 56
+    },
+    "key": {
+      "anchor": "road:736912",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13233106766",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-393442042518177/107374182400000"
+    },
+    "pieces": 1,
+    "prefix_id": "50c5045d34a34cab2490e656aade8832a4a078b1a3cea10d3b80fcdcae75f107",
+    "sequence": 1931,
+    "traversal_index": 23
+  },
+  {
+    "canonical_index": 24,
+    "indices": {
+      "canonical_flat": 24,
+      "canonical_hier": 24,
+      "insertion_flat": 24,
+      "insertion_hier": 15
+    },
+    "key": {
+      "anchor": "road:5663513",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13278180651",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-1108048098615103/429496729600000"
+    },
+    "pieces": 6,
+    "prefix_id": "2646f97a36482baa458852543c60b7bf0ad1982312b45ddd6ee5c93bf0db19b6",
+    "sequence": 1932,
+    "traversal_index": 24
+  },
+  {
+    "canonical_index": 25,
+    "indices": {
+      "canonical_flat": 25,
+      "canonical_hier": 25,
+      "insertion_flat": 26,
+      "insertion_hier": 27
+    },
+    "key": {
+      "anchor": "road:5663513",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13278180651",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-1108048098615103/429496729600000"
+    },
+    "pieces": 8,
+    "prefix_id": "eec8142977ad4b0cf05b8109fe9109e7de73fd0e6436dd2b3b677a2be0bb433e",
+    "sequence": 1933,
+    "traversal_index": 25
+  },
+  {
+    "canonical_index": 26,
+    "indices": {
+      "canonical_flat": 26,
+      "canonical_hier": 26,
+      "insertion_flat": 25,
+      "insertion_hier": 26
+    },
+    "key": {
+      "anchor": "road:5663513",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13278180651",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-1108048098615103/429496729600000"
+    },
+    "pieces": 1,
+    "prefix_id": "362ad2711b2ac36d0f6368a11f82f841dec756525a6a4f88eb6310daabbd3208",
+    "sequence": 1934,
+    "traversal_index": 26
+  },
+  {
+    "canonical_index": 27,
+    "indices": {
+      "canonical_flat": 27,
+      "canonical_hier": 27,
+      "insertion_flat": 27,
+      "insertion_hier": 16
+    },
+    "key": {
+      "anchor": "road:2775378",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13278375100",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-950149707651353/429496729600000"
+    },
+    "pieces": 6,
+    "prefix_id": "963d17c963aa1599f2bea99ed7a26d0cc5c850e960b89de18eeb040572b9017a",
+    "sequence": 1935,
+    "traversal_index": 27
+  },
+  {
+    "canonical_index": 28,
+    "indices": {
+      "canonical_flat": 28,
+      "canonical_hier": 28,
+      "insertion_flat": 29,
+      "insertion_hier": 29
+    },
+    "key": {
+      "anchor": "road:2775378",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13278375100",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-950149707651353/429496729600000"
+    },
+    "pieces": 8,
+    "prefix_id": "b05020045bd8648b4ffc9e2aee327e85208b8d405e41384e1fc783909a7e76fb",
+    "sequence": 1936,
+    "traversal_index": 28
+  },
+  {
+    "canonical_index": 29,
+    "indices": {
+      "canonical_flat": 29,
+      "canonical_hier": 29,
+      "insertion_flat": 28,
+      "insertion_hier": 28
+    },
+    "key": {
+      "anchor": "road:2775378",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13278375100",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-950149707651353/429496729600000"
+    },
+    "pieces": 1,
+    "prefix_id": "b4d4452b129a09fb1a9d035645ed532f85dbabdcd7df07b18be3ff1ed77fe795",
+    "sequence": 1937,
+    "traversal_index": 29
+  },
+  {
+    "canonical_index": 30,
+    "indices": {
+      "canonical_flat": 30,
+      "canonical_hier": 30,
+      "insertion_flat": 30,
+      "insertion_hier": 17
+    },
+    "key": {
+      "anchor": "road:2432922",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13408948187",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-480061826252409/214748364800000"
+    },
+    "pieces": 6,
+    "prefix_id": "60f5e84cf458c571118d2f85e6cd9ea157362697ac82a78095d3a2642d2b520d",
+    "sequence": 1938,
+    "traversal_index": 30
+  },
+  {
+    "canonical_index": 31,
+    "indices": {
+      "canonical_flat": 31,
+      "canonical_hier": 31,
+      "insertion_flat": 32,
+      "insertion_hier": 31
+    },
+    "key": {
+      "anchor": "road:2432922",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13408948187",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-480061826252409/214748364800000"
+    },
+    "pieces": 8,
+    "prefix_id": "253f788f175eda1c7e179920352281843b78bdb383c0db3b99e3a5d458a21e30",
+    "sequence": 1939,
+    "traversal_index": 31
+  },
+  {
+    "canonical_index": 32,
+    "indices": {
+      "canonical_flat": 32,
+      "canonical_hier": 32,
+      "insertion_flat": 31,
+      "insertion_hier": 30
+    },
+    "key": {
+      "anchor": "road:2432922",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13408948187",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-480061826252409/214748364800000"
+    },
+    "pieces": 1,
+    "prefix_id": "6c74801a49c76a1fc04bc8726ea3b8c4f1c101b7ab38a1398e2feb154e606026",
+    "sequence": 1940,
+    "traversal_index": 32
+  },
+  {
+    "canonical_index": 33,
+    "indices": {
+      "canonical_flat": 33,
+      "canonical_hier": 33,
+      "insertion_flat": 33,
+      "insertion_hier": 12
+    },
+    "key": {
+      "anchor": "road:5452833",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13849743653",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-1208795524434493/429496729600000"
+    },
+    "pieces": 6,
+    "prefix_id": "d0961019aac71dc8e50c66a3fb1abe75d0ef70bb477b947279138494ba68a5e7",
+    "sequence": 1941,
+    "traversal_index": 33
+  },
+  {
+    "canonical_index": 34,
+    "indices": {
+      "canonical_flat": 34,
+      "canonical_hier": 34,
+      "insertion_flat": 35,
+      "insertion_hier": 37
+    },
+    "key": {
+      "anchor": "road:5452833",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13849743653",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-1208795524434493/429496729600000"
+    },
+    "pieces": 8,
+    "prefix_id": "41e0a54a35218eaf439d7e013d8030d65138493a32e661f96087b035121bef8b",
+    "sequence": 1942,
+    "traversal_index": 34
+  },
+  {
+    "canonical_index": 35,
+    "indices": {
+      "canonical_flat": 35,
+      "canonical_hier": 35,
+      "insertion_flat": 34,
+      "insertion_hier": 36
+    },
+    "key": {
+      "anchor": "road:5452833",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/13849743653",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-1208795524434493/429496729600000"
+    },
+    "pieces": 1,
+    "prefix_id": "a8910d6bd67191552cca1c6484de0443e4c25ae21eabbf43c6691eb51b403cbb",
+    "sequence": 1943,
+    "traversal_index": 35
+  },
+  {
+    "canonical_index": 36,
+    "indices": {
+      "canonical_flat": 36,
+      "canonical_hier": 36,
+      "insertion_flat": 36,
+      "insertion_hier": 19
+    },
+    "key": {
+      "anchor": "road:3868593",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/4683740340",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-10961086392881/17179869184000"
+    },
+    "pieces": 6,
+    "prefix_id": "1260651ec8c4de3e405026bdc403ef3981061c14a66183f211a9a58368e8c9eb",
+    "sequence": 1944,
+    "traversal_index": 36
+  },
+  {
+    "canonical_index": 37,
+    "indices": {
+      "canonical_flat": 37,
+      "canonical_hier": 37,
+      "insertion_flat": 38,
+      "insertion_hier": 53
+    },
+    "key": {
+      "anchor": "road:3868593",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/4683740340",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-10961086392881/17179869184000"
+    },
+    "pieces": 8,
+    "prefix_id": "22ac3e8c24ca11deb784f26b684e082f36c8f367d12c1e3de752333953bae5be",
+    "sequence": 1945,
+    "traversal_index": 37
+  },
+  {
+    "canonical_index": 38,
+    "indices": {
+      "canonical_flat": 38,
+      "canonical_hier": 38,
+      "insertion_flat": 37,
+      "insertion_hier": 52
+    },
+    "key": {
+      "anchor": "road:3868593",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/4683740340",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-10961086392881/17179869184000"
+    },
+    "pieces": 1,
+    "prefix_id": "a904c3025826d3e2fe7ec1c093017c6f085f974aa1ead89a2b52963cdbf9cad8",
+    "sequence": 1946,
+    "traversal_index": 38
+  },
+  {
+    "canonical_index": 39,
+    "indices": {
+      "canonical_flat": 39,
+      "canonical_hier": 39,
+      "insertion_flat": 39,
+      "insertion_hier": 10
+    },
+    "key": {
+      "anchor": "road:5182581",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/5001502150",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-2831462343848761/429496729600000"
+    },
+    "pieces": 6,
+    "prefix_id": "539f87bcc2628389d93d23e03f8ab3c2a66fba3ae292211bc0c42f97ee97c408",
+    "sequence": 1947,
+    "traversal_index": 39
+  },
+  {
+    "canonical_index": 40,
+    "indices": {
+      "canonical_flat": 40,
+      "canonical_hier": 40,
+      "insertion_flat": 41,
+      "insertion_hier": 33
+    },
+    "key": {
+      "anchor": "road:5182581",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/5001502150",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-2831462343848761/429496729600000"
+    },
+    "pieces": 8,
+    "prefix_id": "bc1293622882f45b204579d4bf09de41772523353363c3b99c6af80456466883",
+    "sequence": 1948,
+    "traversal_index": 40
+  },
+  {
+    "canonical_index": 41,
+    "indices": {
+      "canonical_flat": 41,
+      "canonical_hier": 41,
+      "insertion_flat": 40,
+      "insertion_hier": 32
+    },
+    "key": {
+      "anchor": "road:5182581",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/5001502150",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-2831462343848761/429496729600000"
+    },
+    "pieces": 1,
+    "prefix_id": "e2155bffc8e091b82d007aafd49f3f814acb7bbb198fd488f51cdb050cf0f819",
+    "sequence": 1949,
+    "traversal_index": 41
+  },
+  {
+    "canonical_index": 42,
+    "indices": {
+      "canonical_flat": 42,
+      "canonical_hier": 42,
+      "insertion_flat": 42,
+      "insertion_hier": 5
+    },
+    "key": {
+      "anchor": "road:4938584",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/6045968291",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-8256065549763613/858993459200000"
+    },
+    "pieces": 6,
+    "prefix_id": "d77978a260a5ec63d48f664c549ff7e6086278fcae912f2202f1fd1018d25406",
+    "sequence": 1950,
+    "traversal_index": 42
+  },
+  {
+    "canonical_index": 43,
+    "indices": {
+      "canonical_flat": 43,
+      "canonical_hier": 43,
+      "insertion_flat": 44,
+      "insertion_hier": 39
+    },
+    "key": {
+      "anchor": "road:4938584",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/6045968291",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-8256065549763613/858993459200000"
+    },
+    "pieces": 8,
+    "prefix_id": "1e77b07a9d6028dca3c0eea6f7f929da3e2501599bd0b4fbd32ed16f47f8c8f1",
+    "sequence": 1951,
+    "traversal_index": 43
+  },
+  {
+    "canonical_index": 44,
+    "indices": {
+      "canonical_flat": 44,
+      "canonical_hier": 44,
+      "insertion_flat": 43,
+      "insertion_hier": 38
+    },
+    "key": {
+      "anchor": "road:4938584",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/6045968291",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-8256065549763613/858993459200000"
+    },
+    "pieces": 1,
+    "prefix_id": "830ced210b448ab5d2c0eb861b82863e742cebbaa593e6d00f00b2feb4c23ec8",
+    "sequence": 1952,
+    "traversal_index": 44
+  },
+  {
+    "canonical_index": 45,
+    "indices": {
+      "canonical_flat": 45,
+      "canonical_hier": 45,
+      "insertion_flat": 45,
+      "insertion_hier": 8
+    },
+    "key": {
+      "anchor": "road:618480",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/6045972631",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-1977913322632131/429496729600000"
+    },
+    "pieces": 6,
+    "prefix_id": "7b6d035b7a196a4bc866753c93e891a34face7217b210ba3a4daac398e6669b5",
+    "sequence": 1953,
+    "traversal_index": 45
+  },
+  {
+    "canonical_index": 46,
+    "indices": {
+      "canonical_flat": 46,
+      "canonical_hier": 46,
+      "insertion_flat": 47,
+      "insertion_hier": 35
+    },
+    "key": {
+      "anchor": "road:618480",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/6045972631",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-1977913322632131/429496729600000"
+    },
+    "pieces": 8,
+    "prefix_id": "e619a9ccd9d8adcf7f60002fab7d7e5e9ffb38d6a49163f15650925ed6e4e66d",
+    "sequence": 1954,
+    "traversal_index": 46
+  },
+  {
+    "canonical_index": 47,
+    "indices": {
+      "canonical_flat": 47,
+      "canonical_hier": 47,
+      "insertion_flat": 46,
+      "insertion_hier": 34
+    },
+    "key": {
+      "anchor": "road:618480",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/6045972631",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-1977913322632131/429496729600000"
+    },
+    "pieces": 1,
+    "prefix_id": "a0956a5ea552d019eebbe4b06080102630734a1ebcca2f0bfe340c1358437847",
+    "sequence": 1955,
+    "traversal_index": 47
+  },
+  {
+    "canonical_index": 48,
+    "indices": {
+      "canonical_flat": 48,
+      "canonical_hier": 48,
+      "insertion_flat": 48,
+      "insertion_hier": 18
+    },
+    "key": {
+      "anchor": "road:5034571",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/6045998568",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-313708534468451/429496729600000"
+    },
+    "pieces": 6,
+    "prefix_id": "1161e9906097707858785ca2eb1174b243b52f1d74537756797c83ad37b84937",
+    "sequence": 1956,
+    "traversal_index": 48
+  },
+  {
+    "canonical_index": 49,
+    "indices": {
+      "canonical_flat": 49,
+      "canonical_hier": 49,
+      "insertion_flat": 50,
+      "insertion_hier": 55
+    },
+    "key": {
+      "anchor": "road:5034571",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/6045998568",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-313708534468451/429496729600000"
+    },
+    "pieces": 8,
+    "prefix_id": "cbae6cfc43aebbde40c671bb8e2065be7e717221a2f114671c70f52a4f08bc1a",
+    "sequence": 1957,
+    "traversal_index": 49
+  },
+  {
+    "canonical_index": 50,
+    "indices": {
+      "canonical_flat": 50,
+      "canonical_hier": 50,
+      "insertion_flat": 49,
+      "insertion_hier": 54
+    },
+    "key": {
+      "anchor": "road:5034571",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/6045998568",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-313708534468451/429496729600000"
+    },
+    "pieces": 1,
+    "prefix_id": "49acf20969b8797fdb6b7de952093e39fac4aed81a43e96de1077beaa44d47c1",
+    "sequence": 1958,
+    "traversal_index": 50
+  },
+  {
+    "canonical_index": 51,
+    "indices": {
+      "canonical_flat": 51,
+      "canonical_hier": 51,
+      "insertion_flat": 51,
+      "insertion_hier": 1
+    },
+    "key": {
+      "anchor": "road:4440811",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/8099989546",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-24036389884828591/1717986918400000"
+    },
+    "pieces": 6,
+    "prefix_id": "8f479a9848773d5291c62a998f70738d9541263d4105ae798eea56fdf94fa218",
+    "sequence": 1959,
+    "traversal_index": 51
+  },
+  {
+    "canonical_index": 52,
+    "indices": {
+      "canonical_flat": 52,
+      "canonical_hier": 52,
+      "insertion_flat": 52,
+      "insertion_hier": 0
+    },
+    "key": {
+      "anchor": "road:5766078",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/8099989597",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-490362214458889077/27487790694400000"
+    },
+    "pieces": 6,
+    "prefix_id": "924342fdb966c4ba78b95e70b9eb539b77e1c40159767030ae22300171fe2d35",
+    "sequence": 1960,
+    "traversal_index": 52
+  },
+  {
+    "canonical_index": 53,
+    "indices": {
+      "canonical_flat": 53,
+      "canonical_hier": 53,
+      "insertion_flat": 54,
+      "insertion_hier": 21
+    },
+    "key": {
+      "anchor": "road:5766078",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/8099989597",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-490362214458889077/27487790694400000"
+    },
+    "pieces": 8,
+    "prefix_id": "12f59b6011f5893ba2f534e589546d4602b6f963a6ea86fce3f37c51f08e8948",
+    "sequence": 1961,
+    "traversal_index": 53
+  },
+  {
+    "canonical_index": 54,
+    "indices": {
+      "canonical_flat": 54,
+      "canonical_hier": 54,
+      "insertion_flat": 53,
+      "insertion_hier": 20
+    },
+    "key": {
+      "anchor": "road:5766078",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/8099989597",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-490362214458889077/27487790694400000"
+    },
+    "pieces": 1,
+    "prefix_id": "9325ac662678566ece8263775721b97d5119531341936e871d357d14b9a8f75a",
+    "sequence": 1962,
+    "traversal_index": 54
+  },
+  {
+    "canonical_index": 55,
+    "indices": {
+      "canonical_flat": 55,
+      "canonical_hier": 55,
+      "insertion_flat": 55,
+      "insertion_hier": 3
+    },
+    "key": {
+      "anchor": "road:5667788",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/9004845675",
+          "C"
+        ]
+      ],
+      "remaining_schedule": 1,
+      "rho": "-859830215036529/85899345920000"
+    },
+    "pieces": 6,
+    "prefix_id": "a9d4a0013f0427c409f81ceea62ce5657d2b2ff384064eaa569f2e0a634b6bef",
+    "sequence": 1963,
+    "traversal_index": 55
+  },
+  {
+    "canonical_index": 56,
+    "indices": {
+      "canonical_flat": 56,
+      "canonical_hier": 56,
+      "insertion_flat": 57,
+      "insertion_hier": 51
+    },
+    "key": {
+      "anchor": "road:5667788",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/9004845675",
+          "CS"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-859830215036529/85899345920000"
+    },
+    "pieces": 8,
+    "prefix_id": "c84f2aae22638b6312f6d3b7b7b9d7095cfbe4bcbb7a5b61f29a1ab6044d2022",
+    "sequence": 1964,
+    "traversal_index": 56
+  },
+  {
+    "canonical_index": 57,
+    "indices": {
+      "canonical_flat": 57,
+      "canonical_hier": 57,
+      "insertion_flat": 56,
+      "insertion_hier": 50
+    },
+    "key": {
+      "anchor": "road:5667788",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:node/9004845675",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-859830215036529/85899345920000"
+    },
+    "pieces": 1,
+    "prefix_id": "18afa4f6c7b90fa8380b742b13a2934b541bd9a670af307e8318809be81d21e0",
+    "sequence": 1965,
+    "traversal_index": 57
+  },
+  {
+    "canonical_index": 58,
+    "indices": {
+      "canonical_flat": 58,
+      "canonical_hier": 58,
+      "insertion_flat": 58,
+      "insertion_hier": 62
+    },
+    "key": {
+      "anchor": "road:3315933",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:relation/5535079",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-24146376506856181/1717986918400000"
+    },
+    "pieces": 1,
+    "prefix_id": "f8837cfdc8285c3a864e12acd308bfdadccb8c4357001550e726a7678c468c05",
+    "sequence": 1966,
+    "traversal_index": 58
+  },
+  {
+    "canonical_index": 59,
+    "indices": {
+      "canonical_flat": 59,
+      "canonical_hier": 59,
+      "insertion_flat": 59,
+      "insertion_hier": 63
+    },
+    "key": {
+      "anchor": "road:3315930",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:relation/5535080",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-4805548115321737/343597383680000"
+    },
+    "pieces": 1,
+    "prefix_id": "ec93c33822dd8f51b315ff948355c0d129d8bb94613197d6a0de15b79af52313",
+    "sequence": 1967,
+    "traversal_index": 59
+  },
+  {
+    "canonical_index": 60,
+    "indices": {
+      "canonical_flat": 60,
+      "canonical_hier": 60,
+      "insertion_flat": 60,
+      "insertion_hier": 81
+    },
+    "key": {
+      "anchor": "road:1761111",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1018325296",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-4106458776196879/429496729600000"
+    },
+    "pieces": 1,
+    "prefix_id": "203bdf5789246e7ae369373ee46fb5be5919f3a42a07a09d5055d875cf6e501c",
+    "sequence": 1968,
+    "traversal_index": 60
+  },
+  {
+    "canonical_index": 61,
+    "indices": {
+      "canonical_flat": 61,
+      "canonical_hier": 61,
+      "insertion_flat": 61,
+      "insertion_hier": 73
+    },
+    "key": {
+      "anchor": "road:5789880",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1086215064",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-346491573162223/429496729600000"
+    },
+    "pieces": 1,
+    "prefix_id": "c634a8ea4b4ec101d5376fe315eb4f9f3502f97839738ea46951726b2a79a1a9",
+    "sequence": 1969,
+    "traversal_index": 61
+  },
+  {
+    "canonical_index": 62,
+    "indices": {
+      "canonical_flat": 62,
+      "canonical_hier": 62,
+      "insertion_flat": 62,
+      "insertion_hier": 74
+    },
+    "key": {
+      "anchor": "road:1014531",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1212226878",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-179222611530613/53687091200000"
+    },
+    "pieces": 1,
+    "prefix_id": "2190f48df0c4309c26ac2ffe2765a919344c99984506a91c65065bd14915e9ff",
+    "sequence": 1970,
+    "traversal_index": 62
+  },
+  {
+    "canonical_index": 63,
+    "indices": {
+      "canonical_flat": 63,
+      "canonical_hier": 63,
+      "insertion_flat": 63,
+      "insertion_hier": 64
+    },
+    "key": {
+      "anchor": "road:5663159",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1331116253",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-23765260487901581/1717986918400000"
+    },
+    "pieces": 1,
+    "prefix_id": "e143a7c661963d9e1763cf698be9cbb59005202785fa3966a5dffcd587212b39",
+    "sequence": 1971,
+    "traversal_index": 63
+  },
+  {
+    "canonical_index": 64,
+    "indices": {
+      "canonical_flat": 64,
+      "canonical_hier": 64,
+      "insertion_flat": 64,
+      "insertion_hier": 65
+    },
+    "key": {
+      "anchor": "road:5753222",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1331123330",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-23751633690542739/1717986918400000"
+    },
+    "pieces": 1,
+    "prefix_id": "bf62ceb00531a905376cba0d4812fac558d1d5af1a5f17ea3b8c8b90b1e84294",
+    "sequence": 1972,
+    "traversal_index": 64
+  },
+  {
+    "canonical_index": 65,
+    "indices": {
+      "canonical_flat": 65,
+      "canonical_hier": 65,
+      "insertion_flat": 65,
+      "insertion_hier": 66
+    },
+    "key": {
+      "anchor": "road:4566249",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1331123334",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-950739458200699/68719476736000"
+    },
+    "pieces": 1,
+    "prefix_id": "62dead2eb023ec1a5e1c6668030c783d148bda89d19a71361635efb1a7972fdf",
+    "sequence": 1973,
+    "traversal_index": 65
+  },
+  {
+    "canonical_index": 66,
+    "indices": {
+      "canonical_flat": 66,
+      "canonical_hier": 66,
+      "insertion_flat": 66,
+      "insertion_hier": 82
+    },
+    "key": {
+      "anchor": "road:4940135",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1339094049",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-2065084253749643/214748364800000"
+    },
+    "pieces": 1,
+    "prefix_id": "35f848632598c24d812e90955ed855d138adc3a18fecc99872b4a3cdab18a332",
+    "sequence": 1974,
+    "traversal_index": 66
+  },
+  {
+    "canonical_index": 67,
+    "indices": {
+      "canonical_flat": 67,
+      "canonical_hier": 67,
+      "insertion_flat": 67,
+      "insertion_hier": 75
+    },
+    "key": {
+      "anchor": "road:5732263",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1382773741",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-3445302505767/4294967296000"
+    },
+    "pieces": 1,
+    "prefix_id": "3cb2deb9db9f6ac3b978e6d41f727d9713087fa3bd8ff59ffae7ed9c6dfcd4a8",
+    "sequence": 1975,
+    "traversal_index": 67
+  },
+  {
+    "canonical_index": 68,
+    "indices": {
+      "canonical_flat": 68,
+      "canonical_hier": 68,
+      "insertion_flat": 68,
+      "insertion_hier": 69
+    },
+    "key": {
+      "anchor": "road:4757487",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1424254988",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-1309200204991721/171798691840000"
+    },
+    "pieces": 1,
+    "prefix_id": "d9593b1db5cc9d6fe46be9b0d85a96e176973518041659bc25ee5a3a41bfdc4b",
+    "sequence": 1976,
+    "traversal_index": 68
+  },
+  {
+    "canonical_index": 69,
+    "indices": {
+      "canonical_flat": 69,
+      "canonical_hier": 69,
+      "insertion_flat": 69,
+      "insertion_hier": 70
+    },
+    "key": {
+      "anchor": "road:5761294",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1424254996",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-3263850376712951/429496729600000"
+    },
+    "pieces": 1,
+    "prefix_id": "c709532cd63a499c2954e2c334d8169659974be8b1bacb20a2c8104c0b2f4db7",
+    "sequence": 1977,
+    "traversal_index": 69
+  },
+  {
+    "canonical_index": 70,
+    "indices": {
+      "canonical_flat": 70,
+      "canonical_hier": 70,
+      "insertion_flat": 70,
+      "insertion_hier": 71
+    },
+    "key": {
+      "anchor": "road:5761297",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1424255003",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-263673251237777/34359738368000"
+    },
+    "pieces": 1,
+    "prefix_id": "803cf38a7d3f156714caddc725cb7ca8c8ffd3e3d17fde4ee0587010cfffa84d",
+    "sequence": 1978,
+    "traversal_index": 70
+  },
+  {
+    "canonical_index": 71,
+    "indices": {
+      "canonical_flat": 71,
+      "canonical_hier": 71,
+      "insertion_flat": 71,
+      "insertion_hier": 58
+    },
+    "key": {
+      "anchor": "road:5766044",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1428334358",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-97473991027309569/5497558138880000"
+    },
+    "pieces": 1,
+    "prefix_id": "bde7a3185f6caf8e51379da75607ac698296a9be0d5ee535756edb1ed99b570a",
+    "sequence": 1979,
+    "traversal_index": 71
+  },
+  {
+    "canonical_index": 72,
+    "indices": {
+      "canonical_flat": 72,
+      "canonical_hier": 72,
+      "insertion_flat": 72,
+      "insertion_hier": 59
+    },
+    "key": {
+      "anchor": "road:2001294",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1428348954",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-488065378648930121/27487790694400000"
+    },
+    "pieces": 1,
+    "prefix_id": "04c502f4c78f9b33c8e4a527ac653e9344dba4f3af334d519ee3421755f01ca9",
+    "sequence": 1980,
+    "traversal_index": 72
+  },
+  {
+    "canonical_index": 73,
+    "indices": {
+      "canonical_flat": 73,
+      "canonical_hier": 73,
+      "insertion_flat": 73,
+      "insertion_hier": 84
+    },
+    "key": {
+      "anchor": "road:5769296",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1432551249",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-1977459877164877/214748364800000"
+    },
+    "pieces": 1,
+    "prefix_id": "1d0355fa105ee151e4aee90db5a15451c067a0a2b97ccec790af1353b16f1f99",
+    "sequence": 1981,
+    "traversal_index": 73
+  },
+  {
+    "canonical_index": 74,
+    "indices": {
+      "canonical_flat": 74,
+      "canonical_hier": 74,
+      "insertion_flat": 74,
+      "insertion_hier": 60
+    },
+    "key": {
+      "anchor": "road:5770162",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1433572199",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-48967420165487801/2748779069440000"
+    },
+    "pieces": 1,
+    "prefix_id": "c11b4bfd51d734ae618692252882b7c9c0d9fe4ede2e05d11d4bc29015a3d922",
+    "sequence": 1982,
+    "traversal_index": 74
+  },
+  {
+    "canonical_index": 75,
+    "indices": {
+      "canonical_flat": 75,
+      "canonical_hier": 75,
+      "insertion_flat": 75,
+      "insertion_hier": 67
+    },
+    "key": {
+      "anchor": "road:5672917",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1482614449",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-4586658110122233/429496729600000"
+    },
+    "pieces": 1,
+    "prefix_id": "7a3b8a11db9b2527a336538ad094e2600b6a79d5110d345b60ed6fa5df0e677e",
+    "sequence": 1983,
+    "traversal_index": 75
+  },
+  {
+    "canonical_index": 76,
+    "indices": {
+      "canonical_flat": 76,
+      "canonical_hier": 76,
+      "insertion_flat": 76,
+      "insertion_hier": 72
+    },
+    "key": {
+      "anchor": "road:5683252",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1482997846",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-793817588181239/107374182400000"
+    },
+    "pieces": 1,
+    "prefix_id": "c7222a2a8a4d6bdcf0ad3c97d81d8ed7e85fc6cba8b7055770f3b4b26e37413a",
+    "sequence": 1984,
+    "traversal_index": 76
+  },
+  {
+    "canonical_index": 77,
+    "indices": {
+      "canonical_flat": 77,
+      "canonical_hier": 77,
+      "insertion_flat": 77,
+      "insertion_hier": 83
+    },
+    "key": {
+      "anchor": "road:5846881",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1525582977",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-7765815030292941/858993459200000"
+    },
+    "pieces": 1,
+    "prefix_id": "bf89fd7a3aca973992525dad7ec90af5510d2243d536d7fe31ca05bd33bac771",
+    "sequence": 1985,
+    "traversal_index": 77
+  },
+  {
+    "canonical_index": 78,
+    "indices": {
+      "canonical_flat": 78,
+      "canonical_hier": 78,
+      "insertion_flat": 78,
+      "insertion_hier": 76
+    },
+    "key": {
+      "anchor": "road:844621",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1533214436",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-374968374565799/107374182400000"
+    },
+    "pieces": 1,
+    "prefix_id": "2fe722234800440cb91a89afb82cc3cb03162ef6008798e555e4afe5146d804a",
+    "sequence": 1986,
+    "traversal_index": 78
+  },
+  {
+    "canonical_index": 79,
+    "indices": {
+      "canonical_flat": 79,
+      "canonical_hier": 79,
+      "insertion_flat": 79,
+      "insertion_hier": 77
+    },
+    "key": {
+      "anchor": "road:5883796",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/1558096218",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-1431415774014081/429496729600000"
+    },
+    "pieces": 1,
+    "prefix_id": "95c6eef22450682da0a8405d40d4d63b2e74749eab2d951656afdaeebbb242aa",
+    "sequence": 1987,
+    "traversal_index": 79
+  },
+  {
+    "canonical_index": 80,
+    "indices": {
+      "canonical_flat": 80,
+      "canonical_hier": 80,
+      "insertion_flat": 80,
+      "insertion_hier": 78
+    },
+    "key": {
+      "anchor": "road:2492661",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/236052919",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-1800191905251/17179869184000"
+    },
+    "pieces": 1,
+    "prefix_id": "ed6def16254a1c81f66a2d387af523010dafe5d93ca07facab7898539f6f723f",
+    "sequence": 1988,
+    "traversal_index": 80
+  },
+  {
+    "canonical_index": 81,
+    "indices": {
+      "canonical_flat": 81,
+      "canonical_hier": 81,
+      "insertion_flat": 81,
+      "insertion_hier": 79
+    },
+    "key": {
+      "anchor": "road:618487",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/283612368",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-983956529109539/214748364800000"
+    },
+    "pieces": 1,
+    "prefix_id": "6432a5c352efe1054bdd68fb40648154bc68fb327234bde1998bbac81f38bffb",
+    "sequence": 1989,
+    "traversal_index": 81
+  },
+  {
+    "canonical_index": 82,
+    "indices": {
+      "canonical_flat": 82,
+      "canonical_hier": 82,
+      "insertion_flat": 82,
+      "insertion_hier": 68
+    },
+    "key": {
+      "anchor": "road:3315935",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/372251643",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-2409871735071651/171798691840000"
+    },
+    "pieces": 1,
+    "prefix_id": "d930ff2ce284df942c9371899c8d777d3c91c212787a782d12baa56e78ecad9d",
+    "sequence": 1990,
+    "traversal_index": 82
+  },
+  {
+    "canonical_index": 83,
+    "indices": {
+      "canonical_flat": 83,
+      "canonical_hier": 83,
+      "insertion_flat": 83,
+      "insertion_hier": 61
+    },
+    "key": {
+      "anchor": "road:5766045",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/426160768",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-243903298796108381/13743895347200000"
+    },
+    "pieces": 1,
+    "prefix_id": "72ffe3cc9b43d7d1cbc0eebf73c83b6849692f37d757d0e6ef775bfbd6ee8328",
+    "sequence": 1991,
+    "traversal_index": 83
+  },
+  {
+    "canonical_index": 84,
+    "indices": {
+      "canonical_flat": 84,
+      "canonical_hier": 84,
+      "insertion_flat": 84,
+      "insertion_hier": 85
+    },
+    "key": {
+      "anchor": "road:4575635",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/866060313",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-2119518772338363/214748364800000"
+    },
+    "pieces": 1,
+    "prefix_id": "7d1bf5b8a9614aba57c88ed11b6dce7c9427fc31fa946c9f31e620f73f3a9077",
+    "sequence": 1992,
+    "traversal_index": 84
+  },
+  {
+    "canonical_index": 85,
+    "indices": {
+      "canonical_flat": 85,
+      "canonical_hier": 85,
+      "insertion_flat": 85,
+      "insertion_hier": 80
+    },
+    "key": {
+      "anchor": "road:844642",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/904576147",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-1531763389917829/429496729600000"
+    },
+    "pieces": 1,
+    "prefix_id": "5f3473c340145459c85a4e4186f0c86e568b8a8b1dbe2dc4f26c65ef4ed0756a",
+    "sequence": 1993,
+    "traversal_index": 85
+  },
+  {
+    "canonical_index": 86,
+    "indices": {
+      "canonical_flat": 86,
+      "canonical_hier": 86,
+      "insertion_flat": 86,
+      "insertion_hier": 86
+    },
+    "key": {
+      "anchor": "road:5678371",
+      "depth": 1,
+      "pi": [
+        [
+          "4r:way/952988171",
+          "S"
+        ]
+      ],
+      "remaining_schedule": 0,
+      "rho": "-4249914394735023/429496729600000"
+    },
+    "pieces": 1,
+    "prefix_id": "a2a34b48a12ee6aaf65609ff1b5390bfa3034acbc4682a47865790f7e010d3ea",
+    "sequence": 1994,
+    "traversal_index": 86
+  }
+]

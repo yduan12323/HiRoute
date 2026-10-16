@@ -1,0 +1,48 @@
+{
+  "all1119_original_hashes_rechecked": true,
+  "final_review": {
+    "additional_run_authorized": false,
+    "admitted_sha256": "307b54139b8f4c53ec613c4e45b60d43cd7b7919bf8bd16080a17f526e8ed1df",
+    "checks": [
+      "All five terminal chains reauthenticated read-only through controller validators; cleanup and accounting complete",
+      "Both saved best routes freshly physically verified, initial full key retained and Hmax37 unchanged",
+      "Common seed/snapshot/domain equality and explicit canonical-policy provenance bridge checked",
+      "Independent read-only extraction exactly reproduces four analysis JSON outputs and 64 input pins",
+      "Both canonical depth-one traces contain same ordered 87 semantic IDs/keys/piece counts; no full PWA equivalence inferred",
+      "1905 normalized root records match each prior method; slower FLAT root routing scopes are descriptive and unattributed",
+      "Both parent-finalized exact-timeout traces are censored, no partial tails; unmatched starts do not identify kill-time operation",
+      "181 source pins unchanged and prior insertion outcomes preserved"
+    ],
+    "claim_scope": "One fixed known-DEV 149-domain paired ablation. No improved route, exact completion, global gap, sorting irrelevance, causal sorting penalty or general method superiority is established.",
+    "final_index_sha256": "34e7542baed5c5f3771e97c9cb3f63dbf2a1d7b1609c6a4757fe488dd9997525",
+    "report_sha256": "c2e9025ddf9320c63426fd5a5a109c1bc3f425c9f095af43e483d787c72b1cf6",
+    "resource_accounting": {
+      "development_review_costs": "Separate and partially measured",
+      "orchestration_debits": 73,
+      "raw_decimal": "840.097081771999995",
+      "separate_finalizer_child_cpu_seconds": [
+        "0.130340",
+        "0.100323"
+      ],
+      "stage_plus_full240_cpu_seconds": "840.097081772"
+    },
+    "result_sha256": "0abff4354f15732576cf53710e6e46445d881d2328b6706cccfc74811b71c661",
+    "status": "approved_scoped_completed_ablation_report",
+    "verified_index_entries": 1119
+  },
+  "final_review_sha256": "92dc3fd77d2f481016dd0fbd1fbb7bac2b17010a6342c34608aa43c2c978d1fd",
+  "new_numerical_run": false,
+  "original_analysis_sha256": {
+    "COMPARISON.json": "c4b1a1c04b238b402e9d00aa053ed3ee32868cc32dd41cdc624ec30a4d5b105c",
+    "DEPTH1_PREFIX_ROWS.json": "f8dcab848e89c161e20cb11f387c4f8f76bfdab2f7218e04f357fb67078026b7",
+    "INPUT_SHA256.json": "e7003ed3ef41db78e3ac9f90fb08eeadabf9f8f124a7f5d3e8eb495bb21b6527",
+    "OUTPUT_SHA256.json": "061f29e8bd947ba7c840eaf646c917e2e273be5211cd4389e45c7b5bb6295014",
+    "SUMMARY.json": "e57b657926b18fb5f2980d88783106ffaf7505c8a73c0456335fab27eb2722d3"
+  },
+  "original_evidence_index_sha256": "34e7542baed5c5f3771e97c9cb3f63dbf2a1d7b1609c6a4757fe488dd9997525",
+  "original_report_sha256": "c2e9025ddf9320c63426fd5a5a109c1bc3f425c9f095af43e483d787c72b1cf6",
+  "original_result_sha256": "0abff4354f15732576cf53710e6e46445d881d2328b6706cccfc74811b71c661",
+  "projection": "Machine paths/process IDs/path-keyed evidence maps removed. Comparison omits detailed per-source timing array; ordered depth1 prefix rows and summary aggregates retained. Original hashes identify retained originals, not public projection bytes.",
+  "source_installation": false,
+  "standalone_replay_bundle": false
+}

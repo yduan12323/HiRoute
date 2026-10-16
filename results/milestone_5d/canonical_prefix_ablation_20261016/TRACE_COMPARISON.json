@@ -1,0 +1,740 @@
+{
+  "comparison": {
+    "all_four_layer_maps_same": true,
+    "approved_insertion_summary_scopes_match": true,
+    "canonical_first_depth1_same": true,
+    "canonical_flat_depth1_completed_is_prefix_of_insertion_flat": true,
+    "canonical_hier_vs_flat_first_action_mismatch": 0,
+    "canonical_layers_same_order_keys_pieces": true,
+    "canonical_sweep_label_comparison": [],
+    "canonical_sweep_label_request_count": {
+      "flat": 0,
+      "hier": 0
+    },
+    "canonical_vs_insertion_flat_depth0_action_signature_match": true,
+    "limitations": [
+      "Trace contains censored unmatched starts, not proof of the kill-time stack or eventual results.",
+      "Prefix IDs encode semantic state only; matching key and piece count do not establish full PWA-function parity.",
+      "Nested inclusive wall/thread-CPU scopes must not be added as disjoint cost.",
+      "Same first prefix does not force the same within-prefix action traversal, finish schedule, cache state or timely witness.",
+      "Single fixed-order paired trials do not identify isolated causal timing effects or global method/policy superiority.",
+      "Setup wall/CPU precedes the exact 120-second clock; worker-stage CPU is not complete process-tree CPU accounting."
+    ],
+    "observer_persistence_semantics": "Cumulative progress-observer persistence only, at final recorded snapshot; not root-layer-specific, not the prefix trace observer, not isolated full hook overhead. Inclusive overlaps prevent additive attribution.",
+    "omitted_per_source_timing_records": 48,
+    "pre_depth1_flat_delay_attribution": "Observed slower routing scopes under unchanged root-layer semantic sequence; the timing difference remains unattributed. A one-prefix initial layer cannot change semantic order under sorting. No evidence attributes the delay to sorting; timing was uncontrolled and neither sorting nor full instrumentation cost was isolated.",
+    "root_logical_record_comparison": {
+      "flat": {
+        "canonical_normalized_sha256": "135e1233dcfce93e1f37c9e1de27fdc6da1500c06362b9a2e175ae9e16d91965",
+        "equal": true,
+        "insertion_normalized_sha256": "135e1233dcfce93e1f37c9e1de27fdc6da1500c06362b9a2e175ae9e16d91965",
+        "records": 1905,
+        "removed_fields": [
+          "sha256",
+          "previous_sha256",
+          "started_wall_ns",
+          "wall_ns",
+          "thread_cpu_ns"
+        ]
+      },
+      "hier": {
+        "canonical_normalized_sha256": "d4ebbc699a74ad8c7d88dbca6556dbe513108f9a81e397b6563b45df9579d690",
+        "equal": true,
+        "insertion_normalized_sha256": "d4ebbc699a74ad8c7d88dbca6556dbe513108f9a81e397b6563b45df9579d690",
+        "records": 1905,
+        "removed_fields": [
+          "sha256",
+          "previous_sha256",
+          "started_wall_ns",
+          "wall_ns",
+          "thread_cpu_ns"
+        ]
+      }
+    },
+    "schema": "hiroute.canonical_prefix_analysis.v1",
+    "scope": "Read-only extraction of completed canonical and insertion OD07 traces; no graph runs, tests or solver changes.",
+    "semantic_key_fields": [
+      "pi",
+      "anchor",
+      "remaining_schedule",
+      "depth_as_stop_count",
+      "rho_as_exact_rational"
+    ],
+    "sort_timer_observed": false,
+    "source_delta": {
+      "baseline_runtime": "[machine path omitted]",
+      "changes": [
+        {
+          "prior_path": null,
+          "prior_sha256": null,
+          "sha256": "3970ef38fcc707f4f6fffbeb7ba190040d834fd056c9e4fe25b363a247c98b1e"
+        },
+        {
+          "prior_path": "[machine path omitted]",
+          "prior_sha256": "508123f5e4564baeb2bc5e927d06537246b87450e83053f81b41269d562d48e9",
+          "sha256": "6fc0a971636748868a441e695f0c98ea8467be8db77686c0522b3d1e9b8d15c8"
+        },
+        {
+          "prior_path": "[machine path omitted]",
+          "prior_sha256": "7bb0d9f941a6a9fc3585d7b05eb9d09f0214432c37f0ff5f090ae6c0fcb1acee",
+          "sha256": "5d34df588a19dfb38be29c5591e83cb9601ae6aefdd15312f70260ef1f34c4b0"
+        },
+        {
+          "prior_path": "[machine path omitted]",
+          "prior_sha256": "967a67f3fdbecae44851847276466dce9ba0fe58ba1b9a8955388f4dda0e89dd",
+          "sha256": "815dde5b410bae68f12f8da9fc11cd92b272758ceb0d754b19a81cd2562bea81"
+        },
+        {
+          "prior_path": null,
+          "prior_sha256": null,
+          "sha256": "eca456651fecccd1bbf2452b5994ca6df3780559d740c8d940b0dfd4a2191ada"
+        },
+        {
+          "prior_path": null,
+          "prior_sha256": null,
+          "sha256": "d8c81ebbb771727dd0d3c0840fd173e806b71d8b2a78add4646745bea36f2ca9"
+        },
+        {
+          "prior_path": "[machine path omitted]",
+          "prior_sha256": "07149a79bb6a6357924af675782d96cfe71dd282caf91952bff993ab17542615",
+          "sha256": "70887cfabdf37ebe5041f71fe994229ad63a8a5e3f0af52643ffe73c5334ef67"
+        },
+        {
+          "prior_path": "[machine path omitted]",
+          "prior_sha256": "eb8c97f5efbcaaa917457bcc61abf39e35c7e341684f8d08e3b6f6eef9a60273",
+          "sha256": "ff4990627675239d68ce6353ea8ccba23d24c7da3953c306c5c322e4df3bd44d"
+        }
+      ],
+      "schema": "hiroute.canonical_integration_delta.v1",
+      "scope": "Only semantic layer-entry ordering and explicit ordering-policy authentication; preserved prefix tracing, full routing, physical seed/domain and action queues."
+    }
+  },
+  "summary": {
+    "canonical_flat": {
+      "buckets": {
+        "depth0_expansion_and_children": {
+          "actions_completed": 299,
+          "finish_output_histogram": {
+            "0": 91
+          },
+          "scopes": {
+            "advance|search|incoming": {
+              "calls": 299,
+              "thread_cpu_ns": 3453097603,
+              "wall_ns": 3476243256
+            },
+            "finish|search|terminal": {
+              "calls": 91,
+              "thread_cpu_ns": 110798244397,
+              "wall_ns": 112707475035
+            },
+            "road_labels|search|incoming": {
+              "calls": 144,
+              "thread_cpu_ns": 2110168399,
+              "wall_ns": 2120722801
+            },
+            "road_labels|search|terminal": {
+              "calls": 48,
+              "thread_cpu_ns": 110308588757,
+              "wall_ns": 112215270162
+            },
+            "road_leg|search|incoming": {
+              "calls": 299,
+              "thread_cpu_ns": 2904014865,
+              "wall_ns": 2925749343
+            },
+            "road_leg|search|terminal": {
+              "calls": 69,
+              "thread_cpu_ns": 110777196778,
+              "wall_ns": 112686209891
+            }
+          },
+          "source_cache_hits": 143,
+          "source_cache_misses": 49
+        },
+        "depth1_expansion_and_children": {
+          "actions_completed": 11,
+          "finish_output_histogram": {
+            "0": 5
+          },
+          "scopes": {
+            "advance|search|incoming": {
+              "calls": 11,
+              "thread_cpu_ns": 2359553105,
+              "wall_ns": 2381975518
+            },
+            "finish|search|terminal": {
+              "calls": 5,
+              "thread_cpu_ns": 396332,
+              "wall_ns": 410680
+            },
+            "road_labels|search|incoming": {
+              "calls": 4,
+              "thread_cpu_ns": 1963281261,
+              "wall_ns": 1982108722
+            },
+            "road_leg|search|incoming": {
+              "calls": 11,
+              "thread_cpu_ns": 1982996342,
+              "wall_ns": 2002077466
+            },
+            "road_leg|search|terminal": {
+              "calls": 2,
+              "thread_cpu_ns": 6200,
+              "wall_ns": 5943
+            }
+          },
+          "source_cache_hits": 3,
+          "source_cache_misses": 1
+        },
+        "depth1_finish_sweep": {
+          "actions_completed": 0,
+          "finish_output_histogram": {
+            "0": 87
+          },
+          "scopes": {
+            "finish|search|terminal": {
+              "calls": 87,
+              "thread_cpu_ns": 9250710,
+              "wall_ns": 9440358
+            },
+            "road_leg|search|terminal": {
+              "calls": 67,
+              "thread_cpu_ns": 210425,
+              "wall_ns": 181671
+            }
+          },
+          "source_cache_hits": 0,
+          "source_cache_misses": 0
+        }
+      },
+      "depth1_actions": 11,
+      "first_action": 117.560627485,
+      "scopes": {
+        "advance|search|incoming": {
+          "calls": 310,
+          "thread_cpu_ns": 5812650708,
+          "wall_ns": 5858218774
+        },
+        "finish|search|terminal": {
+          "calls": 183,
+          "thread_cpu_ns": 110807891439,
+          "wall_ns": 112717326073
+        },
+        "road_labels|search|incoming": {
+          "calls": 148,
+          "thread_cpu_ns": 4073449660,
+          "wall_ns": 4102831523
+        },
+        "road_labels|search|terminal": {
+          "calls": 48,
+          "thread_cpu_ns": 110308588757,
+          "wall_ns": 112215270162
+        },
+        "road_leg|search|incoming": {
+          "calls": 310,
+          "thread_cpu_ns": 4887011207,
+          "wall_ns": 4927826809
+        },
+        "road_leg|search|terminal": {
+          "calls": 138,
+          "thread_cpu_ns": 110777413403,
+          "wall_ns": 112686397505
+        }
+      },
+      "setup_cpu": 77.248128263,
+      "setup_wall": 86.012913997
+    },
+    "canonical_hier": {
+      "buckets": {
+        "depth0_expansion_and_children": {
+          "actions_completed": 299,
+          "finish_output_histogram": {
+            "0": 91
+          },
+          "scopes": {
+            "advance|search|incoming": {
+              "calls": 299,
+              "thread_cpu_ns": 5120303732,
+              "wall_ns": 5157381322
+            },
+            "finish|search|terminal": {
+              "calls": 91,
+              "thread_cpu_ns": 85856376144,
+              "wall_ns": 86560470879
+            },
+            "road_labels|search|incoming": {
+              "calls": 144,
+              "thread_cpu_ns": 3528323464,
+              "wall_ns": 3550853410
+            },
+            "road_labels|search|terminal": {
+              "calls": 48,
+              "thread_cpu_ns": 85385914041,
+              "wall_ns": 86085560056
+            },
+            "road_leg|search|incoming": {
+              "calls": 299,
+              "thread_cpu_ns": 4248564452,
+              "wall_ns": 4279456425
+            },
+            "road_leg|search|terminal": {
+              "calls": 69,
+              "thread_cpu_ns": 85834849895,
+              "wall_ns": 86536521236
+            }
+          },
+          "source_cache_hits": 142,
+          "source_cache_misses": 50
+        },
+        "depth1_expansion_and_children": {
+          "actions_completed": 103,
+          "finish_output_histogram": {
+            "0": 102
+          },
+          "scopes": {
+            "advance|search|incoming": {
+              "calls": 103,
+              "thread_cpu_ns": 6104717080,
+              "wall_ns": 6138614383
+            },
+            "finish|search|terminal": {
+              "calls": 102,
+              "thread_cpu_ns": 17726327569,
+              "wall_ns": 18035648518
+            },
+            "road_labels|search|incoming": {
+              "calls": 62,
+              "thread_cpu_ns": 1839915647,
+              "wall_ns": 1851157797
+            },
+            "road_labels|search|terminal": {
+              "calls": 6,
+              "thread_cpu_ns": 17632681754,
+              "wall_ns": 17939412896
+            },
+            "road_leg|search|incoming": {
+              "calls": 103,
+              "thread_cpu_ns": 2046193430,
+              "wall_ns": 2060441742
+            },
+            "road_leg|search|terminal": {
+              "calls": 75,
+              "thread_cpu_ns": 17699922775,
+              "wall_ns": 18006791659
+            }
+          },
+          "source_cache_hits": 61,
+          "source_cache_misses": 7
+        },
+        "depth1_finish_sweep": {
+          "actions_completed": 0,
+          "finish_output_histogram": {
+            "0": 87
+          },
+          "scopes": {
+            "finish|search|terminal": {
+              "calls": 87,
+              "thread_cpu_ns": 9658649,
+              "wall_ns": 9967270
+            },
+            "road_leg|search|terminal": {
+              "calls": 67,
+              "thread_cpu_ns": 138295,
+              "wall_ns": 130725
+            }
+          },
+          "source_cache_hits": 0,
+          "source_cache_misses": 0
+        }
+      },
+      "depth1_actions": 103,
+      "first_action": 93.592490723,
+      "scopes": {
+        "advance|search|incoming": {
+          "calls": 402,
+          "thread_cpu_ns": 11225020812,
+          "wall_ns": 11295995705
+        },
+        "finish|search|terminal": {
+          "calls": 280,
+          "thread_cpu_ns": 103592362362,
+          "wall_ns": 104606086667
+        },
+        "road_labels|search|incoming": {
+          "calls": 206,
+          "thread_cpu_ns": 5368239111,
+          "wall_ns": 5402011207
+        },
+        "road_labels|search|terminal": {
+          "calls": 54,
+          "thread_cpu_ns": 103018595795,
+          "wall_ns": 104024972952
+        },
+        "road_leg|search|incoming": {
+          "calls": 402,
+          "thread_cpu_ns": 6294757882,
+          "wall_ns": 6339898167
+        },
+        "road_leg|search|terminal": {
+          "calls": 211,
+          "thread_cpu_ns": 103534910965,
+          "wall_ns": 104543443620
+        }
+      },
+      "setup_cpu": 69.943537266,
+      "setup_wall": 77.87642312
+    },
+    "insertion_flat": {
+      "buckets": {
+        "depth0_expansion_and_children": {
+          "actions_completed": 299,
+          "finish_output_histogram": {
+            "0": 91
+          },
+          "scopes": {
+            "advance|search|incoming": {
+              "calls": 299,
+              "thread_cpu_ns": 3421604429,
+              "wall_ns": 3437604667
+            },
+            "finish|search|terminal": {
+              "calls": 91,
+              "thread_cpu_ns": 90758733685,
+              "wall_ns": 92296018017
+            },
+            "road_labels|search|incoming": {
+              "calls": 144,
+              "thread_cpu_ns": 1884549519,
+              "wall_ns": 1890243151
+            },
+            "road_labels|search|terminal": {
+              "calls": 48,
+              "thread_cpu_ns": 90280112013,
+              "wall_ns": 91811228507
+            },
+            "road_leg|search|incoming": {
+              "calls": 299,
+              "thread_cpu_ns": 2603135389,
+              "wall_ns": 2614285337
+            },
+            "road_leg|search|terminal": {
+              "calls": 69,
+              "thread_cpu_ns": 90737703903,
+              "wall_ns": 92272643692
+            }
+          },
+          "source_cache_hits": 143,
+          "source_cache_misses": 49
+        },
+        "depth1_expansion_and_children": {
+          "actions_completed": 14,
+          "finish_output_histogram": {
+            "0": 7,
+            "6": 1
+          },
+          "scopes": {
+            "advance|search|incoming": {
+              "calls": 14,
+              "thread_cpu_ns": 2059624862,
+              "wall_ns": 2068019868
+            },
+            "durable_verification|independent_verifier|durable_verification": {
+              "calls": 1,
+              "thread_cpu_ns": 17095324888,
+              "wall_ns": 17212178900
+            },
+            "finish|search|terminal": {
+              "calls": 8,
+              "thread_cpu_ns": 1883330275,
+              "wall_ns": 1892050169
+            },
+            "road_labels|independent_verifier|durable_verification": {
+              "calls": 3,
+              "thread_cpu_ns": 5275493007,
+              "wall_ns": 5302946061
+            },
+            "road_labels|search|incoming": {
+              "calls": 5,
+              "thread_cpu_ns": 1728065689,
+              "wall_ns": 1734585616
+            },
+            "road_labels|search|terminal": {
+              "calls": 1,
+              "thread_cpu_ns": 1876092325,
+              "wall_ns": 1884568698
+            },
+            "road_leg|independent_verifier|durable_verification": {
+              "calls": 3,
+              "thread_cpu_ns": 5289451076,
+              "wall_ns": 5318048564
+            },
+            "road_leg|independent_verifier|witness_replay": {
+              "calls": 3,
+              "thread_cpu_ns": 5015,
+              "wall_ns": 4685
+            },
+            "road_leg|search|incoming": {
+              "calls": 14,
+              "thread_cpu_ns": 1755458376,
+              "wall_ns": 1762086715
+            },
+            "road_leg|search|terminal": {
+              "calls": 4,
+              "thread_cpu_ns": 1882190467,
+              "wall_ns": 1890911884
+            },
+            "road_leg|search|witness_replay": {
+              "calls": 18,
+              "thread_cpu_ns": 47887,
+              "wall_ns": 45701
+            },
+            "witness_replay|independent_verifier|witness_replay": {
+              "calls": 1,
+              "thread_cpu_ns": 424292,
+              "wall_ns": 437471
+            },
+            "witness_replay|search|witness_replay": {
+              "calls": 6,
+              "thread_cpu_ns": 3487161,
+              "wall_ns": 3539009
+            }
+          },
+          "source_cache_hits": 4,
+          "source_cache_misses": 5
+        },
+        "depth1_finish_sweep": {
+          "actions_completed": 0,
+          "finish_output_histogram": {
+            "0": 87
+          },
+          "scopes": {
+            "finish|search|terminal": {
+              "calls": 87,
+              "thread_cpu_ns": 10853884,
+              "wall_ns": 10996766
+            },
+            "road_leg|search|terminal": {
+              "calls": 67,
+              "thread_cpu_ns": 159404,
+              "wall_ns": 148627
+            }
+          },
+          "source_cache_hits": 0,
+          "source_cache_misses": 0
+        }
+      },
+      "depth1_actions": 14,
+      "first_action": 96.927300208,
+      "scopes": {
+        "advance|search|incoming": {
+          "calls": 313,
+          "thread_cpu_ns": 5481229291,
+          "wall_ns": 5505624535
+        },
+        "durable_verification|independent_verifier|durable_verification": {
+          "calls": 1,
+          "thread_cpu_ns": 17095324888,
+          "wall_ns": 17212178900
+        },
+        "finish|search|terminal": {
+          "calls": 186,
+          "thread_cpu_ns": 92652917844,
+          "wall_ns": 94199064952
+        },
+        "road_labels|independent_verifier|durable_verification": {
+          "calls": 3,
+          "thread_cpu_ns": 5275493007,
+          "wall_ns": 5302946061
+        },
+        "road_labels|search|incoming": {
+          "calls": 149,
+          "thread_cpu_ns": 3612615208,
+          "wall_ns": 3624828767
+        },
+        "road_labels|search|terminal": {
+          "calls": 49,
+          "thread_cpu_ns": 92156204338,
+          "wall_ns": 93695797205
+        },
+        "road_leg|independent_verifier|durable_verification": {
+          "calls": 3,
+          "thread_cpu_ns": 5289451076,
+          "wall_ns": 5318048564
+        },
+        "road_leg|independent_verifier|witness_replay": {
+          "calls": 3,
+          "thread_cpu_ns": 5015,
+          "wall_ns": 4685
+        },
+        "road_leg|search|incoming": {
+          "calls": 313,
+          "thread_cpu_ns": 4358593765,
+          "wall_ns": 4376372052
+        },
+        "road_leg|search|terminal": {
+          "calls": 140,
+          "thread_cpu_ns": 92620053774,
+          "wall_ns": 94163704203
+        },
+        "road_leg|search|witness_replay": {
+          "calls": 18,
+          "thread_cpu_ns": 47887,
+          "wall_ns": 45701
+        },
+        "witness_replay|independent_verifier|witness_replay": {
+          "calls": 1,
+          "thread_cpu_ns": 424292,
+          "wall_ns": 437471
+        },
+        "witness_replay|search|witness_replay": {
+          "calls": 6,
+          "thread_cpu_ns": 3487161,
+          "wall_ns": 3539009
+        }
+      },
+      "setup_cpu": 98.809830068,
+      "setup_wall": 109.463411602
+    },
+    "insertion_hier": {
+      "buckets": {
+        "depth0_expansion_and_children": {
+          "actions_completed": 299,
+          "finish_output_histogram": {
+            "0": 91
+          },
+          "scopes": {
+            "advance|search|incoming": {
+              "calls": 299,
+              "thread_cpu_ns": 4947976180,
+              "wall_ns": 4975565425
+            },
+            "finish|search|terminal": {
+              "calls": 91,
+              "thread_cpu_ns": 88741027411,
+              "wall_ns": 89401140941
+            },
+            "road_labels|search|incoming": {
+              "calls": 144,
+              "thread_cpu_ns": 3534075317,
+              "wall_ns": 3550533630
+            },
+            "road_labels|search|terminal": {
+              "calls": 48,
+              "thread_cpu_ns": 88273473660,
+              "wall_ns": 88927501070
+            },
+            "road_leg|search|incoming": {
+              "calls": 299,
+              "thread_cpu_ns": 4227504707,
+              "wall_ns": 4249918147
+            },
+            "road_leg|search|terminal": {
+              "calls": 69,
+              "thread_cpu_ns": 88719190188,
+              "wall_ns": 89376780047
+            }
+          },
+          "source_cache_hits": 142,
+          "source_cache_misses": 50
+        },
+        "depth1_expansion_and_children": {
+          "actions_completed": 108,
+          "finish_output_histogram": {
+            "0": 107
+          },
+          "scopes": {
+            "advance|search|incoming": {
+              "calls": 108,
+              "thread_cpu_ns": 5759288566,
+              "wall_ns": 5861487722
+            },
+            "finish|search|terminal": {
+              "calls": 107,
+              "thread_cpu_ns": 16747234929,
+              "wall_ns": 17127163006
+            },
+            "road_labels|search|incoming": {
+              "calls": 67,
+              "thread_cpu_ns": 1748393885,
+              "wall_ns": 1757056726
+            },
+            "road_labels|search|terminal": {
+              "calls": 8,
+              "thread_cpu_ns": 16638956520,
+              "wall_ns": 17018356895
+            },
+            "road_leg|search|incoming": {
+              "calls": 108,
+              "thread_cpu_ns": 2262280665,
+              "wall_ns": 2349457043
+            },
+            "road_leg|search|terminal": {
+              "calls": 77,
+              "thread_cpu_ns": 16727072295,
+              "wall_ns": 17106464332
+            }
+          },
+          "source_cache_hits": 66,
+          "source_cache_misses": 9
+        },
+        "depth1_finish_sweep": {
+          "actions_completed": 0,
+          "finish_output_histogram": {
+            "0": 87
+          },
+          "scopes": {
+            "finish|search|terminal": {
+              "calls": 87,
+              "thread_cpu_ns": 10514050,
+              "wall_ns": 10677145
+            },
+            "road_leg|search|terminal": {
+              "calls": 67,
+              "thread_cpu_ns": 193994,
+              "wall_ns": 185845
+            }
+          },
+          "source_cache_hits": 0,
+          "source_cache_misses": 0
+        }
+      },
+      "depth1_actions": 108,
+      "first_action": 96.24193458,
+      "scopes": {
+        "advance|search|incoming": {
+          "calls": 407,
+          "thread_cpu_ns": 10707264746,
+          "wall_ns": 10837053147
+        },
+        "finish|search|terminal": {
+          "calls": 285,
+          "thread_cpu_ns": 105498776390,
+          "wall_ns": 106538981092
+        },
+        "road_labels|search|incoming": {
+          "calls": 211,
+          "thread_cpu_ns": 5282469202,
+          "wall_ns": 5307590356
+        },
+        "road_labels|search|terminal": {
+          "calls": 56,
+          "thread_cpu_ns": 104912430180,
+          "wall_ns": 105945857965
+        },
+        "road_leg|search|incoming": {
+          "calls": 407,
+          "thread_cpu_ns": 6489785372,
+          "wall_ns": 6599375190
+        },
+        "road_leg|search|terminal": {
+          "calls": 213,
+          "thread_cpu_ns": 105446456477,
+          "wall_ns": 106483430224
+        }
+      },
+      "setup_cpu": 68.885919476,
+      "setup_wall": 76.860675391
+    }
+  }
+}
