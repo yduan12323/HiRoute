@@ -1,0 +1,62 @@
+{
+  "diagnostic_pins_rehashed": 9,
+  "final_review": {
+    "accounting_qualification_sha256": "74b59b62c2057fee9ef45b7744261c8d92f33bd13c3414f695a48e2427c70366",
+    "addendum_sha256": "91bdd0e53e2653afd2b21c7479d3613b69985bb0b205225e114884f3ed0e4e2f",
+    "current_controller_retained_cpu": "4756.602485659000012",
+    "current_total_retained_cpu": "4768.602485659000012",
+    "findings": [
+      "Final narrative clearly supersedes preserved prelaunch status without changing it.",
+      "Four complete blocks, incomplete secondOD07 and unattempted secondOD02 retained. Ten attempted search rows timed out; twelve planned search denominator remains.",
+      "Identical within-pair full keys and descriptive setup/censored calls match independent block audits. No optimized-baseline, general advantage, optimality or causal runtime claim.",
+      "Failure absoluteCPU40.717430874 versus40soft is correctly separated from28.132384291 interval. A prior successful replay also had26.920s interval; cause remains unresolved.",
+      "Parent-authorized driver12 is conservatively separate despite prospective wrapper headroom overlap; actual0.31888928 is not added again. Prior1620 and older history remain separate."
+    ],
+    "original_stopped_index_sha256": "6f04b0a5f8cdddde48626db635733da2e4a34d8ea27fc1eca00fca57cc96e65f",
+    "prior_failed_launch_reserved_cpu": 1620,
+    "publication_scope": "Suitable for bounded sanitized stopped-result publication after exact candidate review; diagnostic experiment separately accounted.",
+    "report_sha256": "68fea99e76d272dacacca2451357ed2c4897350d5803ac610b195939163b8604",
+    "separate_authorized_driver_reservation": 12,
+    "status": "approved_stopped_mechanism_final_report_with_separate_driver_retention",
+    "underlying_result_review_sha256": "df8bec67f8981845f4153de09b395fa5d71e88e25065110190271721fe8975cf"
+  },
+  "final_review_sha256": "703907fa27a32fbc08799b8403c73ce9133845850f18adc47e0a08115deda435",
+  "full_infrastructure_logs_published": false,
+  "new_experiment": false,
+  "original_addendum_sha256": "91bdd0e53e2653afd2b21c7479d3613b69985bb0b205225e114884f3ed0e4e2f",
+  "original_diagnostic_inventory_sha256": "c6db10404dd10e681ce7b71472c726d4cac656573d04e790ced532799f7d345a",
+  "original_diagnostic_summary_sha256": "b9b44dee9479836cd1c70756567463a82e1548e4c4d2e7fb61f4ed5da675cf04",
+  "original_report_sha256": "68fea99e76d272dacacca2451357ed2c4897350d5803ac610b195939163b8604",
+  "original_result_sha256": "9088a92677abfc05be5f42d6f1566ee537089ce5711e605add69c9add8c0c832",
+  "original_stopped_diagnostics_sha256": "97f2b6f689ad4b8d0f187a05c5b623fc21a4db94e9d1df2d5a96a7c8c7ddeb38",
+  "original_stopped_index_sha256": "6f04b0a5f8cdddde48626db635733da2e4a34d8ea27fc1eca00fca57cc96e65f",
+  "projection": "Machine paths and process IDs removed or replaced; path-keyed evidence maps omitted. Other values retained. Original identities refer to retained originals, not projections.",
+  "publication_basis_review": {
+    "accounting": {
+      "current_controller": "4756.602485659000012",
+      "current_plus_prior": "6388.602485659000012",
+      "current_total": "4768.602485659000012",
+      "prior_failed_launch": 1620,
+      "separate_diagnostic_reservation": 30,
+      "separate_driver_reservation": 12
+    },
+    "addendum_sha256": "91bdd0e53e2653afd2b21c7479d3613b69985bb0b205225e114884f3ed0e4e2f",
+    "diagnostic_files_rehashed": 9,
+    "diagnostic_findings": [
+      "Owned receipt reports success, returncode zero and verified cleanup.",
+      "35.096272361 wall seconds and 0.340207507 supervision CPU seconds do not reproduce the stopped replay anomaly. No cause established.",
+      "Sample and sleep process CPU scopes are 0.121732589 and 0.018734264 seconds; these are descriptive, non-additive nested clock observations.",
+      "Diagnostic 30 CPU reservation remains separate. Source comment claiming a hard aggregate bound is unsupported because helper inherits its own per-process allowance.",
+      "Actual parent 0.404645494 plus conservative waited-child 0.098754 is about 0.503399494 CPU seconds; do not add worker self CPU again."
+    ],
+    "diagnostic_inventory_sha256": "c6db10404dd10e681ce7b71472c726d4cac656573d04e790ced532799f7d345a",
+    "final_review_sha256": "703907fa27a32fbc08799b8403c73ce9133845850f18adc47e0a08115deda435",
+    "publication_condition": "Exact sanitized publication candidate still requires copy/privacy/claim review.",
+    "report_sha256": "68fea99e76d272dacacca2451357ed2c4897350d5803ac610b195939163b8604",
+    "status": "approved_scoped_stopped_report_and_separate_nonreproducing_diagnostic"
+  },
+  "publication_basis_review_sha256": "40d3c9b8dcafbbe820956f27e0edbeff8a416edf2c7e5f15427711a08fd7a8b4",
+  "source_installation": false,
+  "standalone_reproduction_bundle": false,
+  "stopped_pins_rehashed": 586
+}

@@ -1,0 +1,298 @@
+{
+  "attempted_stages": 25,
+  "completed_block_quality": {
+    "b01": {
+      "case": "od02",
+      "quality": {
+        "indexed": {
+          "best_key": [
+            "22500600618780404673/858993459200000",
+            "119086816876302471/1717986918400000",
+            2,
+            [
+              [
+                "4r:node/9569604034",
+                "C"
+              ],
+              [
+                "4r:node/12090131433",
+                "C"
+              ]
+            ]
+          ],
+          "initial_key": [
+            "102542262038922263369/3435973836800000",
+            "80857457560385401/858993459200000",
+            2,
+            [
+              [
+                "4r:node/10652698226",
+                "C"
+              ],
+              [
+                "4r:node/10865655524",
+                "C"
+              ]
+            ]
+          ],
+          "primary_improvement_percent": "179140850911437781100/14648894576988894767",
+          "primary_improvement_percent_display": 12.228967173594096
+        },
+        "recomputed": {
+          "best_key": [
+            "22500600618780404673/858993459200000",
+            "119086816876302471/1717986918400000",
+            2,
+            [
+              [
+                "4r:node/9569604034",
+                "C"
+              ],
+              [
+                "4r:node/12090131433",
+                "C"
+              ]
+            ]
+          ],
+          "initial_key": [
+            "102542262038922263369/3435973836800000",
+            "80857457560385401/858993459200000",
+            2,
+            [
+              [
+                "4r:node/10652698226",
+                "C"
+              ],
+              [
+                "4r:node/10865655524",
+                "C"
+              ]
+            ]
+          ],
+          "primary_improvement_percent": "179140850911437781100/14648894576988894767",
+          "primary_improvement_percent_display": 12.228967173594096
+        }
+      }
+    },
+    "b02": {
+      "case": "od07",
+      "quality": {
+        "indexed": {
+          "best_key": [
+            "2968405723679404212307/109951162777600000",
+            "1965459359483215499/27487790694400000",
+            2,
+            [
+              [
+                "4r:node/8099989597",
+                "C"
+              ],
+              [
+                "4r:node/11013731180",
+                "CS"
+              ]
+            ]
+          ],
+          "initial_key": [
+            "4631380169628339331/137438953472000",
+            "1882277661060431/17179869184000",
+            2,
+            [
+              [
+                "4r:node/4683740340",
+                "CS"
+              ],
+              [
+                "4r:node/10039741536",
+                "C"
+              ]
+            ]
+          ],
+          "primary_improvement_percent": "736698412023267252493/37051041357026714648",
+          "primary_improvement_percent_display": 19.88333890333565
+        },
+        "recomputed": {
+          "best_key": [
+            "2968405723679404212307/109951162777600000",
+            "1965459359483215499/27487790694400000",
+            2,
+            [
+              [
+                "4r:node/8099989597",
+                "C"
+              ],
+              [
+                "4r:node/11013731180",
+                "CS"
+              ]
+            ]
+          ],
+          "initial_key": [
+            "4631380169628339331/137438953472000",
+            "1882277661060431/17179869184000",
+            2,
+            [
+              [
+                "4r:node/4683740340",
+                "CS"
+              ],
+              [
+                "4r:node/10039741536",
+                "C"
+              ]
+            ]
+          ],
+          "primary_improvement_percent": "736698412023267252493/37051041357026714648",
+          "primary_improvement_percent_display": 19.88333890333565
+        }
+      }
+    },
+    "b03": {
+      "case": "od10",
+      "quality": {
+        "indexed": {
+          "best_key": [
+            "20383216839077048941/858993459200000",
+            "196010841544747/4294967296000",
+            1,
+            [
+              [
+                "4r:node/4439711122",
+                "C"
+              ]
+            ]
+          ],
+          "initial_key": [
+            "20383216839077048941/858993459200000",
+            "196010841544747/4294967296000",
+            1,
+            [
+              [
+                "4r:node/4439711122",
+                "C"
+              ]
+            ]
+          ],
+          "primary_improvement_percent": "0",
+          "primary_improvement_percent_display": 0.0
+        },
+        "recomputed": {
+          "best_key": [
+            "20383216839077048941/858993459200000",
+            "196010841544747/4294967296000",
+            1,
+            [
+              [
+                "4r:node/4439711122",
+                "C"
+              ]
+            ]
+          ],
+          "initial_key": [
+            "20383216839077048941/858993459200000",
+            "196010841544747/4294967296000",
+            1,
+            [
+              [
+                "4r:node/4439711122",
+                "C"
+              ]
+            ]
+          ],
+          "primary_improvement_percent": "0",
+          "primary_improvement_percent_display": 0.0
+        }
+      }
+    },
+    "b04": {
+      "case": "od10",
+      "quality": {
+        "indexed": {
+          "best_key": [
+            "20383216839077048941/858993459200000",
+            "196010841544747/4294967296000",
+            1,
+            [
+              [
+                "4r:node/4439711122",
+                "C"
+              ]
+            ]
+          ],
+          "initial_key": [
+            "20383216839077048941/858993459200000",
+            "196010841544747/4294967296000",
+            1,
+            [
+              [
+                "4r:node/4439711122",
+                "C"
+              ]
+            ]
+          ],
+          "primary_improvement_percent": "0",
+          "primary_improvement_percent_display": 0.0
+        },
+        "recomputed": {
+          "best_key": [
+            "20383216839077048941/858993459200000",
+            "196010841544747/4294967296000",
+            1,
+            [
+              [
+                "4r:node/4439711122",
+                "C"
+              ]
+            ]
+          ],
+          "initial_key": [
+            "20383216839077048941/858993459200000",
+            "196010841544747/4294967296000",
+            1,
+            [
+              [
+                "4r:node/4439711122",
+                "C"
+              ]
+            ]
+          ],
+          "primary_improvement_percent": "0",
+          "primary_improvement_percent_display": 0.0
+        }
+      }
+    }
+  },
+  "completed_blocks": [
+    "b01",
+    "b02",
+    "b03",
+    "b04"
+  ],
+  "conclusion": "Incomplete balanced comparison. Completed blocks have identical within-block full result keys; no general timing or mechanism advantage can be concluded. b05 recomputed search lacks required fresh replay and is not a completed paired result.",
+  "current_stage_charge_plus_full_orchestration_decimal": "4756.602485659000012",
+  "driver_actual_cpu_seconds": 0.31888928,
+  "driver_bound": "cooperative_stage_boundary_gate_not_hard_CPU_cap",
+  "driver_planned_allowance_separate": 12,
+  "failed_accounting_complete": false,
+  "failed_cleanup_verified": true,
+  "failed_conservative_charge_cpu_seconds": 180,
+  "failed_stage": "b05.od07.recomputed.replay",
+  "failed_stages": 1,
+  "full_orchestration_reserved": 1440,
+  "never_started_block": "b06",
+  "no_retry": true,
+  "old_failed_launch_reserved_cpu_seconds": 1620,
+  "orchestration_success_debits": 541,
+  "partial_block": "b05",
+  "scheduled_stages": 30,
+  "stage_charge_decimal": "3316.602485659000012",
+  "status": "stopped_incomplete_fixed_batch",
+  "successful_stages": 24,
+  "unattempted_stages": [
+    "b06.od02.verify_seed",
+    "b06.od02.recomputed.search",
+    "b06.od02.recomputed.replay",
+    "b06.od02.indexed.search",
+    "b06.od02.indexed.replay"
+  ]
+}
