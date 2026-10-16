@@ -66,3 +66,11 @@ The [OD07 canonical-order ablation](../results/milestone_5d/canonical_prefix_abl
 FLAT recorded the productive child finish starting at 119.985938 seconds without a completion. For each method, 1,905 normalized root records matched the earlier insertion run; slower canonical root routing scopes are descriptive and unattributed, not evidence of a causal sorting penalty. No ordering benefit, irrelevance, optimum or global gap is established.
 
 Numerical conservative charge is 840.097081772 CPU seconds including the full 240 allowance. Reporting/finalizer accounting remains separate; the unexplained initial tiny CPU-ceiling failure is preserved. Censored traces, sequential order and uncontrolled runtime/cache conditions limit interpretation. No source/default activation accompanies this negative report.
+
+## 2026-10-16 Certified terminal-energy screen: bounded quality benefit
+
+The [OD07 HIER OFF/ON report](../results/milestone_5d/energy_screen_ablation_20261016/README.md) records a fresh-replayed ON route 8099989597(C) to 11013731180(CS), 19.8833389% lower primary cost than the common seed; OFF retained the seed. Both reached the 120-second exact cutoff with the same repaired 149-domain, original indexed HIER, insertion order, full routing and Hmax 37. No optimum/global-gap or general HIER superiority follows.
+
+ON activation cost 2.523206723 seconds includes construction and nested full-edge validations over the 11,561,067-edge graph; immutable copy cost 0.894038509 seconds. Censored attempted advances rose 400 to 931 and new source runs fell 54 to 14; inclusive recorded routing wall fell 110.068436747 to 49.618292753 seconds. Whole-worker cold wall nevertheless increased 213.682333384 to 218.595244889 seconds, so no whole-latency speedup is claimed.
+
+Numerical conservative charge is 850.442808382 CPU seconds including the full 240 allowance. Sampled RSS, nested timers, unknown observation-tail health, historical fixture failures and post-run transport trouble remain explicit; reporting/development costs are separate. No source/default activation is included.
