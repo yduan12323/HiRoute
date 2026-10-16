@@ -1,0 +1,58 @@
+{
+  "analysis_review": {
+    "analysis_manifest_sha256": "35453f92fc54693c73f0d20a1aff7584f6764596aba0fce9c40dcbf3f1df2e2c",
+    "consolidated_index_review_pending": true,
+    "evidence_pins_verified": 160,
+    "final_chain_audit_sha256": "36291dacde23f8b75aca05c778941445ada9285ce350fcb7a932cedae7e9bb5e",
+    "findings": [
+      "Four rows are freshly verified; both pair identities include initial/common/effective query/domain/Hmax/shared treatment, certificate potentials and original native/kernel provenance.",
+      "OD07 HIER19.8833389033% and FLAT19.2230710197%; OD10 both original key retained. Four exact timeouts, no optimality/global-gap/general-superiority claim.",
+      "Observed work and rejection frequencies are censored and not avoided-source-call counts or causal speedups. Nested setup/timing and sampled RSS qualifications retained.",
+      "Raw short process/thread clock disagreement is disclosed without unsupported explanation or additive decomposition.",
+      "Prior OD02 pair belongs to separate controller revision; prior stopped batch remains unchanged. New1676.212772402 plus prior2359.793342498 gives4036.006114900 displayed, consistent with raw decimal accounting."
+    ],
+    "independent_extraction_byte_identical": true,
+    "independent_summary_byte_identical": true,
+    "package_files_verified": 7,
+    "publication_suitability": "Suitable for bounded sanitized report publication after exact candidate review; no source/default activation or new run implied.",
+    "report_sha256": "b38af790f13f53a9374154dcda0a8723df94115c54c72fa6550554f45b610f12",
+    "status": "approved_scoped_completed_continuation_analysis"
+  },
+  "analysis_review_sha256": "df69ad165c373bf14faa02f1d42cf76dc1eab451bb0902a6bf914a5028a9a4ad",
+  "evidence_pins_rehashed": 1680,
+  "final_review": {
+    "all_four_saved_best_fresh_replays_verified": true,
+    "all_ten_terminal_chains_independently_reauthenticated": true,
+    "analysis_review_sha256": "df69ad165c373bf14faa02f1d42cf76dc1eab451bb0902a6bf914a5028a9a4ad",
+    "chain_review_sha256": "36291dacde23f8b75aca05c778941445ada9285ce350fcb7a932cedae7e9bb5e",
+    "exact_decimal_accounting_matches": true,
+    "final_inventory_entries_verified": 1680,
+    "final_inventory_sha256": "f18b67860a84333edd961ee4885fb98080543f019a91012f3ccd3034017bf5e8",
+    "final_report_sha256": "097feddee14d48820b4aeb5e005cfe8bfb0feb2a7d4e319c02654625d9c1d852",
+    "final_result_sha256": "b0db732f0a49a9741632db1b7d3b9c927fbe4fe7167ececbd311894c51e24e47",
+    "new_execution_authorized": false,
+    "publication": "Suitable for bounded sanitized report candidate; exact publication bytes require separate review.",
+    "scoped_claims_approved": [
+      "OD07 new pair: HIER19.883338903%, FLAT19.223071020%, same seed/domain/query/Hmax37 and energy treatment.",
+      "OD10 new pair: both original full key retained, Hmax26.",
+      "Prior OD02 quality pair remains a separate controller revision, with no pooled runtime or causal cache attribution.",
+      "All exact searches time-limited, no global optimality or general method superiority.",
+      "Censored status, nested timing, sampled memory and short process/thread clock discrepancies remain explicit.",
+      "Prior failed670/full720 retained; newfull480 retained; exact total4036.006114899999980, display4036.006114900.",
+      "Pre-invocation wrapper and read-only reporting snippet errors are disclosed without implying numerical retries."
+    ],
+    "status": "approved_completed_finite_continuation_report"
+  },
+  "final_review_sha256": "6143464fddd9e1b27ec1e5b53a7a35e10394f6be83c9efd664fa2b75e4583dc4",
+  "new_experiment": false,
+  "original_analysis_index_sha256": "35453f92fc54693c73f0d20a1aff7584f6764596aba0fce9c40dcbf3f1df2e2c",
+  "original_analysis_report_sha256": "b38af790f13f53a9374154dcda0a8723df94115c54c72fa6550554f45b610f12",
+  "original_extraction_sha256": "fcf6ad8e56d98f812edceeda9098b61ba108f17d05388ec9a4980fad343ef5b1",
+  "original_final_index_sha256": "f18b67860a84333edd961ee4885fb98080543f019a91012f3ccd3034017bf5e8",
+  "original_final_report_sha256": "097feddee14d48820b4aeb5e005cfe8bfb0feb2a7d4e319c02654625d9c1d852",
+  "original_final_result_sha256": "b0db732f0a49a9741632db1b7d3b9c927fbe4fe7167ececbd311894c51e24e47",
+  "original_summary_sha256": "d7769a83a30b94e6e99302e1d7ea2738cd854c878021bd2adf969ce99397f279",
+  "projection": "Machine paths and process IDs removed or replaced; path-keyed evidence maps omitted. Embedded JSONL complete records receive the same projection and are reserialized; incomplete lines remain diagnostic text with process IDs redacted. All other observed values retained. Original hashes identify retained originals, not projections.",
+  "source_installation": false,
+  "standalone_reproduction_bundle": false
+}
