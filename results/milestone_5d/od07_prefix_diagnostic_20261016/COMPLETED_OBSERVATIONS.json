@@ -1,0 +1,4663 @@
+{
+  "flat": {
+    "expanded": [
+      {
+        "key": {
+          "anchor": "road:5788209",
+          "depth": 0,
+          "pi": [],
+          "remaining_schedule": 1,
+          "rho": "-18"
+        },
+        "kind": "prefix_expanded",
+        "pieces": 1,
+        "prefix_id": "88408f30762c8448e0dba87518dd7a35a47466a6abe0188d74f7865eea07abaf",
+        "previous_sha256": "1f88bda698fd482280606919a7d8a19245d586ed60b93f1f1611a91f11d46357",
+        "sequence": 7,
+        "sha256": "d9de14525c8423a98cc1d33710b94bd73aa4c3ce4f029510e61fda3a6438f470"
+      },
+      {
+        "key": {
+          "anchor": "road:5187551",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/10088989871",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-2854351358440513/429496729600000"
+        },
+        "kind": "prefix_expanded",
+        "pieces": 6,
+        "prefix_id": "e4b0676cf288516292730854342331147f90f259a58514b9adbd1e68a13ea907",
+        "previous_sha256": "79d873d411b12d241004d57c528bad4a9977100aa8ec312e1d338c1b63dafb09",
+        "sequence": 2303,
+        "sha256": "bfb84c56edf04422b854898258a1454bb7def160c99e80e9b313e2ebe58a4123"
+      }
+    ],
+    "finalized": {
+      "classification": "parent_finalized_exact_timeout_censoring",
+      "completed_operations": 1185,
+      "completed_successful_operations": 1185,
+      "controller_terminal": {
+        "sha256": "cf78c09c372bf4ff6acc838d903a400c86f6150a600ee2f58fbf5279fd384a10"
+      },
+      "exact_optimum_claimed": false,
+      "identity": {
+        "domain_sha256": "876f3d71a4e6d87dc6d885af36d11a7fa1206f0e26cc8db91e2dc322a23d5b6e",
+        "handoff_sha256": "0c40bb8a6b99b476e3133ea9219fe3e107e6d4df2958b4515e6909043b204b52",
+        "manifest_sha256": "e7f2332dccb4f54512c26fecdd4a7b581800dc3c40069613600899d4b57febe0",
+        "method": "flat",
+        "query_sha256": "7c52642c86888fef48fac35f723519306b62c0fb642e987807421dd7a316ab1d",
+        "source_closure_sha256": "b23df5570afaee33d26f6d062116a42609c70f58a657c2e7cfe7fe294531e30d"
+      },
+      "last_recorded_pending_operations": [
+        {
+          "kind": "operation_started",
+          "operation": "finish",
+          "parent_operation": null,
+          "phase": "terminal",
+          "prefix": {
+            "key": {
+              "anchor": "road:5794837",
+              "depth": 2,
+              "pi": [
+                [
+                  "4r:node/10088989871",
+                  "C"
+                ],
+                [
+                  "4r:node/11013731180",
+                  "CS"
+                ]
+              ],
+              "remaining_schedule": 0,
+              "rho": "11363962640301813/429496729600000"
+            },
+            "pieces": 18,
+            "prefix_id": "7ea750ec35637f315272ed29bdf896425e4c236163ce494507d3b604745b7985"
+          },
+          "previous_sha256": "fa5c4a1f84bf9eb8a5677b63c0d0907ed6907893831ae78d2ac58de3d673fb2c",
+          "provider_role": "search",
+          "sequence": 2466,
+          "started_wall_ns": 226047139663602
+        },
+        {
+          "kind": "operation_started",
+          "metrics_before": {
+            "source_cache_bytes": 377120912,
+            "source_cache_evictions": 52,
+            "source_cache_hits": 147,
+            "source_cache_skips": 0,
+            "source_run_count": 54
+          },
+          "operation": "road_leg",
+          "pair_cache_hit": false,
+          "parent_operation": 2466,
+          "phase": "terminal",
+          "previous_sha256": "b563cd34479b024c2825832f9485131fc5dc258da6075490c0d934256d4aeb76",
+          "provider_role": "search",
+          "sequence": 2467,
+          "source": "road:5794837",
+          "source_cache_hit": false,
+          "started_wall_ns": 226047139718754,
+          "target": "road:3190137"
+        },
+        {
+          "kind": "operation_started",
+          "metrics_before": {
+            "source_cache_bytes": 377120912,
+            "source_cache_evictions": 52,
+            "source_cache_hits": 147,
+            "source_cache_skips": 0,
+            "source_run_count": 54
+          },
+          "operation": "road_labels",
+          "parent_operation": 2467,
+          "phase": "terminal",
+          "previous_sha256": "6ebaa64c4b9255323d282b28dfd1c078fd2091cd43cbc6d5663f4c101a9485d4",
+          "provider_role": "search",
+          "sequence": 2468,
+          "source_cache_hit": false,
+          "source_node": 5794837,
+          "started_wall_ns": 226047140486908
+        }
+      ],
+      "partial_tail_bytes": 0,
+      "partial_tail_semantics": "Parent binds raw final bytes; incomplete trailing event is excluded from authenticated completed prefix.",
+      "partial_tail_sha256": null,
+      "pending_semantics": "Unmatched recorded starts only; not proof these calls were in flight at kill.",
+      "reporting_accounting_scope": "Post-terminal analysis through encoding preparation; output write/exit excluded. Independent of numerical stage debit.",
+      "reporting_containment": {
+        "address_space_bytes": 536870912,
+        "cpu_hard": 12,
+        "cpu_soft": 10,
+        "wall_seconds": 30
+      },
+      "reporting_cpu_seconds": 0.05967857,
+      "reporting_thread_cpu_seconds": 0.06080094,
+      "reporting_wall_seconds": 0.06111433,
+      "schema": "hiroute.parent_finalized_prefix.v1",
+      "solver_feasibility": "Separate fresh physical replay required; this observational receipt grants no feasibility.",
+      "trace": {
+        "bytes": 1273363,
+        "complete_records": 2468,
+        "head_sha256": "8f4ac7a1dd462e15ef21246cbeb42de12684a5d6958683d4514b0c3fea8839e0",
+        "sha256": "35942b58dcacc9ca05fe3ee75bafd5b106eb2cb8f5bd8241e96cd25eef03772c"
+      },
+      "whole_trace_complete": false
+    },
+    "finish_output_histogram": {
+      "0": 185,
+      "6": 1
+    },
+    "layer_prefixes": [
+      {
+        "depth": 0,
+        "key": {
+          "anchor": "road:5788209",
+          "depth": 0,
+          "pi": [],
+          "remaining_schedule": 1,
+          "rho": "-18"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "88408f30762c8448e0dba87518dd7a35a47466a6abe0188d74f7865eea07abaf",
+        "previous_sha256": "5a1bafe0c5d00837340c8e984f6286c4ccbae8b56ab1ee9163821a039fa94884",
+        "sequence": 4,
+        "sha256": "49ac11c0d40e42fcbb9b9fb8f068afed7c3c177802bbae0b25354dbd717e81a6",
+        "traversal_index": 0
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5187551",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/10088989871",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-2854351358440513/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "e4b0676cf288516292730854342331147f90f259a58514b9adbd1e68a13ea907",
+        "previous_sha256": "6947cc37e0ef47c62da7608dd5b1eb9b6a77ca80c6a181d4911e45a76b88f252",
+        "sequence": 1908,
+        "sha256": "eef91270527444f86d503cc50498a6b9e9adbab1969b37667e8035b21ec57eee",
+        "traversal_index": 0
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5187551",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/10088989871",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2854351358440513/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "70aceb5e0f1eb4e6dbb41fbf5547370775753abc729f0652e66608de3304dcf1",
+        "previous_sha256": "eef91270527444f86d503cc50498a6b9e9adbab1969b37667e8035b21ec57eee",
+        "sequence": 1909,
+        "sha256": "3bdc07a9b0a4d1c500bbbcd11e2752a5bc1dc2f535ee73458cd05e4eeed801b6",
+        "traversal_index": 1
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5187551",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/10088989871",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2854351358440513/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "d9061f2d411be8cbe934fbf7922d0f48fdcf940c1bc46c5d7757e676273150af",
+        "previous_sha256": "3bdc07a9b0a4d1c500bbbcd11e2752a5bc1dc2f535ee73458cd05e4eeed801b6",
+        "sequence": 1910,
+        "sha256": "0b7bf35f1ebb811a4d39075fb265c293f6c31ddd8f748dc5f9b18f99bfd9cb7a",
+        "traversal_index": 2
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5626973",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067688236",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-1022361027158737/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "4fd2c17afbb12a783f9c43a6dccf1b3baf35e7d2fdbe2500132db91b074095a5",
+        "previous_sha256": "0b7bf35f1ebb811a4d39075fb265c293f6c31ddd8f748dc5f9b18f99bfd9cb7a",
+        "sequence": 1911,
+        "sha256": "e0df9e0a89334b98645339cf8ce130d66c73ac3808179658ea3b8fd945b57046",
+        "traversal_index": 3
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5626973",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067688236",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1022361027158737/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "3db0fce57637785d8c52cc0d8d81d49278f0f9aa329f8a4f7417c39bc1d6f051",
+        "previous_sha256": "e0df9e0a89334b98645339cf8ce130d66c73ac3808179658ea3b8fd945b57046",
+        "sequence": 1912,
+        "sha256": "b395fbfae53e16722fa91821f080d5582bd1ceb748698951737b4a7c13a409bf",
+        "traversal_index": 4
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5626973",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067688236",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1022361027158737/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "46f2b929c6f68e139a492d45d604cf2b14d2b7c10882dc7b3d037f1351e8aeb8",
+        "previous_sha256": "b395fbfae53e16722fa91821f080d5582bd1ceb748698951737b4a7c13a409bf",
+        "sequence": 1913,
+        "sha256": "aabfd1c460d7ba7d4be26c37b22ef1b985b9deda3549fe7909cf5277f8493597",
+        "traversal_index": 5
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:1761040",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067753859",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-8377029558443971/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "4e14ec2d1b2b12345b80d9500e22b64798e76ea1797e3b965460e1a73de6bcec",
+        "previous_sha256": "aabfd1c460d7ba7d4be26c37b22ef1b985b9deda3549fe7909cf5277f8493597",
+        "sequence": 1914,
+        "sha256": "e9255d02a5eb53f66ba5c029f389514d4b3cfff27456095821e04bc9370d4aa8",
+        "traversal_index": 6
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:1761040",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067753859",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-8377029558443971/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "b32ab9f6221f5464badd420836c3dcc564c2faf87215b4e3e4db8e8f4fcfdfa9",
+        "previous_sha256": "e9255d02a5eb53f66ba5c029f389514d4b3cfff27456095821e04bc9370d4aa8",
+        "sequence": 1915,
+        "sha256": "a3620c73778e5f4c32e28fa2feaf380d63e21fb3ffba51663834d3aa07856335",
+        "traversal_index": 7
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:1761040",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067753859",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-8377029558443971/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "5d77e7aa66e18ab78f681bc8c1945db6468d3bc2bf6dce5132fe3098cd6dbceb",
+        "previous_sha256": "a3620c73778e5f4c32e28fa2feaf380d63e21fb3ffba51663834d3aa07856335",
+        "sequence": 1916,
+        "sha256": "86b2860f3a9749f4f472ec0f17de73ab40924d1b1f19bed39c8cdfbf21008b45",
+        "traversal_index": 8
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5674063",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067793524",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-2052870809868831/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "ba705e200ad37d458a79e91d92d7a756a50f169f14d0cc90fba8de4be36378c6",
+        "previous_sha256": "86b2860f3a9749f4f472ec0f17de73ab40924d1b1f19bed39c8cdfbf21008b45",
+        "sequence": 1917,
+        "sha256": "7fee3c152f5834986b46eab6733c70f27eb19793850583da4c3ed5d483a8d278",
+        "traversal_index": 9
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5674063",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067793524",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2052870809868831/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "c1a678a704d2d5cb9f99ebe965e6b4f7e6b6636046b6a34b661cd394d96c3434",
+        "previous_sha256": "7fee3c152f5834986b46eab6733c70f27eb19793850583da4c3ed5d483a8d278",
+        "sequence": 1918,
+        "sha256": "5ebed4a75fe120bbb6e4ca8c71a73a4c98f56b758bf091e9eb3f00db3f0bb2d3",
+        "traversal_index": 10
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5674063",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067793524",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2052870809868831/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "2046d8ac64d67a4a4904abd8934f7d19fd3edeef96b42f11b5184a8b0264ebe1",
+        "previous_sha256": "5ebed4a75fe120bbb6e4ca8c71a73a4c98f56b758bf091e9eb3f00db3f0bb2d3",
+        "sequence": 1919,
+        "sha256": "0ca197f9867739612e06d909e62cfca1d24f6f99944147af458cddb9bf3f2bd2",
+        "traversal_index": 11
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5701646",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/12570759702",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-7755559747901727/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "b9be8300ac16d482d0cbbc7d27cb1659527c50eb89e7e051a9f340ec1f2a5562",
+        "previous_sha256": "0ca197f9867739612e06d909e62cfca1d24f6f99944147af458cddb9bf3f2bd2",
+        "sequence": 1920,
+        "sha256": "88b2e75d371feb9f10bf75903593f6d97add39ca8e8e0579daa0cd1d2ac59023",
+        "traversal_index": 12
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5701646",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/12570759702",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-7755559747901727/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "0e141b28c5821de26ed0fc488526c9c1669a32e782e47f0f0ef7b7065b79601f",
+        "previous_sha256": "88b2e75d371feb9f10bf75903593f6d97add39ca8e8e0579daa0cd1d2ac59023",
+        "sequence": 1921,
+        "sha256": "fcfa79a7ce422e3fa2f7cb29bfff825a08316da268e9e828d93f6099535fafa4",
+        "traversal_index": 13
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5701646",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/12570759702",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-7755559747901727/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "f123318a719bfbb4e275a5e4628b2f841a17929e6fb4a78183ddc65abfb11194",
+        "previous_sha256": "fcfa79a7ce422e3fa2f7cb29bfff825a08316da268e9e828d93f6099535fafa4",
+        "sequence": 1922,
+        "sha256": "99c7337c00d3ed7759c8a9388e8dc012a835c0adbf2c19aaf5caaf5489530b6b",
+        "traversal_index": 14
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2493205",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13057608171",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-354776891493713/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "860e411854885e514507307755ceed3c0c5ecb6565641e80fd1d7d5fa9ca87cc",
+        "previous_sha256": "99c7337c00d3ed7759c8a9388e8dc012a835c0adbf2c19aaf5caaf5489530b6b",
+        "sequence": 1923,
+        "sha256": "2d62f91e8efb5e0b431b29c2a9e6c00df7572a707b3adc40df4bed72b448fcf3",
+        "traversal_index": 15
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2493205",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13057608171",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-354776891493713/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "319fdcb0976573b26b628a7d8cec5d9ac670c98f4568476283c0a21ba1abe36a",
+        "previous_sha256": "2d62f91e8efb5e0b431b29c2a9e6c00df7572a707b3adc40df4bed72b448fcf3",
+        "sequence": 1924,
+        "sha256": "f5b0023d26cb5ba162adb8fba94fd141ec4c17a08931b6dcc00cdd578ce7bbbb",
+        "traversal_index": 16
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2493205",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13057608171",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-354776891493713/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "85e9c0864c172b44086e315069e43256505028b41003ec09a0abe8560c99e84f",
+        "previous_sha256": "f5b0023d26cb5ba162adb8fba94fd141ec4c17a08931b6dcc00cdd578ce7bbbb",
+        "sequence": 1925,
+        "sha256": "df977881096b12e02f19c3c75bab88c10a50ebb3692fdb9495d919e0ea7ee733",
+        "traversal_index": 17
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:894568",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13165793258",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-544686927845001/85899345920000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "224560b5d7fb0f4b67d9402e4292f7bee30f878dbe9cd1c3315080ccdbe93ea3",
+        "previous_sha256": "df977881096b12e02f19c3c75bab88c10a50ebb3692fdb9495d919e0ea7ee733",
+        "sequence": 1926,
+        "sha256": "7273d548cd209c7ee8542e22183c500a13f43caeccd4023b5aaefa2e0d5fd2cc",
+        "traversal_index": 18
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:894568",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13165793258",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-544686927845001/85899345920000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "2b24ec69e75dfdb036b5e7d3725ee76b3d18f0735baba9216308f192186bfb34",
+        "previous_sha256": "7273d548cd209c7ee8542e22183c500a13f43caeccd4023b5aaefa2e0d5fd2cc",
+        "sequence": 1927,
+        "sha256": "ff68c741b0772511afcaf61a329ee327b546b77a4fc3fafd39ee649d53ff1351",
+        "traversal_index": 19
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:894568",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13165793258",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-544686927845001/85899345920000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "2fac05866629f05bc2123158786270183fe8b7fff9a68fd9d2e73489cc09ce7e",
+        "previous_sha256": "ff68c741b0772511afcaf61a329ee327b546b77a4fc3fafd39ee649d53ff1351",
+        "sequence": 1928,
+        "sha256": "e693e14da331b14c8802fe9c6ae847e78a74b169003ff0f60f57ebbc209341c1",
+        "traversal_index": 20
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:736912",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13233106766",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-393442042518177/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "81638184abeca61b4372fca172e74c8b3638993c26b4b0786d10662efb317bd2",
+        "previous_sha256": "e693e14da331b14c8802fe9c6ae847e78a74b169003ff0f60f57ebbc209341c1",
+        "sequence": 1929,
+        "sha256": "af68d92cb90ea3b32d9a2e81e3f99627e4b37c46c8eb243b5ff395cda8f99192",
+        "traversal_index": 21
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:736912",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13233106766",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-393442042518177/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "50c5045d34a34cab2490e656aade8832a4a078b1a3cea10d3b80fcdcae75f107",
+        "previous_sha256": "af68d92cb90ea3b32d9a2e81e3f99627e4b37c46c8eb243b5ff395cda8f99192",
+        "sequence": 1930,
+        "sha256": "9d889a5ad9239a10de076af8d0f67a88b3d20de8c3a479a9cdf8e7c8c720a7ae",
+        "traversal_index": 22
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:736912",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13233106766",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-393442042518177/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "a96ef1fe396f5e9ccfe0921fd57457685f2f4188a68fca674c30878d7524609f",
+        "previous_sha256": "9d889a5ad9239a10de076af8d0f67a88b3d20de8c3a479a9cdf8e7c8c720a7ae",
+        "sequence": 1931,
+        "sha256": "5bd5ed4350ef075a7c3530cc0ad2437dcd783fa4c6b82a44c70dd7da04eeac3d",
+        "traversal_index": 23
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5663513",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13278180651",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-1108048098615103/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "2646f97a36482baa458852543c60b7bf0ad1982312b45ddd6ee5c93bf0db19b6",
+        "previous_sha256": "5bd5ed4350ef075a7c3530cc0ad2437dcd783fa4c6b82a44c70dd7da04eeac3d",
+        "sequence": 1932,
+        "sha256": "0d05d27c1b17a834375e9ba5c5e45ef4a8e8a4588089fd3de0c718872f378487",
+        "traversal_index": 24
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5663513",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13278180651",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1108048098615103/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "362ad2711b2ac36d0f6368a11f82f841dec756525a6a4f88eb6310daabbd3208",
+        "previous_sha256": "0d05d27c1b17a834375e9ba5c5e45ef4a8e8a4588089fd3de0c718872f378487",
+        "sequence": 1933,
+        "sha256": "790ebd589a9b8faeb696e9a67eef8cddbd354916fb335c366285215969626c14",
+        "traversal_index": 25
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5663513",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13278180651",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1108048098615103/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "eec8142977ad4b0cf05b8109fe9109e7de73fd0e6436dd2b3b677a2be0bb433e",
+        "previous_sha256": "790ebd589a9b8faeb696e9a67eef8cddbd354916fb335c366285215969626c14",
+        "sequence": 1934,
+        "sha256": "efa775d58e7091534938d705270f5ef83d0b3f35c18be53e7508864dd1d876da",
+        "traversal_index": 26
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2775378",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13278375100",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-950149707651353/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "963d17c963aa1599f2bea99ed7a26d0cc5c850e960b89de18eeb040572b9017a",
+        "previous_sha256": "efa775d58e7091534938d705270f5ef83d0b3f35c18be53e7508864dd1d876da",
+        "sequence": 1935,
+        "sha256": "3976fb1a3f7bf5caf815632333fdc50b83945dfc4612eeab1103e3e8ebbdc853",
+        "traversal_index": 27
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2775378",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13278375100",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-950149707651353/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "b4d4452b129a09fb1a9d035645ed532f85dbabdcd7df07b18be3ff1ed77fe795",
+        "previous_sha256": "3976fb1a3f7bf5caf815632333fdc50b83945dfc4612eeab1103e3e8ebbdc853",
+        "sequence": 1936,
+        "sha256": "a3a7ba25b65c9d38ce4c262e9884130fc956ec0863f9e5fb5a8a3a1e6a789dfd",
+        "traversal_index": 28
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2775378",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13278375100",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-950149707651353/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "b05020045bd8648b4ffc9e2aee327e85208b8d405e41384e1fc783909a7e76fb",
+        "previous_sha256": "a3a7ba25b65c9d38ce4c262e9884130fc956ec0863f9e5fb5a8a3a1e6a789dfd",
+        "sequence": 1937,
+        "sha256": "16bbab8f71edfe90735ccd03eab98865cc12ab411a035be0fa580fc41c48d10c",
+        "traversal_index": 29
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2432922",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13408948187",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-480061826252409/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "60f5e84cf458c571118d2f85e6cd9ea157362697ac82a78095d3a2642d2b520d",
+        "previous_sha256": "16bbab8f71edfe90735ccd03eab98865cc12ab411a035be0fa580fc41c48d10c",
+        "sequence": 1938,
+        "sha256": "8bab2b52540923c16c855eb7b5434b4b2320d02a43ae9923ddae08da03cfedf2",
+        "traversal_index": 30
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2432922",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13408948187",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-480061826252409/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "6c74801a49c76a1fc04bc8726ea3b8c4f1c101b7ab38a1398e2feb154e606026",
+        "previous_sha256": "8bab2b52540923c16c855eb7b5434b4b2320d02a43ae9923ddae08da03cfedf2",
+        "sequence": 1939,
+        "sha256": "6770828b54a8986c3291cea5a2444043741407f5e13b2285c444ab56bd2bffbf",
+        "traversal_index": 31
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2432922",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13408948187",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-480061826252409/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "253f788f175eda1c7e179920352281843b78bdb383c0db3b99e3a5d458a21e30",
+        "previous_sha256": "6770828b54a8986c3291cea5a2444043741407f5e13b2285c444ab56bd2bffbf",
+        "sequence": 1940,
+        "sha256": "571f6b9003ef1fb4b54358b0efecc567364573f591d3b6bfb0fd8698776257fe",
+        "traversal_index": 32
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5452833",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13849743653",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-1208795524434493/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "d0961019aac71dc8e50c66a3fb1abe75d0ef70bb477b947279138494ba68a5e7",
+        "previous_sha256": "571f6b9003ef1fb4b54358b0efecc567364573f591d3b6bfb0fd8698776257fe",
+        "sequence": 1941,
+        "sha256": "b2b40d30bddf7943033ce36cf4097e1d0e3cb20aef16eb587101b15347db8236",
+        "traversal_index": 33
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5452833",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13849743653",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1208795524434493/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "a8910d6bd67191552cca1c6484de0443e4c25ae21eabbf43c6691eb51b403cbb",
+        "previous_sha256": "b2b40d30bddf7943033ce36cf4097e1d0e3cb20aef16eb587101b15347db8236",
+        "sequence": 1942,
+        "sha256": "bb76e88b990dffe9144d2b7484aafb6b70c90742d283591ee411633efe6e4ed5",
+        "traversal_index": 34
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5452833",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13849743653",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1208795524434493/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "41e0a54a35218eaf439d7e013d8030d65138493a32e661f96087b035121bef8b",
+        "previous_sha256": "bb76e88b990dffe9144d2b7484aafb6b70c90742d283591ee411633efe6e4ed5",
+        "sequence": 1943,
+        "sha256": "c871e7f9940d83c74c516e23efadc79fd7d921151ee66c53ae8702da182d128e",
+        "traversal_index": 35
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:3868593",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/4683740340",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-10961086392881/17179869184000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "1260651ec8c4de3e405026bdc403ef3981061c14a66183f211a9a58368e8c9eb",
+        "previous_sha256": "c871e7f9940d83c74c516e23efadc79fd7d921151ee66c53ae8702da182d128e",
+        "sequence": 1944,
+        "sha256": "b5d248a90220df81ab5e852037a1e586208c23b0eea0a3f184f881035fa127aa",
+        "traversal_index": 36
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:3868593",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/4683740340",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-10961086392881/17179869184000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "a904c3025826d3e2fe7ec1c093017c6f085f974aa1ead89a2b52963cdbf9cad8",
+        "previous_sha256": "b5d248a90220df81ab5e852037a1e586208c23b0eea0a3f184f881035fa127aa",
+        "sequence": 1945,
+        "sha256": "e0982ffeba66bdc49591f83f0b1d602b8cf738ccb0af920cdd71febb92bc9e32",
+        "traversal_index": 37
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:3868593",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/4683740340",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-10961086392881/17179869184000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "22ac3e8c24ca11deb784f26b684e082f36c8f367d12c1e3de752333953bae5be",
+        "previous_sha256": "e0982ffeba66bdc49591f83f0b1d602b8cf738ccb0af920cdd71febb92bc9e32",
+        "sequence": 1946,
+        "sha256": "c8f5376af6b6123b33db4b5a7287ed19113931048317327c725351e6ce07d920",
+        "traversal_index": 38
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5182581",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/5001502150",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-2831462343848761/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "539f87bcc2628389d93d23e03f8ab3c2a66fba3ae292211bc0c42f97ee97c408",
+        "previous_sha256": "c8f5376af6b6123b33db4b5a7287ed19113931048317327c725351e6ce07d920",
+        "sequence": 1947,
+        "sha256": "62e79809474fb555b7eca4799d29a08a6128f5ffad007ec922f461e30d634648",
+        "traversal_index": 39
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5182581",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/5001502150",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2831462343848761/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "e2155bffc8e091b82d007aafd49f3f814acb7bbb198fd488f51cdb050cf0f819",
+        "previous_sha256": "62e79809474fb555b7eca4799d29a08a6128f5ffad007ec922f461e30d634648",
+        "sequence": 1948,
+        "sha256": "ef117f714a816cf5176a994b129ecf258c52aa5ba88f46e5db081639f7777c9d",
+        "traversal_index": 40
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5182581",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/5001502150",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2831462343848761/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "bc1293622882f45b204579d4bf09de41772523353363c3b99c6af80456466883",
+        "previous_sha256": "ef117f714a816cf5176a994b129ecf258c52aa5ba88f46e5db081639f7777c9d",
+        "sequence": 1949,
+        "sha256": "69c87df6d91b707c2eee902be058556bddb919fb307a69b0ae3283ee47b07034",
+        "traversal_index": 41
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:4938584",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045968291",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-8256065549763613/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "d77978a260a5ec63d48f664c549ff7e6086278fcae912f2202f1fd1018d25406",
+        "previous_sha256": "69c87df6d91b707c2eee902be058556bddb919fb307a69b0ae3283ee47b07034",
+        "sequence": 1950,
+        "sha256": "1c08fb1c0d190ee432d7f29a345af8486641ae952b000779f8571df7caa91373",
+        "traversal_index": 42
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:4938584",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045968291",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-8256065549763613/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "830ced210b448ab5d2c0eb861b82863e742cebbaa593e6d00f00b2feb4c23ec8",
+        "previous_sha256": "1c08fb1c0d190ee432d7f29a345af8486641ae952b000779f8571df7caa91373",
+        "sequence": 1951,
+        "sha256": "13660c3af904262608db0584d98c57b8c2aa43f6744e1c629c52a5b8af426fcb",
+        "traversal_index": 43
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:4938584",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045968291",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-8256065549763613/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "1e77b07a9d6028dca3c0eea6f7f929da3e2501599bd0b4fbd32ed16f47f8c8f1",
+        "previous_sha256": "13660c3af904262608db0584d98c57b8c2aa43f6744e1c629c52a5b8af426fcb",
+        "sequence": 1952,
+        "sha256": "ffef4a9a01e38d9dab037fb10b402c758a0e9e2e5cee82d61c43bcd5cc9f7b45",
+        "traversal_index": 44
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:618480",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045972631",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-1977913322632131/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "7b6d035b7a196a4bc866753c93e891a34face7217b210ba3a4daac398e6669b5",
+        "previous_sha256": "ffef4a9a01e38d9dab037fb10b402c758a0e9e2e5cee82d61c43bcd5cc9f7b45",
+        "sequence": 1953,
+        "sha256": "91e66970f93653b5d5437de2440c2089d727f7aa864979c9d93d867f2bb624a0",
+        "traversal_index": 45
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:618480",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045972631",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1977913322632131/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "a0956a5ea552d019eebbe4b06080102630734a1ebcca2f0bfe340c1358437847",
+        "previous_sha256": "91e66970f93653b5d5437de2440c2089d727f7aa864979c9d93d867f2bb624a0",
+        "sequence": 1954,
+        "sha256": "f10ac46673d0d46ead2ba1e05b576a8bc9aa0acb9ae2dc2a22de97a4b5dc1ee9",
+        "traversal_index": 46
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:618480",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045972631",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1977913322632131/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "e619a9ccd9d8adcf7f60002fab7d7e5e9ffb38d6a49163f15650925ed6e4e66d",
+        "previous_sha256": "f10ac46673d0d46ead2ba1e05b576a8bc9aa0acb9ae2dc2a22de97a4b5dc1ee9",
+        "sequence": 1955,
+        "sha256": "c53c5c5dc36e62ad11e818cb7c46cd1f988920ecfed2dc4a5018a25952108e36",
+        "traversal_index": 47
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5034571",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045998568",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-313708534468451/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "1161e9906097707858785ca2eb1174b243b52f1d74537756797c83ad37b84937",
+        "previous_sha256": "c53c5c5dc36e62ad11e818cb7c46cd1f988920ecfed2dc4a5018a25952108e36",
+        "sequence": 1956,
+        "sha256": "a7f948a55fe959a34322634438787fc009b72c6a537cdc5faa7c5ebd2cf93b57",
+        "traversal_index": 48
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5034571",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045998568",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-313708534468451/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "49acf20969b8797fdb6b7de952093e39fac4aed81a43e96de1077beaa44d47c1",
+        "previous_sha256": "a7f948a55fe959a34322634438787fc009b72c6a537cdc5faa7c5ebd2cf93b57",
+        "sequence": 1957,
+        "sha256": "c221c25ee2965fe9f8069b4c441c93cd583a9670ea0b673a5556c1bf7f0392a1",
+        "traversal_index": 49
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5034571",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045998568",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-313708534468451/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "cbae6cfc43aebbde40c671bb8e2065be7e717221a2f114671c70f52a4f08bc1a",
+        "previous_sha256": "c221c25ee2965fe9f8069b4c441c93cd583a9670ea0b673a5556c1bf7f0392a1",
+        "sequence": 1958,
+        "sha256": "93ffb7eddd9bd2b061368635a2dd7e78f498d2e2b2f77c03a95293cd042df259",
+        "traversal_index": 50
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:4440811",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/8099989546",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-24036389884828591/1717986918400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "8f479a9848773d5291c62a998f70738d9541263d4105ae798eea56fdf94fa218",
+        "previous_sha256": "93ffb7eddd9bd2b061368635a2dd7e78f498d2e2b2f77c03a95293cd042df259",
+        "sequence": 1959,
+        "sha256": "e89a1204eb801b3a8916ab3b80e9f81742df0ff31c1c698bef61ee5bacc5b9f8",
+        "traversal_index": 51
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5766078",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/8099989597",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-490362214458889077/27487790694400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "924342fdb966c4ba78b95e70b9eb539b77e1c40159767030ae22300171fe2d35",
+        "previous_sha256": "e89a1204eb801b3a8916ab3b80e9f81742df0ff31c1c698bef61ee5bacc5b9f8",
+        "sequence": 1960,
+        "sha256": "9ce27a65ae4ee36767d6af7368e59daa6bf30768b54961a6ce5cfbe8fb6d5dd4",
+        "traversal_index": 52
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5766078",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/8099989597",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-490362214458889077/27487790694400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "9325ac662678566ece8263775721b97d5119531341936e871d357d14b9a8f75a",
+        "previous_sha256": "9ce27a65ae4ee36767d6af7368e59daa6bf30768b54961a6ce5cfbe8fb6d5dd4",
+        "sequence": 1961,
+        "sha256": "7c224f2aaebeda1d37e2670d2fe587a776ea6e5466f8c8ee4de511bd9ea86471",
+        "traversal_index": 53
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5766078",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/8099989597",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-490362214458889077/27487790694400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "12f59b6011f5893ba2f534e589546d4602b6f963a6ea86fce3f37c51f08e8948",
+        "previous_sha256": "7c224f2aaebeda1d37e2670d2fe587a776ea6e5466f8c8ee4de511bd9ea86471",
+        "sequence": 1962,
+        "sha256": "8c5a58493e55bae5eaa08a7135adec50c97d65bafba30bc3b0bd0b2586abbe5d",
+        "traversal_index": 54
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5667788",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/9004845675",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-859830215036529/85899345920000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "a9d4a0013f0427c409f81ceea62ce5657d2b2ff384064eaa569f2e0a634b6bef",
+        "previous_sha256": "8c5a58493e55bae5eaa08a7135adec50c97d65bafba30bc3b0bd0b2586abbe5d",
+        "sequence": 1963,
+        "sha256": "7187dbfebc7cfc6d358f336d3895d100871945ad9a545c68a8634f90268cac52",
+        "traversal_index": 55
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5667788",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/9004845675",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-859830215036529/85899345920000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "18afa4f6c7b90fa8380b742b13a2934b541bd9a670af307e8318809be81d21e0",
+        "previous_sha256": "7187dbfebc7cfc6d358f336d3895d100871945ad9a545c68a8634f90268cac52",
+        "sequence": 1964,
+        "sha256": "1b9ab0d3900232fc473eb05d21957e05b7eb535e5be644d4a2ad65bad74db07e",
+        "traversal_index": 56
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5667788",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/9004845675",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-859830215036529/85899345920000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "c84f2aae22638b6312f6d3b7b7b9d7095cfbe4bcbb7a5b61f29a1ab6044d2022",
+        "previous_sha256": "1b9ab0d3900232fc473eb05d21957e05b7eb535e5be644d4a2ad65bad74db07e",
+        "sequence": 1965,
+        "sha256": "8b5fb292c1e3f0ff695e855b037aae84771cd48a284a45d31c2e67add3547ca6",
+        "traversal_index": 57
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:3315933",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:relation/5535079",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-24146376506856181/1717986918400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "f8837cfdc8285c3a864e12acd308bfdadccb8c4357001550e726a7678c468c05",
+        "previous_sha256": "8b5fb292c1e3f0ff695e855b037aae84771cd48a284a45d31c2e67add3547ca6",
+        "sequence": 1966,
+        "sha256": "c5186a0f4e3f5fb8c27279f40724014c5e0095384a2cb8145613f34bdc726828",
+        "traversal_index": 58
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:3315930",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:relation/5535080",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-4805548115321737/343597383680000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "ec93c33822dd8f51b315ff948355c0d129d8bb94613197d6a0de15b79af52313",
+        "previous_sha256": "c5186a0f4e3f5fb8c27279f40724014c5e0095384a2cb8145613f34bdc726828",
+        "sequence": 1967,
+        "sha256": "9e51cc916814ae1b4506723c845499e76c31e46d29fba0e902388836b87820b9",
+        "traversal_index": 59
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:1761111",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1018325296",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-4106458776196879/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "203bdf5789246e7ae369373ee46fb5be5919f3a42a07a09d5055d875cf6e501c",
+        "previous_sha256": "9e51cc916814ae1b4506723c845499e76c31e46d29fba0e902388836b87820b9",
+        "sequence": 1968,
+        "sha256": "bc79b06fffe024596e83a876caddbe7fc66a469b64470a00315d217268ff29c4",
+        "traversal_index": 60
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5789880",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1086215064",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-346491573162223/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "c634a8ea4b4ec101d5376fe315eb4f9f3502f97839738ea46951726b2a79a1a9",
+        "previous_sha256": "bc79b06fffe024596e83a876caddbe7fc66a469b64470a00315d217268ff29c4",
+        "sequence": 1969,
+        "sha256": "9f68da2f2904bb4192c97ad791b13026a9e8eb73f05d6508aa1d690378a1c8c0",
+        "traversal_index": 61
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:1014531",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1212226878",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-179222611530613/53687091200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "2190f48df0c4309c26ac2ffe2765a919344c99984506a91c65065bd14915e9ff",
+        "previous_sha256": "9f68da2f2904bb4192c97ad791b13026a9e8eb73f05d6508aa1d690378a1c8c0",
+        "sequence": 1970,
+        "sha256": "eb24eba5cb754526765f6e6fc22d857b7d1f4363bc9a06e2db74f26e01a87d24",
+        "traversal_index": 62
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5663159",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1331116253",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-23765260487901581/1717986918400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "e143a7c661963d9e1763cf698be9cbb59005202785fa3966a5dffcd587212b39",
+        "previous_sha256": "eb24eba5cb754526765f6e6fc22d857b7d1f4363bc9a06e2db74f26e01a87d24",
+        "sequence": 1971,
+        "sha256": "c728b59ceab13a3100f39b8fd5d3bdcc2bc49b6a1cc3f9a6edf0120a17f8b063",
+        "traversal_index": 63
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5753222",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1331123330",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-23751633690542739/1717986918400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "bf62ceb00531a905376cba0d4812fac558d1d5af1a5f17ea3b8c8b90b1e84294",
+        "previous_sha256": "c728b59ceab13a3100f39b8fd5d3bdcc2bc49b6a1cc3f9a6edf0120a17f8b063",
+        "sequence": 1972,
+        "sha256": "27b3a0ff1b903bedf91a81092c405a0ec3c93adc838fd7a4eef4364ea1b85fc1",
+        "traversal_index": 64
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:4566249",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1331123334",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-950739458200699/68719476736000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "62dead2eb023ec1a5e1c6668030c783d148bda89d19a71361635efb1a7972fdf",
+        "previous_sha256": "27b3a0ff1b903bedf91a81092c405a0ec3c93adc838fd7a4eef4364ea1b85fc1",
+        "sequence": 1973,
+        "sha256": "d48251d5c3fe631a689b52c2c667ece0a1761a71c0b90dbccf7fe6abfd9edad0",
+        "traversal_index": 65
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:4940135",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1339094049",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2065084253749643/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "35f848632598c24d812e90955ed855d138adc3a18fecc99872b4a3cdab18a332",
+        "previous_sha256": "d48251d5c3fe631a689b52c2c667ece0a1761a71c0b90dbccf7fe6abfd9edad0",
+        "sequence": 1974,
+        "sha256": "97cf513f61ff655001ba75397769e07934328ec80342a2f914a365be8fa90cf6",
+        "traversal_index": 66
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5732263",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1382773741",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-3445302505767/4294967296000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "3cb2deb9db9f6ac3b978e6d41f727d9713087fa3bd8ff59ffae7ed9c6dfcd4a8",
+        "previous_sha256": "97cf513f61ff655001ba75397769e07934328ec80342a2f914a365be8fa90cf6",
+        "sequence": 1975,
+        "sha256": "1002180ce49103f4800d823053b4b20e353d0b553a55ae8b7ca9bc6539f1faca",
+        "traversal_index": 67
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:4757487",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1424254988",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1309200204991721/171798691840000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "d9593b1db5cc9d6fe46be9b0d85a96e176973518041659bc25ee5a3a41bfdc4b",
+        "previous_sha256": "1002180ce49103f4800d823053b4b20e353d0b553a55ae8b7ca9bc6539f1faca",
+        "sequence": 1976,
+        "sha256": "2e655812df1dd763110ff0e066d7d0fcc335cff44330000be9f73944748d7e27",
+        "traversal_index": 68
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5761294",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1424254996",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-3263850376712951/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "c709532cd63a499c2954e2c334d8169659974be8b1bacb20a2c8104c0b2f4db7",
+        "previous_sha256": "2e655812df1dd763110ff0e066d7d0fcc335cff44330000be9f73944748d7e27",
+        "sequence": 1977,
+        "sha256": "bcf10211194ef5092a5bc888c2cc21bb36d4a3deb9bfed8ebc133cae856d5f55",
+        "traversal_index": 69
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5761297",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1424255003",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-263673251237777/34359738368000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "803cf38a7d3f156714caddc725cb7ca8c8ffd3e3d17fde4ee0587010cfffa84d",
+        "previous_sha256": "bcf10211194ef5092a5bc888c2cc21bb36d4a3deb9bfed8ebc133cae856d5f55",
+        "sequence": 1978,
+        "sha256": "4b948a2fb261fb1dd30216366ef77129c691c7c66ea547fd3b75fa34ade43ff4",
+        "traversal_index": 70
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5766044",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1428334358",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-97473991027309569/5497558138880000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "bde7a3185f6caf8e51379da75607ac698296a9be0d5ee535756edb1ed99b570a",
+        "previous_sha256": "4b948a2fb261fb1dd30216366ef77129c691c7c66ea547fd3b75fa34ade43ff4",
+        "sequence": 1979,
+        "sha256": "d593ccad9919f1baecdeccc750821ac34d67f047ac4e9c9e40381d6e95c74912",
+        "traversal_index": 71
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2001294",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1428348954",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-488065378648930121/27487790694400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "04c502f4c78f9b33c8e4a527ac653e9344dba4f3af334d519ee3421755f01ca9",
+        "previous_sha256": "d593ccad9919f1baecdeccc750821ac34d67f047ac4e9c9e40381d6e95c74912",
+        "sequence": 1980,
+        "sha256": "e69628563fd63252dff386c9277b39da41567f199880275853f20a6b79dd237e",
+        "traversal_index": 72
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5769296",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1432551249",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1977459877164877/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "1d0355fa105ee151e4aee90db5a15451c067a0a2b97ccec790af1353b16f1f99",
+        "previous_sha256": "e69628563fd63252dff386c9277b39da41567f199880275853f20a6b79dd237e",
+        "sequence": 1981,
+        "sha256": "c96914ae9030965908f0db7b157c08687323b36b2f23c1a793ec7d8cc7bfb9ac",
+        "traversal_index": 73
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5770162",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1433572199",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-48967420165487801/2748779069440000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "c11b4bfd51d734ae618692252882b7c9c0d9fe4ede2e05d11d4bc29015a3d922",
+        "previous_sha256": "c96914ae9030965908f0db7b157c08687323b36b2f23c1a793ec7d8cc7bfb9ac",
+        "sequence": 1982,
+        "sha256": "102ce00ccfcf660bc2fa9ec4e27343e4708fbe0832653c00500b933b1ab0a934",
+        "traversal_index": 74
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5672917",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1482614449",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-4586658110122233/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "7a3b8a11db9b2527a336538ad094e2600b6a79d5110d345b60ed6fa5df0e677e",
+        "previous_sha256": "102ce00ccfcf660bc2fa9ec4e27343e4708fbe0832653c00500b933b1ab0a934",
+        "sequence": 1983,
+        "sha256": "1889abfeb8b592a6d74d6d5b43d2e8d41e0ed9dea9fc7842f18dd0342531c4c5",
+        "traversal_index": 75
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5683252",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1482997846",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-793817588181239/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "c7222a2a8a4d6bdcf0ad3c97d81d8ed7e85fc6cba8b7055770f3b4b26e37413a",
+        "previous_sha256": "1889abfeb8b592a6d74d6d5b43d2e8d41e0ed9dea9fc7842f18dd0342531c4c5",
+        "sequence": 1984,
+        "sha256": "778014a6f86e8a242ce486af92adff34a103abd7a4fb1b576deeeb14b9ee02fd",
+        "traversal_index": 76
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5846881",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1525582977",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-7765815030292941/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "bf89fd7a3aca973992525dad7ec90af5510d2243d536d7fe31ca05bd33bac771",
+        "previous_sha256": "778014a6f86e8a242ce486af92adff34a103abd7a4fb1b576deeeb14b9ee02fd",
+        "sequence": 1985,
+        "sha256": "09e220c80b39b8489a44aad1e89a1782eb3554cd609cdb5d927628b99da99fd6",
+        "traversal_index": 77
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:844621",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1533214436",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-374968374565799/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "2fe722234800440cb91a89afb82cc3cb03162ef6008798e555e4afe5146d804a",
+        "previous_sha256": "09e220c80b39b8489a44aad1e89a1782eb3554cd609cdb5d927628b99da99fd6",
+        "sequence": 1986,
+        "sha256": "5c0708825b97288a813a5327b1944c1108435f83ecfdb65e4599f62eba2cf1ea",
+        "traversal_index": 78
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5883796",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1558096218",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1431415774014081/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "95c6eef22450682da0a8405d40d4d63b2e74749eab2d951656afdaeebbb242aa",
+        "previous_sha256": "5c0708825b97288a813a5327b1944c1108435f83ecfdb65e4599f62eba2cf1ea",
+        "sequence": 1987,
+        "sha256": "cfa5228bae9831b88d9c28a2c446faa3e7236ed685a059aed7129e43d834b323",
+        "traversal_index": 79
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2492661",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/236052919",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1800191905251/17179869184000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "ed6def16254a1c81f66a2d387af523010dafe5d93ca07facab7898539f6f723f",
+        "previous_sha256": "cfa5228bae9831b88d9c28a2c446faa3e7236ed685a059aed7129e43d834b323",
+        "sequence": 1988,
+        "sha256": "5933763265eb244b2a3d79ad825e43f59d55cf629141cf657e25fa4e999a5c62",
+        "traversal_index": 80
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:618487",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/283612368",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-983956529109539/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "6432a5c352efe1054bdd68fb40648154bc68fb327234bde1998bbac81f38bffb",
+        "previous_sha256": "5933763265eb244b2a3d79ad825e43f59d55cf629141cf657e25fa4e999a5c62",
+        "sequence": 1989,
+        "sha256": "dd07211df0ac6adfb21ec2e8a8572bd84e4f44e963346ba03e06b50f435fb030",
+        "traversal_index": 81
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:3315935",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/372251643",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2409871735071651/171798691840000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "d930ff2ce284df942c9371899c8d777d3c91c212787a782d12baa56e78ecad9d",
+        "previous_sha256": "dd07211df0ac6adfb21ec2e8a8572bd84e4f44e963346ba03e06b50f435fb030",
+        "sequence": 1990,
+        "sha256": "014afa77385d79361574de5196eda6b5e13c69c276fd8679b96a153dd84ee016",
+        "traversal_index": 82
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5766045",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/426160768",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-243903298796108381/13743895347200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "72ffe3cc9b43d7d1cbc0eebf73c83b6849692f37d757d0e6ef775bfbd6ee8328",
+        "previous_sha256": "014afa77385d79361574de5196eda6b5e13c69c276fd8679b96a153dd84ee016",
+        "sequence": 1991,
+        "sha256": "a31c65e63c231470b8bc279994bd5475574c8bd96c009c3bbfa59f1e39e564a6",
+        "traversal_index": 83
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:4575635",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/866060313",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2119518772338363/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "7d1bf5b8a9614aba57c88ed11b6dce7c9427fc31fa946c9f31e620f73f3a9077",
+        "previous_sha256": "a31c65e63c231470b8bc279994bd5475574c8bd96c009c3bbfa59f1e39e564a6",
+        "sequence": 1992,
+        "sha256": "793fbd674180ddc4cb21fcd41f62cba8e5188cee8ee4dd0bb8102a2a88cfa251",
+        "traversal_index": 84
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:844642",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/904576147",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1531763389917829/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "5f3473c340145459c85a4e4186f0c86e568b8a8b1dbe2dc4f26c65ef4ed0756a",
+        "previous_sha256": "793fbd674180ddc4cb21fcd41f62cba8e5188cee8ee4dd0bb8102a2a88cfa251",
+        "sequence": 1993,
+        "sha256": "4ad171e04eaba2173d79324bc4de547bb2165d90fe9d39685158dfa7f86780aa",
+        "traversal_index": 85
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5678371",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/952988171",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-4249914394735023/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "a2a34b48a12ee6aaf65609ff1b5390bfa3034acbc4682a47865790f7e010d3ea",
+        "previous_sha256": "4ad171e04eaba2173d79324bc4de547bb2165d90fe9d39685158dfa7f86780aa",
+        "sequence": 1994,
+        "sha256": "a59de49ae795cbb0583d6f72a9ecc01e469dd93a3b0d77822b5ad6ee729a55dd",
+        "traversal_index": 86
+      }
+    ],
+    "layers": [
+      {
+        "depth": 0,
+        "groups": 1,
+        "kind": "layer_start",
+        "previous_sha256": "6ed1e925bf7daf0ee5e7c433330ccb95278a108dcdd5d8dfacef57a9ec72755f",
+        "sequence": 3,
+        "sha256": "5a1bafe0c5d00837340c8e984f6286c4ccbae8b56ab1ee9163821a039fa94884"
+      },
+      {
+        "depth": 0,
+        "groups": 87,
+        "kind": "layer_end",
+        "previous_sha256": "0ef26fc23e6cf82475a7c7408db96882f209f663db0a90a59c808364651c6b97",
+        "sequence": 1906,
+        "sha256": "96f67ae629c404af6dd8fe11b83717ec9e6e64052dea40d5290f3f230ffcfbdc"
+      },
+      {
+        "depth": 1,
+        "groups": 87,
+        "kind": "layer_start",
+        "previous_sha256": "96f67ae629c404af6dd8fe11b83717ec9e6e64052dea40d5290f3f230ffcfbdc",
+        "sequence": 1907,
+        "sha256": "6947cc37e0ef47c62da7608dd5b1eb9b6a77ca80c6a181d4911e45a76b88f252"
+      }
+    ],
+    "method": "flat",
+    "omitted_arrays": {
+      "actions": 313,
+      "source_requests": 201
+    },
+    "road_leg_reachability": {
+      "('durable_verification', True)": 3,
+      "('incoming', True)": 313,
+      "('terminal', True)": 140,
+      "('witness_replay', True)": 21
+    },
+    "scopes": {
+      "advance|search|incoming": {
+        "calls": 313,
+        "thread_cpu_ns": 5481229291,
+        "wall_ns": 5505624535
+      },
+      "durable_verification|independent_verifier|durable_verification": {
+        "calls": 1,
+        "thread_cpu_ns": 17095324888,
+        "wall_ns": 17212178900
+      },
+      "finish|search|terminal": {
+        "calls": 186,
+        "thread_cpu_ns": 92652917844,
+        "wall_ns": 94199064952
+      },
+      "road_labels|independent_verifier|durable_verification": {
+        "calls": 3,
+        "thread_cpu_ns": 5275493007,
+        "wall_ns": 5302946061
+      },
+      "road_labels|search|incoming": {
+        "calls": 149,
+        "thread_cpu_ns": 3612615208,
+        "wall_ns": 3624828767
+      },
+      "road_labels|search|terminal": {
+        "calls": 49,
+        "thread_cpu_ns": 92156204338,
+        "wall_ns": 93695797205
+      },
+      "road_leg|independent_verifier|durable_verification": {
+        "calls": 3,
+        "thread_cpu_ns": 5289451076,
+        "wall_ns": 5318048564
+      },
+      "road_leg|independent_verifier|witness_replay": {
+        "calls": 3,
+        "thread_cpu_ns": 5015,
+        "wall_ns": 4685
+      },
+      "road_leg|search|incoming": {
+        "calls": 313,
+        "thread_cpu_ns": 4358593765,
+        "wall_ns": 4376372052
+      },
+      "road_leg|search|terminal": {
+        "calls": 140,
+        "thread_cpu_ns": 92620053774,
+        "wall_ns": 94163704203
+      },
+      "road_leg|search|witness_replay": {
+        "calls": 18,
+        "thread_cpu_ns": 47887,
+        "wall_ns": 45701
+      },
+      "witness_replay|independent_verifier|witness_replay": {
+        "calls": 1,
+        "thread_cpu_ns": 424292,
+        "wall_ns": 437471
+      },
+      "witness_replay|search|witness_replay": {
+        "calls": 6,
+        "thread_cpu_ns": 3487161,
+        "wall_ns": 3539009
+      }
+    },
+    "witnesses": [
+      {
+        "end": {
+          "exception_type": null,
+          "key": [
+            "93627000122231889401/3435973836800000",
+            "6463578843329749/85899345920000",
+            2,
+            [
+              [
+                "4r:node/10088989871",
+                "C"
+              ],
+              [
+                "4r:node/11013727536",
+                "CS"
+              ]
+            ]
+          ],
+          "kind": "operation_completed",
+          "operation": "witness_replay",
+          "previous_sha256": "da8e42bf14e2cab4eddaa929ed728ac7101f6d167a03e0d0566372d9e49310cf",
+          "sequence": 2383,
+          "sha256": "57bd70c06c49d2b2e719152e5d10c8d19a9cd01ae3cfd5d958af66467fe37cf3",
+          "start_sequence": 2376,
+          "thread_cpu_ns": 922432,
+          "wall_ns": 932159,
+          "witness_sha256": "240d8c365815f165ebeba33e336df124512ea83b4a3898513bb9a06921c848be"
+        },
+        "start": {
+          "kind": "operation_started",
+          "operation": "witness_replay",
+          "parent_operation": null,
+          "phase": "witness_replay",
+          "previous_sha256": "825d6a793ebe74c8c49a4b8c9f1419d0d6ee3f1a2ff128ed18bdfbb65c80f0cb",
+          "provider_role": "search",
+          "sequence": 2376,
+          "sha256": "be080df989bd52b69daab155202cc5f5b7ac70875af698729612e87b3a2d985c",
+          "started_wall_ns": 226029802308960,
+          "witness_sha256": "240d8c365815f165ebeba33e336df124512ea83b4a3898513bb9a06921c848be"
+        }
+      },
+      {
+        "end": {
+          "exception_type": null,
+          "key": [
+            "93627000122231889401/3435973836800000",
+            "6463578843329749/85899345920000",
+            2,
+            [
+              [
+                "4r:node/10088989871",
+                "C"
+              ],
+              [
+                "4r:node/11013727536",
+                "CS"
+              ]
+            ]
+          ],
+          "kind": "operation_completed",
+          "operation": "witness_replay",
+          "previous_sha256": "fca31365bcbb0efdddaf03f0256174070e55f407ba7a20657293725730a7e571",
+          "sequence": 2404,
+          "sha256": "26e0cd58cc8c65193fd83843ad6d620ec64d9b31b9eb5527504d3ce0bfb08c9d",
+          "start_sequence": 2397,
+          "thread_cpu_ns": 424292,
+          "wall_ns": 437471,
+          "witness_sha256": "240d8c365815f165ebeba33e336df124512ea83b4a3898513bb9a06921c848be"
+        },
+        "start": {
+          "kind": "operation_started",
+          "operation": "witness_replay",
+          "parent_operation": 2384,
+          "phase": "witness_replay",
+          "previous_sha256": "0d1ff45e0d47647c76d4bb0ec8335a13503002fccd5530a5a6a69e9f30db1d52",
+          "provider_role": "independent_verifier",
+          "sequence": 2397,
+          "sha256": "e1a4266931fc2d962d0f00f9c3ce3424382a0d5775db9cf21cf3f29b8d2dadcc",
+          "started_wall_ns": 226043279056339,
+          "witness_sha256": "240d8c365815f165ebeba33e336df124512ea83b4a3898513bb9a06921c848be"
+        }
+      },
+      {
+        "end": {
+          "exception_type": null,
+          "kind": "operation_completed",
+          "operation": "durable_verification",
+          "previous_sha256": "26e0cd58cc8c65193fd83843ad6d620ec64d9b31b9eb5527504d3ce0bfb08c9d",
+          "sequence": 2405,
+          "sha256": "ba5ac3d804cded1542f7c0b49a6d675a6a23b00a946589958f8d727cd78bb1b2",
+          "start_sequence": 2384,
+          "thread_cpu_ns": 17095324888,
+          "wall_ns": 17212178900
+        },
+        "start": {
+          "kind": "operation_started",
+          "operation": "durable_verification",
+          "parent_operation": null,
+          "phase": "durable_verification",
+          "previous_sha256": "57bd70c06c49d2b2e719152e5d10c8d19a9cd01ae3cfd5d958af66467fe37cf3",
+          "provider_role": "independent_verifier",
+          "sequence": 2384,
+          "sha256": "cae231ba18398512d6876425871b3687f2fd70e7c8c7a73292f8aad63bc9d0dc",
+          "started_wall_ns": 226029804586415,
+          "witness_sha256": "240d8c365815f165ebeba33e336df124512ea83b4a3898513bb9a06921c848be"
+        }
+      },
+      {
+        "end": {
+          "exception_type": null,
+          "key": [
+            "93627000122231889401/3435973836800000",
+            "32680587024926761/429496729600000",
+            2,
+            [
+              [
+                "4r:node/10088989871",
+                "C"
+              ],
+              [
+                "4r:node/11013727536",
+                "CS"
+              ]
+            ]
+          ],
+          "kind": "operation_completed",
+          "operation": "witness_replay",
+          "previous_sha256": "4a09f82185cafdbd1f8ae382eb6d225f2333e10901644f370f24463544f73c0e",
+          "sequence": 2413,
+          "sha256": "f04e430a03e159d9eff5a0a363abf6a78a974726f0ea298028082621b3a4044d",
+          "start_sequence": 2406,
+          "thread_cpu_ns": 627056,
+          "wall_ns": 641179,
+          "witness_sha256": "131fc0af9bef8b7774b7580dae5ffff45086853a9c1bb87b8d858618ccbf6312"
+        },
+        "start": {
+          "kind": "operation_started",
+          "operation": "witness_replay",
+          "parent_operation": null,
+          "phase": "witness_replay",
+          "previous_sha256": "ba5ac3d804cded1542f7c0b49a6d675a6a23b00a946589958f8d727cd78bb1b2",
+          "provider_role": "search",
+          "sequence": 2406,
+          "sha256": "5f827d0e193446788a2f048c2007ebcc5dc432aaeb6df41ef7ef072d95d85990",
+          "started_wall_ns": 226047019208116,
+          "witness_sha256": "131fc0af9bef8b7774b7580dae5ffff45086853a9c1bb87b8d858618ccbf6312"
+        }
+      },
+      {
+        "end": {
+          "exception_type": null,
+          "key": [
+            "93628718109150289401/3435973836800000",
+            "98047129783900283/1288490188800000",
+            2,
+            [
+              [
+                "4r:node/10088989871",
+                "C"
+              ],
+              [
+                "4r:node/11013727536",
+                "CS"
+              ]
+            ]
+          ],
+          "kind": "operation_completed",
+          "operation": "witness_replay",
+          "previous_sha256": "8413bf89ae722aadfb5b2a57c8ccc6a1c5a5d7d15bc230afa370f780deaa3e0b",
+          "sequence": 2421,
+          "sha256": "3ed5723129d44fde90de35c77ad2a9cab7ca8730d60b23f26b674d5e5bf8131e",
+          "start_sequence": 2414,
+          "thread_cpu_ns": 365849,
+          "wall_ns": 374686,
+          "witness_sha256": "b501db1bafcff487d006382aa507f66098cbed8ab1e94d752e51e6482b752feb"
+        },
+        "start": {
+          "kind": "operation_started",
+          "operation": "witness_replay",
+          "parent_operation": null,
+          "phase": "witness_replay",
+          "previous_sha256": "f04e430a03e159d9eff5a0a363abf6a78a974726f0ea298028082621b3a4044d",
+          "provider_role": "search",
+          "sequence": 2414,
+          "sha256": "40bf1ac4c1b5bc592f3d979ed1889c9851e869a47cf1d2c208d04b510890dea4",
+          "started_wall_ns": 226047022421453,
+          "witness_sha256": "b501db1bafcff487d006382aa507f66098cbed8ab1e94d752e51e6482b752feb"
+        }
+      },
+      {
+        "end": {
+          "exception_type": null,
+          "key": [
+            "95824291209364514489/3435973836800000",
+            "87423579768391447/1073741824000000",
+            2,
+            [
+              [
+                "4r:node/10088989871",
+                "C"
+              ],
+              [
+                "4r:node/11013727536",
+                "CS"
+              ]
+            ]
+          ],
+          "kind": "operation_completed",
+          "operation": "witness_replay",
+          "previous_sha256": "83b6bc08314bb36df1df80fb203298d7cf35f7a87984a1ea3327018baef6bc4f",
+          "sequence": 2429,
+          "sha256": "4d198200afd0041e18ead2ad7ce7983fbc64df415dcd4ed50bafa9a8a2094173",
+          "start_sequence": 2422,
+          "thread_cpu_ns": 370017,
+          "wall_ns": 379776,
+          "witness_sha256": "44e958f94c4081665ac03810cb3ccc55f8c5de002820ea12ec8ecc6be0a9caaf"
+        },
+        "start": {
+          "kind": "operation_started",
+          "operation": "witness_replay",
+          "parent_operation": null,
+          "phase": "witness_replay",
+          "previous_sha256": "3ed5723129d44fde90de35c77ad2a9cab7ca8730d60b23f26b674d5e5bf8131e",
+          "provider_role": "search",
+          "sequence": 2422,
+          "sha256": "6dc851b8f4f3675026b4f0dbdad9c20e833867c2f59edccbaac4dfc7709d7bde",
+          "started_wall_ns": 226047025505075,
+          "witness_sha256": "44e958f94c4081665ac03810cb3ccc55f8c5de002820ea12ec8ecc6be0a9caaf"
+        }
+      },
+      {
+        "end": {
+          "exception_type": null,
+          "key": [
+            "95826009196282914489/3435973836800000",
+            "262284161077974341/3221225472000000",
+            2,
+            [
+              [
+                "4r:node/10088989871",
+                "C"
+              ],
+              [
+                "4r:node/11013727536",
+                "CS"
+              ]
+            ]
+          ],
+          "kind": "operation_completed",
+          "operation": "witness_replay",
+          "previous_sha256": "d4d313bf5eb08a7f75e5fdcdc74c816376f35fbe208f1f9458fc2e63a29ba4d9",
+          "sequence": 2437,
+          "sha256": "d434ecf1f7dc9b1a65d12430cc7ea2d4de586a13a4f63a8f297f156ea1b7d8df",
+          "start_sequence": 2430,
+          "thread_cpu_ns": 837541,
+          "wall_ns": 847126,
+          "witness_sha256": "870b62b17eca28d785a5187c40baf4d7935249e4bf8680cb6f24518ef7b0bac8"
+        },
+        "start": {
+          "kind": "operation_started",
+          "operation": "witness_replay",
+          "parent_operation": null,
+          "phase": "witness_replay",
+          "previous_sha256": "4d198200afd0041e18ead2ad7ce7983fbc64df415dcd4ed50bafa9a8a2094173",
+          "provider_role": "search",
+          "sequence": 2430,
+          "sha256": "31169caf049c9654c9758b8237538439a249dd5df8902d86efef35624b70cf6e",
+          "started_wall_ns": 226047028670385,
+          "witness_sha256": "870b62b17eca28d785a5187c40baf4d7935249e4bf8680cb6f24518ef7b0bac8"
+        }
+      },
+      {
+        "end": {
+          "exception_type": null,
+          "key": [
+            "96719376575351889401/3435973836800000",
+            "35901812496926761/429496729600000",
+            2,
+            [
+              [
+                "4r:node/10088989871",
+                "C"
+              ],
+              [
+                "4r:node/11013727536",
+                "CS"
+              ]
+            ]
+          ],
+          "kind": "operation_completed",
+          "operation": "witness_replay",
+          "previous_sha256": "583020a80130e8839b6fd23df12bc5ae87f5cd7853958e7d6b57932823405890",
+          "sequence": 2445,
+          "sha256": "5d8ebea415e77d93c6196d51fe9b8cce167de9686f8e118e2d8014c86408f528",
+          "start_sequence": 2438,
+          "thread_cpu_ns": 364266,
+          "wall_ns": 364083,
+          "witness_sha256": "bed7c1147ad5483eb85bb64221e867affc8d36deffab6ab3ac70fd041239775c"
+        },
+        "start": {
+          "kind": "operation_started",
+          "operation": "witness_replay",
+          "parent_operation": null,
+          "phase": "witness_replay",
+          "previous_sha256": "d434ecf1f7dc9b1a65d12430cc7ea2d4de586a13a4f63a8f297f156ea1b7d8df",
+          "provider_role": "search",
+          "sequence": 2438,
+          "sha256": "7502831b4d9d10ada7734b717037e393ff79c13ef924bfddb1f966db44e7af04",
+          "started_wall_ns": 226047031713926,
+          "witness_sha256": "bed7c1147ad5483eb85bb64221e867affc8d36deffab6ab3ac70fd041239775c"
+        }
+      }
+    ]
+  },
+  "hier": {
+    "expanded": [
+      {
+        "key": {
+          "anchor": "road:5788209",
+          "depth": 0,
+          "pi": [],
+          "remaining_schedule": 1,
+          "rho": "-18"
+        },
+        "kind": "prefix_expanded",
+        "pieces": 1,
+        "prefix_id": "88408f30762c8448e0dba87518dd7a35a47466a6abe0188d74f7865eea07abaf",
+        "previous_sha256": "d1be8498a1fb9ac8917f49a074f3639da160af5909d35fc1fb63b5c95dd36e9f",
+        "sequence": 7,
+        "sha256": "6182d112a3f99d9df0e88ec50021ed449a1536ebc116328f8c3dd41e1c93fbde"
+      },
+      {
+        "key": {
+          "anchor": "road:5766078",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/8099989597",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-490362214458889077/27487790694400000"
+        },
+        "kind": "prefix_expanded",
+        "pieces": 6,
+        "prefix_id": "924342fdb966c4ba78b95e70b9eb539b77e1c40159767030ae22300171fe2d35",
+        "previous_sha256": "65bf67623a0e61972d8cb0d1ff4f9efc0204b74784fe47363037a9a82b335e6e",
+        "sequence": 2303,
+        "sha256": "e3ef192ef826c8758c5924b838acf821398a40b50fc1866bb231bab971369c02"
+      }
+    ],
+    "finalized": {
+      "classification": "parent_finalized_exact_timeout_censoring",
+      "completed_operations": 1579,
+      "completed_successful_operations": 1579,
+      "controller_terminal": {
+        "sha256": "d15b51d2205b975b67f58df1a419b60dd75860014146895123810de3c9ec82e1"
+      },
+      "exact_optimum_claimed": false,
+      "identity": {
+        "domain_sha256": "876f3d71a4e6d87dc6d885af36d11a7fa1206f0e26cc8db91e2dc322a23d5b6e",
+        "handoff_sha256": "cffa22ac19c1df839a11e203a51032de7c9e4787d3a668296895581837fc0f45",
+        "manifest_sha256": "e7f2332dccb4f54512c26fecdd4a7b581800dc3c40069613600899d4b57febe0",
+        "method": "hier",
+        "query_sha256": "7c52642c86888fef48fac35f723519306b62c0fb642e987807421dd7a316ab1d",
+        "source_closure_sha256": "b23df5570afaee33d26f6d062116a42609c70f58a657c2e7cfe7fe294531e30d"
+      },
+      "last_recorded_pending_operations": [
+        {
+          "kind": "operation_started",
+          "operation": "finish",
+          "parent_operation": null,
+          "phase": "terminal",
+          "prefix": {
+            "key": {
+              "anchor": "road:5797829",
+              "depth": 2,
+              "pi": [
+                [
+                  "4r:node/8099989597",
+                  "C"
+                ],
+                [
+                  "4r:way/1463997812",
+                  "S"
+                ]
+              ],
+              "remaining_schedule": 0,
+              "rho": "210284074912347659/27487790694400000"
+            },
+            "pieces": 7,
+            "prefix_id": "97a217cdb335da74ebecb2718f4a77a8271c8e2e1de1d6b632baad1009f0db25"
+          },
+          "previous_sha256": "2251f9781612f2df23324e2801a6d4610ee0dcaf970ddb544bb43d8a08b6bf49",
+          "provider_role": "search",
+          "sequence": 3254,
+          "started_wall_ns": 225733495123673
+        },
+        {
+          "kind": "operation_started",
+          "metrics_before": {
+            "source_cache_bytes": 377120912,
+            "source_cache_evictions": 60,
+            "source_cache_hits": 208,
+            "source_cache_skips": 0,
+            "source_run_count": 62
+          },
+          "operation": "road_leg",
+          "pair_cache_hit": false,
+          "parent_operation": 3254,
+          "phase": "terminal",
+          "previous_sha256": "133acba3df3fd6deff2b205aae93fd961c42c611feef20cb991ca3d36b7476ef",
+          "provider_role": "search",
+          "sequence": 3255,
+          "source": "road:5797829",
+          "source_cache_hit": false,
+          "started_wall_ns": 225733495176380,
+          "target": "road:3190137"
+        },
+        {
+          "kind": "operation_started",
+          "metrics_before": {
+            "source_cache_bytes": 377120912,
+            "source_cache_evictions": 60,
+            "source_cache_hits": 208,
+            "source_cache_skips": 0,
+            "source_run_count": 62
+          },
+          "operation": "road_labels",
+          "parent_operation": 3255,
+          "phase": "terminal",
+          "previous_sha256": "7303bd1081b88d7d6eaa3cae5666428fee22ec7ecbeed0c30b3be0adb3d5af92",
+          "provider_role": "search",
+          "sequence": 3256,
+          "source_cache_hit": false,
+          "source_node": 5797829,
+          "started_wall_ns": 225733495746070
+        }
+      ],
+      "partial_tail_bytes": 0,
+      "partial_tail_semantics": "Parent binds raw final bytes; incomplete trailing event is excluded from authenticated completed prefix.",
+      "partial_tail_sha256": null,
+      "pending_semantics": "Unmatched recorded starts only; not proof these calls were in flight at kill.",
+      "reporting_accounting_scope": "Post-terminal analysis through encoding preparation; output write/exit excluded. Independent of numerical stage debit.",
+      "reporting_containment": {
+        "address_space_bytes": 536870912,
+        "cpu_hard": 12,
+        "cpu_soft": 10,
+        "wall_seconds": 30
+      },
+      "reporting_cpu_seconds": 0.083984663,
+      "reporting_thread_cpu_seconds": 0.08444292,
+      "reporting_wall_seconds": 0.084442176,
+      "schema": "hiroute.parent_finalized_prefix.v1",
+      "solver_feasibility": "Separate fresh physical replay required; this observational receipt grants no feasibility.",
+      "trace": {
+        "bytes": 1708987,
+        "complete_records": 3256,
+        "head_sha256": "10d721ae3db99821ccefed5c937010cb9aa00192780dd6eb74126e1e74ffa9f3",
+        "sha256": "75c1bd3fd8618539a0f1f55aee13a23b596fd566283e84461bf70ed583ca2de9"
+      },
+      "whole_trace_complete": false
+    },
+    "finish_output_histogram": {
+      "0": 285
+    },
+    "layer_prefixes": [
+      {
+        "depth": 0,
+        "key": {
+          "anchor": "road:5788209",
+          "depth": 0,
+          "pi": [],
+          "remaining_schedule": 1,
+          "rho": "-18"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "88408f30762c8448e0dba87518dd7a35a47466a6abe0188d74f7865eea07abaf",
+        "previous_sha256": "8c9a1ba698c28a8595abe0fa9ec8b217a872d8c06173ffaa31bd498932537922",
+        "sequence": 4,
+        "sha256": "59136269a5c7376cf824d00195c4d26dbadf2a5f15aaddc1d5118b54d3b33d23",
+        "traversal_index": 0
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5766078",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/8099989597",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-490362214458889077/27487790694400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "924342fdb966c4ba78b95e70b9eb539b77e1c40159767030ae22300171fe2d35",
+        "previous_sha256": "a5bccf102823c914a5a10e6a7f8e0bfde21c0b6c222a7d3268a41899245aecae",
+        "sequence": 1908,
+        "sha256": "7391d283941b83af1c45f6bb9f5048de74702dd67439daa7dca6992a7d27d5a4",
+        "traversal_index": 0
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:4440811",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/8099989546",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-24036389884828591/1717986918400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "8f479a9848773d5291c62a998f70738d9541263d4105ae798eea56fdf94fa218",
+        "previous_sha256": "7391d283941b83af1c45f6bb9f5048de74702dd67439daa7dca6992a7d27d5a4",
+        "sequence": 1909,
+        "sha256": "c88dc897105cb85ee1d198a8cc948ca4e3ef2e4bfbbcd6386aa13f523e7d4a85",
+        "traversal_index": 1
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5674063",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067793524",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-2052870809868831/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "ba705e200ad37d458a79e91d92d7a756a50f169f14d0cc90fba8de4be36378c6",
+        "previous_sha256": "c88dc897105cb85ee1d198a8cc948ca4e3ef2e4bfbbcd6386aa13f523e7d4a85",
+        "sequence": 1910,
+        "sha256": "d56a69e0fc394f20630815be7156548729070c3b7149117b4c6d20d2c95ba8ad",
+        "traversal_index": 2
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5667788",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/9004845675",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-859830215036529/85899345920000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "a9d4a0013f0427c409f81ceea62ce5657d2b2ff384064eaa569f2e0a634b6bef",
+        "previous_sha256": "d56a69e0fc394f20630815be7156548729070c3b7149117b4c6d20d2c95ba8ad",
+        "sequence": 1911,
+        "sha256": "af855e183c380701474f3b692c24087c8b5d271f376b1fed3052a776c22d26fc",
+        "traversal_index": 3
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:1761040",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067753859",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-8377029558443971/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "4e14ec2d1b2b12345b80d9500e22b64798e76ea1797e3b965460e1a73de6bcec",
+        "previous_sha256": "af855e183c380701474f3b692c24087c8b5d271f376b1fed3052a776c22d26fc",
+        "sequence": 1912,
+        "sha256": "28537b66d34960dfa74761e816fa8e87f556f6c1965ac458416f7054331691be",
+        "traversal_index": 4
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:4938584",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045968291",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-8256065549763613/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "d77978a260a5ec63d48f664c549ff7e6086278fcae912f2202f1fd1018d25406",
+        "previous_sha256": "28537b66d34960dfa74761e816fa8e87f556f6c1965ac458416f7054331691be",
+        "sequence": 1913,
+        "sha256": "203000cc41895f22bee24472e0f4634c3c28f83c70b2ee24dca647ee0cdc9882",
+        "traversal_index": 5
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5626973",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067688236",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-1022361027158737/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "4fd2c17afbb12a783f9c43a6dccf1b3baf35e7d2fdbe2500132db91b074095a5",
+        "previous_sha256": "203000cc41895f22bee24472e0f4634c3c28f83c70b2ee24dca647ee0cdc9882",
+        "sequence": 1914,
+        "sha256": "8a1ebc3c163532b6e337becfb7fa9a4594e958fc015b68e5cfbb284a30520d20",
+        "traversal_index": 6
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5701646",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/12570759702",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-7755559747901727/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "b9be8300ac16d482d0cbbc7d27cb1659527c50eb89e7e051a9f340ec1f2a5562",
+        "previous_sha256": "8a1ebc3c163532b6e337becfb7fa9a4594e958fc015b68e5cfbb284a30520d20",
+        "sequence": 1915,
+        "sha256": "668e788f5bd1ecce8dcea620b9405eb21a5150851f860776d2295d3d98fe9471",
+        "traversal_index": 7
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:618480",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045972631",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-1977913322632131/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "7b6d035b7a196a4bc866753c93e891a34face7217b210ba3a4daac398e6669b5",
+        "previous_sha256": "668e788f5bd1ecce8dcea620b9405eb21a5150851f860776d2295d3d98fe9471",
+        "sequence": 1916,
+        "sha256": "949a5311db88e2dc224e80bf5531bcdebb46e71be8092e7b5107e8e62360c7a9",
+        "traversal_index": 8
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5187551",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/10088989871",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-2854351358440513/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "e4b0676cf288516292730854342331147f90f259a58514b9adbd1e68a13ea907",
+        "previous_sha256": "949a5311db88e2dc224e80bf5531bcdebb46e71be8092e7b5107e8e62360c7a9",
+        "sequence": 1917,
+        "sha256": "ae308e1b630fb2a96965cce09b177c5cc288bac06dec6a8e0ef44197c72d38ee",
+        "traversal_index": 9
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5182581",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/5001502150",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-2831462343848761/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "539f87bcc2628389d93d23e03f8ab3c2a66fba3ae292211bc0c42f97ee97c408",
+        "previous_sha256": "ae308e1b630fb2a96965cce09b177c5cc288bac06dec6a8e0ef44197c72d38ee",
+        "sequence": 1918,
+        "sha256": "8835ffcf98542fcc663f77d9b5cb4f780e57b12b567e7cfc7c97f6130797e7d0",
+        "traversal_index": 10
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:894568",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13165793258",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-544686927845001/85899345920000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "224560b5d7fb0f4b67d9402e4292f7bee30f878dbe9cd1c3315080ccdbe93ea3",
+        "previous_sha256": "8835ffcf98542fcc663f77d9b5cb4f780e57b12b567e7cfc7c97f6130797e7d0",
+        "sequence": 1919,
+        "sha256": "1f23d6d7cc0184c0a462002b51cc77d02d1320cfea7467afa67610a015f9cc82",
+        "traversal_index": 11
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5452833",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13849743653",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-1208795524434493/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "d0961019aac71dc8e50c66a3fb1abe75d0ef70bb477b947279138494ba68a5e7",
+        "previous_sha256": "1f23d6d7cc0184c0a462002b51cc77d02d1320cfea7467afa67610a015f9cc82",
+        "sequence": 1920,
+        "sha256": "bfed9dabc6e47edd628db4bfa567279c29415f0e3bc3c15b418f162f790020e5",
+        "traversal_index": 12
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:736912",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13233106766",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-393442042518177/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "81638184abeca61b4372fca172e74c8b3638993c26b4b0786d10662efb317bd2",
+        "previous_sha256": "bfed9dabc6e47edd628db4bfa567279c29415f0e3bc3c15b418f162f790020e5",
+        "sequence": 1921,
+        "sha256": "0bd6c0a695339de9f5a814cfda108fc3025f35329830ea4dc88d7bf019bb8d8d",
+        "traversal_index": 13
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2493205",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13057608171",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-354776891493713/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "860e411854885e514507307755ceed3c0c5ecb6565641e80fd1d7d5fa9ca87cc",
+        "previous_sha256": "0bd6c0a695339de9f5a814cfda108fc3025f35329830ea4dc88d7bf019bb8d8d",
+        "sequence": 1922,
+        "sha256": "b8d785b7e464f9affb885ae17bd98a527edaaf24a733fe79dfe1a3551cd56a65",
+        "traversal_index": 14
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5663513",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13278180651",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-1108048098615103/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "2646f97a36482baa458852543c60b7bf0ad1982312b45ddd6ee5c93bf0db19b6",
+        "previous_sha256": "b8d785b7e464f9affb885ae17bd98a527edaaf24a733fe79dfe1a3551cd56a65",
+        "sequence": 1923,
+        "sha256": "ae99ff65452246b8ada533be8473999d906a7f7d4137a9d77f55427cdf3f0a3a",
+        "traversal_index": 15
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2775378",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13278375100",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-950149707651353/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "963d17c963aa1599f2bea99ed7a26d0cc5c850e960b89de18eeb040572b9017a",
+        "previous_sha256": "ae99ff65452246b8ada533be8473999d906a7f7d4137a9d77f55427cdf3f0a3a",
+        "sequence": 1924,
+        "sha256": "499c0b41acb4f6daba5f9f131b70bdc1820a4262c29c4ecbc525628a147e10cb",
+        "traversal_index": 16
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2432922",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13408948187",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-480061826252409/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "60f5e84cf458c571118d2f85e6cd9ea157362697ac82a78095d3a2642d2b520d",
+        "previous_sha256": "499c0b41acb4f6daba5f9f131b70bdc1820a4262c29c4ecbc525628a147e10cb",
+        "sequence": 1925,
+        "sha256": "8e8daf674132a015d126415ac15b936d269de62e92dc72afa4a9b041d37402bc",
+        "traversal_index": 17
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5034571",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045998568",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-313708534468451/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "1161e9906097707858785ca2eb1174b243b52f1d74537756797c83ad37b84937",
+        "previous_sha256": "8e8daf674132a015d126415ac15b936d269de62e92dc72afa4a9b041d37402bc",
+        "sequence": 1926,
+        "sha256": "f7c57ec22cc8bb8c10241146a7ad8c80cd937059f8a9be9e42941eec515defc0",
+        "traversal_index": 18
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:3868593",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/4683740340",
+              "C"
+            ]
+          ],
+          "remaining_schedule": 1,
+          "rho": "-10961086392881/17179869184000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 6,
+        "prefix_id": "1260651ec8c4de3e405026bdc403ef3981061c14a66183f211a9a58368e8c9eb",
+        "previous_sha256": "f7c57ec22cc8bb8c10241146a7ad8c80cd937059f8a9be9e42941eec515defc0",
+        "sequence": 1927,
+        "sha256": "6ab0775c08cb7ecc7ca504da3206ea873ae44d029a30a91c6e994308b10b3e1c",
+        "traversal_index": 19
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5766078",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/8099989597",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-490362214458889077/27487790694400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "9325ac662678566ece8263775721b97d5119531341936e871d357d14b9a8f75a",
+        "previous_sha256": "6ab0775c08cb7ecc7ca504da3206ea873ae44d029a30a91c6e994308b10b3e1c",
+        "sequence": 1928,
+        "sha256": "ed22b96b28396e82f0f4f73b5e26f410eb2aeef0ce9de9a682d1669310ee4155",
+        "traversal_index": 20
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5766078",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/8099989597",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-490362214458889077/27487790694400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "12f59b6011f5893ba2f534e589546d4602b6f963a6ea86fce3f37c51f08e8948",
+        "previous_sha256": "ed22b96b28396e82f0f4f73b5e26f410eb2aeef0ce9de9a682d1669310ee4155",
+        "sequence": 1929,
+        "sha256": "d14b89e2d449d49ced57fa25a357e5db0c36096a1f6a8abcc1b2020faa62ff55",
+        "traversal_index": 21
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:894568",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13165793258",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-544686927845001/85899345920000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "2b24ec69e75dfdb036b5e7d3725ee76b3d18f0735baba9216308f192186bfb34",
+        "previous_sha256": "d14b89e2d449d49ced57fa25a357e5db0c36096a1f6a8abcc1b2020faa62ff55",
+        "sequence": 1930,
+        "sha256": "3dd20cf73eee9a6186027103770e066b71e9c98dc5524eed86e13199e6ef327b",
+        "traversal_index": 22
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:894568",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13165793258",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-544686927845001/85899345920000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "2fac05866629f05bc2123158786270183fe8b7fff9a68fd9d2e73489cc09ce7e",
+        "previous_sha256": "3dd20cf73eee9a6186027103770e066b71e9c98dc5524eed86e13199e6ef327b",
+        "sequence": 1931,
+        "sha256": "2da393611c9738a4b77fc78591231ed95f1c53d7d9a1f18571729e1d2b31b0e7",
+        "traversal_index": 23
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2493205",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13057608171",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-354776891493713/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "319fdcb0976573b26b628a7d8cec5d9ac670c98f4568476283c0a21ba1abe36a",
+        "previous_sha256": "2da393611c9738a4b77fc78591231ed95f1c53d7d9a1f18571729e1d2b31b0e7",
+        "sequence": 1932,
+        "sha256": "1f51edba28638dd415dad4a85d86ed235dfd0b87c61a5d51f4adf7df21be34b1",
+        "traversal_index": 24
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2493205",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13057608171",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-354776891493713/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "85e9c0864c172b44086e315069e43256505028b41003ec09a0abe8560c99e84f",
+        "previous_sha256": "1f51edba28638dd415dad4a85d86ed235dfd0b87c61a5d51f4adf7df21be34b1",
+        "sequence": 1933,
+        "sha256": "ce60156e78b85407374e2b941c0047ff91e1ee8566f88c45f5a76d363e377265",
+        "traversal_index": 25
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5663513",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13278180651",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1108048098615103/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "362ad2711b2ac36d0f6368a11f82f841dec756525a6a4f88eb6310daabbd3208",
+        "previous_sha256": "ce60156e78b85407374e2b941c0047ff91e1ee8566f88c45f5a76d363e377265",
+        "sequence": 1934,
+        "sha256": "f8a4afbf82b6b5ad753843295752f3717d90a573c03b425d0317664672a5b0ff",
+        "traversal_index": 26
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5663513",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13278180651",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1108048098615103/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "eec8142977ad4b0cf05b8109fe9109e7de73fd0e6436dd2b3b677a2be0bb433e",
+        "previous_sha256": "f8a4afbf82b6b5ad753843295752f3717d90a573c03b425d0317664672a5b0ff",
+        "sequence": 1935,
+        "sha256": "859e18b7a07c0031dc688cc03852b383a4e3fb3173bb37cc3903325a04b6163c",
+        "traversal_index": 27
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2775378",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13278375100",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-950149707651353/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "b4d4452b129a09fb1a9d035645ed532f85dbabdcd7df07b18be3ff1ed77fe795",
+        "previous_sha256": "859e18b7a07c0031dc688cc03852b383a4e3fb3173bb37cc3903325a04b6163c",
+        "sequence": 1936,
+        "sha256": "013b95191484177bc9e10a20eb1142f001f476372e9b3eaaee6cf8fd982c27be",
+        "traversal_index": 28
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2775378",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13278375100",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-950149707651353/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "b05020045bd8648b4ffc9e2aee327e85208b8d405e41384e1fc783909a7e76fb",
+        "previous_sha256": "013b95191484177bc9e10a20eb1142f001f476372e9b3eaaee6cf8fd982c27be",
+        "sequence": 1937,
+        "sha256": "7d6ee9b7391610b75d7c92b949d00e2c9f050ccdd42faeeac22c46af133de750",
+        "traversal_index": 29
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2432922",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13408948187",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-480061826252409/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "6c74801a49c76a1fc04bc8726ea3b8c4f1c101b7ab38a1398e2feb154e606026",
+        "previous_sha256": "7d6ee9b7391610b75d7c92b949d00e2c9f050ccdd42faeeac22c46af133de750",
+        "sequence": 1938,
+        "sha256": "00496a2e5a8d92ef4cadfcdbf5b6108adbd259fad6becd8e17be5819806bf105",
+        "traversal_index": 30
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2432922",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13408948187",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-480061826252409/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "253f788f175eda1c7e179920352281843b78bdb383c0db3b99e3a5d458a21e30",
+        "previous_sha256": "00496a2e5a8d92ef4cadfcdbf5b6108adbd259fad6becd8e17be5819806bf105",
+        "sequence": 1939,
+        "sha256": "adf51dce6b02b00a751fc00c62bd4171e5f68324fa4bfe6a181e17369c800dbd",
+        "traversal_index": 31
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5182581",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/5001502150",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2831462343848761/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "e2155bffc8e091b82d007aafd49f3f814acb7bbb198fd488f51cdb050cf0f819",
+        "previous_sha256": "adf51dce6b02b00a751fc00c62bd4171e5f68324fa4bfe6a181e17369c800dbd",
+        "sequence": 1940,
+        "sha256": "71d95f84d62236a6f37a0f942fb100603ed31eaa53fdcc44c9cd0fff1d13eed3",
+        "traversal_index": 32
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5182581",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/5001502150",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2831462343848761/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "bc1293622882f45b204579d4bf09de41772523353363c3b99c6af80456466883",
+        "previous_sha256": "71d95f84d62236a6f37a0f942fb100603ed31eaa53fdcc44c9cd0fff1d13eed3",
+        "sequence": 1941,
+        "sha256": "222d5e905bdc6ca1f4580000918c0147da53c78a420bacce04084e54b4fbcc0f",
+        "traversal_index": 33
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:618480",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045972631",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1977913322632131/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "a0956a5ea552d019eebbe4b06080102630734a1ebcca2f0bfe340c1358437847",
+        "previous_sha256": "222d5e905bdc6ca1f4580000918c0147da53c78a420bacce04084e54b4fbcc0f",
+        "sequence": 1942,
+        "sha256": "6ef10050df4b6f1985d49000157f37cd8c93752be6f126998a7d302111357046",
+        "traversal_index": 34
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:618480",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045972631",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1977913322632131/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "e619a9ccd9d8adcf7f60002fab7d7e5e9ffb38d6a49163f15650925ed6e4e66d",
+        "previous_sha256": "6ef10050df4b6f1985d49000157f37cd8c93752be6f126998a7d302111357046",
+        "sequence": 1943,
+        "sha256": "9fb6830fb6a7adc19604741be45d54d0da4607bc10cf3b3f434608ef7a2b8282",
+        "traversal_index": 35
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5452833",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13849743653",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1208795524434493/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "a8910d6bd67191552cca1c6484de0443e4c25ae21eabbf43c6691eb51b403cbb",
+        "previous_sha256": "9fb6830fb6a7adc19604741be45d54d0da4607bc10cf3b3f434608ef7a2b8282",
+        "sequence": 1944,
+        "sha256": "98db62bbe6ac6c14ca2f1cab5b38619d417cbb81dae3715320c6fa43e3831a13",
+        "traversal_index": 36
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5452833",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13849743653",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1208795524434493/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "41e0a54a35218eaf439d7e013d8030d65138493a32e661f96087b035121bef8b",
+        "previous_sha256": "98db62bbe6ac6c14ca2f1cab5b38619d417cbb81dae3715320c6fa43e3831a13",
+        "sequence": 1945,
+        "sha256": "6ec8925b6bd7610ad8b88136ddb8fe2814edb0948ecddaa2bac65fc69065c8b8",
+        "traversal_index": 37
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:4938584",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045968291",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-8256065549763613/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "830ced210b448ab5d2c0eb861b82863e742cebbaa593e6d00f00b2feb4c23ec8",
+        "previous_sha256": "6ec8925b6bd7610ad8b88136ddb8fe2814edb0948ecddaa2bac65fc69065c8b8",
+        "sequence": 1946,
+        "sha256": "8c1f03a500ca84fdb44e24986984c47651b8324a308af4a68576d8e47a2cf2fc",
+        "traversal_index": 38
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:4938584",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045968291",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-8256065549763613/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "1e77b07a9d6028dca3c0eea6f7f929da3e2501599bd0b4fbd32ed16f47f8c8f1",
+        "previous_sha256": "8c1f03a500ca84fdb44e24986984c47651b8324a308af4a68576d8e47a2cf2fc",
+        "sequence": 1947,
+        "sha256": "02bde3ad73adb3e5f626a537851de51aa319418add3cc9553764c00155c606f7",
+        "traversal_index": 39
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5187551",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/10088989871",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2854351358440513/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "70aceb5e0f1eb4e6dbb41fbf5547370775753abc729f0652e66608de3304dcf1",
+        "previous_sha256": "02bde3ad73adb3e5f626a537851de51aa319418add3cc9553764c00155c606f7",
+        "sequence": 1948,
+        "sha256": "b618b26cb86131312a47dd78f82040d8f61846c1417c94520826fde3bf024842",
+        "traversal_index": 40
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5187551",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/10088989871",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2854351358440513/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "d9061f2d411be8cbe934fbf7922d0f48fdcf940c1bc46c5d7757e676273150af",
+        "previous_sha256": "b618b26cb86131312a47dd78f82040d8f61846c1417c94520826fde3bf024842",
+        "sequence": 1949,
+        "sha256": "6853b25d2b41697a10dbbf3c2a4e151209448a3d94c01ef179856a21f854fd0b",
+        "traversal_index": 41
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5626973",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067688236",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1022361027158737/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "3db0fce57637785d8c52cc0d8d81d49278f0f9aa329f8a4f7417c39bc1d6f051",
+        "previous_sha256": "6853b25d2b41697a10dbbf3c2a4e151209448a3d94c01ef179856a21f854fd0b",
+        "sequence": 1950,
+        "sha256": "4029e85a9b9cfb8fbbc3c956008eb1eb1f83d28628fb585185cbfa9ac5616299",
+        "traversal_index": 42
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5626973",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067688236",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1022361027158737/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "46f2b929c6f68e139a492d45d604cf2b14d2b7c10882dc7b3d037f1351e8aeb8",
+        "previous_sha256": "4029e85a9b9cfb8fbbc3c956008eb1eb1f83d28628fb585185cbfa9ac5616299",
+        "sequence": 1951,
+        "sha256": "248b56ec3d7f6d85109843e05363e14d2fdc3fbf115cb1c71f07f1448d957101",
+        "traversal_index": 43
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5701646",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/12570759702",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-7755559747901727/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "0e141b28c5821de26ed0fc488526c9c1669a32e782e47f0f0ef7b7065b79601f",
+        "previous_sha256": "248b56ec3d7f6d85109843e05363e14d2fdc3fbf115cb1c71f07f1448d957101",
+        "sequence": 1952,
+        "sha256": "8c09c05ddde516174c51e4eaa810b1208886fd589f4a75355112111ebd762e01",
+        "traversal_index": 44
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5701646",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/12570759702",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-7755559747901727/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "f123318a719bfbb4e275a5e4628b2f841a17929e6fb4a78183ddc65abfb11194",
+        "previous_sha256": "8c09c05ddde516174c51e4eaa810b1208886fd589f4a75355112111ebd762e01",
+        "sequence": 1953,
+        "sha256": "e54081499253bed709ef450e9808d739acc9502a1ba076329625995a3b306aa6",
+        "traversal_index": 45
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:1761040",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067753859",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-8377029558443971/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "b32ab9f6221f5464badd420836c3dcc564c2faf87215b4e3e4db8e8f4fcfdfa9",
+        "previous_sha256": "e54081499253bed709ef450e9808d739acc9502a1ba076329625995a3b306aa6",
+        "sequence": 1954,
+        "sha256": "dc1c157286072da454503959ad4beb473b4ca39633a99dd987dd7a2caccba2c9",
+        "traversal_index": 46
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:1761040",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067753859",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-8377029558443971/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "5d77e7aa66e18ab78f681bc8c1945db6468d3bc2bf6dce5132fe3098cd6dbceb",
+        "previous_sha256": "dc1c157286072da454503959ad4beb473b4ca39633a99dd987dd7a2caccba2c9",
+        "sequence": 1955,
+        "sha256": "33e8c4801eb22b5ec169edf8a2f92a6bd1eeda378c0a584774b9254f27620bce",
+        "traversal_index": 47
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5674063",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067793524",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2052870809868831/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "c1a678a704d2d5cb9f99ebe965e6b4f7e6b6636046b6a34b661cd394d96c3434",
+        "previous_sha256": "33e8c4801eb22b5ec169edf8a2f92a6bd1eeda378c0a584774b9254f27620bce",
+        "sequence": 1956,
+        "sha256": "a3023a80f53a68f661c38241a64b370420b6f8c0b153d468c3112e55ffced4a4",
+        "traversal_index": 48
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5674063",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/11067793524",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2052870809868831/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "2046d8ac64d67a4a4904abd8934f7d19fd3edeef96b42f11b5184a8b0264ebe1",
+        "previous_sha256": "a3023a80f53a68f661c38241a64b370420b6f8c0b153d468c3112e55ffced4a4",
+        "sequence": 1957,
+        "sha256": "38e04274d8107036bdb4aa4e26e3033cbd1e8a4640dd209fb368167a17915668",
+        "traversal_index": 49
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5667788",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/9004845675",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-859830215036529/85899345920000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "18afa4f6c7b90fa8380b742b13a2934b541bd9a670af307e8318809be81d21e0",
+        "previous_sha256": "38e04274d8107036bdb4aa4e26e3033cbd1e8a4640dd209fb368167a17915668",
+        "sequence": 1958,
+        "sha256": "4a5609fe537b1eaad87d0e5b3e1ce4f36737b5d208d87c2f5f64a3f88a240d62",
+        "traversal_index": 50
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5667788",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/9004845675",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-859830215036529/85899345920000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "c84f2aae22638b6312f6d3b7b7b9d7095cfbe4bcbb7a5b61f29a1ab6044d2022",
+        "previous_sha256": "4a5609fe537b1eaad87d0e5b3e1ce4f36737b5d208d87c2f5f64a3f88a240d62",
+        "sequence": 1959,
+        "sha256": "f35d6b99a0c56d677219467d5b74ded23dcf5764ed339c7c758ce62c5149e644",
+        "traversal_index": 51
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:3868593",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/4683740340",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-10961086392881/17179869184000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "a904c3025826d3e2fe7ec1c093017c6f085f974aa1ead89a2b52963cdbf9cad8",
+        "previous_sha256": "f35d6b99a0c56d677219467d5b74ded23dcf5764ed339c7c758ce62c5149e644",
+        "sequence": 1960,
+        "sha256": "feee7664f42365ab3ca0aa4c74658fcb70ad965b3182f2ba183d79c785b31ad5",
+        "traversal_index": 52
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:3868593",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/4683740340",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-10961086392881/17179869184000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "22ac3e8c24ca11deb784f26b684e082f36c8f367d12c1e3de752333953bae5be",
+        "previous_sha256": "feee7664f42365ab3ca0aa4c74658fcb70ad965b3182f2ba183d79c785b31ad5",
+        "sequence": 1961,
+        "sha256": "468dbaad02bd2f5d1d4dc262f1087322ad8031b23e252ee1da96f6df2430250a",
+        "traversal_index": 53
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5034571",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045998568",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-313708534468451/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "49acf20969b8797fdb6b7de952093e39fac4aed81a43e96de1077beaa44d47c1",
+        "previous_sha256": "468dbaad02bd2f5d1d4dc262f1087322ad8031b23e252ee1da96f6df2430250a",
+        "sequence": 1962,
+        "sha256": "35b7f971d50068caed9d3f0be354e54e120e881e34f6acf1eea023021987b5b1",
+        "traversal_index": 54
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5034571",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/6045998568",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-313708534468451/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "cbae6cfc43aebbde40c671bb8e2065be7e717221a2f114671c70f52a4f08bc1a",
+        "previous_sha256": "35b7f971d50068caed9d3f0be354e54e120e881e34f6acf1eea023021987b5b1",
+        "sequence": 1963,
+        "sha256": "531e9ce86b10d204a3ea4a6313de4c0afe23fe03ab66db6fd4284b833152fd60",
+        "traversal_index": 55
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:736912",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13233106766",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-393442042518177/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "50c5045d34a34cab2490e656aade8832a4a078b1a3cea10d3b80fcdcae75f107",
+        "previous_sha256": "531e9ce86b10d204a3ea4a6313de4c0afe23fe03ab66db6fd4284b833152fd60",
+        "sequence": 1964,
+        "sha256": "5adf7370d39e87369fb39c002bd45baaf8c83bce74f7f556ccab0872d25826b4",
+        "traversal_index": 56
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:736912",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:node/13233106766",
+              "CS"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-393442042518177/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 8,
+        "prefix_id": "a96ef1fe396f5e9ccfe0921fd57457685f2f4188a68fca674c30878d7524609f",
+        "previous_sha256": "5adf7370d39e87369fb39c002bd45baaf8c83bce74f7f556ccab0872d25826b4",
+        "sequence": 1965,
+        "sha256": "f1b850b492c831c664b28abffc97a9ccd5487776575cf9291e4629e22c54d89c",
+        "traversal_index": 57
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5766044",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1428334358",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-97473991027309569/5497558138880000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "bde7a3185f6caf8e51379da75607ac698296a9be0d5ee535756edb1ed99b570a",
+        "previous_sha256": "f1b850b492c831c664b28abffc97a9ccd5487776575cf9291e4629e22c54d89c",
+        "sequence": 1966,
+        "sha256": "5a2453450577e4f971743c967248fc67c0c09c3312a9b1a8b63a83d19dbd952b",
+        "traversal_index": 58
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2001294",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1428348954",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-488065378648930121/27487790694400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "04c502f4c78f9b33c8e4a527ac653e9344dba4f3af334d519ee3421755f01ca9",
+        "previous_sha256": "5a2453450577e4f971743c967248fc67c0c09c3312a9b1a8b63a83d19dbd952b",
+        "sequence": 1967,
+        "sha256": "1229d0a962d8c4221f5ecbe6150ef5750affe8576c961865ac5c0ea5aa5590de",
+        "traversal_index": 59
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5770162",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1433572199",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-48967420165487801/2748779069440000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "c11b4bfd51d734ae618692252882b7c9c0d9fe4ede2e05d11d4bc29015a3d922",
+        "previous_sha256": "1229d0a962d8c4221f5ecbe6150ef5750affe8576c961865ac5c0ea5aa5590de",
+        "sequence": 1968,
+        "sha256": "e2488bcae97f7528ad3788ebc2a4892ee694b96185399fb28ae0243cac43d37f",
+        "traversal_index": 60
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5766045",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/426160768",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-243903298796108381/13743895347200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "72ffe3cc9b43d7d1cbc0eebf73c83b6849692f37d757d0e6ef775bfbd6ee8328",
+        "previous_sha256": "e2488bcae97f7528ad3788ebc2a4892ee694b96185399fb28ae0243cac43d37f",
+        "sequence": 1969,
+        "sha256": "9e0c5cdb5cf118c146ff09fb47145489fcdb53434cd1401715dfce208f6b5675",
+        "traversal_index": 61
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:3315933",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:relation/5535079",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-24146376506856181/1717986918400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "f8837cfdc8285c3a864e12acd308bfdadccb8c4357001550e726a7678c468c05",
+        "previous_sha256": "9e0c5cdb5cf118c146ff09fb47145489fcdb53434cd1401715dfce208f6b5675",
+        "sequence": 1970,
+        "sha256": "6351000dfa5fba4aeba5799d55b0f26a4a94752fad14add8e5a5aaa89ffbd3de",
+        "traversal_index": 62
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:3315930",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:relation/5535080",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-4805548115321737/343597383680000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "ec93c33822dd8f51b315ff948355c0d129d8bb94613197d6a0de15b79af52313",
+        "previous_sha256": "6351000dfa5fba4aeba5799d55b0f26a4a94752fad14add8e5a5aaa89ffbd3de",
+        "sequence": 1971,
+        "sha256": "bd8b90e5c2a77c006697b07934ec9ff94825dc869aa60cafe3b94c934806bafe",
+        "traversal_index": 63
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5663159",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1331116253",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-23765260487901581/1717986918400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "e143a7c661963d9e1763cf698be9cbb59005202785fa3966a5dffcd587212b39",
+        "previous_sha256": "bd8b90e5c2a77c006697b07934ec9ff94825dc869aa60cafe3b94c934806bafe",
+        "sequence": 1972,
+        "sha256": "3334e39f9bedcb98c731c2f5f4aabe4876de8482f2eff8ad7912c401cd776040",
+        "traversal_index": 64
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5753222",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1331123330",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-23751633690542739/1717986918400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "bf62ceb00531a905376cba0d4812fac558d1d5af1a5f17ea3b8c8b90b1e84294",
+        "previous_sha256": "3334e39f9bedcb98c731c2f5f4aabe4876de8482f2eff8ad7912c401cd776040",
+        "sequence": 1973,
+        "sha256": "191adf4d135258bda0361d9d65d4b588b869c0c8fc5f175c1c0ff3448df1b4e2",
+        "traversal_index": 65
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:4566249",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1331123334",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-950739458200699/68719476736000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "62dead2eb023ec1a5e1c6668030c783d148bda89d19a71361635efb1a7972fdf",
+        "previous_sha256": "191adf4d135258bda0361d9d65d4b588b869c0c8fc5f175c1c0ff3448df1b4e2",
+        "sequence": 1974,
+        "sha256": "1ad6916fcfaea7d90927df94520c78ca0495d1927bb30a162bab2c684c8f464b",
+        "traversal_index": 66
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5672917",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1482614449",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-4586658110122233/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "7a3b8a11db9b2527a336538ad094e2600b6a79d5110d345b60ed6fa5df0e677e",
+        "previous_sha256": "1ad6916fcfaea7d90927df94520c78ca0495d1927bb30a162bab2c684c8f464b",
+        "sequence": 1975,
+        "sha256": "a883a8f6c47ce99328dabfb63224a20c694226ed3e38a236f7ce6a5ec31ae85f",
+        "traversal_index": 67
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:3315935",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/372251643",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2409871735071651/171798691840000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "d930ff2ce284df942c9371899c8d777d3c91c212787a782d12baa56e78ecad9d",
+        "previous_sha256": "a883a8f6c47ce99328dabfb63224a20c694226ed3e38a236f7ce6a5ec31ae85f",
+        "sequence": 1976,
+        "sha256": "ab8dfd68b1669ebf6d824affd32aa3974143e237775a360de7d3606b824fbe3d",
+        "traversal_index": 68
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:4757487",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1424254988",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1309200204991721/171798691840000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "d9593b1db5cc9d6fe46be9b0d85a96e176973518041659bc25ee5a3a41bfdc4b",
+        "previous_sha256": "ab8dfd68b1669ebf6d824affd32aa3974143e237775a360de7d3606b824fbe3d",
+        "sequence": 1977,
+        "sha256": "4e6588b6507af21d79a3b942fb42084550cb6e6f9530f97ef647209c7856869d",
+        "traversal_index": 69
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5761294",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1424254996",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-3263850376712951/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "c709532cd63a499c2954e2c334d8169659974be8b1bacb20a2c8104c0b2f4db7",
+        "previous_sha256": "4e6588b6507af21d79a3b942fb42084550cb6e6f9530f97ef647209c7856869d",
+        "sequence": 1978,
+        "sha256": "040a80e3b14cf566330caf47ec6967a7d2bdf787728286697b60113a531fee37",
+        "traversal_index": 70
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5761297",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1424255003",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-263673251237777/34359738368000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "803cf38a7d3f156714caddc725cb7ca8c8ffd3e3d17fde4ee0587010cfffa84d",
+        "previous_sha256": "040a80e3b14cf566330caf47ec6967a7d2bdf787728286697b60113a531fee37",
+        "sequence": 1979,
+        "sha256": "65d57dd4ccf9d8e7280c6ed863a2ea74613dc294469862098b2e8593ebb26eb2",
+        "traversal_index": 71
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5683252",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1482997846",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-793817588181239/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "c7222a2a8a4d6bdcf0ad3c97d81d8ed7e85fc6cba8b7055770f3b4b26e37413a",
+        "previous_sha256": "65d57dd4ccf9d8e7280c6ed863a2ea74613dc294469862098b2e8593ebb26eb2",
+        "sequence": 1980,
+        "sha256": "d9bf4811d4e6b0e778444a2c22d93c13426a75886f20f4ba54a80eeee63be1ed",
+        "traversal_index": 72
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5789880",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1086215064",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-346491573162223/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "c634a8ea4b4ec101d5376fe315eb4f9f3502f97839738ea46951726b2a79a1a9",
+        "previous_sha256": "d9bf4811d4e6b0e778444a2c22d93c13426a75886f20f4ba54a80eeee63be1ed",
+        "sequence": 1981,
+        "sha256": "7b77139ffd339e0e4d93db61f62a4cd33a3a67c253492442f17b5e9977b48cb7",
+        "traversal_index": 73
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:1014531",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1212226878",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-179222611530613/53687091200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "2190f48df0c4309c26ac2ffe2765a919344c99984506a91c65065bd14915e9ff",
+        "previous_sha256": "7b77139ffd339e0e4d93db61f62a4cd33a3a67c253492442f17b5e9977b48cb7",
+        "sequence": 1982,
+        "sha256": "747311c393d0b95c3accb509e9ec6da5ec4a96e2476167872f6c7871259c865e",
+        "traversal_index": 74
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5732263",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1382773741",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-3445302505767/4294967296000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "3cb2deb9db9f6ac3b978e6d41f727d9713087fa3bd8ff59ffae7ed9c6dfcd4a8",
+        "previous_sha256": "747311c393d0b95c3accb509e9ec6da5ec4a96e2476167872f6c7871259c865e",
+        "sequence": 1983,
+        "sha256": "17a417da2ee0ea713767b7c21e5d03691693ef55eba3c069894e801c3e1f62aa",
+        "traversal_index": 75
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:844621",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1533214436",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-374968374565799/107374182400000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "2fe722234800440cb91a89afb82cc3cb03162ef6008798e555e4afe5146d804a",
+        "previous_sha256": "17a417da2ee0ea713767b7c21e5d03691693ef55eba3c069894e801c3e1f62aa",
+        "sequence": 1984,
+        "sha256": "64863cf38424fdd01d2c2da6525f9ac8cdacbe6d9f3d08dd909aedc5fc85e1be",
+        "traversal_index": 76
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5883796",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1558096218",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1431415774014081/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "95c6eef22450682da0a8405d40d4d63b2e74749eab2d951656afdaeebbb242aa",
+        "previous_sha256": "64863cf38424fdd01d2c2da6525f9ac8cdacbe6d9f3d08dd909aedc5fc85e1be",
+        "sequence": 1985,
+        "sha256": "c39ac506b010ab5de72dbfa3f6605651e32152b0a4932ce9285ce330cb7f6f81",
+        "traversal_index": 77
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:2492661",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/236052919",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1800191905251/17179869184000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "ed6def16254a1c81f66a2d387af523010dafe5d93ca07facab7898539f6f723f",
+        "previous_sha256": "c39ac506b010ab5de72dbfa3f6605651e32152b0a4932ce9285ce330cb7f6f81",
+        "sequence": 1986,
+        "sha256": "bb25c0be72aac003f698cca2f7b734393ac7b63b6245a6906b9d55ff1714e032",
+        "traversal_index": 78
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:618487",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/283612368",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-983956529109539/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "6432a5c352efe1054bdd68fb40648154bc68fb327234bde1998bbac81f38bffb",
+        "previous_sha256": "bb25c0be72aac003f698cca2f7b734393ac7b63b6245a6906b9d55ff1714e032",
+        "sequence": 1987,
+        "sha256": "6dde5e40c3cdaacc2f988acfc396053a44e363002dccc074940a86dde2ca29b5",
+        "traversal_index": 79
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:844642",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/904576147",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1531763389917829/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "5f3473c340145459c85a4e4186f0c86e568b8a8b1dbe2dc4f26c65ef4ed0756a",
+        "previous_sha256": "6dde5e40c3cdaacc2f988acfc396053a44e363002dccc074940a86dde2ca29b5",
+        "sequence": 1988,
+        "sha256": "3fe6e150e0417e8ee4809616e6bb0c7780f6312a1c0777444223d4aa43a77a91",
+        "traversal_index": 80
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:1761111",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1018325296",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-4106458776196879/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "203bdf5789246e7ae369373ee46fb5be5919f3a42a07a09d5055d875cf6e501c",
+        "previous_sha256": "3fe6e150e0417e8ee4809616e6bb0c7780f6312a1c0777444223d4aa43a77a91",
+        "sequence": 1989,
+        "sha256": "322ea5f7a3c88cc4199001639d666cd7843fae1d0e468b6d5320f90bebcd8c7f",
+        "traversal_index": 81
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:4940135",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1339094049",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2065084253749643/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "35f848632598c24d812e90955ed855d138adc3a18fecc99872b4a3cdab18a332",
+        "previous_sha256": "322ea5f7a3c88cc4199001639d666cd7843fae1d0e468b6d5320f90bebcd8c7f",
+        "sequence": 1990,
+        "sha256": "d5669ea0289f2f3e0bcf490d535efbfa69fa1b3983f3caeee281b198430b4ba2",
+        "traversal_index": 82
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5846881",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1525582977",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-7765815030292941/858993459200000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "bf89fd7a3aca973992525dad7ec90af5510d2243d536d7fe31ca05bd33bac771",
+        "previous_sha256": "d5669ea0289f2f3e0bcf490d535efbfa69fa1b3983f3caeee281b198430b4ba2",
+        "sequence": 1991,
+        "sha256": "50ac19e6cc32e57d50657d0e90a6d756c672abfcc2326a5b69ff4ed57c91c685",
+        "traversal_index": 83
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5769296",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/1432551249",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-1977459877164877/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "1d0355fa105ee151e4aee90db5a15451c067a0a2b97ccec790af1353b16f1f99",
+        "previous_sha256": "50ac19e6cc32e57d50657d0e90a6d756c672abfcc2326a5b69ff4ed57c91c685",
+        "sequence": 1992,
+        "sha256": "2d195146eba5b7a0aa46de49e62ef28674e8350a7813602d7b1d812854be4425",
+        "traversal_index": 84
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:4575635",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/866060313",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-2119518772338363/214748364800000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "7d1bf5b8a9614aba57c88ed11b6dce7c9427fc31fa946c9f31e620f73f3a9077",
+        "previous_sha256": "2d195146eba5b7a0aa46de49e62ef28674e8350a7813602d7b1d812854be4425",
+        "sequence": 1993,
+        "sha256": "87f9d2c5d1dbedbb1df0c1d21fac60e8018f8fee68663204c8ee8fb47eff92c4",
+        "traversal_index": 85
+      },
+      {
+        "depth": 1,
+        "key": {
+          "anchor": "road:5678371",
+          "depth": 1,
+          "pi": [
+            [
+              "4r:way/952988171",
+              "S"
+            ]
+          ],
+          "remaining_schedule": 0,
+          "rho": "-4249914394735023/429496729600000"
+        },
+        "kind": "prefix_seen",
+        "pieces": 1,
+        "prefix_id": "a2a34b48a12ee6aaf65609ff1b5390bfa3034acbc4682a47865790f7e010d3ea",
+        "previous_sha256": "87f9d2c5d1dbedbb1df0c1d21fac60e8018f8fee68663204c8ee8fb47eff92c4",
+        "sequence": 1994,
+        "sha256": "52adb332be266baa5615854ceba8d729dd0187509762f34a565cd03e8ebf82d7",
+        "traversal_index": 86
+      }
+    ],
+    "layers": [
+      {
+        "depth": 0,
+        "groups": 1,
+        "kind": "layer_start",
+        "previous_sha256": "63bbba2fc338549dfa82f1c70da11649d030b21e80ac87e0d5217d487087269b",
+        "sequence": 3,
+        "sha256": "8c9a1ba698c28a8595abe0fa9ec8b217a872d8c06173ffaa31bd498932537922"
+      },
+      {
+        "depth": 0,
+        "groups": 87,
+        "kind": "layer_end",
+        "previous_sha256": "daa03140dc61329dd9ba2369eb9cd255901341306b0d48e5dccaf971b5d76b30",
+        "sequence": 1906,
+        "sha256": "cb7f74e7b2e15c185a7d20a4962ae0f680ab50f619acc268fab78245c9756b10"
+      },
+      {
+        "depth": 1,
+        "groups": 87,
+        "kind": "layer_start",
+        "previous_sha256": "cb7f74e7b2e15c185a7d20a4962ae0f680ab50f619acc268fab78245c9756b10",
+        "sequence": 1907,
+        "sha256": "a5bccf102823c914a5a10e6a7f8e0bfde21c0b6c222a7d3268a41899245aecae"
+      }
+    ],
+    "method": "hier",
+    "omitted_arrays": {
+      "actions": 407,
+      "source_requests": 267
+    },
+    "road_leg_reachability": {
+      "('incoming', True)": 407,
+      "('terminal', True)": 213
+    },
+    "scopes": {
+      "advance|search|incoming": {
+        "calls": 407,
+        "thread_cpu_ns": 10707264746,
+        "wall_ns": 10837053147
+      },
+      "finish|search|terminal": {
+        "calls": 285,
+        "thread_cpu_ns": 105498776390,
+        "wall_ns": 106538981092
+      },
+      "road_labels|search|incoming": {
+        "calls": 211,
+        "thread_cpu_ns": 5282469202,
+        "wall_ns": 5307590356
+      },
+      "road_labels|search|terminal": {
+        "calls": 56,
+        "thread_cpu_ns": 104912430180,
+        "wall_ns": 105945857965
+      },
+      "road_leg|search|incoming": {
+        "calls": 407,
+        "thread_cpu_ns": 6489785372,
+        "wall_ns": 6599375190
+      },
+      "road_leg|search|terminal": {
+        "calls": 213,
+        "thread_cpu_ns": 105446456477,
+        "wall_ns": 106483430224
+      }
+    },
+    "witnesses": []
+  }
+}

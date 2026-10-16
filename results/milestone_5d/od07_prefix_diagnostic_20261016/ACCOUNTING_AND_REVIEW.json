@@ -1,0 +1,110 @@
+{
+  "admitted_maximum": 2030,
+  "final_review": {
+    "blockers": [],
+    "claims_scoped_to_recorded_completed_operations": true,
+    "execution_evidence_pins_verified": 98,
+    "extraction_reproduced_exactly": true,
+    "independent_finish_join": {
+      "flat_schedule_complete_reachable_empty": 139,
+      "flat_schedule_incomplete": 46,
+      "flat_terminal_family": 6,
+      "hier_schedule_complete_reachable_empty": 213,
+      "hier_schedule_incomplete": 72
+    },
+    "index_sha256": "b43b828741fd513c1628d64e2d6187048c190326d692312b53f359326cb1406e",
+    "numerical_cpu_with_full_allowance": "855.301360969",
+    "reporting_cost_caveat_retained": true,
+    "retrospective_energy_reason": "Verified finish and drive_pwa code supports energy/reserve exclusion for reachable schedule-complete empty results; no safe counterfactual savings implied",
+    "semantic_prefix_comparison": "87 matching depth1 semantic IDs and counts; differing order confirmed; full PWA equality not inferred",
+    "status": "approved_scoped_diagnostic_result"
+  },
+  "final_review_sha256": "dff2f8d2cfe7af92cd04cd6e7ebd0c9ccc7897205f905acac1e93d0be8a8b321",
+  "full_runtime_orchestration_allowance": 240,
+  "measured_orchestration_debits": 71,
+  "numerical_conservative_total": "855.301360969",
+  "numerical_stage_sum": "615.301360969",
+  "original_evidence_pins_sha256": "2dd862fca5819c6f10ab0854682728b2044f488ab262a3f6f40c0272019ae0b6",
+  "original_execution_pins_rehashed": 98,
+  "original_package_files": {
+    "EVIDENCE_PINS.json": "2dd862fca5819c6f10ab0854682728b2044f488ab262a3f6f40c0272019ae0b6",
+    "EXTRACTED.json": "4adc6709783ff8036b15c5889dd5978ad77e245cab6ed88345cfc3084bc0cb39",
+    "REPORT.md": "92c537aee0bf429248e3167de4ed4ce5e7acbb0e09941f6b52e90b5a4c895eaf",
+    "extract.py": "ae922d3a272adaa3492e8fe6197297bb2378d40525fbec881efad03fda33c17e"
+  },
+  "original_package_sha256": "b43b828741fd513c1628d64e2d6187048c190326d692312b53f359326cb1406e",
+  "projection_note": "Raw machine paths and path-keyed maps omitted; full action/source-request arrays retained in original EXTRACTED.json and represented here by counts. Full layer-prefix records retained. Not a standalone graph/replay bundle.",
+  "reporting_resources": {
+    "flat": {
+      "child_system_seconds": 0.019267,
+      "child_user_seconds": 0.092083,
+      "limit_wall_seconds": 30,
+      "limits_cpu": [
+        10,
+        12
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.11474627899588086
+    },
+    "hier": {
+      "child_system_seconds": 0.023016,
+      "child_user_seconds": 0.107358,
+      "limit_wall_seconds": 30,
+      "limits_cpu": [
+        10,
+        12
+      ],
+      "prior_wrapper_failed_before_launch": true,
+      "returncode": 0,
+      "wall_seconds": 0.16685763001441956
+    }
+  },
+  "reporting_scope": "Child finalizer measurements only. Initial HIER timing wrapper failed before launching Python because executable unavailable; retained log followed by one successful standard-subprocess finalization. No numerical retry. Wrapper/later analysis/development CPU not fully measured.",
+  "stages": [
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 33.206270174,
+      "original_sha256": "d27c62ce11f1c5b799be51032a4018a7ac8fb68665f7a73b02a3b6632cfee30d",
+      "outcome": "verified_feasible_seed",
+      "runtime_orchestration_debit_cpu_seconds": 12,
+      "stage": "od07.verify_seed"
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 215.884683459,
+      "original_sha256": "d15b51d2205b975b67f58df1a419b60dd75860014146895123810de3c9ec82e1",
+      "outcome": "exact_timeout_feasible",
+      "runtime_orchestration_debit_cpu_seconds": 13,
+      "stage": "od07.hier.search"
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 47.79199666900001,
+      "original_sha256": "294f338d3e6ca8b487e8078e9fc24976de32e62605fc3e59370305e9651519d4",
+      "outcome": "verified_best",
+      "runtime_orchestration_debit_cpu_seconds": 14,
+      "stage": "od07.hier.replay"
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 269.505925225,
+      "original_sha256": "cf78c09c372bf4ff6acc838d903a400c86f6150a600ee2f58fbf5279fd384a10",
+      "outcome": "exact_timeout_feasible",
+      "runtime_orchestration_debit_cpu_seconds": 16,
+      "stage": "od07.flat.search"
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 48.912485442000005,
+      "original_sha256": "0f26f8c6b0fe86631a4e280911403888b27db41db99e7baf14cfcfcb021e3cce",
+      "outcome": "verified_best",
+      "runtime_orchestration_debit_cpu_seconds": 16,
+      "stage": "od07.flat.replay"
+    }
+  ]
+}
