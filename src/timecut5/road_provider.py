@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from . import exact_progress as progress
 
+from functools import wraps
 from collections import OrderedDict
 from fractions import Fraction
 import sys
@@ -19,6 +20,28 @@ import time
 from typing import Mapping
 
 from .real_legs import ImmutableLegTable, SelectedLeg, TIE_POLICY
+
+
+def _guard_selected_routing(function):
+    """Opt-in arithmetic-history guard, including cached returns and replay.
+
+    Default-off behavior is the original call. A guard is attached only before
+    first use, and errors never turn a partial route into trusted cache history.
+    """
+    @wraps(function)
+    def guarded(self, *args, **kwargs):
+        guard = getattr(self, '_terminal_energy_route_guard', None)
+        if guard is None:
+            return function(self, *args, **kwargs)
+        guard.begin(self)
+        try:
+            result = function(self, *args, **kwargs)
+            guard.end(self)
+            return result
+        except BaseException:
+            guard.abort()
+            raise
+    return guarded
 
 
 class TableFreeRoadSelectedLegProvider:
@@ -108,6 +131,7 @@ class TableFreeRoadSelectedLegProvider:
             self.source_cache_evictions += 1
 
     @progress.operation('road_labels')
+    @_guard_selected_routing
     def _labels(self, source_node):
         cached = self._source_labels.pop(source_node, None)
         if cached is not None:
@@ -189,6 +213,7 @@ class TableFreeRoadSelectedLegProvider:
         return tuple(reversed(backward))
 
     @progress.operation('road_leg')
+    @_guard_selected_routing
     def leg(self, source: str, target: str, *, target_only: bool = False) -> SelectedLeg:
         if type(target_only) is not bool:
             raise ValueError("Explicit target boolean required")

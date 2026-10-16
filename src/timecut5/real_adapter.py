@@ -118,11 +118,21 @@ class TableFreeRealProblem(Problem):
                 getattr(provider.router, "role", None) != "search" or
                 getattr(provider.router, "mode", None) != "destination_target"):
             raise ValueError("Explicit search-only destination-target router required")
+        self.routing_role = getattr(provider.router, "role", None)
+        self._terminal_energy_screen = None
         self.terminal_target_routing = terminal_target_routing
         self.legs = _TableFreeRealLegs(provider, self.rate,
             destination_anchor if terminal_target_routing else None)
         self.provider = provider
         self.site_catalog_sha256 = site_catalog_sha256
+
+    def finish(self, pieces):
+        # Screening changes only impossible immediate finishes, never expansion.
+        # Independent full replay ignores even an accidentally attached screen.
+        if (self.routing_role == 'search' and self._terminal_energy_screen is not None
+                and self._terminal_energy_screen.reject(self, pieces)):
+            return ()
+        return super().finish(pieces)
 
     def onward_time_lower_bound(self, anchor: str) -> R:
         if anchor not in self.provider.anchor_nodes:

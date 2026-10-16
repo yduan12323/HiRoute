@@ -131,3 +131,13 @@ Before relying on the gate for a merge, review the diff and verify the first
 GitHub-hosted run against the exact candidate commit. A local rehearsal does
 not prove that the Actions workflow has run. Label any main-branch integration
 as experimental unless the separate research acceptance is also complete.
+
+## Optional terminal-energy gate
+
+`run_terminal_energy_code.py` uses the existing installed Python 3.11 wheel and
+unchanged reduced dependency lock. It runs finite native energy/context/recovery
+and evidence-lifecycle fixtures in normal and `-OO` modes, outside the source
+checkout, under pre-import CPU 90/100 seconds, AS 2 GiB and wall 150 seconds per
+mode (parent timeout 165 seconds). Native compiler children remain CPU 20/25 and
+wall 30 seconds. No production graph is read. This is a separate opt-in gate;
+existing reachable/target/recovery gates remain required and unchanged.
