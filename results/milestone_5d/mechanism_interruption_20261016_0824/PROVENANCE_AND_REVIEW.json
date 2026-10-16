@@ -1,0 +1,39 @@
+{
+  "cleanup_or_liveness_established": false,
+  "original_report_sha256": "e5eefa63379a785835d89199b9de42ebaa8df7a2b90504f6e8612b7d839d85f7",
+  "projection": "Detailed relative infrastructure artifact names omitted and replaced with a single saved-artifact equality flag. All stage status, time and accounting values retained. No session IDs, PIDs or infrastructure logs included.",
+  "review": {
+    "checks": [
+      "Saved search artifact hashes independently unchanged after whole deadline and cleanup window.",
+      "No search terminal/global stop/driver result; no valid timeout or completed pair claim.",
+      "One valid stage plus one outstanding reservation and eight unattempted stages retained.",
+      "1237.41498645 CPU retention comprises35.41498645 valid charge,710 outstanding search,480 full orchestration and12 separate driver."
+    ],
+    "cleanup_verified": null,
+    "no_retry_or_successor_authorized": true,
+    "report_sha256": "e5eefa63379a785835d89199b9de42ebaa8df7a2b90504f6e8612b7d839d85f7",
+    "scope": "Report evidence only; does not establish ownership resolution or release exclusive slot.",
+    "status": "confirmed_interruption_report_with_ownership_unresolved",
+    "worker_liveness": "unknown"
+  },
+  "review_sha256": "576572f6d42528845ffc3d696e80ef3fdb0dc0b459c211ff5107d22375cf128d",
+  "scientific_result": false,
+  "snapshot_review": {
+    "findings": [
+      "Immutable copies bind incomplete receipt, last scalar/progress, outstanding reservation and valid common terminal.",
+      "Reported unknown session and unavailable authoritative recovery interface do not establish process termination or cleanup.",
+      "No PID-based signals sent; namespace-specific identifiers are not safe recovery targets from another invocation.",
+      "No terminal, valid timeout, finished pair or stopped/cleaned worker claim is supported.",
+      "1237.41498645 conservative retention remains outstanding/partial; no numerical successor or release of exclusive slot authorized."
+    ],
+    "interruption_review_sha256": "576572f6d42528845ffc3d696e80ef3fdb0dc0b459c211ff5107d22375cf128d",
+    "lifecycle_status_sha256": "805f7024876dc51acad892c00a52740204b076348f830559a323b47cca1eaae5",
+    "publication_scope": "Compact dated partial-status artifact only; sanitize session/PID/machine identifiers and require exact publication-copy review.",
+    "snapshot_files_independently_rehashed": 11,
+    "snapshot_index_sha256": "0856fb7780b3bbb8e8ad0822ce8def8b7016a4b406cce1b1eb5e8dc6b0d525dc",
+    "status": "approved_dated_partial_status_with_unresolved_ownership"
+  },
+  "snapshot_review_sha256": "99f9ecd395eaafffdf731c4e28df6b9517b83504b8b683b059ef6557a80d26f5",
+  "source_installation": false,
+  "status_snapshot_only": true
+}
