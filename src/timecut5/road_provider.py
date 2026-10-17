@@ -266,7 +266,9 @@ class TableFreeRegionBoundProvider:
     It does not scan action masks or compare against a hidden indexed oracle.
     Member-read diagnostics are opt-in, selected outside the member-read loop;
     leave them disabled for primary timing (the metric is then None).
-    ``alt_member_reads`` counts both extrema passes of successful calls only;
+    ``onward_alt=True`` adds a certified directed time bound to the destination
+    after service, for both Region and singleton candidates (default: off).
+    ``alt_member_reads`` counts extrema passes of successful calls only;
     after any failed recomputation it is None because partial reads are unknown.
     """
 
@@ -274,7 +276,8 @@ class TableFreeRegionBoundProvider:
                  root, *, destination_anchor: str, landmark_anchor: str,
                  site_catalog_sha256: str, router_factory,
                  alt_strategy: str = "indexed",
-                 collect_alt_member_reads: bool = False):
+                 collect_alt_member_reads: bool = False,
+                 onward_alt: bool = False):
         from .deployable import RegionLandmarkSummary, member_set_digest
         from .road_landmark import certify_integer_landmark
         from .hierarchy import Region
@@ -283,8 +286,18 @@ class TableFreeRegionBoundProvider:
             raise ValueError("ALT strategy must be indexed or recompute")
         if type(collect_alt_member_reads) is not bool:
             raise ValueError("ALT member-read collection requires a boolean")
+        if type(onward_alt) is not bool:
+            raise ValueError("Onward ALT requires an explicit boolean")
+        self.onward_alt = onward_alt
+        self.destination_anchor = destination_anchor
+        self.site_catalog_sha256 = site_catalog_sha256
+        self._source_binding = dict(leg_provider.source_sha256)
+        self._onward_summary = {}
         self.alt_strategy = alt_strategy
         self.alt_member_reads = 0 if collect_alt_member_reads else None
+        if alt_strategy == "recompute" and onward_alt:
+            self._outgoing = (self._outgoing_recomputed_counted if collect_alt_member_reads
+                              else self._outgoing_recomputed)
         if alt_strategy == "recompute":
             self._incoming = (self._incoming_recomputed_counted if collect_alt_member_reads
                               else self._incoming_recomputed)
@@ -330,6 +343,12 @@ class TableFreeRegionBoundProvider:
                         (max(distances.to_landmark[self.sites[s].anchor_id]
                              for s in region.members),))
                     self._summary[region.identifier] = summary
+                    if onward_alt:
+                        self._onward_summary[region.identifier] = (
+                            max(distances.from_landmark[self.sites[s].anchor_id]
+                                for s in region.members),
+                            min(distances.to_landmark[self.sites[s].anchor_id]
+                                for s in region.members))
                 self._member_hash[region.identifier] = member_hash
         visit(root)
         self._action_bits = {action: 1 << index for index, action in enumerate(
@@ -387,6 +406,48 @@ class TableFreeRegionBoundProvider:
             self.alt_member_reads += 2 * len(region.members)
         return value
 
+    def _check_onward_problem(self, problem):
+        # Separate isolated FLAT/HIER providers are allowed, but only with the
+        # same authenticated graph/router/anchors and Site catalog.
+        if (problem.destination != self.destination_anchor or
+                getattr(problem, "site_catalog_sha256", None) != self.site_catalog_sha256 or
+                getattr(getattr(problem, "provider", None), "source_sha256", None)
+                != self._source_binding):
+            raise ValueError("Onward ALT problem source, Site or destination binding mismatch")
+
+    def _onward_from_extrema(self, high_from, low_to):
+        distance = self.landmarks[0]
+        terms = [0]
+        for left, right in ((distance.from_landmark[self.destination_anchor], high_from),
+                            (low_to, distance.to_landmark[self.destination_anchor])):
+            # In particular, never subtract infinity from infinity or infer
+            # impossibility from a missing potential. Each term is independent.
+            if math.isfinite(left) and math.isfinite(right):
+                terms.append(left - right)
+        return Fraction(max(terms))
+
+    def _outgoing(self, region):
+        self._check_region(region)
+        return self._onward_from_extrema(*self._onward_summary[region.identifier])
+
+    def _outgoing_recomputed(self, region):
+        self._check_region(region)
+        self._member_hash[region.identifier]  # Same empty-Region contract as incoming.
+        distance = self.landmarks[0]
+        return self._onward_from_extrema(
+            max(distance.from_landmark[self.sites[s].anchor_id] for s in region.members),
+            min(distance.to_landmark[self.sites[s].anchor_id] for s in region.members))
+
+    def _outgoing_recomputed_counted(self, region):
+        try:
+            value = self._outgoing_recomputed(region)
+        except BaseException:
+            self.alt_member_reads = None
+            raise
+        if self.alt_member_reads is not None:
+            self.alt_member_reads += 2 * len(region.members)
+        return value
+
     def _check_region(self, region):
         if self._regions.get(region.identifier) is not region:
             raise ValueError("Region identity differs from bound candidate universe")
@@ -396,6 +457,8 @@ class TableFreeRegionBoundProvider:
         self.online_queries += 1
         if not pieces or not self.action_mask(region, effect, pieces[0].state.remaining_schedule):
             return None, 0
+        if self.onward_alt:
+            self._check_onward_problem(problem)
         state = pieces[0].state
         lower_time = min(p.slope * p.domain.affine_infimum(p.slope)[0] + p.intercept
                          for p in pieces)
@@ -403,6 +466,8 @@ class TableFreeRegionBoundProvider:
         if effect in ("S", "CS"):
             a, _, duration = problem.schedule
             time = max(a, time) + duration
+        if self.onward_alt:
+            time += self._outgoing(region)
         return time - problem.start + problem.penalty * (state.stop_count + 1), 0
 
     @progress.operation('road_singleton_bound')
@@ -415,6 +480,8 @@ class TableFreeRegionBoundProvider:
         state = pieces[0].state
         if effect in ("S", "CS") and not state.remaining_schedule:
             return None
+        if self.onward_alt:
+            self._check_onward_problem(problem)
         source = state.anchor
         distance = self.landmarks[0]
         terms = [0]
@@ -431,6 +498,9 @@ class TableFreeRegionBoundProvider:
         if effect in ("S", "CS"):
             a, _, duration = problem.schedule
             time = max(a, time) + duration
+        if self.onward_alt:
+            time += self._onward_from_extrema(distance.from_landmark[anchor],
+                                              distance.to_landmark[anchor])
         return time - problem.start + problem.penalty * (state.stop_count + 1)
 
     def action_mask(self, region, effect, remaining):

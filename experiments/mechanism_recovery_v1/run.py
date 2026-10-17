@@ -140,7 +140,7 @@ def source_identity(repo, *, published_commit=None, publication=None):
     if type(commit) is not str or re.fullmatch(r'[0-9a-f]{40}',commit) is None:
         raise ValueError('Verified published execution commit required')
     names=[]
-    for prefix in ('src','validation','scripts','experiments/mechanism_recovery_v1'):
+    for prefix in ('src','validation','scripts','experiments/mechanism_recovery_v1','experiments/search_extensions_v1'):
         names += [str(p.relative_to(repo)) for p in (repo/prefix).rglob('*')
                   if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ('.pyc','.pyo')]
     names += [n for n in ('pyproject.toml','uv.lock','environment-linux-64.lock') if (repo/n).is_file()]
@@ -353,6 +353,19 @@ class NativeDomain:
             array.flags.writeable = False
         return RoutingConfig().create_router(graph, self.compiler, self.cache / 'landmark', role='landmark', artifact=self.artifact)
 
+    def make_bound(self, context, strategy):
+        from timecut5.road_provider import TableFreeRegionBoundProvider
+        query = json.loads(self.query_bytes)
+        return TableFreeRegionBoundProvider(context.provider, self.sites, self.tree,
+            destination_anchor=query['destination'], landmark_anchor=query['origin'],
+            site_catalog_sha256=self.site_sha256, router_factory=self.landmark_router,
+            alt_strategy=strategy, collect_alt_member_reads=False)
+
+    def solve_exact(self, problem, witness, key, bound, store):
+        from timecut5.hierarchy import _solve_hierarchical_problem
+        return _solve_hierarchical_problem(problem, True, self.tree, witness,
+            verified_primary_upper=key[0], bound_provider=bound, incumbent_hook=store)
+
     def run_arm(self, strategy, seed, output, *, search_seconds=None, external_phase=False):
         """Actual exact HIER in both arms. All durable replays use new native contexts."""
         from timecut5.bounded import _replay_problem
@@ -389,10 +402,7 @@ class NativeDomain:
             if canonical(primitive(key)) != seed.key_bytes:
                 raise ValueError('Search seed replay differs')
             store(witness, key)
-            bound = TableFreeRegionBoundProvider(context.provider, self.sites, self.tree,
-                destination_anchor=query['destination'], landmark_anchor=query['origin'], site_catalog_sha256=self.site_sha256,
-                router_factory=self.landmark_router,
-                alt_strategy=strategy, collect_alt_member_reads=False)
+            bound = self.make_bound(context, strategy)
             setup_ns = time.monotonic_ns() - started
             if external_phase:
                 if search_seconds is not None:
@@ -414,7 +424,7 @@ class NativeDomain:
                 signal.setitimer(signal.ITIMER_REAL, search_seconds)
             solved = None
             try:
-                solved = _solve_hierarchical_problem(problem, True, self.tree, witness, verified_primary_upper=key[0], bound_provider=bound, incumbent_hook=store)
+                solved = self.solve_exact(problem, witness, key, bound, store)
             except SearchWindowExpired:
                 pass
             finally:
@@ -560,18 +570,19 @@ def _domain(manifest, query, sites, cache):
         compiler=manifest['compiler']['path'], cache_policy=manifest['cache_policy'])
 
 
-def prepare_case(manifest, case_id, output):
+def prepare_case(manifest, case_id, output, *, domain_factory=None):
     """Charged common preparation. No previous witness, timing, or search reused."""
     from timecut5.real_adapter import site_catalog_digest
     from timecut5.sparse_seed import SparseSeedCatalog, sparse_domain_digest, replay_sparse_seed, SeedInfeasible
     from timecut5.deployable import iter_constructive_seed_candidates
     from timecut5.provenance import primitive
     from dataclasses import asdict
+    domain_factory = domain_factory or _domain
     started = time.monotonic_ns()
     output = Path(output); output.mkdir(parents=True, exist_ok=False)
     directory, bindings = manifest['input_directory'], manifest['inputs']
     query, sites, _ = extract_case(directory, case_id, {n: bindings[n] for n in INPUT_NAMES}, od07_baseline=True)
-    domain = _domain(manifest, query, sites, output / 'native')
+    domain = domain_factory(manifest, query, sites, output / 'native')
     proposal_receipt = None
     if case_id.startswith('OD07_'):
         from .candidates import repair_od07
@@ -580,13 +591,13 @@ def prepare_case(manifest, case_id, output):
         with domain.context('generation') as context:
             sources = {k: context.provider.source_sha256[k] for k in ('nodes','edges','router','anchors','tie_policy')}
             query, sites, proposal_receipt = repair_od07(directory, bindings, context.provider.graph, context.router, query, sites, sources)
-        domain = _domain(manifest, query, sites, output / 'native')
+        domain = domain_factory(manifest, query, sites, output / 'native')
     # The new energy policy belongs to the new experiment domain, never silently
     # to the old query's historical sparse-domain hash.
     with domain.context('generation') as context:
         query = dict(query, sparse_domain_sha256=sparse_domain_digest(context.provider.source_sha256,
             site_catalog_digest(sites), digest(sorted(sites)), query['hierarchy_sha256'], query['origin'], query['destination']))
-    domain = _domain(manifest, query, sites, output / 'native')
+    domain = domain_factory(manifest, query, sites, output / 'native')
     with domain.context('generation') as context:
         catalog = SparseSeedCatalog(context.provider, sites, origin_anchor=query['origin'], destination_anchor=query['destination'],
             nodes_path=Path(directory)/'nodes.parquet', edges_path=Path(directory)/'edges.parquet',
@@ -637,11 +648,12 @@ LIMITS = dict(search_seconds=120, stage_wall_seconds=600, worker_cpu_seconds=600
               verification_cpu_seconds=120, parent_cpu_soft_seconds=90, parent_cpu_hard_policy='preserve_inherited_at_least_601')
 
 
-def worker(manifest, operation, case_id, common_path=None, common_sha256=None, strategy=None, search_directory=None, search_receipt_sha256=None):
+def worker(manifest, operation, case_id, common_path=None, common_sha256=None, strategy=None, search_directory=None, search_receipt_sha256=None, *, domain_factory=None):
+    domain_factory = domain_factory or _domain
     from timecut5.real_legs import RealSite
     output = Path(os.environ['HIROUTE_OUTPUT_DIR'])
     if operation == 'prepare':
-        result = prepare_case(manifest, case_id, output/'prepared')
+        result = prepare_case(manifest, case_id, output/'prepared', domain_factory=domain_factory)
     else:
         common_bytes=Path(common_path).read_bytes()
         if hashlib.sha256(common_bytes).hexdigest() != common_sha256:
@@ -650,7 +662,7 @@ def worker(manifest, operation, case_id, common_path=None, common_sha256=None, s
         if common['source'] != manifest['source'] or common['inputs'] != manifest['inputs'] or common['case_id'] != case_id or common.get('cache_policy') != manifest['cache_policy']:
             raise ValueError('Common receipt belongs to another source/case')
         sites = {s['site_id']: RealSite(s['site_id'], s['anchor_id'], tuple(s['effects'])) for s in common['sites']}
-        domain = _domain(manifest, common['query'], sites, output/'native')
+        domain = domain_factory(manifest, common['query'], sites, output/'native')
         values = common['seed']
         seed = FrozenSeed(**dict(values, witness_bytes=values['witness_bytes'].encode(), key_bytes=values['key_bytes'].encode()))
         if operation == 'arm':
@@ -682,7 +694,9 @@ def worker(manifest, operation, case_id, common_path=None, common_sha256=None, s
 
 
 
-def _run_plan(manifest_path, manifest_sha256, output, cpu, *, scope):
+def _run_plan(manifest_path, manifest_sha256, output, cpu, *, scope,
+              manifest_loader=None, worker_module='experiments.mechanism_recovery_v1.run',
+              fixed_cases=None, fixed_pairs=None):
     """One sequential supervisor; all predeclared arms remain in the ledger."""
     from .supervisor import run, Limits, PhaseBudget
     import resource
@@ -691,8 +705,12 @@ def _run_plan(manifest_path, manifest_sha256, output, cpu, *, scope):
     gate = scope == 'od02_gate'
     cases = DEV_CASES[:1] if gate else DEV_CASES
     pairs = PAIR_ORDER[:1] if gate else PAIR_ORDER
+    if fixed_cases is not None:
+        cases = tuple(fixed_cases)
+    if fixed_pairs is not None:
+        pairs = fixed_pairs
     batch_cpu_started=time.process_time()
-    manifest = _manifest(manifest_path, manifest_sha256)
+    manifest = (manifest_loader or _manifest)(manifest_path, manifest_sha256)
     output = Path(output); output.mkdir(parents=True, exist_ok=False)
     if cpu not in os.sched_getaffinity(0):
         raise ValueError('Requested CPU unavailable')
@@ -717,7 +735,7 @@ def _run_plan(manifest_path, manifest_sha256, output, cpu, *, scope):
     for index, arm in enumerate(arms):
         for operation in ('search','verify'):
             stages.append(dict(id=f'{operation}-{index}',operation=operation,case=arm['case'],strategy=arm['strategy'],status='PENDING'))
-    ledger = dict(schema=SCHEMA, scope=scope, denominator=len(stages), manifest_sha256=manifest_sha256,
+    ledger = dict(schema=manifest.get('schema', SCHEMA), scope=scope, denominator=len(stages), manifest_sha256=manifest_sha256,
         common={}, arms=arms, stages=stages, status='RUNNING')
     stage_by_id={row['id']:row for row in stages}
     def record_stage(identifier,receipt):
@@ -747,7 +765,7 @@ def _run_plan(manifest_path, manifest_sha256, output, cpu, *, scope):
             save();return False
         return True
     def command(operation, case):
-        return [sys.executable, '-m', 'experiments.mechanism_recovery_v1.run', '--worker', operation,
+        return [sys.executable, '-m', worker_module, '--worker', operation,
                 '--manifest', str(Path(manifest_path).resolve()), '--manifest-sha256', manifest_sha256, '--case', case]
     save()
     for case in cases:
