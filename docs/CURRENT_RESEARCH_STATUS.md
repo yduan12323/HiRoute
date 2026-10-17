@@ -1,5 +1,21 @@
 # Current research status
 
+## Active continuation — 2026-10-17 12:58 UTC
+
+The owner explicitly requested continued development after the bounded handoff.
+Work has resumed on real-road 32/128-candidate scalability in the assistant's
+cloud environment. The previous LIMITED report remains a historical scientific
+outcome; it is not a reason to stop this newly requested development.
+
+Three parallel workstreams are active: exact frontier-reduction complexity,
+road-routing reuse and a separately versioned developmental validation protocol.
+No new improvement, exact completion or speedup has yet been established.
+The first objective is to complete representative known-DEV exact queries under
+explicit budgets, with independently replayed witnesses and unchanged domain
+semantics. Old failures and accounting gaps remain recorded. Final holdout
+execution and a main merge have not occurred.
+
+
 M5-D outcome: **M5D_LIMITED_BY_DATA_OR_SCALE**. This closes the bounded evaluation report with explicit limitations; it does not declare unrestricted implementation or deployment acceptance. M5-V remains accepted within its historical scope.
 
 The original 192-row M5-D matrix is terminal: 148 timeouts, 44 failed initial-solution searches and no exact completion. Current portable recovery code has passed exact-head CI at 7dbd82. Neither fact establishes large-scale performance acceptance.

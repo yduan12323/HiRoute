@@ -17,6 +17,7 @@ import hashlib
 import json
 import math
 import time
+import uuid
 from typing import Mapping
 
 from .real_legs import ImmutableLegTable, SelectedLeg, TIE_POLICY
@@ -109,9 +110,76 @@ class TableFreeRoadSelectedLegProvider:
         self.source_cache_evictions = 0
         self.source_cache_skips = 0
         self.source_run_count = 0
+        # Successful native full-source runs, not requested pairs. The fixed
+        # node-keyed map cannot grow with repeated visits or private calls for
+        # undeclared nodes. Those private calls have a separate aggregate count.
+        self._source_runs_by_node = {node: 0 for node in anchors.values()}
+        self.source_run_distinct_count = 0
+        self.source_run_repeat_count = 0
+        self.source_run_untracked_count = 0
+        self._routing_telemetry_id = uuid.uuid4().hex
         self.target_run_count = 0
         self.route_wall_ns = 0
         self.route_process_cpu_ns = 0
+
+    def routing_telemetry_snapshot(self):
+        """Detached cumulative counters, with occupancy explicitly as gauges.
+
+        Counts include this provider's setup/seed work. Call immediately before
+        search and pass the snapshot to ``routing_telemetry_delta`` to isolate
+        later work. A failed/interrupted native call is not a successful run,
+        matching ``source_run_count``. Snapshots do not change cache recency.
+        """
+        names = ('source_run_count', 'source_run_distinct_count',
+                 'source_run_repeat_count', 'source_run_untracked_count',
+                 'target_run_count', 'source_cache_hits',
+                 'source_cache_evictions', 'source_cache_skips',
+                 'route_wall_ns', 'route_process_cpu_ns')
+        return dict(schema='hiroute.road_routing_telemetry.v1',
+            provider_id=self._routing_telemetry_id,
+            counters={name: getattr(self, name) for name in names},
+            source_runs_by_node={str(node): count
+                                for node, count in self._source_runs_by_node.items()},
+            gauges=dict(source_cache_bytes=self.source_cache_bytes,
+                        source_cache_entries=len(self._source_labels)))
+
+    def routing_telemetry_delta(self, before):
+        """Counters since a same-provider snapshot; gauges are end values only.
+
+        ``source_run_distinct_count`` in counters counts newly seen sources;
+        ``source_run_repeat_count`` counts repeats over the provider's lifetime,
+        including sources first seen in setup. The separate interval fields
+        count distinct/repeated tracked sources within this interval itself.
+        Route timers retain their existing completed-leg scope; they exclude
+        guard/native-binding checks outside the timer and interrupted legs.
+        """
+        current = self.routing_telemetry_snapshot()
+        if (type(before) is not dict or set(before) != set(current) or
+                before.get('schema') != current['schema'] or
+                before.get('provider_id') != current['provider_id']):
+            raise ValueError('Same-provider routing telemetry snapshot required')
+        for section in ('counters', 'source_runs_by_node', 'gauges'):
+            old, new = before[section], current[section]
+            if (type(old) is not dict or set(old) != set(new) or
+                    any(type(value) is not int or value < 0 for value in old.values()) or
+                    section != 'gauges' and any(old[key] > new[key] for key in old)):
+                raise ValueError('Invalid or nonmonotone routing telemetry snapshot')
+        old_counts = before['source_runs_by_node'].values()
+        old = before['counters']
+        if (old['source_run_count'] != sum(old_counts) + old['source_run_untracked_count'] or
+                old['source_run_distinct_count'] != sum(value > 0 for value in old_counts) or
+                old['source_run_repeat_count'] != sum(max(0, value - 1) for value in old_counts)):
+            raise ValueError('Inconsistent routing telemetry snapshot')
+        per_source = {node: count - before['source_runs_by_node'][node]
+                      for node, count in current['source_runs_by_node'].items()}
+        return dict(schema='hiroute.road_routing_telemetry_delta.v1',
+            provider_id=self._routing_telemetry_id,
+            counters={name: value - before['counters'][name]
+                      for name, value in current['counters'].items()},
+            source_runs_by_node=per_source,
+            interval_distinct_source_count=sum(value > 0 for value in per_source.values()),
+            interval_repeat_source_run_count=sum(max(0, value - 1) for value in per_source.values()),
+            end_gauges=current['gauges'])
 
     @staticmethod
     def source_cache_entry_bytes(node_count):
@@ -147,6 +215,15 @@ class TableFreeRoadSelectedLegProvider:
                 self._evict_source_labels(expected_size)
         labels = self.router.full_edges(source_node)
         self.source_run_count += 1
+        previous_runs = self._source_runs_by_node.get(source_node)
+        if previous_runs is None:
+            self.source_run_untracked_count += 1
+        else:
+            self._source_runs_by_node[source_node] = previous_runs + 1
+            if previous_runs:
+                self.source_run_repeat_count += 1
+            else:
+                self.source_run_distinct_count += 1
         if not self.source_cache_max_bytes or not self.source_cache_max_sources:
             return labels
         # Only native, owned-copy-compatible binary64/int64 arrays are admitted.

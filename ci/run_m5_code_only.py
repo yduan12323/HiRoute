@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 TESTS = (
     "tests/test_time_cut_v2.py",
     "tests/test_time_cut_pwa_v2.py",
+    "tests/test_frontier_skyline.py",
     "tests/test_time_cut_bounded_v2.py",
     "tests/test_time_cut_hierarchy_v2.py",
     "tests/test_time_cut_optimized_replay.py",
@@ -28,6 +29,7 @@ TESTS = (
     "tests/test_m5d_charge_gate.py",
     "tests/test_m5d_deployable_contract.py",
     "tests/test_m5d_road_provider.py",
+    "tests/test_road_provider_telemetry.py",
     "tests/test_m5d_main_batch.py",
     "tests/test_m5d_parallel_continuation.py",
     "tests/test_m5d_supplement.py",

@@ -1,0 +1,106 @@
+{
+  "executable": "/workspace/scratch/c69664aea1c8/HiRoute/../hiroute-ci-venv/bin/python",
+  "input": "all nondominated shuffled rational antichain tau=i/7,rho=(n-i)/11; seed=20261017",
+  "performance_claim": "descriptive local microbenchmark only; not whole-search speedup or N32/N128 admission",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "pwa_sha256": "cde8549f355ec7a8fc7b4ad3c23399cc5a848e31c021b0f2f424a3313bb560c2",
+  "python": "3.11.17 (main, Oct  3 2026, 01:05:36) [Clang 22.1.3 ]",
+  "repetitions": 5,
+  "rows": [
+    {
+      "all_retained": true,
+      "exact_object_identity_order_equal": true,
+      "median_wall_ns": {
+        "baseline": 1293205,
+        "skyline": 104106
+      },
+      "output_count": 32,
+      "point_count": 32,
+      "rational_scalar_comparisons": {
+        "baseline": 1984,
+        "skyline": 310
+      },
+      "wall_ns_samples": {
+        "baseline": [
+          1294387,
+          1293205,
+          1338943,
+          1207497,
+          1179395
+        ],
+        "skyline": [
+          104607,
+          98668,
+          104106,
+          100861,
+          126410
+        ]
+      }
+    },
+    {
+      "all_retained": true,
+      "exact_object_identity_order_equal": true,
+      "median_wall_ns": {
+        "baseline": 21062900,
+        "skyline": 570644
+      },
+      "output_count": 128,
+      "point_count": 128,
+      "rational_scalar_comparisons": {
+        "baseline": 32512,
+        "skyline": 1710
+      },
+      "wall_ns_samples": {
+        "baseline": [
+          20898804,
+          20522300,
+          23578550,
+          22492980,
+          21062900
+        ],
+        "skyline": [
+          721189,
+          570644,
+          556903,
+          598295,
+          546879
+        ]
+      }
+    },
+    {
+      "all_retained": true,
+      "exact_object_identity_order_equal": true,
+      "median_wall_ns": {
+        "baseline": 353974689,
+        "skyline": 3162963
+      },
+      "output_count": 512,
+      "point_count": 512,
+      "rational_scalar_comparisons": {
+        "baseline": 523264,
+        "skyline": 8926
+      },
+      "wall_ns_samples": {
+        "baseline": [
+          328278520,
+          353974689,
+          359396938,
+          351047133,
+          414539558
+        ],
+        "skyline": [
+          3213709,
+          2944337,
+          3162963,
+          2740561,
+          3163373
+        ]
+      }
+    }
+  ],
+  "scalar_counter_scope": "exact comparison calls on tau and rho; excludes state, energy and pi comparisons",
+  "schema": "hiroute.synthetic_skyline_microbenchmark.v1",
+  "scope": "same-state same-energy antichain; point algorithm only; no road, arrangement, witness, provenance or full-search timing",
+  "script_sha256": "f22b7271b982995f30e5c43985f6d9789edb6567e8eaefce3e5f02fb8008435f",
+  "source_path": "/workspace/scratch/c69664aea1c8/HiRoute/src/timecut5/pwa.py"
+}
