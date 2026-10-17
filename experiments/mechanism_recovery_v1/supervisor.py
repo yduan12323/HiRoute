@@ -10,6 +10,7 @@ sandbox or protection against deliberate limit changes is claimed.
 """
 from dataclasses import asdict, dataclass
 import ctypes
+import errno
 import json
 import math
 import os
@@ -205,22 +206,64 @@ def _tree(cap):
 
 
 def _files(root, cap):
-    total = count = 0; pending = [root]
-    while pending:
-        with os.scandir(pending.pop()) as entries:
-            for entry in entries:
-                count += 1
-                if count > cap:
-                    return total, 'output_entry_limit'
-                if entry.is_symlink():
-                    return total, 'output_symlink'
-                if entry.is_dir(follow_symlinks=False):
-                    pending.append(entry.path)
-                elif entry.is_file(follow_symlinks=False):
-                    total += entry.stat(follow_symlinks=False).st_size
-                else:
-                    return total, 'output_special_file'
-    return total, None
+    """Sample owned output without following links or racing temporary deletion.
+
+    Builds legitimately remove temporary entries during this observational scan.
+    Only ENOENT for descendant entries is ignored. Directory descriptors anchor
+    traversal so a queued path cannot be replaced with a link outside the root.
+    """
+    total = count = 0
+    flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC
+    stack = []
+    def descend(name, *, parent=None, expected=None):
+        fd = os.open(name, flags, dir_fd=parent)
+        try:
+            if expected is not None:
+                actual = os.fstat(fd)
+                if (actual.st_dev, actual.st_ino) != (expected.st_dev, expected.st_ino):
+                    raise ValueError('Output directory identity changed during sampling')
+            entries = os.scandir(fd)
+        except BaseException:
+            os.close(fd)
+            raise
+        stack.append((fd, entries))
+    try:
+        # Losing/replacing the owned root is not ordinary temporary-file churn.
+        descend(root)
+        while stack:
+            parent, entries = stack[-1]
+            entry = next(entries, None)
+            if entry is None:
+                entries.close(); os.close(parent); stack.pop()
+                continue
+            count += 1
+            if count > cap:
+                return total, 'output_entry_limit'
+            try:
+                info = os.stat(entry.name, dir_fd=parent, follow_symlinks=False)
+            except FileNotFoundError:
+                continue
+            if stat.S_ISLNK(info.st_mode):
+                return total, 'output_symlink'
+            if stat.S_ISDIR(info.st_mode):
+                try:
+                    descend(entry.name, parent=parent, expected=info)
+                except FileNotFoundError:
+                    continue
+                except OSError as exc:
+                    # O_DIRECTORY|O_NOFOLLOW reports ENOTDIR for a symlink on
+                    # Linux. Never follow it, and do not hide unrelated errors.
+                    if exc.errno in (errno.ELOOP, errno.ENOTDIR):
+                        return total, 'output_directory_changed'
+                    raise
+            elif stat.S_ISREG(info.st_mode):
+                total += info.st_size
+            else:
+                return total, 'output_special_file'
+        return total, None
+    finally:
+        for fd, entries in reversed(stack):
+            entries.close(); os.close(fd)
 
 
 def _json_receipt(path):

@@ -140,7 +140,7 @@ def source_identity(repo, *, published_commit=None, publication=None):
     if type(commit) is not str or re.fullmatch(r'[0-9a-f]{40}',commit) is None:
         raise ValueError('Verified published execution commit required')
     names=[]
-    for prefix in ('src','validation','scripts','experiments/mechanism_recovery_v1','experiments/search_extensions_v1'):
+    for prefix in ('src','validation','scripts','experiments/mechanism_recovery_v1','experiments/search_extensions_v1','experiments/sequential_transport_gate_v1'):
         names += [str(p.relative_to(repo)) for p in (repo/prefix).rglob('*')
                   if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ('.pyc','.pyo')]
     names += [n for n in ('pyproject.toml','uv.lock','environment-linux-64.lock') if (repo/n).is_file()]

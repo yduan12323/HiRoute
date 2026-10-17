@@ -89,7 +89,7 @@ def validate_sparse_query(query: Mapping, catalog: SparseSeedCatalog):
 
 
 def replay_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, sequence, charges,
-                       *, sequential_no_overlap=False):
+                       *, sequential_no_overlap=False, include_events=False):
     """Independently replay exact physical events and every selected edge."""
     if (query.get("sparse_domain_sha256") != catalog.domain_sha256 or
             query.get("origin") != catalog.origin_anchor or
@@ -117,8 +117,11 @@ def replay_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, sequence, cha
     segments = tuple(tuple(map(R, row)) for row in query["charging_segments"])
     current, charge_index = catalog.origin_anchor, 0
     edges_used = []
+    events = []
+    total_distance = R(0)
 
     def edge_leg(source, target):
+        nonlocal total_distance
         leg = catalog.leg(source, target)
         path = catalog.provider.edge_witnesses[source, target]
         if not leg.reachable or path is None:
@@ -137,6 +140,7 @@ def replay_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, sequence, cha
                 R(*total_length.as_integer_ratio()) != leg.actual_length):
             raise ValueError("Selected edge replay differs from native label")
         edges_used.append(tuple(path))
+        total_distance += leg.actual_length
         return leg.time, leg.actual_length * rate
 
     for site_id, effect in sequence:
@@ -151,7 +155,9 @@ def replay_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, sequence, cha
         time, energy = time + travel, energy - consumption
         if not floor <= energy <= capacity:
             raise SeedInfeasible("Arrival energy infeasible")
+        arrival_time, arrival_energy = time, energy
         release = time + overhead
+        charge_start = charge_done = service_start = service_done = None
         done = []
         if effect in ("C", "CS"):
             amount = charges[charge_index]
@@ -162,15 +168,28 @@ def replay_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, sequence, cha
             energy += amount
             duration = sum((max(R(0), min(energy, hi) - max(before, lo)) * slope
                             for lo, hi, slope, _ in segments), R(0))
-            done.append(release + duration)
+            charge_start, charge_done = release, release + duration
+            done.append(charge_done)
         if effect in ("S", "CS"):
             service_release = done[0] if sequential_no_overlap and effect == "CS" else release
             start = max(R(schedule["a"]), service_release)
             if start > R(schedule["b"]):
                 raise SeedInfeasible("Schedule infeasible")
-            done.append(start + R(schedule["D"]))
+            service_start, service_done = start, start + R(schedule["D"])
+            done.append(service_done)
             pending = 0
         time = max(done)
+        if include_events:
+            overlap = (max(R(0), min(charge_done, service_done) -
+                           max(charge_start, service_start))
+                       if effect == "CS" else R(0))
+            events.append(dict(site_id=site_id, effect=effect, arrival=arrival_time,
+                release=release, charge_start=charge_start, charge_done=charge_done,
+                service_start=service_start, service_done=service_done, departure=time,
+                arrival_energy_kwh=arrival_energy, departure_energy_kwh=energy,
+                window_margin_s=(R(schedule["b"]) - service_start
+                                 if service_start is not None else None),
+                overlap_s=overlap))
         current = site.anchor_id
     if pending:
         raise SeedInfeasible("Schedule unfulfilled")
@@ -180,8 +199,15 @@ def replay_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, sequence, cha
         raise SeedInfeasible("Terminal reserve infeasible")
     key = (time - f("start_time_s") + len(sequence) * f("lambda_stop_s"),
            sum(charges, R(0)), len(sequence), sequence)
-    return {"lex_key": key, "edge_witnesses": tuple(edges_used),
-            "domain_sha256": catalog.domain_sha256, "source_run_count": catalog.provider.source_run_count}
+    result = {"lex_key": key, "edge_witnesses": tuple(edges_used),
+              "domain_sha256": catalog.domain_sha256,
+              "source_run_count": catalog.provider.source_run_count}
+    if include_events:
+        result.update(events=tuple(events), distance_m=total_distance,
+                      elapsed_s=time - f("start_time_s"), arrival_time_s=time,
+                      terminal_energy_kwh=energy,
+                      overlap_s=sum((event["overlap_s"] for event in events), R(0)))
+    return result
 
 
 def sequential_no_overlap_baseline(query: Mapping, catalog: SparseSeedCatalog):
@@ -212,6 +238,70 @@ def sequential_no_overlap_baseline(query: Mapping, catalog: SparseSeedCatalog):
             "domain_sha256": catalog.domain_sha256,
             "edge_witnesses": witnesses,
             "source_run_count": catalog.provider.source_run_count}
+
+
+def first_sequential_feasible(query: Mapping, catalog: SparseSeedCatalog, *, observer=None):
+    """Stop at the first sequentially feasible member of the fixed candidate stream.
+
+    This opt-in construction does not change the generator's concurrent CS
+    clock, ordering or beam pruning. It is neither a sequential search nor a
+    finite-stream minimum. Only finite proposal infeasibility is skipped;
+    invalid inputs, source/generation failures and observer errors propagate.
+    Exhaustion means unknown, never proof of infeasibility.
+
+    ``observer("first_feasible", **snapshot)`` is called immediately after
+    replay, before any further generation. The snapshot contains the complete
+    exact replay payload and source/query provenance for caller-owned durable
+    storage and subsequent replay with an independently loaded fresh provider.
+    No persistence or fresh-provider verification is claimed by this function.
+    """
+    from copy import deepcopy
+    from .deployable import iter_constructive_seed_candidates
+
+    validate_sparse_query(query, catalog)
+    query_payload = json.loads(json.dumps(query, sort_keys=True, default=str))
+    provenance = {
+        "construction": "fixed_candidate_stream_sequential_feasibility",
+        "generator": "iter_constructive_seed_candidates",
+        "generator_cs_clock": "concurrent",
+        "replay_policy": "sequential_no_overlap",
+        "source_sha256": dict(catalog.provider.source_sha256),
+        "site_catalog_sha256": catalog.site_catalog_sha256,
+        "candidate_sha256": catalog.candidate_sha256,
+        "hierarchy_sha256": catalog.hierarchy_sha256,
+        "site_count": len(catalog.sites),
+        "origin_anchor": catalog.origin_anchor,
+        "destination_anchor": catalog.destination_anchor,
+        "query": query_payload,
+        "query_sha256": hashlib.sha256(json.dumps(
+            query_payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
+    }
+    common = dict(domain_sha256=catalog.domain_sha256, provenance=provenance,
+                  exact_optimum_claimed=False, finite_stream_minimum_claimed=False,
+                  fresh_provider_verified=False)
+    proposal_count = 0
+    proposals = iter_constructive_seed_candidates(query, catalog)
+    for ordinal, (sequence, charges) in enumerate(proposals):
+        proposal_count += 1
+        # Freeze the payload before replay and preserve exact rational charges.
+        sequence, charges = tuple(map(tuple, sequence)), tuple(charges)
+        try:
+            replay = replay_sparse_seed(query, catalog, sequence, charges,
+                                        sequential_no_overlap=True)
+        except SeedInfeasible:
+            continue
+        result = dict(common, status="first_feasible", generation_complete=False,
+                      proposal_ordinal=ordinal, proposal_count=proposal_count,
+                      accepted_count=1, sequence=sequence,
+                      charges=tuple(map(R, charges)), lex_key=replay["lex_key"],
+                      edge_witnesses=replay["edge_witnesses"],
+                      source_run_count=catalog.provider.source_run_count)
+        if observer is not None:
+            observer("first_feasible", **deepcopy(result))
+        return result
+    return dict(common, status="unknown", reason="no_sequential_feasible_proposal",
+                generation_complete=True, proposal_count=proposal_count,
+                accepted_count=0, source_run_count=catalog.provider.source_run_count)
 
 
 def admit_sparse_seed(query: Mapping, catalog: SparseSeedCatalog, *, observer=None):
