@@ -1,0 +1,264 @@
+{
+  "comparator": {
+    "comparator_source_sha256": "025399f7bf154c2f4c10000d5e38e8aef39985fff6796e178ea3ed1d57a1da8a",
+    "existing_saved_result_equal_on_comparator_fields": true,
+    "result": {
+      "diagnostics_complete": false,
+      "duration_scope": "Inclusive selected-leg call body; excludes ordered evidence emission/hash, includes existing diagnostics; do not sum nested spans.",
+      "evidence_limits": [
+        {
+          "failure_event": false,
+          "partial_tail": false,
+          "pending_request": true,
+          "status": null,
+          "termination_classification": "interruption_unknown"
+        },
+        {
+          "failure_event": false,
+          "partial_tail": false,
+          "pending_request": true,
+          "status": null,
+          "termination_classification": "interruption_unknown"
+        }
+      ],
+      "first_completed": 902,
+      "first_prefix_consumer_duration": {
+        "process_cpu_ns": 186222496695,
+        "thread_cpu_ns": 185329847826,
+        "wall_ns": 192709558093
+      },
+      "identical_completed_prefix": 902,
+      "matched_speed_claim_allowed": false,
+      "mismatch": null,
+      "no_global_speedup_or_optimality_claim": true,
+      "schema": "hiroute.matched_ordered_prefix.v1",
+      "second_completed": 1024,
+      "second_prefix_consumer_duration": {
+        "process_cpu_ns": 165017937319,
+        "thread_cpu_ns": 164378347331,
+        "wall_ns": 170038726364
+      }
+    }
+  },
+  "coverage": {
+    "arms": {
+      "full": {
+        "authenticated_cap_detail": null,
+        "cleanup_exact_elapsed_s": 120.132665634,
+        "common_completed_prefix_ends_at_request": 901,
+        "completed_requests": 902,
+        "distinct_role_source_target_chains": 435,
+        "edge_budget_reconstruction_assumption": "NativeContexts enforces one provider per unique role; each distinct role/source/target chain is hashed once. Unreachable chains contribute zero. A pending completion may already have consumed hashing budget, so only a committed status is authoritative for the final used count.",
+        "last_request_is_unfinished": true,
+        "later_progress_after_last_request_s": 1.501447944,
+        "later_progress_exact_elapsed_s": 119.958403886,
+        "max_total_hashed_edges": 8000000,
+        "observation_classification": {
+          "classification": "authenticated_timeout_prefix",
+          "completed_requests": 902,
+          "fresh_physical_replay_still_required": true,
+          "other_stage_gates_still_required": true,
+          "schema": "hiroute.ordered_observation_classification.v1",
+          "whole_comparison_complete": false,
+          "witness_replay_eligible": true
+        },
+        "pending_request": {
+          "cache_outcome": "native_miss",
+          "clocks": {
+            "process_cpu_ns": 281202548715,
+            "thread_cpu_ns": 279284243591,
+            "wall_ns": 217721917872326
+          },
+          "effective_role_mode": "full",
+          "event": "request",
+          "previous_sha256": "b47bb814a06963728f9c3d873a676b63314bbeab6a8dd6254d71f02603160fc3",
+          "request": 902,
+          "requested_search_mode": "full",
+          "semantic": {
+            "consumer": "terminal_destination",
+            "phase": "exact_engine_started",
+            "role": "search",
+            "source": "road:2936413",
+            "target": "road:5289152"
+          },
+          "sequence": 1805,
+          "target_only": false
+        },
+        "read_prefix_state": {
+          "failure_event": false,
+          "partial_tail": false,
+          "pending_request": true,
+          "status": null,
+          "termination_classification": "interruption_unknown"
+        },
+        "reconstructed_completed_hashed_edges": 2409885,
+        "recorded_bytes": 1034042,
+        "recorded_events": 1806,
+        "recorded_last_request_exact_elapsed_s": 118.456955942,
+        "recording_stop_cause": "No committed ordered terminal status survived; cap is not established. Authenticated exact-timeout interruption preserves completed prefix only.",
+        "remaining_reconstructed_hashed_edge_allowance": 5590115
+      },
+      "target": {
+        "authenticated_cap_detail": null,
+        "cleanup_exact_elapsed_s": 120.164431379,
+        "common_completed_prefix_ends_at_request": 901,
+        "completed_requests": 1024,
+        "distinct_role_source_target_chains": 459,
+        "edge_budget_reconstruction_assumption": "NativeContexts enforces one provider per unique role; each distinct role/source/target chain is hashed once. Unreachable chains contribute zero. A pending completion may already have consumed hashing budget, so only a committed status is authoritative for the final used count.",
+        "last_request_is_unfinished": true,
+        "later_progress_after_last_request_s": 0.427898132,
+        "later_progress_exact_elapsed_s": 119.986975094,
+        "max_total_hashed_edges": 8000000,
+        "observation_classification": {
+          "classification": "authenticated_timeout_prefix",
+          "completed_requests": 1024,
+          "fresh_physical_replay_still_required": true,
+          "other_stage_gates_still_required": true,
+          "schema": "hiroute.ordered_observation_classification.v1",
+          "whole_comparison_complete": false,
+          "witness_replay_eligible": true
+        },
+        "pending_request": {
+          "cache_outcome": "native_miss",
+          "clocks": {
+            "process_cpu_ns": 267312685563,
+            "thread_cpu_ns": 265441589299,
+            "wall_ns": 217362455929063
+          },
+          "effective_role_mode": "destination_target",
+          "event": "request",
+          "previous_sha256": "2821a1cb213fb4ebc5f4df50638ce040077826e45c95cbfe0f2fae1a2e51b8ad",
+          "request": 1024,
+          "requested_search_mode": "destination_target",
+          "semantic": {
+            "consumer": "terminal_destination",
+            "phase": "exact_engine_started",
+            "role": "search",
+            "source": "road:726784",
+            "target": "road:5289152"
+          },
+          "sequence": 2049,
+          "target_only": true
+        },
+        "read_prefix_state": {
+          "failure_event": false,
+          "partial_tail": false,
+          "pending_request": true,
+          "status": null,
+          "termination_classification": "interruption_unknown"
+        },
+        "reconstructed_completed_hashed_edges": 2515753,
+        "recorded_bytes": 1196596,
+        "recorded_events": 2050,
+        "recorded_last_request_exact_elapsed_s": 119.559076962,
+        "recording_stop_cause": "No committed ordered terminal status survived; cap is not established. Authenticated exact-timeout interruption preserves completed prefix only.",
+        "remaining_reconstructed_hashed_edge_allowance": 5484247
+      }
+    },
+    "first_request_after_common_prefix": {
+      "full": null,
+      "target": {
+        "completion": {
+          "duration": {
+            "process_cpu_ns": 1915112357,
+            "thread_cpu_ns": 1901329237,
+            "wall_ns": 1954201507
+          },
+          "event": "completion",
+          "native_calls": {
+            "destination_target": 1,
+            "full": 0
+          },
+          "nested_spans": {
+            "guarded_ctypes_graph_target_edges": {
+              "calls": 1,
+              "process_cpu_ns": 1905927574,
+              "thread_cpu_ns": 1892144454,
+              "wall_ns": 1944987882
+            },
+            "router_wrapper_target_edges": {
+              "calls": 1,
+              "process_cpu_ns": 1906183529,
+              "thread_cpu_ns": 1892400409,
+              "wall_ns": 1945252281
+            }
+          },
+          "previous_sha256": "e38e3591a38428f6244a36c8468eb40d8cb462301535c07da1aff9e7a21eee2c",
+          "request": 902,
+          "selected": {
+            "edge_count": 6146,
+            "length_hex": "0x1.324b6322d0e66p+18",
+            "ordered_edges_sha256": "274b20b81af620c7e7aa663263c65bc28d7e6923bb162eeb9de8c696feefdcf9",
+            "reachable": true,
+            "time_hex": "0x1.b9197455314a1p+13"
+          },
+          "semantic": {
+            "consumer": "terminal_destination",
+            "phase": "exact_engine_started",
+            "role": "search",
+            "source": "road:2936413",
+            "target": "road:5289152"
+          },
+          "sequence": 1806
+        },
+        "request": {
+          "cache_outcome": "native_miss",
+          "clocks": {
+            "process_cpu_ns": 242016576610,
+            "thread_cpu_ns": 240319478692,
+            "wall_ns": 217336536953400
+          },
+          "effective_role_mode": "destination_target",
+          "event": "request",
+          "previous_sha256": "da146a4fc27052fd892d7dfe19782c08de2364f06de9a94af3ed7a4fa5f6e30a",
+          "request": 902,
+          "requested_search_mode": "destination_target",
+          "semantic": {
+            "consumer": "terminal_destination",
+            "phase": "exact_engine_started",
+            "role": "search",
+            "source": "road:2936413",
+            "target": "road:5289152"
+          },
+          "sequence": 1805,
+          "target_only": true
+        }
+      }
+    },
+    "formal_comparison_inconclusive": true,
+    "observed_completed_divergence": null,
+    "pending_request_semantics_equal": false,
+    "unobserved_suffix_divergence_unknown": true
+  },
+  "result": {
+    "both_fresh_full_only_replays_passed": true,
+    "committed_cap_observed": false,
+    "cumulative_charge_cpu_seconds_display": "2608.570905435",
+    "exact_common_completed_requests": 569,
+    "execution_order": [
+      "target.search",
+      "target.replay",
+      "full.search",
+      "full.replay"
+    ],
+    "formal_matched_speed_claim_allowed": false,
+    "full_completed_requests": 902,
+    "full_primary": 35125.44014175798,
+    "identical_completed_requests": 902,
+    "new_charge_cpu_seconds_display": "653.688007234",
+    "observed_common_prefix_mismatch": null,
+    "original_max_depth": 39,
+    "prior_retained_cpu_seconds": "1954.882898201",
+    "same_best_keys_as_v6": {
+      "full": true,
+      "target": true
+    },
+    "schema": "hiroute.v8_finite_results.v1",
+    "scope": "One known-DEV query in reversed fixed order; observation budget differs from V6. No generalized superiority, optimum, causal order isolation or numerical rerun claim.",
+    "search_classification": "authenticated_timeout_prefix",
+    "status": "completed_prefix_valid_formal_whole_comparison_inconclusive",
+    "target_completed_requests": 1024,
+    "target_primary": 32066.730295357982,
+    "target_primary_reduction_percent": 8.707961619998978
+  }
+}

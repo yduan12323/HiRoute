@@ -136,6 +136,22 @@ def test_native_routing_against_independent_igraph(toy):
     costs,lengths=r.pairs([1,2],[2,1],2)
     assert costs[0]==1 and lengths[0]==10 and np.isinf(costs[1])
 
+
+def test_selected_route_edge_witness_forward_and_reverse(cfg, tmp_path):
+    g = graph([(0, 1, 1, 4), (0, 1, 1, 3), (1, 2, 1, 2),
+               (0, 2, 2, 6)], n=4)
+    r = ExactRouter(g, cfg, tmp_path)
+    try:
+        cost, length, parent, edge = r.full_edges(0)
+        assert (cost[2], length[2], parent[2], edge[2]) == (2, 5, 1, 2)
+        assert (parent[1], edge[1]) == (0, 1)
+        assert np.isinf(cost[3]) and parent[3] == edge[3] == -1
+        back_cost, back_length, next_node, next_edge = r.full_edges(2, reverse=True)
+        assert (back_cost[0], back_length[0], next_node[0], next_edge[0]) == (2, 5, 1, 1)
+        assert (next_node[1], next_edge[1]) == (2, 2)
+    finally:
+        r.close()
+
 @pytest.mark.parametrize('case',['motorway_exit','asymmetric','river','multiple_exits'])
 def test_directed_topological_gateways(case,cfg,tmp_path):
     if case=='motorway_exit':

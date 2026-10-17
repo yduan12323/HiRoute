@@ -1,0 +1,20 @@
+{
+  "combined_checkpoint_included": false,
+  "generator_sha256": "b75716eda78dde2820f2c09b32f6d357f5cb0b58a88ba362bb4ed5b8e5854919",
+  "input_sha256": {
+    "fixed24_audit": "37e2938cb158e3a94847d6d4b1c11aa9e29151743b86620c467842721f254588",
+    "fixed24_report": "66d000910bad4b4fd39368f9483eb380523e54c238e29867a3330d2b7805333a",
+    "original_main_rows": "6874fed1cc56ffa8411ed15fbe232f3ebefb7fdd9ee40a3dc50add126f7422a8"
+  },
+  "original_private_bytes_authenticated": false,
+  "pooled_effect_estimate": null,
+  "population_denominators": {
+    "fixed24_post_start_supplement": 24,
+    "original_main": 192
+  },
+  "result_files_sha256": {
+    "benchmark_results.jsonl": "a41d7e35d4a1bba7762c6bb72ed789d1442d9bb3904caf7397626e479f1b5108",
+    "verification_results.jsonl": "9d3e55a7d2b181ef7557501af7e35817ec2c36ac8fa21b380a0916e53dd0212e"
+  },
+  "schema": "hiroute.m5d.closure.normalization.v1"
+}

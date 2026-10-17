@@ -21,3 +21,5 @@ markers = ["integration: requires frozen processed Slovenia data"]
 [tool.setuptools.package-data]
 opportunity = ["*.cpp"]
 microplan = ["*.cpp"]
+
+timecut5 = ["*.cpp"]

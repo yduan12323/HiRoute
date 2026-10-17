@@ -1,0 +1,28 @@
+{
+  "destination_clock_s": "103399311057429342937/3435973836800000",
+  "events": [
+    {
+      "arrival_energy_kwh": "810935042900493/85899345920000",
+      "charge_time_s": "70010995941895563/21474836480000",
+      "departure_clock_s": "4940278803507778641/687194767360000",
+      "overhead_s": "300",
+      "positive_charge_kwh": "4343025712299507/85899345920000",
+      "site_id": "4r:node/11787531967"
+    },
+    {
+      "arrival_energy_kwh": "4390643980350543/214748364800000",
+      "charge_time_s": "153757732496845113/53687091200000",
+      "departure_clock_s": "71201053875695792937/3435973836800000",
+      "overhead_s": "300",
+      "positive_charge_kwh": "8494257907649457/214748364800000",
+      "site_id": "4r:node/4439711122"
+    }
+  ],
+  "positive_charge_count": 2,
+  "protocol_candidate_sha256": "ecfed35a831d7903b1e8e53905415c76b77de0aa3a423ae067bad7baf548d9f8",
+  "scheduled_window_checked": false,
+  "schema": "hiroute.m5d.od00_energy_clock_diagnostic.v1",
+  "status": "no_activity_physical_clock_replay_not_independent_ref_seed",
+  "terminal_energy_kwh": "4458721376655621/214748364800000",
+  "witness_sha256": "cf16f25164c06c9769b2fc3f98fe24865e6c188a73f93882eaa56a7fd780949b"
+}

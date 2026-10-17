@@ -1,0 +1,1469 @@
+{
+  "kind": "main",
+  "original_sha256": "5507bdd5d8892f097b70b9ced7b3c4ba28fe29c96e13e398b6c32bc74f57bcbc",
+  "payload": {
+    "charged_cpu_ns": 99559649486000,
+    "phase_sha256": "a575039c65b8ce31b4f725e389685c5cb78e71ae6df7c2a99d66da7b70ce1064",
+    "rows": {
+      "OD00_energy_and_scheduled_soc19_25_n128_flat": {
+        "cgroup_cpu_usage_ns": 599897056000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD00_energy_and_scheduled_soc19_25_n128_hier": {
+        "cgroup_cpu_usage_ns": 599893931000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD00_energy_and_scheduled_soc19_25_n32_flat": {
+        "cgroup_cpu_usage_ns": 599972851000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD00_energy_and_scheduled_soc19_25_n32_hier": {
+        "cgroup_cpu_usage_ns": 599911702000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD00_energy_and_scheduled_soc3_10_n128_flat": {
+        "cgroup_cpu_usage_ns": 599874425000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD00_energy_and_scheduled_soc3_10_n128_hier": {
+        "cgroup_cpu_usage_ns": 599817442000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD00_energy_and_scheduled_soc3_10_n32_flat": {
+        "cgroup_cpu_usage_ns": 274712042000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD00_energy_and_scheduled_soc3_10_n32_hier": {
+        "cgroup_cpu_usage_ns": 281903369000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD00_energy_only_soc19_25_n128_flat": {
+        "cgroup_cpu_usage_ns": 599831248000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD00_energy_only_soc19_25_n128_hier": {
+        "cgroup_cpu_usage_ns": 599753482000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD00_energy_only_soc19_25_n32_flat": {
+        "cgroup_cpu_usage_ns": 599833620000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD00_energy_only_soc19_25_n32_hier": {
+        "cgroup_cpu_usage_ns": 599821042000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD00_energy_only_soc3_10_n128_flat": {
+        "cgroup_cpu_usage_ns": 271383835000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD00_energy_only_soc3_10_n128_hier": {
+        "cgroup_cpu_usage_ns": 273733160000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD00_energy_only_soc3_10_n32_flat": {
+        "cgroup_cpu_usage_ns": 72998194000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD00_energy_only_soc3_10_n32_hier": {
+        "cgroup_cpu_usage_ns": 72924825000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD01_energy_and_scheduled_soc19_25_n128_flat": {
+        "cgroup_cpu_usage_ns": 599954166000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD01_energy_and_scheduled_soc19_25_n128_hier": {
+        "cgroup_cpu_usage_ns": 599947782000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD01_energy_and_scheduled_soc19_25_n32_flat": {
+        "cgroup_cpu_usage_ns": 599937937000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD01_energy_and_scheduled_soc19_25_n32_hier": {
+        "cgroup_cpu_usage_ns": 599928136000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD01_energy_and_scheduled_soc3_10_n128_flat": {
+        "cgroup_cpu_usage_ns": 599890568000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD01_energy_and_scheduled_soc3_10_n128_hier": {
+        "cgroup_cpu_usage_ns": 599926766000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD01_energy_and_scheduled_soc3_10_n32_flat": {
+        "cgroup_cpu_usage_ns": 165909239000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD01_energy_and_scheduled_soc3_10_n32_hier": {
+        "cgroup_cpu_usage_ns": 165928135000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD01_energy_only_soc19_25_n128_flat": {
+        "cgroup_cpu_usage_ns": 599888930000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD01_energy_only_soc19_25_n128_hier": {
+        "cgroup_cpu_usage_ns": 599921512000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD01_energy_only_soc19_25_n32_flat": {
+        "cgroup_cpu_usage_ns": 599877789000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD01_energy_only_soc19_25_n32_hier": {
+        "cgroup_cpu_usage_ns": 599900374000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD01_energy_only_soc3_10_n128_flat": {
+        "cgroup_cpu_usage_ns": 268736114000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD01_energy_only_soc3_10_n128_hier": {
+        "cgroup_cpu_usage_ns": 270311670000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD01_energy_only_soc3_10_n32_flat": {
+        "cgroup_cpu_usage_ns": 69446583000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD01_energy_only_soc3_10_n32_hier": {
+        "cgroup_cpu_usage_ns": 69432726000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD02_energy_and_scheduled_soc19_25_n128_flat": {
+        "cgroup_cpu_usage_ns": 599904760000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD02_energy_and_scheduled_soc19_25_n128_hier": {
+        "cgroup_cpu_usage_ns": 599834479000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD02_energy_and_scheduled_soc19_25_n32_flat": {
+        "cgroup_cpu_usage_ns": 599913332000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD02_energy_and_scheduled_soc19_25_n32_hier": {
+        "cgroup_cpu_usage_ns": 599896490000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD02_energy_and_scheduled_soc3_10_n128_flat": {
+        "cgroup_cpu_usage_ns": 599941581000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD02_energy_and_scheduled_soc3_10_n128_hier": {
+        "cgroup_cpu_usage_ns": 599902687000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD02_energy_and_scheduled_soc3_10_n32_flat": {
+        "cgroup_cpu_usage_ns": 599958215000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD02_energy_and_scheduled_soc3_10_n32_hier": {
+        "cgroup_cpu_usage_ns": 599948173000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD02_energy_only_soc19_25_n128_flat": {
+        "cgroup_cpu_usage_ns": 599926449000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD02_energy_only_soc19_25_n128_hier": {
+        "cgroup_cpu_usage_ns": 599775617000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD02_energy_only_soc19_25_n32_flat": {
+        "cgroup_cpu_usage_ns": 599892624000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD02_energy_only_soc19_25_n32_hier": {
+        "cgroup_cpu_usage_ns": 599932811000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD02_energy_only_soc3_10_n128_flat": {
+        "cgroup_cpu_usage_ns": 599864280000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD02_energy_only_soc3_10_n128_hier": {
+        "cgroup_cpu_usage_ns": 599909667000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD02_energy_only_soc3_10_n32_flat": {
+        "cgroup_cpu_usage_ns": 599810926000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD02_energy_only_soc3_10_n32_hier": {
+        "cgroup_cpu_usage_ns": 599899822000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD03_energy_and_scheduled_soc19_25_n128_flat": {
+        "cgroup_cpu_usage_ns": 599945599000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD03_energy_and_scheduled_soc19_25_n128_hier": {
+        "cgroup_cpu_usage_ns": 599945737000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD03_energy_and_scheduled_soc19_25_n32_flat": {
+        "cgroup_cpu_usage_ns": 599883189000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD03_energy_and_scheduled_soc19_25_n32_hier": {
+        "cgroup_cpu_usage_ns": 599854276000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD03_energy_and_scheduled_soc3_10_n128_flat": {
+        "cgroup_cpu_usage_ns": 599809316000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD03_energy_and_scheduled_soc3_10_n128_hier": {
+        "cgroup_cpu_usage_ns": 599871736000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD03_energy_and_scheduled_soc3_10_n32_flat": {
+        "cgroup_cpu_usage_ns": 334419314000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD03_energy_and_scheduled_soc3_10_n32_hier": {
+        "cgroup_cpu_usage_ns": 334250026000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD03_energy_only_soc19_25_n128_flat": {
+        "cgroup_cpu_usage_ns": 599849729000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD03_energy_only_soc19_25_n128_hier": {
+        "cgroup_cpu_usage_ns": 599867903000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD03_energy_only_soc19_25_n32_flat": {
+        "cgroup_cpu_usage_ns": 599953839000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD03_energy_only_soc19_25_n32_hier": {
+        "cgroup_cpu_usage_ns": 599913901000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD03_energy_only_soc3_10_n128_flat": {
+        "cgroup_cpu_usage_ns": 275506913000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD03_energy_only_soc3_10_n128_hier": {
+        "cgroup_cpu_usage_ns": 271262041000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD03_energy_only_soc3_10_n32_flat": {
+        "cgroup_cpu_usage_ns": 72341806000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD03_energy_only_soc3_10_n32_hier": {
+        "cgroup_cpu_usage_ns": 71479140000,
+        "denominator_included": true,
+        "status": "incumbent_search_failed"
+      },
+      "OD04_energy_and_scheduled_soc19_25_n128_flat": {
+        "cgroup_cpu_usage_ns": 599847392000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD04_energy_and_scheduled_soc19_25_n128_hier": {
+        "cgroup_cpu_usage_ns": 599873381000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD04_energy_and_scheduled_soc19_25_n32_flat": {
+        "cgroup_cpu_usage_ns": 599946489000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD04_energy_and_scheduled_soc19_25_n32_hier": {
+        "cgroup_cpu_usage_ns": 599907027000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD04_energy_and_scheduled_soc3_10_n128_flat": {
+        "cgroup_cpu_usage_ns": 599948398000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD04_energy_and_scheduled_soc3_10_n128_hier": {
+        "cgroup_cpu_usage_ns": 599937320000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD04_energy_and_scheduled_soc3_10_n32_flat": {
+        "cgroup_cpu_usage_ns": 599939554000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD04_energy_and_scheduled_soc3_10_n32_hier": {
+        "cgroup_cpu_usage_ns": 599906542000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD04_energy_only_soc19_25_n128_flat": {
+        "cgroup_cpu_usage_ns": 599860321000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD04_energy_only_soc19_25_n128_hier": {
+        "cgroup_cpu_usage_ns": 599889838000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD04_energy_only_soc19_25_n32_flat": {
+        "cgroup_cpu_usage_ns": 599933071000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD04_energy_only_soc19_25_n32_hier": {
+        "cgroup_cpu_usage_ns": 599860761000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD04_energy_only_soc3_10_n128_flat": {
+        "cgroup_cpu_usage_ns": 599982651000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD04_energy_only_soc3_10_n128_hier": {
+        "cgroup_cpu_usage_ns": 599934006000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD04_energy_only_soc3_10_n32_flat": {
+        "cgroup_cpu_usage_ns": 599788315000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD04_energy_only_soc3_10_n32_hier": {
+        "cgroup_cpu_usage_ns": 599930811000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD05_energy_and_scheduled_soc19_25_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 191544649000,
+        "cgroup_cpu_usage_ns": 599888637000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1761841152,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600161078610
+      },
+      "OD05_energy_and_scheduled_soc19_25_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 191557331000,
+        "cgroup_cpu_usage_ns": 599674306000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1789542400,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600146348297
+      },
+      "OD05_energy_and_scheduled_soc19_25_n32_flat": {
+        "cgroup_cpu_usage_ns": 599947917000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD05_energy_and_scheduled_soc19_25_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 191515280000,
+        "cgroup_cpu_usage_ns": 598312823000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1741938688,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600123038469
+      },
+      "OD05_energy_and_scheduled_soc3_10_n128_flat": {
+        "cgroup_cpu_usage_ns": 599881202000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD05_energy_and_scheduled_soc3_10_n128_hier": {
+        "cgroup_cpu_usage_ns": 599927174000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD05_energy_and_scheduled_soc3_10_n32_flat": {
+        "cgroup_cpu_usage_ns": 599909248000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD05_energy_and_scheduled_soc3_10_n32_hier": {
+        "cgroup_cpu_usage_ns": 599388829000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD05_energy_only_soc19_25_n128_flat": {
+        "cgroup_cpu_usage_ns": 599882447000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD05_energy_only_soc19_25_n128_hier": {
+        "cgroup_cpu_usage_ns": 599914558000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD05_energy_only_soc19_25_n32_flat": {
+        "cgroup_cpu_usage_ns": 599835267000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD05_energy_only_soc19_25_n32_hier": {
+        "cgroup_cpu_usage_ns": 599900825000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD05_energy_only_soc3_10_n128_flat": {
+        "cgroup_cpu_usage_ns": 599917979000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD05_energy_only_soc3_10_n128_hier": {
+        "cgroup_cpu_usage_ns": 599879762000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD05_energy_only_soc3_10_n32_flat": {
+        "cgroup_cpu_usage_ns": 599871203000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD05_energy_only_soc3_10_n32_hier": {
+        "cgroup_cpu_usage_ns": 599919484000,
+        "denominator_included": true,
+        "status": "time_limit"
+      },
+      "OD06_energy_and_scheduled_soc19_25_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 775428945000,
+        "cgroup_cpu_usage_ns": 599854960000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1757253632,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600117606187
+      },
+      "OD06_energy_and_scheduled_soc19_25_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 917076972000,
+        "cgroup_cpu_usage_ns": 599804065000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1761796096,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600095669670
+      },
+      "OD06_energy_and_scheduled_soc19_25_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 695071542000,
+        "cgroup_cpu_usage_ns": 599863060000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1777889280,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600103620281
+      },
+      "OD06_energy_and_scheduled_soc19_25_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 695115351000,
+        "cgroup_cpu_usage_ns": 599741557000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1761247232,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600124180271
+      },
+      "OD06_energy_and_scheduled_soc3_10_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 443231546000,
+        "cgroup_cpu_usage_ns": 599706405000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1739452416,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600146359770
+      },
+      "OD06_energy_and_scheduled_soc3_10_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 523427573000,
+        "cgroup_cpu_usage_ns": 599706624000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1794170880,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600116166093
+      },
+      "OD06_energy_and_scheduled_soc3_10_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 369143648000,
+        "cgroup_cpu_usage_ns": 423191938000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1770811392,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 423344734947
+      },
+      "OD06_energy_and_scheduled_soc3_10_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 370286141000,
+        "cgroup_cpu_usage_ns": 425737839000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1771917312,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 425989213170
+      },
+      "OD06_energy_only_soc19_25_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 664657929000,
+        "cgroup_cpu_usage_ns": 599745991000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1768697856,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600115477036
+      },
+      "OD06_energy_only_soc19_25_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 665531133000,
+        "cgroup_cpu_usage_ns": 599727513000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1760649216,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600148670946
+      },
+      "OD06_energy_only_soc19_25_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 412832340000,
+        "cgroup_cpu_usage_ns": 104133874000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1760571392,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 104264178260
+      },
+      "OD06_energy_only_soc19_25_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 413681166000,
+        "cgroup_cpu_usage_ns": 103465491000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1760387072,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 103553322374
+      },
+      "OD06_energy_only_soc3_10_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 271805051000,
+        "cgroup_cpu_usage_ns": 599809856000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1760038912,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600131396810
+      },
+      "OD06_energy_only_soc3_10_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 443169266000,
+        "cgroup_cpu_usage_ns": 599712947000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1768132608,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600144203578
+      },
+      "OD06_energy_only_soc3_10_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 31275518000,
+        "cgroup_cpu_usage_ns": 95420800000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1768419328,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 95537824413
+      },
+      "OD06_energy_only_soc3_10_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 61576545000,
+        "cgroup_cpu_usage_ns": 95067043000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1850175488,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 95612339980
+      },
+      "OD07_energy_and_scheduled_soc19_25_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 1421089253000,
+        "cgroup_cpu_usage_ns": 599863896000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1743273984,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600130189630
+      },
+      "OD07_energy_and_scheduled_soc19_25_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 1457300984000,
+        "cgroup_cpu_usage_ns": 599869021000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1754894336,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600100965133
+      },
+      "OD07_energy_and_scheduled_soc19_25_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 1373564499000,
+        "cgroup_cpu_usage_ns": 599908390000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1763205120,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600147799407
+      },
+      "OD07_energy_and_scheduled_soc19_25_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 1419921826000,
+        "cgroup_cpu_usage_ns": 599734913000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1756237824,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600142350853
+      },
+      "OD07_energy_and_scheduled_soc3_10_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 1108748784000,
+        "cgroup_cpu_usage_ns": 599876698000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1757495296,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600143457899
+      },
+      "OD07_energy_and_scheduled_soc3_10_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 1121519077000,
+        "cgroup_cpu_usage_ns": 599733095000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1743450112,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600097466462
+      },
+      "OD07_energy_and_scheduled_soc3_10_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 915936276000,
+        "cgroup_cpu_usage_ns": 421953153000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1756659712,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 422170411156
+      },
+      "OD07_energy_and_scheduled_soc3_10_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 953167747000,
+        "cgroup_cpu_usage_ns": 422145114000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1757458432,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 422418850008
+      },
+      "OD07_energy_only_soc19_25_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 1205136493000,
+        "cgroup_cpu_usage_ns": 599797704000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1775382528,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600135420420
+      },
+      "OD07_energy_only_soc19_25_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 1360924153000,
+        "cgroup_cpu_usage_ns": 599906941000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1775149056,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600109310748
+      },
+      "OD07_energy_only_soc19_25_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 1167881460000,
+        "cgroup_cpu_usage_ns": 599771114000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1764302848,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600118104113
+      },
+      "OD07_energy_only_soc19_25_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 1169023829000,
+        "cgroup_cpu_usage_ns": 599737758000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1770790912,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600110803245
+      },
+      "OD07_energy_only_soc3_10_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 856971669000,
+        "cgroup_cpu_usage_ns": 384201814000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1785638912,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 384358276186
+      },
+      "OD07_energy_only_soc3_10_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 869653514000,
+        "cgroup_cpu_usage_ns": 381883982000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1778688000,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 382194115645
+      },
+      "OD07_energy_only_soc3_10_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 708813225000,
+        "cgroup_cpu_usage_ns": 102774201000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1753616384,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 102908829624
+      },
+      "OD07_energy_only_soc3_10_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 738259161000,
+        "cgroup_cpu_usage_ns": 102481140000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1743556608,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 102617060895
+      },
+      "OD08_energy_and_scheduled_soc19_25_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 2212946057000,
+        "cgroup_cpu_usage_ns": 599826468000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1772888064,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600104694555
+      },
+      "OD08_energy_and_scheduled_soc19_25_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 2368875175000,
+        "cgroup_cpu_usage_ns": 599842350000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1771970560,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600091508415
+      },
+      "OD08_energy_and_scheduled_soc19_25_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 2175445481000,
+        "cgroup_cpu_usage_ns": 599850853000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1753948160,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600150811224
+      },
+      "OD08_energy_and_scheduled_soc19_25_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 2176587964000,
+        "cgroup_cpu_usage_ns": 599752145000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1787838464,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600134956261
+      },
+      "OD08_energy_and_scheduled_soc3_10_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 1877003540000,
+        "cgroup_cpu_usage_ns": 599689152000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1770500096,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600131243752
+      },
+      "OD08_energy_and_scheduled_soc3_10_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 1923371305000,
+        "cgroup_cpu_usage_ns": 599752047000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1762684928,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600166049614
+      },
+      "OD08_energy_and_scheduled_soc3_10_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 1708942188000,
+        "cgroup_cpu_usage_ns": 599822958000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1762754560,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600139546244
+      },
+      "OD08_energy_and_scheduled_soc3_10_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 1864204286000,
+        "cgroup_cpu_usage_ns": 599878648000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1788833792,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600114082121
+      },
+      "OD08_energy_only_soc19_25_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 2116381370000,
+        "cgroup_cpu_usage_ns": 599850740000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1756721152,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600125868935
+      },
+      "OD08_energy_only_soc19_25_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 2129119789000,
+        "cgroup_cpu_usage_ns": 599743289000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1759854592,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600133854873
+      },
+      "OD08_energy_only_soc19_25_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 1924518205000,
+        "cgroup_cpu_usage_ns": 599589857000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1757921280,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600119667614
+      },
+      "OD08_energy_only_soc19_25_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 1960755369000,
+        "cgroup_cpu_usage_ns": 599794026000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1773096960,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600106405229
+      },
+      "OD08_energy_only_soc3_10_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 1671685101000,
+        "cgroup_cpu_usage_ns": 599707049000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1747615744,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600150642620
+      },
+      "OD08_energy_only_soc3_10_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 1672864746000,
+        "cgroup_cpu_usage_ns": 599895975000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1760342016,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600154591872
+      },
+      "OD08_energy_only_soc3_10_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 1612816103000,
+        "cgroup_cpu_usage_ns": 599731403000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1757474816,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600127789504
+      },
+      "OD08_energy_only_soc3_10_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 1625480471000,
+        "cgroup_cpu_usage_ns": 599775255000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1744130048,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600117158651
+      },
+      "OD09_energy_and_scheduled_soc19_25_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 2932480844000,
+        "cgroup_cpu_usage_ns": 599839808000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1771491328,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600123185908
+      },
+      "OD09_energy_and_scheduled_soc19_25_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 2933609007000,
+        "cgroup_cpu_usage_ns": 599782222000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1743433728,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600139505465
+      },
+      "OD09_energy_and_scheduled_soc19_25_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 2916467811000,
+        "cgroup_cpu_usage_ns": 599794423000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1756057600,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600153876021
+      },
+      "OD09_energy_and_scheduled_soc19_25_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 2919891547000,
+        "cgroup_cpu_usage_ns": 599806900000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1784827904,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600111120843
+      },
+      "OD09_energy_and_scheduled_soc3_10_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 2620429298000,
+        "cgroup_cpu_usage_ns": 599792948000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1758867456,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600147654562
+      },
+      "OD09_energy_and_scheduled_soc3_10_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 2663582261000,
+        "cgroup_cpu_usage_ns": 599837136000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1784221696,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600149160747
+      },
+      "OD09_energy_and_scheduled_soc3_10_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 2412212649000,
+        "cgroup_cpu_usage_ns": 473833337000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1742577664,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 474028288654
+      },
+      "OD09_energy_and_scheduled_soc3_10_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 2415598091000,
+        "cgroup_cpu_usage_ns": 474922294000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1758203904,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 475153654399
+      },
+      "OD09_energy_only_soc19_25_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 2680554737000,
+        "cgroup_cpu_usage_ns": 599777731000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1772838912,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600081616176
+      },
+      "OD09_energy_only_soc19_25_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 2872653903000,
+        "cgroup_cpu_usage_ns": 599933063000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1770221568,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600150514746
+      },
+      "OD09_energy_only_soc19_25_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 2666953980000,
+        "cgroup_cpu_usage_ns": 599826080000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1759547392,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600147754853
+      },
+      "OD09_energy_only_soc19_25_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 2679441895000,
+        "cgroup_cpu_usage_ns": 599911396000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1772003328,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600130166166
+      },
+      "OD09_energy_only_soc3_10_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 2428012432000,
+        "cgroup_cpu_usage_ns": 599872517000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1778995200,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600105083637
+      },
+      "OD09_energy_only_soc3_10_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 2429161593000,
+        "cgroup_cpu_usage_ns": 599751962000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1758973952,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600120917437
+      },
+      "OD09_energy_only_soc3_10_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 2172463234000,
+        "cgroup_cpu_usage_ns": 103140395000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1779544064,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 103311428571
+      },
+      "OD09_energy_only_soc3_10_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 2215870244000,
+        "cgroup_cpu_usage_ns": 102166942000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1771188224,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 102276470457
+      },
+      "OD10_energy_and_scheduled_soc19_25_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 3616431418000,
+        "cgroup_cpu_usage_ns": 599761769000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1769709568,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600154026531
+      },
+      "OD10_energy_and_scheduled_soc19_25_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 3617921747000,
+        "cgroup_cpu_usage_ns": 599859047000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1753149440,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600123667302
+      },
+      "OD10_energy_and_scheduled_soc19_25_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 3581592642000,
+        "cgroup_cpu_usage_ns": 599894776000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1776414720,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600139093278
+      },
+      "OD10_energy_and_scheduled_soc19_25_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 3585369403000,
+        "cgroup_cpu_usage_ns": 599904205000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1776791552,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600130444618
+      },
+      "OD10_energy_and_scheduled_soc3_10_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 3213167542000,
+        "cgroup_cpu_usage_ns": 599848109000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1771601920,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600140128310
+      },
+      "OD10_energy_and_scheduled_soc3_10_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 3328922099000,
+        "cgroup_cpu_usage_ns": 599803696000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1763811328,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600105662695
+      },
+      "OD10_energy_and_scheduled_soc3_10_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 3111948154000,
+        "cgroup_cpu_usage_ns": 423055610000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1770237952,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 423309317966
+      },
+      "OD10_energy_and_scheduled_soc3_10_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 3113475844000,
+        "cgroup_cpu_usage_ns": 424010194000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1737408512,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 424184762827
+      },
+      "OD10_energy_only_soc19_25_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 3365063370000,
+        "cgroup_cpu_usage_ns": 599820859000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1760456704,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600160764910
+      },
+      "OD10_energy_only_soc19_25_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 3465042266000,
+        "cgroup_cpu_usage_ns": 599911207000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1770303488,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600145905685
+      },
+      "OD10_energy_only_soc19_25_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 3332724321000,
+        "cgroup_cpu_usage_ns": 599753102000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1754521600,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600105750965
+      },
+      "OD10_energy_only_soc19_25_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 3363548648000,
+        "cgroup_cpu_usage_ns": 599847645000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1745702912,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600155834750
+      },
+      "OD10_energy_only_soc3_10_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 3077137194000,
+        "cgroup_cpu_usage_ns": 377815239000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1775788032,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 377992719339
+      },
+      "OD10_energy_only_soc3_10_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 3080906115000,
+        "cgroup_cpu_usage_ns": 379197494000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1770147840,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 379478171112
+      },
+      "OD10_energy_only_soc3_10_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 2916707665000,
+        "cgroup_cpu_usage_ns": 103416040000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1770004480,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 103503766465
+      },
+      "OD10_energy_only_soc3_10_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 2959792087000,
+        "cgroup_cpu_usage_ns": 101831464000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1782927360,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 101934562382
+      },
+      "OD11_energy_and_scheduled_soc19_25_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 4262139104000,
+        "cgroup_cpu_usage_ns": 599815783000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1758461952,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600137705676
+      },
+      "OD11_energy_and_scheduled_soc19_25_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 4265754809000,
+        "cgroup_cpu_usage_ns": 599837185000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1760575488,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600147495536
+      },
+      "OD11_energy_and_scheduled_soc19_25_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 4246306754000,
+        "cgroup_cpu_usage_ns": 599727460000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1744113664,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600145924444
+      },
+      "OD11_energy_and_scheduled_soc19_25_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 4258642545000,
+        "cgroup_cpu_usage_ns": 599701281000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1770090496,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600144192416
+      },
+      "OD11_energy_and_scheduled_soc3_10_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 3869795848000,
+        "cgroup_cpu_usage_ns": 599845806000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1782661120,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600141786509
+      },
+      "OD11_energy_and_scheduled_soc3_10_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 4033229877000,
+        "cgroup_cpu_usage_ns": 599745148000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1761005568,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600123170312
+      },
+      "OD11_energy_and_scheduled_soc3_10_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 3781086178000,
+        "cgroup_cpu_usage_ns": 465937452000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1754304512,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 466198711377
+      },
+      "OD11_energy_and_scheduled_soc3_10_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 3813778046000,
+        "cgroup_cpu_usage_ns": 470185855000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1744150528,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 470465967326
+      },
+      "OD11_energy_only_soc19_25_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 4085696029000,
+        "cgroup_cpu_usage_ns": 599867921000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1784422400,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600133960475
+      },
+      "OD11_energy_only_soc19_25_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 4121775920000,
+        "cgroup_cpu_usage_ns": 599869687000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1766371328,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600135797785
+      },
+      "OD11_energy_only_soc19_25_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 4055851750000,
+        "cgroup_cpu_usage_ns": 599744161000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1753321472,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600119485906
+      },
+      "OD11_energy_only_soc19_25_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 4065788026000,
+        "cgroup_cpu_usage_ns": 599856800000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1773432832,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600127539617
+      },
+      "OD11_energy_only_soc3_10_n128_flat": {
+        "batch_and_waited_child_cpu_ns": 3803785461000,
+        "cgroup_cpu_usage_ns": 599824743000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1759563776,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600148749040
+      },
+      "OD11_energy_only_soc3_10_n128_hier": {
+        "batch_and_waited_child_cpu_ns": 3833746687000,
+        "cgroup_cpu_usage_ns": 599837004000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1740726272,
+        "denominator_included": true,
+        "reached_phase": "seed_started",
+        "status": "time_limit",
+        "wall_elapsed_ns": 600115792982
+      },
+      "OD11_energy_only_soc3_10_n32_flat": {
+        "batch_and_waited_child_cpu_ns": 3508422701000,
+        "cgroup_cpu_usage_ns": 102853347000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1755648000,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 102975813359
+      },
+      "OD11_energy_only_soc3_10_n32_hier": {
+        "batch_and_waited_child_cpu_ns": 3551665061000,
+        "cgroup_cpu_usage_ns": 102244564000,
+        "cgroup_memory_limit_bytes": 8589934592,
+        "cgroup_memory_peak_bytes": 1771769856,
+        "denominator_included": true,
+        "reached_phase": "seed_failed",
+        "status": "incumbent_search_failed",
+        "wall_elapsed_ns": 102385741786
+      }
+    },
+    "schema": "hiroute.m5d.main_batch_state.v1",
+    "stopped": true
+  },
+  "payload_sha256": "5b9844958b48ff2abaaae793249891cf1f60384c31c5b90d968c03406654324e",
+  "schema": "hiroute.m5d.public_state_projection.v1"
+}

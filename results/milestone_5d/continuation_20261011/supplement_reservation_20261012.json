@@ -1,0 +1,36 @@
+{
+  "schema": "hiroute.m5d.supplement_reservation.v1",
+  "status": "planning_reservation_no_execution_authority",
+  "basis": "budget_reconciliation_20261012.json",
+  "outside_main_allowance_cpu_seconds": "17867.9988",
+  "fixed_row_count": 24,
+  "reservation_per_row_cpu_seconds": 610,
+  "reserved_supplement_cpu_seconds": 14640,
+  "original_preflight_verification_host_margin_cpu_seconds": "3227.9988",
+  "conservative_unreceipted_local_test_charge_cpu_seconds": 60,
+  "review_cycle_conservative_local_test_charge_cpu_seconds": 3,
+  "main_scheduler_host_cpu_lower_bound_charge_cpu_seconds": 627,
+  "main_scheduler_host_cpu_final_incremental_reconciliation_required": true,
+  "remaining_margin_after_current_charges_cpu_seconds": "2537.9988",
+  "supplement_row_host_cpu_guard_seconds": 60,
+  "supplement_24_row_host_cpu_guard_hold_seconds": 1440,
+  "remaining_margin_after_current_charges_and_host_guard_hold_cpu_seconds": "1097.9988",
+  "component_reserved_cpu_seconds": {
+    "full_universe_twelve_rows": 7320,
+    "same_alt_member_scan_four_rows": 2440,
+    "representative_repeat_four_rows": 2440,
+    "sequential_feasible_four_rows": 2440
+  },
+  "new_measured_debit_cpu_seconds": 0,
+  "new_conservative_debit_cpu_seconds": 690,
+  "local_test_charge_basis": "Focused normal and -OO synthetic test functions, compile checks and their imports ran on the Mac after the 02:22 UTC reconciliation. No process-CPU receipt or precise timing was retained. A nonrefundable 60-second conservative envelope is charged against the outside-main verification margin; it is not presented as measured use. GitHub CI ran externally and is not included in this local charge.",
+  "main_reservation_cpu_seconds": 117000,
+  "main_reservation_transfer_permitted": false,
+  "launch_conditions": [
+    "main_scheduler_terminal_and_cgroup_empty",
+    "fresh_outside_main_receipt_reconciliation",
+    "independent_source_and_input_review",
+    "frozen_supplement_manifest_and_exact_source_ci",
+    "remaining_outside_main_allowance_covers_reservation_and_preflight_margin"
+  ]
+}

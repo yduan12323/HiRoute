@@ -1,0 +1,549 @@
+{
+  "accounting": {
+    "historical_pooling": false,
+    "original_parent_process_cpu_seconds": 18.463300953,
+    "original_seven_stage_worker_wall_seconds": 517.3567500400059,
+    "separate_recovery_worker_wall_seconds": 17.29474165799911,
+    "worker_cpu_total": "not_measured"
+  },
+  "actual_attempted_stages_including_recovery": 8,
+  "arms": [
+    {
+      "arm": "baseline",
+      "configuration": {
+        "coalescing": false,
+        "onward_alt": false
+      },
+      "exact_phase_budget_seconds": 120,
+      "metrics": {
+        "arm": "baseline",
+        "checkpoint_depth": 2,
+        "coalescing": {
+          "calls": 0,
+          "input_pieces": 0,
+          "max_input_pieces": 0,
+          "max_output_pieces": 0,
+          "output_pieces": 0
+        },
+        "configuration": {
+          "coalescing": false,
+          "onward_alt": false
+        },
+        "counter_semantics": {
+          "checkpoint_depth": "last_observed_layer_start",
+          "cumulative": "last_checkpoint_lower_bound",
+          "search_observed_wall_ns": "elapsed_at_snapshot_not_phase_budget",
+          "source_cache_bytes": "instantaneous_gauge_at_snapshot"
+        },
+        "counters_complete": false,
+        "manifest_binding": "b719f5eb9414f1963d5517812630f9aeda7e32f2d089227f2601c79d18822cbd",
+        "route": {
+          "route_process_cpu_ns": 74176469152,
+          "route_wall_ns": 76960164673,
+          "source_cache_bytes": 377120912,
+          "source_cache_evictions": 43,
+          "source_cache_hits": 175,
+          "source_cache_skips": 0,
+          "source_run_count": 45,
+          "target_run_count": 0
+        },
+        "schema": "hiroute.search_extensions.v1",
+        "search_counters": {
+          "attempted_extensions": 198,
+          "bound_member_scans": 0,
+          "coverage_groups": 3,
+          "equality_nodes_retained": 0,
+          "feasible_prefixes": 92,
+          "leaf_actions": 198,
+          "max_layer_piece_count": 530,
+          "pruned_regions": 0,
+          "region_nodes": 426
+        },
+        "search_observed_wall_ns": 101130087060,
+        "setup_wall_ns": 28005970732
+      },
+      "metrics_complete": false,
+      "search_reason": "phase_timeout",
+      "search_status": "TIMEOUT",
+      "status": "time_limit",
+      "verification": {
+        "accepted_key": [
+          "89231180441089702031/3435973836800000",
+          "59082310507418349/858993459200000",
+          2,
+          [
+            [
+              "4r:node/10652698226",
+              "C"
+            ],
+            [
+              "4r:node/12090131433",
+              "C"
+            ]
+          ]
+        ],
+        "configuration": {
+          "coalescing": false,
+          "onward_alt": false
+        },
+        "feasible_improvement": true,
+        "manifest_binding": "b719f5eb9414f1963d5517812630f9aeda7e32f2d089227f2601c79d18822cbd",
+        "optimality_claim": false,
+        "schema": "hiroute.search_extensions.v1",
+        "search_status": "TIMEOUT",
+        "seed_key": [
+          "102542262038922263369/3435973836800000",
+          "80857457560385401/858993459200000",
+          2,
+          [
+            [
+              "4r:node/10652698226",
+              "C"
+            ],
+            [
+              "4r:node/10865655524",
+              "C"
+            ]
+          ]
+        ],
+        "status": "timeout_feasible_only",
+        "strategy": "baseline"
+      },
+      "verification_path": "extension_runs/od02_forward_v1_execution/verify-00/artifacts/verification.json"
+    },
+    {
+      "arm": "onward_only",
+      "configuration": {
+        "coalescing": false,
+        "onward_alt": true
+      },
+      "exact_phase_budget_seconds": 120,
+      "metrics": {
+        "arm": "onward_only",
+        "checkpoint_depth": 1,
+        "coalescing": {
+          "calls": 0,
+          "input_pieces": 0,
+          "max_input_pieces": 0,
+          "max_output_pieces": 0,
+          "output_pieces": 0
+        },
+        "configuration": {
+          "coalescing": false,
+          "onward_alt": true
+        },
+        "counter_semantics": {
+          "checkpoint_depth": "last_observed_layer_start",
+          "cumulative": "last_checkpoint_lower_bound",
+          "search_observed_wall_ns": "elapsed_at_snapshot_not_phase_budget",
+          "source_cache_bytes": "instantaneous_gauge_at_snapshot"
+        },
+        "counters_complete": false,
+        "manifest_binding": "b719f5eb9414f1963d5517812630f9aeda7e32f2d089227f2601c79d18822cbd",
+        "route": {
+          "route_process_cpu_ns": 6815488823,
+          "route_wall_ns": 7029950420,
+          "source_cache_bytes": 377120912,
+          "source_cache_evictions": 2,
+          "source_cache_hits": 58,
+          "source_cache_skips": 0,
+          "source_run_count": 4,
+          "target_run_count": 0
+        },
+        "schema": "hiroute.search_extensions.v1",
+        "search_counters": {
+          "attempted_extensions": 66,
+          "bound_member_scans": 0,
+          "coverage_groups": 1,
+          "equality_nodes_retained": 0,
+          "feasible_prefixes": 3,
+          "leaf_actions": 66,
+          "max_layer_piece_count": 12,
+          "pruned_regions": 0,
+          "region_nodes": 142
+        },
+        "search_observed_wall_ns": 1939657215,
+        "setup_wall_ns": 25255768235
+      },
+      "metrics_complete": false,
+      "search_reason": "phase_timeout",
+      "search_status": "TIMEOUT",
+      "status": "time_limit",
+      "verification": {
+        "accepted_key": [
+          "22500600618780404673/858993459200000",
+          "119086816876302471/1717986918400000",
+          2,
+          [
+            [
+              "4r:node/9569604034",
+              "C"
+            ],
+            [
+              "4r:node/12090131433",
+              "C"
+            ]
+          ]
+        ],
+        "configuration": {
+          "coalescing": false,
+          "onward_alt": true
+        },
+        "feasible_improvement": true,
+        "manifest_binding": "b719f5eb9414f1963d5517812630f9aeda7e32f2d089227f2601c79d18822cbd",
+        "optimality_claim": false,
+        "schema": "hiroute.search_extensions.v1",
+        "search_status": "TIMEOUT",
+        "seed_key": [
+          "102542262038922263369/3435973836800000",
+          "80857457560385401/858993459200000",
+          2,
+          [
+            [
+              "4r:node/10652698226",
+              "C"
+            ],
+            [
+              "4r:node/10865655524",
+              "C"
+            ]
+          ]
+        ],
+        "status": "timeout_feasible_only",
+        "strategy": "onward_only"
+      },
+      "verification_path": "extension_runs/od02_forward_v1_execution/verify-01/artifacts/verification.json"
+    },
+    {
+      "arm": "coalescing_only",
+      "configuration": {
+        "coalescing": true,
+        "onward_alt": false
+      },
+      "exact_phase_budget_seconds": 120,
+      "metrics": {
+        "arm": "coalescing_only",
+        "checkpoint_depth": 2,
+        "coalescing": {
+          "calls": 672,
+          "input_pieces": 2128,
+          "max_input_pieces": 12,
+          "max_output_pieces": 12,
+          "output_pieces": 1631
+        },
+        "configuration": {
+          "coalescing": true,
+          "onward_alt": false
+        },
+        "counter_semantics": {
+          "checkpoint_depth": "last_observed_layer_start",
+          "cumulative": "last_checkpoint_lower_bound",
+          "search_observed_wall_ns": "elapsed_at_snapshot_not_phase_budget",
+          "source_cache_bytes": "instantaneous_gauge_at_snapshot"
+        },
+        "counters_complete": false,
+        "manifest_binding": "b719f5eb9414f1963d5517812630f9aeda7e32f2d089227f2601c79d18822cbd",
+        "route": {
+          "route_process_cpu_ns": 75409620619,
+          "route_wall_ns": 78283253191,
+          "source_cache_bytes": 377120912,
+          "source_cache_evictions": 43,
+          "source_cache_hits": 175,
+          "source_cache_skips": 0,
+          "source_run_count": 45,
+          "target_run_count": 0
+        },
+        "schema": "hiroute.search_extensions.v1",
+        "search_counters": {
+          "attempted_extensions": 198,
+          "bound_member_scans": 0,
+          "coverage_groups": 3,
+          "equality_nodes_retained": 0,
+          "feasible_prefixes": 92,
+          "leaf_actions": 198,
+          "max_layer_piece_count": 134,
+          "pruned_regions": 0,
+          "region_nodes": 426
+        },
+        "search_observed_wall_ns": 102152383859,
+        "setup_wall_ns": 26255959132
+      },
+      "metrics_complete": false,
+      "search_reason": "phase_timeout",
+      "search_status": "TIMEOUT",
+      "status": "time_limit",
+      "verification": {
+        "accepted_key": [
+          "89231180441089702031/3435973836800000",
+          "59082310507418349/858993459200000",
+          2,
+          [
+            [
+              "4r:node/10652698226",
+              "C"
+            ],
+            [
+              "4r:node/12090131433",
+              "C"
+            ]
+          ]
+        ],
+        "configuration": {
+          "coalescing": true,
+          "onward_alt": false
+        },
+        "feasible_improvement": true,
+        "manifest_binding": "b719f5eb9414f1963d5517812630f9aeda7e32f2d089227f2601c79d18822cbd",
+        "optimality_claim": false,
+        "schema": "hiroute.search_extensions.v1",
+        "search_status": "TIMEOUT",
+        "seed_key": [
+          "102542262038922263369/3435973836800000",
+          "80857457560385401/858993459200000",
+          2,
+          [
+            [
+              "4r:node/10652698226",
+              "C"
+            ],
+            [
+              "4r:node/10865655524",
+              "C"
+            ]
+          ]
+        ],
+        "status": "timeout_feasible_only",
+        "strategy": "coalescing_only"
+      },
+      "verification_path": "extension_runs/od02_coalescing_verify_recovery_v1/artifacts/verification.json"
+    }
+  ],
+  "claims": {
+    "full_search_counter_comparison": false,
+    "holdout_run": false,
+    "optimality": false,
+    "overall_D5_D2_completion": false,
+    "reverse_order_run": false,
+    "speedup": false,
+    "unique_piece_compression": false
+  },
+  "common": {
+    "Hmax": 33,
+    "candidate_count": 128,
+    "common_sha256": "fda8cb3737820d953c5f004c51c85e16cc8289897dc2fc9615296af30d88b493",
+    "seed_key": [
+      "102542262038922263369/3435973836800000",
+      "80857457560385401/858993459200000",
+      2,
+      [
+        [
+          "4r:node/10652698226",
+          "C"
+        ],
+        [
+          "4r:node/10865655524",
+          "C"
+        ]
+      ]
+    ],
+    "tree_sha256": "71fd29fa9d0149b8d60ce3448e344b7f9f641dc67f5df398b1d4eca7b9196bca"
+  },
+  "conclusion": "first_real_graph_three_arm_integration_replay_admitted_after_separate_verifier_infrastructure_recovery; limited_feasible_only",
+  "date_utc": "2026-10-17",
+  "manifest_sha256": "b719f5eb9414f1963d5517812630f9aeda7e32f2d089227f2601c79d18822cbd",
+  "order": [
+    "baseline",
+    "onward_only",
+    "coalescing_only"
+  ],
+  "original_gate_status": "FAILED_VERIFICATION",
+  "original_ledger_modified": false,
+  "original_planned_stage_denominator": 7,
+  "original_stages": [
+    {
+      "cleanup_verified": true,
+      "reason": "success",
+      "receipt_path": "extension_runs/od02_forward_v1_execution/prepare-OD02_energy_only_soc3_10/receipt.json",
+      "sampled_process_tree_peak_rss_bytes": 3338915840,
+      "stage": {
+        "case": "OD02_energy_only_soc3_10",
+        "id": "prepare-OD02_energy_only_soc3_10",
+        "operation": "prepare",
+        "status": "SUCCESS"
+      },
+      "status": "SUCCESS",
+      "supervisor_process_cpu_seconds": 1.117001123,
+      "wall_seconds": 35.11271757900249
+    },
+    {
+      "cleanup_verified": true,
+      "reason": "phase_timeout",
+      "receipt_path": "extension_runs/od02_forward_v1_execution/arm-00/receipt.json",
+      "sampled_process_tree_peak_rss_bytes": 3346014208,
+      "stage": {
+        "case": "OD02_energy_only_soc3_10",
+        "id": "search-0",
+        "operation": "search",
+        "status": "TIMEOUT",
+        "strategy": "baseline"
+      },
+      "status": "TIMEOUT",
+      "supervisor_process_cpu_seconds": 5.277686318,
+      "wall_seconds": 150.77772547899804
+    },
+    {
+      "cleanup_verified": true,
+      "reason": "success",
+      "receipt_path": "extension_runs/od02_forward_v1_execution/verify-00/receipt.json",
+      "sampled_process_tree_peak_rss_bytes": 2052489216,
+      "stage": {
+        "case": "OD02_energy_only_soc3_10",
+        "id": "verify-0",
+        "operation": "verify",
+        "status": "SUCCESS",
+        "strategy": "baseline"
+      },
+      "status": "SUCCESS",
+      "supervisor_process_cpu_seconds": 0.4305487680000004,
+      "wall_seconds": 15.73191247900104
+    },
+    {
+      "cleanup_verified": true,
+      "reason": "phase_timeout",
+      "receipt_path": "extension_runs/od02_forward_v1_execution/arm-01/receipt.json",
+      "sampled_process_tree_peak_rss_bytes": 3349954560,
+      "stage": {
+        "case": "OD02_energy_only_soc3_10",
+        "id": "search-1",
+        "operation": "search",
+        "status": "TIMEOUT",
+        "strategy": "onward_only"
+      },
+      "status": "TIMEOUT",
+      "supervisor_process_cpu_seconds": 5.367283584,
+      "wall_seconds": 147.89551135700094
+    },
+    {
+      "cleanup_verified": true,
+      "reason": "success",
+      "receipt_path": "extension_runs/od02_forward_v1_execution/verify-01/receipt.json",
+      "sampled_process_tree_peak_rss_bytes": 2067292160,
+      "stage": {
+        "case": "OD02_energy_only_soc3_10",
+        "id": "verify-1",
+        "operation": "verify",
+        "status": "SUCCESS",
+        "strategy": "onward_only"
+      },
+      "status": "SUCCESS",
+      "supervisor_process_cpu_seconds": 0.43696388999999947,
+      "wall_seconds": 16.04321742400134
+    },
+    {
+      "cleanup_verified": true,
+      "reason": "phase_timeout",
+      "receipt_path": "extension_runs/od02_forward_v1_execution/arm-02/receipt.json",
+      "sampled_process_tree_peak_rss_bytes": 3356504064,
+      "stage": {
+        "case": "OD02_energy_only_soc3_10",
+        "id": "search-2",
+        "operation": "search",
+        "status": "TIMEOUT",
+        "strategy": "coalescing_only"
+      },
+      "status": "TIMEOUT",
+      "supervisor_process_cpu_seconds": 5.337992088999998,
+      "wall_seconds": 149.00629316900086
+    },
+    {
+      "cleanup_verified": true,
+      "reason": "supervisor_exception",
+      "receipt_path": "extension_runs/od02_forward_v1_execution/verify-02/receipt.json",
+      "sampled_process_tree_peak_rss_bytes": 238034944,
+      "stage": {
+        "case": "OD02_energy_only_soc3_10",
+        "id": "verify-2",
+        "operation": "verify",
+        "status": "FAILED",
+        "strategy": "coalescing_only"
+      },
+      "status": "FAILED",
+      "supervisor_process_cpu_seconds": 0.08784779500000184,
+      "wall_seconds": 2.789372553001158
+    }
+  ],
+  "policy": {
+    "alt_strategy": "indexed",
+    "cache_policy": {
+      "source_cache_max_bytes": 1073741824,
+      "source_cache_max_sources": 2
+    },
+    "candidate_count": 128,
+    "case": "OD02_energy_only_soc3_10",
+    "hierarchy_policy": "original_frozen_tree_restricted_without_renumbering",
+    "historical_pooling": false,
+    "holdout": false,
+    "require_positive_result": false,
+    "routing": "full",
+    "seed_policy": "first_feasible_streamed_proposal_fresh_double_replay_v1",
+    "terminal_energy": "search_only_ON"
+  },
+  "recovery": {
+    "cleanup_verified": true,
+    "numerical_search_rerun": false,
+    "provenance": {
+      "argv": [
+        "/workspace/scratch/c69664aea1c8/HiRoute/../hiroute-ci-venv/bin/python",
+        "-m",
+        "experiments.search_extensions_v1.run",
+        "--worker",
+        "verify",
+        "--manifest",
+        "/workspace/scratch/c69664aea1c8/extension_runs/od02_forward_v1_manifest.json",
+        "--manifest-sha256",
+        "b719f5eb9414f1963d5517812630f9aeda7e32f2d089227f2601c79d18822cbd",
+        "--case",
+        "OD02_energy_only_soc3_10",
+        "--common",
+        "/workspace/scratch/c69664aea1c8/extension_runs/od02_forward_v1_execution/prepare-OD02_energy_only_soc3_10/artifacts/prepared/common.json",
+        "--common-sha256",
+        "fda8cb3737820d953c5f004c51c85e16cc8289897dc2fc9615296af30d88b493",
+        "--search-directory",
+        "/workspace/scratch/c69664aea1c8/extension_runs/od02_forward_v1_execution/arm-02",
+        "--search-receipt-sha256",
+        "86c0579028b48ad4a75dc0a5789ce73ce3af8d05eacff9b758a34e6674c40a90",
+        "--strategy",
+        "coalescing_only"
+      ],
+      "files": {
+        "/workspace/scratch/c69664aea1c8/extension_runs/od02_forward_v1_execution/arm-02/artifacts/arm/incumbent.json": "249611567d56389d72a1cf16090d2b1920ed63da1644d3b7211af4d715e0fa46",
+        "/workspace/scratch/c69664aea1c8/extension_runs/od02_forward_v1_execution/arm-02/receipt.json": "86c0579028b48ad4a75dc0a5789ce73ce3af8d05eacff9b758a34e6674c40a90",
+        "/workspace/scratch/c69664aea1c8/extension_runs/od02_forward_v1_execution/prepare-OD02_energy_only_soc3_10/artifacts/prepared/common.json": "fda8cb3737820d953c5f004c51c85e16cc8289897dc2fc9615296af30d88b493",
+        "/workspace/scratch/c69664aea1c8/extension_runs/od02_forward_v1_execution/verify-02/receipt.json": "6beacfaa79133f6d344626c10e3c1492f66b8b077693613a452aa4fe0b11f7a2",
+        "/workspace/scratch/c69664aea1c8/extension_runs/od02_forward_v1_manifest.json": "b719f5eb9414f1963d5517812630f9aeda7e32f2d089227f2601c79d18822cbd",
+        "/workspace/scratch/c69664aea1c8/extension_runs/supervisor_fix/supervisor.py": "54eb7ee71018b9a75694f23fddd3b5f941b83bbf56962fde6575ae624e91bf48"
+      },
+      "numerical_search_rerun": false,
+      "original_gate_status": "FAILED_VERIFICATION",
+      "original_source_commit": "e00edaf6dcecbc9f71ae174862761ea13de6ea89",
+      "output": "/workspace/scratch/c69664aea1c8/extension_runs/od02_coalescing_verify_recovery_v1",
+      "schema": "hiroute.single_verify_recovery.v1",
+      "supervisor_sha256": "54eb7ee71018b9a75694f23fddd3b5f941b83bbf56962fde6575ae624e91bf48"
+    },
+    "reason": "success",
+    "receipt_path": "extension_runs/od02_coalescing_verify_recovery_v1/receipt.json",
+    "status": "SUCCESS",
+    "supervisor_process_cpu_seconds": 0.6166681430000001,
+    "supervisor_source_in_bundle": "extension_runs/supervisor_fix/supervisor.py",
+    "wall_seconds": 17.29474165799911
+  },
+  "remaining": [
+    "D5: separately freeze and authorize reverse-order gate after admission; no automatic launch.",
+    "D5: complete remaining preregistered ablations/contrasts and resource reconciliation before performance acceptance; no holdout or success claim from this gate.",
+    "D2: full live OPEN/frontier interruption and resume acceptance, certified lower-bound state and complete search/verifier accounting remain distinct from durable-incumbent recovery."
+  ],
+  "schema": "hiroute.search_extensions.od02_report.v1",
+  "source_closure_sha256": "9d4db4eee500402f39d67439225453792b6e435c00e14c6538dbf3f0b2357cdb",
+  "source_commit": "e00edaf6dcecbc9f71ae174862761ea13de6ea89",
+  "source_tree": null
+}

@@ -1,0 +1,101 @@
+{
+  "D6_evidence_mapping": [
+    {
+      "entries": [
+        "tests/test_time_cut_bounded_v2.py",
+        "tests/test_coalesced_solver.py",
+        "tests/m5d_recovery/test_exact_feasible_search.py"
+      ],
+      "limit": "Existing scoped tests; synthetic ablation uses frozen reference answers, not fresh REF optimization.",
+      "obligation": "Small-domain independent REF and attained/unattained J/Q semantics"
+    },
+    {
+      "entries": [
+        "tests/test_m5d_road_provider.py",
+        "tests/test_m5d_deployable_contract.py",
+        "tests/m5d_recovery/test_sparse_feasible_execution.py"
+      ],
+      "limit": "Tiny fixtures plus separately recorded real witness/landmark audits; not all large-domain optima.",
+      "obligation": "Selected-leg/event witness replay, bound admissibility and action partition"
+    },
+    {
+      "entries": [
+        "tests/test_time_cut_coalescing.py",
+        "tests/test_coalesced_solver.py",
+        "results/milestone_5d/representative_ablations_20261014/README.md"
+      ],
+      "limit": "Finite fixture scope; production table-free coalescing benefit not established.",
+      "obligation": "Reduction/coalescing restrictions and witness preservation"
+    },
+    {
+      "entries": [
+        "tests/m5d_recovery/test_exact_feasible_incumbent.py",
+        "tests/m5d_recovery/test_durable_incumbent.py",
+        "tests/m5d_recovery/test_layer_envelope.py",
+        "tests/test_m5d_terminal_summary.py"
+      ],
+      "limit": "Portable code CI plus verified real OD06/N128 depth1 recovery receipt; no optimum from zero-width primary interval.",
+      "obligation": "Independent initial solution, depth/equality and interrupted-state distinction"
+    }
+  ],
+  "mapping_basis": "Index of existing reviewed evidence at7dbd82; not another numerical audit or claim that every deployment requirement passed.",
+  "not_a_scope_waiver": true,
+  "requirements": [
+    {
+      "disposition": "implemented_and_recorded",
+      "evidence_entry": "docs/MILESTONE_5D_DESIGN_AND_PROTOCOL.md",
+      "explanation": "Separate source histories and predecessor code gate; no new million-case rerun.",
+      "id": "D0"
+    },
+    {
+      "disposition": "implemented_with_declared_domain",
+      "evidence_entry": "tests/test_m5d_deployable_contract.py",
+      "explanation": "Exact status and attained-face contracts have bounded tests; zero main/supplement exact completions provide no larger-domain optimum claim.",
+      "id": "D1"
+    },
+    {
+      "disposition": "implemented_with_real_depth1_evidence",
+      "evidence_entry": "results/milestone_5d/combined_checkpoint_20261014/summary.json",
+      "explanation": "Independent seed/depth and portable completed-layer recovery implemented; real OD06/N128 depth1 reconstruction and witness replay passed for both methods. No arbitrary mid-layer or unrestricted-depth acceptance.",
+      "id": "D2"
+    },
+    {
+      "disposition": "implemented_bounded_evidence",
+      "evidence_entry": "tests/test_m5d_road_provider.py",
+      "explanation": "On-demand selected legs and directed ALT summaries implemented. Real diagnostics entered exact search; no large-scale efficiency benefit established.",
+      "id": "D3"
+    },
+    {
+      "disposition": "evaluation_attempts_accounted_scale_limited",
+      "evidence_entry": "results/milestone_5d/fixed24_continuation_20261014/public_report.json",
+      "explanation": "Original192 and fixed24 accounted separately. Full-universe attempts were censored before exact search; infrastructure-unknown row retained. Conditional charge lower bounds are not completed feasible optimal routes.",
+      "id": "D4"
+    },
+    {
+      "disposition": "bounded_comparisons_and_unavailable_effects",
+      "evidence_entry": "results/milestone_5d/representative_ablations_20261014/README.md",
+      "explanation": "Synthetic reduction/coalescing/cold-warm contrasts available. Same-ALT member-scan runs never reached search. Extra tightening not implemented; production coalescing not demonstrated. Sequential comparison unavailable after all 4 timeouts; no SOTA runtime claim.",
+      "id": "D5"
+    },
+    {
+      "disposition": "scoped_tests_pass_accounting_incomplete",
+      "evidence_entry": "ci/README.md",
+      "explanation": "Existing tests cover semantic/witness/partition/bound/depth boundaries in finite fixtures. Original48h host/tail incomplete; cloudAS not RSS; no exact-pair speed/CI statistic is defined.",
+      "id": "D6"
+    },
+    {
+      "disposition": "limits_and_deviations_recorded",
+      "evidence_entry": "results/milestone_5d/fixed24_continuation_20261014/public_receipt_audit.json",
+      "explanation": "Original policy and later authorized work remain distinct; all23 known supplement cleanups verified, interrupted oldnamespace unknown. No performance objective was retroactively relaxed.",
+      "id": "D7"
+    },
+    {
+      "disposition": "scoped_review_approved_for_publication",
+      "evidence_entry": "docs/MILESTONE_5D_REPORT.md",
+      "explanation": "Stable reports, paper comparison/outline, source indexes, normalized outcomes and real recovery evidence prepared and reviewed. Final publication and external delivery-head CI receipt remain; no automatic merge or holdout.",
+      "id": "D8"
+    }
+  ],
+  "schema": "hiroute.m5d.disposition.v1",
+  "status": "bounded_evaluation_closed_residual_requirements_explicit"
+}

@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 TESTS = (
     "tests/test_time_cut_v2.py",
     "tests/test_time_cut_pwa_v2.py",
+    "tests/test_frontier_skyline.py",
     "tests/test_time_cut_bounded_v2.py",
     "tests/test_time_cut_hierarchy_v2.py",
     "tests/test_time_cut_optimized_replay.py",
@@ -26,6 +27,12 @@ TESTS = (
     "tests/test_real_solver_adapter.py",
     "tests/test_real_export_input.py",
     "tests/test_m5d_charge_gate.py",
+    "tests/test_m5d_deployable_contract.py",
+    "tests/test_m5d_road_provider.py",
+    "tests/test_road_provider_telemetry.py",
+    "tests/test_m5d_main_batch.py",
+    "tests/test_m5d_parallel_continuation.py",
+    "tests/test_m5d_supplement.py",
     "tests/test_reference5_real_adapter.py",
     "tests/test_family_checker_v1.py",
     "tests/test_family_optimized_validation_v2.py",
@@ -117,7 +124,13 @@ def main() -> None:
                 copy_file(source.relative_to(ROOT), tooling)
         for relative in (*TESTS, *FIXTURES, "tests/conftest.py"):
             copy_file(relative, tooling)
-        copy_file("scripts/m5d_charge_gate.py", tooling)
+        for script in ("m5d_charge_gate.py", "m5d_build_main_queries.py",
+                       "m5d_freeze_main_phase.py", "m5d_main_batch.py",
+                       "m5d_main_row.py", "m5d_one_query_runner.py",
+                       "m5d_parallel_continuation.py",
+                       "m5d_supplement_alt.py", "m5d_supplement_freeze.py",
+                       "m5d_supplement_row.py", "m5d_supplement_batch.py"):
+            copy_file("scripts/" + script, tooling)
         (tooling / "pytest.ini").write_text("[pytest]\naddopts = -ra\n")
         env["PYTHONPATH"] = str(tooling)
         origin_check = """

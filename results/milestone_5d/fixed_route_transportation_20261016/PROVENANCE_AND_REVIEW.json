@@ -1,0 +1,33 @@
+{
+  "evidence_pins_rehashed": 114,
+  "final_review": {
+    "accounting_decimal": "165.142137359000003",
+    "actual_audit_sha256": "ed2542fb082d467c1106e5b178a78ee193589aa98770683e40c75daa2acaed83",
+    "artifact_pins_verified": 114,
+    "final_inventory_sha256": "215f741b7b598bbda99c985694692478dd34612c9de752b25d34ece5cf05bca9",
+    "publication_requires_separate_sanitized_exact_byte_review": true,
+    "qualifications": [
+      "No optimized sequential-planner or population-effect comparison",
+      "Direct reference is selected fastest-road, not shortest-distance or independently asserted EV-feasible",
+      "Final audit rechecked owned evidence and independent event equations; original road-edge reconstruction was performed in each fresh worker",
+      "Prior rejected prototypes and unavailable earliest auto-cleaned fixture receipt explicitly disclosed"
+    ],
+    "report_sha256": "b18c94351798d780345e645f649ea8208f0226a75c298fb40cbdd8f814f2a19e",
+    "result": "Exact serialization increment equals241885385058931547/137438953472000 seconds of overlap",
+    "scope": "One known-DEV fixed route, identical charges and selected legs, concurrent CS versus local charge-before-activity; both feasible",
+    "status": "approved_scoped_fixed_route_results",
+    "summary_sha256": "f08200abddf57ce5e49052a62cfbbf440a445350ae3b7c9ad177d67863364185"
+  },
+  "final_review_sha256": "3fb6101efd885c4f6aa12d6cef782f59e7ba73b9104d8f4c23c0b8081c161264",
+  "original_actual_audit_sha256": "ed2542fb082d467c1106e5b178a78ee193589aa98770683e40c75daa2acaed83",
+  "original_inventory_sha256": "215f741b7b598bbda99c985694692478dd34612c9de752b25d34ece5cf05bca9",
+  "original_pending_result_sha256": "6566cba2c68c8405336c7e362178a207a20edb48460af627aa858d6a17b24879",
+  "original_report_sha256": "b18c94351798d780345e645f649ea8208f0226a75c298fb40cbdd8f814f2a19e",
+  "original_summary_sha256": "f08200abddf57ce5e49052a62cfbbf440a445350ae3b7c9ad177d67863364185",
+  "projection": "Process IDs, machine paths and path-keyed evidence maps removed; other values preserved. Original identities refer to retained originals, not projected bytes.",
+  "source_installation": false,
+  "standalone_reproduction_bundle": false,
+  "unavailable_artifacts": [
+    "earliest missing-package-path tiny fixture auto-cleaned temporary raw receipt"
+  ]
+}

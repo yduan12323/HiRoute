@@ -1,0 +1,1433 @@
+{
+  "destination_anchor": 1816667,
+  "elapsed_ns": 348825222,
+  "eligible_charging_site_count": 303,
+  "first_32_schedule_support_count": 28,
+  "geographic_sha256": "eab8a107f31a6a966cf2a1f215f832494511ffa694da4532186ac025b232784f",
+  "od_id": "OD00",
+  "origin_anchor": 400875,
+  "pool_prefix_sizes": [
+    8,
+    16,
+    32,
+    128
+  ],
+  "qualification": "candidate_pools_only_seed_and_schedule_pending",
+  "qualified_multi_charge_query_count": 0,
+  "radius_m": 25000,
+  "role": "geographic_input_selection_no_route_or_optimizer_result",
+  "schema": "hiroute.m5d.fixed_od00_nested_pool.v1",
+  "selection_rule": "van_der_Corput_progress_1_to_128_then_min_progress_error_plus_normalized_perpendicular_distance_with_site_id_tie",
+  "site_catalog_sha256": "e3e7d6d6667f7ab684ff83eb2646920516b01aef2e6ceb8170c689e71f6afd38",
+  "sites": [
+    {
+      "access_node": 2403276,
+      "anchor_id": "road:2403276",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 724.096199474702,
+      "progress": 0.5062341784780613,
+      "schedule_support": true,
+      "site_id": "4r:node/4439711122"
+    },
+    {
+      "access_node": 1904239,
+      "anchor_id": "road:1904239",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 3258.54570198925,
+      "progress": 0.23301601725035329,
+      "schedule_support": false,
+      "site_id": "4r:way/1073624912"
+    },
+    {
+      "access_node": 5665859,
+      "anchor_id": "road:5665859",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 3129.179789633358,
+      "progress": 0.7508054143743367,
+      "schedule_support": true,
+      "site_id": "4r:node/11171443625"
+    },
+    {
+      "access_node": 4516889,
+      "anchor_id": "road:4516889",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1455.479315944076,
+      "progress": 0.10070087199436063,
+      "schedule_support": true,
+      "site_id": "4r:node/11787531967"
+    },
+    {
+      "access_node": 1286423,
+      "anchor_id": "road:1286423",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 2582.0303937758945,
+      "progress": 0.5988960099311447,
+      "schedule_support": true,
+      "site_id": "4r:node/10959139046"
+    },
+    {
+      "access_node": 4628130,
+      "anchor_id": "road:4628130",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 6952.918553729626,
+      "progress": 0.37470556177497344,
+      "schedule_support": true,
+      "site_id": "4r:node/4958825022"
+    },
+    {
+      "access_node": 2574618,
+      "anchor_id": "road:2574618",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 3096.815672685496,
+      "progress": 0.8503340590447713,
+      "schedule_support": false,
+      "site_id": "4r:node/13807050470"
+    },
+    {
+      "access_node": 1861744,
+      "anchor_id": "road:1861744",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4681.839800060209,
+      "progress": 0.07098172688900242,
+      "schedule_support": true,
+      "site_id": "4r:node/12093772301"
+    },
+    {
+      "access_node": 2553173,
+      "anchor_id": "road:2553173",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 2193.9210473527705,
+      "progress": 0.5695096695370685,
+      "schedule_support": true,
+      "site_id": "4r:node/13175255933"
+    },
+    {
+      "access_node": 5553973,
+      "anchor_id": "road:5553973",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 11972.759997414181,
+      "progress": 0.29214709375498327,
+      "schedule_support": true,
+      "site_id": "4r:way/1461906485"
+    },
+    {
+      "access_node": 5849128,
+      "anchor_id": "road:5849128",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 6632.256232523361,
+      "progress": 0.8098170014947171,
+      "schedule_support": true,
+      "site_id": "4r:node/8004481844"
+    },
+    {
+      "access_node": 66145,
+      "anchor_id": "road:66145",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4722.467952659136,
+      "progress": 0.19921144830052115,
+      "schedule_support": true,
+      "site_id": "4r:node/14114326401"
+    },
+    {
+      "access_node": 5663513,
+      "anchor_id": "road:5663513",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 253.242771768107,
+      "progress": 0.713365682810654,
+      "schedule_support": true,
+      "site_id": "4r:node/13278180651"
+    },
+    {
+      "access_node": 5181253,
+      "anchor_id": "road:5181253",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1147.5476333918227,
+      "progress": 0.4413545233398753,
+      "schedule_support": true,
+      "site_id": "4r:node/9434239894"
+    },
+    {
+      "access_node": 5090239,
+      "anchor_id": "road:5090239",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1968.8330002318703,
+      "progress": 0.9518955267564537,
+      "schedule_support": true,
+      "site_id": "4r:node/8099989563"
+    },
+    {
+      "access_node": 1526967,
+      "anchor_id": "road:1526967",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 3531.8294399917518,
+      "progress": 0.02108184179683167,
+      "schedule_support": true,
+      "site_id": "4r:node/13408986794"
+    },
+    {
+      "access_node": 820260,
+      "anchor_id": "road:820260",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1765.0370058244007,
+      "progress": 0.5078325025661746,
+      "schedule_support": true,
+      "site_id": "4r:node/6661847339"
+    },
+    {
+      "access_node": 2419670,
+      "anchor_id": "road:2419670",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4284.69876044561,
+      "progress": 0.2701319834971986,
+      "schedule_support": true,
+      "site_id": "4r:node/9896114336"
+    },
+    {
+      "access_node": 1259968,
+      "anchor_id": "road:1259968",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 5560.396295006328,
+      "progress": 0.776093524904718,
+      "schedule_support": false,
+      "site_id": "4r:node/13174979103"
+    },
+    {
+      "access_node": 1978654,
+      "anchor_id": "road:1978654",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 8696.882551192684,
+      "progress": 0.14578310809541364,
+      "schedule_support": true,
+      "site_id": "4r:node/13278277121"
+    },
+    {
+      "access_node": 913260,
+      "anchor_id": "road:913260",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4091.843646795511,
+      "progress": 0.6675136076345998,
+      "schedule_support": true,
+      "site_id": "4r:node/14025180911"
+    },
+    {
+      "access_node": 4567580,
+      "anchor_id": "road:4567580",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 6648.057521015376,
+      "progress": 0.4104643144177729,
+      "schedule_support": false,
+      "site_id": "4r:node/14123797601"
+    },
+    {
+      "access_node": 1437840,
+      "anchor_id": "road:1437840",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 15237.335054133202,
+      "progress": 0.8990291296740645,
+      "schedule_support": true,
+      "site_id": "4r:node/8099989550"
+    },
+    {
+      "access_node": 5089509,
+      "anchor_id": "road:5089509",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1380.7337171270399,
+      "progress": 0.09342653683050171,
+      "schedule_support": true,
+      "site_id": "4r:node/3473012597"
+    },
+    {
+      "access_node": 5426496,
+      "anchor_id": "road:5426496",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1683.4785454343503,
+      "progress": 0.5955881826398999,
+      "schedule_support": true,
+      "site_id": "4r:node/6046004586"
+    },
+    {
+      "access_node": 2763238,
+      "anchor_id": "road:2763238",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 7145.2897379919605,
+      "progress": 0.37344644191994153,
+      "schedule_support": true,
+      "site_id": "4r:node/14123774901"
+    },
+    {
+      "access_node": 1496085,
+      "anchor_id": "road:1496085",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 12676.742736527198,
+      "progress": 0.8438189720084583,
+      "schedule_support": true,
+      "site_id": "4r:way/1462667010"
+    },
+    {
+      "access_node": 1240766,
+      "anchor_id": "road:1240766",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 3650.080340661612,
+      "progress": 0.20755905984170428,
+      "schedule_support": true,
+      "site_id": "4r:node/10295272241"
+    },
+    {
+      "access_node": 3273157,
+      "anchor_id": "road:3273157",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1629.4359496179031,
+      "progress": 0.7163726938978868,
+      "schedule_support": true,
+      "site_id": "4r:node/6045994507"
+    },
+    {
+      "access_node": 4948378,
+      "anchor_id": "road:4948378",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 3036.613372088046,
+      "progress": 0.46850271983897657,
+      "schedule_support": true,
+      "site_id": "4r:node/6038626919"
+    },
+    {
+      "access_node": 1968457,
+      "anchor_id": "road:1968457",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 2003.4555499609764,
+      "progress": 0.9676113458035741,
+      "schedule_support": true,
+      "site_id": "4r:node/13415857653"
+    },
+    {
+      "access_node": 2122640,
+      "anchor_id": "road:2122640",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 3953.053856075371,
+      "progress": 0.00875278192446015,
+      "schedule_support": true,
+      "site_id": "4r:node/14024341798"
+    },
+    {
+      "access_node": 213605,
+      "anchor_id": "road:213605",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 3088.9169559730767,
+      "progress": 0.5113541252173228,
+      "schedule_support": false,
+      "site_id": "4r:node/6661847342"
+    },
+    {
+      "access_node": 3271169,
+      "anchor_id": "road:3271169",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 7868.818415835648,
+      "progress": 0.23860161546319691,
+      "schedule_support": true,
+      "site_id": "4r:node/13231616867"
+    },
+    {
+      "access_node": 1777937,
+      "anchor_id": "road:1777937",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 3864.173876247043,
+      "progress": 0.7484776447010766,
+      "schedule_support": true,
+      "site_id": "4r:node/13045951813"
+    },
+    {
+      "access_node": 4917886,
+      "anchor_id": "road:4917886",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1539.0155899822284,
+      "progress": 0.09987520200495417,
+      "schedule_support": true,
+      "site_id": "4r:node/11787518796"
+    },
+    {
+      "access_node": 3004819,
+      "anchor_id": "road:3004819",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 7269.281801609306,
+      "progress": 0.6447110656301842,
+      "schedule_support": true,
+      "site_id": "4r:node/6045999457"
+    },
+    {
+      "access_node": 4177070,
+      "anchor_id": "road:4177070",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 7074.856878185598,
+      "progress": 0.37371685220895046,
+      "schedule_support": true,
+      "site_id": "4r:node/14123735002"
+    },
+    {
+      "access_node": 1239451,
+      "anchor_id": "road:1239451",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1804.530782129613,
+      "progress": 0.9562867461087133,
+      "schedule_support": true,
+      "site_id": "4r:node/8099989565"
+    },
+    {
+      "access_node": 3571311,
+      "anchor_id": "road:3571311",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1055.1355911003564,
+      "progress": 0.09822962410179756,
+      "schedule_support": true,
+      "site_id": "4r:node/6046026339"
+    },
+    {
+      "access_node": 5559364,
+      "anchor_id": "road:5559364",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 2673.7091990964177,
+      "progress": 0.5857836697802474,
+      "schedule_support": true,
+      "site_id": "4r:node/13105322822"
+    },
+    {
+      "access_node": 4631839,
+      "anchor_id": "road:4631839",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 7925.751424531038,
+      "progress": 0.3729825122345275,
+      "schedule_support": true,
+      "site_id": "4r:node/14123681701"
+    },
+    {
+      "access_node": 4585296,
+      "anchor_id": "road:4585296",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 6038.667882513587,
+      "progress": 0.7976053498169837,
+      "schedule_support": false,
+      "site_id": "4r:node/10179089832"
+    },
+    {
+      "access_node": 4621938,
+      "anchor_id": "road:4621938",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4179.585744426921,
+      "progress": 0.20791479215488365,
+      "schedule_support": true,
+      "site_id": "4r:node/10768893277"
+    },
+    {
+      "access_node": 2432922,
+      "anchor_id": "road:2432922",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1192.0258500794623,
+      "progress": 0.7125916541668682,
+      "schedule_support": true,
+      "site_id": "4r:node/13408948187"
+    },
+    {
+      "access_node": 4091861,
+      "anchor_id": "road:4091861",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 14067.345160354233,
+      "progress": 0.4456533742966144,
+      "schedule_support": false,
+      "site_id": "4r:way/1211775529"
+    },
+    {
+      "access_node": 5274749,
+      "anchor_id": "road:5274749",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 2775.7774499276675,
+      "progress": 0.9568597530747306,
+      "schedule_support": true,
+      "site_id": "4r:node/8099989564"
+    },
+    {
+      "access_node": 5119102,
+      "anchor_id": "road:5119102",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 5247.101025921128,
+      "progress": 0.023438805397139464,
+      "schedule_support": false,
+      "site_id": "4r:node/13704810379"
+    },
+    {
+      "access_node": 2028253,
+      "anchor_id": "road:2028253",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 12142.16925179168,
+      "progress": 0.541292331420527,
+      "schedule_support": true,
+      "site_id": "4r:node/8843042196"
+    },
+    {
+      "access_node": 3767290,
+      "anchor_id": "road:3767290",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 12352.671818699162,
+      "progress": 0.2799256916199406,
+      "schedule_support": true,
+      "site_id": "4r:node/11118473103"
+    },
+    {
+      "access_node": 2336493,
+      "anchor_id": "road:2336493",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 6179.498864289984,
+      "progress": 0.7972018131892619,
+      "schedule_support": false,
+      "site_id": "4r:node/8941526669"
+    },
+    {
+      "access_node": 4889605,
+      "anchor_id": "road:4889605",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 13954.163126000352,
+      "progress": 0.17158159944256737,
+      "schedule_support": true,
+      "site_id": "4r:node/9084641819"
+    },
+    {
+      "access_node": 2775378,
+      "anchor_id": "road:2775378",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1450.033231184634,
+      "progress": 0.7132594510582717,
+      "schedule_support": true,
+      "site_id": "4r:node/13278375100"
+    },
+    {
+      "access_node": 4570810,
+      "anchor_id": "road:4570810",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 8085.151698938219,
+      "progress": 0.41417826851127854,
+      "schedule_support": false,
+      "site_id": "4r:node/14123814601"
+    },
+    {
+      "access_node": 2227566,
+      "anchor_id": "road:2227566",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1416.8136284945656,
+      "progress": 0.9622927741916717,
+      "schedule_support": true,
+      "site_id": "4r:node/3361261630"
+    },
+    {
+      "access_node": 3592907,
+      "anchor_id": "road:3592907",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1664.5280529972338,
+      "progress": 0.09862530047343096,
+      "schedule_support": true,
+      "site_id": "4r:node/7850850820"
+    },
+    {
+      "access_node": 2939781,
+      "anchor_id": "road:2939781",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 9149.356052801839,
+      "progress": 0.615988807206373,
+      "schedule_support": true,
+      "site_id": "4r:node/11630088800"
+    },
+    {
+      "access_node": 4623394,
+      "anchor_id": "road:4623394",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 7714.7488830178545,
+      "progress": 0.37362710372728525,
+      "schedule_support": true,
+      "site_id": "4r:node/14123708201"
+    },
+    {
+      "access_node": 2888341,
+      "anchor_id": "road:2888341",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 15193.528077092968,
+      "progress": 0.8556043629053431,
+      "schedule_support": false,
+      "site_id": "4r:way/1463446685"
+    },
+    {
+      "access_node": 3276177,
+      "anchor_id": "road:3276177",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 8009.362265455153,
+      "progress": 0.23786012151632546,
+      "schedule_support": true,
+      "site_id": "4r:node/13278310488"
+    },
+    {
+      "access_node": 923118,
+      "anchor_id": "road:923118",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4021.479389695312,
+      "progress": 0.7437686180776194,
+      "schedule_support": true,
+      "site_id": "4r:node/8941592078"
+    },
+    {
+      "access_node": 4622724,
+      "anchor_id": "road:4622724",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1907.2297476439564,
+      "progress": 0.5075297592405326,
+      "schedule_support": true,
+      "site_id": "4r:node/5554576554"
+    },
+    {
+      "access_node": 2251189,
+      "anchor_id": "road:2251189",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1977.7079447605995,
+      "progress": 0.9669345078673741,
+      "schedule_support": true,
+      "site_id": "4r:node/9004555055"
+    },
+    {
+      "access_node": 1586896,
+      "anchor_id": "road:1586896",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4207.096235065362,
+      "progress": 0.007903582410683016,
+      "schedule_support": true,
+      "site_id": "4r:node/13093906901"
+    },
+    {
+      "access_node": 4671173,
+      "anchor_id": "road:4671173",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 2027.7175758316869,
+      "progress": 0.5077840853430144,
+      "schedule_support": true,
+      "site_id": "4r:node/6661847341"
+    },
+    {
+      "access_node": 5457742,
+      "anchor_id": "road:5457742",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 7967.0487766034985,
+      "progress": 0.23828258409356162,
+      "schedule_support": true,
+      "site_id": "4r:node/13278327376"
+    },
+    {
+      "access_node": 595187,
+      "anchor_id": "road:595187",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 3721.907899954712,
+      "progress": 0.7475952925623323,
+      "schedule_support": true,
+      "site_id": "4r:node/9121707766"
+    },
+    {
+      "access_node": 5507029,
+      "anchor_id": "road:5507029",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4390.91007416279,
+      "progress": 0.09922645999749936,
+      "schedule_support": true,
+      "site_id": "4r:node/12327546844"
+    },
+    {
+      "access_node": 5670758,
+      "anchor_id": "road:5670758",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 9514.711683309684,
+      "progress": 0.6034451580771518,
+      "schedule_support": true,
+      "site_id": "4r:node/12243899090"
+    },
+    {
+      "access_node": 2795434,
+      "anchor_id": "road:2795434",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 7104.291096016904,
+      "progress": 0.40978019324886583,
+      "schedule_support": true,
+      "site_id": "4r:node/13924173037"
+    },
+    {
+      "access_node": 306913,
+      "anchor_id": "road:306913",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 16631.64949040588,
+      "progress": 0.861239735266197,
+      "schedule_support": true,
+      "site_id": "4r:node/8099989548"
+    },
+    {
+      "access_node": 5735830,
+      "anchor_id": "road:5735830",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 2813.167020019988,
+      "progress": 0.09445229024032427,
+      "schedule_support": true,
+      "site_id": "4r:node/13893270383"
+    },
+    {
+      "access_node": 2374454,
+      "anchor_id": "road:2374454",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 5488.2961431530275,
+      "progress": 0.5815755401800458,
+      "schedule_support": true,
+      "site_id": "4r:node/13113239755"
+    },
+    {
+      "access_node": 3965016,
+      "anchor_id": "road:3965016",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 19492.82600971195,
+      "progress": 0.314505137129834,
+      "schedule_support": true,
+      "site_id": "4r:node/11176929694"
+    },
+    {
+      "access_node": 1496085,
+      "anchor_id": "road:1496085",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 12679.047997999369,
+      "progress": 0.8438656977624015,
+      "schedule_support": true,
+      "site_id": "4r:way/1462667011"
+    },
+    {
+      "access_node": 1971215,
+      "anchor_id": "road:1971215",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 6333.966293630601,
+      "progress": 0.19689932558275963,
+      "schedule_support": true,
+      "site_id": "4r:node/12943358179"
+    },
+    {
+      "access_node": 3718785,
+      "anchor_id": "road:3718785",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1482.6241904664628,
+      "progress": 0.7143917883015024,
+      "schedule_support": true,
+      "site_id": "4r:node/6045995662"
+    },
+    {
+      "access_node": 4568682,
+      "anchor_id": "road:4568682",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 7169.640880657738,
+      "progress": 0.40982401230387144,
+      "schedule_support": true,
+      "site_id": "4r:node/14123810101"
+    },
+    {
+      "access_node": 1219364,
+      "anchor_id": "road:1219364",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1563.7288970610264,
+      "progress": 0.9629546159327351,
+      "schedule_support": true,
+      "site_id": "4r:node/8099989566"
+    },
+    {
+      "access_node": 2866598,
+      "anchor_id": "road:2866598",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 3967.9759370737515,
+      "progress": 0.004211202397592653,
+      "schedule_support": true,
+      "site_id": "4r:node/3547498044"
+    },
+    {
+      "access_node": 3069953,
+      "anchor_id": "road:3069953",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 10530.26135497558,
+      "progress": 0.5363278997734873,
+      "schedule_support": true,
+      "site_id": "4r:node/11492542007"
+    },
+    {
+      "access_node": 5652194,
+      "anchor_id": "road:5652194",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4791.324228700613,
+      "progress": 0.20881723304210031,
+      "schedule_support": true,
+      "site_id": "4r:node/12703380227"
+    },
+    {
+      "access_node": 894568,
+      "anchor_id": "road:894568",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 9659.984028878507,
+      "progress": 0.7702660505311726,
+      "schedule_support": true,
+      "site_id": "4r:node/13165793258"
+    },
+    {
+      "access_node": 975964,
+      "anchor_id": "road:975964",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 12017.96094560596,
+      "progress": 0.16048455033554432,
+      "schedule_support": true,
+      "site_id": "4r:node/3044643654"
+    },
+    {
+      "access_node": 5034571,
+      "anchor_id": "road:5034571",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 11304.123646368434,
+      "progress": 0.6864675793671696,
+      "schedule_support": true,
+      "site_id": "4r:node/6045998568"
+    },
+    {
+      "access_node": 4567436,
+      "anchor_id": "road:4567436",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 7304.788670522499,
+      "progress": 0.40936905042844346,
+      "schedule_support": true,
+      "site_id": "4r:node/8196265373"
+    },
+    {
+      "access_node": 5849630,
+      "anchor_id": "road:5849630",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1341.1295297225995,
+      "progress": 0.9644488880668454,
+      "schedule_support": true,
+      "site_id": "4r:node/11230804230"
+    },
+    {
+      "access_node": 1038204,
+      "anchor_id": "road:1038204",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 18562.623260237637,
+      "progress": 0.10024858868462738,
+      "schedule_support": true,
+      "site_id": "4r:node/9149273190"
+    },
+    {
+      "access_node": 1700521,
+      "anchor_id": "road:1700521",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4684.099542815012,
+      "progress": 0.5896169447307417,
+      "schedule_support": false,
+      "site_id": "4r:node/6046004837"
+    },
+    {
+      "access_node": 2798958,
+      "anchor_id": "road:2798958",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 20598.642476051056,
+      "progress": 0.3630084781079177,
+      "schedule_support": true,
+      "site_id": "4r:node/9869594665"
+    },
+    {
+      "access_node": 1496085,
+      "anchor_id": "road:1496085",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 12673.297954925547,
+      "progress": 0.8438997412721677,
+      "schedule_support": true,
+      "site_id": "4r:way/1462667009"
+    },
+    {
+      "access_node": 5652191,
+      "anchor_id": "road:5652191",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4793.177412632959,
+      "progress": 0.2088078926110748,
+      "schedule_support": true,
+      "site_id": "4r:node/10768893276"
+    },
+    {
+      "access_node": 2493205,
+      "anchor_id": "road:2493205",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4348.391168344224,
+      "progress": 0.7142876907480279,
+      "schedule_support": true,
+      "site_id": "4r:node/13057608171"
+    },
+    {
+      "access_node": 5320667,
+      "anchor_id": "road:5320667",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 1969.622450514878,
+      "progress": 0.5080098732877142,
+      "schedule_support": true,
+      "site_id": "4r:node/10154575988"
+    },
+    {
+      "access_node": 4157099,
+      "anchor_id": "road:4157099",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 3130.4898466704694,
+      "progress": 0.969589820487055,
+      "schedule_support": true,
+      "site_id": "4r:node/13423919573"
+    },
+    {
+      "access_node": 5126417,
+      "anchor_id": "road:5126417",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 5437.277176998314,
+      "progress": 0.006494887430093018,
+      "schedule_support": true,
+      "site_id": "4r:node/12987397191"
+    },
+    {
+      "access_node": 5002892,
+      "anchor_id": "road:5002892",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 11793.513584098928,
+      "progress": 0.5174291424577416,
+      "schedule_support": false,
+      "site_id": "4r:node/7674163330"
+    },
+    {
+      "access_node": 4620910,
+      "anchor_id": "road:4620910",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4875.806941815272,
+      "progress": 0.20876384373329349,
+      "schedule_support": true,
+      "site_id": "4r:node/10768893275"
+    },
+    {
+      "access_node": 1727225,
+      "anchor_id": "road:1727225",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4111.388838163645,
+      "progress": 0.7470846608746043,
+      "schedule_support": true,
+      "site_id": "4r:node/6045977582"
+    },
+    {
+      "access_node": 5614584,
+      "anchor_id": "road:5614584",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 13232.202207420189,
+      "progress": 0.14953219549490038,
+      "schedule_support": true,
+      "site_id": "4r:node/9714291009"
+    },
+    {
+      "access_node": 2142874,
+      "anchor_id": "road:2142874",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 11825.02009192923,
+      "progress": 0.6062943642862314,
+      "schedule_support": true,
+      "site_id": "4r:node/6046110290"
+    },
+    {
+      "access_node": 1055372,
+      "anchor_id": "road:1055372",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 13022.437472208097,
+      "progress": 0.415312412421967,
+      "schedule_support": true,
+      "site_id": "4r:node/11013731401"
+    },
+    {
+      "access_node": 2224613,
+      "anchor_id": "road:2224613",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 2193.6582714982133,
+      "progress": 0.9631657822570414,
+      "schedule_support": true,
+      "site_id": "4r:node/8099989567"
+    },
+    {
+      "access_node": 2626026,
+      "anchor_id": "road:2626026",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 16712.356244414626,
+      "progress": 0.06830893523507718,
+      "schedule_support": true,
+      "site_id": "4r:node/13408991354"
+    },
+    {
+      "access_node": 2286143,
+      "anchor_id": "road:2286143",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 6537.031520118885,
+      "progress": 0.5859239844841027,
+      "schedule_support": true,
+      "site_id": "4r:node/11130055957"
+    },
+    {
+      "access_node": 2081226,
+      "anchor_id": "road:2081226",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 15462.557116230972,
+      "progress": 0.4090494950234986,
+      "schedule_support": false,
+      "site_id": "4r:node/10582569225"
+    },
+    {
+      "access_node": 5110112,
+      "anchor_id": "road:5110112",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 16540.515534602688,
+      "progress": 0.8566636142884002,
+      "schedule_support": true,
+      "site_id": "4r:node/9072173432"
+    },
+    {
+      "access_node": 4620910,
+      "anchor_id": "road:4620910",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4879.200448650672,
+      "progress": 0.2087679722567525,
+      "schedule_support": true,
+      "site_id": "4r:node/12703380229"
+    },
+    {
+      "access_node": 2285998,
+      "anchor_id": "road:2285998",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4341.70858990199,
+      "progress": 0.712461508288206,
+      "schedule_support": true,
+      "site_id": "4r:node/6045993557"
+    },
+    {
+      "access_node": 852783,
+      "anchor_id": "road:852783",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 13028.048101278933,
+      "progress": 0.47025945315361595,
+      "schedule_support": false,
+      "site_id": "4r:node/12260574795"
+    },
+    {
+      "access_node": 1970986,
+      "anchor_id": "road:1970986",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 2700.8022049246606,
+      "progress": 0.9670943468544431,
+      "schedule_support": true,
+      "site_id": "4r:node/8997643263"
+    },
+    {
+      "access_node": 1603431,
+      "anchor_id": "road:1603431",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 18279.656288122205,
+      "progress": 0.05177309482146195,
+      "schedule_support": false,
+      "site_id": "4r:node/13408984842"
+    },
+    {
+      "access_node": 3606342,
+      "anchor_id": "road:3606342",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 11860.47989100615,
+      "progress": 0.535600482113177,
+      "schedule_support": true,
+      "site_id": "4r:node/7060184802"
+    },
+    {
+      "access_node": 4620910,
+      "anchor_id": "road:4620910",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4882.043069910908,
+      "progress": 0.20877310794951176,
+      "schedule_support": true,
+      "site_id": "4r:node/12703380230"
+    },
+    {
+      "access_node": 2798342,
+      "anchor_id": "road:2798342",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 19289.265213812694,
+      "progress": 0.8107599516331074,
+      "schedule_support": true,
+      "site_id": "4r:node/8099989536"
+    },
+    {
+      "access_node": 1015361,
+      "anchor_id": "road:1015361",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 11834.484471370466,
+      "progress": 0.18124947015086296,
+      "schedule_support": true,
+      "site_id": "4r:node/9720837022"
+    },
+    {
+      "access_node": 2493205,
+      "anchor_id": "road:2493205",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4362.334132936235,
+      "progress": 0.714274840893991,
+      "schedule_support": true,
+      "site_id": "4r:node/13704018401"
+    },
+    {
+      "access_node": 4287936,
+      "anchor_id": "road:4287936",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 14626.890773617863,
+      "progress": 0.43070259805708594,
+      "schedule_support": true,
+      "site_id": "4r:node/4439692665"
+    },
+    {
+      "access_node": 3790928,
+      "anchor_id": "road:3790928",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 3421.1555456431456,
+      "progress": 0.9655866577520823,
+      "schedule_support": true,
+      "site_id": "4r:node/8099989568"
+    },
+    {
+      "access_node": 4426362,
+      "anchor_id": "road:4426362",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 22570.70648161062,
+      "progress": 0.11664369859649966,
+      "schedule_support": true,
+      "site_id": "4r:node/5922956091"
+    },
+    {
+      "access_node": 2788597,
+      "anchor_id": "road:2788597",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 19013.395486875055,
+      "progress": 0.6176295676194316,
+      "schedule_support": true,
+      "site_id": "4r:node/8843018931"
+    },
+    {
+      "access_node": 5306914,
+      "anchor_id": "road:5306914",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 13971.191698120434,
+      "progress": 0.41453421896065945,
+      "schedule_support": true,
+      "site_id": "4r:node/10585122474"
+    },
+    {
+      "access_node": 2636778,
+      "anchor_id": "road:2636778",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 16298.968142801865,
+      "progress": 0.8602382085603497,
+      "schedule_support": true,
+      "site_id": "4r:node/7972580437"
+    },
+    {
+      "access_node": 4620910,
+      "anchor_id": "road:4620910",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4884.307201923383,
+      "progress": 0.20877629509562193,
+      "schedule_support": true,
+      "site_id": "4r:node/12703380231"
+    },
+    {
+      "access_node": 3382038,
+      "anchor_id": "road:3382038",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 4887.061345836114,
+      "progress": 0.7462479787228438,
+      "schedule_support": true,
+      "site_id": "4r:node/6045977454"
+    },
+    {
+      "access_node": 1129832,
+      "anchor_id": "road:1129832",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 9824.373524801367,
+      "progress": 0.49338170725005237,
+      "schedule_support": true,
+      "site_id": "4r:node/7079959463"
+    },
+    {
+      "access_node": 5848517,
+      "anchor_id": "road:5848517",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 2702.40072282419,
+      "progress": 0.9676692089332525,
+      "schedule_support": true,
+      "site_id": "4r:node/7972588420"
+    },
+    {
+      "access_node": 2323413,
+      "anchor_id": "road:2323413",
+      "effects": [
+        "C"
+      ],
+      "perpendicular_m": 5636.147203824966,
+      "progress": 0.005145987572893216,
+      "schedule_support": true,
+      "site_id": "4r:node/13093879400"
+    }
+  ],
+  "slate_sha256": "68917b71ff74cc13a4f35d2b7c7fb7ca577e572295c2d091bb0a0957a3789b95"
+}

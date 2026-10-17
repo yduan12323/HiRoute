@@ -1,9 +1,10 @@
 """Typed structural microplans; evaluation weights never enter construction."""
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
 import numpy as np
-from opportunity.models import OpportunityId
+if TYPE_CHECKING:
+    from opportunity.models import OpportunityId
 
 AccessRisk = Literal['low_access_risk', 'uncertain_access']
 

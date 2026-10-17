@@ -1,0 +1,380 @@
+{
+  "completed_requests": 763,
+  "duration_scope": "Inclusive selected-leg call body; excludes ordered evidence emission/hash, includes existing diagnostics; do not sum nested spans.",
+  "finite_completed_prefix_observations_valid": true,
+  "first_selected_mismatch": null,
+  "first_semantic_divergence": null,
+  "formal_acceptance": false,
+  "nested_scope": "router_wrapper spans include guarded_ctypes spans; consumer body includes wrappers. Report separately and never sum levels. Guarded ctypes includes boundary/instrumentation overhead, not a pure C-only timer.",
+  "phase_role_groups": [
+    {
+      "arms": {
+        "full": {
+          "cache_outcomes": {
+            "full_source_hit": 126,
+            "native_miss": 29,
+            "selected_pair_hit": 157
+          },
+          "consumer_inclusive_ns": {
+            "process_cpu_ns": 55057709272,
+            "thread_cpu_ns": 55057701238,
+            "wall_ns": 56578645798
+          },
+          "native_calls": {
+            "destination_target": 0,
+            "full": 29
+          },
+          "nested_spans": {
+            "guarded_ctypes_graph_full_edges": {
+              "calls": 29,
+              "process_cpu_ns": 52073280534,
+              "thread_cpu_ns": 52073280534,
+              "wall_ns": 53516298618
+            },
+            "router_wrapper_full_edges": {
+              "calls": 29,
+              "process_cpu_ns": 52078047009,
+              "thread_cpu_ns": 52078047009,
+              "wall_ns": 53521093831
+            }
+          },
+          "target_only_requests": 0
+        },
+        "target": {
+          "cache_outcomes": {
+            "full_source_hit": 126,
+            "native_miss": 29,
+            "selected_pair_hit": 157
+          },
+          "consumer_inclusive_ns": {
+            "process_cpu_ns": 53522156622,
+            "thread_cpu_ns": 53522126881,
+            "wall_ns": 54869051632
+          },
+          "native_calls": {
+            "destination_target": 0,
+            "full": 29
+          },
+          "nested_spans": {
+            "guarded_ctypes_graph_full_edges": {
+              "calls": 29,
+              "process_cpu_ns": 50725153444,
+              "thread_cpu_ns": 50725153444,
+              "wall_ns": 51998137555
+            },
+            "router_wrapper_full_edges": {
+              "calls": 29,
+              "process_cpu_ns": 50729397094,
+              "thread_cpu_ns": 50729397094,
+              "wall_ns": 52003006829
+            }
+          },
+          "target_only_requests": 0
+        }
+      },
+      "consumer_counts": {
+        "intermediate_anchor": 253,
+        "terminal_destination": 59
+      },
+      "phase": "generation_provider_ready",
+      "requests": 312,
+      "role": "generation"
+    },
+    {
+      "arms": {
+        "full": {
+          "cache_outcomes": {
+            "native_miss": 3
+          },
+          "consumer_inclusive_ns": {
+            "process_cpu_ns": 5084582473,
+            "thread_cpu_ns": 5084582473,
+            "wall_ns": 5187587187
+          },
+          "native_calls": {
+            "destination_target": 0,
+            "full": 3
+          },
+          "nested_spans": {
+            "guarded_ctypes_graph_full_edges": {
+              "calls": 3,
+              "process_cpu_ns": 4866075959,
+              "thread_cpu_ns": 4866075959,
+              "wall_ns": 4964672314
+            },
+            "router_wrapper_full_edges": {
+              "calls": 3,
+              "process_cpu_ns": 4866524066,
+              "thread_cpu_ns": 4866524066,
+              "wall_ns": 4965119763
+            }
+          },
+          "target_only_requests": 0
+        },
+        "target": {
+          "cache_outcomes": {
+            "native_miss": 3
+          },
+          "consumer_inclusive_ns": {
+            "process_cpu_ns": 5281747562,
+            "thread_cpu_ns": 5281747562,
+            "wall_ns": 5395322839
+          },
+          "native_calls": {
+            "destination_target": 0,
+            "full": 3
+          },
+          "nested_spans": {
+            "guarded_ctypes_graph_full_edges": {
+              "calls": 3,
+              "process_cpu_ns": 5024554953,
+              "thread_cpu_ns": 5024554953,
+              "wall_ns": 5131555107
+            },
+            "router_wrapper_full_edges": {
+              "calls": 3,
+              "process_cpu_ns": 5025006404,
+              "thread_cpu_ns": 5025006404,
+              "wall_ns": 5132238745
+            }
+          },
+          "target_only_requests": 0
+        }
+      },
+      "consumer_counts": {
+        "intermediate_anchor": 2,
+        "terminal_destination": 1
+      },
+      "phase": "native_copy_load_verified",
+      "requests": 3,
+      "role": "verification"
+    },
+    {
+      "arms": {
+        "full": {
+          "cache_outcomes": {
+            "native_miss": 3
+          },
+          "consumer_inclusive_ns": {
+            "process_cpu_ns": 5192189355,
+            "thread_cpu_ns": 5192189355,
+            "wall_ns": 5300155967
+          },
+          "native_calls": {
+            "destination_target": 0,
+            "full": 3
+          },
+          "nested_spans": {
+            "guarded_ctypes_graph_full_edges": {
+              "calls": 3,
+              "process_cpu_ns": 4965731823,
+              "thread_cpu_ns": 4965731823,
+              "wall_ns": 5066784886
+            },
+            "router_wrapper_full_edges": {
+              "calls": 3,
+              "process_cpu_ns": 4966218413,
+              "thread_cpu_ns": 4966218413,
+              "wall_ns": 5067270831
+            }
+          },
+          "target_only_requests": 0
+        },
+        "target": {
+          "cache_outcomes": {
+            "native_miss": 3
+          },
+          "consumer_inclusive_ns": {
+            "process_cpu_ns": 5117383311,
+            "thread_cpu_ns": 5117383311,
+            "wall_ns": 5224246126
+          },
+          "native_calls": {
+            "destination_target": 0,
+            "full": 3
+          },
+          "nested_spans": {
+            "guarded_ctypes_graph_full_edges": {
+              "calls": 3,
+              "process_cpu_ns": 4886736671,
+              "thread_cpu_ns": 4886736671,
+              "wall_ns": 4986642978
+            },
+            "router_wrapper_full_edges": {
+              "calls": 3,
+              "process_cpu_ns": 4887089023,
+              "thread_cpu_ns": 4887089023,
+              "wall_ns": 4986995584
+            }
+          },
+          "target_only_requests": 0
+        }
+      },
+      "consumer_counts": {
+        "intermediate_anchor": 2,
+        "terminal_destination": 1
+      },
+      "phase": "native_copy_load_verified",
+      "requests": 3,
+      "role": "search"
+    },
+    {
+      "arms": {
+        "full": {
+          "cache_outcomes": {
+            "native_miss": 3,
+            "selected_pair_hit": 12
+          },
+          "consumer_inclusive_ns": {
+            "process_cpu_ns": 5646380914,
+            "thread_cpu_ns": 5646380914,
+            "wall_ns": 5804445689
+          },
+          "native_calls": {
+            "destination_target": 0,
+            "full": 3
+          },
+          "nested_spans": {
+            "guarded_ctypes_graph_full_edges": {
+              "calls": 3,
+              "process_cpu_ns": 5404932470,
+              "thread_cpu_ns": 5404932470,
+              "wall_ns": 5550970369
+            },
+            "router_wrapper_full_edges": {
+              "calls": 3,
+              "process_cpu_ns": 5405749808,
+              "thread_cpu_ns": 5405749808,
+              "wall_ns": 5551787918
+            }
+          },
+          "target_only_requests": 0
+        },
+        "target": {
+          "cache_outcomes": {
+            "native_miss": 3,
+            "selected_pair_hit": 12
+          },
+          "consumer_inclusive_ns": {
+            "process_cpu_ns": 5266763810,
+            "thread_cpu_ns": 5266763810,
+            "wall_ns": 5392802071
+          },
+          "native_calls": {
+            "destination_target": 0,
+            "full": 3
+          },
+          "nested_spans": {
+            "guarded_ctypes_graph_full_edges": {
+              "calls": 3,
+              "process_cpu_ns": 5041154654,
+              "thread_cpu_ns": 5041154654,
+              "wall_ns": 5162869093
+            },
+            "router_wrapper_full_edges": {
+              "calls": 3,
+              "process_cpu_ns": 5041685222,
+              "thread_cpu_ns": 5041685222,
+              "wall_ns": 5163399076
+            }
+          },
+          "target_only_requests": 0
+        }
+      },
+      "consumer_counts": {
+        "intermediate_anchor": 10,
+        "terminal_destination": 5
+      },
+      "phase": "native_copy_load_verified",
+      "requests": 15,
+      "role": "durable_verification"
+    },
+    {
+      "arms": {
+        "full": {
+          "cache_outcomes": {
+            "full_source_hit": 164,
+            "native_miss": 29,
+            "selected_pair_hit": 237
+          },
+          "consumer_inclusive_ns": {
+            "process_cpu_ns": 59841596313,
+            "thread_cpu_ns": 57589568573,
+            "wall_ns": 64397926309
+          },
+          "native_calls": {
+            "destination_target": 0,
+            "full": 29
+          },
+          "nested_spans": {
+            "guarded_ctypes_graph_full_edges": {
+              "calls": 29,
+              "process_cpu_ns": 56623250084,
+              "thread_cpu_ns": 54383619160,
+              "wall_ns": 60742255990
+            },
+            "router_wrapper_full_edges": {
+              "calls": 29,
+              "process_cpu_ns": 56628976325,
+              "thread_cpu_ns": 54389345401,
+              "wall_ns": 60748120166
+            }
+          },
+          "target_only_requests": 0
+        },
+        "target": {
+          "cache_outcomes": {
+            "full_source_hit": 164,
+            "native_miss": 29,
+            "selected_pair_hit": 237
+          },
+          "consumer_inclusive_ns": {
+            "process_cpu_ns": 52830498059,
+            "thread_cpu_ns": 52448695997,
+            "wall_ns": 54142036363
+          },
+          "native_calls": {
+            "destination_target": 27,
+            "full": 2
+          },
+          "nested_spans": {
+            "guarded_ctypes_graph_full_edges": {
+              "calls": 2,
+              "process_cpu_ns": 3520391530,
+              "thread_cpu_ns": 3504461891,
+              "wall_ns": 3612322115
+            },
+            "guarded_ctypes_graph_target_edges": {
+              "calls": 27,
+              "process_cpu_ns": 47740118062,
+              "thread_cpu_ns": 47376891078,
+              "wall_ns": 48913954642
+            },
+            "router_wrapper_full_edges": {
+              "calls": 2,
+              "process_cpu_ns": 3520891287,
+              "thread_cpu_ns": 3504961090,
+              "wall_ns": 3612820980
+            },
+            "router_wrapper_target_edges": {
+              "calls": 27,
+              "process_cpu_ns": 47746642813,
+              "thread_cpu_ns": 47383415829,
+              "wall_ns": 48921532217
+            }
+          },
+          "target_only_requests": 59
+        }
+      },
+      "consumer_counts": {
+        "intermediate_anchor": 371,
+        "terminal_destination": 59
+      },
+      "phase": "exact_engine_started",
+      "requests": 430,
+      "role": "search"
+    }
+  ],
+  "proof_scope": "All completed requests 0..762: equal phase/role/consumer/source/target and equal reachability, time_hex, length_hex, edge_count and ordered uint64 edge-chain SHA-256. Mode and target_only dispatch are intentional experiment differences.",
+  "semantic_selected_prefix_sha256": "2d3cb7efa38c400dd40d0971ed18f5bf6556157ca679b6dfa908631099017802"
+}

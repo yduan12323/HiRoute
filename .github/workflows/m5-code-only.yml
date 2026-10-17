@@ -1,6 +1,7 @@
 name: M5 code-only regression
 
 on:
+  workflow_dispatch:
   pull_request:
     branches: [main, codex/milestone-4r-b1]
   push:
@@ -45,3 +46,15 @@ jobs:
         run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_m5_code_only.py'
       - name: Test D0 bootstrap and one-block protocol boundaries
         run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_m5_bootstrap_code.py'
+      - name: Test opt-in recovery and bounded diagnostics
+        run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_m5_recovery_code.py'
+      - name: Test opt-in portable reachable candidates
+        run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_portable_candidate_code.py'
+      - name: Test opt-in target routing and independent full replay
+        run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_target_routing_code.py'
+      - name: Test opt-in energy screening and independent full replay
+        run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_terminal_energy_code.py'
+      - name: Test terminal report accounting and public projections
+        run: |
+          "$RUNNER_TEMP/m5-ci-venv/bin/python" -I -m unittest discover -s tests -p test_m5d_terminal_summary.py
+          "$RUNNER_TEMP/m5-ci-venv/bin/python" -I -OO -m unittest discover -s tests -p test_m5d_terminal_summary.py

@@ -1,0 +1,54 @@
+{
+  "execution_pins_rehashed": 673,
+  "final_review": {
+    "admitted_sha256": "8cc678d446ccaa4146e4d81b0da395a9e17bda6daa7a37f3119c906809f9b367",
+    "all_12_fresh_best_replays_verified": true,
+    "all_12_searches_exact_timeouts": true,
+    "all_30_terminal_prefixes_independently_reauthenticated": true,
+    "block_reviews": {
+      "b01": "9974e5115739478782e006a9738693f54192c6567e0771c126a5aa003ed910c3",
+      "b02": "f80c3688c872c68619e67518f7c11e369c79c35e25bb21757f02d074e39b8778",
+      "b03": "6badb21260f8a7dc0e80204d838bb848bf780956199ac3f8a0a442cc999d06dd",
+      "b04": "3493805d3c556930f7d32985b535e1e0ee82605cf8cd750342e9867d5160abb5",
+      "b05": "598e1b24f6757279f593aea7a1c9509c729c260afe90efae4187a43ae801f745",
+      "b06": "56932fbbfd4843d7ba08bc60f4112844adf21d0bed3f8dd641d43cce883b02c1"
+    },
+    "exact_accounting": {
+      "full_allowance": 1440,
+      "new_conservative_cpu": "5232.686186478000080",
+      "orchestration_debits": 691,
+      "prior_historical_cpu": "4036.006114899999980",
+      "separate_development_gate_cpu": "2792.320406432",
+      "stage_cpu": "3792.686186478000080"
+    },
+    "execution_index_sha256": "8ff843d0454aadaf49ac7a036cd2ffa921a7d7cd71e70a0ce9431db87119a297",
+    "execution_pins_verified": 673,
+    "findings": [
+      "Both opposite-order blocks reproduce each method full key: OD02 favors FLAT, OD07 favors HIER, OD10 ties. Three fixed known DEV cases do not establish population or general method superiority.",
+      "Same initial/common seed, domain/query/Hmax and treatment checked within and across repeated blocks. Historical runs remain separate and failed preparation scopes retained.",
+      "All exact keys and rational percentages in replay rows match independent audits. Supplement retains paired differences and zero observed two-repeat ranges; these are descriptive finite observations.",
+      "All stage charges and 691 debits sum exactly. Entire 1440 allowance retained; historical and development costs are separate, with no duplicate measured-cost addition.",
+      "Counters/timeouts are censored; first-improvement and work endpoints remain raw and are explicitly omitted from compact analysis. No unperformed causal timing or global gap analysis implied.",
+      "Final-block outer environment typo is disclosed; unchanged supervisor forces numerical worker thread caps. Per-process limits and sampled telemetry do not establish aggregate worst-case bounds."
+    ],
+    "opposite_order_seed_treatment_full_key_checks_passed": true,
+    "publication_suitability": "Suitable for bounded sanitized report publication after exact candidate review; include supplement and all qualifications.",
+    "report_sha256": "8bf367d8d3216a4c54ac24177600f77c393ae37e7e6e1ed3db391a46011ad2f9",
+    "result_sha256": "9fb9eaac8b8c1506779014b433586c0e50c744a7fe2f4adc915daa5da7f913a8",
+    "review_correction": "Initial reviewer claim that RESULT omitted exact keys was incorrect; keys and rational percentages are present in replay-stage rows and have now been independently checked.",
+    "status": "approved_completed_order_balanced_descriptive_report",
+    "supplement_index_sha256": "2fd3e5a5f26774eb881d6f2da7a139d8255746ca6f02ad7dc99898cfcfd7ca6b",
+    "supplement_sha256": "febcf21b69062ceb61b2f1c0e5c845b76149f938406a0be950363fa93b4e9a13"
+  },
+  "final_review_sha256": "667d9134e692ccb24a4bc060c12eed3866f72b6beb645f3c34c5e2c5cd5a463e",
+  "new_experiment": false,
+  "original_execution_index_sha256": "8ff843d0454aadaf49ac7a036cd2ffa921a7d7cd71e70a0ce9431db87119a297",
+  "original_report_sha256": "8bf367d8d3216a4c54ac24177600f77c393ae37e7e6e1ed3db391a46011ad2f9",
+  "original_result_sha256": "9fb9eaac8b8c1506779014b433586c0e50c744a7fe2f4adc915daa5da7f913a8",
+  "original_supplement_index_sha256": "2fd3e5a5f26774eb881d6f2da7a139d8255746ca6f02ad7dc99898cfcfd7ca6b",
+  "original_supplement_sha256": "febcf21b69062ceb61b2f1c0e5c845b76149f938406a0be950363fa93b4e9a13",
+  "projection": "Machine paths and process IDs removed or replaced; path-keyed evidence maps omitted. All other observed values retained. Original hashes identify retained originals, not projections.",
+  "source_installation": false,
+  "standalone_reproduction_bundle": false,
+  "supplement_pins_rehashed": 2
+}

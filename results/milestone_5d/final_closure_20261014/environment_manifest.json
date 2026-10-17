@@ -1,0 +1,20 @@
+{
+  "checkpoint_environment": {
+    "scope": "Separately frozen cloud integration trial; not original main environment",
+    "source": "results/milestone_5d/combined_checkpoint_20261014/sanitized_manifest.json"
+  },
+  "current_code_CI": {
+    "commit": "7dbd82daaab777a92897ef392860336ecb26f047",
+    "platform": "Python 3.11 installed wheel",
+    "url": "https://github.com/yduan12323/HiRoute/actions/runs/38512690819"
+  },
+  "missing_fingerprint_reason": "Consult supplement execution source manifest; no inferred host/toolchain identity",
+  "original_main_environment": "Use original per-run artifacts; not reconstructed from current container",
+  "populations_separate": true,
+  "schema": "hiroute.m5d.closure.index.v1",
+  "supplement_aggregate_RSS_enforced": false,
+  "supplement_cgroup_enforced": false,
+  "supplement_full_environment_fingerprint": null,
+  "supplement_limit_scope": "8 GiB per-process address space only; no cgroup or aggregate RSS enforcement",
+  "supplement_whole_row_wall_limit_seconds": 600
+}

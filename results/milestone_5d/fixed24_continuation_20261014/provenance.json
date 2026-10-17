@@ -1,0 +1,21 @@
+{
+  "files_sha256": {
+    "README.md": "9892a96f36b0d66ce8a4e5c7d623bd03a935d7c26c3ab5a1b3443d921e7bf4f6",
+    "generator/audit_final_report.py": "1e06b14b12f038fa9a1b899db54c8c33217f2bc8977c2e04a651b0a3f9602514",
+    "generator/build_report.py": "620430a8c9d675322caa052420a8e45480894a695739b47642f0c46d59a8c9a1",
+    "public_receipt_audit.json": "37e2938cb158e3a94847d6d4b1c11aa9e29151743b86620c467842721f254588",
+    "public_report.json": "66d000910bad4b4fd39368f9483eb380523e54c238e29867a3330d2b7805333a",
+    "test_public_bundle.py": "7549ec7f3f9f1bd0962909db071eca416a89dbe1f364c2b7d6fe080fbf0ac600",
+    "verify_public_bundle.py": "114ba0cb234e669acd5323d103e5580630e02f92c38c07e7453b12f7bddc4939"
+  },
+  "private_input_snapshots_included": false,
+  "public_only_reproduction_scope": "immutable hashes, identity coverage, accounting consistency, synthetic generator tests",
+  "raw_receipts_included": false,
+  "report_projection_reproduction": "byte-identical from retained private snapshot inputs",
+  "report_snapshot": "2026-10-14T08:45:00Z",
+  "schema": "hiroute.fixed24.public_bundle_provenance.v1",
+  "tests": {
+    "normal_python": 11,
+    "optimized_python_OO": 11
+  }
+}

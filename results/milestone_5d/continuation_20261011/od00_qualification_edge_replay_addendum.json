@@ -1,0 +1,11 @@
+{
+  "cpu_usage_ns": 48523189000,
+  "limitation": "Native selected edges and exact battery energy replay passed; full activity, charge-time, and scheduled-action replay not completed.",
+  "memory_peak_bytes": 1854046208,
+  "qualification_sha256": "cf16f25164c06c9769b2fc3f98fe24865e6c188a73f93882eaa56a7fd780949b",
+  "qualified_executable_seed": false,
+  "result": "success",
+  "schema": "hiroute.m5d.od00_edge_replay_addendum.v1",
+  "source_sha256": "1a82bc39bbd9c66944343ca576dc0b3d50170ac7beec824be5e43b434a323223",
+  "wall_elapsed_ns": 47407896339
+}

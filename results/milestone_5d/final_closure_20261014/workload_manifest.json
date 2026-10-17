@@ -1,0 +1,27 @@
+{
+  "checkpoint_trial": {
+    "included_in_formal_denominators": false,
+    "status": "two_method_depth1_recovery_verified_searches_censored",
+    "summary": "results/milestone_5d/combined_checkpoint_20261014/summary.json"
+  },
+  "holdout_run": false,
+  "original_main": {
+    "denominator": 192,
+    "normalized_rows": "results/milestone_5d/terminal_state_audit_20261014/benchmark_results.jsonl",
+    "paired_bindings": 96,
+    "query_count": 48
+  },
+  "schema": "hiroute.m5d.closure.index.v1",
+  "supplement": {
+    "component_counts": {
+      "full_universe": 12,
+      "representative_repeat": 4,
+      "same_alt_member_scan": 4,
+      "sequential_feasible": 4
+    },
+    "denominator": 24,
+    "public_projection": "results/milestone_5d/fixed24_continuation_20261014/public_report.json",
+    "replacement_allowed": false
+  },
+  "supplement_pooled_into_main": false
+}

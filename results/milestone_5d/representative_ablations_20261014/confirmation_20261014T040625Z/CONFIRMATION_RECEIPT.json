@@ -1,0 +1,93 @@
+{
+  "completed_utc": "2026-10-14T04:07:36.623965+00:00",
+  "run_id": "confirmation_20261014T040625Z",
+  "ledger_sha256": "1f0c24f1b4bf34c5f215eb694b9f75371730a5a3eeb457844ce19f2e17c3be49",
+  "execution_plan_sha256": "f6f80c5b6af879566bcbe8a48e95bc5a7ccb06b95d8430d79011ab1f70c52b73",
+  "review_sha256": "c98d916fcd776fba20120d89a7d0785eadaf005c2b5e384320deaca0565c81d2",
+  "summary": {
+    "scheduled": 36,
+    "passed": 36,
+    "wall_seconds": 24.28413849599019,
+    "paired_checks": [
+      {
+        "case": "nonbest",
+        "repeat": 0,
+        "four_rows": true,
+        "equal_initial": true,
+        "equal_terminal": true
+      },
+      {
+        "case": "nonbest",
+        "repeat": 1,
+        "four_rows": true,
+        "equal_initial": true,
+        "equal_terminal": true
+      },
+      {
+        "case": "nonbest",
+        "repeat": 2,
+        "four_rows": true,
+        "equal_initial": true,
+        "equal_terminal": true
+      },
+      {
+        "case": "charge_required",
+        "repeat": 0,
+        "four_rows": true,
+        "equal_initial": true,
+        "equal_terminal": true
+      },
+      {
+        "case": "charge_required",
+        "repeat": 1,
+        "four_rows": true,
+        "equal_initial": true,
+        "equal_terminal": true
+      },
+      {
+        "case": "charge_required",
+        "repeat": 2,
+        "four_rows": true,
+        "equal_initial": true,
+        "equal_terminal": true
+      },
+      {
+        "case": "equality",
+        "repeat": 0,
+        "four_rows": true,
+        "equal_initial": true,
+        "equal_terminal": true
+      },
+      {
+        "case": "equality",
+        "repeat": 1,
+        "four_rows": true,
+        "equal_initial": true,
+        "equal_terminal": true
+      },
+      {
+        "case": "equality",
+        "repeat": 2,
+        "four_rows": true,
+        "equal_initial": true,
+        "equal_terminal": true
+      }
+    ],
+    "all_pair_checks_pass": true
+  },
+  "original_exploratory_output_unchanged": true,
+  "source_fixture_protocol_unchanged": true,
+  "warm_source_calls_all_zero": true,
+  "files": {
+    "run_cold_warm.py": "e38634cc57dffe3daa9ec992bbac483680152c2aae322f88a7e1aac8fb0d8f8b",
+    "CONFIRMATION_LEDGER.json": "1f0c24f1b4bf34c5f215eb694b9f75371730a5a3eeb457844ce19f2e17c3be49",
+    "COLD_WARM_EXECUTION_PLAN.json": "f6f80c5b6af879566bcbe8a48e95bc5a7ccb06b95d8430d79011ab1f70c52b73",
+    "COLD_WARM_ANALYSIS.json": "52fd68b786873d8250b7b630759c881f39e7721113aaccfe9ad2fde29e5c00d2",
+    "COLD_WARM_PROTOCOL.json": "45a07e6b586c1e9f20ce29228f689d1d40d04c52cfb616faafa2de28cc964c20",
+    "analyze_cold_warm.py": "26d9cbae198cdc939a99c333f424d4623a05ea7b7d99c2f486b25afbf5dfc3d9",
+    "CONFIRMATION_LEDGER.sha256": "29204803c10deb5088a9b51b52e185fced32287064a5c3cfadeff41dddb3ff56",
+    "COLD_WARM_EXECUTION_PLAN.sha256": "dcf4096d361f44aeb26548e67c4d3ca06daf0a3e9c94631a9db3646a901d2ab0",
+    "COLD_WARM_SUMMARY.json": "aa0bc1b98e71108177f772a50a2dc7b9451c85d7bfc2450249344a79316d8ea0",
+    "COLD_WARM_RESULTS.jsonl": "29b5a2bd7456c7d608273aba2c341d3f78e834eb0878c493f924da785a2264a5"
+  }
+}

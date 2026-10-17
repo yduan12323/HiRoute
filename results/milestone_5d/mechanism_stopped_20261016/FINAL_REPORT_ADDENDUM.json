@@ -1,0 +1,11 @@
+{
+  "controller_retained_cpu_decimal": "4756.602485659000012",
+  "driver_actual_cpu_seconds": 0.31888928,
+  "final_stopped_report_sha256": "68fea99e76d272dacacca2451357ed2c4897350d5803ac610b195939163b8604",
+  "no_retroactive_netting": true,
+  "old_failed_launch_reserved_cpu_seconds": 1620,
+  "prior_frozen_index_sha256": "6f04b0a5f8cdddde48626db635733da2e4a34d8ea27fc1eca00fca57cc96e65f",
+  "separate_authorized_driver_allowance": 12,
+  "total_current_retained_cpu_decimal": "4768.602485659000012",
+  "wrapper_gate_reserves_driver_within_orchestration": true
+}

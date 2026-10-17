@@ -1,0 +1,146 @@
+{
+  "flat": {
+    "original_sha256": "3f8cbbe81835c43d1bbbd158b00446b78c6b13156da12bf1175befcf632e78eb",
+    "replay": {
+      "best_key": [
+        "93627000122231889401/3435973836800000",
+        "6463578843329749/85899345920000",
+        2,
+        [
+          [
+            "4r:node/10088989871",
+            "C"
+          ],
+          [
+            "4r:node/11013727536",
+            "CS"
+          ]
+        ]
+      ],
+      "common_seed_sha256": "42079aa16be1c6e34dc3fc656502b136ea206d5750fdfc4e3b523ee513600500",
+      "denominator_included": false,
+      "durable_record_sha256": "fad7185d086e044b682438addb55360eb80705c8b4363e8c58d93eafbf9840a9",
+      "effective_query_sha256": "7c52642c86888fef48fac35f723519306b62c0fb642e987807421dd7a316ab1d",
+      "exact_optimum_claimed": false,
+      "independently_verified_feasible": true,
+      "initial_key": [
+        "4631380169628339331/137438953472000",
+        "1882277661060431/17179869184000",
+        2,
+        [
+          [
+            "4r:node/4683740340",
+            "CS"
+          ],
+          [
+            "4r:node/10039741536",
+            "C"
+          ]
+        ]
+      ],
+      "manifest_sha256": "e7f2332dccb4f54512c26fecdd4a7b581800dc3c40069613600899d4b57febe0",
+      "method": "flat",
+      "native_resources_closed": true,
+      "original_depth_preserved": true,
+      "original_max_depth": 37,
+      "original_query_sha256": "41c56264ca53b9d651275b92c651667a549dc041d491b88d12a84b5ac37672b5",
+      "original_seed_independently_verified": true,
+      "quality_vs_common_seed": {
+        "global_lower_bound_available": false,
+        "global_optimality_gap": "NA",
+        "near_optimality_claimed": false,
+        "primary_improvement": "11078752059238296937/1717986918400000",
+        "primary_relative_improvement": "22157504118476593874/115784504240708483275",
+        "secondary_change": "1473904730986203/42949672960000",
+        "stop_count_change": 0,
+        "strict_full_key_improvement": true
+      },
+      "schema": "hiroute.durable_replay_result.v1",
+      "source_runs": 6,
+      "status": "improved_feasible_witness",
+      "strict_lex_improvement": true,
+      "witness_sequence": [
+        [
+          "4r:node/10088989871",
+          "C"
+        ],
+        [
+          "4r:node/11013727536",
+          "CS"
+        ]
+      ]
+    }
+  },
+  "hier": {
+    "original_sha256": "c957108688d33af4e4f8cd50b8f7d51de147c4a99749e301497fe7b35a742236",
+    "replay": {
+      "best_key": [
+        "4631380169628339331/137438953472000",
+        "1882277661060431/17179869184000",
+        2,
+        [
+          [
+            "4r:node/4683740340",
+            "CS"
+          ],
+          [
+            "4r:node/10039741536",
+            "C"
+          ]
+        ]
+      ],
+      "common_seed_sha256": "42079aa16be1c6e34dc3fc656502b136ea206d5750fdfc4e3b523ee513600500",
+      "denominator_included": false,
+      "durable_record_sha256": "9dc5480e8161b9e255c5ce72d47630b19cfd4340e039105fe80284608117d9f4",
+      "effective_query_sha256": "7c52642c86888fef48fac35f723519306b62c0fb642e987807421dd7a316ab1d",
+      "exact_optimum_claimed": false,
+      "independently_verified_feasible": true,
+      "initial_key": [
+        "4631380169628339331/137438953472000",
+        "1882277661060431/17179869184000",
+        2,
+        [
+          [
+            "4r:node/4683740340",
+            "CS"
+          ],
+          [
+            "4r:node/10039741536",
+            "C"
+          ]
+        ]
+      ],
+      "manifest_sha256": "e7f2332dccb4f54512c26fecdd4a7b581800dc3c40069613600899d4b57febe0",
+      "method": "hier",
+      "native_resources_closed": true,
+      "original_depth_preserved": true,
+      "original_max_depth": 37,
+      "original_query_sha256": "41c56264ca53b9d651275b92c651667a549dc041d491b88d12a84b5ac37672b5",
+      "original_seed_independently_verified": true,
+      "quality_vs_common_seed": {
+        "global_lower_bound_available": false,
+        "global_optimality_gap": "NA",
+        "near_optimality_claimed": false,
+        "primary_improvement": "0",
+        "primary_relative_improvement": "0",
+        "secondary_change": "0",
+        "stop_count_change": 0,
+        "strict_full_key_improvement": false
+      },
+      "schema": "hiroute.durable_replay_result.v1",
+      "source_runs": 3,
+      "status": "initial_feasible_witness_retained",
+      "strict_lex_improvement": false,
+      "witness_sequence": [
+        [
+          "4r:node/4683740340",
+          "CS"
+        ],
+        [
+          "4r:node/10039741536",
+          "C"
+        ]
+      ]
+    }
+  }
+}

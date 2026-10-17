@@ -1,0 +1,331 @@
+{
+  "admitted_sha256": "3fea36186b4b6b08ee0407b54773ec7990444efe49b504f5c1d9b9abdeff3fcb",
+  "claims": {
+    "complete_three_case_comparison": false,
+    "global_gap": "Unavailable without verified global lower bound",
+    "global_optimum": false,
+    "scope": "One complete OD02 pair, one fresh OD07 HIER outcome, one OD07 FLAT infrastructure failure and two blocked OD10 rows."
+  },
+  "cost_scope": "Full failure reserve670 and full allowance720 retained. Development/testing/review/reporting costs are separate and partially measured.",
+  "denominator_rows": [
+    {
+      "Hmax": 33,
+      "best_key": [
+        "89231180441089702031/3435973836800000",
+        "59082310507418349/858993459200000",
+        2,
+        [
+          [
+            "4r:node/10652698226",
+            "C"
+          ],
+          [
+            "4r:node/12090131433",
+            "C"
+          ]
+        ]
+      ],
+      "case": "od02",
+      "common_seed_sha256": "9498b1b167d8ebb4dc15d44b2c2d55efa0f3d0f4f0b4e7eeaf1fdefd134cfe4f",
+      "denominator_retained": true,
+      "independently_verified_feasible": true,
+      "initial_key": [
+        "102542262038922263369/3435973836800000",
+        "80857457560385401/858993459200000",
+        2,
+        [
+          [
+            "4r:node/10652698226",
+            "C"
+          ],
+          [
+            "4r:node/10865655524",
+            "C"
+          ]
+        ]
+      ],
+      "method": "flat",
+      "primary_improvement_percent": 12.981068813149486,
+      "relative_primary_improvement": "13311081597832561338/102542262038922263369",
+      "replay_path": "[machine path omitted]",
+      "replay_sha256": "afbcd409dc5d74c798fd66ca2dee24d75a0b88d56d1cb03e3afa57393c55322b",
+      "status": "fresh_verified_best",
+      "strict_lex_improvement": true
+    },
+    {
+      "Hmax": 33,
+      "best_key": [
+        "22500600618780404673/858993459200000",
+        "119086816876302471/1717986918400000",
+        2,
+        [
+          [
+            "4r:node/9569604034",
+            "C"
+          ],
+          [
+            "4r:node/12090131433",
+            "C"
+          ]
+        ]
+      ],
+      "case": "od02",
+      "common_seed_sha256": "9498b1b167d8ebb4dc15d44b2c2d55efa0f3d0f4f0b4e7eeaf1fdefd134cfe4f",
+      "denominator_retained": true,
+      "independently_verified_feasible": true,
+      "initial_key": [
+        "102542262038922263369/3435973836800000",
+        "80857457560385401/858993459200000",
+        2,
+        [
+          [
+            "4r:node/10652698226",
+            "C"
+          ],
+          [
+            "4r:node/10865655524",
+            "C"
+          ]
+        ]
+      ],
+      "method": "hier",
+      "primary_improvement_percent": 12.228967173594096,
+      "relative_primary_improvement": "1791408509114377811/14648894576988894767",
+      "replay_path": "[machine path omitted]",
+      "replay_sha256": "af51637dcb87388257e94cf430cbbbb071341a9b3f9c0cb49ca7d9570d68d592",
+      "status": "fresh_verified_best",
+      "strict_lex_improvement": true
+    },
+    {
+      "case": "od07",
+      "denominator_retained": true,
+      "method": "flat",
+      "quality_comparison_available": false,
+      "status": "infrastructure_failure_without_fresh_best_replay"
+    },
+    {
+      "Hmax": 37,
+      "best_key": [
+        "2968405723679404212307/109951162777600000",
+        "1965459359483215499/27487790694400000",
+        2,
+        [
+          [
+            "4r:node/8099989597",
+            "C"
+          ],
+          [
+            "4r:node/11013731180",
+            "CS"
+          ]
+        ]
+      ],
+      "case": "od07",
+      "common_seed_sha256": "2debeb9754b3fbe6e74a349c5ab91f342f1b94ea81b6dbb4c1ef4a6e384749cc",
+      "denominator_retained": true,
+      "independently_verified_feasible": true,
+      "initial_key": [
+        "4631380169628339331/137438953472000",
+        "1882277661060431/17179869184000",
+        2,
+        [
+          [
+            "4r:node/4683740340",
+            "CS"
+          ],
+          [
+            "4r:node/10039741536",
+            "C"
+          ]
+        ]
+      ],
+      "method": "hier",
+      "primary_improvement_percent": 19.88333890333565,
+      "relative_primary_improvement": "736698412023267252493/3705104135702671464800",
+      "replay_path": "[machine path omitted]",
+      "replay_sha256": "002b490ab685b003242f99cda7ff0c537b834ac90aff63a6c1a8855eb7e7911f",
+      "status": "fresh_verified_best",
+      "strict_lex_improvement": true
+    },
+    {
+      "case": "od10",
+      "denominator_retained": true,
+      "method": "flat",
+      "quality_comparison_available": false,
+      "status": "unattempted_due_global_stop"
+    },
+    {
+      "case": "od10",
+      "denominator_retained": true,
+      "method": "hier",
+      "quality_comparison_available": false,
+      "status": "unattempted_due_global_stop"
+    }
+  ],
+  "failure_evidence": {
+    "actual_parent_limits": [
+      50,
+      60
+    ],
+    "causal_hotspot": "Not established by these aggregate receipts.",
+    "cleanup_verified": true,
+    "controller_cpu_accounting_end_absolute": 50.706864917,
+    "controller_cpu_entry_absolute": 7.159991639,
+    "observed_exact_wall_seconds": 44.765371271,
+    "observed_preparation_wall_seconds": 159.659353307,
+    "reason": "supervisor_cpu_soft_budget",
+    "supervision_cpu_delta": 43.548670404999996,
+    "worker_returncode": -9,
+    "worker_wait4_cpu_seconds": 201.22621999999998
+  },
+  "full_runtime_orchestration_allowance_cpu_seconds": 720,
+  "global_stop_stage": "od07.flat.search",
+  "maximum_reserved_cpu_seconds": 6360,
+  "schema": "hiroute.shared_energy_stopped_result.v1",
+  "stage_charge_cpu_decimal": "1639.793342497999985",
+  "stages": [
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 41.077311808000005,
+      "global_failure": false,
+      "outcome": "verified_feasible_seed",
+      "runtime_orchestration_debit_cpu_seconds": 10,
+      "stage": "od02.verify_seed",
+      "terminal_path": "[machine path omitted]",
+      "terminal_sha256": "d398d9d1f6e09e54f2bb33eb1c1a4a3f6c38a12fa4db6dca2d4537a61e1f3c9b"
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 229.112059273,
+      "global_failure": false,
+      "outcome": "exact_timeout_feasible",
+      "runtime_orchestration_debit_cpu_seconds": 12,
+      "stage": "od02.flat.search",
+      "terminal_path": "[machine path omitted]",
+      "terminal_sha256": "316df67fcaa87834509fae7f54904d6131425839c0e4940d55d28b5102a121b1"
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 55.537810588,
+      "global_failure": false,
+      "outcome": "verified_best",
+      "runtime_orchestration_debit_cpu_seconds": 12,
+      "stage": "od02.flat.replay",
+      "terminal_path": "[machine path omitted]",
+      "terminal_sha256": "a2ff6af010d70c548e838ef02f8d7b5e2d38c7f1f33b918a43fdfe60f8538bd9"
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 231.580002378,
+      "global_failure": false,
+      "outcome": "exact_timeout_feasible",
+      "runtime_orchestration_debit_cpu_seconds": 12,
+      "stage": "od02.hier.search",
+      "terminal_path": "[machine path omitted]",
+      "terminal_sha256": "59c82942724ae7a5b25a3870abe3e3752657e391d1b77597bc3757ba08a903cd"
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 61.286066478,
+      "global_failure": false,
+      "outcome": "verified_best",
+      "runtime_orchestration_debit_cpu_seconds": 12,
+      "stage": "od02.hier.replay",
+      "terminal_path": "[machine path omitted]",
+      "terminal_sha256": "15143e2de1af6200b31e6d8a02a54675bf8cf414b242a4ff34390916863c0bd6"
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 38.982352908,
+      "global_failure": false,
+      "outcome": "verified_feasible_seed",
+      "runtime_orchestration_debit_cpu_seconds": 13,
+      "stage": "od07.verify_seed",
+      "terminal_path": "[machine path omitted]",
+      "terminal_sha256": "ef519715187d2e3a5ab8bcbe41d3bd320927bbfd8d943226dbfd3ebbab1534a4"
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 248.83709351899998,
+      "global_failure": false,
+      "outcome": "exact_timeout_feasible",
+      "runtime_orchestration_debit_cpu_seconds": 15,
+      "stage": "od07.hier.search",
+      "terminal_path": "[machine path omitted]",
+      "terminal_sha256": "0ce794973e4319655d08784dc70912d3087587ad18eee0596a2fc7805d3fb215"
+    },
+    {
+      "accounting_complete": true,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 63.380645546,
+      "global_failure": false,
+      "outcome": "verified_best",
+      "runtime_orchestration_debit_cpu_seconds": 18,
+      "stage": "od07.hier.replay",
+      "terminal_path": "[machine path omitted]",
+      "terminal_sha256": "f0111213e0b93f818a5bc177aef01dd15d8ee04c7c3181a269f6fc85f51fc011"
+    },
+    {
+      "accounting_complete": false,
+      "cleanup_verified": true,
+      "conservative_charge_cpu_seconds": 670,
+      "global_failure": true,
+      "outcome": "controller_error",
+      "runtime_orchestration_debit_cpu_seconds": null,
+      "stage": "od07.flat.search",
+      "terminal_path": "[machine path omitted]",
+      "terminal_sha256": "7c702d2d75cc779f1037b8922785f767ff3dd6438833daf1a90aca99ab454041"
+    },
+    {
+      "ordinary_skip": false,
+      "outcome": "unattempted_due_global_stop",
+      "reservation_exists": false,
+      "stage": "od07.flat.replay",
+      "worker_output_exists": false
+    },
+    {
+      "ordinary_skip": false,
+      "outcome": "unattempted_due_global_stop",
+      "reservation_exists": false,
+      "stage": "od10.verify_seed",
+      "worker_output_exists": false
+    },
+    {
+      "ordinary_skip": false,
+      "outcome": "unattempted_due_global_stop",
+      "reservation_exists": false,
+      "stage": "od10.flat.search",
+      "worker_output_exists": false
+    },
+    {
+      "ordinary_skip": false,
+      "outcome": "unattempted_due_global_stop",
+      "reservation_exists": false,
+      "stage": "od10.flat.replay",
+      "worker_output_exists": false
+    },
+    {
+      "ordinary_skip": false,
+      "outcome": "unattempted_due_global_stop",
+      "reservation_exists": false,
+      "stage": "od10.hier.search",
+      "worker_output_exists": false
+    },
+    {
+      "ordinary_skip": false,
+      "outcome": "unattempted_due_global_stop",
+      "reservation_exists": false,
+      "stage": "od10.hier.replay",
+      "worker_output_exists": false
+    }
+  ],
+  "successful_runtime_orchestration_debits": 104,
+  "total_conservative_cpu_decimal": "2359.793342497999985"
+}

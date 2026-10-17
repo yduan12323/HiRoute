@@ -1,0 +1,12 @@
+{
+  "denominator": 192,
+  "population": "original_main_only",
+  "input_sha256": "6874fed1cc56ffa8411ed15fbe232f3ebefb7fdd9ee40a3dc50add126f7422a8",
+  "counts": {
+    "incumbent_search_failed": 44,
+    "time_limit": 148
+  },
+  "exact_pairs": 0,
+  "paired_speedup": null,
+  "supplement_included": false
+}

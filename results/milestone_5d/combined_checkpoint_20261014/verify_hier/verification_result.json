@@ -1,0 +1,10 @@
+{
+  "checkpoint_sha256": "f14f9dc4a172f8dafa5853465533c2cbdeacd34076048ea451838556df948df0",
+  "depth": 1,
+  "exact_optimum_claimed": false,
+  "global_gap": null,
+  "layer_status": "same_domain_completed_layer_reconstructed",
+  "reconstruction_charged": true,
+  "status": "witness_and_layer_verified",
+  "witness_status": "verified_feasible_only"
+}

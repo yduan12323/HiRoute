@@ -1,0 +1,217 @@
+{
+  "analysis_review": {
+    "analysis_manifest_sha256": "712a7a8bf500213c89e21a84cad821da4962b5ed2b3d4d6fb90801c761364f97",
+    "evidence_pins_verified": 135,
+    "extraction_byte_identical": true,
+    "independent_terminal_audit_sha256": "d8e09c2126bf07adf8b347b74734f0ca8e531dc2f2728e5ce198c89531d0466e",
+    "real_rerun_authorized": false,
+    "report_sha256": "86898ccdae086aaca7c048888be27316aa4b65e3195c24f4aee9897f54f57c60",
+    "scope": [
+      "OD02 only completed matched pair",
+      "OD07 HIER fresh verified improvement remains valid; FLAT resource failure has no fresh replay",
+      "Both OD10 rows blocked and all six search denominator rows retained",
+      "Absolute50-second CPU guard crossing verified; component cost attribution remains unresolved",
+      "Sampled counters, nested timing, RSS and fixed-order limitations retained"
+    ],
+    "status": "approved_scoped_stopped_analysis",
+    "summary_byte_identical": true
+  },
+  "analysis_review_sha256": "2785f9c501ec1ab2d0cb2f85553dd5da83bc50e751eaca5af247ba5ad7b8b8e4",
+  "evidence_pins_rehashed": 135,
+  "final_evidence_pins_rehashed": 923,
+  "final_stopped_index_sha256": "5505389dd1c11b296f8d7c6a016150f0d36087f9cf54568992aa4f6ea0dfaa0f",
+  "final_stopped_review": {
+    "additional_fresh_verified_row": "od07.hier",
+    "analysis_review_sha256": "2785f9c501ec1ab2d0cb2f85553dd5da83bc50e751eaca5af247ba5ad7b8b8e4",
+    "blocked_rows": [
+      "od10.flat",
+      "od10.hier"
+    ],
+    "failed_row": "od07.flat",
+    "failure_charge": 670,
+    "final_inventory_sha256": "5505389dd1c11b296f8d7c6a016150f0d36087f9cf54568992aa4f6ea0dfaa0f",
+    "full_orchestration_charge": 720,
+    "inventory_pins_verified": 923,
+    "limitations": [
+      "Search guard uses absolute process CPU, not supervisor interval alone",
+      "Underlying supervisory overhead remains unattributed",
+      "Failed FLAT raw snapshots do not establish a full-window outcome or fresh replay",
+      "No global gap, general method superiority or full-domain infeasibility claim",
+      "Continuation requires a separately reviewed and admitted manifest"
+    ],
+    "publication_requires_exact_sanitized_review": true,
+    "report_sha256": "285962a1daca8b994e7a2c250f725c53f1e4349ce11641591f56199dda98e8a6",
+    "result_sha256": "4129807928bf8a671faf33b3d6ba8443a131300c507f5fe53b5e122081308302",
+    "status": "approved_scoped_stopped_results",
+    "terminal_audit_sha256": "d8e09c2126bf07adf8b347b74734f0ca8e531dc2f2728e5ce198c89531d0466e",
+    "total_cpu_decimal": "2359.793342497999985",
+    "valid_pairs": [
+      "od02"
+    ],
+    "verified_outcome": "Eight successful stages, one globally blocking failed search and six unattempted slots; all six method rows retained"
+  },
+  "final_stopped_review_sha256": "7d39f4670dbaf86088679ce328c6e5db70b1c7a9fd70907533e5c842cd19a3ab",
+  "new_experiment": false,
+  "original_analysis_index_sha256": "712a7a8bf500213c89e21a84cad821da4962b5ed2b3d4d6fb90801c761364f97",
+  "original_controller_report_sha256": "285962a1daca8b994e7a2c250f725c53f1e4349ce11641591f56199dda98e8a6",
+  "original_controller_result_sha256": "4129807928bf8a671faf33b3d6ba8443a131300c507f5fe53b5e122081308302",
+  "original_extraction_sha256": "d35358952a0992bed81a669f2b039bc818777c6b693ac6a79e1530d892961024",
+  "original_report_sha256": "86898ccdae086aaca7c048888be27316aa4b65e3195c24f4aee9897f54f57c60",
+  "original_summary_sha256": "983fa61b5284c8aae95fd806327ebe22a5ba1292ac0998537597b01c5bffcbad",
+  "projection": "Machine paths and process IDs removed or replaced with a marker; path-keyed evidence maps omitted. Embedded JSONL complete records receive the same projection and are reserialized; incomplete lines remain diagnostic text with process IDs redacted. Other observed values retained. Original hashes identify retained originals, not projections.",
+  "source_installation": false,
+  "standalone_reproduction_bundle": false,
+  "stop_audit": {
+    "absolute_cpu_limits": [
+      50,
+      60
+    ],
+    "cause_scope": "Absolute CPU guard crossing is verified; the underlying cost increase is not explained by these clocks.",
+    "cleanup_verified": true,
+    "failed_full_charge": 670,
+    "failed_stage": "od07.flat.search",
+    "full_orchestration_allowance": 720,
+    "manifest_sha256": "3fea36186b4b6b08ee0407b54773ec7990444efe49b504f5c1d9b9abdeff3fcb",
+    "passed": true,
+    "raw_reason": "supervisor_cpu_soft_budget",
+    "rows": [
+      {
+        "best_key": [
+          "89231180441089702031/3435973836800000",
+          "59082310507418349/858993459200000",
+          2,
+          [
+            [
+              "4r:node/10652698226",
+              "C"
+            ],
+            [
+              "4r:node/12090131433",
+              "C"
+            ]
+          ]
+        ],
+        "initial_key": [
+          "102542262038922263369/3435973836800000",
+          "80857457560385401/858993459200000",
+          2,
+          [
+            [
+              "4r:node/10652698226",
+              "C"
+            ],
+            [
+              "4r:node/10865655524",
+              "C"
+            ]
+          ]
+        ],
+        "outcome": "exact_timeout_feasible",
+        "replay_verified": true,
+        "stage": "od02.flat.search"
+      },
+      {
+        "best_key": [
+          "22500600618780404673/858993459200000",
+          "119086816876302471/1717986918400000",
+          2,
+          [
+            [
+              "4r:node/9569604034",
+              "C"
+            ],
+            [
+              "4r:node/12090131433",
+              "C"
+            ]
+          ]
+        ],
+        "initial_key": [
+          "102542262038922263369/3435973836800000",
+          "80857457560385401/858993459200000",
+          2,
+          [
+            [
+              "4r:node/10652698226",
+              "C"
+            ],
+            [
+              "4r:node/10865655524",
+              "C"
+            ]
+          ]
+        ],
+        "outcome": "exact_timeout_feasible",
+        "replay_verified": true,
+        "stage": "od02.hier.search"
+      },
+      {
+        "best_key": [
+          "2968405723679404212307/109951162777600000",
+          "1965459359483215499/27487790694400000",
+          2,
+          [
+            [
+              "4r:node/8099989597",
+              "C"
+            ],
+            [
+              "4r:node/11013731180",
+              "CS"
+            ]
+          ]
+        ],
+        "initial_key": [
+          "4631380169628339331/137438953472000",
+          "1882277661060431/17179869184000",
+          2,
+          [
+            [
+              "4r:node/4683740340",
+              "CS"
+            ],
+            [
+              "4r:node/10039741536",
+              "C"
+            ]
+          ]
+        ],
+        "outcome": "exact_timeout_feasible",
+        "replay_verified": true,
+        "stage": "od07.hier.search"
+      },
+      {
+        "observed_exact_wall_seconds": 44.765371271,
+        "outcome": "controller_error",
+        "replay_verified": false,
+        "stage": "od07.flat.search"
+      },
+      {
+        "outcome": "unattempted_after_global_stop",
+        "replay_verified": false,
+        "stage": "od10.flat.search"
+      },
+      {
+        "outcome": "unattempted_after_global_stop",
+        "replay_verified": false,
+        "stage": "od10.hier.search"
+      }
+    ],
+    "stage_charge_decimal": "1639.793342497999985",
+    "successful_new_stages": 8,
+    "successor_slots_absent": [
+      "od07.flat.replay",
+      "od10.verify_seed",
+      "od10.flat.search",
+      "od10.flat.replay",
+      "od10.hier.search",
+      "od10.hier.replay"
+    ],
+    "supervisor_interval_cpu": 43.548670404999996,
+    "terminal_sha256": "7c702d2d75cc779f1037b8922785f767ff3dd6438833daf1a90aca99ab454041",
+    "total_charge_decimal": "2359.793342497999985",
+    "whole_process_cpu_at_end": 50.706864917,
+    "whole_process_cpu_at_entry": 7.159991639
+  },
+  "stop_audit_sha256": "d8e09c2126bf07adf8b347b74734f0ca8e531dc2f2728e5ce198c89531d0466e"
+}

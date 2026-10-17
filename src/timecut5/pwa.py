@@ -276,6 +276,69 @@ def reduce_frontier(pieces: Iterable[CutPiece]) -> tuple[CutPiece, ...]:
     return tuple(result)
 
 
+def _same_state_energy_skyline(cuts: tuple[Cut, ...]) -> tuple[Cut, ...]:
+    """Stable exact point antichain in O(n log n) order comparisons.
+
+    At one state and energy, ``dominates`` is the product of the two total
+    orders ``(tau, not chi)`` and ``(rho, pi)``. Sorting by the first, then
+    the second, places every possible dominator before its candidate. The
+    nondominated points are exactly the strict running minima of the second
+    order. The original index breaks equivalent-point ties, and restoring
+    input order gives the same first-witness policy as ``reduce_cuts``.
+
+    This helper does not compare or discard cuts at different energies.
+    """
+    if cuts and any((cut.state, cut.energy) != (cuts[0].state, cuts[0].energy)
+                    for cut in cuts):
+        raise ValueError("Skyline requires one physical state and energy")
+    ordered = sorted(range(len(cuts)), key=lambda i: (
+        cuts[i].tau, not cuts[i].chi, cuts[i].rho, cuts[i].pi, i))
+    best_secondary = None
+    kept = []
+    for index in ordered:
+        secondary = cuts[index].rho, cuts[index].pi
+        if best_secondary is None or secondary < best_secondary:
+            kept.append(index)
+            best_secondary = secondary
+    return tuple(cuts[index] for index in sorted(kept))
+
+
+def reduce_frontier_skyline(pieces: Iterable[CutPiece]) -> tuple[CutPiece, ...]:
+    """Opt-in exact reducer with the baseline arrangement and witness policy.
+
+    No domain, energy, prefix, attainment or provenance semantics change.
+    All active point callbacks are still validated, including dominated ones.
+    For P input pieces and C arrangement cells, point selection takes
+    O(C * P log P) comparisons rather than the baseline O(C * P**2).
+    The unchanged arrangement can have C=O(P**2); this is not a polynomial
+    bound on the route search, nor an output-size or provenance-storage cap.
+    Existing solver ``reducer=`` hooks select this separately; the baseline
+    ``reduce_frontier`` remains unchanged.
+    """
+    pieces = tuple(pieces)
+    if pieces and any(p.state != pieces[0].state for p in pieces):
+        raise ValueError("No cross-state reduction")
+    # Baseline provenance selects the first occurrence of an identical parent
+    # object, even when that object appears more than once in the input.
+    first_parent = {}
+    for index, piece in enumerate(pieces):
+        first_parent.setdefault(id(piece), index)
+    result = []
+    for cell in _arrangement(pieces):
+        e = _point(cell)
+        candidates = [p for p in pieces if p.domain.contains(e)]
+        cuts = tuple(p.at(e) for p in candidates)
+        kept_ids = {id(cut) for cut in _same_state_energy_skyline(cuts)}
+        # Preserve the baseline identity test, including repeated references
+        # to the same Cut returned by different point callbacks.
+        for piece, cut in zip(candidates, cuts):
+            if id(cut) in kept_ids:
+                result.append(prov.select(piece, pieces, cell,
+                                          first_parent[id(piece)], "reduction"))
+    prov.batch("reduction", pieces, result)
+    return tuple(result)
+
+
 def _interval_rows(domain: Interval, variable: int) -> tuple[Row, Row]:
     lo, hi = [R(0)] * 4, [R(0)] * 4
     lo[variable], hi[variable] = R(-1), R(1)

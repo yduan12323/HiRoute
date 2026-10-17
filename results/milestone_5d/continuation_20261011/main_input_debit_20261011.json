@@ -1,0 +1,36 @@
+{
+  "schema": "hiroute.m5d.main_input_debit.v1",
+  "prior_conservative_cpu_hours_rounded_up": 10.531416,
+  "runs": [
+    {
+      "kind": "real_direct_baselines_and_48_query_payloads",
+      "source_commit": "a14a9d58a2bf7e101716fc524dd61443c3e4f1d9",
+      "wall_limit_seconds": 120,
+      "memory_limit_bytes": 4294967296,
+      "result": "success",
+      "wall_elapsed_ns": 16089328806,
+      "cgroup_cpu_usage_ns": 17311896000,
+      "peak_memory_bytes": 1618186240,
+      "receipt_sha256": "04e431d739c78887e496b4ef16b6dea3ca8987ca6d74a20a7640282f20764fe9",
+      "payload_sha256": "dc22c22bd56dbd763e41eecbc0da1310259990c25caef469783a49032ccaed7c"
+    },
+    {
+      "kind": "six_true_full_eligible_site_universes",
+      "source_commit": "9e52c05a6d03a9fa8518c626d34f579a005e08c5",
+      "wall_limit_seconds": 120,
+      "memory_limit_bytes": 4294967296,
+      "result": "success",
+      "wall_elapsed_ns": 884345359,
+      "cgroup_cpu_usage_ns": 1589343000,
+      "peak_memory_bytes": 167256064,
+      "receipt_sha256": "fa6bc962a2855875795db74c85bacf7782f4b6dad634df9b5a969edb7e50aa53",
+      "full_universe_payload_sha256": "d262fbe2411d5fa5d78a242a5799b27c6f1f785348538c52ba192059634c9ff2"
+    }
+  ],
+  "new_input_cgroup_cpu_hours": 0.005250344166666667,
+  "conservative_cpu_hours_before_main_rounded_up": 10.536667,
+  "main_cpu_hours_ceiling": 32.5,
+  "outside_main_reserve_cpu_hours": 4.963333,
+  "aggregate_cpu_hours_ceiling": 48,
+  "server_originals_preserved": true
+}

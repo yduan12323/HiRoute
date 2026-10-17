@@ -1,0 +1,401 @@
+{
+  "arms": {
+    "full": {
+      "best_key": [
+        "60345046666582454103/1717986918400000",
+        "51140252490566531/429496729600000",
+        2,
+        [
+          [
+            "4r:node/11118978435",
+            "CS"
+          ],
+          [
+            "4r:node/10088989871",
+            "C"
+          ]
+        ]
+      ],
+      "durable_record_sha256": "4108efd4b11eb7cedb016e57e5f30459135e7fc6ec914974725a834d3fdb0fc9",
+      "exact_optimum_claimed": false,
+      "independently_verified_feasible": true,
+      "initial_key": [
+        "60345046666582454103/1717986918400000",
+        "51140252490566531/429496729600000",
+        2,
+        [
+          [
+            "4r:node/11118978435",
+            "CS"
+          ],
+          [
+            "4r:node/10088989871",
+            "C"
+          ]
+        ]
+      ],
+      "last_progress": {
+        "active_stack": [
+          {
+            "stage": "finish",
+            "start_wall_ns": 217721917272991
+          },
+          {
+            "stage": "road_leg",
+            "start_wall_ns": 217721917935009
+          },
+          {
+            "stage": "road_labels",
+            "start_wall_ns": 217721918002150
+          }
+        ],
+        "counters": {
+          "attempted": 480,
+          "depth": 1,
+          "expanded_prefix_groups": 2,
+          "feasible": 128,
+          "frontier_groups": 28,
+          "frontier_pieces": 40,
+          "generated_advance_pieces": 862,
+          "incumbent_primary_upper": "60345046666582454103/1717986918400000",
+          "pending_next_pieces": 822,
+          "terminal_pieces": 0
+        },
+        "io_error": null,
+        "last_completed_operation": {
+          "cpu_ns": 14225917,
+          "exception_type": null,
+          "stage": "advance",
+          "wall_ns": 15847359
+        },
+        "last_layer_end": {
+          "attempted": 248,
+          "depth": 0,
+          "feasible": 29,
+          "frontier_groups": 28,
+          "frontier_pieces": 40,
+          "incumbent_primary_upper": "60345046666582454103/1717986918400000",
+          "terminal_pieces": 0,
+          "wall_ns": 217680315410979
+        },
+        "last_layer_start": {
+          "attempted": 248,
+          "depth": 1,
+          "feasible": 29,
+          "frontier_groups": 28,
+          "frontier_pieces": 40,
+          "incumbent_primary_upper": "60345046666582454103/1717986918400000",
+          "terminal_pieces": 0,
+          "wall_ns": 217680316300013
+        },
+        "observer_io_cpu_ns": 3702041218,
+        "observer_io_scope": "Persistence only; full hook overhead requires enabled/disabled measurement",
+        "observer_io_wall_ns": 4230079447,
+        "postentry_provider_deltas": {
+          "selected_pairs": 271,
+          "source_cache_bytes": -188560456,
+          "source_cache_evictions": 40,
+          "source_cache_hits": 232,
+          "source_cache_skips": 0,
+          "source_run_count": 39,
+          "target_run_count": 0
+        },
+        "provider_metrics": {
+          "selected_pairs": 274,
+          "source_cache_bytes": 188560456,
+          "source_cache_evictions": 41,
+          "source_cache_hits": 232,
+          "source_cache_skips": 0,
+          "source_run_count": 42,
+          "target_run_count": 0
+        },
+        "sampled_wall_ns": 217723419320270,
+        "snapshot_semantics": "Last sampled active stack; not exact timeout stack. Heartbeat may be delayed by GIL-held work or I/O.",
+        "status": "running",
+        "timings": {
+          "advance": {
+            "calls": 480,
+            "cpu_ns": 13495854450,
+            "errors": 0,
+            "wall_ns": 14210397895
+          },
+          "dominance_reducer": {
+            "calls": 27,
+            "cpu_ns": 28939478,
+            "errors": 0,
+            "wall_ns": 31020547
+          },
+          "finish": {
+            "calls": 155,
+            "cpu_ns": 98063113321,
+            "errors": 0,
+            "wall_ns": 102313019506
+          },
+          "initial_piece": {
+            "calls": 1,
+            "cpu_ns": 1364367,
+            "errors": 0,
+            "wall_ns": 1380448
+          },
+          "road_labels": {
+            "calls": 271,
+            "cpu_ns": 102164027490,
+            "errors": 0,
+            "wall_ns": 106681118355
+          },
+          "road_leg": {
+            "calls": 569,
+            "cpu_ns": 104607664883,
+            "errors": 0,
+            "wall_ns": 109224182879
+          },
+          "road_path": {
+            "calls": 271,
+            "cpu_ns": 1577402397,
+            "errors": 0,
+            "wall_ns": 1632161750
+          },
+          "road_singleton_bound": {
+            "calls": 480,
+            "cpu_ns": 525260793,
+            "errors": 0,
+            "wall_ns": 579818395
+          }
+        }
+      },
+      "original_depth_preserved": true,
+      "original_max_depth": 39,
+      "primary_as_float": 35125.44014175798,
+      "replay_mode": "full",
+      "replay_target_calls": 0,
+      "replayed_status": "initial_feasible_witness_retained",
+      "runtime_roles": [
+        {
+          "mode": "full",
+          "role": "generation"
+        },
+        {
+          "mode": "full",
+          "role": "verification"
+        },
+        {
+          "mode": "full",
+          "role": "search"
+        },
+        {
+          "mode": "full",
+          "role": "durable_verification"
+        },
+        {
+          "mode": "full",
+          "role": "landmark"
+        }
+      ],
+      "secondary_as_float": 119.07017904000014,
+      "strict_lex_improvement": false
+    },
+    "target": {
+      "best_key": [
+        "11018044632657196227/343597383680000",
+        "63656583581126493/858993459200000",
+        2,
+        [
+          [
+            "4r:node/11118978435",
+            "CS"
+          ],
+          [
+            "4r:node/10088989871",
+            "C"
+          ]
+        ]
+      ],
+      "durable_record_sha256": "956ac4300d2a65557d10f0b488cc38621e18e3f732782ef8f9967934c00406c5",
+      "exact_optimum_claimed": false,
+      "independently_verified_feasible": true,
+      "initial_key": [
+        "60345046666582454103/1717986918400000",
+        "51140252490566531/429496729600000",
+        2,
+        [
+          [
+            "4r:node/11118978435",
+            "CS"
+          ],
+          [
+            "4r:node/10088989871",
+            "C"
+          ]
+        ]
+      ],
+      "last_progress": {
+        "active_stack": [
+          {
+            "stage": "finish",
+            "start_wall_ns": 217362455142553
+          },
+          {
+            "stage": "road_leg",
+            "start_wall_ns": 217362456113468
+          },
+          {
+            "stage": "road_labels",
+            "start_wall_ns": 217362456211668
+          }
+        ],
+        "counters": {
+          "attempted": 564,
+          "depth": 1,
+          "expanded_prefix_groups": 4,
+          "feasible": 142,
+          "frontier_groups": 28,
+          "frontier_pieces": 40,
+          "generated_advance_pieces": 963,
+          "incumbent_primary_upper": "11018044632657196227/343597383680000",
+          "pending_next_pieces": 923,
+          "terminal_pieces": 0
+        },
+        "io_error": null,
+        "last_completed_operation": {
+          "cpu_ns": 60790856,
+          "exception_type": null,
+          "stage": "advance",
+          "wall_ns": 62098084
+        },
+        "last_layer_end": {
+          "attempted": 248,
+          "depth": 0,
+          "feasible": 29,
+          "frontier_groups": 28,
+          "frontier_pieces": 40,
+          "incumbent_primary_upper": "60345046666582454103/1717986918400000",
+          "terminal_pieces": 0,
+          "wall_ns": 217301744476647
+        },
+        "last_layer_start": {
+          "attempted": 248,
+          "depth": 1,
+          "feasible": 29,
+          "frontier_groups": 28,
+          "frontier_pieces": 40,
+          "incumbent_primary_upper": "60345046666582454103/1717986918400000",
+          "terminal_pieces": 0,
+          "wall_ns": 217301745083665
+        },
+        "observer_io_cpu_ns": 3341225047,
+        "observer_io_scope": "Persistence only; full hook overhead requires enabled/disabled measurement",
+        "observer_io_wall_ns": 3713609142,
+        "postentry_provider_deltas": {
+          "selected_pairs": 295,
+          "source_cache_bytes": 0,
+          "source_cache_evictions": 2,
+          "source_cache_hits": 248,
+          "source_cache_skips": 0,
+          "source_run_count": 2,
+          "target_run_count": 45
+        },
+        "provider_metrics": {
+          "selected_pairs": 298,
+          "source_cache_bytes": 377120912,
+          "source_cache_evictions": 3,
+          "source_cache_hits": 248,
+          "source_cache_skips": 0,
+          "source_run_count": 5,
+          "target_run_count": 45
+        },
+        "sampled_wall_ns": 217362883827195,
+        "snapshot_semantics": "Last sampled active stack; not exact timeout stack. Heartbeat may be delayed by GIL-held work or I/O.",
+        "status": "running",
+        "timings": {
+          "advance": {
+            "calls": 564,
+            "cpu_ns": 12985518039,
+            "errors": 0,
+            "wall_ns": 13504979719
+          },
+          "dominance_reducer": {
+            "calls": 27,
+            "cpu_ns": 48503807,
+            "errors": 0,
+            "wall_ns": 50900914
+          },
+          "finish": {
+            "calls": 169,
+            "cpu_ns": 92019649622,
+            "errors": 0,
+            "wall_ns": 95379386987
+          },
+          "initial_piece": {
+            "calls": 1,
+            "cpu_ns": 742062,
+            "errors": 0,
+            "wall_ns": 758346
+          },
+          "road_labels": {
+            "calls": 295,
+            "cpu_ns": 97044161329,
+            "errors": 0,
+            "wall_ns": 100668362311
+          },
+          "road_leg": {
+            "calls": 691,
+            "cpu_ns": 99144258338,
+            "errors": 0,
+            "wall_ns": 102832692476
+          },
+          "road_path": {
+            "calls": 295,
+            "cpu_ns": 1321630178,
+            "errors": 0,
+            "wall_ns": 1351097453
+          },
+          "road_singleton_bound": {
+            "calls": 564,
+            "cpu_ns": 483548620,
+            "errors": 0,
+            "wall_ns": 509755615
+          },
+          "witness_replay": {
+            "calls": 7,
+            "cpu_ns": 16535395,
+            "errors": 0,
+            "wall_ns": 19567819
+          }
+        }
+      },
+      "original_depth_preserved": true,
+      "original_max_depth": 39,
+      "primary_as_float": 32066.730295357982,
+      "replay_mode": "full",
+      "replay_target_calls": 0,
+      "replayed_status": "improved_feasible_witness",
+      "runtime_roles": [
+        {
+          "mode": "full",
+          "role": "generation"
+        },
+        {
+          "mode": "full",
+          "role": "verification"
+        },
+        {
+          "mode": "destination_target",
+          "role": "search"
+        },
+        {
+          "mode": "full",
+          "role": "durable_verification"
+        },
+        {
+          "mode": "full",
+          "role": "landmark"
+        }
+      ],
+      "secondary_as_float": 74.10601664000015,
+      "strict_lex_improvement": true
+    }
+  },
+  "scope": "One fixed-order known-DEV pair, independently replayed feasible outcomes; last progress is sampled evaluated work, not exact timeout stack, proof of equal work or an optimum certificate.",
+  "target_replayed_primary_reduction_fraction": "1751607834432157656/20115015555527484701",
+  "target_replayed_primary_reduction_percent": 8.707961619998978
+}

@@ -1,0 +1,140 @@
+{
+  "accounted_total_cpu_seconds": 165.142137359,
+  "accounted_total_cpu_seconds_recorded_decimal": "165.142137359000003",
+  "actual_audit_sha256": "ed2542fb082d467c1106e5b178a78ee193589aa98770683e40c75daa2acaed83",
+  "conservative_stage_cpu_seconds": 45.142137359,
+  "difference_equals_concurrent_overlap": true,
+  "direct_EV_feasibility_claimed": false,
+  "global_sequential_planner_claimed": false,
+  "heldout_evaluation": false,
+  "manifest_sha256": "97207058f36b0ff3144fc05f901f28a1d1a466c812c50d068c83a249482647eb",
+  "optimality_claimed": false,
+  "orchestration_allowance": 120,
+  "pending_report_predecessor_sha256": "6566cba2c68c8405336c7e362178a207a20edb48460af627aa858d6a17b24879",
+  "prior_failures_and_revisions": [
+    {
+      "outcome": "review_rejected",
+      "reason": "mutable identities accepted",
+      "resolution": "immutable exact identity contract in v2; independent review passed",
+      "stage": "pure_timing_v1"
+    },
+    {
+      "outcome": "review_rejected",
+      "reason": "predecessor terminal flags and supplied result path insufficiently authenticated",
+      "resolution": "fixed-path typed evidence reauthentication in v2",
+      "stage": "runtime_v1"
+    },
+    {
+      "outcome": "review_rejected",
+      "reason": "missing owned wait4/root identity checks; prerequisite validation outside finite charged preflight",
+      "resolution": "corrected and reviewed v3",
+      "stage": "runtime_v2"
+    },
+    {
+      "outcome": "setup_failure",
+      "raw_evidence_retention": "temporary fixture directory auto-cleaned; full raw receipt unavailable; disclosure retained",
+      "reason": "historical igraph package metadata not visible until dependency search path restored",
+      "stage": "initial_tiny_fixture"
+    },
+    {
+      "outcome": "worker_failure",
+      "raw_evidence_retention": "retained failed terminal, containment and stderr",
+      "reason": "attempted multiple providers sharing one owned native router",
+      "resolution": "distinct fresh router ownership per provider",
+      "stage": "later_tiny_native_fixture"
+    },
+    {
+      "change": "separately verified direct-road reference and signed distance difference; no timing/route/charge change",
+      "outcome": "review_passed",
+      "stage": "runtime_v4"
+    }
+  ],
+  "reporting_rounded_total_cpu_seconds": "165.142137359",
+  "reserved_cpu_seconds": 1460,
+  "review_status": "independent_actual_result_audit_passed",
+  "rows": [
+    {
+      "charged_cpu_seconds": 23.913564792000003,
+      "cleanup_verified": true,
+      "direct_reference": {
+        "distance_m": "293120433715151/536870912",
+        "energy_feasibility_claimed": false,
+        "reference_kind": "selected_fastest_road_path",
+        "schema": "hiroute.selected_fastest_road_reference.v1",
+        "seconds": "5689437044623653/274877906944",
+        "selected_edges_independently_verified": true,
+        "shortest_distance_claimed": false,
+        "source": "road:5788209",
+        "target": "road:3190137"
+      },
+      "direct_reference_sha256": "b21618fa8e6ba77a627c28e49994f63dbdb69f5bb8c0aed082531220f229f7da",
+      "direct_reference_source_runs": 1,
+      "end_to_end_wall_seconds": 23.13920812998549,
+      "input_sha256": "efaf011eca89920748bd1ea2dce2c690368cea002a39d12966d0025fdce80da5",
+      "mode": "concurrent",
+      "result_sha256": "0be4e29e3ff763530878066793a413ca2de88b11d1736f9031eadb31cd872be2",
+      "timeline": {
+        "detour_m": "326037152192285/68719476736",
+        "distance_m": "37845452667731613/68719476736",
+        "feasible": true,
+        "generalized_cost": "4631380169628339331/137438953472000",
+        "input_sha256": "efaf011eca89920748bd1ea2dce2c690368cea002a39d12966d0025fdce80da5",
+        "mode": "concurrent",
+        "overlap_seconds": "241885385058931547/137438953472000",
+        "stop_count": 2,
+        "total_charge_kwh": "1882277661060431/17179869184000",
+        "trip_seconds": "4466453425461939331/137438953472000",
+        "violations": [],
+        "window_slacks": [
+          "17068311133870959/2748779069440"
+        ]
+      }
+    },
+    {
+      "charged_cpu_seconds": 21.228572567,
+      "cleanup_verified": true,
+      "direct_reference": {
+        "distance_m": "293120433715151/536870912",
+        "energy_feasibility_claimed": false,
+        "reference_kind": "selected_fastest_road_path",
+        "schema": "hiroute.selected_fastest_road_reference.v1",
+        "seconds": "5689437044623653/274877906944",
+        "selected_edges_independently_verified": true,
+        "shortest_distance_claimed": false,
+        "source": "road:5788209",
+        "target": "road:3190137"
+      },
+      "direct_reference_sha256": "b21618fa8e6ba77a627c28e49994f63dbdb69f5bb8c0aed082531220f229f7da",
+      "direct_reference_source_runs": 1,
+      "end_to_end_wall_seconds": 20.47620751798968,
+      "input_sha256": "efaf011eca89920748bd1ea2dce2c690368cea002a39d12966d0025fdce80da5",
+      "mode": "charge_before_activity",
+      "result_sha256": "23c88ace0d33239242689beddb9b7374397a733aa42c56f9659d59018e0e6fcd",
+      "timeline": {
+        "detour_m": "326037152192285/68719476736",
+        "distance_m": "37845452667731613/68719476736",
+        "feasible": true,
+        "generalized_cost": "2436632777343635439/68719476736000",
+        "input_sha256": "efaf011eca89920748bd1ea2dce2c690368cea002a39d12966d0025fdce80da5",
+        "mode": "charge_before_activity",
+        "overlap_seconds": "0",
+        "stop_count": 2,
+        "total_charge_kwh": "1882277661060431/17179869184000",
+        "trip_seconds": "2354169405260435439/68719476736000",
+        "violations": [],
+        "window_slacks": [
+          "611530171634616403/137438953472000"
+        ]
+      }
+    }
+  ],
+  "runtime_accounting_scope": "Two actual contained stages only plus explicit120s orchestration allowance; conservative wait4 may double count descendants; historical development/tiny tests/reporting CPU not covered.",
+  "saved_seconds_approx": 1759.947809179223,
+  "schema": "hiroute.fixed_route_transportation_summary.v1",
+  "scope": "known_DEV_OD07_repaired149_fixed_route_local_CS_serialization",
+  "screening": "OFF_BOTH",
+  "shortest_distance_claimed": false,
+  "signed_time_difference_sequential_minus_concurrent_s": "241885385058931547/137438953472000",
+  "status": "both_verified_feasible",
+  "witness_sha256": "16aba96ef6700d1d073a558d0f6fa37f0b32eb10cce8c3ecd54b31648cc46457"
+}

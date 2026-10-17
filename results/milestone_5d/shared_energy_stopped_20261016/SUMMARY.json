@@ -1,0 +1,1222 @@
+{
+  "completed_rows": 3,
+  "fixed_six_row_denominator": {
+    "od02.flat": "fresh_verified",
+    "od02.hier": "fresh_verified",
+    "od07.flat": "failed_infrastructure_no_fresh_replay",
+    "od07.hier": "fresh_verified",
+    "od10.flat": "blocked_unlaunched",
+    "od10.hier": "blocked_unlaunched"
+  },
+  "limitations": [
+    "Three fixed known DEV cases with both methods using energy screening; no general superiority or optimum claim.",
+    "Timeout counters are last authenticated samples, not final totals or final observer-health proof.",
+    "Nested operation and setup timers must not be added without disjoint-scope justification.",
+    "Skipped immediate finishes are not equal to avoided source-router runs."
+  ],
+  "pairs": {
+    "od02": {
+      "both_history_guarded": true,
+      "flat_improvement_percent": 12.981068813149486,
+      "hier_improvement_percent": 12.228967173594096,
+      "matching_fields": {
+        "certificate_semantics": true,
+        "common_seed_sha256": true,
+        "domain_sha256": true,
+        "effective_query_sha256": true,
+        "initial_key": true,
+        "kernel_semantics": true,
+        "native_semantics": true,
+        "original_max_depth": true,
+        "shared_treatment_sha256": true
+      }
+    }
+  },
+  "rows": {
+    "od02.flat": {
+      "best_key": [
+        "89231180441089702031/3435973836800000",
+        "59082310507418349/858993459200000",
+        2,
+        [
+          [
+            "4r:node/10652698226",
+            "C"
+          ],
+          [
+            "4r:node/12090131433",
+            "C"
+          ]
+        ]
+      ],
+      "censored": true,
+      "certificate_semantics": {
+        "anchor_potentials": {
+          "road:1014886": 482380880883,
+          "road:1061281": 255318131156,
+          "road:1139918": 168244875644,
+          "road:1181174": 115002443439,
+          "road:1252972": 481005544503,
+          "road:1253084": 480587131240,
+          "road:1327751": 454380502419,
+          "road:1359617": 59567888517,
+          "road:1359620": 4611686018427387903,
+          "road:1392058": 175299311084,
+          "road:1399607": 301425062435,
+          "road:1504348": 367254640024,
+          "road:1504768": 375639227590,
+          "road:1526001": 125390935318,
+          "road:1567547": 204919606972,
+          "road:1591488": 474313114182,
+          "road:1623971": 452672816592,
+          "road:163057": 162223198492,
+          "road:164263": 149408673055,
+          "road:1696553": 287059712021,
+          "road:1707314": 433351307859,
+          "road:1710190": 472408974520,
+          "road:1716824": 255432269644,
+          "road:1815": 59223063298,
+          "road:190188": 96143346133,
+          "road:1906607": 0,
+          "road:1951489": 442213205122,
+          "road:1993188": 168977350028,
+          "road:2047054": 337457765028,
+          "road:2120873": 337160948823,
+          "road:2274668": 59452098505,
+          "road:2278329": 60106494818,
+          "road:2278331": 59422007478,
+          "road:2283162": 59490137657,
+          "road:2283217": 60899598897,
+          "road:229632": 185200414247,
+          "road:2377787": 119587283209,
+          "road:2397973": 351747164833,
+          "road:2430979": 367498663574,
+          "road:2571782": 203913120021,
+          "road:2703064": 408248867405,
+          "road:2703528": 406761600426,
+          "road:2788597": 192531731621,
+          "road:2798342": 101135128873,
+          "road:2820948": 466996491725,
+          "road:282327": 144607540697,
+          "road:2823791": 59076432493,
+          "road:2908708": 230438749204,
+          "road:2922375": 26520528415,
+          "road:2938390": 25544565272,
+          "road:2955340": 266034223011,
+          "road:3051132": 118344823702,
+          "road:3258428": 60210233583,
+          "road:3269683": 301258166898,
+          "road:3361416": 256495597025,
+          "road:3405822": 276635608135,
+          "road:3495795": 337327239351,
+          "road:3632635": 232407604725,
+          "road:3776466": 384483585514,
+          "road:3791304": 351535021139,
+          "road:3912618": 383216269233,
+          "road:3964160": 215315790609,
+          "road:3993174": 384225514221,
+          "road:4051716": 178860594996,
+          "road:4132203": 376728685403,
+          "road:4197705": 265680910583,
+          "road:4207382": 185040151994,
+          "road:4302925": 336058033542,
+          "road:4339049": 118230681768,
+          "road:4444385": 276736746436,
+          "road:4466852": 274373928628,
+          "road:4533491": 59763550697,
+          "road:4681263": 126902339295,
+          "road:4715338": 112748322878,
+          "road:4738901": 124354897308,
+          "road:4856029": 366952793799,
+          "road:4889358": 303618301117,
+          "road:4901019": 382043388160,
+          "road:4922445": 274471634943,
+          "road:4925047": 215716887159,
+          "road:4984887": 195266633775,
+          "road:5073365": 116821413437,
+          "road:5134246": 450867177159,
+          "road:5198402": 467669056749,
+          "road:5219710": 202965647515,
+          "road:5238238": 453306806600,
+          "road:5261287": 166736586114,
+          "road:5270813": 167816400240,
+          "road:5343479": 459137874909,
+          "road:5373418": 125308089417,
+          "road:5401859": 166819659548,
+          "road:5423673": 288596238657,
+          "road:5454571": 301658162970,
+          "road:5454588": 301290694769,
+          "road:5460706": 442207639281,
+          "road:5470686": 337255058516,
+          "road:5472921": 108545894513,
+          "road:5480533": 337090419514,
+          "road:5490334": 59375361615,
+          "road:5497563": 401653392207,
+          "road:5505469": 232523726444,
+          "road:5516801": 337053038819,
+          "road:5553949": 168351867093,
+          "road:5580829": 175986476500,
+          "road:5630741": 59588583242,
+          "road:567188": 59775575788,
+          "road:5678992": 399777003192,
+          "road:5679012": 399758658362,
+          "road:570800": 61313240093,
+          "road:57171": 256359329332,
+          "road:5728811": 433336026961,
+          "road:5829221": 60633789076,
+          "road:5840498": 209022093722,
+          "road:588543": 100067108094,
+          "road:64970": 301092641839,
+          "road:833986": 123295816741,
+          "road:837871": 225428806941,
+          "road:87361": 230398074942
+        },
+        "anchors_sha256": "6da73f5b9bbc2f5f4cf81878cb8eaa8b63b080c3eb4ed8481bbd1e65ba014b59",
+        "beta": "9007199248848495/9007199254740992",
+        "cap": 4611686018427387903,
+        "checked_edges": 11561067,
+        "destination": "road:1906607",
+        "full_edge_validation_passes": 2,
+        "graph_sha256": "8f64bb2505a33df743f16a0648c36ddc0f0c419b941705c70ddf95701af702e3",
+        "potential_sha256": "99624cbe37896e6e5d1acb6b5848b5918b47853180ae60ec27936308b8ec3a09",
+        "quantum_exponent": 20,
+        "rate": "1/6250",
+        "reserve": "6",
+        "unsupported_policy": "reject"
+      },
+      "common_seed_sha256": "9498b1b167d8ebb4dc15d44b2c2d55efa0f3d0f4f0b4e7eeaf1fdefd134cfe4f",
+      "counters": {
+        "calls_started": 41,
+        "decisions_completed": 41,
+        "guard_pending_operations": 2,
+        "guarded_operations_completed": 796,
+        "rejected_immediate_finishes": 6
+      },
+      "domain_sha256": "df502850473a90a4eba08b96e4c89b5d8b8079a3f2cc8a25265afa8610bf9230",
+      "effective_query_sha256": "1409b08c63d1aaf6f0a984d4eaa606808d07a911d9224d280dbd2f4c8d8ac015",
+      "exact_observed_wall_seconds": 120.14557713,
+      "history_installed_before_first_route": true,
+      "improvement_percent": 12.981068813149486,
+      "initial_key": [
+        "102542262038922263369/3435973836800000",
+        "80857457560385401/858993459200000",
+        2,
+        [
+          [
+            "4r:node/10652698226",
+            "C"
+          ],
+          [
+            "4r:node/10865655524",
+            "C"
+          ]
+        ]
+      ],
+      "kernel_semantics": {
+        "binary_sha256": "137c125a6c9a55bdf5500c1887cd951853f5eb71c986c9153042bc15a040d637",
+        "compiler_sha256": "6b3696e4dcb85e1c949c732a02befa50e3983ecf94ce7e8e58d9d503b954b79d",
+        "flags": [
+          "-O3",
+          "-std=c++17",
+          "-fno-fast-math",
+          "-frounding-math",
+          "-shared",
+          "-fPIC"
+        ],
+        "source_sha256": "2abae524424c64b505ad63a01ba61d8784d635f47c205b7561dc9230e3496dd8"
+      },
+      "native_semantics": {
+        "binary_sha256": "b7d5d372ce409bea8d1578dde889fbb124d8732c6a21ccda93d61d8c4f91ad76",
+        "compiler_sha256": "6b3696e4dcb85e1c949c732a02befa50e3983ecf94ce7e8e58d9d503b954b79d",
+        "source_sha256": "6770b08111ee5184749c92146923bce8e457472a77cd9a226fc26fbdf4b1e9c7"
+      },
+      "original_depth_preserved": true,
+      "original_max_depth": 33,
+      "progress": {
+        "active_stack": [
+          {
+            "stage": "finish",
+            "start_wall_ns": 236189106187323
+          },
+          {
+            "stage": "road_leg",
+            "start_wall_ns": 236189107655645
+          },
+          {
+            "stage": "road_labels",
+            "start_wall_ns": 236189107757104
+          }
+        ],
+        "counters": {
+          "attempted": 121,
+          "depth": 1,
+          "expanded_prefix_groups": 2,
+          "feasible": 39,
+          "frontier_groups": 2,
+          "frontier_pieces": 12,
+          "generated_advance_pieces": 332,
+          "incumbent_primary_upper": "89231180441089702031/3435973836800000",
+          "pending_next_pieces": 320,
+          "terminal_pieces": 0
+        },
+        "entry_provider_metrics": {
+          "region_bound_online_internal_member_accesses": 0,
+          "region_bound_online_leaf_action_reads": 0,
+          "region_bound_online_mask_word_work": 0,
+          "region_bound_online_queries": 0,
+          "selected_pairs": 3,
+          "source_cache_bytes": 377120912,
+          "source_cache_evictions": 1,
+          "source_cache_hits": 0,
+          "source_cache_skips": 0,
+          "source_run_count": 3
+        },
+        "io_error": null,
+        "last_layer_end": {
+          "attempted": 66,
+          "depth": 0,
+          "feasible": 3,
+          "frontier_groups": 2,
+          "frontier_pieces": 12,
+          "incumbent_primary_upper": "102542262038922263369/3435973836800000",
+          "terminal_pieces": 0,
+          "wall_ns": 236073938187459
+        },
+        "last_layer_start": {
+          "attempted": 66,
+          "depth": 1,
+          "feasible": 3,
+          "frontier_groups": 2,
+          "frontier_pieces": 12,
+          "incumbent_primary_upper": "102542262038922263369/3435973836800000",
+          "terminal_pieces": 0,
+          "wall_ns": 236073938839455
+        },
+        "observer_io_cpu_ns": 1479296444,
+        "observer_io_scope": "Persistence only; full hook overhead requires enabled/disabled measurement",
+        "observer_io_wall_ns": 1655561629,
+        "postentry_provider_deltas": {
+          "region_bound_online_internal_member_accesses": 0,
+          "region_bound_online_leaf_action_reads": 0,
+          "region_bound_online_mask_word_work": 0,
+          "region_bound_online_queries": 121,
+          "selected_pairs": 137,
+          "source_cache_bytes": -188560456,
+          "source_cache_evictions": 33,
+          "source_cache_hits": 105,
+          "source_cache_skips": 0,
+          "source_run_count": 32
+        },
+        "provider_metrics": {
+          "region_bound_online_internal_member_accesses": 0,
+          "region_bound_online_leaf_action_reads": 0,
+          "region_bound_online_mask_word_work": 0,
+          "region_bound_online_queries": 121,
+          "selected_pairs": 140,
+          "source_cache_bytes": 188560456,
+          "source_cache_evictions": 34,
+          "source_cache_hits": 105,
+          "source_cache_skips": 0,
+          "source_run_count": 35
+        },
+        "sampled_wall_ns": 236191229723693,
+        "snapshot_semantics": "Last sampled active stack; not exact timeout stack. Heartbeat may be delayed by GIL-held work or I/O.",
+        "timer_semantics": "inclusive nested wall and calling-thread CPU; do not sum categories",
+        "timings": {
+          "advance": {
+            "calls": 121,
+            "cpu_ns": 5934651757,
+            "errors": 0,
+            "wall_ns": 5968450290
+          },
+          "dominance_reducer": {
+            "calls": 2,
+            "cpu_ns": 2154065,
+            "errors": 0,
+            "wall_ns": 2182887
+          },
+          "finish": {
+            "calls": 34,
+            "cpu_ns": 66926441251,
+            "errors": 0,
+            "wall_ns": 67468628803
+          },
+          "initial_piece": {
+            "calls": 1,
+            "cpu_ns": 507040,
+            "errors": 0,
+            "wall_ns": 514776
+          },
+          "road_labels": {
+            "calls": 141,
+            "cpu_ns": 74756101635,
+            "errors": 0,
+            "wall_ns": 75338955565
+          },
+          "road_leg": {
+            "calls": 671,
+            "cpu_ns": 75679690941,
+            "errors": 0,
+            "wall_ns": 76273253188
+          },
+          "road_path": {
+            "calls": 141,
+            "cpu_ns": 504582552,
+            "errors": 0,
+            "wall_ns": 507031374
+          },
+          "road_singleton_bound": {
+            "calls": 121,
+            "cpu_ns": 74092332,
+            "errors": 0,
+            "wall_ns": 78751062
+          },
+          "witness_replay": {
+            "calls": 169,
+            "cpu_ns": 235080748,
+            "errors": 0,
+            "wall_ns": 238797444
+          }
+        }
+      },
+      "quality": {
+        "global_lower_bound_available": false,
+        "global_optimality_gap": "NA",
+        "near_optimality_claimed": false,
+        "primary_improvement": "6655540798916280669/1717986918400000",
+        "primary_relative_improvement": "13311081597832561338/102542262038922263369",
+        "secondary_change": "5443786763241763/214748364800000",
+        "stop_count_change": 0,
+        "strict_full_key_improvement": true
+      },
+      "sample_after_exact_ns": 119828493511,
+      "sampled_rss_bytes": 4570959872,
+      "setup": {
+        "activation_cpu_ns": 2155905037,
+        "activation_wall_ns": 2155511230,
+        "build_with_first_validation_cpu_ns": 1963926812,
+        "build_with_first_validation_wall_ns": 1965789157,
+        "certificate_publication_cpu_ns": 773351,
+        "certificate_publication_wall_ns": 776271,
+        "checked_edges": 11561067,
+        "construction_cpu_ns": 2143951231,
+        "construction_packed_scratch_bytes": 140524244,
+        "construction_potential_bytes": 47139984,
+        "construction_wall_ns": 2145277203,
+        "full_edge_validation_passes": 2,
+        "graph_copy_cpu_ns": 991972646,
+        "graph_copy_retained_bytes": 369954144,
+        "graph_copy_wall_ns": 992044281,
+        "guard_install_cpu_ns": 8152715,
+        "guard_install_wall_ns": 10079873,
+        "second_validation_cpu_ns": 131931052,
+        "second_validation_wall_ns": 130909791
+      },
+      "shared_treatment_sha256": "370a7f61e73836e92f1b94564f8968218fbc7a3f6ae1839feb67303f6ddd9c42",
+      "stage_wall_seconds": 214.004573120008
+    },
+    "od02.hier": {
+      "best_key": [
+        "22500600618780404673/858993459200000",
+        "119086816876302471/1717986918400000",
+        2,
+        [
+          [
+            "4r:node/9569604034",
+            "C"
+          ],
+          [
+            "4r:node/12090131433",
+            "C"
+          ]
+        ]
+      ],
+      "censored": true,
+      "certificate_semantics": {
+        "anchor_potentials": {
+          "road:1014886": 482380880883,
+          "road:1061281": 255318131156,
+          "road:1139918": 168244875644,
+          "road:1181174": 115002443439,
+          "road:1252972": 481005544503,
+          "road:1253084": 480587131240,
+          "road:1327751": 454380502419,
+          "road:1359617": 59567888517,
+          "road:1359620": 4611686018427387903,
+          "road:1392058": 175299311084,
+          "road:1399607": 301425062435,
+          "road:1504348": 367254640024,
+          "road:1504768": 375639227590,
+          "road:1526001": 125390935318,
+          "road:1567547": 204919606972,
+          "road:1591488": 474313114182,
+          "road:1623971": 452672816592,
+          "road:163057": 162223198492,
+          "road:164263": 149408673055,
+          "road:1696553": 287059712021,
+          "road:1707314": 433351307859,
+          "road:1710190": 472408974520,
+          "road:1716824": 255432269644,
+          "road:1815": 59223063298,
+          "road:190188": 96143346133,
+          "road:1906607": 0,
+          "road:1951489": 442213205122,
+          "road:1993188": 168977350028,
+          "road:2047054": 337457765028,
+          "road:2120873": 337160948823,
+          "road:2274668": 59452098505,
+          "road:2278329": 60106494818,
+          "road:2278331": 59422007478,
+          "road:2283162": 59490137657,
+          "road:2283217": 60899598897,
+          "road:229632": 185200414247,
+          "road:2377787": 119587283209,
+          "road:2397973": 351747164833,
+          "road:2430979": 367498663574,
+          "road:2571782": 203913120021,
+          "road:2703064": 408248867405,
+          "road:2703528": 406761600426,
+          "road:2788597": 192531731621,
+          "road:2798342": 101135128873,
+          "road:2820948": 466996491725,
+          "road:282327": 144607540697,
+          "road:2823791": 59076432493,
+          "road:2908708": 230438749204,
+          "road:2922375": 26520528415,
+          "road:2938390": 25544565272,
+          "road:2955340": 266034223011,
+          "road:3051132": 118344823702,
+          "road:3258428": 60210233583,
+          "road:3269683": 301258166898,
+          "road:3361416": 256495597025,
+          "road:3405822": 276635608135,
+          "road:3495795": 337327239351,
+          "road:3632635": 232407604725,
+          "road:3776466": 384483585514,
+          "road:3791304": 351535021139,
+          "road:3912618": 383216269233,
+          "road:3964160": 215315790609,
+          "road:3993174": 384225514221,
+          "road:4051716": 178860594996,
+          "road:4132203": 376728685403,
+          "road:4197705": 265680910583,
+          "road:4207382": 185040151994,
+          "road:4302925": 336058033542,
+          "road:4339049": 118230681768,
+          "road:4444385": 276736746436,
+          "road:4466852": 274373928628,
+          "road:4533491": 59763550697,
+          "road:4681263": 126902339295,
+          "road:4715338": 112748322878,
+          "road:4738901": 124354897308,
+          "road:4856029": 366952793799,
+          "road:4889358": 303618301117,
+          "road:4901019": 382043388160,
+          "road:4922445": 274471634943,
+          "road:4925047": 215716887159,
+          "road:4984887": 195266633775,
+          "road:5073365": 116821413437,
+          "road:5134246": 450867177159,
+          "road:5198402": 467669056749,
+          "road:5219710": 202965647515,
+          "road:5238238": 453306806600,
+          "road:5261287": 166736586114,
+          "road:5270813": 167816400240,
+          "road:5343479": 459137874909,
+          "road:5373418": 125308089417,
+          "road:5401859": 166819659548,
+          "road:5423673": 288596238657,
+          "road:5454571": 301658162970,
+          "road:5454588": 301290694769,
+          "road:5460706": 442207639281,
+          "road:5470686": 337255058516,
+          "road:5472921": 108545894513,
+          "road:5480533": 337090419514,
+          "road:5490334": 59375361615,
+          "road:5497563": 401653392207,
+          "road:5505469": 232523726444,
+          "road:5516801": 337053038819,
+          "road:5553949": 168351867093,
+          "road:5580829": 175986476500,
+          "road:5630741": 59588583242,
+          "road:567188": 59775575788,
+          "road:5678992": 399777003192,
+          "road:5679012": 399758658362,
+          "road:570800": 61313240093,
+          "road:57171": 256359329332,
+          "road:5728811": 433336026961,
+          "road:5829221": 60633789076,
+          "road:5840498": 209022093722,
+          "road:588543": 100067108094,
+          "road:64970": 301092641839,
+          "road:833986": 123295816741,
+          "road:837871": 225428806941,
+          "road:87361": 230398074942
+        },
+        "anchors_sha256": "6da73f5b9bbc2f5f4cf81878cb8eaa8b63b080c3eb4ed8481bbd1e65ba014b59",
+        "beta": "9007199248848495/9007199254740992",
+        "cap": 4611686018427387903,
+        "checked_edges": 11561067,
+        "destination": "road:1906607",
+        "full_edge_validation_passes": 2,
+        "graph_sha256": "8f64bb2505a33df743f16a0648c36ddc0f0c419b941705c70ddf95701af702e3",
+        "potential_sha256": "99624cbe37896e6e5d1acb6b5848b5918b47853180ae60ec27936308b8ec3a09",
+        "quantum_exponent": 20,
+        "rate": "1/6250",
+        "reserve": "6",
+        "unsupported_policy": "reject"
+      },
+      "common_seed_sha256": "9498b1b167d8ebb4dc15d44b2c2d55efa0f3d0f4f0b4e7eeaf1fdefd134cfe4f",
+      "counters": {
+        "calls_started": 39,
+        "decisions_completed": 39,
+        "guard_pending_operations": 2,
+        "guarded_operations_completed": 658,
+        "rejected_immediate_finishes": 7
+      },
+      "domain_sha256": "df502850473a90a4eba08b96e4c89b5d8b8079a3f2cc8a25265afa8610bf9230",
+      "effective_query_sha256": "1409b08c63d1aaf6f0a984d4eaa606808d07a911d9224d280dbd2f4c8d8ac015",
+      "exact_observed_wall_seconds": 120.191538536,
+      "history_installed_before_first_route": true,
+      "improvement_percent": 12.228967173594096,
+      "initial_key": [
+        "102542262038922263369/3435973836800000",
+        "80857457560385401/858993459200000",
+        2,
+        [
+          [
+            "4r:node/10652698226",
+            "C"
+          ],
+          [
+            "4r:node/10865655524",
+            "C"
+          ]
+        ]
+      ],
+      "kernel_semantics": {
+        "binary_sha256": "137c125a6c9a55bdf5500c1887cd951853f5eb71c986c9153042bc15a040d637",
+        "compiler_sha256": "6b3696e4dcb85e1c949c732a02befa50e3983ecf94ce7e8e58d9d503b954b79d",
+        "flags": [
+          "-O3",
+          "-std=c++17",
+          "-fno-fast-math",
+          "-frounding-math",
+          "-shared",
+          "-fPIC"
+        ],
+        "source_sha256": "2abae524424c64b505ad63a01ba61d8784d635f47c205b7561dc9230e3496dd8"
+      },
+      "native_semantics": {
+        "binary_sha256": "b7d5d372ce409bea8d1578dde889fbb124d8732c6a21ccda93d61d8c4f91ad76",
+        "compiler_sha256": "6b3696e4dcb85e1c949c732a02befa50e3983ecf94ce7e8e58d9d503b954b79d",
+        "source_sha256": "6770b08111ee5184749c92146923bce8e457472a77cd9a226fc26fbdf4b1e9c7"
+      },
+      "original_depth_preserved": true,
+      "original_max_depth": 33,
+      "progress": {
+        "active_stack": [
+          {
+            "stage": "finish",
+            "start_wall_ns": 236516630693661
+          },
+          {
+            "stage": "road_leg",
+            "start_wall_ns": 236516631398567
+          },
+          {
+            "stage": "road_labels",
+            "start_wall_ns": 236516631480875
+          }
+        ],
+        "counters": {
+          "active_region_primary_lower_bound": "7139198444775197/549755813888",
+          "attempted": 100,
+          "depth": 1,
+          "expanded_prefix_groups": 2,
+          "feasible": 37,
+          "frontier_groups": 2,
+          "frontier_pieces": 12,
+          "generated_advance_pieces": 316,
+          "incumbent_primary_upper": "22500600618780404673/858993459200000",
+          "local_queue_min_primary_lower_bound": "7205718898255645/549755813888",
+          "local_queue_scope": "Current prefix only; excludes other prefixes and pending next layer",
+          "local_queue_size": 6,
+          "pending_next_pieces": 304,
+          "region_nodes": 249,
+          "terminal_pieces": 0
+        },
+        "entry_provider_metrics": {
+          "region_bound_online_internal_member_accesses": 0,
+          "region_bound_online_leaf_action_reads": 0,
+          "region_bound_online_mask_word_work": 0,
+          "region_bound_online_queries": 0,
+          "selected_pairs": 3,
+          "source_cache_bytes": 377120912,
+          "source_cache_evictions": 1,
+          "source_cache_hits": 0,
+          "source_cache_skips": 0,
+          "source_run_count": 3
+        },
+        "io_error": null,
+        "last_layer_end": {
+          "attempted": 66,
+          "depth": 0,
+          "feasible": 3,
+          "frontier_groups": 2,
+          "frontier_pieces": 12,
+          "incumbent_primary_upper": "102542262038922263369/3435973836800000",
+          "terminal_pieces": 0,
+          "wall_ns": 236401098799428
+        },
+        "last_layer_start": {
+          "attempted": 66,
+          "depth": 1,
+          "feasible": 3,
+          "frontier_groups": 2,
+          "frontier_pieces": 12,
+          "incumbent_primary_upper": "102542262038922263369/3435973836800000",
+          "terminal_pieces": 0,
+          "wall_ns": 236401099609746
+        },
+        "observer_io_cpu_ns": 1802967550,
+        "observer_io_scope": "Persistence only; full hook overhead requires enabled/disabled measurement",
+        "observer_io_wall_ns": 2025557478,
+        "postentry_provider_deltas": {
+          "region_bound_online_internal_member_accesses": 0,
+          "region_bound_online_leaf_action_reads": 64,
+          "region_bound_online_mask_word_work": 6227,
+          "region_bound_online_queries": 255,
+          "selected_pairs": 119,
+          "source_cache_bytes": -188560456,
+          "source_cache_evictions": 31,
+          "source_cache_hits": 89,
+          "source_cache_skips": 0,
+          "source_run_count": 30
+        },
+        "provider_metrics": {
+          "region_bound_online_internal_member_accesses": 0,
+          "region_bound_online_leaf_action_reads": 64,
+          "region_bound_online_mask_word_work": 6227,
+          "region_bound_online_queries": 255,
+          "selected_pairs": 122,
+          "source_cache_bytes": 188560456,
+          "source_cache_evictions": 32,
+          "source_cache_hits": 89,
+          "source_cache_skips": 0,
+          "source_run_count": 33
+        },
+        "sampled_wall_ns": 236518260111588,
+        "snapshot_semantics": "Last sampled active stack; not exact timeout stack. Heartbeat may be delayed by GIL-held work or I/O.",
+        "timer_semantics": "inclusive nested wall and calling-thread CPU; do not sum categories",
+        "timings": {
+          "advance": {
+            "calls": 100,
+            "cpu_ns": 6352062679,
+            "errors": 0,
+            "wall_ns": 6427043955
+          },
+          "dominance_reducer": {
+            "calls": 2,
+            "cpu_ns": 2373084,
+            "errors": 0,
+            "wall_ns": 2446575
+          },
+          "finish": {
+            "calls": 31,
+            "cpu_ns": 60720281675,
+            "errors": 0,
+            "wall_ns": 61194409504
+          },
+          "initial_piece": {
+            "calls": 1,
+            "cpu_ns": 661251,
+            "errors": 0,
+            "wall_ns": 660804
+          },
+          "road_bound": {
+            "calls": 255,
+            "cpu_ns": 330965603,
+            "errors": 0,
+            "wall_ns": 430425523
+          },
+          "road_labels": {
+            "calls": 126,
+            "cpu_ns": 75331017591,
+            "errors": 0,
+            "wall_ns": 75931528835
+          },
+          "road_leg": {
+            "calls": 551,
+            "cpu_ns": 76303157625,
+            "errors": 0,
+            "wall_ns": 76912940781
+          },
+          "road_path": {
+            "calls": 126,
+            "cpu_ns": 439504984,
+            "errors": 0,
+            "wall_ns": 440554818
+          },
+          "witness_replay": {
+            "calls": 137,
+            "cpu_ns": 200031007,
+            "errors": 0,
+            "wall_ns": 203285178
+          }
+        }
+      },
+      "quality": {
+        "global_lower_bound_available": false,
+        "global_optimality_gap": "NA",
+        "near_optimality_claimed": false,
+        "primary_improvement": "12539859563800644677/3435973836800000",
+        "primary_relative_improvement": "1791408509114377811/14648894576988894767",
+        "secondary_change": "42628098244468331/1717986918400000",
+        "stop_count_change": 0,
+        "strict_full_key_improvement": true
+      },
+      "sample_after_exact_ns": 119969576456,
+      "sampled_rss_bytes": 4576292864,
+      "setup": {
+        "activation_cpu_ns": 1799744591,
+        "activation_wall_ns": 1801828853,
+        "build_with_first_validation_cpu_ns": 1600042496,
+        "build_with_first_validation_wall_ns": 1599319130,
+        "certificate_publication_cpu_ns": 321459,
+        "certificate_publication_wall_ns": 322037,
+        "checked_edges": 11561067,
+        "construction_cpu_ns": 1791886144,
+        "construction_packed_scratch_bytes": 140524244,
+        "construction_potential_bytes": 47139984,
+        "construction_wall_ns": 1791395921,
+        "full_edge_validation_passes": 2,
+        "graph_copy_cpu_ns": 623978965,
+        "graph_copy_retained_bytes": 369954144,
+        "graph_copy_wall_ns": 625289864,
+        "guard_install_cpu_ns": 7994654,
+        "guard_install_wall_ns": 8642061,
+        "second_validation_cpu_ns": 143874434,
+        "second_validation_wall_ns": 143164021
+      },
+      "shared_treatment_sha256": "370a7f61e73836e92f1b94564f8968218fbc7a3f6ae1839feb67303f6ddd9c42",
+      "stage_wall_seconds": 213.44394868199015
+    },
+    "od07.hier": {
+      "best_key": [
+        "2968405723679404212307/109951162777600000",
+        "1965459359483215499/27487790694400000",
+        2,
+        [
+          [
+            "4r:node/8099989597",
+            "C"
+          ],
+          [
+            "4r:node/11013731180",
+            "CS"
+          ]
+        ]
+      ],
+      "censored": true,
+      "certificate_semantics": {
+        "anchor_potentials": {
+          "road:1014531": 408590671532,
+          "road:1016283": 303170102953,
+          "road:1421182": 223354329174,
+          "road:1508812": 142649533244,
+          "road:1513934": 194039002921,
+          "road:1695705": 10547040687,
+          "road:17151": 178482747871,
+          "road:1761040": 432527153039,
+          "road:1761111": 433551469152,
+          "road:1839331": 179272198165,
+          "road:1839344": 179478496052,
+          "road:1842187": 177610483109,
+          "road:1923455": 152890773526,
+          "road:2001294": 481338139094,
+          "road:2023216": 385924285168,
+          "road:2083569": 17548940349,
+          "road:2104742": 114022131806,
+          "road:2251184": 384450132796,
+          "road:2254694": 372958703664,
+          "road:2406513": 176041461150,
+          "road:2432922": 385725461276,
+          "road:2492661": 391556499133,
+          "road:2493205": 392085123114,
+          "road:2569587": 358593359427,
+          "road:265818": 264756081351,
+          "road:2775378": 385233047895,
+          "road:2804648": 140956702743,
+          "road:2819064": 71131439748,
+          "road:2862127": 72812079527,
+          "road:2866050": 40465609346,
+          "road:2930904": 265015444522,
+          "road:2930985": 265285150929,
+          "road:2953214": 167753489834,
+          "road:3050169": 351091443001,
+          "road:311446": 230021533669,
+          "road:3190137": 0,
+          "road:3238692": 314495061185,
+          "road:327562": 113001734229,
+          "road:32765": 73535854900,
+          "road:3315930": 456992885705,
+          "road:3315933": 456882400401,
+          "road:3315935": 456700595152,
+          "road:351127": 40040252410,
+          "road:3618554": 315239198867,
+          "road:3760449": 187928378406,
+          "road:3781769": 241586832792,
+          "road:3868593": 388648863054,
+          "road:3952367": 221789322192,
+          "road:3969737": 288062546869,
+          "road:4058971": 176091182617,
+          "road:43473": 325473393738,
+          "road:4362700": 156379091150,
+          "road:4433215": 34538927923,
+          "road:4440811": 462317490572,
+          "road:4458141": 177073498445,
+          "road:4469277": 269330199352,
+          "road:4566249": 455513803221,
+          "road:4575635": 446138954945,
+          "road:4614720": 214203030068,
+          "road:4689134": 59546946296,
+          "road:4696180": 255406228094,
+          "road:4711591": 160211054389,
+          "road:4757487": 429544209553,
+          "road:4772738": 256375048335,
+          "road:4772744": 256731773879,
+          "road:4853794": 197079514592,
+          "road:4911796": 113547624988,
+          "road:4921764": 212536037389,
+          "road:4938584": 430990674665,
+          "road:4940135": 433440736386,
+          "road:4970140": 346619525457,
+          "road:5034571": 394451983384,
+          "road:5076999": 141644956566,
+          "road:5104224": 352093137194,
+          "road:5106104": 112490668790,
+          "road:5132289": 342856296334,
+          "road:5144090": 176548193868,
+          "road:5182581": 411502618369,
+          "road:5187551": 412121935662,
+          "road:5195629": 146077733887,
+          "road:5208286": 193801282359,
+          "road:5226737": 382690781675,
+          "road:5261742": 140203286221,
+          "road:5279553": 18077047253,
+          "road:5333058": 113489505570,
+          "road:5338135": 113203825230,
+          "road:5369518": 322160188279,
+          "road:5436131": 364833695221,
+          "road:5441201": 365374360884,
+          "road:5452833": 395577914896,
+          "road:5453833": 357842927146,
+          "road:5474192": 71665571803,
+          "road:556333": 315663257663,
+          "road:5577138": 304310529987,
+          "road:5577142": 303195181745,
+          "road:5626973": 453599672939,
+          "road:5636536": 3296328623,
+          "road:5636550": 151170445144,
+          "road:5646804": 74077234664,
+          "road:5663159": 455565781131,
+          "road:5663513": 387367814370,
+          "road:5667788": 433443287589,
+          "road:5672917": 437354762311,
+          "road:5674063": 432780935682,
+          "road:5678371": 445972987388,
+          "road:568027": 283882807667,
+          "road:5683252": 432106708016,
+          "road:569348": 280668625494,
+          "road:5701646": 452883427395,
+          "road:5732263": 394757810011,
+          "road:5748766": 7486451881,
+          "road:5753222": 455617763237,
+          "road:5761294": 429404589565,
+          "road:5761297": 429893866654,
+          "road:5763843": 25602062616,
+          "road:5766044": 481320176999,
+          "road:5766045": 481216073326,
+          "road:5766078": 481884544697,
+          "road:5767787": 284054287586,
+          "road:5769296": 434562217804,
+          "road:5770162": 481518711224,
+          "road:5788209": 482717761018,
+          "road:5789880": 395046038377,
+          "road:5794837": 237474163039,
+          "road:5797829": 342433040735,
+          "road:5837707": 327198001347,
+          "road:5837708": 327087935471,
+          "road:5846881": 435049984955,
+          "road:5875316": 193241922650,
+          "road:5878927": 264785559968,
+          "road:5879568": 284057933487,
+          "road:5883796": 408626760371,
+          "road:618480": 410458598796,
+          "road:618487": 410474963924,
+          "road:64970": 255924473819,
+          "road:674434": 69411584318,
+          "road:676044": 74361260340,
+          "road:685488": 113364308743,
+          "road:702223": 13925026096,
+          "road:733731": 30119158078,
+          "road:736912": 398414821501,
+          "road:844621": 408265972637,
+          "road:844642": 408377140566,
+          "road:852838": 294379581709,
+          "road:894568": 407844554892,
+          "road:941459": 145371301954,
+          "road:941464": 144947056507
+        },
+        "anchors_sha256": "e175be3a9f9f3ec3fae67912517ebc6a717fe798b72be56b198935b3f7b27cca",
+        "beta": "9007199248848495/9007199254740992",
+        "cap": 4611686018427387903,
+        "checked_edges": 11561067,
+        "destination": "road:3190137",
+        "full_edge_validation_passes": 2,
+        "graph_sha256": "8f64bb2505a33df743f16a0648c36ddc0f0c419b941705c70ddf95701af702e3",
+        "potential_sha256": "f03429212da2a0036b187f26daad5bb69fd84f00cef78d9fc15a0db5255333c5",
+        "quantum_exponent": 20,
+        "rate": "1/6250",
+        "reserve": "6",
+        "unsupported_policy": "reject"
+      },
+      "common_seed_sha256": "2debeb9754b3fbe6e74a349c5ab91f342f1b94ea81b6dbb4c1ef4a6e384749cc",
+      "counters": {
+        "calls_started": 336,
+        "decisions_completed": 336,
+        "guard_pending_operations": 2,
+        "guarded_operations_completed": 867,
+        "rejected_immediate_finishes": 244
+      },
+      "domain_sha256": "876f3d71a4e6d87dc6d885af36d11a7fa1206f0e26cc8db91e2dc322a23d5b6e",
+      "effective_query_sha256": "7c52642c86888fef48fac35f723519306b62c0fb642e987807421dd7a316ab1d",
+      "exact_observed_wall_seconds": 120.159481749,
+      "history_installed_before_first_route": true,
+      "improvement_percent": 19.88333890333565,
+      "initial_key": [
+        "4631380169628339331/137438953472000",
+        "1882277661060431/17179869184000",
+        2,
+        [
+          [
+            "4r:node/4683740340",
+            "CS"
+          ],
+          [
+            "4r:node/10039741536",
+            "C"
+          ]
+        ]
+      ],
+      "kernel_semantics": {
+        "binary_sha256": "137c125a6c9a55bdf5500c1887cd951853f5eb71c986c9153042bc15a040d637",
+        "compiler_sha256": "6b3696e4dcb85e1c949c732a02befa50e3983ecf94ce7e8e58d9d503b954b79d",
+        "flags": [
+          "-O3",
+          "-std=c++17",
+          "-fno-fast-math",
+          "-frounding-math",
+          "-shared",
+          "-fPIC"
+        ],
+        "source_sha256": "2abae524424c64b505ad63a01ba61d8784d635f47c205b7561dc9230e3496dd8"
+      },
+      "native_semantics": {
+        "binary_sha256": "b7d5d372ce409bea8d1578dde889fbb124d8732c6a21ccda93d61d8c4f91ad76",
+        "compiler_sha256": "6b3696e4dcb85e1c949c732a02befa50e3983ecf94ce7e8e58d9d503b954b79d",
+        "source_sha256": "6770b08111ee5184749c92146923bce8e457472a77cd9a226fc26fbdf4b1e9c7"
+      },
+      "original_depth_preserved": true,
+      "original_max_depth": 37,
+      "progress": {
+        "active_stack": [
+          {
+            "stage": "finish",
+            "start_wall_ns": 236956908978289
+          },
+          {
+            "stage": "road_leg",
+            "start_wall_ns": 236956909621542
+          },
+          {
+            "stage": "road_labels",
+            "start_wall_ns": 236956909706309
+          }
+        ],
+        "counters": {
+          "active_region_primary_lower_bound": "491263375772311031/35184372088832",
+          "attempted": 464,
+          "depth": 1,
+          "expanded_prefix_groups": 2,
+          "feasible": 249,
+          "frontier_groups": 87,
+          "frontier_pieces": 320,
+          "generated_advance_pieces": 1954,
+          "incumbent_primary_upper": "2968405723679404212307/109951162777600000",
+          "local_queue_min_primary_lower_bound": "491263375772311031/35184372088832",
+          "local_queue_scope": "Current prefix only; excludes other prefixes and pending next layer",
+          "local_queue_size": 22,
+          "pending_next_pieces": 1619,
+          "region_nodes": 998,
+          "terminal_pieces": 0
+        },
+        "entry_provider_metrics": {
+          "region_bound_online_internal_member_accesses": 0,
+          "region_bound_online_leaf_action_reads": 0,
+          "region_bound_online_mask_word_work": 0,
+          "region_bound_online_queries": 0,
+          "selected_pairs": 3,
+          "source_cache_bytes": 377120912,
+          "source_cache_evictions": 1,
+          "source_cache_hits": 0,
+          "source_cache_skips": 0,
+          "source_run_count": 3
+        },
+        "io_error": null,
+        "last_layer_end": {
+          "attempted": 299,
+          "depth": 0,
+          "feasible": 91,
+          "frontier_groups": 87,
+          "frontier_pieces": 320,
+          "incumbent_primary_upper": "4631380169628339331/137438953472000",
+          "terminal_pieces": 0,
+          "wall_ns": 236843370372953
+        },
+        "last_layer_start": {
+          "attempted": 299,
+          "depth": 1,
+          "feasible": 91,
+          "frontier_groups": 87,
+          "frontier_pieces": 320,
+          "incumbent_primary_upper": "4631380169628339331/137438953472000",
+          "terminal_pieces": 0,
+          "wall_ns": 236843371004386
+        },
+        "observer_io_cpu_ns": 10396946378,
+        "observer_io_scope": "Persistence only; full hook overhead requires enabled/disabled measurement",
+        "observer_io_wall_ns": 19726700198,
+        "postentry_provider_deltas": {
+          "region_bound_online_internal_member_accesses": 0,
+          "region_bound_online_leaf_action_reads": 276,
+          "region_bound_online_mask_word_work": 29483,
+          "region_bound_online_queries": 1020,
+          "selected_pairs": 261,
+          "source_cache_bytes": -188560456,
+          "source_cache_evictions": 8,
+          "source_cache_hits": 254,
+          "source_cache_skips": 0,
+          "source_run_count": 7
+        },
+        "provider_metrics": {
+          "region_bound_online_internal_member_accesses": 0,
+          "region_bound_online_leaf_action_reads": 276,
+          "region_bound_online_mask_word_work": 29483,
+          "region_bound_online_queries": 1020,
+          "selected_pairs": 264,
+          "source_cache_bytes": 188560456,
+          "source_cache_evictions": 9,
+          "source_cache_hits": 254,
+          "source_cache_skips": 0,
+          "source_run_count": 10
+        },
+        "sampled_wall_ns": 236958111565040,
+        "snapshot_semantics": "Last sampled active stack; not exact timeout stack. Heartbeat may be delayed by GIL-held work or I/O.",
+        "timer_semantics": "inclusive nested wall and calling-thread CPU; do not sum categories",
+        "timings": {
+          "advance": {
+            "calls": 464,
+            "cpu_ns": 13307028693,
+            "errors": 0,
+            "wall_ns": 13416373447
+          },
+          "dominance_reducer": {
+            "calls": 68,
+            "cpu_ns": 78524576,
+            "errors": 0,
+            "wall_ns": 80204538
+          },
+          "finish": {
+            "calls": 91,
+            "cpu_ns": 9207933973,
+            "errors": 0,
+            "wall_ns": 9289384116
+          },
+          "initial_piece": {
+            "calls": 1,
+            "cpu_ns": 758774,
+            "errors": 0,
+            "wall_ns": 758284
+          },
+          "road_bound": {
+            "calls": 1020,
+            "cpu_ns": 795200475,
+            "errors": 0,
+            "wall_ns": 825903290
+          },
+          "road_labels": {
+            "calls": 270,
+            "cpu_ns": 29381404995,
+            "errors": 0,
+            "wall_ns": 29624260230
+          },
+          "road_leg": {
+            "calls": 624,
+            "cpu_ns": 30614728735,
+            "errors": 0,
+            "wall_ns": 30876259133
+          },
+          "road_path": {
+            "calls": 270,
+            "cpu_ns": 624722497,
+            "errors": 0,
+            "wall_ns": 627516275
+          },
+          "witness_replay": {
+            "calls": 48,
+            "cpu_ns": 74446791,
+            "errors": 0,
+            "wall_ns": 75131252
+          }
+        }
+      },
+      "quality": {
+        "global_lower_bound_available": false,
+        "global_optimality_gap": "NA",
+        "near_optimality_claimed": false,
+        "primary_improvement": "736698412023267252493/109951162777600000",
+        "primary_relative_improvement": "736698412023267252493/3705104135702671464800",
+        "secondary_change": "1046184898213474101/27487790694400000",
+        "stop_count_change": 0,
+        "strict_full_key_improvement": true
+      },
+      "sample_after_exact_ns": 119938787023,
+      "sampled_rss_bytes": 4529295360,
+      "setup": {
+        "activation_cpu_ns": 1847988425,
+        "activation_wall_ns": 1851081932,
+        "build_with_first_validation_cpu_ns": 1600013702,
+        "build_with_first_validation_wall_ns": 1599934676,
+        "certificate_publication_cpu_ns": 354991,
+        "certificate_publication_wall_ns": 357514,
+        "checked_edges": 11561067,
+        "construction_cpu_ns": 1839915220,
+        "construction_packed_scratch_bytes": 140524244,
+        "construction_potential_bytes": 47139984,
+        "construction_wall_ns": 1842297524,
+        "full_edge_validation_passes": 2,
+        "graph_copy_cpu_ns": 1067968152,
+        "graph_copy_retained_bytes": 369954144,
+        "graph_copy_wall_ns": 1068907827,
+        "guard_install_cpu_ns": 8008122,
+        "guard_install_wall_ns": 9120224,
+        "second_validation_cpu_ns": 191969802,
+        "second_validation_wall_ns": 195508009
+      },
+      "shared_treatment_sha256": "370a7f61e73836e92f1b94564f8968218fbc7a3f6ae1839feb67303f6ddd9c42",
+      "stage_wall_seconds": 216.90379843398114
+    }
+  }
+}
