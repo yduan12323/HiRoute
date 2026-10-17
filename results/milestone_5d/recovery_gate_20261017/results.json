@@ -1,0 +1,197 @@
+{
+  "schema": "hiroute.recovery_gate_publication.v1",
+  "case_id": "OD02_energy_only_soc3_10",
+  "scope": "od02_gate",
+  "source_commit": "d2474ec6795c7be67509a727517b3ad04b19b93e",
+  "source_ci_url": "https://github.com/yduan12323/HiRoute/actions/runs/38999025954",
+  "source_closure_sha256": "11e0defa60532a65f06b8f62edbdc6617ad1e469f7860a129d208b0217d982f7",
+  "manifest_sha256": "8659e2995a494642c0203ac0011ff8fb190a64ea9e0848688377a5c7ce309d56",
+  "denominator": 5,
+  "status": "COMPLETED",
+  "stages": [
+    {
+      "stage": "prepare-OD02_energy_only_soc3_10",
+      "operation": "prepare",
+      "strategy": null,
+      "status": "SUCCESS",
+      "reason": "success",
+      "wall_seconds": 29.64656187699984,
+      "parent_cpu_seconds": 0.8690415180000002,
+      "returncode": 0,
+      "cleanup_verified": true,
+      "sampled_process_tree_peak_rss_bytes": 3325685760,
+      "sampled_artifact_peak_bytes": 357603,
+      "cgroup_enforced": false,
+      "aggregate_memory_hard_limit": false,
+      "cpu_limit_kind": "per_process_CPU_and_one_core_affinity",
+      "memory_limit_kind": "per_process_virtual_address_space",
+      "search_phase_budget_seconds": null
+    },
+    {
+      "stage": "arm-00",
+      "operation": "search",
+      "strategy": "indexed",
+      "status": "TIMEOUT",
+      "reason": "phase_timeout",
+      "wall_seconds": 148.35152315300002,
+      "parent_cpu_seconds": 5.191962646,
+      "returncode": -9,
+      "cleanup_verified": true,
+      "sampled_process_tree_peak_rss_bytes": 3327410176,
+      "sampled_artifact_peak_bytes": 490724,
+      "cgroup_enforced": false,
+      "aggregate_memory_hard_limit": false,
+      "cpu_limit_kind": "per_process_CPU_and_one_core_affinity",
+      "memory_limit_kind": "per_process_virtual_address_space",
+      "search_phase_budget_seconds": 120
+    },
+    {
+      "stage": "verify-00",
+      "operation": "verify",
+      "strategy": "indexed",
+      "status": "SUCCESS",
+      "reason": "success",
+      "wall_seconds": 16.391308827000103,
+      "parent_cpu_seconds": 0.4693904609999988,
+      "returncode": 0,
+      "cleanup_verified": true,
+      "sampled_process_tree_peak_rss_bytes": 2030227456,
+      "sampled_artifact_peak_bytes": 183955,
+      "cgroup_enforced": false,
+      "aggregate_memory_hard_limit": false,
+      "cpu_limit_kind": "per_process_CPU_and_one_core_affinity",
+      "memory_limit_kind": "per_process_virtual_address_space",
+      "search_phase_budget_seconds": null
+    },
+    {
+      "stage": "arm-01",
+      "operation": "search",
+      "strategy": "recompute",
+      "status": "TIMEOUT",
+      "reason": "phase_timeout",
+      "wall_seconds": 148.368192422,
+      "parent_cpu_seconds": 5.097720342999999,
+      "returncode": -9,
+      "cleanup_verified": true,
+      "sampled_process_tree_peak_rss_bytes": 3313958912,
+      "sampled_artifact_peak_bytes": 490726,
+      "cgroup_enforced": false,
+      "aggregate_memory_hard_limit": false,
+      "cpu_limit_kind": "per_process_CPU_and_one_core_affinity",
+      "memory_limit_kind": "per_process_virtual_address_space",
+      "search_phase_budget_seconds": 120
+    },
+    {
+      "stage": "verify-01",
+      "operation": "verify",
+      "strategy": "recompute",
+      "status": "SUCCESS",
+      "reason": "success",
+      "wall_seconds": 15.83579293999992,
+      "parent_cpu_seconds": 0.4286923070000004,
+      "returncode": 0,
+      "cleanup_verified": true,
+      "sampled_process_tree_peak_rss_bytes": 2039939072,
+      "sampled_artifact_peak_bytes": 183957,
+      "cgroup_enforced": false,
+      "aggregate_memory_hard_limit": false,
+      "cpu_limit_kind": "per_process_CPU_and_one_core_affinity",
+      "memory_limit_kind": "per_process_virtual_address_space",
+      "search_phase_budget_seconds": null
+    }
+  ],
+  "result": {
+    "accepted_key": [
+      "89231180441089702031/3435973836800000",
+      "59082310507418349/858993459200000",
+      2,
+      [
+        [
+          "4r:node/10652698226",
+          "C"
+        ],
+        [
+          "4r:node/12090131433",
+          "C"
+        ]
+      ]
+    ],
+    "feasible_improvement": true,
+    "optimality_claim": false,
+    "search_status": "TIMEOUT",
+    "seed_key": [
+      "102542262038922263369/3435973836800000",
+      "80857457560385401/858993459200000",
+      2,
+      [
+        [
+          "4r:node/10652698226",
+          "C"
+        ],
+        [
+          "4r:node/10865655524",
+          "C"
+        ]
+      ]
+    ],
+    "status": "timeout_feasible_only"
+  },
+  "first_key_component_improvement_percent_exact": "1331108159783256133800/102542262038922263369",
+  "first_key_component_improvement_percent_approx": 12.981068813149486,
+  "worker_stage_wall_seconds": 358.59337921899987,
+  "parent_cpu_seconds": 13.567987405,
+  "total_worker_cpu_seconds": null,
+  "cache_policy": {
+    "source_cache_max_bytes": 1073741824,
+    "source_cache_max_sources": 2
+  },
+  "inputs": {
+    "edges.parquet": {
+      "sha256": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+      "size": 303022185
+    },
+    "fixed_12od_candidate_slate.json": {
+      "sha256": "68917b71ff74cc13a4f35d2b7c7fb7ca577e572295c2d091bb0a0957a3789b95",
+      "size": 28736
+    },
+    "geographic_screen_v5_grid14.json": {
+      "sha256": "eab8a107f31a6a966cf2a1f215f832494511ffa694da4532186ac025b232784f",
+      "size": 34185
+    },
+    "hierarchy.json": {
+      "sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "size": 5271372
+    },
+    "metadata.json": {
+      "sha256": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd",
+      "size": 13978
+    },
+    "nodes.parquet": {
+      "sha256": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+      "size": 104471506
+    },
+    "pools.json": {
+      "sha256": "4b93c90b0f4f77364cd9e58b5a779bccd11fb7b99819646c8096ed4f122fe937",
+      "size": 456200
+    },
+    "queries.json": {
+      "sha256": "dc22c22bd56dbd763e41eecbc0da1310259990c25caef469783a49032ccaed7c",
+      "size": 3327263
+    },
+    "stop_sites.parquet": {
+      "sha256": "e3e7d6d6667f7ab684ff83eb2646920516b01aef2e6ceb8170c689e71f6afd38",
+      "size": 4487653
+    }
+  },
+  "native_artifact_sha256": {
+    "energy": "137c125a6c9a55bdf5500c1887cd951853f5eb71c986c9153042bc15a040d637",
+    "router": "f771a5806d8704e3dff2596b4e632dace50da56303ea2677d8a8a3384a12c11c"
+  },
+  "prior_v1": {
+    "status": "UNKNOWN",
+    "not_admitted": 1,
+    "not_run": 4,
+    "reason": "prepare control receipt exceeded 64 KiB; cleanup verified"
+  },
+  "pooled_with_full_batch": false
+}
