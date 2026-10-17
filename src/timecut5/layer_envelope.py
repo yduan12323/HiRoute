@@ -18,7 +18,8 @@ from .durable_incumbent import AtomicIncumbentStore, load_verified, _binding, _d
 from .live_replay import source_manifest
 from .provenance import encoded, primitive, signature, witness_dict
 
-SCHEMA = 'hiroute.completed_layer_envelope.v1'
+SCHEMA = 'hiroute.completed_layer_envelope.v2'
+COALESCING_VERSION = 'exact-adjacent-cut-coalescing-v1'
 
 
 def _bytes(value):
@@ -178,14 +179,18 @@ class _Envelope:
 def run_layer_envelope(*, problem_factory, verifier_factory, binding_supplier,
                        initial_witness, method, output_path, bound_policy_sha256,
                        root=None, bound_provider=None, singleton_bound=None,
-                       dominance=True, previous_checkpoint=None, stop_after_depth=None):
+                       dominance=True, coalescing=False, previous_checkpoint=None, stop_after_depth=None):
     """Run unchanged exact engines with an atomic last-complete-layer envelope.
 
     The caller binds actual policies and transitive inputs, not saved hashes.
     A new output destination is mandatory. No restored descriptor is used for
     pruning. Completion is returned by the solver, never inferred from a file.
+    Coalescing requires the unrecorded table_free_problem(coalescing=True)
+    adapter. Recovery replays all work from the original seed, including reducer
+    and native provider work; it is not warm or arbitrary mid-layer recovery.
     """
-    if method not in ('flat','hier') or type(dominance) is not bool:
+    if (method not in ('flat','hier') or type(dominance) is not bool or
+            type(coalescing) is not bool):
         raise ValueError('Invalid exact method/policy')
     if (type(bound_policy_sha256) is not str or len(bound_policy_sha256)!=64 or
             any(c not in '0123456789abcdef' for c in bound_policy_sha256)):
@@ -196,7 +201,18 @@ def run_layer_envelope(*, problem_factory, verifier_factory, binding_supplier,
             method=='flat' and (root is not None or bound_provider is not None)):
         raise ValueError('Method-specific bound configuration required')
     problem = problem_factory()
+    from . import coalesced_solver, coalesce
+    if coalescing:
+        if (type(problem) is not coalesced_solver._TableFreeProblem or
+                problem._record_lineage is not False or
+                coalesced_solver.VERSION != COALESCING_VERSION or
+                coalesce.VERSION != COALESCING_VERSION or
+                getattr(problem.reduce, '__func__', None) is not coalesced_solver._Coalescing.reduce):
+            raise ValueError('Coalescing requires the supported unrecorded table-free adapter/version')
+    elif isinstance(problem, coalesced_solver._Coalescing):
+        raise ValueError('Coalescing adapter requires explicit coalescing=True')
     config = dict(method=method, dominance=dominance, H_ref=problem.bound,
+        coalescing=coalescing, representation_version=COALESCING_VERSION if coalescing else None,
         root=_root(root), bound_policy_sha256=bound_policy_sha256,
         indexed_region=bound_provider is not None, singleton_bound=singleton_bound is not None)
     hook = _Envelope(problem=problem, verifier_factory=verifier_factory,
@@ -205,6 +221,8 @@ def run_layer_envelope(*, problem_factory, verifier_factory, binding_supplier,
         stop_after_depth=stop_after_depth)
     kwargs = dict(verified_primary_upper=hook.seed_key[0],
                   checkpoint_hook=hook, incumbent_hook=hook.candidate)
+    if coalescing:
+        kwargs['reducer'] = problem.reduce
     if method=='flat':
         return _solve_problem(problem, dominance, singleton_bound=singleton_bound, **kwargs)
     return _solve_hierarchical_problem(problem, dominance, root,
