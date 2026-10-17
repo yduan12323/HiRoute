@@ -1,0 +1,133 @@
+{
+  "alt_member_read_counters": false,
+  "base_commit": "530cc6045881e1189a1bcbb169a710e9d4695ee3",
+  "cache_policy": {
+    "source_cache_max_bytes": 134217728,
+    "source_cache_max_sources": 2
+  },
+  "candidate_counts": [
+    128,
+    149,
+    32
+  ],
+  "cases": [
+    "OD02_energy_only_soc3_10",
+    "OD07_energy_and_scheduled_soc3_10",
+    "OD10_energy_only_soc19_25"
+  ],
+  "compiler": null,
+  "exact_Oct16_resume": false,
+  "hierarchy_policy": "original_frozen_tree_restricted_without_renumbering",
+  "historical_pooling": false,
+  "holdout": false,
+  "input_directory": null,
+  "inputs": {
+    "edges.parquet": {
+      "sha256": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+      "size": 303022185
+    },
+    "fixed_12od_candidate_slate.json": {
+      "sha256": "68917b71ff74cc13a4f35d2b7c7fb7ca577e572295c2d091bb0a0957a3789b95",
+      "size": 28736
+    },
+    "geographic_screen_v5_grid14.json": {
+      "sha256": "eab8a107f31a6a966cf2a1f215f832494511ffa694da4532186ac025b232784f",
+      "size": 34185
+    },
+    "hierarchy.json": {
+      "sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "size": 5271372
+    },
+    "metadata.json": {
+      "sha256": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd",
+      "size": 13978
+    },
+    "nodes.parquet": {
+      "sha256": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+      "size": 104471506
+    },
+    "pools.json": {
+      "sha256": "4b93c90b0f4f77364cd9e58b5a779bccd11fb7b99819646c8096ed4f122fe937",
+      "size": 456200
+    },
+    "queries.json": {
+      "sha256": "dc22c22bd56dbd763e41eecbc0da1310259990c25caef469783a49032ccaed7c",
+      "size": 3327263
+    },
+    "stop_sites.parquet": {
+      "sha256": "e3e7d6d6667f7ab684ff83eb2646920516b01aef2e6ceb8170c689e71f6afd38",
+      "size": 4487653
+    }
+  },
+  "launchable": false,
+  "limits": {
+    "address_space_bytes": 8589934592,
+    "parent_cpu_hard_policy": "preserve_inherited_at_least_601",
+    "parent_cpu_soft_seconds": 90,
+    "search_seconds": 120,
+    "stage_wall_seconds": 600,
+    "verification_cpu_seconds": 120,
+    "verification_wall_seconds": 180,
+    "worker_cpu_seconds": 600
+  },
+  "pair_order": [
+    [
+      "OD02_energy_only_soc3_10",
+      [
+        "indexed",
+        "recompute"
+      ]
+    ],
+    [
+      "OD07_energy_and_scheduled_soc3_10",
+      [
+        "recompute",
+        "indexed"
+      ]
+    ],
+    [
+      "OD10_energy_only_soc19_25",
+      [
+        "indexed",
+        "recompute"
+      ]
+    ],
+    [
+      "OD10_energy_only_soc19_25",
+      [
+        "recompute",
+        "indexed"
+      ]
+    ],
+    [
+      "OD07_energy_and_scheduled_soc3_10",
+      [
+        "indexed",
+        "recompute"
+      ]
+    ],
+    [
+      "OD02_energy_only_soc3_10",
+      [
+        "recompute",
+        "indexed"
+      ]
+    ]
+  ],
+  "repo": null,
+  "reserve_plan": {
+    "common_preparations": 3,
+    "exact_search_seconds_per_arm": 120,
+    "maximum_worker_cpu_soft_seconds": 10440,
+    "maximum_worker_wall_seconds": 11160,
+    "replay_charged_to_separate_terminal_stage": true,
+    "search_arms": 12,
+    "separate_verification_stages": 12
+  },
+  "routing": "full",
+  "schema": "hiroute.mechanism_recovery.v1",
+  "seed_policy": "first_feasible_streamed_proposal_fresh_double_replay_v1",
+  "source": null,
+  "status": "prospective_pending_review_and_committed_source_closure",
+  "terminal_energy": "search_only_ON"
+}

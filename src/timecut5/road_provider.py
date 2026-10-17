@@ -259,15 +259,35 @@ class TableFreeRoadSelectedLegProvider:
 
 
 class TableFreeRegionBoundProvider:
-    """Indexed ALT bounds certified from graph edges, without selected-leg minima."""
+    """Certified ALT bounds with shared candidate masks and Region semantics.
+
+    ``alt_strategy="recompute"`` is an experimental all-member arm: it skips
+    setup extrema and reconstructs the same complete-Region summary on demand.
+    It does not scan action masks or compare against a hidden indexed oracle.
+    Member-read diagnostics are opt-in, selected outside the member-read loop;
+    leave them disabled for primary timing (the metric is then None).
+    ``alt_member_reads`` counts both extrema passes of successful calls only;
+    after any failed recomputation it is None because partial reads are unknown.
+    """
 
     def __init__(self, leg_provider: TableFreeRoadSelectedLegProvider, sites: Mapping,
                  root, *, destination_anchor: str, landmark_anchor: str,
-                 site_catalog_sha256: str, router_factory):
+                 site_catalog_sha256: str, router_factory,
+                 alt_strategy: str = "indexed",
+                 collect_alt_member_reads: bool = False):
         from .deployable import RegionLandmarkSummary, member_set_digest
         from .road_landmark import certify_integer_landmark
         from .hierarchy import Region
         from .real_adapter import site_catalog_digest
+        if alt_strategy not in ("indexed", "recompute"):
+            raise ValueError("ALT strategy must be indexed or recompute")
+        if type(collect_alt_member_reads) is not bool:
+            raise ValueError("ALT member-read collection requires a boolean")
+        self.alt_strategy = alt_strategy
+        self.alt_member_reads = 0 if collect_alt_member_reads else None
+        if alt_strategy == "recompute":
+            self._incoming = (self._incoming_recomputed_counted if collect_alt_member_reads
+                              else self._incoming_recomputed)
         if (not isinstance(root, Region) or set(root.members) != set(sites) or
                 destination_anchor not in leg_provider.anchor_nodes):
             raise ValueError("Table-free Region root must cover every Site")
@@ -302,13 +322,14 @@ class TableFreeRegionBoundProvider:
                 visit(child)
             if region.members:
                 member_hash = member_set_digest(region.members)
-                summary = RegionLandmarkSummary(member_hash,
-                    self.graph_sha256, self.landmark_sha256,
-                    (min(distances.from_landmark[self.sites[s].anchor_id]
-                         for s in region.members),),
-                    (max(distances.to_landmark[self.sites[s].anchor_id]
-                         for s in region.members),))
-                self._summary[region.identifier] = summary
+                if alt_strategy == "indexed":
+                    summary = RegionLandmarkSummary(member_hash,
+                        self.graph_sha256, self.landmark_sha256,
+                        (min(distances.from_landmark[self.sites[s].anchor_id]
+                             for s in region.members),),
+                        (max(distances.to_landmark[self.sites[s].anchor_id]
+                             for s in region.members),))
+                    self._summary[region.identifier] = summary
                 self._member_hash[region.identifier] = member_hash
         visit(root)
         self._action_bits = {action: 1 << index for index, action in enumerate(
@@ -337,6 +358,34 @@ class TableFreeRegionBoundProvider:
             landmark_sha256=self.landmark_sha256,
             member_set_sha256=self._member_hash[region.identifier])
         return Fraction(floor(value))
+
+    def _incoming_recomputed(self, source, region):
+        from .deployable import RegionLandmarkSummary, directed_alt_region_bound
+        self._check_region(region)
+        # Empty Regions never reach this path through bound(): their action
+        # mask is zero. Preserve the indexed direct-call KeyError as well.
+        member_hash = self._member_hash[region.identifier]
+        distances = self.landmarks[0]
+        summary = RegionLandmarkSummary(member_hash,
+            self.graph_sha256, self.landmark_sha256,
+            (min(distances.from_landmark[self.sites[s].anchor_id]
+                 for s in region.members),),
+            (max(distances.to_landmark[self.sites[s].anchor_id]
+                 for s in region.members),))
+        value = directed_alt_region_bound(source, self.landmarks, summary,
+            graph_sha256=self.graph_sha256, landmark_sha256=self.landmark_sha256,
+            member_set_sha256=member_hash)
+        return Fraction(math.floor(value))
+
+    def _incoming_recomputed_counted(self, source, region):
+        try:
+            value = self._incoming_recomputed(source, region)
+        except BaseException:
+            self.alt_member_reads = None
+            raise
+        if self.alt_member_reads is not None:
+            self.alt_member_reads += 2 * len(region.members)
+        return value
 
     def _check_region(self, region):
         if self._regions.get(region.identifier) is not region:
