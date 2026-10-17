@@ -86,19 +86,82 @@ class RunnerTests(unittest.TestCase):
         self.assertTrue(all(x['status']=='BLOCKED_COMMON_PREPARATION' for x in result['arms']))
         self.assertEqual(setlimit.call_args.args[1][1],resource.RLIM_INFINITY)
 
-    def gate_call(self, name, replies):
+    def test_compact_large_artifact_contract(self):
+        from experiments.mechanism_recovery_v1.run import result_envelope, load_worker_result
+        import copy
+        root=self.path/'compact'; artifacts=root/'artifacts'
+        (artifacts/'prepared').mkdir(parents=True)
+        path=artifacts/'prepared/common.json'
+        value=dict(status='common_feasible_seed', sites=[{}]*128, seed=dict(max_depth=33), payload='x'*80000)
+        path.write_bytes(canonical(value))
+        envelope=result_envelope(artifacts,'prepare','OD02')
+        receipt=dict(worker_receipt=dict(status='COMPLETED',result=envelope))
+        self.assertLess(len(canonical(receipt)),4096)
+        from experiments.mechanism_recovery_v1.supervisor import _json_receipt
+        oversized=root/'old-worker.json'
+        oversized.write_bytes(canonical(dict(status='COMPLETED',result=value)))
+        with self.assertRaises(ValueError):_json_receipt(oversized)
+        self.assertEqual(load_worker_result(root,receipt,'prepare','OD02'),value)
+        for key,bad in [('path','../common.json'),('path','prepared/other.json'),('size',True),('sha256',0)]:
+            changed=copy.deepcopy(receipt);changed['worker_receipt']['result']['artifact'][key]=bad
+            with self.assertRaises(ValueError):load_worker_result(root,changed,'prepare','OD02')
+        path.write_bytes(canonical(dict(value,payload='y'*80000)))
+        with self.assertRaises(ValueError):load_worker_result(root,receipt,'prepare','OD02')
+        path.unlink()
+        with self.assertRaises(ValueError):load_worker_result(root,receipt,'prepare','OD02')
+
+    def test_cache_capacity_real_metadata_and_policy(self):
+        from experiments.mechanism_recovery_v1.run import CACHE_POLICY, cache_capacity
+        result=cache_capacity(CACHE_POLICY,5892498)
+        self.assertEqual(result['entry_bytes'],188560456)
+        self.assertEqual(result['required_bytes'],377120912)
+        self.assertEqual(result['byte_capacity'],5)
+        for policy in [dict(CACHE_POLICY,source_cache_max_bytes=128*1024**2),
+                       dict(CACHE_POLICY,source_cache_max_bytes=0),
+                       dict(CACHE_POLICY,source_cache_max_sources=1)]:
+            with self.assertRaises(ValueError):cache_capacity(policy,5892498)
+        d=native_test_domain(self.path/'cache-readback')
+        with d.context('verification') as context:
+            for key,value in CACHE_POLICY.items():self.assertEqual(getattr(context.provider,key),value)
+        d.cache_policy['source_cache_max_bytes']=1
+        with self.assertRaises(ValueError):d.context('verification')
+
+    def gate_call(self, name, replies, artifact_error_at=None):
         import resource
         from unittest.mock import patch
         from experiments.mechanism_recovery_v1.run import run_gate
         manifest=dict(repo=str(self.path),source=dict(closure_sha256='0'*64))
+        count=[0]
+        def admitted(*args):
+            count[0]+=1
+            if count[0]==artifact_error_at:raise ValueError('Result artifact digest differs')
+            return dict(status='timeout_feasible_only')
         with patch('experiments.mechanism_recovery_v1.run._manifest',return_value=manifest), \
              patch('experiments.mechanism_recovery_v1.run.file_hash',return_value='a'*64), \
+             patch('experiments.mechanism_recovery_v1.run.load_worker_result',side_effect=admitted), \
              patch('experiments.mechanism_recovery_v1.supervisor.run',side_effect=replies) as launch, \
              patch('os.sched_getaffinity',return_value={0}),patch('os.sched_setaffinity'), \
              patch('resource.getrlimit',return_value=(resource.RLIM_INFINITY,resource.RLIM_INFINITY)), \
              patch('resource.setrlimit'),patch('signal.signal'):
             result=run_gate('full-closed.json','b'*64,self.path/name,0)
         return result,launch.call_args_list
+
+    def test_gate_artifact_failure_marks_attempted_stage_unknown(self):
+        for index in range(1,6):
+            result,calls=self.gate_call('artifact-error-'+str(index),[dict(status='SUCCESS')]*index,index)
+            self.assertEqual(len(calls),index)
+            self.assertEqual(result['status'],'UNKNOWN')
+            self.assertEqual(result['stages'][index-1]['status'],'UNKNOWN')
+            self.assertEqual(result['stages'][index-1]['reason'],'artifact_admission_failed')
+            self.assertTrue(all(row['status']=='PENDING' for row in result['stages'][index:]))
+
+    def test_terminal_cli_exit_status(self):
+        from unittest.mock import patch
+        from experiments.mechanism_recovery_v1.run import main
+        for status,code in [('COMPLETED',0),('UNKNOWN',1),('FAILED_VERIFICATION',1),('PARENT_CPU_BUDGET_EXHAUSTED',1)]:
+            with patch('sys.argv',['run','--gate','--output','fresh','--cpu','0']), \
+                 patch('experiments.mechanism_recovery_v1.run.run_gate',return_value=dict(status=status)):
+                self.assertEqual(main(),code)
 
     def test_gate_fixed_five_stages_same_common_and_limits(self):
         success=dict(status='SUCCESS')

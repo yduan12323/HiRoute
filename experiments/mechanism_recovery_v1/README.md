@@ -133,3 +133,37 @@ independent durable replay, input hash tampering, original hierarchy identities,
 seed/key/Hmax/query/native mismatches and timeout semantics. Candidate policy and
 supervisor tests are separate. These tests do not establish production performance
 or feasibility and do not authorize launching the real graph or holdout.
+
+## Bounded result artifacts and cache admission (follow-up contract)
+
+All three worker operations return compact version-2 control results (at most
+4096 bytes), containing operation/case/strategy, a small summary, and a fixed
+relative artifact path, exact byte size and SHA256. Prepare uses
+`prepared/common.json`, search uses `arm/result.json`, and verification uses
+`verification.json`. Full results are capped at8MiB and remain inside the existing
+16MiB worker output budget. The supervisor's64KiB receipt cap is unchanged.
+The orchestrator authenticates each successful result before dependent work;
+missing, tampered, wrong-type, unexpected-path or symlink references stop the
+ledger UNKNOWN. The physical supervisor receipt remains unchanged while the
+attempted stage records `artifact_admission_failed`. Gate/batch CLI returns1
+unless its ledger reaches COMPLETED; accepted feasible-only timeouts still follow
+the normal independent verification path.
+
+The closed manifest must explicitly bind `source_cache_max_bytes=1073741824`
+and `source_cache_max_sources=2`. Authenticated metadata is checked before graph
+loading/native setup, using the provider's exact retained-entry estimator; the
+budget must retain two complete entries. All generation/search/verification
+roles and both arms use this same policy, checked against actual provider fields.
+The policy is also bound into common seeds and durable-incumbent identities.
+At5892498 nodes, an entry is188560456 bytes and two require377120912 bytes.
+The1GiB byte ceiling could fit five entries, but the source-count cap remains2.
+Two simultaneously live provider ceilings total2GiB, leaving6GiB of the8GiB
+process address-space cap for other state; this is a budget margin, not a proof
+of total runtime memory fit. The prior128MiB setting cannot retain even one such
+entry and now fails admission. This arithmetic is not a measured speedup claim.
+
+The earlier five-stage gate stopped UNKNOWN on its oversized79402-byte embedded
+prepare receipt, with verified cleanup and four unattempted stages. Its artifacts
+and accounting remain unchanged; diagnostic common-seed contents do not make that
+stage accepted. A new gate requires the newly published code, a new closed
+manifest and fresh output directory, and separate release review.

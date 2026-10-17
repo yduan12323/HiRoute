@@ -2,7 +2,7 @@
   "alt_member_read_counters": false,
   "base_commit": "530cc6045881e1189a1bcbb169a710e9d4695ee3",
   "cache_policy": {
-    "source_cache_max_bytes": 134217728,
+    "source_cache_max_bytes": 1073741824,
     "source_cache_max_sources": 2
   },
   "candidate_counts": [

@@ -1,4 +1,4 @@
-"""Fresh mechanism experiment primitives. CLI deliberately cannot launch real runs."""
+"""Fresh, closed-manifest mechanism experiment with bounded worker stages."""
 from __future__ import annotations
 
 import argparse
@@ -37,6 +37,76 @@ def file_hash(path):
         for block in iter(lambda: stream.read(1024 * 1024), b''):
             h.update(block)
     return h.hexdigest()
+
+
+CACHE_POLICY = dict(source_cache_max_bytes=1024**3, source_cache_max_sources=2)
+RESULT_PATHS = dict(prepare='prepared/common.json', arm='arm/result.json', verify='verification.json')
+RESULT_SCHEMA = 'hiroute.mechanism_recovery.worker_result.v2'
+MAX_RESULT_BYTES = 8 * 1024**2
+
+
+def cache_capacity(policy, node_count):
+    from timecut5.road_provider import TableFreeRoadSelectedLegProvider
+    if (type(policy) is not dict or set(policy) != set(CACHE_POLICY) or
+        any(type(v) is not int for v in policy.values()) or
+        policy['source_cache_max_sources'] != 2 or policy['source_cache_max_bytes'] <= 0):
+        raise ValueError('Two-source cache policy required')
+    entry = TableFreeRoadSelectedLegProvider.source_cache_entry_bytes(node_count)
+    if policy['source_cache_max_bytes'] < 2 * entry:
+        raise ValueError('Source cache cannot retain two complete source entries')
+    return dict(node_count=node_count, entry_bytes=entry, required_bytes=2*entry,
+                byte_capacity=policy['source_cache_max_bytes']//entry, retained_source_cap=2)
+
+
+def _result_summary(result, operation):
+    if type(result) is not dict or type(result.get('status')) is not str:
+        raise ValueError('Malformed full worker result')
+    if operation == 'prepare':
+        return dict(status=result['status'], candidate_count=len(result['sites']), max_depth=result['seed']['max_depth'])
+    return {k: result[k] for k in ('status','optimality_claim') if k in result}
+
+
+def result_envelope(artifacts, operation, case_id, strategy=None):
+    path = Path(artifacts) / RESULT_PATHS[operation]
+    raw = path.read_bytes()
+    if not 0 < len(raw) <= MAX_RESULT_BYTES:
+        raise ValueError('Full result artifact exceeds bounded contract')
+    result = json.loads(raw)
+    envelope = dict(schema=RESULT_SCHEMA, operation=operation, case_id=case_id, strategy=strategy,
+        artifact=dict(path=RESULT_PATHS[operation], size=len(raw), sha256=hashlib.sha256(raw).hexdigest()),
+        summary=_result_summary(result, operation))
+    if len(canonical(envelope)) > 4096:
+        raise ValueError('Control result exceeds compact contract')
+    return envelope
+
+
+def load_worker_result(directory, receipt, operation, case_id, strategy=None):
+    """Authenticate the compact control record and fixed, owned result artifact."""
+    envelope = receipt['worker_receipt']['result']
+    if (type(envelope) is not dict or set(envelope) != {'schema','operation','case_id','strategy','artifact','summary'} or
+        envelope['schema'] != RESULT_SCHEMA or envelope['operation'] != operation or
+        envelope['case_id'] != case_id or envelope['strategy'] != strategy or len(canonical(envelope)) > 4096):
+        raise ValueError('Worker result identity differs')
+    binding = envelope['artifact']
+    if (type(binding) is not dict or set(binding) != {'path','size','sha256'} or
+        binding['path'] != RESULT_PATHS[operation] or type(binding['size']) is not int or
+        not 0 < binding['size'] <= MAX_RESULT_BYTES or type(binding['sha256']) is not str):
+        raise ValueError('Malformed artifact reference')
+    root = Path(directory) / 'artifacts'
+    path = root
+    for part in Path(binding['path']).parts:
+        path = path / part
+        if path.is_symlink():
+            raise ValueError('Symlink result artifact forbidden')
+    if root.is_symlink() or not path.is_file() or path.stat().st_size != binding['size']:
+        raise ValueError('Missing or wrong-sized result artifact')
+    raw = path.read_bytes()
+    if len(raw) != binding['size'] or hashlib.sha256(raw).hexdigest() != binding['sha256']:
+        raise ValueError('Result artifact digest differs')
+    result = json.loads(raw)
+    if _result_summary(result, operation) != envelope['summary']:
+        raise ValueError('Result summary differs')
+    return result
 
 
 def verify_inputs(directory, bindings):
@@ -166,6 +236,7 @@ class FrozenSeed:
     site_sha256: str
     native_sha256: str
     max_depth: int
+    cache_policy_sha256: str
 
 
 def depth_bound(query, key):
@@ -176,16 +247,14 @@ def depth_bound(query, key):
 
 
 class NativeDomain:
-    """One explicitly bound domain. graph_factory must freshly load authenticated bytes.
-
-    This is a low-level execution component, not a production admission boundary.
-    The shipping CLI cannot launch it. A reviewed, committed manifest/loader and
-    missing OD07 source are required before adding a real worker entry point.
-    """
-    def __init__(self, *, graph_factory, query, sites, tree, source_hashes, cache, compiler=None):
+    """One explicitly bound domain with fresh authenticated graph loads."""
+    def __init__(self, *, graph_factory, query, sites, tree, source_hashes, cache, compiler=None, cache_policy=None):
         from microplan.native_artifact import build_artifact
         from timecut5.terminal_energy_artifact import build_artifact as build_energy
         from timecut5.real_adapter import site_catalog_digest
+        self.cache_policy = dict(CACHE_POLICY if cache_policy is None else cache_policy)
+        cache_capacity(self.cache_policy, 0)
+        self._cache_policy_bytes = canonical(self.cache_policy)
         self.graph_factory = graph_factory
         self.query_bytes = canonical(query)
         self.sites = dict(sites)
@@ -208,6 +277,8 @@ class NativeDomain:
 
     def check(self):
         from timecut5.real_adapter import site_catalog_digest
+        if canonical(self.cache_policy) != self._cache_policy_bytes:
+            raise ValueError('Cache policy changed')
         if canonical(self.source_hashes) != self._source_bytes or self.query_bytes != self._query_bytes:
             raise ValueError('Query/source binding changed')
         if site_catalog_digest(self.sites) != self.site_sha256 or digest(tree_value(self.tree)) != self.tree_sha256:
@@ -223,11 +294,17 @@ class NativeDomain:
         query = json.loads(self.query_bytes)
         anchors = {a: int(a.removeprefix('road:')) for a in [query['origin'], query['destination'], *[s.anchor_id for s in self.sites.values()]]}
         self._serial += 1
-        return RoutingConfig('full', TerminalEnergyConfig()).create_context(
-            self.graph_factory(), self.compiler, self.cache / str(self._serial), role=role,
+        graph = self.graph_factory()
+        cache_capacity(self.cache_policy, graph.node_count)
+        context = RoutingConfig('full', TerminalEnergyConfig()).create_context(
+            graph, self.compiler, self.cache / str(self._serial), role=role,
             artifact=self.artifact, energy_artifact=self.energy_artifact,
             anchor_nodes=anchors, nodes_sha256=self.source_hashes['nodes'], edges_sha256=self.source_hashes['edges'],
-            anchor_catalog_sha256=digest(anchors), source_cache_max_bytes=128 * 1024 * 1024, source_cache_max_sources=2)
+            anchor_catalog_sha256=digest(anchors), **self.cache_policy)
+        if any(getattr(context.provider, k) != v for k,v in self.cache_policy.items()):
+            context.close()
+            raise ValueError('Actual provider cache policy differs')
+        return context
 
     def problem(self, context, depth=None):
         query = json.loads(self.query_bytes)
@@ -242,7 +319,7 @@ class NativeDomain:
         with self.context('verification') as context:
             require_full_verifier(context.provider, fresh=True)
             key = _replay_problem(self.problem(context), witness)
-        return FrozenSeed(canonical(witness_dict(witness)), canonical(primitive(key)), digest(json.loads(self.query_bytes)), self.tree_sha256, self.site_sha256, self.native_sha256, depth_bound(json.loads(self.query_bytes), key))
+        return FrozenSeed(canonical(witness_dict(witness)), canonical(primitive(key)), digest(json.loads(self.query_bytes)), self.tree_sha256, self.site_sha256, self.native_sha256, depth_bound(json.loads(self.query_bytes), key), digest(self.cache_policy))
 
     def validate_seed(self, seed):
         from timecut5.durable_incumbent import _witness
@@ -253,7 +330,7 @@ class NativeDomain:
 
     def durable_binding(self, seed):
         return dict(domain_sha256=digest([json.loads(self.query_bytes), self.tree_sha256,
-            self.site_sha256, json.loads(seed.key_bytes), seed.max_depth, self.native_sha256]),
+            self.site_sha256, json.loads(seed.key_bytes), seed.max_depth, self.native_sha256, self.cache_policy]),
             source_sha256=dict(self.source_hashes))
 
     def recover_durable(self, seed, path):
@@ -468,6 +545,10 @@ def _manifest(path, expected_sha256):
         path = Path(manifest['input_directory']) / name
         if path.stat().st_size != binding['size'] or file_hash(path) != binding['sha256']:
             raise ValueError('Catalog source drift: ' + name)
+    if manifest.get('cache_policy') != CACHE_POLICY:
+        raise ValueError('Frozen cache policy differs')
+    metadata = json.loads((Path(manifest['input_directory'])/'metadata.json').read_bytes())
+    cache_capacity(manifest['cache_policy'], metadata['node_count'])
     return manifest
 
 
@@ -476,7 +557,7 @@ def _domain(manifest, query, sites, cache):
     tree = original_tree((Path(directory) / 'hierarchy.json').read_bytes(), bindings['hierarchy.json']['sha256'], list(sites))
     return NativeDomain(graph_factory=lambda: load_graph(directory, bindings), query=query, sites=sites,
         tree=tree, source_hashes=dict({n: bindings[n + '.parquet']['sha256'] for n in ('nodes', 'edges')}, source_closure=manifest['source']['closure_sha256'], **{'input:'+n:b['sha256'] for n,b in bindings.items()}), cache=cache,
-        compiler=manifest['compiler']['path'])
+        compiler=manifest['compiler']['path'], cache_policy=manifest['cache_policy'])
 
 
 def prepare_case(manifest, case_id, output):
@@ -538,7 +619,7 @@ def prepare_case(manifest, case_id, output):
         tree_sha256=domain.tree_sha256, seed=seed_record, proposal_ordinal=ordinal,
         candidate_repair=proposal_receipt, native=dict(router=domain.artifact.receipt, energy=domain.energy_artifact.receipt),
         charged_wall_ns=time.monotonic_ns()-started, seed_policy='first_feasible_streamed_proposal_fresh_double_replay_v1',
-        source=manifest['source'], inputs=bindings)
+        source=manifest['source'], inputs=bindings, cache_policy=domain.cache_policy)
     (output/'common.json').write_bytes(canonical(receipt))
     return receipt
 
@@ -566,7 +647,7 @@ def worker(manifest, operation, case_id, common_path=None, common_sha256=None, s
         if hashlib.sha256(common_bytes).hexdigest() != common_sha256:
             raise ValueError('Common receipt digest mismatch')
         common = json.loads(common_bytes)
-        if common['source'] != manifest['source'] or common['inputs'] != manifest['inputs'] or common['case_id'] != case_id:
+        if common['source'] != manifest['source'] or common['inputs'] != manifest['inputs'] or common['case_id'] != case_id or common.get('cache_policy') != manifest['cache_policy']:
             raise ValueError('Common receipt belongs to another source/case')
         sites = {s['site_id']: RealSite(s['site_id'], s['anchor_id'], tuple(s['effects'])) for s in common['sites']}
         domain = _domain(manifest, common['query'], sites, output/'native')
@@ -590,12 +671,13 @@ def worker(manifest, operation, case_id, common_path=None, common_sha256=None, s
             result = domain.recover_durable(seed, Path(search_directory)/'artifacts/arm/incumbent.json')
             result['status'] = 'timeout_feasible_only'
             if search_receipt['status'] == 'SUCCESS':
-                completed = search_receipt['worker_receipt']['result']
+                completed = load_worker_result(search_directory, search_receipt, 'arm', case_id, strategy)
                 if completed['accepted_key'] != result['accepted_key']:
                     raise ValueError('Search terminal key differs from independent durable replay')
                 result['status'] = completed['status']
                 result['optimality_claim'] = completed['status'] == 'attained_optimum'
             result['search_status'] = search_receipt['status']
+            (output/'verification.json').write_bytes(canonical(result))
     return result
 
 
@@ -640,6 +722,16 @@ def _run_plan(manifest_path, manifest_sha256, output, cpu, *, scope):
     stage_by_id={row['id']:row for row in stages}
     def record_stage(identifier,receipt):
         stage_by_id[identifier]['status']=receipt['status']
+    def admit(directory, receipt, operation, case, strategy=None, stage_id=None, arm=None):
+        if receipt['status'] != 'SUCCESS':return None
+        try:
+            return load_worker_result(directory,receipt,operation,case,strategy)
+        except (ValueError, KeyError, TypeError, OSError) as exc:
+            ledger['artifact_admission_error'] = dict(directory=str(directory), error=str(exc))
+            stage_by_id[stage_id].update(status='UNKNOWN', reason='artifact_admission_failed')
+            if arm is not None:arm['status']='UNKNOWN'
+            ledger['status']='UNKNOWN';save()
+            return None
     def block_remaining():
         for stage in stages:
             if stage['status']=='PENDING':stage['status']='BLOCKED'
@@ -663,6 +755,8 @@ def _run_plan(manifest_path, manifest_sha256, output, cpu, *, scope):
         directory = output / ('prepare-' + case)
         receipt = run(command('prepare',case), output_dir=directory, limits=limits, cwd=manifest['repo'])
         ledger['common'][case] = receipt; record_stage('prepare-'+case,receipt); save()
+        admit(directory,receipt,'prepare',case,stage_id='prepare-'+case)
+        if ledger['status']=='UNKNOWN':return ledger
         if receipt['status'] == 'UNKNOWN':
             ledger['status']='UNKNOWN';save();return ledger
         if gate and receipt['status'] != 'SUCCESS':
@@ -685,6 +779,8 @@ def _run_plan(manifest_path, manifest_sha256, output, cpu, *, scope):
         receipt=run(argv,output_dir=search_directory,limits=limits,cwd=manifest['repo'],
             phase_budget=PhaseBudget(seconds=LIMITS['search_seconds'],identity=identity))
         arm.update(status=receipt['status'],receipt=receipt);record_stage(f'search-{index}',receipt);save()
+        admit(search_directory,receipt,'arm',case,arm['strategy'],f'search-{index}',arm)
+        if ledger['status']=='UNKNOWN':return ledger
         if receipt['status']=='UNKNOWN':
             ledger['status']='UNKNOWN';save();return ledger
         if gate and receipt['status'] not in ('SUCCESS','TIMEOUT'):
@@ -694,7 +790,10 @@ def _run_plan(manifest_path, manifest_sha256, output, cpu, *, scope):
             verify_argv=command('verify',case)+['--common',str(common.resolve()),'--common-sha256',file_hash(common),
                 '--search-directory',str(search_directory.resolve()),'--search-receipt-sha256',file_hash(search_directory/'receipt.json'),'--strategy',arm['strategy']]
             verified=run(verify_argv,output_dir=output/f'verify-{index:02d}',limits=verification_limits,cwd=manifest['repo'])
-            arm.update(verification=verified,status=verified['worker_receipt']['result']['status'] if verified['status']=='SUCCESS' else 'VERIFICATION_'+verified['status'])
+            arm['verification']=verified
+            full = admit(output/f'verify-{index:02d}',verified,'verify',case,arm['strategy'],f'verify-{index}',arm)
+            if ledger['status']=='UNKNOWN':save();return ledger
+            arm['status']=full['status'] if full is not None else 'VERIFICATION_'+verified['status']
             record_stage(f'verify-{index}',verified);save()
             if verified['status']=='UNKNOWN':
                 ledger['status']='UNKNOWN';save();return ledger
@@ -737,16 +836,17 @@ def main():
             parser.error('--batch/--gate requires --output and --cpu')
         if args.case is not None or args.strategy is not None:
             parser.error('--batch/--gate has fixed cases and strategies')
-        (run_gate if args.gate else run_batch)(args.manifest,args.manifest_sha256,args.output,args.cpu)
-        return
+        ledger = (run_gate if args.gate else run_batch)(args.manifest,args.manifest_sha256,args.output,args.cpu)
+        return 0 if ledger['status']=='COMPLETED' else 1
     manifest = _manifest(args.manifest, args.manifest_sha256)
     if args.case is None:
         parser.error('--case is required')
     result = worker(manifest, args.worker, args.case, args.common, args.common_sha256, args.strategy, args.search_directory, args.search_receipt_sha256)
     _manifest(args.manifest, args.manifest_sha256)
     receipt = Path(os.environ['HIROUTE_WORKER_RECEIPT'])
-    receipt.write_bytes(canonical(dict(status='COMPLETED', result=result)))
+    receipt.write_bytes(canonical(dict(status='COMPLETED', result=result_envelope(
+        os.environ['HIROUTE_OUTPUT_DIR'], args.worker, args.case, args.strategy))))
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
