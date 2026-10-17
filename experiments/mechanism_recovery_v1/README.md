@@ -87,6 +87,43 @@ is charged to the separate terminal verification stage. Native compilation, sour
 certification and setup are charged explicitly or to containing stage wall/CPU;
 none is a free oracle. Fresh process/provider is not a cold OS-cache claim.
 
+## Fixed first-DEV integration gate
+
+After publication, source attestation and review of the admitted external
+manifest, use the installed Python environment with repository root on
+PYTHONPATH (never force an older checkout's src directory):
+
+```
+python -m experiments.mechanism_recovery_v1.run --gate \
+  --manifest /absolute/path/admitted.json --manifest-sha256 <sha256> \
+  --output /absolute/path/new-od02-gate --cpu <permitted-core>
+```
+
+`--gate` is fixed to OD02 energy-only SOC3/10 N128: prepare, indexed search,
+indexed fresh verification, recompute search, recompute fresh verification.
+It uses the unchanged full three-case source/input manifest; changing the
+manifest's cases or order is not a supported subset mechanism. Case/strategy
+arguments are rejected for gate/batch. Both gate arms share one immutable common
+receipt and independently reverify the same full seed key and derived Hmax.
+
+The gate ledger has scope `od02_gate` and an explicit five-stage denominator.
+Its output directory must be new. It uses the same supervisor, source and input
+gates, CPU/AS/affinity/output limits, external120s phase and cumulative90s parent
+budget as the full batch. Common/search stages each reserve600s wall and600s
+soft CPU; the two separate verifiers each reserve180s wall and120s soft CPU.
+Gate reserve:2160 worker-wall seconds and2040 soft-CPU seconds. UNKNOWN stops
+immediately. Failed preparation, failed search, or failed verification blocks
+remaining gate stages; owned timeouts proceed only to fresh verification.
+No case, order or threshold is selected from outcomes.
+
+Review gate receipts before a separate `--batch` invocation. The gate does not
+automatically launch the batch and its data/timing is not pooled into the batch.
+The full batch remains27 stages with its own fresh directory and ledger; its
+manifest/order/reserve is unchanged. Gate plus full batch reserve13320 worker-wall
+seconds and12480 soft-CPU seconds across32 stages. A successful gate invocation
+means the five stages completed their contracts, not that either120s search
+proved optimality.
+
 ## Tests and limits
 
 `PYTHONPATH=src:. python -m unittest tests.m5d_recovery.test_runner -v`

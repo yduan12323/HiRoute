@@ -82,8 +82,61 @@ class RunnerTests(unittest.TestCase):
             result=run_batch('closed.json','0'*64,self.path/'batch',0)
         self.assertEqual(launch.call_count,3)
         self.assertEqual(len(result['arms']),12)
+        self.assertEqual(result['scope'],'full_batch');self.assertEqual(result['denominator'],27)
         self.assertTrue(all(x['status']=='BLOCKED_COMMON_PREPARATION' for x in result['arms']))
         self.assertEqual(setlimit.call_args.args[1][1],resource.RLIM_INFINITY)
+
+    def gate_call(self, name, replies):
+        import resource
+        from unittest.mock import patch
+        from experiments.mechanism_recovery_v1.run import run_gate
+        manifest=dict(repo=str(self.path),source=dict(closure_sha256='0'*64))
+        with patch('experiments.mechanism_recovery_v1.run._manifest',return_value=manifest), \
+             patch('experiments.mechanism_recovery_v1.run.file_hash',return_value='a'*64), \
+             patch('experiments.mechanism_recovery_v1.supervisor.run',side_effect=replies) as launch, \
+             patch('os.sched_getaffinity',return_value={0}),patch('os.sched_setaffinity'), \
+             patch('resource.getrlimit',return_value=(resource.RLIM_INFINITY,resource.RLIM_INFINITY)), \
+             patch('resource.setrlimit'),patch('signal.signal'):
+            result=run_gate('full-closed.json','b'*64,self.path/name,0)
+        return result,launch.call_args_list
+
+    def test_gate_fixed_five_stages_same_common_and_limits(self):
+        success=dict(status='SUCCESS')
+        verified=dict(status='SUCCESS',worker_receipt=dict(result=dict(status='timeout_feasible_only')))
+        result,calls=self.gate_call('gate',[success,dict(status='TIMEOUT'),verified,success,verified])
+        self.assertEqual(result['scope'],'od02_gate');self.assertEqual(result['denominator'],5)
+        self.assertEqual(result['status'],'COMPLETED')
+        self.assertEqual([x['operation'] for x in result['stages']],['prepare','search','verify','search','verify'])
+        self.assertEqual([c.args[0][c.args[0].index('--worker')+1] for c in calls],['prepare','arm','verify','arm','verify'])
+        for c in calls:self.assertEqual(c.args[0][c.args[0].index('--case')+1],'OD02_energy_only_soc3_10')
+        self.assertEqual([c.args[0][c.args[0].index('--strategy')+1] for c in calls[1:]],['indexed','indexed','recompute','recompute'])
+        self.assertEqual(calls[1].kwargs['phase_budget'].seconds,120)
+        self.assertEqual(calls[3].kwargs['phase_budget'].identity['common_sha256'],calls[1].kwargs['phase_budget'].identity['common_sha256'])
+        self.assertNotEqual(calls[3].kwargs['phase_budget'].identity['nonce'],calls[1].kwargs['phase_budget'].identity['nonce'])
+        self.assertEqual([c.kwargs['limits'].wall_seconds for c in calls],[600,600,180,600,180])
+        self.assertEqual([c.kwargs['limits'].cpu_seconds for c in calls],[600,600,120,600,120])
+        self.assertTrue(all(c.kwargs['limits'].address_space_bytes==8*1024**3 for c in calls))
+        self.assertEqual(len({str(c.kwargs['output_dir']) for c in calls}),5)
+        with self.assertRaises(FileExistsError):self.gate_call('gate',[])
+
+    def test_gate_unknown_stops_preserving_five_stage_denominator(self):
+        success=dict(status='SUCCESS')
+        for index in range(3):
+            with self.subTest(stage=index):
+                result,calls=self.gate_call('unknown-'+str(index),[success]*index+[dict(status='UNKNOWN')])
+                self.assertEqual(result['status'],'UNKNOWN')
+                self.assertEqual(result['denominator'],5)
+                self.assertEqual(len(calls),index+1)
+                self.assertEqual(sum(x['status']=='PENDING' for x in result['stages']),4-index)
+
+    def test_gate_failed_verification_blocks_second_arm(self):
+        result,calls=self.gate_call('failed-verify',[dict(status='SUCCESS'),dict(status='TIMEOUT'),dict(status='FAILED')])
+        self.assertEqual(len(calls),3)
+        self.assertEqual(result['status'],'FAILED_VERIFICATION')
+        self.assertEqual([x['status'] for x in result['stages'][-2:]],['BLOCKED','BLOCKED'])
+        result,calls=self.gate_call('failed-prepare',[dict(status='FAILED')])
+        self.assertEqual(len(calls),1);self.assertEqual(result['status'],'FAILED_COMMON_PREPARATION')
+        self.assertEqual(sum(x['status']=='BLOCKED' for x in result['stages']),4)
 
     def test_snapshot_missing_or_changed_blob_rejected(self):
         from experiments.mechanism_recovery_v1.run import source_identity

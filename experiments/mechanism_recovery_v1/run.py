@@ -600,10 +600,15 @@ def worker(manifest, operation, case_id, common_path=None, common_sha256=None, s
 
 
 
-def run_batch(manifest_path, manifest_sha256, output, cpu):
+def _run_plan(manifest_path, manifest_sha256, output, cpu, *, scope):
     """One sequential supervisor; all predeclared arms remain in the ledger."""
     from .supervisor import run, Limits, PhaseBudget
     import resource
+    if scope not in ('full_batch','od02_gate'):
+        raise ValueError('Unknown fixed execution scope')
+    gate = scope == 'od02_gate'
+    cases = DEV_CASES[:1] if gate else DEV_CASES
+    pairs = PAIR_ORDER[:1] if gate else PAIR_ORDER
     batch_cpu_started=time.process_time()
     manifest = _manifest(manifest_path, manifest_sha256)
     output = Path(output); output.mkdir(parents=True, exist_ok=False)
@@ -624,9 +629,22 @@ def run_batch(manifest_path, manifest_sha256, output, cpu):
     limits = Limits(wall_seconds=LIMITS['stage_wall_seconds'], cpu_seconds=LIMITS['worker_cpu_seconds'],
                     address_space_bytes=LIMITS['address_space_bytes'], cpu=cpu)
     verification_limits = Limits(wall_seconds=LIMITS['verification_wall_seconds'], cpu_seconds=LIMITS['verification_cpu_seconds'], address_space_bytes=LIMITS['address_space_bytes'], cpu=cpu)
-    ledger = dict(schema=SCHEMA, manifest_sha256=manifest_sha256,
-        common={}, arms=[dict(case=case, strategy=strategy, pair=i, status='PENDING')
-                        for i, (case, order) in enumerate(PAIR_ORDER) for strategy in order], status='RUNNING')
+    arms=[dict(case=case, strategy=strategy, pair=i, status='PENDING')
+          for i, (case, order) in enumerate(pairs) for strategy in order]
+    stages=[dict(id='prepare-'+case,operation='prepare',case=case,status='PENDING') for case in cases]
+    for index, arm in enumerate(arms):
+        for operation in ('search','verify'):
+            stages.append(dict(id=f'{operation}-{index}',operation=operation,case=arm['case'],strategy=arm['strategy'],status='PENDING'))
+    ledger = dict(schema=SCHEMA, scope=scope, denominator=len(stages), manifest_sha256=manifest_sha256,
+        common={}, arms=arms, stages=stages, status='RUNNING')
+    stage_by_id={row['id']:row for row in stages}
+    def record_stage(identifier,receipt):
+        stage_by_id[identifier]['status']=receipt['status']
+    def block_remaining():
+        for stage in stages:
+            if stage['status']=='PENDING':stage['status']='BLOCKED'
+        for arm in arms:
+            if arm['status']=='PENDING':arm['status']='BLOCKED'
     def save():
         ledger['parent_cpu_seconds']=time.process_time()-batch_cpu_started
         temporary=output/'ledger.tmp';temporary.write_bytes(canonical(ledger));os.replace(temporary,output/'ledger.json')
@@ -640,18 +658,23 @@ def run_batch(manifest_path, manifest_sha256, output, cpu):
         return [sys.executable, '-m', 'experiments.mechanism_recovery_v1.run', '--worker', operation,
                 '--manifest', str(Path(manifest_path).resolve()), '--manifest-sha256', manifest_sha256, '--case', case]
     save()
-    for case in DEV_CASES:
+    for case in cases:
         if not can_launch():return ledger
         directory = output / ('prepare-' + case)
         receipt = run(command('prepare',case), output_dir=directory, limits=limits, cwd=manifest['repo'])
-        ledger['common'][case] = receipt; save()
+        ledger['common'][case] = receipt; record_stage('prepare-'+case,receipt); save()
         if receipt['status'] == 'UNKNOWN':
             ledger['status']='UNKNOWN';save();return ledger
+        if gate and receipt['status'] != 'SUCCESS':
+            ledger['status']='FAILED_COMMON_PREPARATION';block_remaining();save();return ledger
     for index, arm in enumerate(ledger['arms']):
         if not can_launch():return ledger
         case=arm['case']
         if ledger['common'][case]['status'] != 'SUCCESS':
-            arm['status']='BLOCKED_COMMON_PREPARATION';save();continue
+            arm['status']='BLOCKED_COMMON_PREPARATION'
+            stage_by_id[f'search-{index}']['status']='BLOCKED_COMMON_PREPARATION'
+            stage_by_id[f'verify-{index}']['status']='BLOCKED_COMMON_PREPARATION'
+            save();continue
         common=output/('prepare-'+case)/'artifacts/prepared/common.json'
         argv=command('arm',case)+['--common',str(common.resolve()),'--common-sha256',file_hash(common),'--strategy',arm['strategy']]
         import secrets
@@ -661,19 +684,36 @@ def run_batch(manifest_path, manifest_sha256, output, cpu):
         search_directory=output/f'arm-{index:02d}'
         receipt=run(argv,output_dir=search_directory,limits=limits,cwd=manifest['repo'],
             phase_budget=PhaseBudget(seconds=LIMITS['search_seconds'],identity=identity))
-        arm.update(status=receipt['status'],receipt=receipt);save()
+        arm.update(status=receipt['status'],receipt=receipt);record_stage(f'search-{index}',receipt);save()
         if receipt['status']=='UNKNOWN':
             ledger['status']='UNKNOWN';save();return ledger
+        if gate and receipt['status'] not in ('SUCCESS','TIMEOUT'):
+            ledger['status']='FAILED_SEARCH';block_remaining();save();return ledger
         if receipt['status'] in ('SUCCESS','TIMEOUT'):
             if not can_launch():return ledger
             verify_argv=command('verify',case)+['--common',str(common.resolve()),'--common-sha256',file_hash(common),
                 '--search-directory',str(search_directory.resolve()),'--search-receipt-sha256',file_hash(search_directory/'receipt.json'),'--strategy',arm['strategy']]
             verified=run(verify_argv,output_dir=output/f'verify-{index:02d}',limits=verification_limits,cwd=manifest['repo'])
-            arm.update(verification=verified,status=verified['worker_receipt']['result']['status'] if verified['status']=='SUCCESS' else 'VERIFICATION_'+verified['status']);save()
+            arm.update(verification=verified,status=verified['worker_receipt']['result']['status'] if verified['status']=='SUCCESS' else 'VERIFICATION_'+verified['status'])
+            record_stage(f'verify-{index}',verified);save()
             if verified['status']=='UNKNOWN':
                 ledger['status']='UNKNOWN';save();return ledger
+            if gate and verified['status']!='SUCCESS':
+                ledger['status']='FAILED_VERIFICATION';block_remaining();save();return ledger
+        else:
+            stage_by_id[f'verify-{index}']['status']='BLOCKED_SEARCH_FAILED';save()
     if not can_launch():return ledger
     ledger['status']='COMPLETED';save();return ledger
+
+
+def run_batch(manifest_path, manifest_sha256, output, cpu):
+    return _run_plan(manifest_path,manifest_sha256,output,cpu,scope='full_batch')
+
+
+def run_gate(manifest_path, manifest_sha256, output, cpu):
+    """Fixed OD02 indexed/recompute integration gate, never an arbitrary subset."""
+    return _run_plan(manifest_path,manifest_sha256,output,cpu,scope='od02_gate')
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -681,6 +721,7 @@ def main():
     choice.add_argument('--plan', action='store_true')
     choice.add_argument('--worker', choices=('prepare','arm','verify'))
     choice.add_argument('--batch', action='store_true')
+    choice.add_argument('--gate', action='store_true')
     parser.add_argument('--output');parser.add_argument('--cpu',type=int)
     parser.add_argument('--manifest');parser.add_argument('--manifest-sha256')
     parser.add_argument('--case', choices=DEV_CASES)
@@ -691,10 +732,12 @@ def main():
     if args.plan:
         print(Path(__file__).with_name('manifest.json').read_text())
         return
-    if args.batch:
+    if args.batch or args.gate:
         if args.output is None or args.cpu is None:
-            parser.error('--batch requires --output and --cpu')
-        run_batch(args.manifest,args.manifest_sha256,args.output,args.cpu)
+            parser.error('--batch/--gate requires --output and --cpu')
+        if args.case is not None or args.strategy is not None:
+            parser.error('--batch/--gate has fixed cases and strategies')
+        (run_gate if args.gate else run_batch)(args.manifest,args.manifest_sha256,args.output,args.cpu)
         return
     manifest = _manifest(args.manifest, args.manifest_sha256)
     if args.case is None:
