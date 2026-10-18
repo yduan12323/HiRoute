@@ -22,8 +22,11 @@ the wheel into that environment; it never installs globally or edits the checkou
 Dependency installation needs PyPI access. Building and testing then use local
 inputs, with no OSM download, Drive connection, credentials, or real graph needed.
 
-`m5-requirements.txt` pins all 14 build/test dependencies and their registry
-hashes. The intentionally reduced environment includes NumPy, SciPy and pandas.
+`m5-requirements.txt` pins all 15 build/test dependencies and their registry
+hashes. The intentionally reduced environment includes NumPy, SciPy, pandas
+and PyArrow. PyArrow is required by the recovery tests that import the real
+parquet engine and round-trip a tiny in-memory buffer. Its wheel hash targets
+the documented CPython 3.11 Linux x86-64 environment.
 It is **not** a recreation of the full Conda environment or a test of every
 dependency declared in `pyproject.toml`. The local wheel is installed with
 `--no-deps` for that reason. Dependency upgrades should be separately reviewed
