@@ -32,20 +32,37 @@ def immutable_install(temporary, destination):
 
 
 def acquire_sources(config, resolve=None):
+    # Input identities are versioned separately from generated acquisition receipts.
+    trusted = json.loads((ROOT / config['source_pins']).read_text())
+    by_url = {row['url']: row for row in trusted['sources']}
+    if len(by_url) != len(trusted['sources']):
+        raise ValueError('Duplicate frozen source URL')
+    for source in config['sources']:
+        expected = by_url.get('https://download.geofabrik.de/' + source)
+        if (expected is None or expected['size_bytes'] != config['source_sizes_bytes'][Path(source).name]
+                or expected['snapshot_timestamp'] != config['snapshot_timestamp']):
+            raise ValueError('Regional source configuration differs from frozen input pins')
     directory = ROOT / config['source_dir']
     directory.mkdir(parents=True, exist_ok=True)
     manifest = ROOT / config['results_dir'] / 'sources.json'
+    manifest.parent.mkdir(parents=True, exist_ok=True)
     pinned = json.loads(manifest.read_text()) if manifest.exists() else None
     def acquire(source):
         url = 'https://download.geofabrik.de/' + source
         if 'latest' in url:
             raise ValueError('A dated source is required')
+        expected = by_url[url]
         destination = directory / Path(source).name
         frozen = next((s for s in pinned['sources'] if s['url'] == url), None) if pinned else None
+        if frozen is not None and any(frozen.get(key) != expected[key] for key in
+                ('sha256', 'size_bytes', 'snapshot_timestamp', 'publisher_md5')):
+            raise ValueError('Acquisition receipt differs from frozen input pins')
         if destination.exists():
-            if frozen is None or sha256(destination) != frozen['sha256']:
+            if (destination.stat().st_size != expected['size_bytes'] or
+                    sha256(destination) != expected['sha256'] or
+                    snapshot_timestamp(destination) != expected['snapshot_timestamp']):
                 raise ValueError(f'Unverified existing source {destination}')
-            return frozen
+            return frozen or dict(expected, path=str(destination.relative_to(ROOT)))
         partial = destination.with_suffix('.partial')
         transport = ['--noproxy','*','--resolve', 'download.geofabrik.de:443:'+resolve] if resolve else []
         command = ['curl', *transport, '--fail', '--location', '--retry', '8', '--retry-all-errors',
@@ -66,10 +83,10 @@ def acquire_sources(config, resolve=None):
             for block in iter(lambda: stream.read(8 * 2**20), b''):
                 md5.update(block)
         expected_md5 = md5_file.read_text().split()[0]
-        if md5.hexdigest() != expected_md5:
+        if md5.hexdigest() != expected_md5 or expected_md5 != expected['publisher_md5']:
             raise ValueError(f'Publisher MD5 mismatch {source}')
         digest = sha256(partial)
-        if frozen and digest != frozen['sha256']:
+        if digest != expected['sha256']:
             raise ValueError('Pinned source SHA256 mismatch')
         stamp = snapshot_timestamp(partial)
         if stamp != config['snapshot_timestamp']:
@@ -93,6 +110,11 @@ def acquire_sources(config, resolve=None):
     records = [acquire(source) for source in config['sources']]
     data, _ = configs()
     si = verified_dataset(data)
+    si_pin = by_url.get(si['source_url'])
+    if (si_pin is None or si_pin['sha256'] != si['sha256'] or
+            si_pin['size_bytes'] != si['size_bytes'] or
+            si_pin['snapshot_timestamp'] != si['osm_snapshot_timestamp']):
+        raise ValueError('Slovenia input differs from regional source pins')
     records.append({'url': si['source_url'], 'path': str(config['slovenia_source']),
                     'sha256': si['sha256'], 'size_bytes': si['size_bytes'],
                     'snapshot_timestamp': si['osm_snapshot_timestamp'],
@@ -115,6 +137,7 @@ def create_polygon(config):
     if destination.exists() and destination.read_bytes() != contents:
         raise ValueError('Existing research polygon differs; use a separate dataset for another margin')
     if not destination.exists():
+        destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_bytes(contents)
     nodes = pd.read_parquet(ROOT / 'data/processed/graphs/slovenia/nodes.parquet')
     od = pd.read_parquet(ROOT / 'data/processed/od_instances.parquet')
@@ -122,9 +145,16 @@ def create_polygon(config):
     transform = Transformer.from_crs(4326, config['projection'], always_xy=True)
     points = shapely.points(*transform.transform(nodes.iloc[endpoint_ids].lon, nodes.iloc[endpoint_ids].lat))
     si_size = (ROOT / config['slovenia_source']).stat().st_size
+    coverage_dir = ROOT / config['coverage_polygon_dir']
+    coverage_pins = json.loads((ROOT / config['coverage_polygon_pins']).read_text())['files']
+    coverage_files = [coverage_dir / (name + '.poly') for name in
+                      ['austria', 'nord-est', 'croatia', 'hungary', 'bosnia-herzegovina']]
+    for path in coverage_files:
+        pin = coverage_pins[path.name]
+        if path.stat().st_size != pin['size_bytes'] or sha256(path) != pin['sha256']:
+            raise ValueError('Frozen source coverage polygon changed')
     coverage = shapely.union_all([read_poly(ROOT / config['base_polygon']),
-        *[read_poly(ROOT / config['results_dir'] / 'boundary' / (name + '.poly'))
-          for name in ['austria', 'nord-est', 'croatia', 'hungary', 'bosnia-herzegovina']]])
+                                 *[read_poly(path) for path in coverage_files]])
     rows = []
     for margin in config['candidate_margins_km']:
         p, projected, _ = region_polygon(config, margin)
@@ -136,7 +166,7 @@ def create_polygon(config):
                      'wgs84_bounds': list(p.bounds)})
     result = {'method': 'EPSG:3035 metric buffer of frozen extract proxy',
               'config': config, 'polygon_sha256': sha256(destination), 'candidates': rows,
-              'coverage_polygon_sha256': {p.name: sha256(p) for p in (ROOT/config['results_dir']/'boundary').glob('*.poly')}}
+              'coverage_polygon_sha256': {p.name: sha256(p) for p in coverage_files}}
     (ROOT / config['results_dir'] / 'region_design.json').write_text(json.dumps(result, indent=2) + '\n')
     pd.DataFrame(rows).drop(columns='wgs84_bounds').to_csv(ROOT/config['results_dir']/'region_candidates.csv', index=False)
     print(json.dumps(result['candidates'], indent=2))

@@ -14,10 +14,12 @@ packages = ["graph", "envelope", "opportunity", "microplan", "stopplan4r", "hier
 package-dir = {"" = "src"}
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["tests", "validation/family5/test_checker_units.py", "validation/trace5/test_checker_units.py", "validation/suffix5/test_certificate_checker.py", "validation/suffix5/test_witness_checker.py", "validation/suffix5/test_convex_checker.py"]
 pythonpath = ["src"]
 markers = ["integration: requires frozen processed Slovenia data"]
 
 [tool.setuptools.package-data]
 opportunity = ["*.cpp"]
 microplan = ["*.cpp"]
+
+timecut5 = ["*.cpp"]

@@ -1,0 +1,3 @@
+# Fixed scheduled method-pair validation
+
+Original UTF-8 tiny tests, actual process probes, source equality and independent review are retained with hashes. The five-slot serial experiment compares original OD06 N128/Hmax39 under identical1200-second exact budgets. Both methods share pending/post-service reduction and certified bound family; FLAT uses its existing singleton adapter. Existing source/helper and production defaults are unchanged. The recorded180-second supervisor CPU ceiling is not whole-worker CPU; standalone costs are wall costs. This evidence does not claim a new real-road result or hierarchy advantage.

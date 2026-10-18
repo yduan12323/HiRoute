@@ -10,7 +10,7 @@ from validation.real5_v2.shared_replay import verify_coalesced_trace
 
 class Diagnostic(unittest.TestCase):
  def test_tiny_results_queries_and_sources_are_unchanged(self):
-  rows=json.loads((ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
+  rows=json.loads((ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
   from validation.real5_v2 import family
   from validation.family5 import independent_oracle_v2 as oracle
   originals=(family._verify_bundle,oracle.exact_family_equal)

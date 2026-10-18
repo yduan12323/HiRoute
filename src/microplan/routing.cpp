@@ -25,14 +25,17 @@ struct Graph {
   for(I u=1;u<=n;u++){off[u]+=off[u-1];rev[u]+=rev[u-1];}
   auto a=off,b=rev;for(I e=0;e<m;e++){out[a[s[e]]++]=e;in[b[t[e]]++]=e;}
  }
- void full(I root,bool reverse,double*cost,double*len,I*parent){
+ void full(I root,bool reverse,double*cost,double*len,I*parent,I*parent_edge=nullptr,I target=-1){
   std::fill(cost,cost+n,INF);std::fill(len,len+n,INF);std::fill(parent,parent+n,-1);
+  if(parent_edge)std::fill(parent_edge,parent_edge+n,-1);
   cost[root]=len[root]=0;Queue q;q.emplace(0,0,root);
   const auto &o=reverse?rev:off;const auto &adj=reverse?in:out;
   while(!q.empty()){
    auto [d,l,u]=q.top();q.pop();if(d!=cost[u]||l!=len[u])continue;
+   // Same execution prefix as full(); stop only after discarding stale entries.
+   if(I(u)==target)break;
    for(I k=o[u];k<o[u+1];k++){U e=adj[k],v=reverse?s[e]:t[e];double nd=d+time[e],nl=l+length[e];
-    if(nd<cost[v]||(nd==cost[v]&&nl<len[v])){cost[v]=nd;len[v]=nl;parent[v]=u;q.emplace(nd,nl,v);}
+    if(nd<cost[v]||(nd==cost[v]&&nl<len[v])){cost[v]=nd;len[v]=nl;parent[v]=u;if(parent_edge)parent_edge[v]=e;q.emplace(nd,nl,v);}
    }
   }
  }
@@ -112,6 +115,8 @@ extern "C" {
  void* graph_create(I n,I m,const I*s,const I*t,const double*time,const double*length){if(n<=0||n>UINT32_MAX||m>UINT32_MAX)return nullptr;return new Graph(n,m,s,t,time,length);}
  void graph_free(void*g){delete static_cast<Graph*>(g);}
  void graph_full(void*g,I root,int reverse,double*cost,double*length,I*parent){static_cast<Graph*>(g)->full(root,reverse,cost,length,parent);}
+ void graph_full_edges(void*g,I root,int reverse,double*cost,double*length,I*parent,I*parent_edge){static_cast<Graph*>(g)->full(root,reverse,cost,length,parent,parent_edge);}
+ void graph_target_edges(void*g,I root,I target,double*cost,double*length,I*parent,I*parent_edge){static_cast<Graph*>(g)->full(root,false,cost,length,parent,parent_edge,target);}
  void graph_pairs(void*g,I p,const I*from,const I*to,double cutoff,double*time,double*length){static_cast<Graph*>(g)->pairs(p,from,to,cutoff,time,length);}
  I* graph_gateways(void*g,const I*members,I count,double radius,const double*ds,const double*dd,const I*parents,const I*next,double budget,double*timings,I*size){if(count<1){*size=0;return nullptr;}return static_cast<Graph*>(g)->gateways(members,count,radius,ds,dd,parents,next,budget,timings,size);}
 }

@@ -1,0 +1,73 @@
+{
+  "Hmax": 37,
+  "attempts": 1,
+  "cache_policy": {
+    "source_cache_max_bytes": 1073741824,
+    "source_cache_max_sources": 2
+  },
+  "candidate_count": 149,
+  "case_id": "OD07_energy_and_scheduled_soc3_10",
+  "comparator": {
+    "artifact_path": "execution/arm-03/artifacts/arm/incumbent.json",
+    "artifact_sha256": "2fa2444d2cfe5f485436756e643fb7d3fab0e38041d7ab43f9551212accf4f75",
+    "bundle_path": "results/milestone_5d/recovery_full_batch_20261017/evidence_bundle.json",
+    "bundle_sha256": "d795d3956d720d3a549d6e56e20d68280b65c16de3733f02f7af2af60d094cfc",
+    "historical_certificate_reused": false,
+    "selection": "predeclared_original_OD07_first_indexed_arm"
+  },
+  "compiler": null,
+  "holdout": false,
+  "input_directory": null,
+  "inputs": {
+    "edges.parquet": {
+      "sha256": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+      "size": 303022185
+    },
+    "fixed_12od_candidate_slate.json": {
+      "sha256": "68917b71ff74cc13a4f35d2b7c7fb7ca577e572295c2d091bb0a0957a3789b95",
+      "size": 28736
+    },
+    "geographic_screen_v5_grid14.json": {
+      "sha256": "eab8a107f31a6a966cf2a1f215f832494511ffa694da4532186ac025b232784f",
+      "size": 34185
+    },
+    "hierarchy.json": {
+      "sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+      "size": 5271372
+    },
+    "metadata.json": {
+      "sha256": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd",
+      "size": 13978
+    },
+    "nodes.parquet": {
+      "sha256": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+      "size": 104471506
+    },
+    "pools.json": {
+      "sha256": "4b93c90b0f4f77364cd9e58b5a779bccd11fb7b99819646c8096ed4f122fe937",
+      "size": 456200
+    },
+    "queries.json": {
+      "sha256": "dc22c22bd56dbd763e41eecbc0da1310259990c25caef469783a49032ccaed7c",
+      "size": 3327263
+    },
+    "stop_sites.parquet": {
+      "sha256": "e3e7d6d6667f7ab684ff83eb2646920516b01aef2e6ceb8170c689e71f6afd38",
+      "size": 4487653
+    }
+  },
+  "launchable": false,
+  "limits": {
+    "address_space_bytes": 8589934592,
+    "construction_cpu_seconds": 240,
+    "construction_wall_seconds": 240,
+    "controller_cpu_seconds": 120,
+    "replay_cpu_seconds": 120,
+    "replay_wall_seconds": 120
+  },
+  "policy": "fixed_candidate_stream_sequential_first_feasible_v1",
+  "repo": null,
+  "schema": "hiroute.sequential_transport_gate.v1",
+  "source": null,
+  "status": "prospective_closed_pending_publication_and_review"
+}

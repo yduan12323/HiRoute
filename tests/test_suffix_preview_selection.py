@@ -9,7 +9,7 @@ from experiments.time_cut_v2.recorded_real.plan import ROOT
 
 class PreviewSelection(unittest.TestCase):
  def fixture(self):
-  row=json.loads((ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[1]
+  row=json.loads((ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[1]
   row['query']['H_ref']=4;row['query']['charging_segments']=[[0,2,1,0],[2,4,2,-2],[4,5,3,-6]]
   index,trusted,summary,checked=LogicalModels().inputs(row)
   return trusted,checked,count_logical_models(index,trusted,summary)['logical_model_plan']

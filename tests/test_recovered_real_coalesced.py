@@ -27,7 +27,7 @@ def capture(row,dominance):
 class RealCoalescedRecovery(unittest.TestCase):
  @classmethod
  def setUpClass(cls):
-  cls.rows=json.loads((ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
+  cls.rows=json.loads((ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
   cls.runs={(i,d):capture(row,d) for i,row in enumerate(cls.rows) for d in (False,True)}
  def test_all_five_mocks_both_modes_full_trusted_grammar(self):
   for (i,d),data in self.runs.items():

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="350" viewBox="0 0 900 350"><rect width="900" height="350" fill="white"/><g font-family="sans-serif" fill="#222">
+<text x="24" y="35" font-size="22">M5-D original main: all 192 rows retained</text>
+<text x="24" y="63" font-size="14">Descriptive status counts. No completed exact pairs; speedup is unavailable.</text>
+<text x="24" y="123" font-size="16">Timeout</text>
+<rect x="285" y="104" width="393.125" height="28" fill="#de8d31"/>
+<text x="688.125" y="124" font-size="16">148</text>
+<text x="24" y="172" font-size="16">Initial-solution search failed</text>
+<rect x="285" y="153" width="116.875" height="28" fill="#8264b4"/>
+<text x="411.875" y="173" font-size="16">44</text>
+<text x="24" y="221" font-size="16">Infrastructure unknown</text>
+<rect x="285" y="202" width="0.000" height="28" fill="#737373"/>
+<text x="295.000" y="222" font-size="16">0</text>
+<text x="24" y="270" font-size="16">Exact completion</text>
+<rect x="285" y="251" width="0.000" height="28" fill="#348a67"/>
+<text x="295.000" y="271" font-size="16">0</text>
+<text x="24" y="326" font-size="13">The fixed 24-row supplement is a separate population and is not included here.</text></g></svg>

@@ -36,7 +36,7 @@ from validation.capture5.containers import stream_digest
 
 
 def tiny_population():
-    row = json.loads((binding.ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[0]
+    row = json.loads((binding.ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[0]
     data = capture(row, False)
     trusted = prepare(row)
     checked = verify_coalesced_trace(data['trace'], data['bundle'], trusted)

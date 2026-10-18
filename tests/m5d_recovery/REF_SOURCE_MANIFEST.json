@@ -1,0 +1,43 @@
+{
+  "repository": "yduan12323/HiRoute",
+  "commit": "7e7327970d7de519b90b19f554a207633ff94847",
+  "files": [
+    {
+      "path": "validation/reference5/__init__.py",
+      "git_blob_sha": "6c793e22a1b772667f8a37a55cc83b61b549f5bb",
+      "url": "https://github.com/yduan12323/HiRoute/blob/7e7327970d7de519b90b19f554a207633ff94847/validation/reference5/__init__.py",
+      "sha256": "bbcdda70ebe4e32366f2c712fa16383d1c6e1eda6289bb27a56f90f1ff2d04a7"
+    },
+    {
+      "path": "validation/reference5/real_solver.py",
+      "git_blob_sha": "619b9ca905380e52826044a30a8e8af98ba77223",
+      "url": "https://github.com/yduan12323/HiRoute/blob/7e7327970d7de519b90b19f554a207633ff94847/validation/reference5/real_solver.py",
+      "sha256": "845902dc29ba12519a83951ae906dfecf607ac641b5077ff97f16282eef64227"
+    },
+    {
+      "path": "validation/reference5/real_input.py",
+      "git_blob_sha": "d2d11bc09aac79b6088a1aa38a43abd555d3bb3f",
+      "url": "https://github.com/yduan12323/HiRoute/blob/7e7327970d7de519b90b19f554a207633ff94847/validation/reference5/real_input.py",
+      "sha256": "6e6c6c028da87bd23d31407a35fae324980c56318999873d0313534b17c64abb"
+    },
+    {
+      "path": "validation/reference5/solver.py",
+      "git_blob_sha": "1753d5cfbd655c1bf905be8862b2bc69937018d4",
+      "url": "https://github.com/yduan12323/HiRoute/blob/7e7327970d7de519b90b19f554a207633ff94847/validation/reference5/solver.py",
+      "sha256": "f0a9ee5475dc7d68d3f63f2cc99a9a90f83035b2c6d6c174eb1c5173dd98d13f"
+    },
+    {
+      "path": "validation/reference5/lp.py",
+      "git_blob_sha": "db4c4cc343d73e2d546158c4d68b9ee04a8e3cbf",
+      "url": "https://github.com/yduan12323/HiRoute/blob/7e7327970d7de519b90b19f554a207633ff94847/validation/reference5/lp.py",
+      "sha256": "c60a93ee484f381565f312b38b9ec9ae4e53147efa40b184d8b4a32a24e2900b"
+    },
+    {
+      "path": "validation/reference5/model.py",
+      "git_blob_sha": "b28c454e6dbd623aafe7b7f515cd85cda4d96549",
+      "url": "https://github.com/yduan12323/HiRoute/blob/7e7327970d7de519b90b19f554a207633ff94847/validation/reference5/model.py",
+      "sha256": "b8b2e0254426775638695f9c2db8317937a0326e93fed4698645e2883c1d51a2"
+    }
+  ],
+  "purpose": "Synthetic-test allowlist for exact canonical repository bytes at pinned commit; not a rewrite of historical artifact source closure."
+}

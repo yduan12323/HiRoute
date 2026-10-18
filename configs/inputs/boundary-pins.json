@@ -1,0 +1,34 @@
+{
+  "scope": "Frozen geographic diagnostic proxies; not PBF-date-matched boundary certificates.",
+  "attribution": "OpenStreetMap contributors; Geofabrik extracts",
+  "files": {
+    "slovenia.poly": {
+      "sha256": "f5813a8cda35bb54b0d3123e62701165e10068f532b0aa0fda70926f2d7ddc32",
+      "size_bytes": 10462
+    },
+    "bosnia-herzegovina.poly": {
+      "sha256": "c3e69fbb289a3211d0d981d3b6f25a2422520a4b0d6ed7d22913f222c10168be",
+      "size_bytes": 12167
+    },
+    "alps.poly": {
+      "sha256": "f84eadb7f1e87e5befdd0bd228b457ef54b1e2463763514ca25f7cd5359b30e9",
+      "size_bytes": 2867
+    },
+    "nord-est.poly": {
+      "sha256": "a7fb592a32b68e07f34a6fc90f04ad3566f8e73e346acc76d1d6ef36faac5e13",
+      "size_bytes": 28225
+    },
+    "hungary.poly": {
+      "sha256": "3fd8d98b47628081d72e1f55c297c14a498347af70be73a4a52fc4fdb2e4572c",
+      "size_bytes": 11547
+    },
+    "croatia.poly": {
+      "sha256": "ea8602553dd37ebcd37098e6b27923cb6a976a8f604f72efff576e7ad565ee6e",
+      "size_bytes": 17654
+    },
+    "austria.poly": {
+      "sha256": "88873792ab48a4cc1a85a9d74ca39ff12c73a0d941b4bf2705cf4be66f546634",
+      "size_bytes": 15484
+    }
+  }
+}

@@ -97,7 +97,7 @@ def stop(bundle, parent, site, physics):
 class RecoveredRealFamily(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.rows = json.loads((ROOT/"results/milestone_5_real_leg_contract/mock_solver_cases.json").read_text())
+        cls.rows = json.loads((ROOT/"tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json").read_text())
         cls.captures = {(row["case_id"], d): capture(row, d) for row in cls.rows for d in (False, True)}
 
     def test_published_mock_cases_both_dominance_modes_and_class_identity(self):

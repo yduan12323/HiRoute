@@ -2,7 +2,7 @@
 
 Accepted on 2026-10-09 UTC for **C01::HIER::D-off** on the frozen production source `3ad6e385903b631579df059b48d9ea6037728da7`. The collector reports `single_C01_case_accepted=true` and `single_C01_case_bound_valid=true`; its bound status is `satisfied`. This is one C01 identity. The receipts explicitly leave the full population, full C32, whole M5, and literal G8 incomplete.
 
-The machine-readable [receipt capsule](MILESTONE_5_C01_D0_FINAL_COLLECTOR_RECEIPT.json) records the full command and environment, measured resources, evidence pins, and archive. The [D1 report](MILESTONE_5_C01_FINAL_COLLECTOR_REPORT.md) remains a separate source and identity.
+The machine-readable [receipt capsule (historical artifact)](REPRODUCING.md#historical-results) records the full command and environment, measured resources, evidence pins, and archive. The [D1 report](MILESTONE_5_C01_FINAL_COLLECTOR_REPORT.md) remains a separate source and identity.
 
 ## Source, population, and exact command
 

@@ -18,7 +18,7 @@ from timecut5.hierarchy import region_bound
 from timecut5.probe import Event,State,Witness
 
 ROOT=Path(__file__).resolve().parents[1]
-PATH=ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json'
+PATH=ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json'
 CASES=json.loads(PATH.read_text())
 
 

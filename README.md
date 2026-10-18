@@ -1,4 +1,19 @@
-# HiRoute research infrastructure — Milestones 1–4R-A
+# HiRoute research infrastructure
+
+## Code and experiments
+
+This repository publishes implementation, experiment runners, configurations,
+small synthetic test fixtures and reproduction instructions. Generated datasets,
+run logs and experiment outputs are not source dependencies and are not shipped.
+Start with [reproducing on a new machine](docs/REPRODUCING.md) and the
+[code-only CI gate](ci/README.md). Historical reports below describe past runs;
+they do not imply their output files are included or that a fresh platform has
+been validated. Historical archive inventories are held outside this repository.
+
+## Current M5 research
+
+Read [current research status](docs/CURRENT_RESEARCH_STATUS.md), [M5-D protocol](docs/MILESTONE_5D_DESIGN_AND_PROTOCOL.md), [measured report](docs/MILESTONE_5D_REPORT.md), and [paper positioning](docs/PAPER_POSITIONING.md). M5-D reports a scale-limited outcome with explicit residual requirements; the original 192-row main matrix has zero exact completions. Later known-DEV Tranche A completed eight domains, all 16 exact methods and 40 operational slots; Tranche B is terminal with eight exact methods across four pairs and three feasibility-unknown no-seed domains, retaining all 35 operational slots. The full fixed known-DEV grid has 25/32 exact methods and 12/16 both-exact domains; one method timed out and six were blocked. The linked prior OD06 N128 pair has HIER exact and FLAT timeout, so no paired completed-speed ratio. See the [current delivery checkpoint](docs/MILESTONE_5D_REPORT.md#current-coverage-and-delivery-checkpoint) for evidence, reproducible integrity checks and pending review/publication. Research-graph results do not certify real-world navigation safety. Original scope: [M5-D taskbook](docs/time_cut_v2_authority/MILESTONE_5D_DOT_TASKBOOK.md); current clause-by-clause disposition is in the [stable report](docs/MILESTONE_5D_REPORT.md).
+
 
 The authoritative formulation is [RESEARCH_SPEC_v0.2.md](RESEARCH_SPEC_v0.2.md); [RESEARCH_SPEC.md](RESEARCH_SPEC.md) preserves the earlier formulation. This implementation covers the frozen OSM driving graph and structurally validated Safe Detour Envelopes. Milestone 4A adds frozen structured opportunities and route-attached regions. Milestone 4B preserves its topology gateway and local microplan diagnostic. Milestone 4R-A adds a separate vehicle-stop substrate, continuous charging/stop planning reference and minimal uncertainty/query contracts. Structural correctness is with respect to the frozen directed graph; full legal or real-world route feasibility is not certified.
 
@@ -14,7 +29,7 @@ conda activate hiroute
 python -m pip install --no-deps --no-build-isolation -e .
 ```
 
-For another platform, solve the portable specification instead; this is not the exact validated binary environment:
+For a different Linux environment, the portable specification below is a starting point, not the validated binary lock. Native macOS and Windows are not supported for the full experiment runners; see the platform limits in [REPRODUCING](docs/REPRODUCING.md):
 
 ```bash
 mamba env create -f environment.yml
@@ -50,7 +65,7 @@ For the experimental M5 code without real datasets, use the separate
 replace the full legacy acceptance commands below or certify M5 completion.
 
 ```bash
-pytest -q --require-real-data --junitxml=results/milestone_1/tests.xml
+pytest -q --include-artifact-tests tests/test_graph.py tests/test_preprocessing.py tests/test_download.py tests/test_real_graph.py --require-real-data --junitxml=results/milestone_1/tests.xml
 
 # Rebuild from the same full raw PBF into a separate processed directory.
 python scripts/build_graph.py --output-dir data/cache/graph-rebuild
@@ -59,11 +74,11 @@ python scripts/verify_rebuild.py data/cache/graph-rebuild
 python scripts/run_benchmark.py
 ```
 
-`--require-real-data` makes absent real data fail rather than skip. For fast development before downloading, run `pytest -q -m 'not integration'`. Tests cover graph loading, spherical nearest-node lookup, toy shortest paths, parallel edges, one-way direction, disconnected paths, reverse distances, invalid costs, speed/access policy, deterministic normalization and every real OD. Real route checks verify directed edge sequences, cost sums and geometry endpoints.
+`--require-real-data` makes absent real data fail rather than skip. For the curated data-free default suite, run `pytest -q`. Legacy artifact tests require explicit opt-in; see [CI instructions](ci/README.md). Tests cover graph loading, spherical nearest-node lookup, toy shortest paths, parallel edges, one-way direction, disconnected paths, reverse distances, invalid costs, speed/access policy, deterministic normalization and every real OD. Real route checks verify directed edge sequences, cost sums and geometry endpoints.
 
 The benchmark revalidates every OD and reports graph size, preprocessing/loading time, median/p95 fastest-path query time and process peak RSS. Timings use shuffled OD order and warmup queries; they include route extraction and exclude geometry validation. It writes `results/milestone_1/benchmark.json`, per-query timing/validation Parquet, and [MILESTONE_1_REPORT.md](docs/MILESTONE_1_REPORT.md). The separate rebuild compares Parquet SHA256 hashes and records `deterministic_rebuild.json`.
 
-Every command logs UTC time, Git commit/dirty state, source checksums, configuration, seed, dataset metadata and installed package versions to `results/milestone_1/logs/`. Binary data and detailed logs are ignored by Git; the manifest, configuration, lockfiles and concise results are tracked.
+Every command logs UTC time, Git commit/dirty state, source checksums, configuration, seed, dataset metadata and installed package versions to `results/milestone_1/logs/`. Generated data, detailed logs and result files are ignored by Git. Input manifests, configuration, lockfiles and documentation are tracked.
 
 ## Graph interface
 
@@ -90,7 +105,7 @@ Continue from the existing Milestone 1 artifacts; do not rerun `build_graph.py`,
 python -m pip install --no-deps --no-build-isolation -e .
 
 # Check the original tests before starting the envelope experiment.
-pytest -q tests/test_graph.py tests/test_preprocessing.py tests/test_download.py tests/test_real_graph.py --require-real-data
+pytest --include-artifact-tests -q tests/test_graph.py tests/test_preprocessing.py tests/test_download.py tests/test_real_graph.py --require-real-data
 
 # For a new local run, capture a new checkpoint (exclusive write).
 python scripts/verify_milestone_1.py --capture --checkpoint results/milestone_2/local_preservation_before.json
@@ -100,7 +115,7 @@ python scripts/download_extract_boundary.py
 python scripts/run_envelope_benchmark.py
 python scripts/plot_envelopes.py
 
-pytest -q --require-real-data --require-envelope-results --junitxml=results/milestone_2/tests.xml
+pytest --include-artifact-tests -q --require-real-data --require-envelope-results --junitxml=results/milestone_2/tests.xml
 python scripts/verify_milestone_1.py --checkpoint results/milestone_2/local_preservation_before.json
 python scripts/write_envelope_report.py
 ```
@@ -160,7 +175,7 @@ Use a separate environment for osmium-tool, leaving the M1 Python lock unchanged
 ```bash
 mamba create -p ../osmium-env --file environment-osmium-linux-64.lock -y
 # Run the following in the original hiroute Python environment.
-pytest -q --require-real-data --require-envelope-results
+pytest --include-artifact-tests -q --require-real-data --require-envelope-results
 python scripts/verify_milestone_3a_preservation.py
 python scripts/prepare_regional_data.py polygon
 python scripts/prepare_regional_data.py download
@@ -172,7 +187,7 @@ python scripts/prepare_regional_model_input.py --verify --osmium ../osmium-env/b
 python scripts/prepare_regional_data.py build
 python scripts/run_regional_benchmark.py
 python scripts/plot_regional_growth.py
-HIROUTE_OSMIUM=../osmium-env/bin/osmium pytest -q --require-real-data --require-envelope-results --require-regional-results --junitxml=results/milestone_3a/tests.xml
+HIROUTE_OSMIUM=../osmium-env/bin/osmium pytest --include-artifact-tests -q --require-real-data --require-envelope-results --require-regional-results --junitxml=results/milestone_3a/tests.xml
 python scripts/verify_milestone_3a_preservation.py
 python scripts/write_regional_report.py
 ```
@@ -240,7 +255,7 @@ The local package now includes `opportunity` and its native source:
 python -m pip install --no-deps --no-build-isolation -e .
 
 # Run previous acceptance tests without writing inside previous results.
-HIROUTE_OSMIUM=../osmium-env/bin/osmium pytest -q \
+HIROUTE_OSMIUM=../osmium-env/bin/osmium pytest --include-artifact-tests -q \
   --require-real-data --require-envelope-results --require-regional-results
 
 # On the supplied frozen workspace, verify the existing M4A checkpoint.
@@ -258,7 +273,7 @@ python scripts/run_opportunity_benchmark.py
 python scripts/verify_opportunity_neighbors.py
 python scripts/plot_opportunities.py
 
-HIROUTE_OSMIUM=../osmium-env/bin/osmium pytest -q \
+HIROUTE_OSMIUM=../osmium-env/bin/osmium pytest --include-artifact-tests -q \
   --require-real-data --require-envelope-results --require-regional-results \
   --require-opportunity-results --junitxml=results/milestone_4a/tests.xml
 python scripts/verify_milestone_4a_preservation.py
@@ -314,15 +329,13 @@ All earlier results and `RESEARCH_SPEC.md` remain protected.
 
 Run in the original `hiroute` Python environment, from the repository root;
 C++17 `g++` remains the only added native runtime requirement. The original Python
-and osmium environment locks are unchanged. On this workstation the Python binary
-is `/home/dy/miniconda3/envs/hiroute/bin/python`; the environment activation commands
-above make the following `python` and `pytest` commands exact equivalents.
+and osmium environment locks are unchanged. Activate that pinned Python 3.11 environment before running these commands.
 
 ```bash
 python -m pip install --no-deps --no-build-isolation -e .
 
 # The unchanged previous acceptance suite (64 tests), with no earlier result writes.
-HIROUTE_OSMIUM=../osmium-env/bin/osmium pytest -q \
+HIROUTE_OSMIUM=../osmium-env/bin/osmium pytest --include-artifact-tests -q \
   --require-real-data --require-envelope-results --require-regional-results \
   --require-opportunity-results \
   --ignore=tests/test_microplan.py --ignore=tests/test_microplan_results.py
@@ -347,7 +360,7 @@ python scripts/verify_microplan_routing.py --cold
 python scripts/rebuild_microplan_subset.py --verify
 python scripts/plot_microplans.py
 
-HIROUTE_OSMIUM=../osmium-env/bin/osmium pytest -q \
+HIROUTE_OSMIUM=../osmium-env/bin/osmium pytest --include-artifact-tests -q \
   --require-real-data --require-envelope-results --require-regional-results \
   --require-opportunity-results --require-microplan-results \
   --junitxml=results/milestone_4b/tests.xml
@@ -431,11 +444,11 @@ the 30-OD development diagnostic exhausts zero/one-stop plans on fastest road
 legs. It does not establish revised Go-1 or implement a new Region hierarchy/Go-2.
 
 ```bash
-/home/dy/miniconda3/envs/hiroute/bin/python scripts/build_stop_sites_4r.py
-/home/dy/miniconda3/envs/hiroute/bin/python -m pytest tests/test_stopplan4r.py -q --junitxml=results/milestone_4r/semantic_tests.xml
-/home/dy/miniconda3/envs/hiroute/bin/python scripts/run_stopplan_4r_diagnostic.py
-/home/dy/miniconda3/envs/hiroute/bin/python -m pytest --require-real-data --require-envelope-results --require-regional-results --require-opportunity-results --require-microplan-results --junitxml=results/milestone_4r/tests.xml
-/home/dy/miniconda3/envs/hiroute/bin/python scripts/accept_stopplan_4r.py
+python scripts/build_stop_sites_4r.py
+python -m pytest --include-artifact-tests tests/test_stopplan4r.py -q --junitxml=results/milestone_4r/semantic_tests.xml
+python scripts/run_stopplan_4r_diagnostic.py
+python -m pytest --include-artifact-tests --require-real-data --require-envelope-results --require-regional-results --require-opportunity-results --require-microplan-results --junitxml=results/milestone_4r/tests.xml
+python scripts/accept_stopplan_4r.py
 ```
 
 Config: `configs/stopplan_4r.yaml`; report: `docs/MILESTONE_4R_REPORT.md`.

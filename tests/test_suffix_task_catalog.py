@@ -35,7 +35,7 @@ class CatalogTests(unittest.TestCase):
   bad=self.task();bad['unknown']=0
   with self.assertRaises(ValueError):self.catalog().intern(bad)
  def test_tiny_real_models_keep_original_identity_and_match_both_builders(self):
-  row=json.loads((ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[1]
+  row=json.loads((ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[1]
   data=capture(row,True);trusted=prepare(row);checked=verify_coalesced_trace(data['trace'],data['bundle'],trusted)
   context=RealSuffixQueries(checked,trusted);selections=[];seen=set()
   for seq in context.rows:
@@ -53,7 +53,7 @@ class CatalogTests(unittest.TestCase):
   with self.assertRaises(ValueError):compile_selected(checked.bundle,selections[:1]*2,max_models=2,
    max_model_bytes=65536,max_total_model_bytes=1024**2,catalog=self.catalog())
  def test_same_tasks_keep_distinct_site_words_and_model_bytes(self):
-  row=json.loads((ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[0]
+  row=json.loads((ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[0]
   row['query']['schedule']=None;row['table']['sites'][1]['effects']=['C'];repin(row)
   data=capture(row,True);checked=verify_coalesced_trace(data['trace'],data['bundle'],prepare(row))
   family=next(q['family_ids'][0] for q in checked.queries if q['state'][2]==0)

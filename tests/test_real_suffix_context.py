@@ -13,7 +13,7 @@ from tests.test_recovered_real_family import prepare
 ROOT=Path(__file__).resolve().parents[1]
 
 class RealSuffixContext(unittest.TestCase):
- def setUp(self):self.rows=json.loads((ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
+ def setUp(self):self.rows=json.loads((ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
  def checked(self,row):
   data=capture(row,True);trusted=prepare(row)
   return verify_coalesced_trace(data['trace'],data['bundle'],trusted),trusted

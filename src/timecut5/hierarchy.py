@@ -6,6 +6,8 @@ separate. Member scans are counted, so pruning is not a scalability claim.
 """
 from __future__ import annotations
 
+from . import exact_progress as progress
+
 from collections import defaultdict
 from dataclasses import dataclass
 from fractions import Fraction as R
@@ -14,7 +16,7 @@ from typing import Mapping
 
 from . import invocation_trace as trace
 from . import provenance
-from .bounded import BoundedResult, Problem, _groups, _replay_problem
+from .bounded import BoundedResult, Problem, _groups, _replay_problem, prefix_primary_lower_bound
 from .probe import Witness, terminal
 from .pwa import CutPiece, reduce_frontier
 
@@ -97,9 +99,17 @@ def solve_hierarchical(case: Mapping, dominance: bool = True, leaf_size: int = 1
     return _solve_hierarchical_problem(problem,dominance,root,incumbent)
 
 
+@progress.solver
 def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
-                                incumbent: Witness | None = None, *, reducer=None) -> HierarchyResult:
+                                incumbent: Witness | None = None, *, reducer=None,
+                                verified_primary_upper: R | None = None,
+                                bound_provider=None, checkpoint_hook=None, incumbent_hook=None) -> HierarchyResult:
     reducer = reduce_frontier if reducer is None else reducer
+    if progress.enabled():
+        reducer = progress.operation("dominance_reducer")(reducer)
+    if verified_primary_upper is not None and (type(verified_primary_upper) is not R or
+                                                verified_primary_upper < 0):
+        raise ValueError("Verified primary upper bound must be an exact nonnegative rational")
     trace.start_run(problem,dominance,root,incumbent)
     incumbent_key = None
     incumbent_witness = None
@@ -124,7 +134,11 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
                        family_id=trace.family_id(piece),energy=energy,
                        witness=provenance.witness_dict(witness),key=key,improved=improved)
             if improved:
+                if incumbent_hook is not None:
+                    incumbent_hook(witness, key)
                 incumbent_key = key
+                progress.event("incumbent_improved", incumbent_primary_upper=
+                    min(key[0], verified_primary_upper) if verified_primary_upper is not None else key[0])
                 incumbent_witness = witness
                 if source != "externally_supplied_verified":
                     source = "own_search"
@@ -136,6 +150,13 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
     nodes = leaf_actions = scans = pruned = equality = coverage_groups = 0
     audit = []
     for depth in range(problem.bound + 1):
+        progress.layer("layer_start", depth, layer, len(terminals), attempted, feasible,
+            min((x for x in (verified_primary_upper, incumbent_key[0] if incumbent_key else None) if x is not None), default=None))
+        if checkpoint_hook is not None:
+            checkpoint_hook(depth, layer, tuple(terminals),
+                            (incumbent_key, incumbent_witness),
+                            (attempted, feasible, maximum, nodes, leaf_actions,
+                             scans, pruned, equality, coverage_groups))
         group_ids=trace.start_layer(depth,layer)
         for group_id,group in zip(group_ids,layer):
             finished=trace.invoke('finish',group,dict(group_id=group_id,source='layer',advance_id=None),
@@ -143,6 +164,8 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
             terminals.extend(finished)
             update_incumbent(finished,group_id,'layer')
         if depth == problem.bound:
+            progress.layer("layer_end", depth, (), len(terminals), attempted, feasible,
+                min((x for x in (verified_primary_upper, incumbent_key[0] if incumbent_key else None) if x is not None), default=None))
             trace.emit('layer_end',depth=depth,reason='stop_bound',next_groups=[])
             break
         next_pieces = []
@@ -151,89 +174,151 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
             if state.anchor == problem.destination:
                 trace.emit('skip_terminal',group_id=group_id)
                 continue
+            if (verified_primary_upper is not None and
+                    prefix_primary_lower_bound(problem, group) > verified_primary_upper):
+                trace.emit('skip_strict_primary_prefix', group_id=group_id,
+                           verified_primary_upper=verified_primary_upper)
+                continue
+            progress.expanded()
             trace.emit('expansion_start',group_id=group_id)
-            expected = {a for effect in ("C", "S", "CS")
-                        for a in actions(problem, root, effect, state.remaining_schedule)}
-            covered = set()
+            indexed = bound_provider is not None
+            if indexed:
+                expected = 0
+                for effect in ("C", "S", "CS"):
+                    expected = bound_provider.mask_or(expected, bound_provider.action_mask(
+                        root, effect, state.remaining_schedule))
+                covered = 0
+            else:
+                expected = {a for effect in ("C", "S", "CS")
+                            for a in actions(problem, root, effect, state.remaining_schedule)}
+                covered = set()
             queue = []
             sequence_number = 0
             query_ids = {}
 
             def cover(action_set):
+                nonlocal covered
+                if indexed:
+                    if bound_provider.mask_overlap(covered, action_set):
+                        raise AssertionError("Hierarchy covers a next action more than once")
+                    covered = bound_provider.mask_or(covered, action_set)
+                    return
                 if covered.intersection(action_set):
                     raise AssertionError("Hierarchy covers a next action more than once")
                 covered.update(action_set)
 
             def enqueue(region, effect):
                 nonlocal scans, sequence_number
-                action_set = actions(problem, region, effect, state.remaining_schedule)
+                action_set = (bound_provider.action_mask(region, effect, state.remaining_schedule)
+                              if indexed else actions(problem, region, effect, state.remaining_schedule))
                 if not action_set:
                     trace.emit('query',group_id=group_id,region_id=region.identifier,effect=effect,
-                               actions=action_set,bound=None,classification='empty_actions',queue_serial=None)
+                               actions=() if indexed else action_set,bound=None,
+                               classification='empty_actions',queue_serial=None)
                     return
-                bound, paid = region_bound(problem, group, region, effect)
+                bound, paid = (region_bound(problem, group, region, effect) if bound_provider is None
+                               else bound_provider.bound(problem, group, region, effect))
                 scans += paid
                 if bound is None:
                     trace.emit('query',group_id=group_id,region_id=region.identifier,effect=effect,
-                               actions=action_set,bound=None,classification='unreachable',queue_serial=None)
+                               actions=() if indexed else action_set,bound=None,
+                               classification='unreachable',queue_serial=None)
                     cover(action_set)
                     audit.append(dict(reason="unreachable", region=region.identifier,
-                                      effect=effect, prefix=group[0].pi, actions=action_set))
+                                      effect=effect, prefix=group[0].pi,
+                                      actions=() if indexed else action_set,
+                                      **({"action_mask": action_set} if indexed else {})))
                     return
                 sequence_number += 1
                 query_ids[sequence_number]=trace.emit('query',group_id=group_id,
-                    region_id=region.identifier,effect=effect,actions=action_set,bound=bound,
+                    region_id=region.identifier,effect=effect,
+                    actions=() if indexed else action_set,bound=bound,
                     classification='queued',queue_serial=sequence_number)
                 heapq.heappush(queue, (bound, effect, region.identifier, sequence_number, region))
 
             for effect in ("C", "S", "CS"):
                 enqueue(root, effect)
             while queue:
+                progress.event("local_region_queue", local_queue_size=len(queue),
+                    local_queue_min_primary_lower_bound=queue[0][0],
+                    local_queue_scope="Current prefix only; excludes other prefixes and pending next layer")
                 bound, effect, _, popped_serial, region = heapq.heappop(queue)
+                progress.event("local_region_popped", local_queue_size=len(queue),
+                    local_queue_min_primary_lower_bound=queue[0][0] if queue else None,
+                    active_region_primary_lower_bound=bound)
                 nodes += 1
-                decision=('prune' if incumbent_key is not None and bound>incumbent_key[0] else
+                progress.event("region_node_expanded", region_nodes=nodes)
+                upper_j = min((value for value in (verified_primary_upper,
+                          incumbent_key[0] if incumbent_key is not None else None)
+                          if value is not None), default=None)
+                decision=('prune' if upper_j is not None and bound>upper_j else
                           'split' if region.children else 'leaf')
                 trace.emit('pop',group_id=group_id,query_seq=query_ids[popped_serial],
                            decision=decision,incumbent_key=incumbent_key)
-                action_set = actions(problem, region, effect, state.remaining_schedule)
-                if incumbent_key is not None and bound > incumbent_key[0]:
+                action_set = (bound_provider.action_mask(region, effect, state.remaining_schedule)
+                              if indexed else actions(problem, region, effect, state.remaining_schedule))
+                if upper_j is not None and bound > upper_j:
                     pruned += 1
                     cover(action_set)
                     audit.append(dict(reason="strict_primary", lower_bound=bound,
                                       incumbent_key=incumbent_key, incumbent_witness=incumbent_witness,
-                                      region=region.identifier, region_members=region.members,
-                                      state=state, effect=effect, prefix=group[0].pi, actions=action_set,
+                                      region=region.identifier,
+                                      region_members=() if indexed else region.members,
+                                      state=state, effect=effect, prefix=group[0].pi,
+                                      actions=() if indexed else action_set,
                                       current_frontier=tuple((p.domain.lo,p.domain.hi,p.domain.left_closed,
                                           p.domain.right_closed,p.slope,p.intercept,p.chi,p.rho,p.pi)
-                                          for p in group)))
+                                          for p in group),
+                                      **({"verified_primary_upper": verified_primary_upper}
+                                         if verified_primary_upper is not None else {}),
+                                      **({"action_mask": action_set} if indexed else {})))
                     continue
-                if incumbent_key is not None and bound == incumbent_key[0]:
+                if upper_j is not None and bound == upper_j:
                     equality += 1
                 if region.children:
-                    child_actions = [a for child in region.children
-                                     for a in actions(problem, child, effect, state.remaining_schedule)]
-                    if len(child_actions) != len(set(child_actions)) or set(child_actions) != set(action_set):
-                        raise AssertionError("Children are not an exact disjoint action partition")
+                    if indexed:
+                        child_mask = 0
+                        for child in region.children:
+                            mask = bound_provider.action_mask(child, effect, state.remaining_schedule)
+                            if bound_provider.mask_overlap(child_mask, mask):
+                                raise AssertionError("Children overlap in action partition")
+                            child_mask = bound_provider.mask_or(child_mask, mask)
+                        if not bound_provider.mask_equal(child_mask, action_set):
+                            raise AssertionError("Children are not an exact action partition")
+                    else:
+                        child_actions = [a for child in region.children
+                                         for a in actions(problem, child, effect, state.remaining_schedule)]
+                        if len(child_actions) != len(set(child_actions)) or set(child_actions) != set(action_set):
+                            raise AssertionError("Children are not an exact disjoint action partition")
                     for child in region.children:
                         enqueue(child, effect)
                 else:
-                    for site, effect in action_set:
-                        cover(((site, effect),))
+                    leaf_set = (bound_provider.leaf_actions(region, effect, state.remaining_schedule)
+                                if indexed else action_set)
+                    for site, effect in leaf_set:
+                        cover(bound_provider.action_bit((site, effect)) if indexed else ((site, effect),))
                         leaf_actions += 1
                         attempted += 1
+                        progress.event("advance_started", attempted=attempted, region_nodes=nodes)
                         output=trace.invoke('advance',group,dict(group_id=group_id,site=site,effect=effect),
                                             lambda:problem.advance(group,site,effect))
+                        progress.generated(len(output))
                         advance_id=trace.last_invocation()
                         if output:
                             feasible += 1
                             next_pieces.extend(output)
+                            progress.event("pending_frontier", pending_next_pieces=len(next_pieces), feasible=feasible)
                             finished=trace.invoke('finish',output,
                                 dict(group_id=group_id,source='leaf',advance_id=advance_id),
                                 lambda:problem.finish(output))
                             update_incumbent(finished,group_id,'leaf')
-            if covered != expected:
+            if not (bound_provider.mask_equal(covered, expected) if indexed
+                    else covered == expected):
                 raise AssertionError("Hierarchy lost a statically legal next action")
-            trace.emit('expansion_end',group_id=group_id,covered_actions=sorted(covered))
+            trace.emit('expansion_end',group_id=group_id,
+                       covered_actions=[] if indexed else sorted(covered),
+                       **({"covered_mask": covered} if indexed else {}))
+            progress.event("local_region_queue_drained", local_queue_size=0, local_queue_min_primary_lower_bound=None, active_region_primary_lower_bound=None)
             coverage_groups += 1
         if dominance:
             by_state = defaultdict(list)
@@ -246,11 +331,15 @@ def _solve_hierarchical_problem(problem: Problem, dominance: bool, root: Region,
         layer = _groups(next_pieces)
         trace.emit('layer_end',depth=depth,reason='continue' if layer else 'empty',
                    next_groups=[trace.family_ids(group) for group in layer])
+        progress.layer("layer_end", depth, layer, len(terminals), attempted, feasible,
+            min((x for x in (verified_primary_upper, incumbent_key[0] if incumbent_key else None) if x is not None), default=None))
         if not layer:
             break
     result = terminal(terminals, problem.destination, problem.reserve, problem.start, problem.penalty)
     if result.witness is not None:
         _replay_problem(problem, result.witness)
+    if checkpoint_hook is not None and callable(getattr(checkpoint_hook, "finish", None)):
+        checkpoint_hook.finish()
     bounded = BoundedResult(result, problem.bound, dominance, attempted, feasible, len(terminals), maximum)
     trace.emit('run_end',canonical=bounded.canonical(),terminal_families=trace.family_ids(terminals),
                terminal_witness=provenance.witness_dict(result.witness) if result.witness else None,

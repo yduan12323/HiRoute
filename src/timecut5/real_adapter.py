@@ -8,6 +8,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from fractions import Fraction as R
+import hashlib
+import json
+from collections.abc import Mapping as AbstractMapping
 from types import MappingProxyType
 from typing import Mapping
 
@@ -27,9 +30,119 @@ class RealLegPrimitive:
     table_sha256: str
 
 
+class _OnDemandRealLegs(AbstractMapping):
+    def __init__(self, table, rate, cache):
+        self.table, self.rate, self.cache = table, rate, cache
+
+    def __getitem__(self, pair):
+        leg = self.cache.leg(*pair)
+        if not leg.reachable:
+            raise KeyError(pair)
+        return RealLegPrimitive(leg.time, leg.energy(self.rate), leg.actual_length,
+                                *pair, self.table.payload_sha256)
+
+    def __iter__(self):
+        return (pair for pair, leg in self.table.legs.items() if leg.reachable)
+
+    def __len__(self):
+        return sum(leg.reachable for leg in self.table.legs.values())
+
+
+class _TableFreeRealLegs(AbstractMapping):
+    """Exact selected-leg lookup; iteration exposes cached pairs only."""
+    def __init__(self, provider, rate, terminal_target=None):
+        self.provider, self.rate = provider, rate
+        self.terminal_target = terminal_target
+
+    def __getitem__(self, pair):
+        source, target = pair
+        leg = self.provider.leg(source, target,
+            target_only=self.terminal_target is not None and target == self.terminal_target)
+        if not leg.reachable:
+            raise KeyError(pair)
+        return RealLegPrimitive(leg.time, leg.energy(self.rate), leg.actual_length,
+                                source, target, self.provider.source_sha256["anchors"])
+
+    def __iter__(self):
+        return (pair for pair, leg in self.provider.legs.items() if leg.reachable)
+
+    def __len__(self):
+        return sum(leg.reachable for leg in self.provider.legs.values())
+
+
+def site_catalog_digest(sites: Mapping) -> str:
+    rows = [(sid, site.anchor_id, list(site.effects))
+            for sid, site in sorted(sites.items())]
+    return hashlib.sha256(json.dumps(rows, separators=(",", ":")).encode()).hexdigest()
+
+
+class TableFreeRealProblem(Problem):
+    """Accepted physical transitions fed by source-bound native selected legs.
+
+    This adapter opens no ordered-leg table. Seed and bound admission remain
+    separate obligations of the caller before an exact result can be claimed.
+    """
+    def __init__(self, query: Mapping, sites: Mapping, provider, *,
+                 origin_anchor: str, destination_anchor: str,
+                 site_catalog_sha256: str,
+                 terminal_target_routing: bool = False):
+        from .road_provider import TableFreeRoadSelectedLegProvider
+        if not isinstance(provider, TableFreeRoadSelectedLegProvider):
+            raise ValueError("Table-free native selected-leg provider required")
+        if (origin_anchor not in provider.anchor_nodes or
+                destination_anchor not in provider.anchor_nodes or
+                "edges" in query or "leg_payload_sha256" in query):
+            raise ValueError("Table-free query conflicts with selected-road source")
+        site_rows = dict(sites)
+        if not site_rows or any(
+                sid != site.site_id or site.anchor_id not in provider.anchor_nodes or
+                not site.effects or not set(site.effects) <= {"C", "S", "CS"}
+                for sid, site in site_rows.items()):
+            raise ValueError("Invalid table-free Site catalog")
+        if site_catalog_digest(site_rows) != site_catalog_sha256:
+            raise ValueError("Table-free Site catalog bytes differ from binding")
+        declared = {sid: list(site.effects) for sid, site in site_rows.items()}
+        for key, expected in (("origin", origin_anchor), ("destination", destination_anchor),
+                              ("sites", declared)):
+            if key in query and query[key] != expected:
+                raise ValueError(f"Query conflicts with table-free {key}")
+        configured = dict(query, origin=origin_anchor,
+                          destination=destination_anchor, sites=declared)
+        self._configure_query(configured)
+        self.site_anchors = MappingProxyType({sid: site.anchor_id
+                                              for sid, site in site_rows.items()})
+        if type(terminal_target_routing) is not bool:
+            raise ValueError("Terminal target routing requires an explicit boolean")
+        if terminal_target_routing and (
+                not callable(getattr(provider.router, "target_edges", None)) or
+                getattr(provider.router, "role", None) != "search" or
+                getattr(provider.router, "mode", None) != "destination_target"):
+            raise ValueError("Explicit search-only destination-target router required")
+        self.routing_role = getattr(provider.router, "role", None)
+        self._terminal_energy_screen = None
+        self.terminal_target_routing = terminal_target_routing
+        self.legs = _TableFreeRealLegs(provider, self.rate,
+            destination_anchor if terminal_target_routing else None)
+        self.provider = provider
+        self.site_catalog_sha256 = site_catalog_sha256
+
+    def finish(self, pieces):
+        # Screening changes only impossible immediate finishes, never expansion.
+        # Independent full replay ignores even an accidentally attached screen.
+        if (self.routing_role == 'search' and self._terminal_energy_screen is not None
+                and self._terminal_energy_screen.reject(self, pieces)):
+            return ()
+        return super().finish(pieces)
+
+    def onward_time_lower_bound(self, anchor: str) -> R:
+        if anchor not in self.provider.anchor_nodes:
+            raise ValueError("Unknown physical anchor")
+        return R(0)
+
+
 class RealProblem(Problem):
     """Physical query over immutable accepted direct legs, never a graph."""
-    def __init__(self, query: Mapping, table: ImmutableLegTable):
+    def __init__(self, query: Mapping, table: ImmutableLegTable, *, leg_cache=None):
         if not isinstance(table,ImmutableLegTable):
             raise TypeError("A validated immutable leg table is required")
         if "edges" in query:
@@ -45,9 +158,15 @@ class RealProblem(Problem):
         self._configure_query(configured)
         self.table=table
         self.site_anchors=MappingProxyType({sid:site.anchor_id for sid,site in table.sites.items()})
-        self.legs=MappingProxyType({pair:RealLegPrimitive(leg.time,leg.energy(self.rate),leg.actual_length,
-                                                      *pair,table.payload_sha256)
-                                   for pair,leg in table.legs.items() if leg.reachable})
+        if leg_cache is None:
+            self.legs=MappingProxyType({pair:RealLegPrimitive(leg.time,leg.energy(self.rate),leg.actual_length,
+                                                          *pair,table.payload_sha256)
+                                       for pair,leg in table.legs.items() if leg.reachable})
+        else:
+            from .deployable import SelectedLegCache
+            if not isinstance(leg_cache, SelectedLegCache):
+                raise ValueError("On-demand real legs require a validated selected-leg cache")
+            self.legs=_OnDemandRealLegs(table,self.rate,leg_cache)
 
     def onward_time_lower_bound(self, anchor: str) -> R:
         if anchor not in self.table.anchors:

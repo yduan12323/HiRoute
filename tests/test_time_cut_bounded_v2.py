@@ -31,14 +31,14 @@ def simple_case(secondary=False):
 class TestBoundedPhysicalFlat(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        path = ROOT / "results/milestone_4r_b2_b21/hand_cases.json"
+        path = ROOT / "tests/fixtures/milestone_4r_b2_b21/hand_cases.json"
         cls.fixture_hash = hashlib.sha256(path.read_bytes()).hexdigest()
         cls.original = json.loads(path.read_text())[0]
         cls.original_results = [solve_bounded(cls.original, dominance=d) for d in (False, True)]
 
     def test_original_frozen_fixture_identity(self):
         self.assertEqual(self.fixture_hash, "5e8f4b92bdbefdf5f35104b9430bbc2d0541517e0df41b4ecdb9ca67f85a5744")
-        manifest = json.loads((ROOT / "results/milestone_4r_b2_b21/case_construction_manifest.json").read_text())
+        manifest = json.loads((ROOT / "tests/fixtures/milestone_4r_b2_b21/case_construction_manifest.json").read_text())
         self.assertEqual(manifest["case_file_sha256"], self.fixture_hash)
 
     def test_original_76_regression_full_bounded_d_on_off(self):

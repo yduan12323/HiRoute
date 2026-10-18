@@ -29,7 +29,7 @@ data (including source PBFs, opportunity evidence, both graphs and ODs), all M1â
 results/reports, existing graph/envelope/opportunity/microplan code, tests/configs,
 environment locks and both specifications/supplied 4R documents. Transient caches
 and Python bytecode are excluded. The complete file list is
-[`preservation_before.json`](../results/milestone_4r/preservation_before.json).
+[`preservation_before.json` (historical artifact)](REPRODUCING.md#historical-results).
 Final verification: **840 hashes match; zero changed/missing files**.
 The immutable M4B acceptance manifest additionally verifies all **56
 accepted source-file hashes**, including prior utility scripts; zero mismatches.

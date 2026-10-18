@@ -17,7 +17,7 @@ source_sizes_bytes:
   hungary-260929.osm.pbf: 325903232
   bosnia-herzegovina-260929.osm.pbf: 161358110
 slovenia_source: data/raw/osm/slovenia-260929.osm.pbf
-base_polygon: results/milestone_2/boundary/slovenia.poly
+base_polygon: configs/inputs/boundary/slovenia.poly
 base_polygon_sha256: f5813a8cda35bb54b0d3123e62701165e10068f532b0aa0fda70926f2d7ddc32
 projection: EPSG:3035
 candidate_margins_km: [50, 75, 100, 150, 200]
@@ -33,3 +33,6 @@ memory:
   maximum_rss_gib: 38
   minimum_reserve_gib: 10
   monitor_interval_s: 0.5
+source_pins: configs/inputs/geofabrik-260929-sources.json
+coverage_polygon_dir: configs/inputs/boundary
+coverage_polygon_pins: configs/inputs/boundary-pins.json

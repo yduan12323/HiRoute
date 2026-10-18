@@ -11,7 +11,7 @@ from tests.test_recovered_real_coalesced import capture
 ROOT=Path(__file__).resolve().parents[1]
 class ParallelProfile(unittest.TestCase):
  def test_tiny_traces_preserve_all_queries_counts_and_hooks(self):
-  rows=json.loads((ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
+  rows=json.loads((ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
   original=family._verify_bundle
   for row in rows:
    for dominance in (False,True):
@@ -24,7 +24,7 @@ class ParallelProfile(unittest.TestCase):
       a=dict(baseline.summary);b=dict(after.summary);a.pop('elapsed_s');b.pop('elapsed_s');self.assertEqual(a,b)
       self.assertIs(family._verify_bundle,original)
  def test_tau_kernel_preserves_tiny_complete_traces(self):
-  rows=json.loads((ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
+  rows=json.loads((ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
   for row in rows:
    for dominance in (False,True):
     data=capture(row,dominance);trusted=prepare(row);baseline=verify_coalesced_trace(data['trace'],data['bundle'],trusted)
@@ -34,7 +34,7 @@ class ParallelProfile(unittest.TestCase):
      self.assertEqual(baseline.export_queries(),after.export_queries())
      a=dict(baseline.summary);b=dict(after.summary);a.pop('elapsed_s');b.pop('elapsed_s');self.assertEqual(a,b)
  def test_interrupted_profile_is_not_a_completed_join(self):
-  rows=json.loads((ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
+  rows=json.loads((ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
   data=capture(rows[0],True);trusted=prepare(rows[0]);original=family._verify_bundle
   with BatchExecutor(tuple(sorted(os.sched_getaffinity(0)))[:2],float(time.monotonic()+10),'b'*64,worker_as=256*1024**2) as pool:
    with patch('experiments.time_cut_v2.recorded_real.parallel_profile.MAX_POST_DECODE_SECONDS',.001):

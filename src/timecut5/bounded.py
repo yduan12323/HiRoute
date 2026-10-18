@@ -6,6 +6,8 @@ infeasibility. No REF, historical frontier, or hierarchy code is imported.
 """
 from __future__ import annotations
 
+from . import exact_progress as progress
+
 from collections import defaultdict
 from dataclasses import dataclass, replace
 from fractions import Fraction as R
@@ -107,6 +109,7 @@ class Problem:
         leg=self.legs.get((anchor,self.destination))
         return None if leg is None else leg.time
 
+    @progress.operation('initial_piece')
     def initial_piece(self) -> CutPiece:
         state = State(self.origin, self.initial_remaining, 0)
         witness = Witness(self.start, self.initial, -self.initial, (), state,
@@ -117,6 +120,7 @@ class Problem:
                          -self.initial, (), state, lambda energy: cut)
         return prov.bind(piece, "initial", case=self.case)
 
+    @progress.operation('advance')
     def advance(self, pieces: tuple[CutPiece, ...], site: str, effect: str) -> tuple[CutPiece, ...]:
         if not pieces:
             return ()
@@ -142,6 +146,7 @@ class Problem:
                     combined_pwa(incoming,self.curve,site,a,b,duration,self.overhead))
         return _retag_anchor(output,anchor)
 
+    @progress.operation('finish')
     def finish(self, pieces: tuple[CutPiece, ...]) -> tuple[CutPiece, ...]:
         if not pieces or pieces[0].state.remaining_schedule:
             return ()
@@ -228,6 +233,15 @@ def _groups(pieces):
     return tuple(tuple(group) for group in groups.values())
 
 
+def prefix_primary_lower_bound(problem: Problem, pieces: tuple[CutPiece, ...]) -> R:
+    """Ignore all future nonnegative travel/stop time; safe for every suffix."""
+    if not pieces:
+        raise ValueError("Nonempty prefix frontier required")
+    clock = min(p.slope * p.domain.affine_infimum(p.slope)[0] + p.intercept
+                for p in pieces)
+    return clock - problem.start + problem.penalty * pieces[0].state.stop_count
+
+
 def solve_bounded(case: Mapping, dominance: bool = True) -> BoundedResult:
     """Exhaust every legal next action through H_ref; optional safe reduction.
 
@@ -238,33 +252,78 @@ def solve_bounded(case: Mapping, dominance: bool = True) -> BoundedResult:
     return _solve_problem(Problem(case),dominance)
 
 
-def _solve_problem(problem: Problem, dominance: bool = True, *, reducer=None) -> BoundedResult:
+@progress.solver
+def _solve_problem(problem: Problem, dominance: bool = True, *, reducer=None,
+                   verified_primary_upper: R | None = None,
+                   singleton_bound=None, checkpoint_hook=None, incumbent_hook=None) -> BoundedResult:
     reducer = reduce_frontier if reducer is None else reducer
+    if progress.enabled():
+        reducer = progress.operation("dominance_reducer")(reducer)
+    if verified_primary_upper is not None and (type(verified_primary_upper) is not R or
+                                               verified_primary_upper < 0):
+        raise ValueError("Verified primary upper bound must be an exact nonnegative rational")
     layer = ((problem.initial_piece(),),)
     terminals = []
     attempted = 0
     feasible = 1
     maximum = 1
+    incumbent_j = verified_primary_upper
+    recorded_key = None
+
+    def update_incumbent(finished):
+        nonlocal incumbent_j, recorded_key
+        if singleton_bound is None and incumbent_hook is None:
+            return
+        for piece in finished:
+            energy = piece.domain.approach_optimizer(piece.slope, R(1))
+            witness = piece.at(energy).approach(R(1))
+            key = _replay_problem(problem, witness)
+            if incumbent_hook is not None and (recorded_key is None or key < recorded_key):
+                incumbent_hook(witness, key)
+                recorded_key = key
+            if singleton_bound is not None and (incumbent_j is None or key[0] < incumbent_j):
+                incumbent_j = key[0]
+                progress.event("incumbent_improved", incumbent_primary_upper=incumbent_j)
+
     for depth in range(problem.bound + 1):
+        progress.layer("layer_start", depth, layer, len(terminals), attempted, feasible, incumbent_j)
+        if checkpoint_hook is not None:
+            checkpoint_hook(depth, layer, tuple(terminals), incumbent_j,
+                            (attempted, feasible, maximum))
         for group in layer:
-            terminals.extend(problem.finish(group))
+            finished = problem.finish(group)
+            terminals.extend(finished)
+            update_incumbent(finished)
         if depth == problem.bound:
+            progress.layer("layer_end", depth, (), len(terminals), attempted, feasible, incumbent_j)
             break
         next_pieces = []
         for group in layer:
             if group[0].state.anchor == problem.destination:
                 continue
+            if (incumbent_j is not None and
+                    prefix_primary_lower_bound(problem, group) > incumbent_j):
+                continue
+            progress.expanded()
             for site, effects in sorted(problem.sites.items()):
                 if problem.site_anchor(site) == problem.destination:
                     continue
                 for effect in sorted(set(effects)):
                     if effect in ("S", "CS") and not group[0].state.remaining_schedule:
                         continue
+                    if singleton_bound is not None:
+                        bound = singleton_bound(problem, group, site, effect)
+                        if bound is None or (incumbent_j is not None and bound > incumbent_j):
+                            continue
                     attempted += 1
+                    progress.event("advance_started", attempted=attempted)
                     output = problem.advance(group, site, effect)
+                    progress.generated(len(output))
                     if output:
                         feasible += 1
                         next_pieces.extend(output)
+                        progress.event("pending_frontier", pending_next_pieces=len(next_pieces), feasible=feasible)
+                        update_incumbent(problem.finish(output))
         if dominance:
             by_state = defaultdict(list)
             for p in next_pieces:
@@ -272,11 +331,14 @@ def _solve_problem(problem: Problem, dominance: bool = True, *, reducer=None) ->
             next_pieces = [p for group in by_state.values() for p in reducer(group)]
         maximum = max(maximum, len(next_pieces))
         layer = _groups(next_pieces)
+        progress.layer("layer_end", depth, layer, len(terminals), attempted, feasible, incumbent_j)
         if not layer:
             break
     result = terminal(terminals, problem.destination, problem.reserve, problem.start, problem.penalty)
     if result.witness is not None:
         _replay_problem(problem, result.witness)
+    if checkpoint_hook is not None and callable(getattr(checkpoint_hook, "finish", None)):
+        checkpoint_hook.finish()
     return BoundedResult(result, problem.bound, dominance, attempted, feasible, len(terminals), maximum)
 
 
@@ -289,6 +351,7 @@ def replay_witness(case: Mapping, witness: Witness) -> tuple:
     return _replay_problem(Problem(case),witness)
 
 
+@progress.operation('witness_replay')
 def _replay_problem(problem: Problem, witness: Witness) -> tuple:
     # Incumbents affect pruning: legality checks must survive Python -O.
     def _require(condition, message):

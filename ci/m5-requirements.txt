@@ -144,6 +144,10 @@ pandas==3.0.6 \
 pluggy==1.6.0 \
     --hash=sha256:7dcc130b76258d33b90f61b658791dede3486c3e6bfb003ee5c9bfb396dd22f3 \
     --hash=sha256:e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746
+# Real parquet-engine preflight in recovery tests; CPython 3.11 Linux x86-64.
+# PyPI: pyarrow-26.0.0-cp311-cp311-manylinux_2_28_x86_64.whl
+pyarrow==26.0.0 \
+    --hash=sha256:6e89dee53aaeb50505ed6152ea55bc7ddfd4f4df264f5427ea255288d8f0e580
 pygments==2.21.0 \
     --hash=sha256:2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9 \
     --hash=sha256:610ca751c9bc2492b38eb9a38a7fbc93edbbb2d7182edaf34e66ae493dee5c8c
