@@ -2,11 +2,12 @@
 
 The screen is **off by default**. `RoutingConfig()` and existing target-routing
 APIs retain their prior behavior. This optional feature uses the same installed
-full native router, selected paths, ties, original binary64 path-length sums and
+native router, selected paths, ties, original binary64 path-length sums and
 physical replay. It is not a replacement routing backend or a bound on the
-whole future search. Target routing plus energy screening is explicitly rejected
-at configuration construction, before compilation/copy/routing. That combination
-has not been validated.
+whole future search. Full routing remains the default. Explicit
+`RoutingConfig('destination_target', TerminalEnergyConfig())` combines the screen
+with the existing search-only terminal-target mode. This combination is an
+opt-in integration candidate, not a real-road performance or deployment claim.
 
 ## Explicit context API
 
@@ -21,6 +22,40 @@ once using the compiler and the exact flags `-O3 -std=c++17 -fno-fast-math
 -frounding-math`, and pass that `energy_artifact` to each context. Otherwise the
 context builds/authenticates this package-owned artifact in the supplied cache.
 The original router artifact and flags do not change.
+
+### Combining the screen with terminal-target routing
+
+The native target call executes the same priority queue, strict relaxation and
+tie policy as the full call, stopping at the first nonstale destination pop.
+Its finalized destination labels and ordered predecessor edge chain therefore
+retain the full call's selected binary64 path. The energy certificate bounds
+that same path sum; it does not depend on settling unrelated vertices. No
+potential, beta, endpoint, or physical replay equation changes in the combination.
+
+Only an authenticated package `ExactRouter` in the explicit search role and
+either supported mode may produce guarded history. Certificates and history
+receipts record the actual routing mode. Context creation still installs the
+floating-environment/ownership guard before seed routing, and the provider's
+outer leg guard covers the target call, selected-edge replay and cached returns.
+A replacement guard cannot adopt prior target-call history. Closed equality
+remains eligible; screened-out immediate finishes do not change later expansion.
+
+The existing target seam remains destination-only: intermediate legs use full
+routing, and generation/verification/durable verification/recovery/landmarks
+remain full-only with an inactive screen. Full-source cache entries may satisfy
+a terminal-target request; target-call partial labels never enter that cache.
+Only their checked destination leg and ordered witness may enter the pair cache.
+Role-neutral provider source identity still permits fresh independent full replay;
+the actual search mode belongs to the caller's arm/configuration binding.
+
+The combined finite regression module covers exact labels and edge chains for
+parallel/zero/stale/rounding cases, certificate bounds, FLAT/HIER keys and action
+order, future charging, open/closed endpoints, fresh full-only replay, cache
+isolation, mode mutation, floating controls, and evidence closure. It adds no road
+launch. Target calls still allocate and initialize four graph-sized output arrays;
+they may visit most of a graph and do not retain a full-source cache entry. If a
+source later needs an intermediate leg it may need a separate full run. Measure
+these costs under a newly frozen comparison rather than assuming a speedup.
 
 For search, context creation copies source/target/time/length arrays into private
 immutable bytes and creates the native router on those exact owners. The context

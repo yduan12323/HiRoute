@@ -15,9 +15,20 @@ ROOT = Path(__file__).resolve().parents[1]
 
 # Explicit selection: never silently substitute the legacy full-suite result.
 TESTS = (
+    "tests/test_node_domain_batch.py",
+    "tests/test_m5d_aggregate_screen.py",
+    "tests/test_regional_source_pins.py",
+    "tests/test_code_only_collection.py",
     "tests/test_time_cut_v2.py",
     "tests/test_time_cut_pwa_v2.py",
     "tests/test_frontier_skyline.py",
+    "tests/test_projection_support_prefilter.py",
+    "tests/test_envelope_sweep.py",
+    "tests/test_analytic_charge.py",
+    "tests/test_post_service_dominance.py",
+    "tests/test_pending_window_dominance.py",
+    "tests/test_charge_count_bound.py",
+    "tests/test_remaining_charge_bound.py",
     "tests/test_time_cut_bounded_v2.py",
     "tests/test_time_cut_hierarchy_v2.py",
     "tests/test_time_cut_optimized_replay.py",
@@ -61,12 +72,17 @@ TESTS = (
 FIXTURES = (
     "tests/fixtures/invocation_trace_pilot_v1.json",
     "tests/fixtures/invocation_trace_A06_regression.json",
-    "results/milestone_4r_b2_b21/hand_cases.json",
-    "results/milestone_4r_b2_b21/case_construction_manifest.json",
-    "results/milestone_5_reference/frozen_cases_v2.json",
-    "results/milestone_5_reference/audit_regression_cases.json",
-    "results/milestone_5_real_leg_contract/mock_solver_cases.json",
-    "results/milestone_5_real_leg_contract/mock_solver_freeze.json",
+    "tests/fixtures/milestone_4r_b2_b21/hand_cases.json",
+    "tests/fixtures/milestone_4r_b2_b21/case_construction_manifest.json",
+    "tests/fixtures/milestone_5_reference/frozen_cases_v2.json",
+    "tests/terminal_energy/__init__.py",
+    "tests/terminal_energy/test_energy.py",
+    "tests/terminal_energy/test_combined_target_energy.py",
+    "tests/terminal_energy/test_remaining_charge_runtime.py",
+    "tests/terminal_energy/floating_flags.cpp",
+    "tests/fixtures/milestone_5_reference/audit_regression_cases.json",
+    "tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json",
+    "tests/fixtures/milestone_5_real_leg_contract/mock_solver_freeze.json",
     "experiments/time_cut_v2/solver_audit/targeted_attainment_cases_v1.json",
 )
 
@@ -122,15 +138,18 @@ def main() -> None:
                           "experiments/time_cut_v2/restricted_suffix"):
             for source in (ROOT / directory).rglob("*.py"):
                 copy_file(source.relative_to(ROOT), tooling)
-        for relative in (*TESTS, *FIXTURES, "tests/conftest.py"):
+        for relative in (*TESTS, *FIXTURES, "tests/conftest.py", "tests/code_only_manifest.py",
+                         "tools/check_code_publication.py", "tools/verify_artifacts.py"):
             copy_file(relative, tooling)
-        for script in ("m5d_charge_gate.py", "m5d_build_main_queries.py",
+        for script in ("m5d_aggregate_screen.py", "prepare_regional_data.py", "m5d_charge_gate.py", "m5d_build_main_queries.py",
                        "m5d_freeze_main_phase.py", "m5d_main_batch.py",
                        "m5d_main_row.py", "m5d_one_query_runner.py",
                        "m5d_parallel_continuation.py",
                        "m5d_supplement_alt.py", "m5d_supplement_freeze.py",
                        "m5d_supplement_row.py", "m5d_supplement_batch.py"):
             copy_file("scripts/" + script, tooling)
+        copy_file("experiments/time_cut_v2/recorded_real/node_domain_batch.py", tooling)
+        copy_file("configs/m5d/fixed_grid14_screen.json", tooling)
         (tooling / "pytest.ini").write_text("[pytest]\naddopts = -ra\n")
         env["PYTHONPATH"] = str(tooling)
         origin_check = """

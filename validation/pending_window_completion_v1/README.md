@@ -1,0 +1,3 @@
+# Scheduled completion diagnostic validation
+
+The bundle retains original tiny/synthetic tests, negative and corrected signal probes, exact source checks and independent review. It does not claim real-road completion. The runtime algorithm remains the same96 production files as02493a4. The experimental supervisor now raises a RuntimeError-derived cancellation exception so selectors cannot silently swallow SIGINT/SIGTERM; existing cleanup handling remains. This newly reproduced defect is not asserted as the cause of the earlier execution-connection loss. Historical frozen experiment sources and outcomes remain unchanged.

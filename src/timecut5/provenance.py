@@ -142,6 +142,26 @@ def select(piece, parents, domain, chosen, mode):
                 chosen=chosen, mode=mode)
 
 
+def select_many(parents, choices, mode):
+    """Synchronous selections with one unrecorded-parent guard, no cache.
+
+    Choices are original parent indices and exact domains. Recorded selection
+    keeps the original all-parent payload and validation path for every output.
+    No point callback is invoked by either path.
+    """
+    parents, choices = tuple(parents), tuple(choices)
+    if any(type(index) is not int or not 0 <= index < len(parents)
+           for index, _ in choices):
+        raise ValueError("Selection requires an original parent index")
+    if _active.get() is not None:
+        return tuple(select(parents[index], parents, domain, index, mode)
+                     for index, domain in choices)
+    if choices and any(parent._family is not None for parent in parents):
+        raise ValueError("Continue recorded families inside their Recorder context")
+    return tuple(replace(parents[index], domain=domain, _family=None)
+                 for index, domain in choices)
+
+
 def batch(kind, parents, outputs, **params):
     recorder = _active.get()
     if recorder is None:

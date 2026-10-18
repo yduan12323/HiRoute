@@ -14,7 +14,7 @@ The recovered patch lacks 52 raw v2 streamed REF regime files. Their report-leve
 
 ## Follow-up: independent B closure and current-source candidate
 
-The [independent B64 checker](historical_ab_audit/b_ref_admission_check.py) now verifies all 1,551 historical trace events without the missing 52 raw REF streams or stored pass flags. Its [event receipt](historical_ab_audit/b64_independent_admission_20261011.json) records 716 rational sequence-superset bounds and 835 structural empties. Two historically labeled `certified_empty_by_prefix_superset` nodes have nonempty static supersets; the required bound inequality holds, but exact emptiness is not established. This closes visited-node bound safety only, not every historical REF result certificate. The [current-source final candidate review](MILESTONE_5_V_FINAL_CANDIDATE_REVIEW.md) reports new exact-source A/B observations and the remaining M5-V gates.
+The [independent B64 checker](historical_ab_audit/b_ref_admission_check.py) now verifies all 1,551 historical trace events without the missing 52 raw REF streams or stored pass flags. Its [event receipt (historical artifact)](REPRODUCING.md#historical-results) records 716 rational sequence-superset bounds and 835 structural empties. Two historically labeled `certified_empty_by_prefix_superset` nodes have nonempty static supersets; the required bound inequality holds, but exact emptiness is not established. This closes visited-node bound safety only, not every historical REF result certificate. The [current-source final candidate review](MILESTONE_5_V_FINAL_CANDIDATE_REVIEW.md) reports new exact-source A/B observations and the remaining M5-V gates.
 
 ## A: bounded observational events
 

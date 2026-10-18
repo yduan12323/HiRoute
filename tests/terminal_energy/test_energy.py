@@ -95,12 +95,18 @@ class EnergyTests(unittest.TestCase):
         return observation.EnergyObservation(self.directory(),run_identity={'run':'tiny','domain':digest('tiny')},interval=.01,**kwargs)
 
     def test_installed_resource_and_same_build_defaults(self):
-        self.assertTrue(Path(energy.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()))
+        # CI explicitly requires installed-wheel origin; ordinary pytest uses src.
+        expected = (Path(sys.prefix) if os.environ.get('HIROUTE_REQUIRE_INSTALLED_WHEEL') == '1'
+                    else Path(__file__).resolve().parents[2] / 'src')
+        self.assertTrue(Path(energy.__file__).resolve().is_relative_to(expected.resolve()))
         raw=resources.files('timecut5').joinpath('terminal_energy_native.cpp').read_bytes()
         self.assertEqual(hashlib.sha256(raw).hexdigest(),self.energy_artifact.receipt['source_sha256'])
         self.assertIsNone(RoutingConfig().terminal_energy)
         self.assertEqual(TerminalEnergyConfig().quantum_exponent,20)
-        with self.assertRaises(ValueError):RoutingConfig('destination_target',TerminalEnergyConfig())
+        combined=RoutingConfig('destination_target',TerminalEnergyConfig())
+        self.assertEqual(combined.effective_mode('search'),'destination_target')
+        self.assertEqual(combined.effective_mode('verification'),'full')
+        self.assertEqual(RoutingConfig().search_mode,'full')
         a,b=self.context(enabled=False),self.context()
         self.assertEqual(a.router.artifact['artifact_identity_sha256'],b.router.artifact['artifact_identity_sha256'])
         self.assertEqual(a.provider.leg('A','D'),b.provider.leg('A','D'))

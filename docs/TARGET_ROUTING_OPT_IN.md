@@ -6,6 +6,12 @@ may stop routing when the destination is settled. Generation, verification,
 durable verification, recovery and landmark roles always use full routing.
 Existing callers without an explicit role keep full routing.
 
+The explicit combination with certified immediate-finish energy screening is
+also available as `RoutingConfig('destination_target', TerminalEnergyConfig())`.
+See [the energy-screen contract](TERMINAL_ENERGY_OPT_IN.md#combining-the-screen-with-terminal-target-routing)
+for arithmetic-history guards, exactness rationale and finite validation scope.
+This does not enable either feature by default or establish a real-road speedup.
+
 ## Construction and ownership
 
 Use the installed package, its existing compiler configuration and a caller-owned

@@ -345,6 +345,9 @@ class TableFreeRegionBoundProvider:
     leave them disabled for primary timing (the metric is then None).
     ``onward_alt=True`` adds a certified directed time bound to the destination
     after service, for both Region and singleton candidates (default: off).
+    ``time_quantum_exponent=10`` explicitly selects dyadic subsecond ALT;
+    zero preserves integer-second v1 behavior. Stored labels use integer units,
+    while every objective-bound output remains exact seconds.
     ``alt_member_reads`` counts extrema passes of successful calls only;
     after any failed recomputation it is None because partial reads are unknown.
     """
@@ -354,9 +357,9 @@ class TableFreeRegionBoundProvider:
                  site_catalog_sha256: str, router_factory,
                  alt_strategy: str = "indexed",
                  collect_alt_member_reads: bool = False,
-                 onward_alt: bool = False):
+                 onward_alt: bool = False, time_quantum_exponent: int = 0):
         from .deployable import RegionLandmarkSummary, member_set_digest
-        from .road_landmark import certify_integer_landmark
+        from .road_landmark import certify_integer_landmark, _time_quantum
         from .hierarchy import Region
         from .real_adapter import site_catalog_digest
         if alt_strategy not in ("indexed", "recompute"):
@@ -365,6 +368,7 @@ class TableFreeRegionBoundProvider:
             raise ValueError("ALT member-read collection requires a boolean")
         if type(onward_alt) is not bool:
             raise ValueError("Onward ALT requires an explicit boolean")
+        self._time_quantum_policy = (time_quantum_exponent, _time_quantum(time_quantum_exponent))
         self.onward_alt = onward_alt
         self.destination_anchor = destination_anchor
         self.site_catalog_sha256 = site_catalog_sha256
@@ -393,10 +397,17 @@ class TableFreeRegionBoundProvider:
         distances, certificate = certify_integer_landmark(leg_provider.graph,
             leg_provider.anchor_nodes, landmark_anchor, router_factory,
             graph_nodes_sha256=leg_provider.source_sha256["nodes"],
-            graph_edges_sha256=leg_provider.source_sha256["edges"])
+            graph_edges_sha256=leg_provider.source_sha256["edges"],
+            time_quantum_exponent=time_quantum_exponent)
         self.landmark_certificate = certificate
         self.landmark_sha256 = hashlib.sha256(certificate).hexdigest()
         self.landmarks = (distances,)
+        # These immutable construction values admit a separately versioned
+        # multi-leg accessor. Existing Region/onward bounds are unchanged.
+        self._suffix_time_certificate_bytes = certificate
+        self._suffix_time_quantum_policy = self._time_quantum_policy
+        self._suffix_time_landmark_owner = distances
+        self._suffix_time_anchor_nodes = tuple(sorted(leg_provider.anchor_nodes.items()))
         self._summary = {}
         self._regions = {}
         self._member_hash = {}
@@ -445,6 +456,26 @@ class TableFreeRegionBoundProvider:
         self.online_queries = self.online_internal_member_accesses = 0
         self.online_leaf_action_reads = self.online_mask_word_work = 0
 
+    @property
+    def time_quantum_exponent(self):
+        return self._time_quantum_policy[0]
+
+    @property
+    def time_units_per_second(self):
+        return self._time_quantum_policy[1]
+
+    def _check_time_quantum(self):
+        # Every consumer uses the construction quantum, including legacy
+        # subclass overrides. Never default a damaged/missing policy to Q=1.
+        if (type(self._time_quantum_policy) is not tuple or
+                any(type(value) is not int for value in self._time_quantum_policy) or
+                self._time_quantum_policy != self._suffix_time_quantum_policy):
+            raise ValueError('Certified landmark time quantum changed')
+
+    def _time_seconds(self, units):
+        self._check_time_quantum()
+        return Fraction(units, self.time_units_per_second)
+
     def _incoming(self, source, region):
         from math import floor
         from .deployable import directed_alt_region_bound
@@ -453,7 +484,79 @@ class TableFreeRegionBoundProvider:
             self._summary[region.identifier], graph_sha256=self.graph_sha256,
             landmark_sha256=self.landmark_sha256,
             member_set_sha256=self._member_hash[region.identifier])
-        return Fraction(floor(value))
+        return self._time_seconds(floor(value))
+
+    def certified_suffix_time_v1(self, problem, anchor):
+        """Certified current-anchor-to-destination multi-leg time potential.
+
+        The v1 return contract is exact seconds, with explicitly distinguished
+        integer-second v1 or dyadic-second v2 construction evidence. Requires
+        the same live guarded provider, not a deserialized certificate
+        or another context with matching hashes. Missing finite ALT terms are
+        zero relaxations, never reachability claims. No routing is performed.
+        """
+        from .terminal_energy import RoutingHistoryGuard, canonical, digest
+        from .real_adapter import site_catalog_digest, _TableFreeRealLegs
+        from .remaining_charge_runtime import SuffixPotentialV1
+        if type(anchor) is not str or anchor not in dict(self._suffix_time_anchor_nodes):
+            raise ValueError('Unknown suffix-time anchor')
+        self._check_time_quantum()
+        provider = self.leg_provider
+        self._check_onward_problem(problem)
+        if (getattr(problem, 'provider', None) is not provider or
+                type(getattr(problem, 'legs', None)) is not _TableFreeRealLegs or
+                problem.legs.provider is not provider or
+                tuple(sorted(provider.anchor_nodes.items())) != self._suffix_time_anchor_nodes or
+                site_catalog_digest(self.sites) != self.site_catalog_sha256 or
+                self.landmark_certificate != self._suffix_time_certificate_bytes or
+                self.landmark_sha256 != digest(self._suffix_time_certificate_bytes) or
+                len(self.landmarks) != 1 or self.landmarks[0] is not self._suffix_time_landmark_owner):
+            raise ValueError('Suffix-time certificate/provider binding changed')
+        receipt = json.loads(self._suffix_time_certificate_bytes)
+        if self.time_quantum_exponent == 0:
+            quantum_valid = (self.time_units_per_second == 1 and
+                receipt.get('schema') == 'hiroute.m5d.integer_second_landmark.v1' and
+                receipt.get('edge_weight_policy') == 'floor(nextafter(frozen_binary64_time,-infinity))')
+        else:
+            quantum_valid = (self.time_quantum_exponent == 10 and self.time_units_per_second == 1024 and
+                receipt.get('schema') == 'hiroute.m5d.dyadic_second_landmark.v2' and
+                receipt.get('time_quantum_exponent') == self.time_quantum_exponent and
+                receipt.get('time_units_per_second') == self.time_units_per_second and
+                receipt.get('edge_weight_policy') ==
+                'floor(nextafter(ldexp(frozen_binary64_time,time_quantum_exponent),-infinity))')
+        if (not quantum_valid or
+                receipt['graph_nodes_sha256'] != provider.source_sha256['nodes'] or
+                receipt['graph_edges_sha256'] != provider.source_sha256['edges'] or
+                receipt['router_source_sha256'] != provider.source_sha256['router'] or
+                receipt['exact_integer_limit'] != 2**53):
+            raise ValueError('Suffix-time original certificate contract changed')
+        distances = self.landmarks[0]
+        expected = receipt['anchor_labels']
+        if (set(expected) != set(provider.anchor_nodes) or
+                set(distances.from_landmark) != set(expected) or
+                set(distances.to_landmark) != set(expected)):
+            raise ValueError('Suffix-time anchor label domain changed')
+        for name, values in expected.items():
+            for actual, value in zip((distances.from_landmark[name], distances.to_landmark[name]), values):
+                if (value is None and not (type(actual) is float and actual == math.inf) or
+                        value is not None and (type(actual) is not int or actual != value)):
+                    raise ValueError('Suffix-time certified labels changed')
+        history = getattr(provider, '_terminal_energy_route_guard', None)
+        if type(history) is not RoutingHistoryGuard:
+            raise ValueError('Guarded suffix-time native arithmetic history required')
+        binding = digest(canonical(dict(schema=('hiroute.suffix_time_potential.v2'
+            if self.time_quantum_exponent else 'hiroute.suffix_time_potential.v1'),
+            construction_sha256=digest(self._suffix_time_certificate_bytes),
+            source_sha256=provider.source_sha256, destination=self.destination_anchor,
+            site_catalog_sha256=self.site_catalog_sha256)))
+        if not history.admitted(provider, history.kernel, history.unsupported):
+            return SuffixPotentialV1('time', 'disabled_unsupported', None, binding)
+        terms = [0]
+        for left, right in ((distances.from_landmark[self.destination_anchor], distances.from_landmark[anchor]),
+                            (distances.to_landmark[anchor], distances.to_landmark[self.destination_anchor])):
+            if math.isfinite(left) and math.isfinite(right):
+                terms.append(left-right)
+        return SuffixPotentialV1('time', 'active', self._time_seconds(max(terms)), binding)
 
     def _incoming_recomputed(self, source, region):
         from .deployable import RegionLandmarkSummary, directed_alt_region_bound
@@ -471,7 +574,7 @@ class TableFreeRegionBoundProvider:
         value = directed_alt_region_bound(source, self.landmarks, summary,
             graph_sha256=self.graph_sha256, landmark_sha256=self.landmark_sha256,
             member_set_sha256=member_hash)
-        return Fraction(math.floor(value))
+        return self._time_seconds(math.floor(value))
 
     def _incoming_recomputed_counted(self, source, region):
         try:
@@ -501,7 +604,7 @@ class TableFreeRegionBoundProvider:
             # impossibility from a missing potential. Each term is independent.
             if math.isfinite(left) and math.isfinite(right):
                 terms.append(left - right)
-        return Fraction(max(terms))
+        return self._time_seconds(max(terms))
 
     def _outgoing(self, region):
         self._check_region(region)
@@ -571,7 +674,7 @@ class TableFreeRegionBoundProvider:
                 terms.append(left - right)
         lower_time = min(p.slope * p.domain.affine_infimum(p.slope)[0] + p.intercept
                          for p in pieces)
-        time = lower_time + Fraction(max(terms)) + problem.overhead
+        time = lower_time + self._time_seconds(max(terms)) + problem.overhead
         if effect in ("S", "CS"):
             a, _, duration = problem.schedule
             time = max(a, time) + duration

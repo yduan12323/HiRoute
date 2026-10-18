@@ -14,7 +14,7 @@ from timecut5.coalesce import coalesce_pieces,VERSION
 from timecut5.pwa import reduce_frontier
 
 ROOT=Path(__file__).resolve().parents[1]
-CASES=json.loads((ROOT/'results/milestone_5_reference/frozen_cases_v2.json').read_text())
+CASES=json.loads((ROOT/'tests/fixtures/milestone_5_reference/frozen_cases_v2.json').read_text())
 
 
 def signature(value):

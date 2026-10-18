@@ -99,7 +99,7 @@ class BatchJobs(unittest.TestCase):
     pool.submit(0,'a'*64,'union',[piece()],[piece()])
    self.assertEqual(pool.submitted,{})
  def test_complete_family_result_matches_serial(self):
-  rows=json.loads((ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
+  rows=json.loads((ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
   for row in rows[:2]:
    for dominance in (False,True):
     with self.subTest(case=row['case_id'],dominance=dominance):

@@ -205,7 +205,7 @@ class RealCoalescedEmptyOccurrences(unittest.TestCase):
         from tests.test_recovered_real_family import prepare
         from validation.real5_v2.shared_replay import verify_coalesced_trace
         root = Path(__file__).resolve().parents[1]
-        row = json.loads((root / 'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[0]
+        row = json.loads((root / 'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[0]
         cls.runs = {}
         for dominance in (False, True):
             data = capture_coalesced(row, dominance)

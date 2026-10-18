@@ -696,12 +696,14 @@ def worker(manifest, operation, case_id, common_path=None, common_sha256=None, s
 
 def _run_plan(manifest_path, manifest_sha256, output, cpu, *, scope,
               manifest_loader=None, worker_module='experiments.mechanism_recovery_v1.run',
-              fixed_cases=None, fixed_pairs=None):
+              fixed_cases=None, fixed_pairs=None, exact_phase_seconds=120):
     """One sequential supervisor; all predeclared arms remain in the ledger."""
     from .supervisor import run, Limits, PhaseBudget
     import resource
     if scope not in ('full_batch','od02_gate'):
         raise ValueError('Unknown fixed execution scope')
+    if type(exact_phase_seconds) is not int or exact_phase_seconds not in (120, 240):
+        raise ValueError('Exact phase must be the explicit integer120 or240')
     gate = scope == 'od02_gate'
     cases = DEV_CASES[:1] if gate else DEV_CASES
     pairs = PAIR_ORDER[:1] if gate else PAIR_ORDER
@@ -711,6 +713,9 @@ def _run_plan(manifest_path, manifest_sha256, output, cpu, *, scope,
         pairs = fixed_pairs
     batch_cpu_started=time.process_time()
     manifest = (manifest_loader or _manifest)(manifest_path, manifest_sha256)
+    expected_limits = dict(LIMITS, search_seconds=exact_phase_seconds)
+    if (exact_phase_seconds == 240 or 'limits' in manifest) and canonical(manifest.get('limits')) != canonical(expected_limits):
+        raise ValueError('Declared manifest limits differ from fixed exact phase and unchanged stage caps')
     output = Path(output); output.mkdir(parents=True, exist_ok=False)
     if cpu not in os.sched_getaffinity(0):
         raise ValueError('Requested CPU unavailable')
@@ -795,7 +800,7 @@ def _run_plan(manifest_path, manifest_sha256, output, cpu, *, scope,
             case_id=case,strategy=arm['strategy'],arm_index=str(index))
         search_directory=output/f'arm-{index:02d}'
         receipt=run(argv,output_dir=search_directory,limits=limits,cwd=manifest['repo'],
-            phase_budget=PhaseBudget(seconds=LIMITS['search_seconds'],identity=identity))
+            phase_budget=PhaseBudget(seconds=exact_phase_seconds,identity=identity))
         arm.update(status=receipt['status'],receipt=receipt);record_stage(f'search-{index}',receipt);save()
         admit(search_directory,receipt,'arm',case,arm['strategy'],f'search-{index}',arm)
         if ledger['status']=='UNKNOWN':return ledger

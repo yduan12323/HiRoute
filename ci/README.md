@@ -39,7 +39,7 @@ fixture allowlist. It:
 2. Installs that wheel, stages repository validator source separately, and
    verifies production imports come from the environment. The test directory
    contains no `src` tree or repository pytest `pythonpath` override.
-3. Runs the same 31 selected modules under normal Python and `python -OO`, with
+3. Runs the same explicitly selected modules under normal Python and `python -OO`, with
    one-thread BLAS/OpenMP/MKL and external pytest plugin autoload disabled.
 4. Rejects missing fixtures, zero collected tests, skips, errors and failures.
 
@@ -56,7 +56,9 @@ The recovered additions also check the immutable capture loader, container
 ownership and streamed hashes, recorded coalescing, independent real-family
 anchor/phase validation, and real/coalesced mock replay. These are code-only
 reconstruction checks, not acceptance of historical source or real populations.
-Only the nine explicitly named synthetic/mock JSON fixtures are staged.
+Only the explicitly named synthetic/mock fixtures in the runner are staged.
+Former results-based unit fixtures now live under tests/fixtures; no archived
+experiment output is staged.
 
 The v2 fixtures are hand-authored inside its test modules, so adding this
 coverage needs no data fixture or dependency change. All v1 files, the locked
@@ -80,7 +82,7 @@ explicit nine-fixture allowlist were used.
 
 ## Deliberately outside this gate
 
-- Whole-suite `pytest` and legacy real-result tests. Those need the full
+- The opt-in legacy suite (`pytest --include-artifact-tests`). Those tests need the full
   geospatial stack (including pyrosm, igraph, GeoPandas, PyArrow and native
   tooling where used), processed graph/OD data and earlier milestone outputs.
   Even `-m 'not integration'` is not a reliable data-free substitute because
@@ -104,7 +106,7 @@ acceptance remain open. Existing mathematical review is separate from CI.
 
 ## Workflow security, resources and rollout
 
-The workflow uses standard `ubuntu-24.04`, one Python version and a 10-minute
+The workflow uses standard `ubuntu-24.04`, one Python version and a 35-minute
 job timeout. Normal and optimized tests run serially; newer runs cancel older
 runs for the same event/ref. Local rehearsals used about 32–36 seconds after
 dependencies were installed; the fresh pip environment occupied 332 MiB. Cold runner setup/network
@@ -141,3 +143,85 @@ checkout, under pre-import CPU 90/100 seconds, AS 2 GiB and wall 150 seconds per
 mode (parent timeout 165 seconds). Native compiler children remain CPU 20/25 and
 wall 30 seconds. No production graph is read. This is a separate opt-in gate;
 existing reachable/target/recovery gates remain required and unchanged.
+
+## Default pytest and archived research tests
+
+A clean code-only checkout supports `python -m pytest` with the reduced CI
+requirements above. Default collection is deliberately limited to the modules
+in `tests/code_only_manifest.py` plus the five validator modules named in
+`pyproject.toml`, matching the main installed-wheel gate. The four named
+extended directories and bootstrap modules run in separate required CI processes.
+This is a focused code regression suite, not the historical full test suite or
+research acceptance. Explicitly naming a documented extended directory/module enables that group;
+combining every group in one process is not a supported passing gate because
+resource checks use process-lifetime peak RSS. Prefer the separate CI runners.
+Existing legacy modules are explicitly registered in `LEGACY_MODULES`.
+A newly added unclassified test module is a hard collection error, including
+with artifact opt-in; register it in the main, isolated-gate, or legacy cohort.
+Review and extend the main allowlist for new data-free tests. The pytest header announces this selection; `pytest --collect-only` lists
+it. Explicitly requesting an excluded module reports a usage error with the
+opt-in command instead of silently ignoring the request.
+
+For independent reproduction, generate the required research inputs and outputs
+at their configured paths (including `results/`) and install the full dependencies
+used by the selected milestone. This switch only enables test collection; it is
+not a complete reproduction pipeline. For historical inspection, an existing
+archive can optionally supply historical evidence, but importing it is not
+independent reproduction. For example:
+
+```bash
+python -m pytest --include-artifact-tests tests/test_m5d_terminal_summary.py
+# Or, after generating all milestone inputs and outputs with full dependencies:
+python -m pytest --include-artifact-tests
+```
+
+The switch enables collection of legacy modules; it does not download evidence,
+certify its provenance or turn missing data into passing tests. It fails early
+when generated JSON outputs under the research results tree are absent. Individual legacy tests can additionally
+require milestone-specific `--require-*-results` / `--require-real-data` switches
+for acceptance instead of their historical optional skips. See those modules
+for the exact inputs. Historical terminal-summary projection checks refer to the
+`results/milestone_5d/terminal_state_audit_20261014/inputs/` tree and are no longer
+a default GitHub Actions step. The historical tranche linked-receipt assertion
+is separately opt-in in `tests/test_dev_coverage_tranche_archive.py`. These
+historical acceptance assertions are not claims that the entire legacy suite
+can already run from independently generated outputs.
+
+Required default fixtures remain hard failures if absent. The installed-wheel
+runner checks each fixture before copying and rejects skips, errors, failures
+and empty collection. Tiny hand-built cases and expected analytical values are
+versioned under `tests/fixtures/`; bulk experiment outputs are not CI inputs.
+
+The expanded synthetic recovery suite has a bounded 900-second timeout per
+Python mode. The original 300-second bound expired before completion during
+local rehearsal of the expanded suite; the workflow budget is now 35 minutes
+to accommodate both modes plus the other serial gates. This increases the
+allowed runtime, not research scope, test exclusions, or correctness criteria.
+
+Default target/energy tests verify source-checkout origin; their required CI
+runners set `HIROUTE_REQUIRE_INSTALLED_WHEEL=1` and independently enforce wheel
+origin before executing tests. The archived sequential-transport comparator
+receipt assertion is separately opt-in in `tests/test_sequential_transport_archive.py`.
+
+### Combined-process rehearsal limitation
+
+An earlier combined extended/default rehearsal reported 14 failures, 20 errors,
+1,137 passes and 9,529 passing subtests. Three failures used definitions loaded
+before the historical comparator/origin fixes; the remaining suffix failures
+were process-lifetime LP peak-RSS cap exhaustion after large native/recovery
+groups. An isolated suffix-and-changed-tests rehearsal passed 38 tests and 56 subtests in
+6.59 seconds. The default now uses only the main CI cohort; extended groups
+remain independently required through isolated runners. No resource cap was
+weakened, and the combined extended run is not represented as passing.
+
+### Fixture content audit
+
+The source-only publication removes both the generated REF result/certificate
+cache (`analytic_cases_ref_v2.json`) and the generated G8 trace bundle
+(`g8_node_batch_fixture.json`). Relocating generated output under `tests/fixtures`
+does not make it source. Post-service comparisons now evaluate the independent
+exhaustive reference from the tiny input cases during each test run; node-domain
+checks generate and validate their trace from a synthetic mock leg table. The
+three node-domain tests are now part of the main isolated gate. See
+`tests/fixtures/README.md` for the per-file input and hand-arithmetic provenance
+audit. No historical solver results or trace cache are loaded as a fallback.

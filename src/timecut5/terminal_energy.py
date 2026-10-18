@@ -1,4 +1,4 @@
-"""Default-off certified immediate-finish screen; original routing stays full.
+"""Default-off certified immediate-finish screen; full routing remains default.
 
 Only explicit search-role problems may activate. Owned graph bytes, original
 native router provenance, exact physical identity and current thread/FP flags
@@ -178,12 +178,17 @@ def _physical_identity(problem,provider):
 def _native_identity(router, expected_source):
     """Use the installed router's actual artifact and mapped-object boundary."""
     from microplan.routing import ExactRouter
-    if type(router) is not ExactRouter or router.role != 'search' or router.mode != 'full':
-        raise ValueError('Explicit package full-search router required')
+    if (type(router) is not ExactRouter or router.role != 'search' or
+            router.mode not in ('full', 'destination_target')):
+        raise ValueError('Explicit package full or destination-target search router required')
     receipt=router.verify_artifact()
     if receipt['source_sha256'] != expected_source:
         raise ValueError('Original routing source differs')
-    return dict(source_sha256=expected_source,
+    # The target routine is the same native relaxation/settlement prefix as
+    # full routing. Its finalized destination path has the same binary64 sums,
+    # so the path-energy certificate applies unchanged. Record the actual mode
+    # without making the role-neutral provider source binding mode-dependent.
+    return dict(source_sha256=expected_source, routing_mode=router.mode,
         artifact_identity_sha256=receipt['artifact_identity_sha256'],
         artifact_sha256=receipt['artifact_sha256'],
         build_spec=receipt['build_spec'],mapping=router._mapped_identity)
@@ -205,7 +210,8 @@ class RoutingHistoryGuard:
             raise ValueError('Owned provider and explicit arithmetic guard required')
         if (getattr(provider, '_terminal_energy_route_guard', None) is not None or
                 provider.legs or provider.edge_witnesses or provider._source_labels or
-                provider.source_run_count or provider.source_cache_bytes or
+                provider.source_run_count or provider.target_run_count or
+                provider.router.target_calls or provider.source_cache_bytes or
                 provider.route_wall_ns or provider.route_process_cpu_ns):
             raise ValueError('Unguarded prior selected-routing history cannot be adopted')
         self.provider=provider;self.graph=provider.graph;self.router=provider.router
@@ -373,6 +379,9 @@ class TerminalEnergyScreen:
         identity.update(setup_cpu_ns=time.process_time_ns()-cpu,setup_wall_ns=time.monotonic_ns()-wall,
             retained_full_potential_bytes=0,retained_anchor_count=len(self._lower))
         self._receipt_bytes=canonical(identity)
+        # Separately versioned multi-leg access pins construction evidence.
+        # The immediate-finish API and its private lower map stay unchanged.
+        self._suffix_energy_certificate_bytes=self._receipt_bytes
         self._observation_state=(self.calls,self.completed,self.skipped,self.status)
 
     def _environment(self):
@@ -391,6 +400,55 @@ class TerminalEnergyScreen:
         value['activation_status']=value['status']
         value.update(status=self.status,calls=self.calls,skipped_immediate_finishes=self.skipped,routing_history=self.history.receipt)
         return value
+
+    def certified_suffix_energy_v1(self, problem, anchor):
+        """Guarded multi-leg potential; never an unguarded prefix-pruning API.
+
+        Signed per-leg potential differences telescope under the same native
+        binary64/history contract. This accessor certifies route consumption,
+        not charging curves, arbitrary frontier clocks, or a pruning decision.
+        An explicit unsupported-zero policy returns a disabled None value.
+        """
+        from .remaining_charge_runtime import SuffixPotentialV1
+        from .real_adapter import _TableFreeRealLegs
+        if type(anchor) is not str or anchor not in self.anchors:
+            raise ValueError('Unknown suffix-energy anchor')
+        if (getattr(problem, '_terminal_energy_screen', None) is not self or
+                getattr(problem, 'routing_role', None) != 'search' or
+                problem.provider is not self.provider or
+                type(getattr(problem, 'legs', None)) is not _TableFreeRealLegs or
+                problem.legs.provider is not self.provider or
+                type(problem.rate) is not F or type(problem.legs.rate) is not F or
+                problem.legs.rate != problem.rate or
+                self.provider.graph is not self.graph or
+                self.provider.router.graph is not self.graph or
+                _physical_identity(problem, self.provider) != self.physical or
+                canonical(self.provider.source_sha256) != self.provider_sources or
+                canonical(self.provider.router.provenance) != self.router_provenance):
+            raise ValueError('Suffix-energy problem/source/history binding changed')
+        receipt = json.loads(self._receipt_bytes)
+        construction = {k:v for k,v in receipt.items()
+                        if k not in ('activation_cpu_ns', 'activation_wall_ns')}
+        if canonical(construction) != self._suffix_energy_certificate_bytes:
+            raise ValueError('Suffix-energy construction certificate changed')
+        binding = digest(canonical(dict(schema='hiroute.suffix_energy_potential.v1',
+            construction_sha256=digest(self._suffix_energy_certificate_bytes))))
+        self.graph.check_owned()
+        if not self._environment():
+            return SuffixPotentialV1('energy', 'disabled_unsupported', None, binding)
+        if self.status != 'active' or receipt.get('certificate_validated') is not True:
+            raise ValueError('Validated suffix-energy certificate required')
+        potentials = receipt['anchor_potentials']
+        exponent, cap = receipt['quantum_exponent'], receipt['cap']
+        if (set(potentials) != set(self.anchors) or
+                any(type(value) is not int or not 0 <= value <= cap
+                    for value in potentials.values()) or
+                potentials[problem.destination] != 0 or
+                F(receipt['rate']) != problem.rate or
+                F(receipt['beta']) != max(F(0), F(1)-F(self.graph.node_count-1, 2**53))):
+            raise ValueError('Invalid suffix-energy certificate quantities')
+        lower = problem.rate * F(receipt['beta']) * F(potentials[anchor], 2**exponent)
+        return SuffixPotentialV1('energy', 'active', lower, binding)
 
     def reject(self,problem,pieces):
         # Atomic immutable tuples are observational only. No clocks, locks, I/O

@@ -13,7 +13,7 @@ from validation.family5.checker import _plain
 class RecordedDomain(unittest.TestCase):
  def setUp(self):
   self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup);self.root=Path(self.temp.name)
-  self.rows=json.loads((ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
+  self.rows=json.loads((ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
  def make_plan(self,row,d=True):
   (self.root/'table.json').write_bytes(blob(row['table']));(self.root/'tree.json').write_bytes(blob(row['original_tree']))
   inputs={role:dict(path=name,**plan.pin(self.root/name)) for role,name in [('table','table.json'),('original_tree','tree.json')]}

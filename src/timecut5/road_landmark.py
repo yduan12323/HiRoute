@@ -1,4 +1,4 @@
-"""Certify directed ALT potentials on conservative integer road seconds."""
+"""Certify directed ALT potentials on conservative integer time units."""
 from __future__ import annotations
 
 import hashlib
@@ -11,15 +11,24 @@ import numpy as np
 from .deployable import LandmarkDistances
 
 
+def _time_quantum(exponent):
+    # Narrow opt-in policy: no automatic precision selection or downgrade.
+    if type(exponent) is not int or exponent not in (0, 10):
+        raise ValueError('Time quantum exponent must be the exact integer 0 or 10')
+    return 1 << exponent
+
+
 def certify_integer_landmark(graph, anchor_nodes: dict[str, int], root_anchor: str,
                              router_factory, *, graph_nodes_sha256: str,
-                             graph_edges_sha256: str):
+                             graph_edges_sha256: str, time_quantum_exponent: int = 0):
     """Return anchor labels and byte-stable edge-inequality certificate.
 
-    Every conservative edge weight is an integer no greater than its frozen
-    binary64 travel time. Forward and reverse potentials are checked against
-    every original directed edge, so ALT differences lower-bound actual paths.
+    Labels are integers in units of 2**(-time_quantum_exponent) seconds. Every
+    conservative edge weight divided by units/second is no greater than its
+    frozen binary64 time. Both directions retain the all-edge and exact-domain
+    audits. Exponent zero preserves the original v1 bytes and arithmetic.
     """
+    units = _time_quantum(time_quantum_exponent)
     if root_anchor not in anchor_nodes or not anchor_nodes or any(
             type(node) is not int or not 0 <= node < graph.node_count
             for node in anchor_nodes.values()):
@@ -28,7 +37,15 @@ def certify_integer_landmark(graph, anchor_nodes: dict[str, int], root_anchor: s
     if (len(times) != graph.edge_count or not np.isfinite(times).all() or
             (times <= 0).any()):
         raise ValueError("Invalid road-time weights")
-    weights = np.ascontiguousarray(np.maximum(0, np.floor(np.nextafter(times, -np.inf))))
+    if time_quantum_exponent == 0:
+        weights = np.ascontiguousarray(np.maximum(0, np.floor(np.nextafter(times, -np.inf))))
+    else:
+        with np.errstate(over='ignore', invalid='ignore'):
+            scaled = np.ldexp(times, time_quantum_exponent)
+        if not np.isfinite(scaled).all():
+            raise ValueError('Scaled road-time weights overflow binary64')
+        weights = np.ascontiguousarray(np.maximum(0, np.floor(np.nextafter(scaled, -np.inf))))
+        del scaled
     if (weights >= 2**53).any() or (weights != np.floor(weights)).any():
         raise ValueError("Conservative integer edge weights exceed exact domain")
     conservative = SimpleNamespace(node_count=graph.node_count, edge_count=graph.edge_count,
@@ -76,6 +93,10 @@ def certify_integer_landmark(graph, anchor_nodes: dict[str, int], root_anchor: s
                                  distances.from_landmark[name],
                                  None if math.isinf(distances.to_landmark[name]) else
                                  distances.to_landmark[name]] for name in sorted(anchor_nodes)})
+        if time_quantum_exponent:
+            payload.update(schema='hiroute.m5d.dyadic_second_landmark.v2',
+                time_quantum_exponent=time_quantum_exponent, time_units_per_second=units,
+                edge_weight_policy='floor(nextafter(ldexp(frozen_binary64_time,time_quantum_exponent),-infinity))')
         data = json.dumps(payload, sort_keys=True, separators=(",", ":"),
                           allow_nan=False).encode()
         return distances, data

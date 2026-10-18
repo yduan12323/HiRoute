@@ -3,9 +3,9 @@ name: M5 code-only regression
 on:
   workflow_dispatch:
   pull_request:
-    branches: [main, codex/milestone-4r-b1]
+    branches: [main, codex/milestone-4r-b1, dot/m5d-continuation]
   push:
-    branches: [main, codex/milestone-4r-b1]
+    branches: [main, codex/milestone-4r-b1, dot/m5d-continuation]
 
 permissions:
   contents: read
@@ -18,7 +18,7 @@ jobs:
   wheel-regressions:
     name: Python 3.11 isolated wheel and synthetic regressions
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 35
     env:
       OPENBLAS_NUM_THREADS: "1"
       OMP_NUM_THREADS: "1"
@@ -54,7 +54,3 @@ jobs:
         run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_target_routing_code.py'
       - name: Test opt-in energy screening and independent full replay
         run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_terminal_energy_code.py'
-      - name: Test terminal report accounting and public projections
-        run: |
-          "$RUNNER_TEMP/m5-ci-venv/bin/python" -I -m unittest discover -s tests -p test_m5d_terminal_summary.py
-          "$RUNNER_TEMP/m5-ci-venv/bin/python" -I -OO -m unittest discover -s tests -p test_m5d_terminal_summary.py

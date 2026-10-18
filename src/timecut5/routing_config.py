@@ -35,8 +35,6 @@ class RoutingConfig:
             raise ValueError('Explicit full or destination_target mode required')
         if self.terminal_energy is not None and type(self.terminal_energy) is not TerminalEnergyConfig:
             raise ValueError('Explicit immutable TerminalEnergyConfig required')
-        if self.terminal_energy is not None and self.search_mode != 'full':
-            raise ValueError('Combined target routing and energy screen is unsupported')
 
     def effective_mode(self, role):
         if type(role) is not str or role not in ROLES:

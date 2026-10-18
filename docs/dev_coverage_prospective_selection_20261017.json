@@ -1,0 +1,2374 @@
+{
+  "schema": "hiroute.prospective_dev_coverage_plan.v1",
+  "date_utc": "2026-10-17",
+  "status": "prospective_design_for_review_not_frozen_or_launchable",
+  "launchable": false,
+  "purpose": "broaden known-DEV input coverage, expose algorithm/data/scale limits, and obtain matched method evidence without selecting for favorable runtime",
+  "planning_scope": {
+    "graph_loaded": false,
+    "new_graph_or_input_hash_computed": false,
+    "source_frozen": false,
+    "experiment_launched": false,
+    "code_edited": false,
+    "holdout_viewed_selected_or_hashed": false,
+    "read_only_completed_outcome_scopes_only": true,
+    "deliverable_only": "two prospective planning artifacts in deliverables; no repository edits or runnable manifest"
+  },
+  "selection": {
+    "original_population": {
+      "queries": 48,
+      "OD_groups": 12,
+      "SOC_levels": [
+        "3/10",
+        "19/25"
+      ],
+      "activities": [
+        "energy_only",
+        "energy_and_scheduled"
+      ],
+      "candidate_counts": [
+        32,
+        128
+      ],
+      "domains": 96,
+      "methods": [
+        "flat",
+        "hier"
+      ],
+      "original_main_rows": 192,
+      "original_fixed_supplement_rows": 24
+    },
+    "basis": "prior DEV exposure and deterministic input-coverage strata; not outcome-blind and not a representative sample",
+    "membership_rule": "Reserve the repeatedly studied control ODs OD00/OD02/OD06/OD10 and failure sentinel OD07. From remaining original OD IDs in ascending order take the first six, selecting their original high-SOC scheduled query. Add original low-SOC scheduled OD06 and OD07 as two failure sentinels. Retain both original N32 and N128 domains for every query.",
+    "reserved_control_ods": [
+      "OD00",
+      "OD02",
+      "OD06",
+      "OD10"
+    ],
+    "reserved_sentinel_ods": [
+      "OD06",
+      "OD07"
+    ],
+    "high_SOC_selected_ods": [
+      "OD01",
+      "OD03",
+      "OD04",
+      "OD05",
+      "OD08",
+      "OD09"
+    ],
+    "remaining_eligible_high_SOC_ods_not_selected_due_to_fixed_six_query_capacity": [
+      "OD11"
+    ],
+    "selected_query_ids": [
+      "OD01_energy_and_scheduled_soc19_25",
+      "OD03_energy_and_scheduled_soc19_25",
+      "OD04_energy_and_scheduled_soc19_25",
+      "OD05_energy_and_scheduled_soc19_25",
+      "OD08_energy_and_scheduled_soc19_25",
+      "OD09_energy_and_scheduled_soc19_25",
+      "OD06_energy_and_scheduled_soc3_10",
+      "OD07_energy_and_scheduled_soc3_10"
+    ],
+    "strata": {
+      "high_SOC_scheduled_new_OD": 6,
+      "low_SOC_scheduled_seed_failure_sentinel": 2
+    },
+    "new_OD_meaning": "additional to the repeatedly used current control program, not never previously executed; all belong to the original exposed 48-query DEV slate",
+    "no_membership_change_from_new_outcomes": true,
+    "no_expected_runtime_or_objective_used_for_selection": true,
+    "no_replacement_retry_or_next_size_promotion": true,
+    "N128_is_prespecified_even_if_N32_seed_fails": true,
+    "method_order": "flat then hier for every domain; descriptive fixed-order timing limitation retained",
+    "diagnostic_stratum_is_outcome_informed": true,
+    "diagnostic_stratum_not_population_sample_or_new_solver_coverage": "OD06/OD07 were deliberately retained because of known preparation failures. They are regression/accounting sentinels. An unchanged deterministic seed policy can repeat known failure; that is expected diagnostic evidence, not a fresh algorithmic coverage success."
+  },
+  "input_identity": {
+    "hash_policy": "all digests copied from existing metadata; this planning pass computes no real-data hash and independently rechecks no file digest",
+    "restored_input_receipt": "recovery_inputs/restore_verification.json",
+    "receipt_all_verified_historical": true,
+    "inputs": {
+      "edges.parquet": {
+        "sha256": "37f0f75e71de97e0b045d53af23b181e034e6c3262a1a4079d582f37471bb1b8",
+        "size": 303022185,
+        "verified_in_existing_receipt": true
+      },
+      "fixed_12od_candidate_slate.json": {
+        "sha256": "68917b71ff74cc13a4f35d2b7c7fb7ca577e572295c2d091bb0a0957a3789b95",
+        "size": 28736,
+        "verified_in_existing_receipt": true
+      },
+      "geographic_screen_v5_grid14.json": {
+        "sha256": "eab8a107f31a6a966cf2a1f215f832494511ffa694da4532186ac025b232784f",
+        "size": 34185,
+        "verified_in_existing_receipt": true
+      },
+      "hierarchy.json": {
+        "sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+        "size": 5271372,
+        "verified_in_existing_receipt": true
+      },
+      "metadata.json": {
+        "sha256": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd",
+        "size": 13978,
+        "verified_in_existing_receipt": true
+      },
+      "nodes.parquet": {
+        "sha256": "7424eea357d98b54c4652062440a1d287d509f1b7250f7eabbcc5185cde923b5",
+        "size": 104471506,
+        "verified_in_existing_receipt": true
+      },
+      "pools.json": {
+        "sha256": "4b93c90b0f4f77364cd9e58b5a779bccd11fb7b99819646c8096ed4f122fe937",
+        "size": 456200,
+        "verified_in_existing_receipt": true
+      },
+      "queries.json": {
+        "sha256": "dc22c22bd56dbd763e41eecbc0da1310259990c25caef469783a49032ccaed7c",
+        "size": 3327263,
+        "verified_in_existing_receipt": true
+      },
+      "stop_sites.parquet": {
+        "sha256": "e3e7d6d6667f7ab684ff83eb2646920516b01aef2e6ceb8170c689e71f6afd38",
+        "size": 4487653,
+        "verified_in_existing_receipt": true
+      }
+    },
+    "ordered_pool_prefix_equality_and_N32_in_N128": true,
+    "hierarchy_policy": "retain original hierarchy identifiers/topology, empty/unary regions and multi-site leaves while intersecting membership with each original frozen candidate list",
+    "original_binding_policy": "each domain copies the original complete binding and ordered pool prefix verbatim; no sorting, repair, expansion, new windows or candidate reselection",
+    "original_and_runtime_identity_policy": "Keep original query/site/anchor/candidate/sparse-domain hashes distinct from newly authenticated live runtime-domain hashes after common-seed/Hmax admission; never overwrite the original metadata identity or call original hash strings independent runtime authentication."
+  },
+  "algorithm_intent": {
+    "reference_repo": "HiRoute-scheduled-method-pair-local",
+    "reference_commit": "43e83b57429dc06c18763339f06444bd5b40f44d",
+    "reference_commit_evidence": "extension_runs/scheduled_method_pair_commit_provenance.txt",
+    "production_source_base_commit_copied": "f89e4f3087c8f11f3fafa2adc116eec5aaed272a",
+    "production_source_entries_copied": 96,
+    "production_src_sha256_copied": "c1a8ebc5a046b9ae402bb9337548d9b84037b9876853e99efa8b975263649547",
+    "not_a_new_source_freeze": true,
+    "shared_configuration_copied": {
+      "bound_policy": {
+        "caching": false,
+        "frontier_origin": "trusted_current_solver_same_problem",
+        "preserve_original_Hmax": true,
+        "preserve_original_none": true,
+        "rule": "max_existing_region_prefix_and_whole_route_at_next_stop",
+        "runtime_api": "hiroute.remaining_charge_runtime.v1",
+        "schema": "hiroute.remaining_charge_region_gate.v1",
+        "strict_pruning_owned_by_engine": true
+      },
+      "coalescing": false,
+      "envelope_sweep": false,
+      "onward_alt": true,
+      "projection_support": true,
+      "reducer": "reduce_frontier_skyline",
+      "remaining_charge": true,
+      "routing": "destination_target",
+      "terminal_energy": true,
+      "time_quantum_exponent": 10
+    },
+    "arms_copied": {
+      "flat": {
+        "analytic_charge": true,
+        "convex_charge_count_runtime": false,
+        "inner_arm": "support_on",
+        "lazy_native_allocation_backend": false,
+        "method": "flat",
+        "operator_compaction_candidate": false,
+        "pending_window_dominance": true,
+        "post_service_dominance": true,
+        "service_deadline_screen": false,
+        "shared_configuration": {
+          "bound_policy": {
+            "caching": false,
+            "frontier_origin": "trusted_current_solver_same_problem",
+            "preserve_original_Hmax": true,
+            "preserve_original_none": true,
+            "rule": "max_existing_region_prefix_and_whole_route_at_next_stop",
+            "runtime_api": "hiroute.remaining_charge_runtime.v1",
+            "schema": "hiroute.remaining_charge_region_gate.v1",
+            "strict_pruning_owned_by_engine": true
+          },
+          "coalescing": false,
+          "envelope_sweep": false,
+          "onward_alt": true,
+          "projection_support": true,
+          "reducer": "reduce_frontier_skyline",
+          "remaining_charge": true,
+          "routing": "destination_target",
+          "terminal_energy": true,
+          "time_quantum_exponent": 10
+        }
+      },
+      "hier": {
+        "analytic_charge": true,
+        "convex_charge_count_runtime": false,
+        "inner_arm": "support_on",
+        "lazy_native_allocation_backend": false,
+        "method": "hier",
+        "operator_compaction_candidate": false,
+        "pending_window_dominance": true,
+        "post_service_dominance": true,
+        "service_deadline_screen": false,
+        "shared_configuration": {
+          "bound_policy": {
+            "caching": false,
+            "frontier_origin": "trusted_current_solver_same_problem",
+            "preserve_original_Hmax": true,
+            "preserve_original_none": true,
+            "rule": "max_existing_region_prefix_and_whole_route_at_next_stop",
+            "runtime_api": "hiroute.remaining_charge_runtime.v1",
+            "schema": "hiroute.remaining_charge_region_gate.v1",
+            "strict_pruning_owned_by_engine": true
+          },
+          "coalescing": false,
+          "envelope_sweep": false,
+          "onward_alt": true,
+          "projection_support": true,
+          "reducer": "reduce_frontier_skyline",
+          "remaining_charge": true,
+          "routing": "destination_target",
+          "terminal_energy": true,
+          "time_quantum_exponent": 10
+        }
+      }
+    },
+    "method_policy_copied": {
+      "canonical_terminal_payload_shared": true,
+      "durable_method_tag_required": true,
+      "envelope_policy": {
+        "arrangement": "unchanged_original",
+        "default_absent_unchanged": true,
+        "original_parent_and_cell_order": true,
+        "recorder_fallback": "historical_selector",
+        "rule": "exact_pair_relation_interval_events_zero_better_parent_heap",
+        "schema": "hiroute.envelope_sweep.v1",
+        "scope": "exact_search_excluding_independent_incumbent_replay"
+      },
+      "flat_bound": "hiroute.remaining_charge_singleton.v1",
+      "flat_entry": "_solve_problem",
+      "hier_bound": {
+        "caching": false,
+        "frontier_origin": "trusted_current_solver_same_problem",
+        "preserve_original_Hmax": true,
+        "preserve_original_none": true,
+        "rule": "max_existing_region_prefix_and_whole_route_at_next_stop",
+        "runtime_api": "hiroute.remaining_charge_runtime.v1",
+        "schema": "hiroute.remaining_charge_region_gate.v1",
+        "strict_pruning_owned_by_engine": true
+      },
+      "hier_entry": "_solve_hierarchical_problem",
+      "original_action_coverage": true,
+      "remaining_charge_family": "max_existing_ALT_prefix_and_whole_route_at_next_stop",
+      "schema": "hiroute.dev_cohort_method.v1",
+      "strict_pruning_owned_by_engine": true
+    },
+    "cache_policy_copied": {
+      "source_cache_max_bytes": 1073741824,
+      "source_cache_max_sources": 2
+    },
+    "analytic_charge_policy_copied": {
+      "boundary": "historical_redundant_FME_fan_and_row_order",
+      "counter_semantics": "C_pair_and_build_entries_including_empty_results",
+      "default_absent_unchanged": true,
+      "lift": "historical_constrained_midpoints",
+      "operator": "C_only",
+      "recorder_fallback": "historical_generic_projection",
+      "schema": "hiroute.analytic_charge.v1",
+      "scope": "exact_search_excluding_independent_incumbent_replay"
+    },
+    "pending_window_policy_copied": {
+      "attained_threshold_equality": "historical_product_order",
+      "counter_semantics": "repeated_cell_candidate_visits_not_unique_prefixes",
+      "default_enabled": false,
+      "existing_post_service_enabled_both_arms": true,
+      "fallback": "explicit_existing_post_service_reducer",
+      "late_predicate": "tau_gt_a_minus_h_or_equal_and_not_chi",
+      "legacy_product_order_certificate_unchanged": true,
+      "new_counter_scope": "all_outer_pending_reducer_calls",
+      "old_counter_scope": "delegated_fallback_calls_only",
+      "phase": "remaining_schedule_equals_one",
+      "reducer_version": "pending-window-late-primary-order-v1",
+      "schema": "hiroute.pending_window_objective_reducer.v1",
+      "scope": "exact_search_completed_departure_layers_only",
+      "selected_parent_compaction": "identical_original_parent_connected_energy_union_original_callback_retained",
+      "split_at_every_affine_tau_threshold_root": true,
+      "state": "identical_complete_physical_departure_State",
+      "strict_primary_only": true,
+      "threshold": "a_minus_h"
+    },
+    "post_service_policy_copied": {
+      "counter_semantics": "repeated_cell_candidate_visits_not_unique_prefixes",
+      "default_enabled": false,
+      "inherited_family_fallback": "historical_reduce_frontier_skyline",
+      "legacy_product_order_certificate_unchanged": true,
+      "objective": "exact_common_continuation_lexicographic_objective",
+      "phase": "remaining_schedule_equals_zero",
+      "r_equals_one_fallback": "historical_reduce_frontier_skyline",
+      "recorded_fallback": "historical_reduce_frontier_skyline",
+      "reducer_version": "post-service-total-cut-order-v1",
+      "schema": "hiroute.post_service_objective_reducer.v1",
+      "scope": "exact_search_completed_departure_layers_only",
+      "selected_parent_compaction": "identical_original_parent_connected_energy_union_original_callback_retained",
+      "state": "identical_complete_physical_departure_State"
+    },
+    "explicit_exclusions": [
+      "convex_charge_count_runtime",
+      "lazy_native_allocation_backend",
+      "operator_compaction_candidate",
+      "service_deadline_screen",
+      "new_HIER_only_feature",
+      "improved_search_seed"
+    ],
+    "new_generic_runner_required": "the existing scheduled gate admits OD06 N128 only; it is not implicitly generalized by this plan. Generalized binding, authentication, lifecycle and unsupported-case handling need focused validation and independent prelaunch review before a separate freeze",
+    "cross_version_pooling": false
+  },
+  "common_seed_and_depth": {
+    "policy": "one fresh original physical-proposal preparation per original query/N domain; independently authenticate and replay the common seed before either method; both methods use exactly that seed and its admitted Hmax",
+    "original_H_ref_4_is_placeholder": true,
+    "unknown_Hmax_policy": "use the unchanged reviewed seed-to-depth rule; record the fresh common seed and derived Hmax before either search. If a historical admitted expected Hmax is separately established, declare it before launch and require equality. Do not derive a depth from later improved incumbents",
+    "OD06_N128_reference_expected_Hmax": 39,
+    "no_seed_policy": "retain preparation failure/seed_exhausted_unknown; keep both search rows and both replay descendants as blocked/skipped in denominator; do not claim candidate-domain/global infeasibility",
+    "sentinel_context": [
+      {
+        "query_id": "OD06_energy_and_scheduled_soc3_10",
+        "candidate_count": 32,
+        "status": "historical zero-proposal seed exhaustion supported additively; old controller_error and permit_next=false remain",
+        "source": "results/milestone_5d/frozen_dev_coverage_20261015/coverage_result.json:historical_n32"
+      },
+      {
+        "query_id": "OD07_energy_and_scheduled_soc3_10",
+        "candidate_count": 128,
+        "status": "historical completed heuristic stream with zero proposals; both exact methods undispatched; feasibility remains unknown",
+        "source": "results/milestone_5d/matched_dev_coverage_20261015/README.md"
+      }
+    ],
+    "N149_repaired_OD07_forbidden_as_substitute": true,
+    "N128_success_not_attributed_to_N32": true,
+    "OD07_original_candidate_coverage_limit": "The known original candidate-coverage limitation is retained; the separately demonstrated 128+21=149 portable reachable-candidate domain is a different problem domain. Repeating the unchanged original seed policy can deterministically exhaust again. No implied repair is part of this batch.",
+    "sentinel_sources_additional": [
+      "docs/PORTABLE_REACHABLE_CANDIDATES.md"
+    ],
+    "runtime_query_binding": "Record each freshly admitted runtime query/domain and Hmax separately from original H_ref=4 payloads; both methods must bind to the same common seed/depth/domain."
+  },
+  "denominators": {
+    "coverage_grid": {
+      "queries": 8,
+      "OD_groups": 8,
+      "candidate_counts": 2,
+      "query_N_domains": 16,
+      "method_rows": 32,
+      "common_preparations": 16,
+      "independent_replays": 32,
+      "total_operational_slots": 80
+    },
+    "new_incremental_batch": {
+      "queries": 8,
+      "query_N_domains": 15,
+      "method_rows": 30,
+      "common_preparations": 15,
+      "independent_replays": 30,
+      "total_operational_slots": 75
+    },
+    "existing_gate_reference": {
+      "query_id": "OD06_energy_and_scheduled_soc3_10",
+      "candidate_count": 128,
+      "method_rows": 2,
+      "common_preparations": 1,
+      "independent_replays": 2,
+      "total_operational_slots": 5,
+      "manifest": "extension_runs/scheduled_method_pair_od06_n128_local_v1_manifest.json",
+      "outcome_observed_by_this_plan": false,
+      "do_not_rerun_to_fill_grid": true,
+      "include_regardless_of_failure_or_timeout": true,
+      "qualification": "keep linked gate report separate; include in descriptive 16-domain coverage grid only after source/configuration/input/budget equivalence is authenticated; a mismatch remains unqualified, never replaced silently"
+    },
+    "all_preparation_failed_search_timeout_memory_blocked_replay_failed_and_cleanup_unknown_slots_retained": true,
+    "conditional_speed_ratio_denominator": "number of matched domains with both authenticated exact outcomes, each with its own successful fresh replay; display this count / 15 for incremental batch and separately count / 16 for qualified linked coverage grid",
+    "historical_main_and_supplement_denominators_never_replaced": true,
+    "by_stratum": {
+      "high_SOC_scheduled_new_OD": {
+        "queries": 6,
+        "grid_and_new_domains": 12,
+        "grid_and_new_method_rows": 24,
+        "grid_and_new_operational_slots": 60,
+        "interpretation": "new matched input-coverage opportunity, not presumed completion"
+      },
+      "low_SOC_scheduled_seed_failure_sentinel": {
+        "queries": 2,
+        "grid_domains": 4,
+        "grid_method_rows": 8,
+        "grid_operational_slots": 20,
+        "new_domains": 3,
+        "new_method_rows": 6,
+        "new_operational_slots": 15,
+        "existing_reference_slots": 5,
+        "interpretation": "outcome-informed diagnostic regression; report separately, never use failures/successes as a representative population estimate"
+      }
+    }
+  },
+  "queue": [
+    {
+      "queue_index": 0,
+      "stage": "A_first_four_new_OD_queries",
+      "query_id": "OD01_energy_and_scheduled_soc19_25",
+      "candidate_count": 32,
+      "method_order": [
+        "flat",
+        "hier"
+      ],
+      "stage_order": [
+        "prepare",
+        "flat_search",
+        "flat_fresh_replay",
+        "hier_search",
+        "hier_fresh_replay"
+      ]
+    },
+    {
+      "queue_index": 1,
+      "stage": "A_first_four_new_OD_queries",
+      "query_id": "OD03_energy_and_scheduled_soc19_25",
+      "candidate_count": 32,
+      "method_order": [
+        "flat",
+        "hier"
+      ],
+      "stage_order": [
+        "prepare",
+        "flat_search",
+        "flat_fresh_replay",
+        "hier_search",
+        "hier_fresh_replay"
+      ]
+    },
+    {
+      "queue_index": 2,
+      "stage": "A_first_four_new_OD_queries",
+      "query_id": "OD04_energy_and_scheduled_soc19_25",
+      "candidate_count": 32,
+      "method_order": [
+        "flat",
+        "hier"
+      ],
+      "stage_order": [
+        "prepare",
+        "flat_search",
+        "flat_fresh_replay",
+        "hier_search",
+        "hier_fresh_replay"
+      ]
+    },
+    {
+      "queue_index": 3,
+      "stage": "A_first_four_new_OD_queries",
+      "query_id": "OD05_energy_and_scheduled_soc19_25",
+      "candidate_count": 32,
+      "method_order": [
+        "flat",
+        "hier"
+      ],
+      "stage_order": [
+        "prepare",
+        "flat_search",
+        "flat_fresh_replay",
+        "hier_search",
+        "hier_fresh_replay"
+      ]
+    },
+    {
+      "queue_index": 4,
+      "stage": "A_first_four_new_OD_queries",
+      "query_id": "OD01_energy_and_scheduled_soc19_25",
+      "candidate_count": 128,
+      "method_order": [
+        "flat",
+        "hier"
+      ],
+      "stage_order": [
+        "prepare",
+        "flat_search",
+        "flat_fresh_replay",
+        "hier_search",
+        "hier_fresh_replay"
+      ]
+    },
+    {
+      "queue_index": 5,
+      "stage": "A_first_four_new_OD_queries",
+      "query_id": "OD03_energy_and_scheduled_soc19_25",
+      "candidate_count": 128,
+      "method_order": [
+        "flat",
+        "hier"
+      ],
+      "stage_order": [
+        "prepare",
+        "flat_search",
+        "flat_fresh_replay",
+        "hier_search",
+        "hier_fresh_replay"
+      ]
+    },
+    {
+      "queue_index": 6,
+      "stage": "A_first_four_new_OD_queries",
+      "query_id": "OD04_energy_and_scheduled_soc19_25",
+      "candidate_count": 128,
+      "method_order": [
+        "flat",
+        "hier"
+      ],
+      "stage_order": [
+        "prepare",
+        "flat_search",
+        "flat_fresh_replay",
+        "hier_search",
+        "hier_fresh_replay"
+      ]
+    },
+    {
+      "queue_index": 7,
+      "stage": "A_first_four_new_OD_queries",
+      "query_id": "OD05_energy_and_scheduled_soc19_25",
+      "candidate_count": 128,
+      "method_order": [
+        "flat",
+        "hier"
+      ],
+      "stage_order": [
+        "prepare",
+        "flat_search",
+        "flat_fresh_replay",
+        "hier_search",
+        "hier_fresh_replay"
+      ]
+    },
+    {
+      "queue_index": 8,
+      "stage": "B_remaining_four_queries",
+      "query_id": "OD08_energy_and_scheduled_soc19_25",
+      "candidate_count": 32,
+      "method_order": [
+        "flat",
+        "hier"
+      ],
+      "stage_order": [
+        "prepare",
+        "flat_search",
+        "flat_fresh_replay",
+        "hier_search",
+        "hier_fresh_replay"
+      ]
+    },
+    {
+      "queue_index": 9,
+      "stage": "B_remaining_four_queries",
+      "query_id": "OD09_energy_and_scheduled_soc19_25",
+      "candidate_count": 32,
+      "method_order": [
+        "flat",
+        "hier"
+      ],
+      "stage_order": [
+        "prepare",
+        "flat_search",
+        "flat_fresh_replay",
+        "hier_search",
+        "hier_fresh_replay"
+      ]
+    },
+    {
+      "queue_index": 10,
+      "stage": "B_remaining_four_queries",
+      "query_id": "OD06_energy_and_scheduled_soc3_10",
+      "candidate_count": 32,
+      "method_order": [
+        "flat",
+        "hier"
+      ],
+      "stage_order": [
+        "prepare",
+        "flat_search",
+        "flat_fresh_replay",
+        "hier_search",
+        "hier_fresh_replay"
+      ]
+    },
+    {
+      "queue_index": 11,
+      "stage": "B_remaining_four_queries",
+      "query_id": "OD07_energy_and_scheduled_soc3_10",
+      "candidate_count": 32,
+      "method_order": [
+        "flat",
+        "hier"
+      ],
+      "stage_order": [
+        "prepare",
+        "flat_search",
+        "flat_fresh_replay",
+        "hier_search",
+        "hier_fresh_replay"
+      ]
+    },
+    {
+      "queue_index": 12,
+      "stage": "B_remaining_four_queries",
+      "query_id": "OD08_energy_and_scheduled_soc19_25",
+      "candidate_count": 128,
+      "method_order": [
+        "flat",
+        "hier"
+      ],
+      "stage_order": [
+        "prepare",
+        "flat_search",
+        "flat_fresh_replay",
+        "hier_search",
+        "hier_fresh_replay"
+      ]
+    },
+    {
+      "queue_index": 13,
+      "stage": "B_remaining_four_queries",
+      "query_id": "OD09_energy_and_scheduled_soc19_25",
+      "candidate_count": 128,
+      "method_order": [
+        "flat",
+        "hier"
+      ],
+      "stage_order": [
+        "prepare",
+        "flat_search",
+        "flat_fresh_replay",
+        "hier_search",
+        "hier_fresh_replay"
+      ]
+    },
+    {
+      "queue_index": 14,
+      "stage": "B_remaining_four_queries",
+      "query_id": "OD07_energy_and_scheduled_soc3_10",
+      "candidate_count": 128,
+      "method_order": [
+        "flat",
+        "hier"
+      ],
+      "stage_order": [
+        "prepare",
+        "flat_search",
+        "flat_fresh_replay",
+        "hier_search",
+        "hier_fresh_replay"
+      ]
+    }
+  ],
+  "budget_proposal": {
+    "exact_phase_seconds_per_search_all_cases": 1200,
+    "exact_phase_includes_postsolver_finalization_to_worker_exit": true,
+    "search_worker_wall_seconds": 1500,
+    "search_worker_cpu_soft_seconds": 1500,
+    "search_worker_cpu_hard_seconds": 1501,
+    "preparation_wall_seconds": 600,
+    "preparation_cpu_soft_seconds": 600,
+    "fresh_verifier_wall_seconds": 180,
+    "fresh_verifier_cpu_soft_seconds": 120,
+    "address_space_bytes_per_process": 8589934592,
+    "supervisor_cpu_soft_seconds_per_domain_lifecycle_proposal": 180,
+    "incremental_exact_phase_reservation_seconds": 36000,
+    "incremental_worker_wall_reservation_seconds": 59400,
+    "incremental_worker_CPU_soft_reservation_seconds": 57600,
+    "incremental_supervisor_CPU_soft_reservation_seconds_separate": 2700,
+    "full_grid_worker_wall_reservation_seconds": 63360,
+    "full_grid_worker_CPU_soft_reservation_seconds": 61440,
+    "reservation_is_not_unique_measured_CPU_or_aggregate_hard_cap": true,
+    "budget_reason": "1200 matches the currently running original OD06 N128 comparison and supplies one common finite exact-search allowance for every selected domain; it is a prospective extension of historical 600-second rows, not a replacement or selected-case increase",
+    "historical_48_CPU_hour_accounting": "remains unreconciled; show existing known subtotals and this separately scoped future reservation, never claim a reconciled lifetime total from them. Before launch declare an enforceable incremental aggregate-charge ceiling and its measurement method; do not label process soft limits as aggregate enforcement",
+    "no_adaptive_budget_extension_or_repeated_optimization": true,
+    "full_grid_exact_phase_reservation_seconds": 38400,
+    "full_grid_exact_phase_reservation_hours": "10.6666666666667",
+    "incremental_exact_phase_reservation_hours": "10",
+    "incremental_worker_wall_reservation_hours": "16.5",
+    "incremental_worker_CPU_soft_reservation_hours": "16",
+    "full_grid_worker_wall_reservation_hours": "17.6",
+    "full_grid_worker_CPU_soft_reservation_hours": "17.0666666666667",
+    "incremental_conservative_aggregate_charge_ceiling_CPU_hours_proposal": 20,
+    "incremental_ceiling_status": "proposal only; measurement and enforcement need to be declared in the future execution manifest; no claim that process limits enforce it or that historical lifetime 48h is reconciled"
+  },
+  "resource_policy": {
+    "max_heavy_workers": 1,
+    "stages_serial": true,
+    "CPU": 0,
+    "numeric_threads": 1,
+    "retain_existing_pair_available_memory_floor_MiB": 7168,
+    "planning_worker_allowance_MiB": 5120,
+    "OS_controller_reserve_MiB": 2048,
+    "before_each_heavy_launch": "read actual MemAvailable; missing/malformed data or below floor blocks launch and retains slot. Observation is not a reservation",
+    "host_memory_GiB_context": 9.73,
+    "observed_scheduled_process_maxRSS_MiB_context": 4032,
+    "process_peak_not_certified_process_tree_P": true,
+    "rough_two_worker_requirement_MiB_if_P_were_4032": 12128.0,
+    "whole_process_tree_RSS_monitoring_and_owned_cleanup_required": true,
+    "aggregate_memory_hard_limit_claimed": false,
+    "optional_N32_only_future_scheduler": {
+      "part_of_this_launch_policy": false,
+      "requires_separate_review_and_explicit_enable": true,
+      "no_blind_two_workers": true,
+      "required_evidence": "complete uncensored process-tree peaks from both methods and relevant stages of representative serial N32 scheduled domains, plus actual host total/current available memory and successful cleanup; prior N32 process-only peaks or N128 estimates cannot substitute",
+      "formula": "2 * 1.25 * P32 + 2 GiB <= actual measured MemTotal, and MemAvailable >= 1.25 * P32 + 2 GiB before an additional worker",
+      "P32_policy": "maximum complete observed process-tree RSS across the explicitly reviewed N32 scheduling class and its relevant stages; class-specific scheduling is a new proposal and cannot silently relax the existing global-P rule",
+      "approximate_P32_threshold_GiB_at_9_73_GiB_host": 3.092,
+      "known_N32_3_10_GiB_context": "even treating earlier 3.10 GiB as P yields 9.75 GiB including reserve, above nominal 9.73 GiB; no current two-worker admission is supported",
+      "N128_preparation_and_replay_serial": true,
+      "loss_of_memory_telemetry_pressure_or_unknown_cleanup": "disable future concurrent starts, preserve failed slots, never terminate unrelated processes"
+    }
+  },
+  "acceptance_and_accounting": {
+    "per_method_exact_completion": "authenticated canonical exact terminal outcome and full key/proper unattained semantics plus fresh full independent physical replay, healthy final observer, counters and owned cleanup",
+    "matched_comparison": "same original query/N, common seed/Hmax, production algorithm, features, cache limits, source/runtime/compiler policy and budgets; explicit FLAT singleton and HIER region adapters",
+    "canonical_disagreement": "stop affected comparisons immediately; classify correctness blocker; retain all evidence",
+    "witness_byte_equality_required": false,
+    "report_per_domain": [
+      "method completion/censoring status",
+      "seed availability and exact derived Hmax",
+      "final or last authenticated feasible charging-stop count",
+      "certified minimum charge-count lower bound or unknown",
+      "time-window feasibility",
+      "actual explored depth",
+      "primary/secondary attainment semantics",
+      "candidate count and ordered input identity",
+      "setup/routing/incumbent/search/finalization/replay/cleanup costs",
+      "Region/member/action/PWA/OPEN/cache/RSS counters separately"
+    ],
+    "CPU_and_wall_accounting": "report physical shared preparation once in batch totals; charge its entire wall cost to each standalone method. Separate online setup/search, global preprocessing, independent replay and controller overhead. Do not add nested inclusive timers, split invocation CPU into invented per-method worker CPU, or sum cumulative host snapshots",
+    "rates": "all 30 incremental search rows and 15 paired domains stay in denominators, including failed preparation descendants; show 75 operational slots. Qualified linked gate is separately disclosed for 32-row/16-domain/80-slot coverage totals",
+    "statistics": "descriptive small purposive cohort; group by OD, not repeated timings as independent observations; no outcome-based exclusion or generalization/causal hierarchy speedup claim",
+    "positive_speedup_or_all_case_success_required": false,
+    "stop_conditions": [
+      "fixed queue terminally accounted for",
+      "correctness/semantic contradiction blocks affected scope",
+      "unknown cleanup/integrity/resource-safety blocks further starts",
+      "declared incremental aggregate-charge allowance exhausted; unstarted slots remain blocked, never replaced"
+    ],
+    "staged_denominators": "Report A and B separately and the complete design denominator. Unadmitted/unstarted rows are planned/not-launched, not runtime failures or successful solves. Retain them in design/operational coverage reporting; do not imply a 30-row executed completion rate if only stage A runs."
+  },
+  "known_domain_limits": [
+    "All selected inputs are already exposed original DEV. No independent holdout, geographic generalization or public deployment claim follows.",
+    "N32/N128 are nested truncated candidate domains, not proof of full-universe optimality or candidate sufficiency.",
+    "The original six prespecified full-universe checks remain a separate bounded obligation/evidence scope; this plan adds no full-universe solve gate.",
+    "No case is assumed seed-feasible, exact-completable, or to require multiple charges. Observed multi-charge feasible/optimal witnesses and certified necessary charge-count bounds are distinct.",
+    "The target of 12 independently supported multi-charge queries in the original 48 is assessed honestly; failure to meet it is a data limitation, not permission to alter batteries, delete simple cases, or choose winners.",
+    "Fixed order, shared host and OS/cache effects limit timing interpretation; matched bound families do not make queue order, region aggregation or pruning identical.",
+    "Historical 192 rows, fixed24 infrastructure-unknown row, prior seed failures, resource-accounting gaps and namespace-cleanup unknowns stay visible.",
+    "Existing limited reduction/coalescing, cold/warm and bounded transportation baseline evidence is not reopened as a full factorial requirement."
+  ],
+  "completed_historical_scope_snapshot": {
+    "main": {
+      "source": "results/milestone_5d/terminal_state_audit_20261014/terminal_summary.json",
+      "denominator": 192,
+      "status_counts": {
+        "incumbent_search_failed": 44,
+        "time_limit": 148
+      },
+      "exact_rows": 0,
+      "paired_exact_bindings": 0,
+      "phase_caveat": "Serial rows without reached_phase remain unknown; do not classify all timeouts as pre-search."
+    },
+    "fixed_supplement": {
+      "source": "results/milestone_5d/fixed24_continuation_20261014/public_report.json",
+      "denominator": 24,
+      "status_counts": {
+        "infrastructure_unknown": 1,
+        "time_limit": 23
+      },
+      "pending_rows": 0,
+      "memory_scope": "8 GiB per-process address space only; no cgroup or aggregate RSS enforcement"
+    }
+  },
+  "authority": [
+    "docs/time_cut_v2_authority/MILESTONE_5D_DOT_TASKBOOK.md:D4.1-D4.3,D5.1-D5.4,D6.1-D6.3,D7.1-D7.3",
+    "docs/NEXT_VALIDATION_SEQUENCE.md",
+    "docs/DEV_COHORT_PAIRED_PLAN.md",
+    "docs/SCHEDULED_METHOD_PAIR_PLAN.md"
+  ],
+  "prelaunch_requirements": [
+    "Review this prospective selection and retain it before any new selected-case outcome; existing pending OD06 gate membership is unconditional and historical exposure is explicit.",
+    "Implement and independently validate only the needed generic method-aware runner/binding/admission/lifecycle support on tiny data; do not claim the OD06-only gate already supports all selected domains.",
+    "Separately freeze clean source closure, production identity, exact policy/configuration, original input identity, deterministic seed-to-depth policy, finite budget and lifecycle result schema; keep optional candidates excluded.",
+    "Declare the incremental aggregate-charge allowance and measurement/stop method; disclose historical accounting uncertainty and maintain safe serial launch preflights.",
+    "Do not view, select, hash or execute any final holdout input."
+  ],
+  "cases": [
+    {
+      "selection_rank": 0,
+      "query_id": "OD01_energy_and_scheduled_soc19_25",
+      "od_id": "OD01",
+      "original_slate_index": 7,
+      "activity": "energy_and_scheduled",
+      "soc": "19/25",
+      "base_query_sha256": "dbe8df32d30e4e6c8a096f41c75c93efdec7c02de9087a63c76f10b1900001f4",
+      "stratum": "high_SOC_scheduled_new_OD",
+      "selection_reason": "one of the first six original OD IDs not reserved as repeatedly used control ODs or failure-sentinel ODs",
+      "original_pool_metadata": {
+        "destination_anchor": 1816667,
+        "eligible_capable_site_count": 7766,
+        "first32_charge_count": 17,
+        "first32_meal_count": 28,
+        "od_id": "OD01",
+        "origin_anchor": 335560,
+        "prefix_sizes": [
+          8,
+          16,
+          32,
+          128
+        ],
+        "radius_m": 25000
+      },
+      "original_pool_size": 128,
+      "domains": [
+        {
+          "candidate_count": 32,
+          "case_id": "OD01_energy_and_scheduled_soc19_25_n32",
+          "domain_role": "new_incremental_coverage",
+          "historical_hmax": null,
+          "historical_hmax_null_means": "not authenticated by this planning pass; do not use original H_ref=4 as search depth",
+          "method_order": [
+            "flat",
+            "hier"
+          ],
+          "original_binding": {
+            "anchor_catalog_sha256": "e365a149ad97b30510ca6dec368d04c350fcb6729be22c85a749d2c524939f62",
+            "candidate_sha256": "cea3bc1e92ecf6d9577cb4d10d8159cb6c1a9f15726ee20e26f2a50ebbaed730",
+            "query": {
+              "H_ref": 4,
+              "capacity_kwh": "60",
+              "case_id": "OD01_energy_and_scheduled_soc19_25",
+              "charging_segments": [
+                [
+                  "0",
+                  "30",
+                  "36",
+                  "0"
+                ],
+                [
+                  "30",
+                  "48",
+                  "60",
+                  "-720"
+                ],
+                [
+                  "48",
+                  "60",
+                  "120",
+                  "-3600"
+                ]
+              ],
+              "consumption_kwh_per_m": "1/6250",
+              "destination": "road:1816667",
+              "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+              "initial_energy_kwh": "228/5",
+              "lambda_stop_s": "600",
+              "minimum_energy_kwh": "0",
+              "origin": "road:335560",
+              "overhead_s": "300",
+              "reserve_kwh": "6",
+              "schedule": {
+                "D": "2700",
+                "a": "5231371864285291/687194767360",
+                "b": "36619603049997037/2748779069440"
+              },
+              "sparse_domain_sha256": "766d9e9380cf7a07f2dc3fdcb0d340a18cc222990f1ba525031fae6fc22376f1",
+              "start_time_s": "0"
+            },
+            "query_sha256": "c2623f2f5afc5026964f52363ded50f4b944b6ed454a8e10ee8c1f4126a51a42",
+            "site_catalog_sha256": "94b6dececfe07469c1ccf36cc0d9921fd82f32228ee89e70c43577f6b2a4c045",
+            "sparse_domain_sha256": "766d9e9380cf7a07f2dc3fdcb0d340a18cc222990f1ba525031fae6fc22376f1",
+            "candidate_site_ids_sha256": "fccc9075e5a52d83e99c8f66817037c186b35d42bf3591f33e2d01855a7bd873"
+          },
+          "query_locator": "recovery_inputs/queries.json:queries[query_id=OD01_energy_and_scheduled_soc19_25].bindings[\"32\"]",
+          "pool_locator": "recovery_inputs/pools.json:pools[od_id=OD01].sites[:32]",
+          "new_outcome_observed_by_this_planning_pass": false,
+          "feasibility_or_exact_completion_assumed": false,
+          "original_pool_prefix_sha256": "2c8ba80de784e7e0360d09ddb82590d9e88f498a065e4abdbb739927de8c3360",
+          "runtime_input_locator": {
+            "pool_file": "pools.json",
+            "pool_od_id": "OD01",
+            "query_file": "queries.json",
+            "query_id": "OD01_energy_and_scheduled_soc19_25",
+            "binding_key": "32"
+          },
+          "historical_main_summary": {
+            "row_count": 2,
+            "status_counts": {
+              "time_limit": 2
+            },
+            "rows_sha256": "3abc0258e853a6c23fb20011f75151821487f90c4ce173a49f689ba475dd35b5",
+            "source": "results/milestone_5d (external historical evidence; not distributed with source)"
+          }
+        },
+        {
+          "candidate_count": 128,
+          "case_id": "OD01_energy_and_scheduled_soc19_25_n128",
+          "domain_role": "new_incremental_coverage",
+          "historical_hmax": null,
+          "historical_hmax_null_means": "not authenticated by this planning pass; do not use original H_ref=4 as search depth",
+          "method_order": [
+            "flat",
+            "hier"
+          ],
+          "original_binding": {
+            "anchor_catalog_sha256": "2e87ec65ff86c42bcf57c6cfa09bd189630f359b491b1e32f7d41216afed6785",
+            "candidate_sha256": "ace3d71d6ada5e28b74a0b303cd6b1e014d7e815cbfcf13ac8861f119f009688",
+            "query": {
+              "H_ref": 4,
+              "capacity_kwh": "60",
+              "case_id": "OD01_energy_and_scheduled_soc19_25",
+              "charging_segments": [
+                [
+                  "0",
+                  "30",
+                  "36",
+                  "0"
+                ],
+                [
+                  "30",
+                  "48",
+                  "60",
+                  "-720"
+                ],
+                [
+                  "48",
+                  "60",
+                  "120",
+                  "-3600"
+                ]
+              ],
+              "consumption_kwh_per_m": "1/6250",
+              "destination": "road:1816667",
+              "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+              "initial_energy_kwh": "228/5",
+              "lambda_stop_s": "600",
+              "minimum_energy_kwh": "0",
+              "origin": "road:335560",
+              "overhead_s": "300",
+              "reserve_kwh": "6",
+              "schedule": {
+                "D": "2700",
+                "a": "5231371864285291/687194767360",
+                "b": "36619603049997037/2748779069440"
+              },
+              "sparse_domain_sha256": "00472d26a58ae03b57d5eae22f9800ab4e89fe94229d46466fbe21d05e7522e8",
+              "start_time_s": "0"
+            },
+            "query_sha256": "b139751ae9778e9ca1eb36608fd1cea0d517564a03f0c48b28deecfd1a638279",
+            "site_catalog_sha256": "510c5abeb9ea52be4ae78710220f2a51339640cd4a398c7cd93ef38e90731ecd",
+            "sparse_domain_sha256": "00472d26a58ae03b57d5eae22f9800ab4e89fe94229d46466fbe21d05e7522e8",
+            "candidate_site_ids_sha256": "ef5e8425f897f26fbd195b2e75edbfd028434eb21424587e0c4e8e754c94f3a7"
+          },
+          "query_locator": "recovery_inputs/queries.json:queries[query_id=OD01_energy_and_scheduled_soc19_25].bindings[\"128\"]",
+          "pool_locator": "recovery_inputs/pools.json:pools[od_id=OD01].sites[:128]",
+          "new_outcome_observed_by_this_planning_pass": false,
+          "feasibility_or_exact_completion_assumed": false,
+          "original_pool_prefix_sha256": "848f2a58581066e81bd4c5deab431a5c243a1681be9c4dbc75e2e0dbb029cfe4",
+          "runtime_input_locator": {
+            "pool_file": "pools.json",
+            "pool_od_id": "OD01",
+            "query_file": "queries.json",
+            "query_id": "OD01_energy_and_scheduled_soc19_25",
+            "binding_key": "128"
+          },
+          "historical_main_summary": {
+            "row_count": 2,
+            "status_counts": {
+              "time_limit": 2
+            },
+            "rows_sha256": "2e53963e5e59b6afba94e4b67f2d9d987eb048ee6401efdd001d45618b5db70f",
+            "source": "results/milestone_5d (external historical evidence; not distributed with source)"
+          }
+        }
+      ]
+    },
+    {
+      "selection_rank": 1,
+      "query_id": "OD03_energy_and_scheduled_soc19_25",
+      "od_id": "OD03",
+      "original_slate_index": 15,
+      "activity": "energy_and_scheduled",
+      "soc": "19/25",
+      "base_query_sha256": "026daa14841a5cf66f532c603295692417c18bdbb01807cdb5095c696bbd869b",
+      "stratum": "high_SOC_scheduled_new_OD",
+      "selection_reason": "one of the first six original OD IDs not reserved as repeatedly used control ODs or failure-sentinel ODs",
+      "original_pool_metadata": {
+        "destination_anchor": 1816667,
+        "eligible_capable_site_count": 16652,
+        "first32_charge_count": 16,
+        "first32_meal_count": 28,
+        "od_id": "OD03",
+        "origin_anchor": 5243181,
+        "prefix_sizes": [
+          8,
+          16,
+          32,
+          128
+        ],
+        "radius_m": 25000
+      },
+      "original_pool_size": 128,
+      "domains": [
+        {
+          "candidate_count": 32,
+          "case_id": "OD03_energy_and_scheduled_soc19_25_n32",
+          "domain_role": "new_incremental_coverage",
+          "historical_hmax": null,
+          "historical_hmax_null_means": "not authenticated by this planning pass; do not use original H_ref=4 as search depth",
+          "method_order": [
+            "flat",
+            "hier"
+          ],
+          "original_binding": {
+            "anchor_catalog_sha256": "7ba01df03a4915619cd3771f60c1baf3327a4566d2d31f023ac83f11dc363939",
+            "candidate_sha256": "b41546c084e9acfff3d183061779626a4dcc9c5746a35f25a21989f0ec79898c",
+            "query": {
+              "H_ref": 4,
+              "capacity_kwh": "60",
+              "case_id": "OD03_energy_and_scheduled_soc19_25",
+              "charging_segments": [
+                [
+                  "0",
+                  "30",
+                  "36",
+                  "0"
+                ],
+                [
+                  "30",
+                  "48",
+                  "60",
+                  "-720"
+                ],
+                [
+                  "48",
+                  "60",
+                  "120",
+                  "-3600"
+                ]
+              ],
+              "consumption_kwh_per_m": "1/6250",
+              "destination": "road:1816667",
+              "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+              "initial_energy_kwh": "228/5",
+              "lambda_stop_s": "600",
+              "minimum_energy_kwh": "0",
+              "origin": "road:5243181",
+              "overhead_s": "300",
+              "reserve_kwh": "6",
+              "schedule": {
+                "D": "2700",
+                "a": "2587116431138619/343597383680",
+                "b": "18109815017970333/1374389534720"
+              },
+              "sparse_domain_sha256": "2bd56fa328af96d3f0f33e1ebfe240ae464abcf6398b7682769556c0c18ac114",
+              "start_time_s": "0"
+            },
+            "query_sha256": "bc0a188ba1300848c15aaf726e2f8a25f64964ef4edd110063fd07f7d9f3cebb",
+            "site_catalog_sha256": "d64e9560d4e3d2e05fe1297b8cd47edfa9da98ac64f11cb864c3f8c36b291d91",
+            "sparse_domain_sha256": "2bd56fa328af96d3f0f33e1ebfe240ae464abcf6398b7682769556c0c18ac114",
+            "candidate_site_ids_sha256": "68da64966a3b852a3163bcc5ab6a8e58fc45a831b05c0fa489821ab73d963f4f"
+          },
+          "query_locator": "recovery_inputs/queries.json:queries[query_id=OD03_energy_and_scheduled_soc19_25].bindings[\"32\"]",
+          "pool_locator": "recovery_inputs/pools.json:pools[od_id=OD03].sites[:32]",
+          "new_outcome_observed_by_this_planning_pass": false,
+          "feasibility_or_exact_completion_assumed": false,
+          "original_pool_prefix_sha256": "2c3a0381d216c56297d948d6e40ceb263da5cf4ef4a84e4a5bde484bc7ba213b",
+          "runtime_input_locator": {
+            "pool_file": "pools.json",
+            "pool_od_id": "OD03",
+            "query_file": "queries.json",
+            "query_id": "OD03_energy_and_scheduled_soc19_25",
+            "binding_key": "32"
+          },
+          "historical_main_summary": {
+            "row_count": 2,
+            "status_counts": {
+              "time_limit": 2
+            },
+            "rows_sha256": "9c0f14e140a8b051c348c8283deeb82e6772016fa809577c16fcacbb81e6872e",
+            "source": "results/milestone_5d (external historical evidence; not distributed with source)"
+          }
+        },
+        {
+          "candidate_count": 128,
+          "case_id": "OD03_energy_and_scheduled_soc19_25_n128",
+          "domain_role": "new_incremental_coverage",
+          "historical_hmax": null,
+          "historical_hmax_null_means": "not authenticated by this planning pass; do not use original H_ref=4 as search depth",
+          "method_order": [
+            "flat",
+            "hier"
+          ],
+          "original_binding": {
+            "anchor_catalog_sha256": "0fb24667df4e0e5ce57b8155a71f70ef248b7baa523349863c721df3f69e1a1b",
+            "candidate_sha256": "b25b34c739297d5b1081f96b70cbcd02688223c59334fa4cef60a0a61c76d0a2",
+            "query": {
+              "H_ref": 4,
+              "capacity_kwh": "60",
+              "case_id": "OD03_energy_and_scheduled_soc19_25",
+              "charging_segments": [
+                [
+                  "0",
+                  "30",
+                  "36",
+                  "0"
+                ],
+                [
+                  "30",
+                  "48",
+                  "60",
+                  "-720"
+                ],
+                [
+                  "48",
+                  "60",
+                  "120",
+                  "-3600"
+                ]
+              ],
+              "consumption_kwh_per_m": "1/6250",
+              "destination": "road:1816667",
+              "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+              "initial_energy_kwh": "228/5",
+              "lambda_stop_s": "600",
+              "minimum_energy_kwh": "0",
+              "origin": "road:5243181",
+              "overhead_s": "300",
+              "reserve_kwh": "6",
+              "schedule": {
+                "D": "2700",
+                "a": "2587116431138619/343597383680",
+                "b": "18109815017970333/1374389534720"
+              },
+              "sparse_domain_sha256": "010ecca9132828f89fd951a5b0f280ee94affe1c117c247df6f07297a2ec3fe3",
+              "start_time_s": "0"
+            },
+            "query_sha256": "a1e81827578edd53e6dc2238e2a1456259e950fd1ff4c1c53b31f6a35c8dd9d3",
+            "site_catalog_sha256": "df5975ec3c771cb926bd985c8f07418781e1808bc74b9216723615a7d1c7fb2f",
+            "sparse_domain_sha256": "010ecca9132828f89fd951a5b0f280ee94affe1c117c247df6f07297a2ec3fe3",
+            "candidate_site_ids_sha256": "fc9c976a6f0c0b69bcc91370052fcbeb8b95b1190d17ee00f6193842d6734636"
+          },
+          "query_locator": "recovery_inputs/queries.json:queries[query_id=OD03_energy_and_scheduled_soc19_25].bindings[\"128\"]",
+          "pool_locator": "recovery_inputs/pools.json:pools[od_id=OD03].sites[:128]",
+          "new_outcome_observed_by_this_planning_pass": false,
+          "feasibility_or_exact_completion_assumed": false,
+          "original_pool_prefix_sha256": "7d2a4244b5f195ae367a281ca08a90f8ede3af98332672e6860b667900c9248c",
+          "runtime_input_locator": {
+            "pool_file": "pools.json",
+            "pool_od_id": "OD03",
+            "query_file": "queries.json",
+            "query_id": "OD03_energy_and_scheduled_soc19_25",
+            "binding_key": "128"
+          },
+          "historical_main_summary": {
+            "row_count": 2,
+            "status_counts": {
+              "time_limit": 2
+            },
+            "rows_sha256": "928ab42cf6562d8ac1ce35e763a5c205f986bf4fccf06938060f1da6728571f0",
+            "source": "results/milestone_5d (external historical evidence; not distributed with source)"
+          }
+        }
+      ]
+    },
+    {
+      "selection_rank": 2,
+      "query_id": "OD04_energy_and_scheduled_soc19_25",
+      "od_id": "OD04",
+      "original_slate_index": 19,
+      "activity": "energy_and_scheduled",
+      "soc": "19/25",
+      "base_query_sha256": "766286a21751ff313a84efd954bac8686a97197f1b158df123628dfed76e20d1",
+      "stratum": "high_SOC_scheduled_new_OD",
+      "selection_reason": "one of the first six original OD IDs not reserved as repeatedly used control ODs or failure-sentinel ODs",
+      "original_pool_metadata": {
+        "destination_anchor": 1816667,
+        "eligible_capable_site_count": 15409,
+        "first32_charge_count": 17,
+        "first32_meal_count": 31,
+        "od_id": "OD04",
+        "origin_anchor": 4812719,
+        "prefix_sizes": [
+          8,
+          16,
+          32,
+          128
+        ],
+        "radius_m": 25000
+      },
+      "original_pool_size": 128,
+      "domains": [
+        {
+          "candidate_count": 32,
+          "case_id": "OD04_energy_and_scheduled_soc19_25_n32",
+          "domain_role": "new_incremental_coverage",
+          "historical_hmax": null,
+          "historical_hmax_null_means": "not authenticated by this planning pass; do not use original H_ref=4 as search depth",
+          "method_order": [
+            "flat",
+            "hier"
+          ],
+          "original_binding": {
+            "anchor_catalog_sha256": "52206db809c126f27dea6a57f6934e7df54f5ac4e2b1cf835e59bc0867581980",
+            "candidate_sha256": "7b0bdfb7c45a3bb8ee3d58a5796dfda5ca5db9961f6d03db7cf7d1d3ef914337",
+            "query": {
+              "H_ref": 4,
+              "capacity_kwh": "60",
+              "case_id": "OD04_energy_and_scheduled_soc19_25",
+              "charging_segments": [
+                [
+                  "0",
+                  "30",
+                  "36",
+                  "0"
+                ],
+                [
+                  "30",
+                  "48",
+                  "60",
+                  "-720"
+                ],
+                [
+                  "48",
+                  "60",
+                  "120",
+                  "-3600"
+                ]
+              ],
+              "consumption_kwh_per_m": "1/6250",
+              "destination": "road:1816667",
+              "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+              "initial_energy_kwh": "228/5",
+              "lambda_stop_s": "600",
+              "minimum_energy_kwh": "0",
+              "origin": "road:4812719",
+              "overhead_s": "300",
+              "reserve_kwh": "6",
+              "schedule": {
+                "D": "2700",
+                "a": "2661979707401557/343597383680",
+                "b": "18633857951810899/1374389534720"
+              },
+              "sparse_domain_sha256": "60908c929b1d55956747ff59cb08766312c7d136cb29ede923f813c7503dbed7",
+              "start_time_s": "0"
+            },
+            "query_sha256": "3f2a26e1be8d0c7e82e5f11591962af5c93a389761958f934b6be820d036567f",
+            "site_catalog_sha256": "0708c3e4091eb5ed6041e6e9a3b9d5b4c0646894bc2ed53e85b653f40f33688f",
+            "sparse_domain_sha256": "60908c929b1d55956747ff59cb08766312c7d136cb29ede923f813c7503dbed7",
+            "candidate_site_ids_sha256": "472d5c6e99ebfe6bf4043dba3cc502e15398bc6800dada0a9b87e93779c81f89"
+          },
+          "query_locator": "recovery_inputs/queries.json:queries[query_id=OD04_energy_and_scheduled_soc19_25].bindings[\"32\"]",
+          "pool_locator": "recovery_inputs/pools.json:pools[od_id=OD04].sites[:32]",
+          "new_outcome_observed_by_this_planning_pass": false,
+          "feasibility_or_exact_completion_assumed": false,
+          "original_pool_prefix_sha256": "57655a11f38385aee5ed59e2eb5c00168b952442a309b4a0400f2819dac7b78d",
+          "runtime_input_locator": {
+            "pool_file": "pools.json",
+            "pool_od_id": "OD04",
+            "query_file": "queries.json",
+            "query_id": "OD04_energy_and_scheduled_soc19_25",
+            "binding_key": "32"
+          },
+          "historical_main_summary": {
+            "row_count": 2,
+            "status_counts": {
+              "time_limit": 2
+            },
+            "rows_sha256": "1ed1634f30d2c0e7c5e4e60e51da7222566d7c80793e83f96a65c0a3cd03c55a",
+            "source": "results/milestone_5d (external historical evidence; not distributed with source)"
+          }
+        },
+        {
+          "candidate_count": 128,
+          "case_id": "OD04_energy_and_scheduled_soc19_25_n128",
+          "domain_role": "new_incremental_coverage",
+          "historical_hmax": null,
+          "historical_hmax_null_means": "not authenticated by this planning pass; do not use original H_ref=4 as search depth",
+          "method_order": [
+            "flat",
+            "hier"
+          ],
+          "original_binding": {
+            "anchor_catalog_sha256": "27f92b7637e959844b784c7a79d8aab53eab2feec399355cd6779357dbbc2b16",
+            "candidate_sha256": "502f5fb5b9346fb0c5bb35f289612f9d6f725a98fbd4925948a1b50fbd47c651",
+            "query": {
+              "H_ref": 4,
+              "capacity_kwh": "60",
+              "case_id": "OD04_energy_and_scheduled_soc19_25",
+              "charging_segments": [
+                [
+                  "0",
+                  "30",
+                  "36",
+                  "0"
+                ],
+                [
+                  "30",
+                  "48",
+                  "60",
+                  "-720"
+                ],
+                [
+                  "48",
+                  "60",
+                  "120",
+                  "-3600"
+                ]
+              ],
+              "consumption_kwh_per_m": "1/6250",
+              "destination": "road:1816667",
+              "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+              "initial_energy_kwh": "228/5",
+              "lambda_stop_s": "600",
+              "minimum_energy_kwh": "0",
+              "origin": "road:4812719",
+              "overhead_s": "300",
+              "reserve_kwh": "6",
+              "schedule": {
+                "D": "2700",
+                "a": "2661979707401557/343597383680",
+                "b": "18633857951810899/1374389534720"
+              },
+              "sparse_domain_sha256": "3dc177b715de20ab1d4202c18ad43ce416266e70fdd18b7eb9d4ef183d79724e",
+              "start_time_s": "0"
+            },
+            "query_sha256": "824bca6dbab5c9727f4773b3e3debe89a4f474dd6519282aba8b45ee8357932a",
+            "site_catalog_sha256": "f221ccba982deaef5af898c353b7e8fb0e8648ed414a49b6a6f386ebb18adbb0",
+            "sparse_domain_sha256": "3dc177b715de20ab1d4202c18ad43ce416266e70fdd18b7eb9d4ef183d79724e",
+            "candidate_site_ids_sha256": "52ae0a32f4362f8a0d66ded28812e602c8bf2aad7f1cf2d08e5c74e0f2fd28a8"
+          },
+          "query_locator": "recovery_inputs/queries.json:queries[query_id=OD04_energy_and_scheduled_soc19_25].bindings[\"128\"]",
+          "pool_locator": "recovery_inputs/pools.json:pools[od_id=OD04].sites[:128]",
+          "new_outcome_observed_by_this_planning_pass": false,
+          "feasibility_or_exact_completion_assumed": false,
+          "original_pool_prefix_sha256": "2cfdafc45f2064224d368e55004d34f5b9605c2fc3eb484ac872f01a680e63ad",
+          "runtime_input_locator": {
+            "pool_file": "pools.json",
+            "pool_od_id": "OD04",
+            "query_file": "queries.json",
+            "query_id": "OD04_energy_and_scheduled_soc19_25",
+            "binding_key": "128"
+          },
+          "historical_main_summary": {
+            "row_count": 2,
+            "status_counts": {
+              "time_limit": 2
+            },
+            "rows_sha256": "e9de273d2898ab0fd30fb79a75abcc9dec197f04e019d0e8b1261466b794fcb4",
+            "source": "results/milestone_5d (external historical evidence; not distributed with source)"
+          }
+        }
+      ]
+    },
+    {
+      "selection_rank": 3,
+      "query_id": "OD05_energy_and_scheduled_soc19_25",
+      "od_id": "OD05",
+      "original_slate_index": 23,
+      "activity": "energy_and_scheduled",
+      "soc": "19/25",
+      "base_query_sha256": "8585126d235a7911d2192ecce293ade20708822137a732ab9b2bf8db9ce0c903",
+      "stratum": "high_SOC_scheduled_new_OD",
+      "selection_reason": "one of the first six original OD IDs not reserved as repeatedly used control ODs or failure-sentinel ODs",
+      "original_pool_metadata": {
+        "destination_anchor": 1816667,
+        "eligible_capable_site_count": 11083,
+        "first32_charge_count": 17,
+        "first32_meal_count": 30,
+        "od_id": "OD05",
+        "origin_anchor": 3977380,
+        "prefix_sizes": [
+          8,
+          16,
+          32,
+          128
+        ],
+        "radius_m": 25000
+      },
+      "original_pool_size": 128,
+      "domains": [
+        {
+          "candidate_count": 32,
+          "case_id": "OD05_energy_and_scheduled_soc19_25_n32",
+          "domain_role": "new_incremental_coverage",
+          "historical_hmax": null,
+          "historical_hmax_null_means": "not authenticated by this planning pass; do not use original H_ref=4 as search depth",
+          "method_order": [
+            "flat",
+            "hier"
+          ],
+          "original_binding": {
+            "anchor_catalog_sha256": "2b7ce5e4f1f66fb7db1f615d9de02b942ce506200b0f917f25084b2ebe9f3300",
+            "candidate_sha256": "bcb07542b230c6713a43b7daab5139e8977cbfd5c16e3845f6e6d197e0756163",
+            "query": {
+              "H_ref": 4,
+              "capacity_kwh": "60",
+              "case_id": "OD05_energy_and_scheduled_soc19_25",
+              "charging_segments": [
+                [
+                  "0",
+                  "30",
+                  "36",
+                  "0"
+                ],
+                [
+                  "30",
+                  "48",
+                  "60",
+                  "-720"
+                ],
+                [
+                  "48",
+                  "60",
+                  "120",
+                  "-3600"
+                ]
+              ],
+              "consumption_kwh_per_m": "1/6250",
+              "destination": "road:1816667",
+              "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+              "initial_energy_kwh": "228/5",
+              "lambda_stop_s": "600",
+              "minimum_energy_kwh": "0",
+              "origin": "road:3977380",
+              "overhead_s": "300",
+              "reserve_kwh": "6",
+              "schedule": {
+                "D": "2700",
+                "a": "544308611278677/68719476736",
+                "b": "3810160278950739/274877906944"
+              },
+              "sparse_domain_sha256": "a812a8fc0d74eaccb93587a4df3505573257ca0823c6e4e27d7716b0923fa766",
+              "start_time_s": "0"
+            },
+            "query_sha256": "32e1ede1832e422cc6cf48c4a1ec38786dc932739096997e11145d84ed9ce9fc",
+            "site_catalog_sha256": "402cf6fd34df57bef2d158836beb14c7e4873df8386005468df89fda188fe631",
+            "sparse_domain_sha256": "a812a8fc0d74eaccb93587a4df3505573257ca0823c6e4e27d7716b0923fa766",
+            "candidate_site_ids_sha256": "e0b1cac8d76302465e7bbbe90caaf77d8c2893c8fa42dc2f10103041eba91e6a"
+          },
+          "query_locator": "recovery_inputs/queries.json:queries[query_id=OD05_energy_and_scheduled_soc19_25].bindings[\"32\"]",
+          "pool_locator": "recovery_inputs/pools.json:pools[od_id=OD05].sites[:32]",
+          "new_outcome_observed_by_this_planning_pass": false,
+          "feasibility_or_exact_completion_assumed": false,
+          "original_pool_prefix_sha256": "45137e7873a98069a92aba681cdacb9f73223499d0cc8035cec6c6844f6742ec",
+          "runtime_input_locator": {
+            "pool_file": "pools.json",
+            "pool_od_id": "OD05",
+            "query_file": "queries.json",
+            "query_id": "OD05_energy_and_scheduled_soc19_25",
+            "binding_key": "32"
+          },
+          "historical_main_summary": {
+            "row_count": 2,
+            "status_counts": {
+              "time_limit": 2
+            },
+            "rows_sha256": "1ae0f6a263dcfb4e5afbe32610f5eb364348ab8d6f6075262cfd725808f19b68",
+            "source": "results/milestone_5d (external historical evidence; not distributed with source)"
+          }
+        },
+        {
+          "candidate_count": 128,
+          "case_id": "OD05_energy_and_scheduled_soc19_25_n128",
+          "domain_role": "new_incremental_coverage",
+          "historical_hmax": null,
+          "historical_hmax_null_means": "not authenticated by this planning pass; do not use original H_ref=4 as search depth",
+          "method_order": [
+            "flat",
+            "hier"
+          ],
+          "original_binding": {
+            "anchor_catalog_sha256": "84db130b68db941aa9a196e695d0eb3083da9e804958abe18280be89ed1d4681",
+            "candidate_sha256": "e940fc6c08ecb19d609f4925e0b20a2229241d0a43298fff9d3cc0ee336f09de",
+            "query": {
+              "H_ref": 4,
+              "capacity_kwh": "60",
+              "case_id": "OD05_energy_and_scheduled_soc19_25",
+              "charging_segments": [
+                [
+                  "0",
+                  "30",
+                  "36",
+                  "0"
+                ],
+                [
+                  "30",
+                  "48",
+                  "60",
+                  "-720"
+                ],
+                [
+                  "48",
+                  "60",
+                  "120",
+                  "-3600"
+                ]
+              ],
+              "consumption_kwh_per_m": "1/6250",
+              "destination": "road:1816667",
+              "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+              "initial_energy_kwh": "228/5",
+              "lambda_stop_s": "600",
+              "minimum_energy_kwh": "0",
+              "origin": "road:3977380",
+              "overhead_s": "300",
+              "reserve_kwh": "6",
+              "schedule": {
+                "D": "2700",
+                "a": "544308611278677/68719476736",
+                "b": "3810160278950739/274877906944"
+              },
+              "sparse_domain_sha256": "4a5397ede3d4ae838de87805d4ea956310a912e4d9321ec0309f96503dbcd2fa",
+              "start_time_s": "0"
+            },
+            "query_sha256": "e733fc078b6ca96b2a709ab73ca39854ae93a45636547ab211a54cbdacbc8a9d",
+            "site_catalog_sha256": "5a4f892c2bcfafe0d2ea25f3e159df8b226febd0b3c93d318a202e60d1241d61",
+            "sparse_domain_sha256": "4a5397ede3d4ae838de87805d4ea956310a912e4d9321ec0309f96503dbcd2fa",
+            "candidate_site_ids_sha256": "cc6476e9ad5c55664b75c007fe44c58bfc7dc3d3010b7154e6f26ba0aea9a33e"
+          },
+          "query_locator": "recovery_inputs/queries.json:queries[query_id=OD05_energy_and_scheduled_soc19_25].bindings[\"128\"]",
+          "pool_locator": "recovery_inputs/pools.json:pools[od_id=OD05].sites[:128]",
+          "new_outcome_observed_by_this_planning_pass": false,
+          "feasibility_or_exact_completion_assumed": false,
+          "original_pool_prefix_sha256": "923665b08de68d08f94c2d57a0fbe84dd2ce507baa4728be34293fd847bfbcca",
+          "runtime_input_locator": {
+            "pool_file": "pools.json",
+            "pool_od_id": "OD05",
+            "query_file": "queries.json",
+            "query_id": "OD05_energy_and_scheduled_soc19_25",
+            "binding_key": "128"
+          },
+          "historical_main_summary": {
+            "row_count": 2,
+            "status_counts": {
+              "time_limit": 2
+            },
+            "rows_sha256": "45f5c73b7c2c9e67c78885ed8f3491d9e5fcdb4f2e3bdd05d47c19dda147de2e",
+            "source": "results/milestone_5d (external historical evidence; not distributed with source)"
+          }
+        }
+      ]
+    },
+    {
+      "selection_rank": 4,
+      "query_id": "OD08_energy_and_scheduled_soc19_25",
+      "od_id": "OD08",
+      "original_slate_index": 35,
+      "activity": "energy_and_scheduled",
+      "soc": "19/25",
+      "base_query_sha256": "22e4e6657455c5be007eeb8244f53cb697fecbd0dd28359cc4c96c22149e7c90",
+      "stratum": "high_SOC_scheduled_new_OD",
+      "selection_reason": "one of the first six original OD IDs not reserved as repeatedly used control ODs or failure-sentinel ODs",
+      "original_pool_metadata": {
+        "destination_anchor": 5788209,
+        "eligible_capable_site_count": 7643,
+        "first32_charge_count": 17,
+        "first32_meal_count": 30,
+        "od_id": "OD08",
+        "origin_anchor": 952172,
+        "prefix_sizes": [
+          8,
+          16,
+          32,
+          128
+        ],
+        "radius_m": 25000
+      },
+      "original_pool_size": 128,
+      "domains": [
+        {
+          "candidate_count": 32,
+          "case_id": "OD08_energy_and_scheduled_soc19_25_n32",
+          "domain_role": "new_incremental_coverage",
+          "historical_hmax": null,
+          "historical_hmax_null_means": "not authenticated by this planning pass; do not use original H_ref=4 as search depth",
+          "method_order": [
+            "flat",
+            "hier"
+          ],
+          "original_binding": {
+            "anchor_catalog_sha256": "d0325fe83c38d88793e5f95b72ad465a82e2a7b04ecf10b6e1f5a3adbe063a3c",
+            "candidate_sha256": "c65cf3747855161b2e9460d36bb4e2cba75f060d3901098f3be78a0018437f90",
+            "query": {
+              "H_ref": 4,
+              "capacity_kwh": "60",
+              "case_id": "OD08_energy_and_scheduled_soc19_25",
+              "charging_segments": [
+                [
+                  "0",
+                  "30",
+                  "36",
+                  "0"
+                ],
+                [
+                  "30",
+                  "48",
+                  "60",
+                  "-720"
+                ],
+                [
+                  "48",
+                  "60",
+                  "120",
+                  "-3600"
+                ]
+              ],
+              "consumption_kwh_per_m": "1/6250",
+              "destination": "road:5788209",
+              "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+              "initial_energy_kwh": "228/5",
+              "lambda_stop_s": "600",
+              "minimum_energy_kwh": "0",
+              "origin": "road:952172",
+              "overhead_s": "300",
+              "reserve_kwh": "6",
+              "schedule": {
+                "D": "2700",
+                "a": "2854582928010579/343597383680",
+                "b": "19982080496074053/1374389534720"
+              },
+              "sparse_domain_sha256": "1a2c42aaf3f7737004edd6a6e1aa7991f2c4f46d78bdda518199b5b8876cb00b",
+              "start_time_s": "0"
+            },
+            "query_sha256": "3565993f0e471f763281812bb0b9df1a8ddf245cda1211904caafafd36ef9783",
+            "site_catalog_sha256": "d16ebe99cf2a0b59270b4ad7f16f2bfee9b7a92e21264a17c88f4a0a734486ed",
+            "sparse_domain_sha256": "1a2c42aaf3f7737004edd6a6e1aa7991f2c4f46d78bdda518199b5b8876cb00b",
+            "candidate_site_ids_sha256": "2198d54c3fd6f749fb6c8c385a6c22f3ba1348f8dadc5bed2685c767c58f55e1"
+          },
+          "query_locator": "recovery_inputs/queries.json:queries[query_id=OD08_energy_and_scheduled_soc19_25].bindings[\"32\"]",
+          "pool_locator": "recovery_inputs/pools.json:pools[od_id=OD08].sites[:32]",
+          "new_outcome_observed_by_this_planning_pass": false,
+          "feasibility_or_exact_completion_assumed": false,
+          "original_pool_prefix_sha256": "7c075436b1650270bafd79e3a98aaf8f95a3fe8257fbbdeb1595951a7716ce03",
+          "runtime_input_locator": {
+            "pool_file": "pools.json",
+            "pool_od_id": "OD08",
+            "query_file": "queries.json",
+            "query_id": "OD08_energy_and_scheduled_soc19_25",
+            "binding_key": "32"
+          },
+          "historical_main_summary": {
+            "row_count": 2,
+            "status_counts": {
+              "time_limit": 2
+            },
+            "rows_sha256": "99e3ada3961a1423629172098f7c316d4e36420d45f80beb29e2e52326363d1e",
+            "source": "results/milestone_5d (external historical evidence; not distributed with source)"
+          }
+        },
+        {
+          "candidate_count": 128,
+          "case_id": "OD08_energy_and_scheduled_soc19_25_n128",
+          "domain_role": "new_incremental_coverage",
+          "historical_hmax": null,
+          "historical_hmax_null_means": "not authenticated by this planning pass; do not use original H_ref=4 as search depth",
+          "method_order": [
+            "flat",
+            "hier"
+          ],
+          "original_binding": {
+            "anchor_catalog_sha256": "d7fdcf094cf936107d13069eda729b4b7a79606eeb37edb1178c0b97aedb8955",
+            "candidate_sha256": "fc106aa825156a14b7e303ad0a1ef218f63968f35fc7ff4b19ab090037e3799f",
+            "query": {
+              "H_ref": 4,
+              "capacity_kwh": "60",
+              "case_id": "OD08_energy_and_scheduled_soc19_25",
+              "charging_segments": [
+                [
+                  "0",
+                  "30",
+                  "36",
+                  "0"
+                ],
+                [
+                  "30",
+                  "48",
+                  "60",
+                  "-720"
+                ],
+                [
+                  "48",
+                  "60",
+                  "120",
+                  "-3600"
+                ]
+              ],
+              "consumption_kwh_per_m": "1/6250",
+              "destination": "road:5788209",
+              "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+              "initial_energy_kwh": "228/5",
+              "lambda_stop_s": "600",
+              "minimum_energy_kwh": "0",
+              "origin": "road:952172",
+              "overhead_s": "300",
+              "reserve_kwh": "6",
+              "schedule": {
+                "D": "2700",
+                "a": "2854582928010579/343597383680",
+                "b": "19982080496074053/1374389534720"
+              },
+              "sparse_domain_sha256": "1deda1d16644aea5826c274a2474715600da83f389614090233d9697854729c8",
+              "start_time_s": "0"
+            },
+            "query_sha256": "ff1e50fcdc92de4eadc6be1d71e7ef555cf018963c46d36c2a522ed94c54b992",
+            "site_catalog_sha256": "b6cabf8e70e4c838a210ecde332664b538e49b160804c96d0b124d086a07bd91",
+            "sparse_domain_sha256": "1deda1d16644aea5826c274a2474715600da83f389614090233d9697854729c8",
+            "candidate_site_ids_sha256": "709bae83fedcb8db7da8594e802ebf57b4ee883f7dacb04fa8575fbaa0053aa4"
+          },
+          "query_locator": "recovery_inputs/queries.json:queries[query_id=OD08_energy_and_scheduled_soc19_25].bindings[\"128\"]",
+          "pool_locator": "recovery_inputs/pools.json:pools[od_id=OD08].sites[:128]",
+          "new_outcome_observed_by_this_planning_pass": false,
+          "feasibility_or_exact_completion_assumed": false,
+          "original_pool_prefix_sha256": "336f87a5226712fb2c5b304bad269f6d9febf9b99db787b7c5f190d7f3c6d1a4",
+          "runtime_input_locator": {
+            "pool_file": "pools.json",
+            "pool_od_id": "OD08",
+            "query_file": "queries.json",
+            "query_id": "OD08_energy_and_scheduled_soc19_25",
+            "binding_key": "128"
+          },
+          "historical_main_summary": {
+            "row_count": 2,
+            "status_counts": {
+              "time_limit": 2
+            },
+            "rows_sha256": "079676f269329a108fdc6aa9b7d3176857d36360e8ff8d73970ae066e12860a3",
+            "source": "results/milestone_5d (external historical evidence; not distributed with source)"
+          }
+        }
+      ]
+    },
+    {
+      "selection_rank": 5,
+      "query_id": "OD09_energy_and_scheduled_soc19_25",
+      "od_id": "OD09",
+      "original_slate_index": 39,
+      "activity": "energy_and_scheduled",
+      "soc": "19/25",
+      "base_query_sha256": "3d21dc27c9ce3f44b66c1feedde84678bb4e1cea7c40aa676eda149b4427c32d",
+      "stratum": "high_SOC_scheduled_new_OD",
+      "selection_reason": "one of the first six original OD IDs not reserved as repeatedly used control ODs or failure-sentinel ODs",
+      "original_pool_metadata": {
+        "destination_anchor": 3190137,
+        "eligible_capable_site_count": 15420,
+        "first32_charge_count": 16,
+        "first32_meal_count": 32,
+        "od_id": "OD09",
+        "origin_anchor": 1269879,
+        "prefix_sizes": [
+          8,
+          16,
+          32,
+          128
+        ],
+        "radius_m": 25000
+      },
+      "original_pool_size": 128,
+      "domains": [
+        {
+          "candidate_count": 32,
+          "case_id": "OD09_energy_and_scheduled_soc19_25_n32",
+          "domain_role": "new_incremental_coverage",
+          "historical_hmax": null,
+          "historical_hmax_null_means": "not authenticated by this planning pass; do not use original H_ref=4 as search depth",
+          "method_order": [
+            "flat",
+            "hier"
+          ],
+          "original_binding": {
+            "anchor_catalog_sha256": "f488ff9940ac5f9783dd2eea228796138c6f3f9187118d9b69a7b96e53bd8ec7",
+            "candidate_sha256": "5a3e7e67d3d67866faad5c74cb1ed06ed2e9a1dd4641480ac6f8b26f587c0cae",
+            "query": {
+              "H_ref": 4,
+              "capacity_kwh": "60",
+              "case_id": "OD09_energy_and_scheduled_soc19_25",
+              "charging_segments": [
+                [
+                  "0",
+                  "30",
+                  "36",
+                  "0"
+                ],
+                [
+                  "30",
+                  "48",
+                  "60",
+                  "-720"
+                ],
+                [
+                  "48",
+                  "60",
+                  "120",
+                  "-3600"
+                ]
+              ],
+              "consumption_kwh_per_m": "1/6250",
+              "destination": "road:3190137",
+              "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+              "initial_energy_kwh": "228/5",
+              "lambda_stop_s": "600",
+              "minimum_energy_kwh": "0",
+              "origin": "road:1269879",
+              "overhead_s": "300",
+              "reserve_kwh": "6",
+              "schedule": {
+                "D": "2700",
+                "a": "1117631566921577/137438953472",
+                "b": "7823420968451039/549755813888"
+              },
+              "sparse_domain_sha256": "d7416af8de6f80e43a0fcaafea8b5af995daaf6d35d6cf304c5b97d57e1e5a18",
+              "start_time_s": "0"
+            },
+            "query_sha256": "ae04a8af3bc4db54f3e9421ba92867aa07d67f64156928a1c6c0acba8a8bb42e",
+            "site_catalog_sha256": "a9d130891c04d1d36f9a72324ebe025a2b8a2cd086cd7bc3d432e4ede6815446",
+            "sparse_domain_sha256": "d7416af8de6f80e43a0fcaafea8b5af995daaf6d35d6cf304c5b97d57e1e5a18",
+            "candidate_site_ids_sha256": "384405402f0ce7e6d130c9ddbd1934d1c7bd76ff5dbfb2f0219998e1d8d09abd"
+          },
+          "query_locator": "recovery_inputs/queries.json:queries[query_id=OD09_energy_and_scheduled_soc19_25].bindings[\"32\"]",
+          "pool_locator": "recovery_inputs/pools.json:pools[od_id=OD09].sites[:32]",
+          "new_outcome_observed_by_this_planning_pass": false,
+          "feasibility_or_exact_completion_assumed": false,
+          "original_pool_prefix_sha256": "d10f0ebc9f76d4bfc2ebf89846ed548b728f300784eaa542d2fdbb4a4dfb76a4",
+          "runtime_input_locator": {
+            "pool_file": "pools.json",
+            "pool_od_id": "OD09",
+            "query_file": "queries.json",
+            "query_id": "OD09_energy_and_scheduled_soc19_25",
+            "binding_key": "32"
+          },
+          "historical_main_summary": {
+            "row_count": 2,
+            "status_counts": {
+              "time_limit": 2
+            },
+            "rows_sha256": "aca8d9cdc3dcf7acf83677439c63dede6f8e6a220885cadb10d254fdf30eec16",
+            "source": "results/milestone_5d (external historical evidence; not distributed with source)"
+          }
+        },
+        {
+          "candidate_count": 128,
+          "case_id": "OD09_energy_and_scheduled_soc19_25_n128",
+          "domain_role": "new_incremental_coverage",
+          "historical_hmax": null,
+          "historical_hmax_null_means": "not authenticated by this planning pass; do not use original H_ref=4 as search depth",
+          "method_order": [
+            "flat",
+            "hier"
+          ],
+          "original_binding": {
+            "anchor_catalog_sha256": "e03515a15eec1d6510788786787e5a6c3f26dbb4ae042b4a27a537e32c349d11",
+            "candidate_sha256": "e7e4d3f521dcdf3b4caed2ceb6f8608d4b8696114bcf1b46e11548c0f30c9a4a",
+            "query": {
+              "H_ref": 4,
+              "capacity_kwh": "60",
+              "case_id": "OD09_energy_and_scheduled_soc19_25",
+              "charging_segments": [
+                [
+                  "0",
+                  "30",
+                  "36",
+                  "0"
+                ],
+                [
+                  "30",
+                  "48",
+                  "60",
+                  "-720"
+                ],
+                [
+                  "48",
+                  "60",
+                  "120",
+                  "-3600"
+                ]
+              ],
+              "consumption_kwh_per_m": "1/6250",
+              "destination": "road:3190137",
+              "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+              "initial_energy_kwh": "228/5",
+              "lambda_stop_s": "600",
+              "minimum_energy_kwh": "0",
+              "origin": "road:1269879",
+              "overhead_s": "300",
+              "reserve_kwh": "6",
+              "schedule": {
+                "D": "2700",
+                "a": "1117631566921577/137438953472",
+                "b": "7823420968451039/549755813888"
+              },
+              "sparse_domain_sha256": "d360e1b31ba131fa5d3f2cdb894442d6c4721d8bc6dd7ad5e7bbcc0968915126",
+              "start_time_s": "0"
+            },
+            "query_sha256": "3efc5618a647ad86274c48dc0448b65c5213593652dc49d543c980d55580c3fb",
+            "site_catalog_sha256": "2d7d72453b7e28df43d643b1e76758f37d13e3cdd04b1a829e84c10fdfbff1ea",
+            "sparse_domain_sha256": "d360e1b31ba131fa5d3f2cdb894442d6c4721d8bc6dd7ad5e7bbcc0968915126",
+            "candidate_site_ids_sha256": "0c7a3d841870881e9bad94f4d5adc0cd98eb9e1374ec3400ef5dcbe4fcfecfee"
+          },
+          "query_locator": "recovery_inputs/queries.json:queries[query_id=OD09_energy_and_scheduled_soc19_25].bindings[\"128\"]",
+          "pool_locator": "recovery_inputs/pools.json:pools[od_id=OD09].sites[:128]",
+          "new_outcome_observed_by_this_planning_pass": false,
+          "feasibility_or_exact_completion_assumed": false,
+          "original_pool_prefix_sha256": "b2a77fe519f921494186197942677e81607765f7149d04b3efe1c2094c14a0ce",
+          "runtime_input_locator": {
+            "pool_file": "pools.json",
+            "pool_od_id": "OD09",
+            "query_file": "queries.json",
+            "query_id": "OD09_energy_and_scheduled_soc19_25",
+            "binding_key": "128"
+          },
+          "historical_main_summary": {
+            "row_count": 2,
+            "status_counts": {
+              "time_limit": 2
+            },
+            "rows_sha256": "6e93b919a46e8426e8c0604c3c898b43a0eac8fa59b89c8a3412f0ba6abb76ad",
+            "source": "results/milestone_5d (external historical evidence; not distributed with source)"
+          }
+        }
+      ]
+    },
+    {
+      "selection_rank": 6,
+      "query_id": "OD06_energy_and_scheduled_soc3_10",
+      "od_id": "OD06",
+      "original_slate_index": 25,
+      "activity": "energy_and_scheduled",
+      "soc": "3/10",
+      "base_query_sha256": "bf76ee64604fac70638b53f6e671868b9318e0392135d590393599d309e5aecd",
+      "stratum": "low_SOC_scheduled_seed_failure_sentinel",
+      "selection_reason": "retain the previously exposed original-domain seed failure and its paired N32/N128 coverage",
+      "original_pool_metadata": {
+        "destination_anchor": 5289152,
+        "eligible_capable_site_count": 10645,
+        "first32_charge_count": 16,
+        "first32_meal_count": 32,
+        "od_id": "OD06",
+        "origin_anchor": 2674409,
+        "prefix_sizes": [
+          8,
+          16,
+          32,
+          128
+        ],
+        "radius_m": 25000
+      },
+      "original_pool_size": 128,
+      "domains": [
+        {
+          "candidate_count": 32,
+          "case_id": "OD06_energy_and_scheduled_soc3_10_n32",
+          "domain_role": "new_incremental_coverage",
+          "historical_hmax": null,
+          "historical_hmax_null_means": "not authenticated by this planning pass; do not use original H_ref=4 as search depth",
+          "method_order": [
+            "flat",
+            "hier"
+          ],
+          "original_binding": {
+            "anchor_catalog_sha256": "90ec5c2d262350cdd4a39cea229a5d2bc668a5eb06b7f12bcaea4d28a03e9529",
+            "candidate_sha256": "4198d298f3afac0299999c32b0ea58aaf30e0d4531cf4de605ca68be3b8b4b52",
+            "query": {
+              "H_ref": 4,
+              "capacity_kwh": "60",
+              "case_id": "OD06_energy_and_scheduled_soc3_10",
+              "charging_segments": [
+                [
+                  "0",
+                  "30",
+                  "36",
+                  "0"
+                ],
+                [
+                  "30",
+                  "48",
+                  "60",
+                  "-720"
+                ],
+                [
+                  "48",
+                  "60",
+                  "120",
+                  "-3600"
+                ]
+              ],
+              "consumption_kwh_per_m": "1/6250",
+              "destination": "road:5289152",
+              "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+              "initial_energy_kwh": "18",
+              "lambda_stop_s": "600",
+              "minimum_energy_kwh": "0",
+              "origin": "road:2674409",
+              "overhead_s": "300",
+              "reserve_kwh": "6",
+              "schedule": {
+                "D": "2700",
+                "a": "1399597780553751/171798691840",
+                "b": "9797184463876257/687194767360"
+              },
+              "sparse_domain_sha256": "46e06bee458c4c037a947bc9cd2dfcb7b8c4b357a3c3839a9fa567f65bea4b1e",
+              "start_time_s": "0"
+            },
+            "query_sha256": "a8f5fee204ca32bfd2e15b95b7ffc02f07ca24f70e18b84898a0aa03f050c87b",
+            "site_catalog_sha256": "6f280aaf78d4005e4612810cc3862955ed1ec2d939562e0ef667e899e82c3850",
+            "sparse_domain_sha256": "46e06bee458c4c037a947bc9cd2dfcb7b8c4b357a3c3839a9fa567f65bea4b1e",
+            "candidate_site_ids_sha256": "d3cc527847981930daf9176cf87fadeb86f5281b18049ad3248770479606f7b3"
+          },
+          "query_locator": "recovery_inputs/queries.json:queries[query_id=OD06_energy_and_scheduled_soc3_10].bindings[\"32\"]",
+          "pool_locator": "recovery_inputs/pools.json:pools[od_id=OD06].sites[:32]",
+          "new_outcome_observed_by_this_planning_pass": false,
+          "feasibility_or_exact_completion_assumed": false,
+          "original_pool_prefix_sha256": "28e253008d12a96a1f5ee774df4f170c9f81661c91a04475f5cd3edddf06f6eb",
+          "runtime_input_locator": {
+            "pool_file": "pools.json",
+            "pool_od_id": "OD06",
+            "query_file": "queries.json",
+            "query_id": "OD06_energy_and_scheduled_soc3_10",
+            "binding_key": "32"
+          },
+          "historical_main_summary": {
+            "row_count": 2,
+            "status_counts": {
+              "incumbent_search_failed": 2
+            },
+            "rows_sha256": "49923a10e6512fcefd4304e171e1814660adbb31c8e8d57c07b9b38c495d8701",
+            "source": "results/milestone_5d (external historical evidence; not distributed with source)"
+          }
+        },
+        {
+          "candidate_count": 128,
+          "case_id": "OD06_energy_and_scheduled_soc3_10_n128",
+          "domain_role": "existing_independent_gate_reference",
+          "historical_hmax": 39,
+          "historical_hmax_null_means": "not authenticated by this planning pass; do not use original H_ref=4 as search depth",
+          "method_order": [
+            "flat",
+            "hier"
+          ],
+          "original_binding": {
+            "anchor_catalog_sha256": "51e793765567014f92e45b24bd30dab4ce2cffb81c3e09f11cfe20543e038d87",
+            "candidate_sha256": "7f2acfdd939bc00e2f7282c6b429e51c47423d3913c07dfb097136137e69763c",
+            "query": {
+              "H_ref": 4,
+              "capacity_kwh": "60",
+              "case_id": "OD06_energy_and_scheduled_soc3_10",
+              "charging_segments": [
+                [
+                  "0",
+                  "30",
+                  "36",
+                  "0"
+                ],
+                [
+                  "30",
+                  "48",
+                  "60",
+                  "-720"
+                ],
+                [
+                  "48",
+                  "60",
+                  "120",
+                  "-3600"
+                ]
+              ],
+              "consumption_kwh_per_m": "1/6250",
+              "destination": "road:5289152",
+              "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+              "initial_energy_kwh": "18",
+              "lambda_stop_s": "600",
+              "minimum_energy_kwh": "0",
+              "origin": "road:2674409",
+              "overhead_s": "300",
+              "reserve_kwh": "6",
+              "schedule": {
+                "D": "2700",
+                "a": "1399597780553751/171798691840",
+                "b": "9797184463876257/687194767360"
+              },
+              "sparse_domain_sha256": "707d2cdd5b44fa41b155a1f6cf12b809b1820c38b5aeb896da795d38b74bf83c",
+              "start_time_s": "0"
+            },
+            "query_sha256": "cfb117fcc28f3e1fa651108816eef99e8f097975375080c05499f8870523907f",
+            "site_catalog_sha256": "81100b216abc2e1e85bcbe650846f5198ff8da1c3f6ac1a171a7110bd9cf83f1",
+            "sparse_domain_sha256": "707d2cdd5b44fa41b155a1f6cf12b809b1820c38b5aeb896da795d38b74bf83c",
+            "candidate_site_ids_sha256": "a45ee1136b27dcc36b9ddc331305e96488411814d017ca798a82c58026449f5c"
+          },
+          "query_locator": "recovery_inputs/queries.json:queries[query_id=OD06_energy_and_scheduled_soc3_10].bindings[\"128\"]",
+          "pool_locator": "recovery_inputs/pools.json:pools[od_id=OD06].sites[:128]",
+          "new_outcome_observed_by_this_planning_pass": false,
+          "feasibility_or_exact_completion_assumed": false,
+          "original_pool_prefix_sha256": "f40bfede164f53894958c5a38cac05647d56efb713b82a80fd44dfd50a0ee586",
+          "runtime_input_locator": {
+            "pool_file": "pools.json",
+            "pool_od_id": "OD06",
+            "query_file": "queries.json",
+            "query_id": "OD06_energy_and_scheduled_soc3_10",
+            "binding_key": "128"
+          },
+          "historical_main_summary": {
+            "row_count": 2,
+            "status_counts": {
+              "time_limit": 2
+            },
+            "rows_sha256": "6eb6c63a23381e25c9fae4b71cd71afe6d73a2ea92dba3c0ebf0a3887eaafbbd",
+            "source": "results/milestone_5d (external historical evidence; not distributed with source)"
+          }
+        }
+      ]
+    },
+    {
+      "selection_rank": 7,
+      "query_id": "OD07_energy_and_scheduled_soc3_10",
+      "od_id": "OD07",
+      "original_slate_index": 29,
+      "activity": "energy_and_scheduled",
+      "soc": "3/10",
+      "base_query_sha256": "b18b5fd333f58688b5ace497a4c0d2762e75619dad0818dcde17ae0dd09f11db",
+      "stratum": "low_SOC_scheduled_seed_failure_sentinel",
+      "selection_reason": "retain the previously exposed original-domain seed failure and its paired N32/N128 coverage",
+      "original_pool_metadata": {
+        "destination_anchor": 3190137,
+        "eligible_capable_site_count": 11588,
+        "first32_charge_count": 16,
+        "first32_meal_count": 31,
+        "od_id": "OD07",
+        "origin_anchor": 5788209,
+        "prefix_sizes": [
+          8,
+          16,
+          32,
+          128
+        ],
+        "radius_m": 25000
+      },
+      "original_pool_size": 128,
+      "domains": [
+        {
+          "candidate_count": 32,
+          "case_id": "OD07_energy_and_scheduled_soc3_10_n32",
+          "domain_role": "new_incremental_coverage",
+          "historical_hmax": null,
+          "historical_hmax_null_means": "not authenticated by this planning pass; do not use original H_ref=4 as search depth",
+          "method_order": [
+            "flat",
+            "hier"
+          ],
+          "original_binding": {
+            "anchor_catalog_sha256": "7da9e4a633436a88919ba2979162aefa8ee61b88b804d5e8f06b49d6eb5671e3",
+            "candidate_sha256": "f027a8fb94a6f001e27cfb85a394a0711e081c101c0f3ace7680e0f380dc2f2c",
+            "query": {
+              "H_ref": 4,
+              "capacity_kwh": "60",
+              "case_id": "OD07_energy_and_scheduled_soc3_10",
+              "charging_segments": [
+                [
+                  "0",
+                  "30",
+                  "36",
+                  "0"
+                ],
+                [
+                  "30",
+                  "48",
+                  "60",
+                  "-720"
+                ],
+                [
+                  "48",
+                  "60",
+                  "120",
+                  "-3600"
+                ]
+              ],
+              "consumption_kwh_per_m": "1/6250",
+              "destination": "road:3190137",
+              "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+              "initial_energy_kwh": "18",
+              "lambda_stop_s": "600",
+              "minimum_energy_kwh": "0",
+              "origin": "road:5788209",
+              "overhead_s": "300",
+              "reserve_kwh": "6",
+              "schedule": {
+                "D": "2700",
+                "a": "5689437044623653/687194767360",
+                "b": "39826059312365571/2748779069440"
+              },
+              "sparse_domain_sha256": "919608bdeee8055797a53696172cd391cab4d1ca9b4d3dc56a4a575b50c3286a",
+              "start_time_s": "0"
+            },
+            "query_sha256": "ba5795d921b6148e26fbc37a5d10b94b49a24d4db7f8e4187997295515c66906",
+            "site_catalog_sha256": "908bf9558ef064760466725c1300ea5314e6f7ac4e34f84d96ed7537ac3c87b6",
+            "sparse_domain_sha256": "919608bdeee8055797a53696172cd391cab4d1ca9b4d3dc56a4a575b50c3286a",
+            "candidate_site_ids_sha256": "50f4ca60ffa3ddf20f78cfd57d49d5ece991858434c0dbfb5a508ae933b531b0"
+          },
+          "query_locator": "recovery_inputs/queries.json:queries[query_id=OD07_energy_and_scheduled_soc3_10].bindings[\"32\"]",
+          "pool_locator": "recovery_inputs/pools.json:pools[od_id=OD07].sites[:32]",
+          "new_outcome_observed_by_this_planning_pass": false,
+          "feasibility_or_exact_completion_assumed": false,
+          "original_pool_prefix_sha256": "0faf94a79b6f09d8c5aa5ac3565616ec4731131fb610eabe970392f6ece15329",
+          "runtime_input_locator": {
+            "pool_file": "pools.json",
+            "pool_od_id": "OD07",
+            "query_file": "queries.json",
+            "query_id": "OD07_energy_and_scheduled_soc3_10",
+            "binding_key": "32"
+          },
+          "historical_main_summary": {
+            "row_count": 2,
+            "status_counts": {
+              "incumbent_search_failed": 2
+            },
+            "rows_sha256": "afb34b48d836f8f0bd007334a1b9c3b82a9938e456620cf25d393ceccc969d23",
+            "source": "results/milestone_5d (external historical evidence; not distributed with source)"
+          }
+        },
+        {
+          "candidate_count": 128,
+          "case_id": "OD07_energy_and_scheduled_soc3_10_n128",
+          "domain_role": "new_incremental_coverage",
+          "historical_hmax": null,
+          "historical_hmax_null_means": "not authenticated by this planning pass; do not use original H_ref=4 as search depth",
+          "method_order": [
+            "flat",
+            "hier"
+          ],
+          "original_binding": {
+            "anchor_catalog_sha256": "1c8d81207b64b4fd97b531c62d901a4ad94dc56b4b3fd8fb2c8252683c13ebac",
+            "candidate_sha256": "ab10dd28f6d80d687f54edc9fd30cbe1e299745da06fa72c53631f03680c6255",
+            "query": {
+              "H_ref": 4,
+              "capacity_kwh": "60",
+              "case_id": "OD07_energy_and_scheduled_soc3_10",
+              "charging_segments": [
+                [
+                  "0",
+                  "30",
+                  "36",
+                  "0"
+                ],
+                [
+                  "30",
+                  "48",
+                  "60",
+                  "-720"
+                ],
+                [
+                  "48",
+                  "60",
+                  "120",
+                  "-3600"
+                ]
+              ],
+              "consumption_kwh_per_m": "1/6250",
+              "destination": "road:3190137",
+              "hierarchy_sha256": "4c9cd924c9066630f961302ff249de8e6260ed553f8044f1d2fafe8632127805",
+              "initial_energy_kwh": "18",
+              "lambda_stop_s": "600",
+              "minimum_energy_kwh": "0",
+              "origin": "road:5788209",
+              "overhead_s": "300",
+              "reserve_kwh": "6",
+              "schedule": {
+                "D": "2700",
+                "a": "5689437044623653/687194767360",
+                "b": "39826059312365571/2748779069440"
+              },
+              "sparse_domain_sha256": "c4499fd246783883cb11581c638dea63f642e53eccd2c150a457b2e51c8faf2d",
+              "start_time_s": "0"
+            },
+            "query_sha256": "2b40a1fccff708762920dc9a2ea7d3b79e0213c2aee0ec6f3207d4cd81f35cef",
+            "site_catalog_sha256": "d5c6b01ee93a5a77c0ef35cd5a365e1022d16df708a54da9c50c2c392eb1a698",
+            "sparse_domain_sha256": "c4499fd246783883cb11581c638dea63f642e53eccd2c150a457b2e51c8faf2d",
+            "candidate_site_ids_sha256": "44417f1576f496ffb6dd054c53b5ef22f8fdaebe4484a6972ee231a49be63d0d"
+          },
+          "query_locator": "recovery_inputs/queries.json:queries[query_id=OD07_energy_and_scheduled_soc3_10].bindings[\"128\"]",
+          "pool_locator": "recovery_inputs/pools.json:pools[od_id=OD07].sites[:128]",
+          "new_outcome_observed_by_this_planning_pass": false,
+          "feasibility_or_exact_completion_assumed": false,
+          "original_pool_prefix_sha256": "77804f7923c6f6d02d868219cb421a0556809e68b70434c1d9e25eb7b7562b24",
+          "runtime_input_locator": {
+            "pool_file": "pools.json",
+            "pool_od_id": "OD07",
+            "query_file": "queries.json",
+            "query_id": "OD07_energy_and_scheduled_soc3_10",
+            "binding_key": "128"
+          },
+          "historical_main_summary": {
+            "row_count": 2,
+            "status_counts": {
+              "time_limit": 2
+            },
+            "rows_sha256": "8940fcec154af734a202e813322f71342d56be3c1a70deb4987861d4db5f8977",
+            "source": "results/milestone_5d (external historical evidence; not distributed with source)"
+          }
+        }
+      ]
+    }
+  ],
+  "execution_stages": [
+    {
+      "stage": "A_first_four_new_OD_queries",
+      "query_ids": [
+        "OD01_energy_and_scheduled_soc19_25",
+        "OD03_energy_and_scheduled_soc19_25",
+        "OD04_energy_and_scheduled_soc19_25",
+        "OD05_energy_and_scheduled_soc19_25"
+      ],
+      "N_order": [
+        32,
+        128
+      ],
+      "coverage_grid_domains": 8,
+      "new_domains": 8,
+      "new_method_rows": 16,
+      "new_operational_slots": 40,
+      "maximum_exact_phase_seconds": 19200,
+      "new_worker_wall_reservation_seconds": 31680,
+      "new_worker_CPU_soft_reservation_seconds": 30720,
+      "automatic_start": false,
+      "purpose": "first bounded new input-coverage tranche; run all four N32 domains in listed order, then all four N128 domains, without outcome-based promotion"
+    },
+    {
+      "stage": "B_remaining_four_queries",
+      "query_ids": [
+        "OD08_energy_and_scheduled_soc19_25",
+        "OD09_energy_and_scheduled_soc19_25",
+        "OD06_energy_and_scheduled_soc3_10",
+        "OD07_energy_and_scheduled_soc3_10"
+      ],
+      "N_order": [
+        32,
+        128
+      ],
+      "coverage_grid_domains": 8,
+      "new_domains": 7,
+      "new_method_rows": 14,
+      "new_operational_slots": 35,
+      "existing_gate_reference_operational_slots": 5,
+      "maximum_new_exact_phase_seconds": 16800,
+      "maximum_grid_exact_phase_seconds": 19200,
+      "new_worker_wall_reservation_seconds": 27720,
+      "new_worker_CPU_soft_reservation_seconds": 26880,
+      "automatic_start": false,
+      "purpose": "remaining two new-OD high-SOC queries plus the two outcome-informed failure-sentinel queries; existing OD06 N128 gate is linked once, never duplicated"
+    }
+  ],
+  "execution_decision": "No automatic launch. Root decides whether and when to admit stage A, then stage B, after the current matched pair. This is one prospective eight-query design; all unstarted planned slots stay explicitly planned/not-launched. Neither 30 new rows nor the full 32-row coverage grid is a mandatory taskbook acceptance gate.",
+  "runtime_inputs": {
+    "required": true,
+    "storage": "external generated input directory supplied to the experiment",
+    "guide": "docs/REPRODUCING.md",
+    "pool_binding": "canonical SHA-256 of complete ordered prefix and ordered candidate IDs; sorted candidate hash is separately retained",
+    "missing_input_policy": "fail; never synthesize or download implicitly; generate/restore exact bound inputs before launch"
+  }
+}

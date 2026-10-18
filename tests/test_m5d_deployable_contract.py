@@ -101,7 +101,7 @@ class DeployableContractTest(unittest.TestCase):
         self.assertEqual((cache.hits, cache.misses), (1, 2))
 
     def test_constructive_seed_uses_no_optimizer_and_independent_replay(self):
-        fixture = Path(__file__).resolve().parents[1] / "results/milestone_5_real_leg_contract/mock_solver_cases.json"
+        fixture = Path(__file__).resolve().parents[1] / "tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json"
         case = json.loads(fixture.read_text())[1]
         data = json.dumps(case["table"], sort_keys=True, separators=(",", ":")).encode()
         table = ImmutableLegTable.from_bytes(data, case["table_sha256"])
@@ -150,7 +150,7 @@ class DeployableContractTest(unittest.TestCase):
         self.assertFalse(check_region_summary_offline(("x", "y"), landmarks, bad))
 
     def test_bound_query_independent_seed_to_depth(self):
-        fixture = Path(__file__).resolve().parents[1] / "results/milestone_5_real_leg_contract/mock_solver_cases.json"
+        fixture = Path(__file__).resolve().parents[1] / "tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json"
         case = json.loads(fixture.read_text())[1]
         table_bytes = json.dumps(case["table"], sort_keys=True, separators=(",", ":")).encode()
         table = ImmutableLegTable.from_bytes(table_bytes, case["table_sha256"])
@@ -307,7 +307,7 @@ class DeployableContractTest(unittest.TestCase):
         self.assertEqual(restarted_limited.status, SolveStatus.MEMORY_LIMIT)
 
     def test_retained_schedule_already_satisfied_and_two_charge_seed(self):
-        fixture = Path(__file__).resolve().parents[1] / "results/milestone_5_real_leg_contract/mock_solver_cases.json"
+        fixture = Path(__file__).resolve().parents[1] / "tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json"
         cases = json.loads(fixture.read_text())
         scheduled = cases[0]
         data = json.dumps(scheduled["table"], sort_keys=True, separators=(",", ":")).encode()
@@ -354,7 +354,7 @@ class DeployableContractTest(unittest.TestCase):
         self.assertEqual(shifted_feasible[0]["J"], F(6))
 
     def test_coattached_sites_keep_distinct_action_identity(self):
-        fixture = Path(__file__).resolve().parents[1] / "results/milestone_5_real_leg_contract/mock_solver_cases.json"
+        fixture = Path(__file__).resolve().parents[1] / "tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json"
         case = json.loads(fixture.read_text())[1]
         payload = json.loads(json.dumps(case["table"]))
         payload["sites"][1]["anchor_id"] = "road:x"

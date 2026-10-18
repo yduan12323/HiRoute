@@ -10,7 +10,7 @@ The [D1 report](MILESTONE_5_C01_FINAL_COLLECTOR_REPORT.md) and
 [D0 report](MILESTONE_5_C01_D0_FINAL_COLLECTOR_REPORT.md) provide separate
 measured counts, source lineage, commands, resources and receipts.
 
-The [machine-readable audit](MILESTONE_5_V_COVERAGE_20261008.json) is a
+The [machine-readable audit (historical artifact)](REPRODUCING.md#historical-results) is a
 **reconstructed audit ledger**, not a recovered combined frozen manifest.
 It now records all 92 byte-verified original A/B physical IDs and their
 historical result rows. It separately expands the 32 observed C states into
@@ -148,7 +148,7 @@ solves. A04 is algebra-only; its remaining visited-bound, dynamic refinement,
 deletion, 50-algebra and reset obligations are separate. The B report records
 64 distinct five-factor combinations, 256/256 full-solver comparisons and zero
 mismatches. Its original-source raw certificates for 12 cases were not
-retained; fresh scoped certificates for exactly those cases are now indexed in the [recovery receipt](MILESTONE_5_B_MISSING_CERTIFICATE_RECOVERY.json). `exact_inherited_family_optimizer_implemented=false`.
+retained; fresh scoped certificates for exactly those cases are now indexed in the [recovery receipt (historical artifact)](REPRODUCING.md#historical-results). `exact_inherited_family_optimizer_implemented=false`.
 These are byte-verified historical reports at their stated source versions,
 not present-source collector acceptance. The reported C 128/128 four-mode
 parity remains a historical summary without the original report files here.
@@ -177,7 +177,7 @@ copy, with no retry of that transfer.
 The trusted Python metadata intake returned `metadata_only_intake_validated`,
 92 A/B physical cases, 184 HIER variants and `solver_executed=false`.
 All 15 focused tests passed, including both original-population tests without
-skips. The [machine ledger](MILESTONE_5_V_COVERAGE_20261008.json) lists each
+skips. The [machine ledger (historical artifact)](REPRODUCING.md#historical-results) lists each
 A/B case ID, source file pin, historical status/key, and B factor levels.
 The input `independent_expected` metadata remains separate from the actual
 historical result rows.

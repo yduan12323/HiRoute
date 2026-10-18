@@ -1,0 +1,7 @@
+{
+  "source_url": "https://download.geofabrik.de/europe/slovenia.poly",
+  "sha256": "f5813a8cda35bb54b0d3123e62701165e10068f532b0aa0fda70926f2d7ddc32",
+  "acquired_at_utc": "2026-10-01T01:24:00.566767+00:00",
+  "http_last_modified": "Wed, 30 Sep 2026 03:02:42 GMT",
+  "scope": "Approximate extract boundary; publisher polygon is not PBF-date versioned."
+}

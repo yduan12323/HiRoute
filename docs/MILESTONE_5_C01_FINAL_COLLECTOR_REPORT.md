@@ -25,7 +25,7 @@ point-level counterexample claim.
 
 The [coverage audit](MILESTONE_5_V_COVERAGE_AUDIT.md) separates this measured
 identity from the protocol gates and historical parity evidence.
-The [receipt capsule](MILESTONE_5_C01_FINAL_COLLECTOR_RECEIPT.json) copies small
+The [receipt capsule (historical artifact)](REPRODUCING.md#historical-results) copies small
 metadata, the exact argv, all input pins and final receipt pins. It is an index
 to retained server evidence, not the raw certificate archive.
 

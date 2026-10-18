@@ -68,8 +68,6 @@ def main() -> None:
     long_rows = [row for row in screen["pairs"] if row["integer_micrometers"] is not None
                  and row["integer_micrometers"] > 450001000000]
     roots = sorted({row["origin_anchor"] for row in long_rows})
-    if not roots:
-        raise ValueError("No geographically prespecified long candidates")
     router = ExactRouter(graph, {"compiler": "g++", "compiler_flags": ["-O3", "-std=c++17"]},
                          args.native_cache)
     audits = []

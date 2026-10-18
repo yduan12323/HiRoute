@@ -45,6 +45,7 @@ def test_member_scan_uses_same_summary_and_mask():
     region = SimpleNamespace(identifier="r", members=("a", "b"))
     sha = "0" * 64
     provider = object.__new__(SameALTMemberScan)
+    provider._time_quantum_policy = provider._suffix_time_quantum_policy = (0, 1)
     provider._regions = {"r": region}
     provider.sites = {"a": SimpleNamespace(anchor_id="a"),
                       "b": SimpleNamespace(anchor_id="b")}
@@ -76,6 +77,7 @@ def test_restricted_mixed_effects_unreachable_alt_and_counts():
     region = SimpleNamespace(identifier="restricted", members=("a", "b"))
     sha = "1" * 64
     provider = object.__new__(SameALTMemberScan)
+    provider._time_quantum_policy = provider._suffix_time_quantum_policy = (0, 1)
     provider._regions = {region.identifier: region}
     provider.sites = {name: SimpleNamespace(anchor_id=name) for name in ("a", "b", "c")}
     provider.landmarks = (LandmarkDistances(

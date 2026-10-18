@@ -7,16 +7,72 @@ always lifted through a constrained predecessor before becoming a witness.
 from __future__ import annotations
 
 from dataclasses import dataclass, field, replace
+from contextvars import ContextVar
 from fractions import Fraction as R
 from itertools import combinations
 from typing import Callable, Iterable
 
 from . import provenance as prov
+from . import envelope_sweep
+from . import analytic_charge
 
 from .probe import (
     AffineFamily, ChargingCurve, Cut, Interval, State, Witness, _event,
     drive, exact, reduce_cuts,
 )
+
+
+_projection_support_prefilter = ContextVar("timecut5_projection_support_prefilter", default=None)
+
+
+@dataclass(frozen=True)
+class ProjectionSupportStatistics:
+    """Detached scalar counts for local C/CS segment pairs, not route pruning."""
+    enabled: bool
+    considered_pairs: int
+    skipped_empty_input: int
+    skipped_strict_energy: int
+    projection_builds: int
+
+
+class ProjectionSupportPrefilter:
+    """Explicit, context-local opt-in to an exact C/CS support preflight.
+
+    No context means the original arithmetic. ``enabled=False`` observes the
+    original builds without adding support arithmetic. Distinct nested contexts
+    have separate counters and restore their predecessor even on exceptions.
+    Each instance is single-use; use a fresh instance per solver invocation.
+    """
+    def __init__(self, *, enabled=False):
+        if type(enabled) is not bool:
+            raise ValueError("Projection support prefilter requires an exact boolean")
+        self._enabled = enabled
+        self._considered_pairs = 0
+        self._skipped_empty_input = 0
+        self._skipped_strict_energy = 0
+        self._projection_builds = 0
+        self._used = False
+        self._token = None
+
+    @property
+    def enabled(self):
+        return self._enabled
+
+    def snapshot(self):
+        return ProjectionSupportStatistics(self.enabled, self._considered_pairs,
+            self._skipped_empty_input, self._skipped_strict_energy,
+            self._projection_builds)
+
+    def __enter__(self):
+        if self._used:
+            raise ValueError("Projection support context is single-use")
+        self._used = True
+        self._token = _projection_support_prefilter.set(self)
+        return self
+
+    def __exit__(self, *exception):
+        _projection_support_prefilter.reset(self._token)
+        self._token = None
 
 
 @dataclass(frozen=True)
@@ -244,8 +300,15 @@ def lower_envelope(pieces: Iterable[CutPiece]) -> tuple[CutPiece, ...]:
     """Exact union of one family's cuts, OR-ing attainment at tied minima."""
     pieces = tuple(pieces)
     _same_family(pieces)
+    policy = envelope_sweep._active.get()
+    cells = _arrangement(pieces)
+    if policy is not None:
+        recorded = prov._active.get() is not None
+        policy._begin(len(pieces), len(cells), recorded=policy.enabled and recorded)
+        if policy.enabled and not recorded:
+            return envelope_sweep.select_envelope(pieces, cells, policy)
     result = []
-    for cell in _arrangement(pieces):
+    for cell in cells:
         e = _point(cell)
         candidates = [p for p in pieces if p.domain.contains(e)]
         if not candidates:
@@ -255,6 +318,8 @@ def lower_envelope(pieces: Iterable[CutPiece]) -> tuple[CutPiece, ...]:
         chosen = next((p for p in tied if p.chi), tied[0])
         result.append(prov.select(chosen, pieces, cell, next(i for i, p in enumerate(pieces) if p is chosen), "union"))
     prov.batch("union", pieces, result)
+    if policy is not None:
+        policy._baseline(len(pieces), len(cells), len(result))
     return tuple(result)
 
 
@@ -441,10 +506,16 @@ def _stop(pieces: Iterable[CutPiece], effect: str, site: str, overhead: R,
             prov.batch("stop", pieces, (), effect=effect, site=site, h=overhead,
                        a=a, b=b, D=duration, curve=curve.segments if curve else [])
             return ()
+    policy = _projection_support_prefilter.get()
+    analytic = analytic_charge._active.get() if effect == "C" else None
+    recorded = prov._active.get() is not None
+    use_analytic = analytic is not None and analytic.enabled and not recorded
+    if use_analytic and any(source._family is not None for source in pieces):
+        raise ValueError("Continue recorded families inside their Recorder context")
     result = []
     for source in pieces:
-        seed = [*_interval_rows(source.domain, 0),
-                Row((source.slope, -1, 0, 0), -source.intercept, not source.chi)]
+        seed = ([] if use_analytic else [*_interval_rows(source.domain, 0),
+                Row((source.slope, -1, 0, 0), -source.intercept, not source.chi)])
         if effect in ("S", "CS"):
             seed.extend((Row((0, 1, 0, 0), b - overhead),
                          Row((0, 0, 0, -1), -a - duration),
@@ -457,11 +528,46 @@ def _stop(pieces: Iterable[CutPiece], effect: str, site: str, overhead: R,
                                        a=a, b=b, duration=duration))
         else:
             for il, ih, im, ic in curve.segments:
+                support = (source.domain.intersect(Interval(il, ih))
+                           if policy is not None and policy.enabled else None)
                 for ol, oh, om, oc in curve.segments:
+                    if analytic is not None:
+                        analytic._counts["considered_pairs"] += 1
+                    if policy is not None:
+                        policy._considered_pairs += 1
+                        if policy.enabled:
+                            if support is None:
+                                policy._skipped_empty_input += 1
+                                if analytic is not None:
+                                    analytic._counts["support_skipped_pairs"] += 1
+                                continue
+                            # ea >= inf(support) >= oh >= ed contradicts ea < ed.
+                            # If inf(support) < oh, retain even open endpoints;
+                            # all other feasibility remains with the old projector.
+                            if support.lo >= oh:
+                                policy._skipped_strict_energy += 1
+                                if analytic is not None:
+                                    analytic._counts["support_skipped_pairs"] += 1
+                                continue
+                    if use_analytic:
+                        analytic._counts["analytic_builds"] += 1
+                        projected = analytic_charge._build(source, (il, ih, im, ic),
+                                                           (ol, oh, om, oc), overhead)
+                        if projected is not None:
+                            result.extend(_extract(projected, source, effect, site, overhead,
+                                                   curve, a, b, duration,
+                                                   (il, ih, im, ic), (ol, oh, om, oc)))
+                        continue
+                    if analytic is not None:
+                        analytic._counts["generic_projection_builds"] += 1
+                        if analytic.enabled and recorded:
+                            analytic._counts["recorded_fallback_builds"] += 1
                     rows = seed + [*_interval_rows(Interval(il, ih), 0),
                                    *_interval_rows(Interval(ol, oh), 2),
                                    Row((1, 0, -1, 0), 0, True),
                                    Row((-im, 1, om, -1), -overhead - oc + ic)]
+                    if policy is not None:
+                        policy._projection_builds += 1
                     projected = Projection.build(rows, (1, 0))
                     if projected is not None:
                         result.extend(_extract(projected, source, effect, site, overhead,

@@ -37,7 +37,7 @@ class SameALTMemberScan(TableFreeRegionBoundProvider):
         value = directed_alt_region_bound(source, self.landmarks, scanned,
             graph_sha256=self.graph_sha256, landmark_sha256=self.landmark_sha256,
             member_set_sha256=self._member_hash[region.identifier])
-        return Fraction(math.floor(value))
+        return self._time_seconds(math.floor(value))
 
     def action_mask(self, region, effect, remaining):
         self._check_region(region)

@@ -11,7 +11,7 @@ from timecut5.real_export_input import load_exported_case
 from timecut5.real_legs import encode_binary64,restrict_frozen_tree
 
 ROOT=Path(__file__).resolve().parents[1]
-MOCK=json.loads((ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[1]
+MOCK=json.loads((ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[1]
 
 
 def blob(value):return (json.dumps(value,sort_keys=True,indent=2)+'\n').encode()

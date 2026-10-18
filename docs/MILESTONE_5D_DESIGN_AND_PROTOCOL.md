@@ -1,6 +1,18 @@
 # Milestone 5-D: deployable search design and preregistered protocol
 
-Current delivery status: M5D_LIMITED_BY_DATA_OR_SCALE as of 2026-10-14, with residual implementation and accounting requirements explicitly recorded. The original main and fixed supplemental matrices are terminal with no exact completion. Current portable recovery code is 7dbd82. See [MILESTONE_5D_REPORT.md](MILESTONE_5D_REPORT.md) for actual outcomes and protocol amendments. Historical design/implementation snapshots below retain their original dates and are not current progress. No automatic main merge or holdout.
+Current disposition: **M5D_LIMITED_BY_DATA_OR_SCALE**, with local evidence consolidated and public delivery pending as of 2026-10-17. The [stable report](MILESTONE_5D_REPORT.md#current-coverage-and-delivery-checkpoint) is authoritative for current outcomes: Tranche A completed 8 domains / 16 exact methods / 40 SUCCESS slots; Tranche B is terminal at frozen d5dad19 with 7 domains / 14 methods / 35 slots, including 8 exact methods, 3 failed preparations and 12 blocked descendant slots; the qualified prior OD06 N128 pair remains separate (HIER exact, FLAT timeout). Original 192 main and 24 supplemental rows remain unchanged. Historical accounting limits, final review and publication are not silently closed. No final holdout or main merge is claimed.
+
+## Active protocol and source boundary
+
+The [frozen coverage plan](DEV_COVERAGE_TRANCHE_PLAN.md) and its [prospective selection](dev_coverage_prospective_selection_20261017.json) specify the later known-DEV continuation; its plan-time “not launched” wording is historical, with actual launch/outcome status supplied by the stable report. A numerical source is 7d23f28; B numerical source is d5dad19. B batch SHA256 is `5694068e93dbddf675fe6ce150d8a1016fa4f11be82df09dcc4efb2406f34eba`. Actual manifests, not a documentation checkout, bind each run.
+
+Both methods use the same freshly verified seed, original candidate prefixes, derived Hmax and matched configuration, with separate own replays. Typed seed exhaustion preserves one failed preparation and four blocked descendants, never infeasibility. Integrity, resource or cleanup failures stop new launches. Every fixed slot remains in its own population. Exact phases have 1200-second caps through exit, distinct from the original main's 600-second caps. Serial CPU0 execution and prelaunch memory observations do not provide aggregate hard RSS enforcement. A+B's conservative reservation is 67,680 seconds against the separately scoped 72,000-second incremental ceiling, not measured unique CPU or proof of original 48-hour compliance. Linked historical gate costs remain separate.
+
+Optional optimization candidates remain unintegrated. Accepted bounded ablations and transportation/literature evidence do not impose new reruns, a positive-result gate or an exact sequential solver. B terminal and report review are retained separately from numerical outcomes. Public source-bound delivery receipts remain pending. M6-H remains a later approval-gated freeze/holdout step.
+
+## Historical design snapshots
+
+The D1–D4 implementation-progress statements below preserve their original development context. Statements such as “not implemented,” “no main comparison may start,” “zero cells qualified,” and “remain to be built” are not a current feature inventory. Consult the stable report's clause dispositions and source-specific evidence for present support. Mathematical contracts and declared comparison/accounting requirements remain applicable.
 
 ## D1: exact model and status contract
 

@@ -7,14 +7,15 @@ from validation.real5_v2.coalesced import verify_coalesced_trace
 from validation.real5_v2.suffix_context import count_language
 from validation.family5.checker import _plain
 from experiments.time_cut_v2.recorded_real.node_domain_batch import check_domains
-from tests.test_recovered_real_coalesced import ROOT, prepare
+from tests.test_recovered_real_coalesced import ROOT, prepare, capture
 
 
 class NodeDomainBatch(unittest.TestCase):
     def fixture(self):
-        item = json.loads((ROOT/'tests/fixtures/g8_node_batch_fixture.json').read_text())
-        trusted = prepare(item['row'])
-        evidence = item['evidence']
+        rows = json.loads((ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
+        row = next(row for row in rows if row['case_id'] == 'coattached_distinct_C_then_S')
+        trusted = prepare(row)
+        evidence = capture(row, True)
         checked = verify_coalesced_trace(evidence['trace'], evidence['bundle'], trusted)
         return checked, trusted
 

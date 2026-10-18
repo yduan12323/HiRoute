@@ -29,6 +29,10 @@ THREAD_ENV = {k: '1' for k in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS',
 SCHEMA = 'hiroute.mechanism_recovery.supervisor.v1'
 
 
+class SupervisorCancellation(RuntimeError):
+    """Signal cancellation that selectors must never interpret as EINTR."""
+
+
 @dataclass(frozen=True)
 class Limits:
     wall_seconds: float
@@ -357,7 +361,7 @@ def run(argv, *, output_dir, limits, cwd=None, extra_env=None, phase_budget=None
 
     def interrupt(signum, frame):
         if not cleaning:
-            raise InterruptedError('Supervisor signal ' + str(signum))
+            raise SupervisorCancellation('Supervisor signal ' + str(signum))
 
     def prepare():
         os.sched_setaffinity(0, {limits.cpu})

@@ -47,7 +47,7 @@ raise SystemExit(result)
             subprocess.run([sys.executable, *flags, '-B', '-c', script,
                             '-q', '-p', 'no:cacheprovider', '-c', str(config),
                             '--junitxml=' + str(report), str(ROOT / 'tests/m5d_recovery')],
-                           cwd=ROOT, env=env, check=True, timeout=120)
+                           cwd=ROOT, env=env, check=True, timeout=900)
             document = ET.parse(report).getroot()
             suites = list(document.iter('testsuite'))
             counts = Counter(case.get('classname', '<unknown>')

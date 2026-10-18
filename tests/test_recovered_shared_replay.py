@@ -14,7 +14,7 @@ ROOT=Path(__file__).resolve().parents[1]
 
 class SharedReplay(unittest.TestCase):
  def test_all_real_mocks_both_modes_exact_summaries_and_every_query(self):
-  rows=json.loads((ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
+  rows=json.loads((ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
   for row in rows:
    for d in (False,True):
     with self.subTest(case=row['case_id'],dominance=d):
@@ -31,7 +31,7 @@ class SharedReplay(unittest.TestCase):
         if first['family_ids']==second['family_ids']:
          self.assertIs(first['ancestry_nodes'],second['ancestry_nodes'])
  def test_missing_parent_and_wrong_guard_still_reject(self):
-  row=json.loads((ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[0]
+  row=json.loads((ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[0]
   run=capture(row,True)
   for field in ('parent','guard'):
    data=deepcopy(run)

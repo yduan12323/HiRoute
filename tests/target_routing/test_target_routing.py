@@ -138,7 +138,10 @@ class TargetRoutingTests(unittest.TestCase):
         return c
 
     def test_installed_origin_same_build_distinct_loads_and_legacy_full(self):
-        self.assertTrue(Path(routing.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()))
+        # CI explicitly requires installed-wheel origin; ordinary pytest uses src.
+        expected = (Path(sys.prefix) if os.environ.get('HIROUTE_REQUIRE_INSTALLED_WHEEL') == '1'
+                    else Path(__file__).resolve().parents[2] / 'src')
+        self.assertTrue(Path(routing.__file__).resolve().is_relative_to(expected.resolve()))
         g = graph(3, [(0, 1, 1, 1), (1, 2, 1, 1)])
         full, target = self.router(g), self.router(g, mode='destination_target')
         self.assertEqual(full.artifact['artifact_identity_sha256'], target.artifact['artifact_identity_sha256'])

@@ -28,8 +28,8 @@ def normalized_expected(expected):
 class TestBoundedHierarchy(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.cases = json.loads((ROOT / "results/milestone_5_reference/frozen_cases_v2.json").read_text())
-        cls.original = json.loads((ROOT / "results/milestone_4r_b2_b21/hand_cases.json").read_text())[0]
+        cls.cases = json.loads((ROOT / "tests/fixtures/milestone_5_reference/frozen_cases_v2.json").read_text())
+        cls.original = json.loads((ROOT / "tests/fixtures/milestone_4r_b2_b21/hand_cases.json").read_text())[0]
 
     def test_exact_static_action_partitions(self):
         case = next(c for c in self.cases if c["case_id"].startswith("deterministic_site_tuple"))
@@ -102,7 +102,7 @@ class TestBoundedHierarchy(unittest.TestCase):
                         self.assertLessEqual(lower,relaxed)
 
     def test_post_audit_destination_and_transit_cases(self):
-        cases = json.loads((ROOT / "results/milestone_5_reference/audit_regression_cases.json").read_text())
+        cases = json.loads((ROOT / "tests/fixtures/milestone_5_reference/audit_regression_cases.json").read_text())
         for case in cases:
             result = solve_hierarchical(case).canonical()["result"]
             for key,value in normalized_expected(case["independent_expected"]).items():

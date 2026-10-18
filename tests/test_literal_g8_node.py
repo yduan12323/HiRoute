@@ -65,7 +65,7 @@ class LiteralG8NodeTests(unittest.TestCase):
         self.assertFalse(result['literal_G8_closed'])
 
     def test_guarded_coalesced_exact_empty_and_source_binding(self):
-        row = json.loads((ROOT / 'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[0]
+        row = json.loads((ROOT / 'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[0]
         captured = capture(row, True)
         checked = verify_coalesced_trace(captured['trace'], captured['bundle'], prepare(row))
         nonempty = next(q for q in checked.export_queries() if q['query_seq'] == 7)
@@ -116,7 +116,7 @@ class LiteralG8NodeTests(unittest.TestCase):
                        ledger=foreign_ledger)
 
     def test_baseline_real_trace_is_explicitly_unsupported(self):
-        row = json.loads((ROOT / 'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[0]
+        row = json.loads((ROOT / 'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())[0]
         captured = baseline_capture(row, True)
         checked = verify_baseline_trace(captured['trace'], captured['bundle'], prepare(row))
         seq = checked.export_queries()[0]['query_seq']

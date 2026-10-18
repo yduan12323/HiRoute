@@ -1,9 +1,0 @@
-Traceback (most recent call last):
-  File "/home/dy/HiRoute/m5d_c01_aab8656/scripts/m5d_od00_formal_ref_replay.py", line 129, in <module>
-    run(*(Path(arg) for arg in sys.argv[1:5]))
-  File "/home/dy/HiRoute/m5d_c01_aab8656/scripts/m5d_od00_formal_ref_replay.py", line 99, in run
-    proposals=constructive_seed_candidates(query,deployable_table)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/dy/HiRoute/m5d_c01_aab8656/src/timecut5/deployable.py", line 325, in constructive_seed_candidates
-    raise ValueError(f"Unbound seed query field {key}")
-ValueError: Unbound seed query field leg_payload_sha256

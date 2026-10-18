@@ -20,7 +20,7 @@ class LogicalModels(unittest.TestCase):
    derived_fields=sorted(domain.DERIVED),exact_queries=len(checked.queries),empty_action_queries=len(checked.empty_action_queries),
    empty_action_sha256=stream_digest(checked.empty_action_queries),queries=[_plain(q) for q in domain.thin_queries(checked,lambda:None)])
   return index,trusted,summary,checked
- def rows(self):return json.loads((plan.ROOT/'results/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
+ def rows(self):return json.loads((plan.ROOT/'tests/fixtures/milestone_5_real_leg_contract/mock_solver_cases.json').read_text())
  def test_every_explicit_word_band_identity_and_occurrence_is_preserved(self):
   rows=self.rows();multiband=deepcopy(rows[1]);multiband['query']['charging_segments']=[[0,2,1,0],[2,5,2,-2]];rows.append(multiband)
   for row in rows:

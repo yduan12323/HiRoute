@@ -13,7 +13,7 @@ from validation.reference5.lp import UncertifiedLP, exact_lp, strict_face, verif
 from validation.reference5.model import sequences
 
 ROOT = Path(__file__).resolve().parents[1]
-FROZEN = ROOT / "results/milestone_5_reference/frozen_cases_v2.json"
+FROZEN = ROOT / "tests/fixtures/milestone_5_reference/frozen_cases_v2.json"
 CASES = json.loads(FROZEN.read_text())
 
 
@@ -51,7 +51,7 @@ def test_analytic_expectations_and_valid_witness_replay(case, solved_cases):
 
 
 def test_original_76_fixture_exhaustively():
-    case = json.loads((ROOT / "results/milestone_4r_b2_b21/hand_cases.json").read_text())[0]
+    case = json.loads((ROOT / "tests/fixtures/milestone_4r_b2_b21/hand_cases.json").read_text())[0]
     envelope = solve_case(case, keep_evidence=False)
     result = envelope["result"]
     expected = case["independent_expected"]

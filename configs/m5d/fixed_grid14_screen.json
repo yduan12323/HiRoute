@@ -1,0 +1,20 @@
+{
+  "schema": "hiroute.m5d.fixed_screen_config.v1",
+  "experiment_id": "m5d_grid14_physical_screen_v1",
+  "grid_size": 14,
+  "partition_count": 4,
+  "candidate_order": ["lat_cell", "lon_cell"],
+  "long_pair_cutoff_micrometers_exclusive": 450001000000,
+  "integer_cutoff_micrometers": 10000000000000,
+  "expected_candidate_count": 158,
+  "expected_long_pair_count": 140,
+  "source_inputs": {
+    "graph_root": "runtime:GRAPH",
+    "nodes": "nodes.parquet",
+    "edges": "edges.parquet",
+    "metadata": "metadata.json",
+    "attached_sites": "runtime:SITES",
+    "output_root": "runtime:RUN",
+    "geographic_screen": "geographic_screen_v5_grid14.json"
+  }
+}

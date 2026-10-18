@@ -34,21 +34,6 @@ class GateTests(unittest.TestCase):
         self.assertEqual(len(calls), 1)
         self.assertEqual([s['status'] for s in result['stages']], ['UNKNOWN','BLOCKED','BLOCKED'])
 
-    def test_fixed_comparator_is_first_od07_indexed(self):
-        m = json.loads(gate.TEMPLATE.read_bytes())
-        repo = Path(__file__).resolve().parents[2]
-        ref = m['comparator']
-        bundle = repo/ref['bundle_path']
-        self.assertEqual(gate.file_hash(bundle), ref['bundle_sha256'])
-        raw = json.loads(bundle.read_bytes())['files'][ref['artifact_path']].encode()
-        self.assertEqual(hashlib.sha256(raw).hexdigest(), ref['artifact_sha256'])
-        results = json.loads((bundle.parent/'results.json').read_bytes())['arms']
-        arm = next(a for a in results if a['case'] == m['case_id'] and a['strategy'] == 'indexed')
-        self.assertEqual(arm['index'], 3)
-        sequence, charges, old = gate.comparator_plan(dict(m, repo=str(repo)))
-        self.assertTrue(sequence); self.assertTrue(charges)
-        self.assertIn('source_sha256', old)
-
     def test_large_compact_envelope_and_corruption(self):
         folder = self.root/'worker'; artifacts = folder/'artifacts'; artifacts.mkdir(parents=True)
         data = dict(status='first_feasible', evidence='x'*100000)

@@ -9,7 +9,7 @@ ROOT=Path(__file__).resolve().parents[1]
 def main():
     if sys.version_info[:2]!=(3,11) or sys.prefix==sys.base_prefix:
         raise RuntimeError('Use the existing isolated Python3.11 CI environment')
-    env=dict(os.environ,PYTHONPATH=str(ROOT),PYTHONDONTWRITEBYTECODE='1',
+    env=dict(os.environ,PYTHONPATH=str(ROOT),HIROUTE_REQUIRE_INSTALLED_WHEEL='1', PYTHONDONTWRITEBYTECODE='1',
         OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1')
     env.pop('PYTHONOPTIMIZE',None)
     script="""

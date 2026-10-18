@@ -1,7 +1,0 @@
-{
-  "plan_sha256": "42d9124c2d9de5a763879d3d211383462d96fe5abbc4ee9c5d8689d55386760e",
-  "scheduled": 64,
-  "passed": 64,
-  "elapsed_wall_seconds": 6.379879366999376,
-  "performance_run": false
-}
