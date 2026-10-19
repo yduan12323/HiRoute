@@ -7,7 +7,7 @@ name = "hiroute"
 version = "0.1.0"
 description = "Frozen OSM road graph infrastructure for HiRoute research"
 requires-python = ">=3.11,<3.12"
-dependencies = ["numpy", "scipy", "pandas", "pyarrow", "geopandas", "shapely", "pyproj", "pyrosm", "igraph", "pyyaml"]
+dependencies = ["numpy", "scipy", "pandas", "pyarrow", "geopandas", "shapely", "pyproj", "pyrosm", "osmium>=4,<5", "igraph", "pyyaml"]
 
 [tool.setuptools]
 packages = ["graph", "envelope", "opportunity", "microplan", "stopplan4r", "hierarchy4r", "timecut5"]

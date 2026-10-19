@@ -1,5 +1,6 @@
 """Main default cohort and separately isolated code gates; no archived evidence."""
 CODE_ONLY_MODULES = (
+    "tests/test_raw_way_policy_logic.py",
     "tests/test_node_domain_batch.py",
     "tests/test_m5d_aggregate_screen.py",
     'tests/test_regional_source_pins.py',
@@ -53,6 +54,7 @@ CODE_ONLY_DIRECTORIES = (
     'tests/terminal_energy',
 )
 CODE_GATE_MODULES = (
+    'tests/test_road_policy_amendment.py',
     'tests/test_c01_variant_scope.py',
     'tests/test_c01_d0_bootstrap.py',
     'tests/test_suffix_single_block_limit.py',

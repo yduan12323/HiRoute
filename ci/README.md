@@ -228,3 +228,18 @@ checks generate and validate their trace from a synthetic mock leg table. The
 three node-domain tests are now part of the main isolated gate. See
 `tests/fixtures/README.md` for the per-file input and hand-arithmetic provenance
 audit. No historical solver results or trace cache are loaded as a fallback.
+
+## Narrow road-policy logic
+
+The required installed-wheel gate additionally includes
+`tests/test_raw_way_policy_logic.py`, checking exact raw tags, original reference
+closure, rejection near-misses, immutable callback copies, and duplicate-way
+rejection. It mocks only the osmium decoder interface, so the existing pinned CI
+dependencies do not change. The production `graph.raw_way_policy` import is
+verified inside the installed wheel. These checks run in normal and `-OO` modes.
+
+The separately selected geospatial integration gate
+`tests/test_road_policy_amendment.py` additionally needs Shapely and Python osmium;
+it is **not** run by this reduced CI environment. See
+[the amendment disclosure](../docs/ROAD_POLICY_AMENDMENT.md) for its command,
+dependencies, audit units, and the limits of its synthetic evidence.

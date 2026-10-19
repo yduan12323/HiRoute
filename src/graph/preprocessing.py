@@ -3,6 +3,9 @@ from __future__ import annotations
 
 import re
 from collections import Counter
+from collections.abc import Mapping
+
+from .raw_way_policy import RawWay
 
 import numpy as np
 import pandas as pd
@@ -41,13 +44,22 @@ def posted_speed(value: str | None, model: dict) -> float | None:
     return min(speeds)
 
 
-def normalize_network(nodes, edges, routing: dict) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
+def normalize_network(nodes, edges, routing: dict, *,
+                      raw_way_policy: Mapping[int, RawWay] | None = None) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
     """Retain all components; never simplify, prune corridors, or merge parallel edges."""
     if routing["network_type"] != "driving" or routing["simplify"] or not routing["retain_all_components"]:
         raise ValueError("This pipeline requires unsimplified driving data with all components retained")
-    audit = Counter(parsed_segments=len(edges))
+    audit = Counter(parsed_segments=len(edges), excluded_street_lamp=0,
+                    excluded_street_lamp_ways=0, excluded_closed_shelter_contour=0,
+                    excluded_closed_shelter_contour_ways=0)
     model, policy = routing["speed_model"], routing["access"]
     uncovered = set(edges.highway.dropna().unique()) - set(model["class_kph"]) - set(policy["excluded_highway"])
+    if "yes" in uncovered and policy.get("exclude_closed_shelter_contour", False):
+        candidate_ids = edges.loc[edges.highway.eq("yes"), "id"].unique()
+        if all(isinstance((raw_way_policy or {}).get(int(way_id)), RawWay)
+               and raw_way_policy[int(way_id)].is_closed_shelter_contour()
+               for way_id in candidate_ids):
+            uncovered.remove("yes")
     if uncovered:
         raise ValueError(f"No documented speed fallback or exclusion policy for highway={sorted(uncovered)!r}")
     records = []
@@ -57,6 +69,21 @@ def normalize_network(nodes, edges, routing: dict) -> tuple[pd.DataFrame, pd.Dat
     ways = edges.drop_duplicates("id")[["id", *present_attributes]]
     for raw in ways.to_dict("records"):
         way_id = int(raw["id"])
+        # Evaluate the amendment before generic access/oneway normalization.
+        # Literal parsed highway values cannot be silently trimmed into a class.
+        highway = raw.get("highway")
+        amendment_reason = None
+        if highway == "street_lamp" and highway in policy["excluded_highway"]:
+            amendment_reason = "street_lamp"
+        elif highway == "yes" and policy.get("exclude_closed_shelter_contour", False):
+            evidence = (raw_way_policy or {}).get(way_id)
+            if isinstance(evidence, RawWay) and evidence.is_closed_shelter_contour():
+                amendment_reason = "closed_shelter_contour"
+        if amendment_reason:
+            records.append({"osm_way_id": way_id, "excluded_reason": amendment_reason, "direction": 0})
+            continue
+        if highway not in model["class_kph"] and highway not in policy["excluded_highway"]:
+            raise ValueError(f"No documented speed fallback or exclusion policy for highway={highway!r}")
         values = {key: tag(raw.get(key)) for key in ATTRIBUTES}
         access = next((values[k] for k in policy["hierarchy"] if values[k] is not None), None)
         reason = None
@@ -105,6 +132,7 @@ def normalize_network(nodes, edges, routing: dict) -> tuple[pd.DataFrame, pd.Dat
     sizes = edges["id"].value_counts()
     for reason, group in way_policy.loc[way_policy.excluded_reason.notna()].groupby("excluded_reason"):
         audit[f"excluded_{reason}"] = int(sizes.reindex(group.osm_way_id).sum())
+        audit[f"excluded_{reason}_ways"] = int(len(group))
     valid_length = np.isfinite(edges["length"]) & (edges["length"] > 0)
     audit["excluded_zero_or_invalid_length"] = int((~valid_length).sum())
     segments = pd.DataFrame(edges.loc[valid_length, ["id", "u", "v", "length", "geometry"]]).rename(

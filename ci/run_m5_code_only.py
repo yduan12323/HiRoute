@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 # Explicit selection: never silently substitute the legacy full-suite result.
 TESTS = (
+    "tests/test_raw_way_policy_logic.py",
     "tests/test_node_domain_batch.py",
     "tests/test_m5d_aggregate_screen.py",
     "tests/test_regional_source_pins.py",
@@ -126,7 +127,8 @@ def main() -> None:
         with zipfile.ZipFile(wheels[0]) as archive:
             names = set(archive.namelist())
             required = {"timecut5/provenance.py", "timecut5/invocation_trace.py",
-                        "timecut5/coalesce.py", "timecut5/real_adapter.py"}
+                        "timecut5/coalesce.py", "timecut5/real_adapter.py",
+                        "graph/raw_way_policy.py"}
             if not required <= names or any(name.startswith(("validation/", "tests/", "experiments/")) for name in names):
                 raise RuntimeError("Unexpected production wheel contents")
         run([sys.executable, "-m", "pip", "--isolated", "--disable-pip-version-check",
@@ -155,12 +157,13 @@ def main() -> None:
         origin_check = """
 from pathlib import Path
 import sys
+import graph.raw_way_policy
 import timecut5.probe, timecut5.bounded, timecut5.hierarchy
 import timecut5.coalesced_solver, timecut5.real_adapter
 import timecut5.provenance, timecut5.invocation_trace
 import validation.family5, validation.trace5, validation.suffix5.checker
 for name, module in tuple(sys.modules.items()):
-    if name == 'timecut5' or name.startswith('timecut5.'):
+    if name == 'graph.raw_way_policy' or name == 'timecut5' or name.startswith('timecut5.'):
         origin = Path(module.__file__).resolve()
         if not origin.is_relative_to(Path(sys.prefix).resolve()):
             raise RuntimeError(f'Production import escaped installed wheel: {name}: {origin}')

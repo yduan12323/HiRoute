@@ -33,7 +33,10 @@ speed_model:
   max_kph: 140
 access:
   # Explicit non-passenger-car classes found in the parser's exclusion-based filter.
-  excluded_highway: [busway, bus_guideway, escape, rest_area, services, via_ferrata, bus_stop, emergency_bay, ladder]
+  excluded_highway: [busway, bus_guideway, escape, rest_area, services, via_ferrata, bus_stop, emergency_bay, ladder, street_lamp]
+  # Model-policy amendment: exact original tags and closed node-reference sequence.
+  # highway=yes is never a generic driving class or speed fallback.
+  exclude_closed_shelter_contour: true
   hierarchy: [motorcar, motor_vehicle, vehicle, access]
   allowed: [yes, permissive, designated, official]
   # Destination-only roads cannot be unrestricted through edges.

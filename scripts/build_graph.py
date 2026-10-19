@@ -11,6 +11,7 @@ from pyrosm import OSM
 from _common import ROOT, configs, record_run, sha256, verified_dataset
 from graph.preprocessing import ATTRIBUTES, normalize_network
 from graph.road_graph import IgraphRoadGraph
+from graph.raw_way_policy import read_raw_way_policy
 
 
 def main():
@@ -25,12 +26,15 @@ def main():
     directory = ROOT / (args.output_dir or data["graph_dir"])
     directory.mkdir(parents=True, exist_ok=True)
     start = time.perf_counter()
+    raw_policy = (read_raw_way_policy(ROOT / data["dataset"]["raw_path"])
+                  if routing["access"].get("exclude_closed_shelter_contour", False) else {})
+    raw_policy_seconds = time.perf_counter() - start
     osm = OSM(str(ROOT / data["dataset"]["raw_path"]), workers=1)
     nodes, edges = osm.get_network(network_type="driving", nodes=True, extra_attributes=ATTRIBUTES)
     parse_seconds = time.perf_counter() - start
     print(f"Parsed {len(nodes):,} nodes / {len(edges):,} segments in {parse_seconds:.2f}s", flush=True)
     print("Parsed road classes: " + json.dumps(edges.highway.value_counts().to_dict()), flush=True)
-    nodes, edges, audit = normalize_network(nodes, edges, routing)
+    nodes, edges, audit = normalize_network(nodes, edges, routing, raw_way_policy=raw_policy)
     graph = IgraphRoadGraph(nodes, edges)
     nodes.to_parquet(directory / "nodes.parquet", index=False, compression="zstd")
     edges.to_parquet(directory / "edges.parquet", index=False, compression="zstd")
@@ -41,6 +45,8 @@ def main():
         "dataset": dataset, "run": run, "audit": audit,
         "node_count": graph.node_count, "edge_count": graph.edge_count,
         "largest_strong_component_nodes": len(graph.largest_strong_component_nodes()),
+        "raw_way_policy_seconds": raw_policy_seconds,
+        "raw_highway_yes_ways": len(raw_policy),
         "parse_seconds": parse_seconds, "preprocessing_seconds": time.perf_counter() - start,
         "process_peak_rss_mib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024,
         "files": {name: {"sha256": sha256(directory / name), "size_bytes": (directory / name).stat().st_size}

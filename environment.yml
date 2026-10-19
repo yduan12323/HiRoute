@@ -14,6 +14,7 @@ dependencies:
   - shapely
   - pyproj
   - pyrosm
+  - pyosmium>=4,<5
   - python-igraph
   - networkit
   - scikit-learn
