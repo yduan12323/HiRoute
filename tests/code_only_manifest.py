@@ -1,5 +1,8 @@
 """Main default cohort and separately isolated code gates; no archived evidence."""
 CODE_ONLY_MODULES = (
+    "tests/test_m6h_recovery_protocol.py",
+    "tests/test_m6h_selection_rules.py",
+    "tests/test_exposure_recovery.py",
     "tests/test_bounded_preprocessing_recovery.py",
     "tests/test_raw_way_policy_logic.py",
     "tests/test_node_domain_batch.py",
@@ -55,6 +58,8 @@ CODE_ONLY_DIRECTORIES = (
     'tests/terminal_energy',
 )
 CODE_GATE_MODULES = (
+    "tests/test_m6h_reference.py",
+    "tests/test_m6h_synthetic_worker.py",
     'tests/test_road_policy_amendment.py',
     'tests/test_c01_variant_scope.py',
     'tests/test_c01_d0_bootstrap.py',

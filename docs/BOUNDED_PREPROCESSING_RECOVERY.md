@@ -79,3 +79,23 @@ history and source identities, reviewed conservative budget transition,
 full pinned-environment integration qualification, and a reviewed enclosing
 orchestrator that retains the same budget through terminal persistence. No
 claim about six eligible holdouts or an empirical result follows from this code.
+
+## Source identity preparation (still no real release)
+
+The source worker accepts optional absolute, nonsymlink `source.local_pbf`,
+`source.local_polygon`, and `source.local_publisher_md5` paths in a separately
+reviewed execution configuration. These are copied with exclusive creation and
+bounded streaming into a fresh source-stage output; a local path is never proof
+of identity. The dated PBF retains exact size, SHA256, header timestamp and
+publisher MD5 checks. Real source workers now require an exact pre-frozen
+`polygon_sha256`, even when fetching the provider polygon directly. A configured
+publisher MD5 must also match. The provider polygon is separately acquired and
+explicitly remains `polygon_snapshot_matched: false`.
+
+The public projection-validation extent is restored to `[114,34,124,39]`, keeping
+the same LCC and 0.003 maximum scale-error tolerance. Its 0.25-degree grid is
+regression-tested, including the eastern extension; this is sampled validation,
+not a mathematical uniform-distortion certificate. Source pin acquisition and
+projection checks do not create a successful source-stage artifact identity.
+The bounded, gated real source stage must still produce and authenticate its
+own boundary GeoJSON, source metadata and artifact manifest before graph work.

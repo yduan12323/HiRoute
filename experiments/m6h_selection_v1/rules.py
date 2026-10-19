@@ -130,7 +130,63 @@ def _sha(value):
     return isinstance(value, str) and len(value) == 64 and all(c in "0123456789abcdef" for c in value)
 
 
-def select_od_slate(site_rows, registry, *, site_catalog_sha256):
+RECOVERY_SCHEMA = "hiroute.m6h.recovered_exposure_registry.v1"
+
+
+def graph_identity(value):
+    """Local node indexes and Site labels are meaningful only in this graph."""
+    if not isinstance(value, dict) or set(value) != {"nodes_sha256", "edges_sha256"}:
+        raise InvalidInput("complete graph file identity required")
+    if not all(_sha(v) for v in value.values()):
+        raise InvalidInput("invalid graph file identity")
+    return dict(value)
+
+
+def validate_recovered_exposures(registry, admission):
+    """Explicit artifact-bound amendment; never admits the strict v1 contract."""
+    coverage = registry.get("coverage", {})
+    gaps = coverage.get("known_missing_artifacts")
+    if (registry.get("schema") != RECOVERY_SCHEMA or
+            coverage.get("status") != "incomplete_recovery" or
+            registry.get("strict_independent_holdout_claim") is not False or
+            not isinstance(gaps, list) or not gaps or
+            any(not isinstance(g, dict) or not g.get("gap_id") or not g.get("description") for g in gaps) or
+            len({g["gap_id"] for g in gaps}) != len(gaps)):
+        raise InvalidInput("invalid disclosed recovery coverage")
+    if (not isinstance(admission, dict) or admission.get("schema") != RECOVERY_SCHEMA or
+            admission.get("registry_sha256") != digest(registry) or
+            admission.get("gap_list_sha256") != digest(gaps) or
+            admission.get("purpose") != "new_map_correctness_and_performance_validation" or
+            admission.get("strict_independent_holdout_claim") is not False):
+        raise InvalidInput("explicit content-bound recovery admission required")
+    sources = registry.get("sources", [])
+    if not sources or any(not s.get("source_id") or not _sha(s.get("sha256")) for s in sources):
+        raise InvalidInput("recovery sources must be content-bound")
+    ids = {s["source_id"] for s in sources}
+    if len(ids) != len(sources):
+        raise InvalidInput("duplicate recovery source")
+    def bound(record, key):
+        if record.get("source_id") not in ids or not record.get("reason"):
+            raise InvalidInput("unbound recovery record")
+        row = endpoint(record[key])
+        row["graph_identity"] = graph_identity(record.get("graph_identity"))
+        return row
+    pairs = [(bound(r, "origin"), bound(r, "destination")) for r in registry.get("records", [])]
+    if not pairs:
+        raise InvalidInput("known history cannot have empty recovered pair registry")
+    for r in registry.get("anchor_only_exposures", []):
+        if r.get("source_id") not in ids or not r.get("reason"):
+            raise InvalidInput("unbound anchor-only recovery record")
+        graph_identity(r.get("graph_identity"))
+        for key in ("origin_anchor", "destination_anchor"):
+            value = r.get(key)
+            if isinstance(value, bool) or not isinstance(value, Integral) or value < 0:
+                raise InvalidInput("invalid anchor-only recovery index")
+    return pairs, [bound(r, "endpoint") for r in registry.get("inspected_endpoints", [])]
+
+
+def select_od_slate(site_rows, registry, *, site_catalog_sha256,
+                    recovery_admission=None, graph_file_identity=None):
     """One representative/cell; lexicographic unordered pairs; fixed greedy six.
 
     Failure to find six under THIS bounded enumeration returns DATA_LIMITED and
@@ -138,7 +194,16 @@ def select_od_slate(site_rows, registry, *, site_catalog_sha256):
     """
     if not _sha(site_catalog_sha256):
         raise InvalidInput("catalog digest required")
-    exposures, inspected = validate_exposures(registry)
+    recovery = recovery_admission is not None
+    if recovery:
+        candidate_graph = graph_identity(graph_file_identity)
+        exposures, inspected = validate_recovered_exposures(registry, recovery_admission)
+    else:
+        exposures, inspected = validate_exposures(registry)
+    def identity(e, field):
+        if not recovery:
+            return e[field]
+        return digest(e.get("graph_identity", candidate_graph)), e[field]
     cells = {}
     for row, _ in _catalog(site_rows):
         if row["access_node"] is None:
@@ -151,16 +216,24 @@ def select_od_slate(site_rows, registry, *, site_catalog_sha256):
     # Representatives are selected before exposure exclusion: no alternate Site
     # from a contaminated representative's cell may be substituted.
     reps = [cells[key] for key in sorted(cells)]
-    excluded_ids = {e["site_id"] for pair in exposures for e in pair} | {e["site_id"] for e in inspected}
-    excluded_anchors = {e["access_node"] for pair in exposures for e in pair} | {
-        e["access_node"] for e in inspected if e["access_node"] is not None}
+    excluded_ids = {identity(e, "site_id") for pair in exposures for e in pair} | {identity(e, "site_id") for e in inspected}
+    excluded_anchors = {identity(e, "access_node") for pair in exposures for e in pair if e["access_node"] is not None} | {
+        identity(e, "access_node") for e in inspected if e["access_node"] is not None}
+    if recovery:
+        for r in registry.get("anchor_only_exposures", []):
+            excluded_anchors.update((digest(r["graph_identity"]), r[key])
+                                    for key in ("origin_anchor", "destination_anchor"))
+    inspected_cells = {cell(e) for e in inspected}
     exposure_groups = {group(*pair) for pair in exposures}
     selected, examined = [], 0
     for a, b in itertools.combinations(reps, 2):
         examined += 1
         if a["access_node"] == b["access_node"]:
             continue
-        if any(e["site_id"] in excluded_ids or e["access_node"] in excluded_anchors for e in (a, b)):
+        if any(identity(e, "site_id") in excluded_ids or identity(e, "access_node") in excluded_anchors for e in (a, b)):
+            continue
+        if recovery and any((cell(e)[0] + dx, cell(e)[1] + dy) in inspected_cells
+                            for e in (a, b) for dx, dy in itertools.product((-1, 0, 1), repeat=2)):
             continue
         g = group(a, b)
         # Reject geographically neighboring endpoint cells within each OD too.
@@ -175,13 +248,21 @@ def select_od_slate(site_rows, registry, *, site_catalog_sha256):
             origin_anchor=a["access_node"], destination_anchor=b["access_node"]))
         if len(selected) == REQUIRED_GROUPS:
             break
-    return dict(schema="hiroute.m6h.od_selection.v1", rule_version=RULE_VERSION,
+    result = dict(schema="hiroute.m6h.od_selection.v1", rule_version=RULE_VERSION,
         status="SELECTED" if len(selected) == REQUIRED_GROUPS else "DATA_LIMITED",
         requested_group_count=REQUIRED_GROUPS, selected_group_count=len(selected),
         site_catalog_sha256=site_catalog_sha256, exposure_registry_sha256=digest(registry),
         representative_cell_count=len(reps), examined_pair_count=examined, od=selected,
         no_replacement=True, statistical_independence_claim=False,
         generalization_scope="unseen_endpoint_region_pairs_on_existing_map_not_cross_region")
+
+    if recovery:
+        result.update(rule_version="hiroute.m6h.selection_rules.disclosed_recovery.v1",
+            exposure_mode="disclosed_incomplete_recovery",
+            graph_file_identity=candidate_graph, recovery_admission_sha256=digest(recovery_admission),
+            strict_independent_holdout_claim=False,
+            generalization_scope="new_map_correctness_and_performance_validation_with_incomplete_history")
+    return result
 
 
 def vdc(index):

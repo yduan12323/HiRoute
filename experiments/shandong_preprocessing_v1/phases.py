@@ -19,7 +19,7 @@ from urllib.request import urlopen
 from datetime import datetime,timezone
 
 ROOT=Path(__file__).resolve().parents[2]
-sys.path[:0]=[str(ROOT/'scripts'),str(ROOT/'src')]
+sys.path[:0]=[str(ROOT),str(ROOT/'scripts'),str(ROOT/'src')]
 # Root must replace these only in a reviewed, source-frozen follow-up commit.
 USER_DATA_SCOPE_APPROVAL = None
 ROOT_PROTOCOL_FREEZE = None
@@ -27,7 +27,10 @@ ROOT_PROTOCOL_FREEZE = None
 
 def gate(fixture):
     if not fixture and (USER_DATA_SCOPE_APPROVAL is None or ROOT_PROTOCOL_FREEZE is None):
-        raise RuntimeError('HELD: new data scope and root source/protocol freeze pending')
+        from experiments.m6h_manifest_v1.recovery_runtime import require_active
+        try:require_active()
+        except PermissionError as exc:
+            raise RuntimeError('HELD: reviewed disclosed recovery source/protocol release pending') from exc
 
 
 def digest(path,checkpoint=None):
@@ -152,6 +155,28 @@ def stream_download(url,path,limit):
     return count
 
 
+def copy_frozen_input(source_path, destination, limit):
+    """Bounded copy of a separately frozen local source; never trust path alone."""
+    source_path=Path(source_path)
+    if (not source_path.is_absolute() or source_path.resolve()!=source_path
+        or not source_path.is_file() or source_path.stat().st_size>limit):
+        raise ValueError('Invalid frozen local source path or size')
+    count=0
+    with source_path.open('rb') as src, destination.open('xb') as dst:
+        for block in iter(lambda:src.read(1024*1024),b''):
+            count+=len(block)
+            if count>limit:raise ValueError('Frozen local source exceeds byte bound')
+            dst.write(block)
+        dst.flush();os.fsync(dst.fileno())
+    return count
+
+
+def acquire_source_input(spec, key, url, destination, limit):
+    if spec.get(key) is not None:
+        return copy_frozen_input(spec[key],destination,limit)
+    return stream_download(url,destination,limit)
+
+
 def source(out,prior,config,osmium,fixture):
     import shapely.geometry
     from envelope.boundary import read_poly
@@ -171,16 +196,20 @@ def source(out,prior,config,osmium,fixture):
         publisher_md5=None
     else:
         s=config['source']; url=s['url']; partial=out/'source.partial.pbf'
-        if stream_download(url,partial,s['expected_size_bytes'])!=s['expected_size_bytes']:raise ValueError('Source size mismatch')
-        md5file=out/'publisher.md5';stream_download(url+'.md5',md5file,4096)
+        if acquire_source_input(s,'local_pbf',url,partial,s['expected_size_bytes'])!=s['expected_size_bytes']:raise ValueError('Source size mismatch')
+        md5file=out/'publisher.md5';acquire_source_input(s,'local_publisher_md5',url+'.md5',md5file,4096)
         publisher_md5=md5file.read_text().split()[0]
+        if not re.fullmatch('[0-9a-f]{32}',publisher_md5):raise ValueError('Invalid publisher MD5')
+        if s.get('publisher_md5') is not None and publisher_md5!=s['publisher_md5']:raise ValueError('Frozen publisher MD5 mismatch')
         h=hashlib.md5()
         with partial.open('rb') as f:
             for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
         if h.hexdigest()!=publisher_md5:raise ValueError('Publisher MD5 mismatch')
         if digest(partial)!=s['sha256']:raise ValueError('Frozen source SHA256 mismatch')
         partial.rename(raw)
-        stream_download('https://download.geofabrik.de/asia/china/shandong.poly',poly,16*1024*1024)
+        acquire_source_input(s,'local_polygon','https://download.geofabrik.de/asia/china/shandong.poly',poly,16*1024*1024)
+        if s.get('polygon_sha256') is None or digest(poly)!=s['polygon_sha256']:
+            raise ValueError('Frozen provider polygon SHA256 required and must match')
     info=json.loads(native(osmium,'fileinfo','-j',raw))
     if info['header']['option']['osmosis_replication_timestamp']!=stamp:raise ValueError('Source timestamp mismatch')
     polygon=read_poly(poly)
@@ -192,6 +221,7 @@ def source(out,prior,config,osmium,fixture):
     write(out/'sources.json',{'synthetic':fixture,'source_url':None if fixture else config['source']['url'],
         'sha256':digest(raw),'size_bytes':raw.stat().st_size,'publisher_md5':publisher_md5,
         'snapshot_timestamp':stamp,'polygon_sha256':digest(poly),'polygon_snapshot_matched':False,'acquired_at_utc':None if fixture else datetime.now(timezone.utc).isoformat(),
+        'acquisition_method':None if fixture else {key:('verified_local_copy' if config['source'].get(key) else 'provider_download') for key in ('local_pbf','local_polygon','local_publisher_md5')},
         'polygon_url':None if fixture else 'https://download.geofabrik.de/asia/china/shandong.poly',
         'license':'synthetic' if fixture else config['source']['license'],'attribution':config['source']['attribution']})
 
@@ -336,9 +366,11 @@ def main():
         name,version=line.split('==')
         if importlib.metadata.version(name)!=version:raise ValueError('Pinned dependency version mismatch: '+name)
     if not native(args.osmium,'--version').startswith('osmium version 1.18.0\n'):raise ValueError('Pinned osmium version mismatch')
-    config=json.loads((Path(__file__).parent/'config.json').read_text())
-    if not args.fixture and ROOT_PROTOCOL_FREEZE != digest(Path(__file__).parent/'config.json'):
-        raise ValueError('Root freeze must bind exact configuration bytes')
+    config_path=Path(__file__).parent/'config.json'
+    if not args.fixture:
+        from experiments.m6h_manifest_v1.recovery_runtime import preprocessing_config_path
+        config_path=preprocessing_config_path()
+    config=json.loads(config_path.read_text())
     out=Path(os.environ['HIROUTE_OUTPUT_DIR'])
     scratch=owned_scratch(out)
     expected_tools=json.loads(os.environ['HIROUTE_TOOLCHAIN_IDENTITY'])
@@ -352,8 +384,8 @@ def main():
     PHASES[args.phase](out,prior,config,args.osmium,args.fixture)
     files={str(p.relative_to(out)):{'sha256':digest(p),'size_bytes':p.stat().st_size} for p in sorted(out.rglob('*')) if p.is_file()}
     scratch_files=[str(p.relative_to(scratch)) for p in sorted(scratch.rglob('*')) if p.is_file()]
-    write(out/'artifact_manifest.json',{'schema_version':1,'phase':args.phase,'synthetic':args.fixture,'files':files,
-        'config_sha256':digest(Path(__file__).parent/'config.json'),'implementation_sha256':digest(Path(__file__)),'core_source_contract':code_contract(),
+    write(out/'artifact_manifest.json',{'schema_version':1,'phase':args.phase,'synthetic':args.fixture,'files':files,'prior':prior,
+        'config_sha256':digest(config_path),'implementation_sha256':digest(Path(__file__)),'core_source_contract':code_contract(),
         'versions':{n:importlib.metadata.version(n) for n in ('pyrosm','pyproj','shapely','numpy','pandas','pyarrow','igraph')},
         'osmium_version':native(args.osmium,'--version'),'osmium_binary_sha256':digest(args.osmium),'toolchain_identity':actual_tools,
         'scratch':{'path':str(scratch),'owned_uid':os.getuid(),'mode':'0700','retained_files':scratch_files,'inside_supervised_artifacts':True}})

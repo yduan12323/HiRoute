@@ -1,0 +1,86 @@
+{
+  "schema": "hiroute.m6h.recovery_config.v1",
+  "source_revision": "9598021f7e1e07e3f0b91f94b17510d9549a03cc",
+  "sources": [
+    {
+      "path": "configs/stopplan_4r.yaml",
+      "sha256": "d23ffe78fcc0d7bbed53c46e6610022d63b13803f4613dbc91cf3c84d69c294a"
+    },
+    {
+      "path": "results/milestone_5d/continuation_20261011/geographic_screen_v3.json",
+      "sha256": "c0e3b4cc25790389c8ef4989a314232c7c52fcc19cd78943e7744bb088659c0d"
+    },
+    {
+      "path": "results/milestone_5d/continuation_20261011/geographic_screen_v5_grid14.json",
+      "sha256": "eab8a107f31a6a966cf2a1f215f832494511ffa694da4532186ac025b232784f"
+    },
+    {
+      "path": "results/milestone_5d/continuation_20261011/grid14_distance_p0.json",
+      "sha256": "0838d667e740adb14d725f4e488fd4aee9e7f73cc3f5b69e2fef63a02241cc1b"
+    },
+    {
+      "path": "results/milestone_5d/continuation_20261011/grid14_distance_p1.json",
+      "sha256": "baba2237953169aecd74f4ddd32b7ed90d5b13118935f38f7bd6e4a55c07b7ab"
+    },
+    {
+      "path": "results/milestone_5d/continuation_20261011/grid14_distance_p2.json",
+      "sha256": "d13bebce4448cdb7071c9c58d04fd9ca0adeaf0314f31e155bf907248878e2b6"
+    },
+    {
+      "path": "results/milestone_5d/continuation_20261011/grid14_distance_p3.json",
+      "sha256": "4cc6a7aab7a0061e2ed682795c9db7e0f7e4c6ee8a3c58e91233e6e6bc4d7120"
+    },
+    {
+      "path": "experiments/time_cut_v2/real_inputs/required_input_manifest.json",
+      "sha256": "61dcc51f1cc7ab64a86eb4485b36a4481d2c0ac214052c048adc8d558a1b68d1"
+    }
+  ],
+  "known_missing_artifacts": [
+    {
+      "gap_id": "original_registry_and_builder_lost",
+      "description": "Original registry SHA256 3efc955882a42f77e528cf93be6e3ec263ec2cb8f2c960bb7755ee341e5aa2e2, builder and exhaustive source inventory unavailable; historic totals 74754/248348/5961 are not recovered counts."
+    },
+    {
+      "gap_id": "missing_exact_m2",
+      "description": "results/milestone_2/path_containment_tests.parquet exact SHA256 0893a4a35d7bc97aa9bfb232f8795ab19f841167bc0247623788dfec7029df97 unavailable."
+    },
+    {
+      "gap_id": "unresolved_other_history",
+      "description": "Other reachable historical diagnostics, candidate selection, archives and DEV histories are not exhaustively resolved; unreachable and working-file history unknown. The original 30 DEV pairs and 60 graph-local anchors are recovered, but their exact graph-node coordinates remain unavailable; nearby Site coordinates are not substituted."
+    },
+    {
+      "gap_id": "china_named_proposals_without_coordinates",
+      "description": "Dali to Tianjin, Chengdu to Shanghai, Lhasa to Zhengzhou are known proposal history only; exact historical endpoint coordinates and anchors unavailable. No coordinates are guessed."
+    }
+  ],
+  "inventory_revisions": [
+    "00e5aa4dda8225a7d740e4ec2a42b1553a9d52b4",
+    "1826f58ba1731e18249d2d24a3ee40a2ed1bf030",
+    "1b4bee894f36d4be39a4a0ff75f8f18dfbaba830",
+    "37fc5f009503f8416f75f375adf01e0be89ccc16",
+    "4ff80afa503004b55d63e26e776e7bdbc7e5f35c",
+    "55faa46322349150e9cc7f4e6026671988919fe7",
+    "916c390294672215e244e40f542fa9f7aa8361f9",
+    "9598021f7e1e07e3f0b91f94b17510d9549a03cc",
+    "e113b553b7405736f0c8750858770487ee43b310",
+    "fcb3577c862f3e4ff9e731c9e633f0e638b26540"
+  ],
+  "external_inputs": [
+    {
+      "path": "data/processed/graphs/slovenia_extended/metadata.json",
+      "filename": "metadata.json",
+      "sha256": "268d09781c5e51a486c0d6574b7439e964b6293aef2df07f64cc5772c6dfaadd"
+    },
+    {
+      "path": "results/milestone_3a/od_remapping.parquet",
+      "filename": "od_remapping.parquet",
+      "sha256": "f38c0a81f42564e4f220d5c82de43d4454abfd8e962b09979d3dbdc8a447dcea"
+    },
+    {
+      "path": "results/milestone_4r/stop_sites.parquet",
+      "filename": "stop_sites.parquet",
+      "sha256": "e3e7d6d6667f7ab684ff83eb2646920516b01aef2e6ceb8170c689e71f6afd38"
+    }
+  ],
+  "external_input_manifest": "experiments/time_cut_v2/real_inputs/required_input_manifest.json"
+}

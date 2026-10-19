@@ -49,7 +49,10 @@ class GeometryTests(unittest.TestCase):
             self.assertTrue(shapely.from_wkb(row['geometry_wkb']).distance(shapely.Point(row['lon'],row['lat'])) < .02)
 
     def test_public_coordinate_projection_contract(self):
-        lon,lat=np.meshgrid(np.arange(114,123.001,.25),np.arange(34,39.001,.25))
+        config=json.loads((HERE/'config.json').read_text())['geometry']
+        west,south,east,north=config['public_validation_box_lon_lat']
+        self.assertEqual([west,south,east,north],[114,34,124,39])
+        lon,lat=np.meshgrid(np.arange(west,east+.001,.25),np.arange(south,north+.001,.25))
         f=Proj(CRS).get_factors(lon,lat)
         self.assertLess(np.max(abs(f.meridional_scale-1)),.003)
         self.assertLess(np.max(abs(f.parallel_scale-1)),.003)

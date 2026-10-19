@@ -21,7 +21,7 @@ STAGES=(('source',1800,3600),('graph',7200,14400),('inventory',3600,7200),
         ('sites',3600,7200),('hierarchy',7200,14400))
 
 
-def run_preprocessing(output, *, budget, interpreter, osmium, fixture=False, cpu=0, compiler=None):
+def run_preprocessing(output, *, budget, interpreter, osmium, fixture=False, cpu=0, compiler=None, expected_toolchain=None):
     gate(fixture)  # Before source files, output creation or supervisor imports.
     if budget is None:raise ValueError('Enclosing pre-source Budget required')
     if not fixture and cpu!=0:raise ValueError('Real preprocessing requires CPU0')
@@ -36,8 +36,14 @@ def run_preprocessing(output, *, budget, interpreter, osmium, fixture=False, cpu
     compiler=compiler or shutil.which('g++')
     if not compiler:raise ValueError('Compiler unavailable')
     tools=toolchain_identity(interpreter,osmium,compiler)
+    if expected_toolchain is not None and tools!=expected_toolchain:
+        raise ValueError('Preprocessing toolchain differs from root freeze')
+    config_path=HERE/'config.json'
+    if not fixture:
+        from experiments.m6h_manifest_v1.recovery_runtime import preprocessing_config_path
+        config_path=preprocessing_config_path()
     receipt={'toolchain_identity':tools,'core_source_contract':code_contract(),'status':'RUNNING','synthetic':fixture,'budget_origin':{'wall_start':budget.wall_start,'cpu_start':budget.cpu_start},
-             'stages':records,'config_sha256':digest(HERE/'config.json'),'driver_sha256':digest(Path(__file__)),
+             'stages':records,'config_sha256':digest(config_path),'driver_sha256':digest(Path(__file__)),
              'phase_source_sha256':digest(HERE/'phases.py'),'osmium_binary_sha256':digest(osmium)}
     # Terminal file is written once; stage supervisor receipts persist independently
     # on interruption. External caller's waited receipt includes this final write.
@@ -115,7 +121,7 @@ def main():
 
 
 def validate_registry_once(path, *, byte_sha256, canonical_sha256, max_bytes,
-                           output, budget, interpreter, cpu):
+                           output, budget, interpreter, cpu, recovery_admission=None):
     """Release registry heap before graph build; same enclosing budget required.
 
     Hashes must come from the caller's independently recovered frozen identity.
@@ -131,6 +137,11 @@ def validate_registry_once(path, *, byte_sha256, canonical_sha256, max_bytes,
     argv=[str(Path(interpreter).absolute()),'-u',str(HERE/'registry_worker.py'),
           '--path',str(Path(path).absolute()),'--sha256',byte_sha256,
           '--canonical-sha256',canonical_sha256,'--max-bytes',str(max_bytes)]
+    if recovery_admission is not None:
+        from experiments.m6h_manifest_v1.recovery_runtime import require_active
+        if recovery_admission!=require_active()['recovery_admission']:
+            raise ValueError('Registry admission differs from root release')
+        argv+=['--recovery-admission',json.dumps(recovery_admission,sort_keys=True)]
     result=run(argv,output_dir=output,cwd=HERE.parents[1],owned_temp=True,
                limits=Limits(wall_seconds=600,cpu_seconds=600,address_space_bytes=8*2**30,cpu=cpu),
                tree_cpu_seconds=600,global_cpu_remaining=rem_cpu,global_wall_remaining=rem_wall)
