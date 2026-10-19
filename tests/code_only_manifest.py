@@ -1,5 +1,6 @@
 """Main default cohort and separately isolated code gates; no archived evidence."""
 CODE_ONLY_MODULES = (
+    "tests/test_bounded_preprocessing_recovery.py",
     "tests/test_raw_way_policy_logic.py",
     "tests/test_node_domain_batch.py",
     "tests/test_m5d_aggregate_screen.py",

@@ -54,3 +54,10 @@ jobs:
         run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_target_routing_code.py'
       - name: Test opt-in energy screening and independent full replay
         run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_terminal_energy_code.py'
+      - name: Test held preprocessing recovery and nested cleanup
+        run: |
+          for flags in "" "-OO"; do
+            "$RUNNER_TEMP/m5-ci-venv/bin/python" $flags -m unittest discover -s tests -p test_bounded_preprocessing_recovery.py
+            "$RUNNER_TEMP/m5-ci-venv/bin/python" $flags -m unittest discover -s experiments/shandong_preprocessing_v1 -p test_driver.py
+            "$RUNNER_TEMP/m5-ci-venv/bin/python" $flags -m unittest discover -s experiments/shandong_preprocessing_v1 -p test_stage_identity.py
+          done

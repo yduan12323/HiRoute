@@ -49,9 +49,9 @@ def export_identity(feature):
     raise ValueError(f'Unknown exported identity {identifier}')
 
 
-def parse_geometry(path, catalogue, polygon):
-    to_metric = Transformer.from_crs(4326,3035,always_xy=True)
-    to_wgs = Transformer.from_crs(3035,4326,always_xy=True)
+def parse_geometry(path, catalogue, polygon, projection="EPSG:3035"):
+    to_metric = Transformer.from_crs(4326,projection,always_xy=True)
+    to_wgs = Transformer.from_crs(projection,4326,always_xy=True)
     located = {}
     errors = Counter()
     with Path(path).open() as stream:

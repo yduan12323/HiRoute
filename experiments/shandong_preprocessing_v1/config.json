@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "status": "HELD",
+  "source": {
+    "region": "Shandong",
+    "url": "https://download.geofabrik.de/asia/china/shandong-261016.osm.pbf",
+    "source_page": "https://download.geofabrik.de/asia/china/shandong.html",
+    "expected_size_bytes": 71651758,
+    "snapshot_timestamp": "2026-10-16T20:21:21Z",
+    "sha256": "844f1de519e56f341b62e3d8f4c2db6984e32f1a8a5ca2a851e9ccdd35fc7464",
+    "publisher_md5": null,
+    "polygon_sha256": null,
+    "license": "ODbL-1.0",
+    "attribution": "OpenStreetMap contributors; extracts by Geofabrik",
+    "license_url": "https://www.openstreetmap.org/copyright"
+  },
+  "geometry": {
+    "projection": "+proj=lcc +lat_1=35 +lat_2=38 +lat_0=36.5 +lon_0=118.5 +datum=WGS84 +units=m +no_defs +type=crs",
+    "projection_status": "PROPOSED_PUBLIC_GEOGRAPHY_ONLY",
+    "definition_source": "https://proj.org/en/stable/operations/projections/lcc.html",
+    "geography_source": "https://shandong-chorography.org/database/a/section/7/article/4/",
+    "public_validation_box_lon_lat": [
+      114.0,
+      34.0,
+      123.0,
+      39.0
+    ],
+    "maximum_scale_error": 0.003,
+    "graph_length_metric": "unchanged Pyrosm segment length",
+    "attachment_metric": "unchanged WGS84 Geod.inv",
+    "local_support_metric": "unchanged unit-sphere great-circle proxy",
+    "representative_rule": "projected point-on-surface or normalized line midpoint; polygon priority over line over point"
+  },
+  "resources": {
+    "cpu_seconds": 144000,
+    "wall_seconds": 172800,
+    "sampled_tree_rss_bytes": 5368709120,
+    "host_reserve_bytes": 2147483648,
+    "per_process_as_bytes": 8589934592,
+    "threads": 1,
+    "monitor_interval_s": 0.1,
+    "budget_scope": "before first source access through terminal queue receipt; one enclosing Budget; no reset on retries"
+  },
+  "outputs_root": "data/processed/m6h_shandong_261016",
+  "required_approvals": [
+    "user_data_scope",
+    "root_protocol_and_source_freeze"
+  ],
+  "execution_enabled": false
+}
