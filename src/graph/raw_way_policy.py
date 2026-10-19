@@ -5,8 +5,22 @@ Only highway=yes candidate records are retained; no location index is required.
 """
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
+
+
+def validate_access_tokens(policy: Mapping) -> None:
+    """Reject YAML-coerced access tokens rather than silently changing admission.
+
+    Validation is dependency-light and runs before normalization. In particular,
+    YAML 1.1 unquoted yes/no become booleans, which never equal OSM tag strings.
+    Do not repair malformed values by coercing them to strings.
+    """
+    for field in ("allowed", "excluded", "hierarchy", "excluded_highway"):
+        tokens = policy.get(field)
+        if not isinstance(tokens, list) or any(not isinstance(token, str) for token in tokens):
+            raise ValueError(f"access.{field} must be a list of strings; quote YAML yes/no tokens")
 
 
 @dataclass(frozen=True)

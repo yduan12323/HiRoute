@@ -11,6 +11,7 @@ ROOT_RELEASE = 'reviewed_disclosed_recovery_v1'
 ROOT_REGISTRY_ADMISSION = {'gap_list_sha256': '3d4882dad7c0e761ad38ed7c53babc4460fa7abc0fee7aef82fc9c9db0b63077', 'purpose': 'new_map_correctness_and_performance_validation', 'registry_sha256': '6952853c9c25ee8e75a0db9dcc80465432d330e621b2ba0ea78a85c57c2e25be', 'schema': 'hiroute.m6h.recovered_exposure_registry.v1', 'strict_independent_holdout_claim': False}
 ROOT_PREPROCESSING_SHA256 = '87d7d676810e81f4e43ca26ae1934bd47781e99250747f4c6fbf968859d64f5b'
 ROOT_REGISTRY_BYTES_SHA256 = '6952853c9c25ee8e75a0db9dcc80465432d330e621b2ba0ea78a85c57c2e25be'
+ROOT_CONTINUATION_ADMISSION_SHA256 = '443194eb0277bae3b8164d67809ee6814e133bc9a77290e81880c2704c40d191'
 ENV = 'HIROUTE_DISCLOSED_RECOVERY_BINDING'
 
 
@@ -28,9 +29,11 @@ def load(binding):
     value=json.loads(raw)
     if canonical(value)!=raw:raise ValueError('Canonical recovery configuration required')
     if set(value)!={'protocol','repo','source','compiler','toolchain','exposure_binding',
-                   'recovery_admission','preprocessing_config','transition_utc'}:
+                   'recovery_admission','preprocessing_config','transition_utc','continuation_admission'}:
         raise ValueError('Complete recovery configuration required')
     validate_protocol(value['protocol'])
+    from .continuation import verify
+    verify(value['continuation_admission'],expected_admission_sha256=ROOT_CONTINUATION_ADMISSION_SHA256)
     if value['recovery_admission']!=ROOT_REGISTRY_ADMISSION or ROOT_REGISTRY_ADMISSION is None:
         raise ValueError('Registry and gap list are not the root-reviewed admission')
     if value['preprocessing_config'].get('sha256')!=ROOT_PREPROCESSING_SHA256 or ROOT_PREPROCESSING_SHA256 is None:
@@ -41,7 +44,7 @@ def load(binding):
     repo=Path(value['repo']).resolve()
     if repo!=Path(__file__).resolve().parents[2]:raise ValueError('Recovery repository differs')
     expected_names=set()
-    for prefix in ('src','validation','scripts','experiments'):
+    for prefix in ('src','validation','scripts','experiments','configs'):
         expected_names.update(str(p.relative_to(repo)) for p in (repo/prefix).rglob('*')
             if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ('.pyc','.pyo'))
     expected_names.update(n for n in ('pyproject.toml','uv.lock','environment-linux-64.lock') if (repo/n).is_file())

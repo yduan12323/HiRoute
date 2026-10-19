@@ -5,7 +5,7 @@ import re
 from collections import Counter
 from collections.abc import Mapping
 
-from .raw_way_policy import RawWay
+from .raw_way_policy import RawWay, validate_access_tokens
 
 import numpy as np
 import pandas as pd
@@ -45,8 +45,11 @@ def posted_speed(value: str | None, model: dict) -> float | None:
 
 
 def normalize_network(nodes, edges, routing: dict, *,
-                      raw_way_policy: Mapping[int, RawWay] | None = None) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
+                      raw_way_policy: Mapping[int, RawWay] | None = None,
+                      allow_empty: bool = False,
+                      policy_schema_evidence: dict | None = None) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
     """Retain all components; never simplify, prune corridors, or merge parallel edges."""
+    validate_access_tokens(routing["access"])
     if routing["network_type"] != "driving" or routing["simplify"] or not routing["retain_all_components"]:
         raise ValueError("This pipeline requires unsimplified driving data with all components retained")
     audit = Counter(parsed_segments=len(edges), excluded_street_lamp=0,
@@ -127,8 +130,15 @@ def normalize_network(nodes, edges, routing: dict, *,
                             "oneway_effective": oneway, "access_effective": access,
                             **values})
     if not records:
+        if allow_empty:
+            return pd.DataFrame(), pd.DataFrame(), dict(audit)
         raise ValueError("No driving edges survive preprocessing")
     way_policy = pd.DataFrame.from_records(records)
+    if policy_schema_evidence is not None:
+        policy_schema_evidence.update(
+            excluded_records=int(way_policy.excluded_reason.notna().sum()),
+            nonnull_types={name: str(way_policy[name].dtype) for name in way_policy.columns
+                           if way_policy[name].notna().any()})
     sizes = edges["id"].value_counts()
     for reason, group in way_policy.loc[way_policy.excluded_reason.notna()].groupby("excluded_reason"):
         audit[f"excluded_{reason}"] = int(sizes.reindex(group.osm_way_id).sum())
@@ -140,6 +150,10 @@ def normalize_network(nodes, edges, routing: dict, *,
     edge_table = segments.merge(way_policy.loc[way_policy.excluded_reason.isna()].drop(columns="excluded_reason"),
                                 on="osm_way_id", how="inner", sort=False)
     if edge_table.empty:
+        if allow_empty:
+            audit["speed_class_fallback"] = 0
+            audit["speed_posted_cap"] = 0
+            return pd.DataFrame(), pd.DataFrame(), dict(audit)
         raise ValueError("No driving edges survive preprocessing")
     del segments, way_policy, records
     reverse = edge_table.direction == -1

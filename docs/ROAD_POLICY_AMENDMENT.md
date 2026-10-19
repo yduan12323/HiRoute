@@ -89,3 +89,32 @@ a synthetic PBF raw-way round trip, precise rejection cases, and audit checks.
 It is not the private six-way reproduction, a full graph/OD rebuild, a solver
 run, a performance benchmark, or acceptance of the previous frozen population.
 No private dataset, result archive, approval identifier, or manifest is included.
+
+
+## Separate pre-OD access-token correction
+
+Before any new OD sampling, `configs/routing.yaml` now quotes the OSM access
+values `"yes"` and `"no"`. PyYAML's YAML 1.1 loader otherwise loads those bare
+words as `True` and `False`; normalized OSM tags remain strings. The old allowed
+list therefore wrongly rejected legitimate explicit `access=yes` (and higher
+priority `vehicle`, `motor_vehicle`, or `motorcar` yes) roads. Quoting `no` also
+restores the documented excluded-list token type; the existing allowlist still
+rejects no and other restricted/unknown values.
+
+This is a correctness change to graph admission, separate from both the narrow
+road amendment above and any semantics-preserving way partitioning. It is not
+claimed to preserve the old buggy graph. The changed config and source hashes
+invalidate old graph artifacts for a new corrected freeze: regenerate graphs,
+freeze their new provenance, and only then generate new ODs. Historical graph
+and OD artifacts must not be relabeled or reused as corrected results.
+
+The normalizer now validates that `allowed`, `excluded`, `hierarchy`, and
+`excluded_highway` are lists containing only strings before touching graph data.
+Malformed tokens (including YAML booleans) fail explicitly, without coercion.
+Access hierarchy, no-tag behavior, speed assumptions, other road policy,
+direction expansion, solver, and backend mode are unchanged. In particular,
+Pyrosm driving-mode service-road exclusion is not changed by this correction.
+The dependency-light CI tests cover malformed token types; the geospatial
+synthetic tests load the actual YAML and cover yes admission, no rejection,
+and higher-priority access tags in both directions. These tests do not parse
+a real map, generate ODs, or certify a rebuilt graph.

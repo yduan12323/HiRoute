@@ -76,3 +76,38 @@ ceiling and 0.2-second exact-phase timeout unchanged. A 0.75-second synthetic
 pre-phase startup delay explicitly tests that boundary; the separate timeout
 negative must still report phase_timeout and verified cleanup. No physical
 worker, scientific sample, resource ceiling or retry policy is changed.
+
+## Receipt-bound infrastructure continuation
+
+A later preselection graph infrastructure continuation uses a separately
+source-pinned external admission. It authenticates the prior authoritative
+waited receipt, the completed outer supervisor cleanup receipt and the durable
+graph progress bytes. It rejects any existing generation/selection/queue path,
+nonzero numerical-slot declaration, unverified cleanup, changed global cap or
+changed absolute deadline. An incomplete killed inner graph ledger is retained;
+it is not represented as a successful or completed graph stage.
+
+The next debit starts with the prior outer cumulative value, adds the reviewed
+nine-CPU active interval from the new external admission, then transfers to the
+metered owner. It never re-adds the original initial-epoch carry, original active
+window or nested diagnostic receipts. Per-run totals, timestamps and artifact
+paths remain outside Git. ROOT_CONTINUATION_ADMISSION_SHA256 is populated only after the
+new parser/source/configuration review; an old configuration cannot launch this
+new continuation path. Execution still awaits separate root GO.
+
+## Corrected access tokens and partition proof scope
+
+The quoted-literal YAML yes/no correction changes the admitted graph relative to
+its prior coerced-boolean configuration. It is a separate pre-OD correctness
+amendment, not evidence that changing access policy preserves graph bytes.
+Malformed non-string access tokens now fail before normalization. Partition
+comparisons apply only when both paths use the same corrected routing config.
+
+The new M6 production closure still contains 97 files, now with digest
+fe8dad5b1970ee2440eaac5a98f0de613888c6adc2e88b186bc564fbe6a0a1e2.
+The corrected routing YAML digest is
+7fe2fdc42c67389df1f972852b69506b008cd0c71c85dd91aaed3069a6d7dfe8.
+All configuration files are included in the new M6 executable closure. Historical
+95/96 guards, fixtures and the failed predecessor's original identities remain
+unchanged. Synthetic partition RSS proves that fixture only; province-scale
+memory feasibility remains unestablished until a reviewed bounded attempt.

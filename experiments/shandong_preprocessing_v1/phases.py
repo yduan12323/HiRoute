@@ -45,6 +45,7 @@ def digest(path,checkpoint=None):
 def code_contract():
     paths=('scripts/prepare_opportunity_data.py','src/graph/preprocessing.py',
            'src/graph/raw_way_policy.py','experiments/shandong_preprocessing_v1/bounded_io.py',
+           'experiments/shandong_preprocessing_v1/way_partition.py',
            'experiments/shandong_preprocessing_v1/registry_worker.py',
            'experiments/m6h_manifest_v1/supervisor.py','experiments/m6h_manifest_v1/resources.py',
            'experiments/m6h_selection_v1/rules.py',
@@ -227,13 +228,12 @@ def source(out,prior,config,osmium,fixture):
 
 
 def graph(out,prior,config,osmium,fixture):
-    from pyrosm import OSM
     from pyrosm.config import NetworkFilter
     from bounded_io import literal_exclusions, progress, DENSE_FORMAT
     import yaml
-    from graph.preprocessing import ATTRIBUTES,normalize_network
+    from way_partition import build_partitioned_graph
+    import pandas as pd
     from graph.road_graph import IgraphRoadGraph
-    from graph.raw_way_policy import read_raw_way_policy
     src=verify_stage(prior['source'],'source')
     report=out/'graph_progress.json'
     progress(report,'road_filter_started')
@@ -245,19 +245,18 @@ def graph(out,prior,config,osmium,fixture):
     roads=out/'highways.pbf'
     native(osmium,'tags-filter',filtered,'w/highway','-f',DENSE_FORMAT,'-o',roads)
     native(osmium,'check-refs',roads)
-    raw_way_policy=read_raw_way_policy(roads)
-    progress(report,'parser_started',engine='out_of_core',workers=1,literal_exclusions=exclusions)
-    nodes,edges=OSM(str(roads),engine='out_of_core',workers=1).get_network(network_type='driving',nodes=True,extra_attributes=ATTRIBUTES)
-    progress(report,'parser_complete',nodes=len(nodes),segments=len(edges))
     routing=yaml.safe_load((ROOT/'configs/routing.yaml').read_text())
-    nodes,edges,audit=normalize_network(nodes,edges,routing,raw_way_policy=raw_way_policy)
-    progress(report,'normalization_complete',nodes=len(nodes),edges=len(edges))
+    progress(report,'parser_started',engine='whole_way_partitioned_out_of_core',workers=1,
+             literal_exclusions=exclusions,max_way_refs=50000,max_ways=10000)
+    audit=build_partitioned_graph(roads,out/'scratch',out,routing,osmium,report)
+    # Validate the same graph contract after all parser heaps have exited. Only
+    # routing columns are needed; never load the full global tag/geometry table.
+    nodes=pd.read_parquet(out/'nodes.parquet')
+    edges=pd.read_parquet(out/'edges.parquet',columns=['edge_id','source','target','length_m','travel_time_s'])
     g=IgraphRoadGraph(nodes,edges)
     node_count,edge_count=g.node_count,g.edge_count
-    del g  # Full constructor validation above; release adjacency before serialization.
-    nodes.to_parquet(out/'nodes.parquet',index=False,compression='zstd')
-    edges.to_parquet(out/'edges.parquet',index=False,compression='zstd')
-    progress(report,'graph_files_written',nodes=len(nodes),edges=len(edges))
+    del g,nodes,edges
+    progress(report,'graph_files_written',nodes=node_count,edges=edge_count)
     write(out/'metadata.json',{'schema_version':1,'crs':'EPSG:4326','directed':True,'parallel_edges':True,
         'all_components_retained':True,'simplified':False,'node_count':node_count,'edge_count':edge_count,
         'source_sha256':digest(src/'source.osm.pbf'),'routing_config_sha256':digest(ROOT/'configs/routing.yaml'),

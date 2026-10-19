@@ -5,7 +5,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from graph.raw_way_policy import RawWay, read_raw_way_policy
+from graph.raw_way_policy import RawWay, read_raw_way_policy, validate_access_tokens
 
 TAGS = (("highway", "yes"), ("building", "yes"), ("amenity", "shelter"))
 
@@ -82,3 +82,32 @@ def test_decoder_duplicate_way_ids_fail(monkeypatch):
     monkeypatch.setitem(sys.modules, "osmium", SimpleNamespace(SimpleHandler=Handler))
     with pytest.raises(ValueError, match="Duplicate"):
         read_raw_way_policy("snapshot.pbf")
+
+
+ACCESS_FIELDS = ("allowed", "excluded", "hierarchy", "excluded_highway")
+
+
+@pytest.mark.parametrize("field", ACCESS_FIELDS)
+@pytest.mark.parametrize("invalid", [True, False, 1, None, [True], [False], ["yes", True], [1], [None], ("yes",), {"yes": True}])
+def test_access_token_lists_reject_non_strings(field, invalid):
+    policy = {key: ["yes", "no"] for key in ACCESS_FIELDS}
+    policy[field] = invalid
+    with pytest.raises(ValueError, match=rf"access\.{field} must be a list of strings"):
+        validate_access_tokens(policy)
+
+
+def test_access_tokens_validate_without_mutation():
+    policy = {"allowed": ["yes", "permissive", "designated", "official"],
+              "excluded": ["no", "private"],
+              "hierarchy": ["motorcar", "motor_vehicle", "vehicle", "access"],
+              "excluded_highway": ["street_lamp"]}
+    before = {key: list(value) for key, value in policy.items()}
+    validate_access_tokens(policy)
+    assert policy == before
+
+
+@pytest.mark.parametrize("field", ACCESS_FIELDS)
+def test_access_token_lists_are_required(field):
+    policy = {key: [] for key in ACCESS_FIELDS if key != field}
+    with pytest.raises(ValueError, match=rf"access\.{field}"):
+        validate_access_tokens(policy)

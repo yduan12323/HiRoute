@@ -38,9 +38,9 @@ access:
   # highway=yes is never a generic driving class or speed fallback.
   exclude_closed_shelter_contour: true
   hierarchy: [motorcar, motor_vehicle, vehicle, access]
-  allowed: [yes, permissive, designated, official]
+  allowed: ["yes", permissive, designated, official]
   # Destination-only roads cannot be unrestricted through edges.
-  excluded: [no, private, destination, delivery, customers, agricultural, forestry]
+  excluded: ["no", private, destination, delivery, customers, agricultural, forestry]
   exclude_conditional_access: true
   exclude_conditional_oneway: true
 instances:

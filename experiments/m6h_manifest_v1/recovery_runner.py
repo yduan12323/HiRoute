@@ -10,7 +10,8 @@ import os
 from pathlib import Path
 import sys
 from . import recovery_runtime as runtime
-from .recovery_protocol import make_continuation_budget, DEADLINE, ACTIVE_SINCE, CARRIED_CPU
+from .recovery_protocol import DEADLINE
+from . import continuation
 from .resources import ContinuationBudget, conservative_transition_debit
 from .generation import _write, _hash, _check_budget
 
@@ -23,7 +24,9 @@ def supervise(output, *, configuration):
     # Source guard precedes config/input access. Entire validation interval is
     # already inside the nine-CPU conservative envelope before metering begins.
     freeze=runtime.activate(configuration)
-    budget=make_continuation_budget(transition_utc=freeze['transition_utc'])
+    lineage=continuation.verify(freeze['continuation_admission'],
+        expected_admission_sha256=runtime.ROOT_CONTINUATION_ADMISSION_SHA256)
+    budget=continuation.budget(lineage,transition_utc=freeze['transition_utc'])
     from .physical import source_identity
     from .generation import compiler_identity
     from .supervisor import run,Limits
@@ -36,8 +39,7 @@ def supervise(output, *, configuration):
     cpu,wall=budget.remaining()
     if min(cpu,wall)<=30:raise RuntimeError('Continuation cleanup reserve exhausted')
     transfer_stamp=now()
-    transfer_floor=conservative_transition_debit(prior_debit=CARRIED_CPU,active_since_utc=ACTIVE_SINCE,
-        transition_utc=transfer_stamp,cpu_capacity=9)
+    transfer_floor=continuation.debit_at(lineage,transfer_stamp)
     transfer=dict(carried_cpu_seconds=max(budget.measured()['cpu_seconds'],transfer_floor),transition_utc=transfer_stamp,
                   deadline_utc=DEADLINE,transition_cpu_capacity=9)
     job=_write(root/'job.json',dict(configuration=configuration,transfer=transfer))
@@ -51,7 +53,7 @@ def supervise(output, *, configuration):
         tree_cpu_seconds=cpu-30,global_cpu_remaining=cpu-30,global_wall_remaining=wall-30)
     summary=dict(schema='hiroute.m6h.disclosed_waited_round.v1',status=receipt['status'],
         cleanup_verified=receipt.get('cleanup_verified'),configuration=configuration,
-        protocol=freeze['protocol'],cumulative_measured_plus_conservative_carry=budget.measured(),
+        protocol=freeze['protocol'],continuation_lineage=lineage,cumulative_measured_plus_conservative_carry=budget.measured(),
         accounting='authoritative_outer_self_plus_waited_children_once_no_nested_sum',
         sampling_boundary='through_waited_launcher_exit_excludes_this_final_summary_write',
         terminal_write_reserve_seconds=30)
@@ -78,8 +80,9 @@ def worker(path,sha256):
     transfer=job['transfer']
     if transfer['deadline_utc']!=DEADLINE or transfer['transition_cpu_capacity']!=9:
         raise ValueError('Continuation ownership transfer expands deadline/capacity')
-    floor=conservative_transition_debit(prior_debit=CARRIED_CPU,active_since_utc=ACTIVE_SINCE,
-        transition_utc=transfer['transition_utc'],cpu_capacity=9)
+    lineage=continuation.verify(freeze['continuation_admission'],
+        expected_admission_sha256=runtime.ROOT_CONTINUATION_ADMISSION_SHA256)
+    floor=continuation.debit_at(lineage,transfer['transition_utc'])
     if transfer['carried_cpu_seconds']<floor:raise ValueError('Continuation transfer resets cumulative debit')
     budget=ContinuationBudget(**transfer)
     _check_budget(budget)

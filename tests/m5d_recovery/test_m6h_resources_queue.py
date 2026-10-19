@@ -146,11 +146,31 @@ class QueueTests(unittest.TestCase):
         with self.assertRaises(ValueError):resources.Budget(144001,172800)
 
 
+def available_fixture_cpu():
+    """Positive subprocess fixtures follow host cpusets; real CPU0 stays fixed."""
+    allowed=os.sched_getaffinity(0)
+    if not allowed:raise RuntimeError('No CPU available for positive fixture')
+    return min(allowed)
+
+
 class SupervisorTests(unittest.TestCase):
+    def test_positive_fixture_respects_restricted_cpuset(self):
+        with patch.object(os,'sched_getaffinity',return_value={2,3}):
+            self.assertEqual(available_fixture_cpu(),2)
+        with patch.object(os,'sched_getaffinity',return_value={0,1}):
+            self.assertEqual(available_fixture_cpu(),0)
+    def test_unavailable_affinity_still_rejected(self):
+        unavailable=max(os.sched_getaffinity(0))+1
+        with tempfile.TemporaryDirectory() as d:
+            path=Path(d)/'out'
+            with self.assertRaisesRegex(ValueError,'Unavailable CPU'):
+                supervisor.run([sys.executable,'-c','pass'],output_dir=path,
+                    limits=supervisor.Limits(1,1,256*1024**2,unavailable))
+            self.assertFalse(path.exists())
     def run_worker(self,source,**kw):
         with tempfile.TemporaryDirectory() as d:
             return supervisor.run([sys.executable,'-c',source],output_dir=Path(d)/'out',
-                limits=supervisor.Limits(2,1,256*1024**2,5),
+                limits=supervisor.Limits(2,1,256*1024**2,available_fixture_cpu()),
                 prelaunch_available_bytes=1,available_stop_bytes=1,**kw)
     def test_fresh_subprocess_measured(self):
         source="import os,json; open(os.environ['HIROUTE_WORKER_RECEIPT'],'w').write(json.dumps({'status':'COMPLETED'}))"
@@ -168,7 +188,7 @@ class SupervisorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d,patch.object(supervisor,'memory_available',return_value=0):
             path=Path(d)/'out'
             with self.assertRaises(MemoryError):
-                supervisor.run([sys.executable,'-c','pass'],output_dir=path,limits=supervisor.Limits(1,1,256*1024**2,5))
+                supervisor.run([sys.executable,'-c','pass'],output_dir=path,limits=supervisor.Limits(1,1,256*1024**2,available_fixture_cpu()))
             self.assertFalse(path.exists())
     def test_nested_accounting_not_receipt_sum(self):
         source="import subprocess,sys,os,json; subprocess.run([sys.executable,'-c','sum(range(2000000))']); open(os.environ['HIROUTE_WORKER_RECEIPT'],'w').write(json.dumps({'status':'COMPLETED'}))"

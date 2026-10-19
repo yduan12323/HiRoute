@@ -50,8 +50,15 @@ PROTOCOL = {
     'failure_policy': 'retain_fixed_slots_no_replacement_no_favorable_retry',
     'road_policy': 'exact_street_lamp_excluded_yes_only_original_closed_building_yes_and_amenity_shelter',
     'production_source_entries': 97,
-    'production_src_sha256': 'fe1232d4061ab43f92d320ee3937222e88c3e1eead054a53cdd49a6c2ac39fbc',
+    'production_src_sha256': 'fe8dad5b1970ee2440eaac5a98f0de613888c6adc2e88b186bc564fbe6a0a1e2',
     'historical_source_guards': 'unchanged',
+    'routing_config_sha256': '7fe2fdc42c67389df1f972852b69506b008cd0c71c85dd91aaed3069a6d7dfe8',
+    'access_token_correctness_amendment': {
+        'configuration': 'quoted_literal_yes_no',
+        'reject_non_string_access_tokens': True,
+        'admitted_graph_changed_before_od': True,
+        'partition_equivalence_scope': 'same_corrected_routing_configuration_only',
+    },
 }
 
 

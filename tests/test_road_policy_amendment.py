@@ -177,3 +177,50 @@ def test_one_unmatched_yes_way_blocks_whole_graph(config):
     edges = pd.concat([edges, second], ignore_index=True)
     with pytest.raises(ValueError, match="fallback"):
         normalize_network(nodes, edges, config, raw_way_policy={1: raw()})
+
+
+def test_actual_yaml_access_tokens_are_strings(config):
+    assert config["access"]["allowed"][0] == "yes"
+    assert config["access"]["excluded"][0] == "no"
+    for field in ("allowed", "excluded", "hierarchy", "excluded_highway"):
+        assert all(isinstance(token, str) for token in config["access"][field])
+
+
+@pytest.mark.parametrize("tags,admitted,effective", [
+    ({"access": "yes"}, True, "yes"),
+    ({"access": "no"}, False, None),
+    ({"access": "private", "motorcar": "yes"}, True, "yes"),
+    ({"access": "yes", "motorcar": "no"}, False, None),
+    ({"access": "no", "vehicle": "yes"}, True, "yes"),
+    ({"vehicle": "no", "motor_vehicle": "yes"}, True, "yes"),
+    ({"motor_vehicle": "no", "motorcar": "yes"}, True, "yes"),
+    ({"motor_vehicle": "yes", "motorcar": "no"}, False, None),
+    ({"access": "permissive"}, True, "permissive"),
+    ({"access": "designated"}, True, "designated"),
+    ({"access": "official"}, True, "official"),
+    ({"access": "private"}, False, None),
+    ({"access": "unknown"}, False, None),
+])
+def test_actual_yaml_access_admission_and_hierarchy(config, tags, admitted, effective):
+    nodes, edges = network("residential")
+    for key, value in tags.items():
+        edges.loc[edges.id == 1, key] = value
+    _, result, audit = normalize_network(nodes, edges, config)
+    candidate = result.loc[result.osm_way_id == 1]
+    assert (len(candidate) == 6) is admitted
+    assert set(result.osm_way_id) == ({1, 2} if admitted else {2})
+    if admitted:
+        assert set(candidate.access_effective) == {effective}
+        assert set(candidate.speed_kph) == {30.0}
+    else:
+        assert audit["excluded_restricted_or_unknown_access"] == 3
+        assert audit["excluded_restricted_or_unknown_access_ways"] == 1
+
+
+@pytest.mark.parametrize("field", ["allowed", "excluded", "hierarchy", "excluded_highway"])
+@pytest.mark.parametrize("token", [True, False])
+def test_invalid_access_tokens_fail_before_graph_normalization(config, field, token):
+    config["access"][field] = [token]
+    # None inputs prove that validation precedes parsing or normalizing graph data.
+    with pytest.raises(ValueError, match=rf"access\.{field}"):
+        normalize_network(None, None, config)

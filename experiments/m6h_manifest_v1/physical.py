@@ -31,7 +31,7 @@ from .physical_domain import (SCHEMA,METHODS,INNER_ARM,METHOD_POLICY,ARMS,EXACT_
 from .physical_inputs import spec_for, validate_manifest_contract, require_root_freeze, InvalidGraphInput
 FIXED_CPU=0
 PRODUCTION_SOURCE_ENTRIES=97
-PRODUCTION_SRC_SHA256='fe1232d4061ab43f92d320ee3937222e88c3e1eead054a53cdd49a6c2ac39fbc'
+PRODUCTION_SRC_SHA256='fe8dad5b1970ee2440eaac5a98f0de613888c6adc2e88b186bc564fbe6a0a1e2'
 LIMITS=dict(completion.LIMITS,search_seconds=1200,search_worker_wall_seconds=1500,search_worker_cpu_seconds=1500,
     parent_cpu_soft_seconds=180,parent_cpu_hard_policy='preserve_inherited_at_least_1501')
 OBSERVER=dict(envelope.OBSERVER)
@@ -61,7 +61,7 @@ def source_identity(repo):
         raise ValueError('M6-H production source changed')
     # Bind all experiment sources: imported helpers and selection implementation
     # are executable identity even when they do not run inside a method worker.
-    for path in sorted((repo/'experiments').rglob('*')):
+    for path in sorted([p for prefix in ('experiments','configs') for p in (repo/prefix).rglob('*')]):
         if path.is_file() and '__pycache__' not in path.parts and path.suffix not in ('.pyc','.pyo'):
             closure[str(path.relative_to(repo))]=base.file_hash(path)
     root=repo.resolve()
