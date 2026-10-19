@@ -36,6 +36,38 @@ class ReceiptContinuationTests(unittest.TestCase):
             c.budget(lineage,transition_utc='2026-10-19T12:01:00Z')
         self.assertEqual(b.call_args.kwargs['carried_cpu_seconds'],1790.25)
         self.assertEqual(b.call_args.kwargs['deadline_utc'],c.DEADLINE)
+    def sites_admission(self):
+        a=copy.deepcopy(self.a);a['failure_scope']='preselection_sites_infrastructure'
+        a['parent_graph_progress']=self.write('owner/artifacts/round/preprocessing/graph/artifacts/graph_progress.json',
+            dict(schema='hiroute.graph_progress.v1',stage='graph_files_written'))
+        a['parent_completed_receipts']={phase:self.write('owner/artifacts/round/preprocessing/'+phase+'/receipt.json',
+            dict(schema='hiroute.mechanism_recovery.supervisor.v1',status='SUCCESS',complete=True,
+                 cleanup_verified=True,reason='success',worker_receipt=dict(result=dict(phase=phase,synthetic=False))))
+            for phase in ('source','graph','inventory')}
+        a['parent_sites_ledger']=self.write('owner/artifacts/round/preprocessing/sites/ledger.json',
+            dict(schema='hiroute.mechanism_recovery.supervisor.v1',status='UNKNOWN',complete=False,
+                 argv=['python','phases.py','--phase','sites']))
+        return a
+    def test_sites_failure_carries_parent_once(self):
+        a=self.sites_admission();lineage=self.verify(a)
+        self.assertEqual(lineage['carried_cpu_seconds'],1250.25)
+        self.assertEqual(c.debit_at(lineage,'2026-10-19T12:01:00Z'),1790.25)
+    def test_sites_requires_exact_successful_predecessors(self):
+        a=self.sites_admission()
+        for phase in ('source','graph','inventory'):
+            with self.subTest(phase=phase):
+                bad=copy.deepcopy(a);del bad['parent_completed_receipts'][phase]
+                with self.assertRaises(ValueError):self.verify(bad)
+        a['parent_completed_receipts']['graph']=self.write('owner/artifacts/round/preprocessing/graph/receipt.json',dict(status='FAILED'))
+        with self.assertRaises(ValueError):self.verify(a)
+    def test_sites_completed_ledger_or_wrong_phase_rejected(self):
+        for change in (dict(complete=True),dict(status='SUCCESS'),dict(argv=['python','--phase','hierarchy'])):
+            a=self.sites_admission();ledger=dict(schema='hiroute.mechanism_recovery.supervisor.v1',
+                status='UNKNOWN',complete=False,argv=['python','--phase','sites']);ledger.update(change)
+            a['parent_sites_ledger']=self.write('owner/artifacts/round/preprocessing/sites/ledger.json',ledger)
+            with self.subTest(change=change):
+                with self.assertRaises(ValueError):self.verify(a)
+
     def test_missing_root_pin_before_io(self):
         with patch.object(Path,'read_bytes',side_effect=AssertionError('read')):
             with self.assertRaises(PermissionError):c.verify({},expected_admission_sha256=None)

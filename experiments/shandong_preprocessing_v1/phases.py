@@ -46,6 +46,7 @@ def code_contract():
     paths=('scripts/prepare_opportunity_data.py','src/graph/preprocessing.py',
            'src/graph/raw_way_policy.py','experiments/shandong_preprocessing_v1/bounded_io.py',
            'experiments/shandong_preprocessing_v1/way_partition.py',
+           'experiments/shandong_preprocessing_v1/attachment_view.py',
            'experiments/shandong_preprocessing_v1/registry_worker.py',
            'experiments/m6h_manifest_v1/supervisor.py','experiments/m6h_manifest_v1/resources.py',
            'experiments/m6h_selection_v1/rules.py',
@@ -291,29 +292,43 @@ def inventory(out,prior,config,osmium,fixture):
 def sites(out,prior,config,osmium,fixture):
     import pandas as pd
     import yaml
-    from graph.road_graph import IgraphRoadGraph
+    from attachment_view import load_attachment_view
+    from bounded_io import progress
     from opportunity.attachment import attach_opportunities
     from opportunity.models import Opportunity,OpportunityId,Provenance
     from stopplan4r.sites import build_sites
     gdir=verify_stage(prior['graph'],'graph'); idir=verify_stage(prior['inventory'],'inventory')
-    nodes=pd.read_parquet(gdir/'nodes.parquet');edges=pd.read_parquet(gdir/'edges.parquet');g=IgraphRoadGraph(nodes,edges)
+    report=out/'sites_progress.json'
+    def checkpoint(stage, **details):
+        progress(report,stage,**details)
+    checkpoint('attachment_graph_loading')
+    g,road_classes=load_attachment_view(gdir,checkpoint=checkpoint)
     table=pd.read_parquet(idir/'inventory.parquet')
+    checkpoint('inventory_loaded', inventory_count=len(table))
     ops=[Opportunity(OpportunityId(r.osm_type,int(r.osm_id)),float(r.lat),float(r.lon),frozenset(r.capabilities),r.subtype,
         json.loads(r.original_tags),Provenance(tuple(r.source_datasets),r.snapshot_timestamp,r.geometry_method)) for r in table.itertuples()]
     cfg=yaml.safe_load((ROOT/'configs/opportunity.yaml').read_text())['attachment']
-    attached=attach_opportunities(ops,g,edges.highway.to_numpy(),cfg)
+    checkpoint('attachment_started', opportunity_count=len(ops))
+    attached=attach_opportunities(ops,g,road_classes,cfg)
+    checkpoint('attachment_completed', opportunity_count=len(attached))
+    del g,road_classes,ops
     attachments=pd.DataFrame([{'osm_type':o.identity.osm_type,'osm_id':o.identity.osm_id,'access_node':o.access_node,
         'access_osm_node_id':o.access_osm_node_id,'access_distance_m':o.access_distance_m,'attachment_status':o.attachment_status} for o in attached])
+    del attached
     support=yaml.safe_load((ROOT/'configs/stopplan_4r.yaml').read_text())['support']
+    checkpoint('site_build_started')
     static,local,stats=build_sites(table,attachments,support['radii_m'],support['primary_radius_m'])
     for filename,t in [('attachments.parquet',attachments),('stop_sites.parquet',static),('local_support.parquet',local)]:
         t.to_parquet(out/filename,index=False,compression='zstd')
+    checkpoint('site_rebuild_started', site_count=len(static))
     rebuilt,rebuilt_local,_=build_sites(table.iloc[::-1],attachments.iloc[::-1],support['radii_m'],support['primary_radius_m'])
     for filename,t in [('stop_sites',rebuilt),('local_support',rebuilt_local)]:
         t.to_parquet(out/(filename+'_rebuild.parquet'),index=False,compression='zstd')
         if digest(out/(filename+'.parquet'))!=digest(out/(filename+'_rebuild.parquet')):raise ValueError('Site reorder rebuild mismatch')
     write(out/'site_build.json',{'site_count':len(static),'attached_count':int(static.attachment_status.eq('attached').sum()),
         'byte_identical_rebuild':True,'support_stats':stats})
+
+    checkpoint('sites_completed', site_count=len(static))
 
 
 def hierarchy(out,prior,config,osmium,fixture):

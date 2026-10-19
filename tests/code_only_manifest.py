@@ -1,5 +1,6 @@
 """Main default cohort and separately isolated code gates; no archived evidence."""
 CODE_ONLY_MODULES = (
+    "tests/test_site_attachment_view.py",
     "tests/test_m6h_receipt_continuation.py",
     "tests/test_m6h_recovery_protocol.py",
     "tests/test_m6h_selection_rules.py",

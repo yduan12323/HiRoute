@@ -11,7 +11,7 @@ ROOT_RELEASE = 'reviewed_disclosed_recovery_v1'
 ROOT_REGISTRY_ADMISSION = {'gap_list_sha256': '3d4882dad7c0e761ad38ed7c53babc4460fa7abc0fee7aef82fc9c9db0b63077', 'purpose': 'new_map_correctness_and_performance_validation', 'registry_sha256': '6952853c9c25ee8e75a0db9dcc80465432d330e621b2ba0ea78a85c57c2e25be', 'schema': 'hiroute.m6h.recovered_exposure_registry.v1', 'strict_independent_holdout_claim': False}
 ROOT_PREPROCESSING_SHA256 = '87d7d676810e81f4e43ca26ae1934bd47781e99250747f4c6fbf968859d64f5b'
 ROOT_REGISTRY_BYTES_SHA256 = '6952853c9c25ee8e75a0db9dcc80465432d330e621b2ba0ea78a85c57c2e25be'
-ROOT_CONTINUATION_ADMISSION_SHA256 = '443194eb0277bae3b8164d67809ee6814e133bc9a77290e81880c2704c40d191'
+ROOT_CONTINUATION_ADMISSION_SHA256 = 'e9f77cccf6b309e12689da12aaf368cc22f930de0b555c06c2c547e3c06e035b'
 ENV = 'HIROUTE_DISCLOSED_RECOVERY_BINDING'
 
 

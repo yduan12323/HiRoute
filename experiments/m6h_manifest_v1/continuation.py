@@ -49,12 +49,14 @@ def verify(binding, *, expected_admission_sha256):
         raise ValueError('Continuation admission is not root-pinned')
     a,path=_bound(binding,128*1024)
     if path.read_bytes()!=canonical(a):raise ValueError('Canonical continuation admission required')
-    if set(a)!={'schema','parent_waited_receipt','parent_owner_receipt','parent_graph_progress',
+    sites_failure=a.get('failure_scope')=='preselection_sites_infrastructure'
+    extra={'parent_sites_ledger','parent_completed_receipts'} if sites_failure else set()
+    if set(a)!=extra|{'schema','parent_waited_receipt','parent_owner_receipt','parent_graph_progress',
                 'active_since_utc','cpu_capacity','observed_numerical_slots','od_selection_started','failure_scope'}:
         raise ValueError('Complete continuation admission required')
     if (a['schema']!=SCHEMA or type(a['cpu_capacity']) is not int or a['cpu_capacity']!=9 or
         type(a['observed_numerical_slots']) is not int or a['observed_numerical_slots']!=0 or
-        a['od_selection_started'] is not False or a['failure_scope']!='preselection_graph_infrastructure'):
+        a['od_selection_started'] is not False or a['failure_scope'] not in ('preselection_graph_infrastructure','preselection_sites_infrastructure')):
         raise ValueError('Continuation cannot replace numerical outcomes or broaden scope')
     start=_stamp(a['active_since_utc'])
     if start>=_stamp(DEADLINE):raise ValueError('Continuation begins after original deadline')
@@ -75,13 +77,37 @@ def verify(binding, *, expected_admission_sha256):
     if (owner.get('schema')!='hiroute.mechanism_recovery.supervisor.v1' or
         owner.get('status')!='FAILED' or owner.get('complete') is not True or
         owner.get('cleanup_verified') is not True or owner.get('reason')!='sampled_tree_rss_limit'):
-        raise ValueError('Reviewed graph memory-stop receipt required')
+        raise ValueError('Reviewed preselection memory-stop receipt required')
     progress,progress_path=_bound(a['parent_graph_progress'])
     round_root=root/'owner/artifacts/round'
     if progress_path!=round_root/'preprocessing/graph/artifacts/graph_progress.json':
         raise ValueError('Progress belongs to another round/stage')
     if progress.get('schema')!='hiroute.graph_progress.v1' or not isinstance(progress.get('stage'),str):
         raise ValueError('Durable graph-stage evidence required')
+    if sites_failure:
+        if progress.get('stage')!='graph_files_written':
+            raise ValueError('Site continuation requires completed graph evidence')
+        completed=a['parent_completed_receipts']
+        if type(completed) is not dict or set(completed)!={'source','graph','inventory'}:
+            raise ValueError('Exact successful predecessor receipts required')
+        for phase,binding in completed.items():
+            receipt,receipt_path=_bound(binding)
+            if receipt_path!=round_root/'preprocessing'/phase/'receipt.json':
+                raise ValueError('Predecessor receipt belongs to another stage')
+            result=(receipt.get('worker_receipt') or {}).get('result',{})
+            if (receipt.get('schema')!='hiroute.mechanism_recovery.supervisor.v1' or
+                receipt.get('status')!='SUCCESS' or receipt.get('complete') is not True or
+                receipt.get('cleanup_verified') is not True or receipt.get('reason')!='success' or
+                result.get('phase')!=phase or result.get('synthetic') is not False):
+                raise ValueError('Successful real predecessor receipt required')
+        ledger,ledger_path=_bound(a['parent_sites_ledger'])
+        argv=ledger.get('argv',[])
+        if (ledger_path!=round_root/'preprocessing/sites/ledger.json' or
+            ledger.get('schema')!='hiroute.mechanism_recovery.supervisor.v1' or
+            ledger.get('status')!='UNKNOWN' or ledger.get('complete') is not False or
+            '--phase' not in argv or argv[argv.index('--phase')+1:argv.index('--phase')+2]!=['sites'] or
+            (round_root/'preprocessing/sites/receipt.json').exists()):
+            raise ValueError('Interrupted Site stage evidence required')
     if any((round_root/n).exists() for n in ('generation','generation-job.json','queue')):
         raise ValueError('Prior attempt reached selection or numerical generation')
     return dict(schema=SCHEMA,parent_waited_receipt=dict(a['parent_waited_receipt']),
