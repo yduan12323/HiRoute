@@ -21,6 +21,7 @@ from experiments.dev_cohort_v1 import run as cohort
 from experiments.projection_support_gate_v1 import run as projection
 from experiments.mechanism_recovery_v1 import run as base
 from test_projection_support_gate import tiny_domain as support_domain,common_fixture,admission_fixture,echo,counts
+from historical_source_fixture import historical_production_source, current_production_source
 from test_envelope_sweep_gate import envelope_counts
 from test_analytic_charge_gate import analytic_counts
 from test_post_service_gate import final_reducer_counts
@@ -287,8 +288,7 @@ class ScheduledMethodPairTests(unittest.TestCase):
 
     def test_source_pin_and_inherited_guard_extend_closure_without_src_changes(self):
         root=Path(__file__).resolve().parents[2]
-        production={str(p.relative_to(root)):base.file_hash(p) for p in sorted((root/'src').rglob('*'))
-            if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ('.pyc','.pyo') and not str(p.relative_to(root)).startswith('src/hiroute.egg-info/')}
+        production=historical_production_source()
         self.assertEqual(len(production),96);self.assertEqual(base.digest(production),gate.PRODUCTION_SRC_SHA256)
         inherited=dict(closure=dict(production),parquet_engine={'actual_guard':'inherited'})
         with patch.object(gate.predecessor,'source_identity',return_value=inherited):
@@ -300,6 +300,17 @@ class ScheduledMethodPairTests(unittest.TestCase):
             bad=dict(production);bad[name]='changed'
             with patch.object(gate.predecessor,'source_identity',return_value=dict(closure=bad)),self.assertRaisesRegex(ValueError,'96-entry baseline'):gate.source_identity(root)
         self.assertTrue(gate.parquet_engine_identity()['in_memory_roundtrip'])
+
+    def test_source_guard_rejects_current_road_policy_tree(self):
+        root=Path(__file__).resolve().parents[2]
+        production=current_production_source(root)
+        self.assertIn('src/graph/raw_way_policy.py',production)
+        self.assertEqual(len(production),97)
+        self.assertNotEqual(base.digest(production),gate.PRODUCTION_SRC_SHA256)
+        with patch.object(gate.predecessor,'source_identity',return_value={'closure':production}), \
+                patch.object(gate,'parquet_engine_identity') as engine:
+            with self.assertRaisesRegex(ValueError,'96-entry baseline'):gate.source_identity(root)
+            engine.assert_not_called()
 
     def test_tiny_native_both_methods_reducer_wiring_seed_parity_and_fresh_full_replay(self):
         from timecut5.bounded import _solve_problem

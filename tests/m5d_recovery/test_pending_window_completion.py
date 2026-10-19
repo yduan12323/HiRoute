@@ -22,6 +22,7 @@ from experiments.dev_cohort_v1 import run as cohort
 from experiments.projection_support_gate_v1 import run as projection
 from experiments.mechanism_recovery_v1 import run as base
 from test_projection_support_gate import tiny_domain as support_domain,common_fixture,admission_fixture,echo,counts
+from historical_source_fixture import historical_production_source, current_production_source
 from test_envelope_sweep_gate import envelope_counts
 from test_analytic_charge_gate import analytic_counts
 from test_post_service_gate import final_reducer_counts
@@ -252,8 +253,7 @@ class PendingCompletionGateTests(unittest.TestCase):
 
     def test_source_guard_pins_all96_including_pending_module_and_full_closure(self):
         root=Path(__file__).resolve().parents[2]
-        production={str(p.relative_to(root)):base.file_hash(p) for p in sorted((root/'src').rglob('*'))
-            if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ('.pyc','.pyo') and not str(p.relative_to(root)).startswith('src/hiroute.egg-info/')}
+        production=historical_production_source()
         self.assertEqual(len(production),96);self.assertEqual(base.digest(production),gate.PRODUCTION_SRC_SHA256)
         closure=dict(production,**{'experiments/pending_window_gate_v1/run.py':'prior','src/hiroute.egg-info/PKG-INFO':'metadata'})
         with patch.object(gate.pending_gate,'source_identity',return_value=dict(closure=closure,dependencies={'pyarrow':'26.0.0'})),patch.object(gate,'parquet_engine_identity',return_value={'guard':'ok'}):
@@ -275,6 +275,17 @@ class PendingCompletionGateTests(unittest.TestCase):
             with patch.object(gate,'parquet_engine_identity',side_effect=ImportError('missing pyarrow')):
                 with self.assertRaisesRegex(ImportError,'missing pyarrow'):gate.source_identity(root)
 
+    def test_source_guard_rejects_current_road_policy_tree(self):
+        root=Path(__file__).resolve().parents[2]
+        production=current_production_source(root)
+        self.assertIn('src/graph/raw_way_policy.py',production)
+        self.assertEqual(len(production),97)
+        self.assertNotEqual(base.digest(production),gate.PRODUCTION_SRC_SHA256)
+        with patch.object(gate.pending_gate,'source_identity',return_value={'closure':production}), \
+                patch.object(gate,'parquet_engine_identity') as engine:
+            with self.assertRaisesRegex(ValueError,'96-entry baseline'):gate.source_identity(root)
+            engine.assert_not_called()
+
     def test_parquet_engine_preflight_imports_real_engine_and_roundtrips_tiny_buffer(self):
         identity=gate.parquet_engine_identity()
         self.assertEqual(identity['engine'],'pandas.io.parquet.PyArrowImpl');self.assertTrue(identity['in_memory_roundtrip'])
@@ -289,16 +300,15 @@ class PendingCompletionGateTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'roundtrip differs'):gate.parquet_engine_identity()
 
     def test_approved_freeze_fails_before_file_creation_if_engine_missing(self):
-        root=Path(__file__).resolve().parents[2]
-        closure={str(p.relative_to(root)):base.file_hash(p) for p in sorted((root/'src').rglob('*'))
-            if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ('.pyc','.pyo')}
+        closure=historical_production_source()
         with tempfile.TemporaryDirectory() as temp:
             target=Path(temp)/'manifest.json'
             with patch.object(gate,'REVIEW_STATUS','approved_independent_completion_gate_review'), \
                 patch.object(gate.pending_gate,'source_identity',return_value={'closure':closure}), \
-                patch.object(gate,'parquet_engine_identity',side_effect=ImportError('missing pyarrow engine')), \
+                patch.object(gate,'parquet_engine_identity',side_effect=ImportError('missing pyarrow engine')) as engine, \
                 patch.object(sys,'argv',['gate','--freeze','--input-directory',temp,'--output',str(target)]):
                 with self.assertRaisesRegex(ImportError,'missing pyarrow engine'):gate.main()
+                engine.assert_called_once_with()
             self.assertFalse(target.exists())
 
     def test_lifecycle_fixed_cpu_preflight_and_single_thread_requirement_keep_slots(self):
