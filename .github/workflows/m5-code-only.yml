@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [main, codex/milestone-4r-b1, dot/m5d-continuation]
   push:
-    branches: [main, codex/milestone-4r-b1, dot/m5d-continuation]
+    branches: [main, "codex/**", "dot/**"]
 
 permissions:
   contents: read
