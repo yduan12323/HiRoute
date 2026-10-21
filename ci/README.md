@@ -83,6 +83,17 @@ each mode**, with no skips, in a fresh installed-wheel rehearsal lasting
 57.9 seconds after dependency installation. The same dependency lock and
 explicit nine-fixture allowlist were used.
 
+The separate `run_m6h_reference_code.py` gate runs the M6-H wrapper's tiny
+synthetic interface tests in normal and `-OO` processes, using the installed
+wheel and independently parsed mock leg tables. It rejects skips, empty
+collection and failures; each process has a 90/100-second CPU limit, 2 GiB
+address-space limit and 150-second parent wall timeout. Helper processes and
+network access are denied. It checks the backend's supported API, unchanged
+exhaustive enumeration, fresh seed/winner replay, adapter-issued depth bounds
+and preservation of unresolved/unattained statuses. The depth certificate is
+explicitly adapter-derived, not supplied by the backend. This code-only gate
+does not rerun any scientific case or certify a real-map REF result.
+
 ## Deliberately outside this gate
 
 - The opt-in legacy suite (`pytest --include-artifact-tests`). Those tests need the full

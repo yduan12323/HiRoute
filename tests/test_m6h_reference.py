@@ -27,7 +27,7 @@ def test_depth_uses_seed_not_fixture_h4_or_cap():
         with pytest.raises(ValueError):ref.reference_query(query,seed(bad))
 
 
-def test_genuine_independent_full_depth_and_fresh_attained_replay(monkeypatch):
+def service_case():
     # One service only makes deep enumeration tiny, yet its optimum needs H=1.
     p=fixture.payload();p['sites']=[dict(site_id='B',anchor_id='x',effects=['S'])]
     q=fixture.query();q.update(initial_energy_kwh=10, H_ref=4)
@@ -38,10 +38,106 @@ def test_genuine_independent_full_depth_and_fresh_attained_replay(monkeypatch):
             dict(site='B',effect='S',arrival_energy='9',departure_energy='9'),
             dict(site='z',effect='D',arrival_energy='9',departure_energy='8')])))
     # The direct route costs 20 energy and is infeasible; service path is valid.
-    result=ref.solve_independent(q,s,fixture.load(p))
+    return q, s, fixture.load(p)
+
+
+def test_genuine_independent_full_depth_and_fresh_attained_replay(monkeypatch):
+    q, s, table = service_case()
+    seen = []
+    replay = ref.replay_real_witness
+    def checked_replay(query, fresh, sequence, charges):
+        seen.append(fresh)
+        return replay(query, fresh, sequence, charges)
+    monkeypatch.setattr(ref, 'replay_real_witness', checked_replay)
+    result=ref.solve_independent(q,s,table)
     assert result['status']=='SUCCESS' and result['independent_exact']
     assert result['canonical_outcome']==dict(status='attained_optimum',lex_key=['5','0',1,[['B','S']]])
     assert result['witness_replayed'] is True
+    assert len(seen) == 2 and all(fresh is not table for fresh in seen)
+    assert seen[0] is not seen[1] and all(fresh.raw_bytes == table.raw_bytes for fresh in seen)
+    certificate = result['depth_certificate']
+    assert certificate == dict(schema='hiroute.adapter_seed_depth_bound.v1',
+        issuer='experiments.m6h_manifest_v1.reference', backend_supplied=False,
+        seed_independently_replayed=True, seed_objective='5',
+        per_stop_objective_lower_bound='1', H_ref=5,
+        first_excluded_depth=6, first_excluded_lower_bound='6',
+        excluded_depths_strictly_worse_than_seed=True, table_sha256=table.payload_sha256,
+        backend_enumeration='unchanged exhaustive physical sequence enumeration through H_ref',
+        incumbent_pruning=False)
+
+
+def test_supported_backend_api_and_unchanged_enumeration(monkeypatch):
+    from validation.reference5.real_solver import solve_real_case
+    q, s, table = service_case()
+    expected = solve_real_case(ref.reference_query(q, s), table, keep_evidence=False)
+    observed = []
+    # Exact backend signature: accepting **kwargs would hide the original bug.
+    def backend(query, fresh, *, keep_evidence=True, regime_limit=None):
+        assert query['H_ref'] == 5 and keep_evidence is False and regime_limit is None
+        solved = solve_real_case(query, fresh, keep_evidence=keep_evidence, regime_limit=regime_limit)
+        observed.append(solved)
+        return solved
+    monkeypatch.setattr(ref, 'solve_real_case', backend)
+    result = ref.solve_independent(q, s, table)
+    assert observed[0]['result'] == expected['result']
+    assert observed[0]['preflight'] == expected['preflight']
+    assert observed[0]['all_regimes_certified'] == expected['all_regimes_certified'] is True
+    assert 'depth_certificate' not in observed[0]['preflight']
+    assert result['canonical_outcome'] == ref.canonical_outcome(expected['result'])
+
+
+def test_explicit_backend_regime_limit_remains_unknown(monkeypatch):
+    from validation.reference5.real_solver import solve_real_case
+    q, s, table = service_case()
+    def limited(query, fresh, *, keep_evidence=True, regime_limit=None):
+        return solve_real_case(query, fresh, keep_evidence=keep_evidence, regime_limit=0)
+    monkeypatch.setattr(ref, 'solve_real_case', limited)
+    result = ref.solve_independent(q, s, table)
+    assert result['status'] == 'UNKNOWN' and result['reference_status'] == 'unresolved'
+    assert result['independent_exact'] is False and result['canonical_outcome'] is None
+    assert 'depth_certificate' not in result
+
+
+@pytest.mark.parametrize('field,value', [('overhead_s', 0), ('lambda_stop_s', -1)])
+def test_seed_depth_bound_rejects_invalid_stop_costs(field, value):
+    q, s, table = service_case()
+    q[field] = value
+    with pytest.raises(ValueError):
+        ref.solve_independent(q, s, table)
+
+
+@pytest.mark.parametrize('h', [4, 6, True, -1])
+def test_adapter_bound_independently_checks_replayed_horizon(h):
+    q, s, table = service_case()
+    replay = ref.replay_real_witness(dict(q, H_ref=5), table, [('B', 'S')], [])
+    with pytest.raises(ValueError):
+        ref.seed_depth_certificate(dict(q, H_ref=h), replay, table)
+
+
+@pytest.mark.parametrize('preflight', [None, {}, {'table_sha256': '0'*64,
+    'scope': 'exact_physical_exclusions_before_continuous_regime_expansion'}])
+def test_exact_outcome_requires_matching_backend_preflight(monkeypatch, preflight):
+    q, s, table = service_case()
+    monkeypatch.setattr(ref, 'solve_real_case', lambda *a, **kw: dict(H_ref=5,
+        all_regimes_certified=True, preflight=preflight,
+        result=dict(status='primary_unattained', primary_infimum=F(4))))
+    with pytest.raises(ValueError, match='preflight'):
+        ref.solve_independent(q, s, table)
+
+
+@pytest.mark.parametrize('status', ['primary_unattained', 'secondary_unattained'])
+def test_certified_unattainment_keeps_exact_components_and_adapter_provenance(monkeypatch, status):
+    q, s, table = service_case()
+    outcome = (dict(status=status, primary_infimum=F(4)) if status == 'primary_unattained'
+               else dict(status=status, J=F(4), secondary_infimum=F(1, 3)))
+    monkeypatch.setattr(ref, 'solve_real_case', lambda *a, **kw: dict(H_ref=5,
+        all_regimes_certified=True, result=outcome, preflight=dict(
+            table_sha256=table.payload_sha256,
+            scope='exact_physical_exclusions_before_continuous_regime_expansion')))
+    result = ref.solve_independent(q, s, table)
+    assert result['canonical_outcome'] == ref.canonical_outcome(outcome)
+    assert result['witness'] is None and result['witness_replayed'] is False
+    assert result['depth_certificate']['backend_supplied'] is False
 
 
 def test_seed_full_key_and_event_mismatch_fails_closed():
