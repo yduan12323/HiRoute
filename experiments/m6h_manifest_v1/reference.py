@@ -77,10 +77,38 @@ def reference_query(query, seed):
     if type(key) is not list or len(key) != 4:
         raise ValueError('Seed requires the complete four-component key')
     overhead, penalty, objective = F(query['overhead_s']), F(query['lambda_stop_s']), F(key[0])
-    if overhead <= 0 or overhead + penalty <= 0 or objective < 0 or h != objective // (overhead + penalty):
+    if overhead <= 0 or penalty < 0 or objective < 0 or h != objective // (overhead + penalty):
         raise ValueError('REF Hmax differs from strict common-seed formula')
     # Metadata is passed through unchanged; REF parses physical quantities itself.
     return dict(query, H_ref=h)
+
+
+def seed_depth_certificate(query, replay, table):
+    """Adapter-owned depth proof, not a certificate supplied by the backend.
+
+    Independent replay supplies a feasible objective upper bound. Nonnegative
+    drive/charge/service/wait durations and the positive per-stop cost imply
+    J >= H * (overhead + penalty). Every depth beyond H_ref is strictly worse
+    than that seed. The backend still enumerates all admitted depths without
+    receiving an incumbent or using seed-dependent pruning.
+    """
+    objective = F(replay['lex_key'][0])
+    overhead, penalty = F(query['overhead_s']), F(query['lambda_stop_s'])
+    h = query['H_ref']
+    if type(h) is not int or h < 0 or overhead <= 0 or penalty < 0 or objective < 0:
+        raise ValueError('Invalid independently replayed depth-bound quantities')
+    unit = overhead + penalty
+    if h != objective // unit or (h + 1) * unit <= objective:
+        raise ValueError('Reference horizon differs from independently replayed seed bound')
+    return dict(schema='hiroute.adapter_seed_depth_bound.v1',
+        issuer='experiments.m6h_manifest_v1.reference', backend_supplied=False,
+        seed_independently_replayed=True, seed_objective=str(objective),
+        per_stop_objective_lower_bound=str(unit), H_ref=h,
+        first_excluded_depth=h+1, first_excluded_lower_bound=str((h+1)*unit),
+        excluded_depths_strictly_worse_than_seed=True,
+        table_sha256=table.payload_sha256,
+        backend_enumeration='unchanged exhaustive physical sequence enumeration through H_ref',
+        incumbent_pruning=False)
 
 
 def materialize_table(query, sites, provider, *, source_sha256, selection_sha256, hierarchy_sha256):
@@ -159,11 +187,14 @@ def solve_independent(query, seed, table):
         raise ValueError('Common seed events and action sequence differ')
     charges = tuple(F(e['departure_energy']) - F(e['arrival_energy'])
                     for e in events if e['effect'] in ('C', 'CS'))
+    # Reconstruct the seed's physical domain from the frozen bytes as well as
+    # replaying its actions. Do not trust mutable caller-side table objects.
+    table = IndependentLegTable.from_bytes(table.raw_bytes, table.payload_sha256)
     replay = replay_real_witness(query, table, sequence, charges)
     if primitive(replay['lex_key']) != json.loads(seed['key_bytes']):
         raise ValueError('Independent REF common-seed replay contradicts authenticated full key')
-    solved = solve_real_case(query, table, keep_evidence=False, regime_limit=None,
-        seed_witness=dict(sequence=sequence, charges=charges))
+    depth_certificate = seed_depth_certificate(query, replay, table)
+    solved = solve_real_case(query, table, keep_evidence=False, regime_limit=None)
     if type(solved) is not dict or type(solved.get('result')) is not dict:
         raise ValueError('Malformed independent REF result')
     if solved['result'].get('status') == 'invalid_input':
@@ -171,13 +202,17 @@ def solve_independent(query, seed, table):
     if solved['result'].get('status') not in ('attained_optimum', 'primary_unattained', 'secondary_unattained', 'infeasible_within_H_ref', 'unresolved'):
         raise ValueError('Unexpected independent REF result status')
     outcome = canonical_outcome(solved['result'])
-    if solved.get('H_ref') != seed['max_depth']:
+    if type(solved.get('H_ref')) is not int or solved['H_ref'] != seed['max_depth']:
         raise ValueError('Independent reference returned another depth')
     if solved.get('all_regimes_certified') is not True or outcome is None:
         return dict(status='UNKNOWN', reason='independent_reference_unresolved',
             independent_exact=False, canonical_outcome=None, reference_status=solved['result']['status'])
     if outcome['status'] == 'infeasible_within_H_ref':
         raise ValueError('Independent REF infeasibility contradicts its own common-seed replay')
+    preflight = solved.get('preflight')
+    if (type(preflight) is not dict or preflight.get('table_sha256') != table.payload_sha256 or
+        preflight.get('scope') != 'exact_physical_exclusions_before_continuous_regime_expansion'):
+        raise ValueError('Independent REF lacks matching physical enumeration preflight')
     if outcome['status'] == 'attained_optimum':
         result = solved['result']
         # Parse the frozen bytes again, then independently replay the attained
@@ -192,7 +227,7 @@ def solve_independent(query, seed, table):
         reference_status=solved['result']['status'], all_regimes_certified=True,
         witness_replayed=outcome['status'] == 'attained_optimum',
         regime_counts={k: v for k, v in solved.items() if k.endswith('_count')},
-        depth_certificate=primitive(solved['preflight']['depth_certificate']))
+        depth_certificate=depth_certificate)
 
 
 def run_reference(manifest, case_id, common, output):
