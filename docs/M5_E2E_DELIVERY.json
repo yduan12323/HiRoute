@@ -1,0 +1,78 @@
+{
+  "base_source": "c33f621f080eea500dfc9ca32b79e23aa9ae9c6a",
+  "ci_reservation_disposition": "UNUSED: conservative 16800 CPU-second reservation is not measured or executed computation",
+  "clean_e2e_status": "BLOCKED",
+  "code_changes_after_evaluated_commit": false,
+  "date": "2026-10-22",
+  "delivery_status": "PARTIAL",
+  "evaluated_source": "b44f391ba1ccd98ed7f1d173ef165ee194e90ca1",
+  "evidence_archive": {
+    "bytes": 1800487,
+    "filename": "hiroute-m5e2e-b44f391-evidence.tar.gz",
+    "private_backup_readback": "VERIFIED_EXACT_BYTES_AND_SHA256",
+    "sha256": "64bad2677d3f23e8cd6425b2b29540c346e1a705a9a15193f20c209313ec81fc",
+    "sharing": "OWNER_PRIVATE_NO_PUBLIC_LINK_IN_REPOSITORY"
+  },
+  "final_holdout_completed": false,
+  "full_shandong_batch_confirmed": false,
+  "gates": {
+    "E0": "BLOCKED_INPUT_OR_ENVIRONMENT",
+    "E1": "PARTIAL_IMPLEMENTATION",
+    "E2": "NOT_RUN",
+    "E3": "NOT_RUN",
+    "E4": "NOT_RUN",
+    "E5": "PARTIAL",
+    "E6": "UNKNOWN_NOT_RUN_ENVIRONMENT",
+    "E7": "PARTIAL_REVIEW_PR_DELIVERY"
+  },
+  "historical_accounting_repaired": false,
+  "historical_m5d": "M5D_LIMITED_BY_DATA_OR_SCALE",
+  "holdout_started": false,
+  "independent_raw_rebuilds": 0,
+  "independent_review": "PARTIAL delivery accepted; 38 archived artifacts independently hash-checked; no real-validation acceptance",
+  "installed_environments_checked": 2,
+  "no_numerical_workers_remaining": true,
+  "original_bridge_execution": "NOT_RUN_ENVIRONMENT",
+  "original_shandong_ref_status": "UNKNOWN",
+  "planned_method_slots": 18,
+  "planned_real_cases": 3,
+  "post_archive_meter": {
+    "backup_connector_cpu": "UNKNOWN",
+    "backup_connector_wall": "NOT_SEPARATELY_METERED",
+    "backup_local_cpu_seconds": 0.077234,
+    "backup_local_wall_seconds": 0.307644001,
+    "final_small_packaging_costs_covered_by_local_reservation": true,
+    "measured_cpu_seconds": 375.156182,
+    "measured_external_command_wall_seconds": 426.919927
+  },
+  "postfreeze_code_repairs": 0,
+  "project_completed": false,
+  "publication_mapping": {
+    "exact_equal_code_tree": "a2341935371490c80b0a03c9549c19bfe39f2dbf",
+    "locally_evaluated_commit": "b44f391ba1ccd98ed7f1d173ef165ee194e90ca1",
+    "reason": "Direct Git push lacked credentials; authorized GitHub connector preserves exact tree but assigns commit metadata. Published alias SHA was not itself tested. Evaluated source is preserved in verified bundle.",
+    "server_code_commit_alias": "17fbe11df306aa0780c7ee07d108c276df572d1c"
+  },
+  "real_cases_completed": 0,
+  "real_method_slots_completed": 0,
+  "remote_ci_status": "NOT_RUN_SKIPPED_BY_DOCS_ONLY_DELIVERY_COMMIT",
+  "schema": "hiroute.m5e2e.delivery.v1",
+  "tests": {
+    "e2e_per_mode": 40,
+    "main_per_mode": {
+      "passed": 701,
+      "subtests": 9273
+    },
+    "modes": [
+      "normal",
+      "-OO"
+    ],
+    "preprocessing_per_mode": [
+      8,
+      8,
+      10
+    ],
+    "real_validation": false,
+    "ref_per_mode": 36
+  }
+}

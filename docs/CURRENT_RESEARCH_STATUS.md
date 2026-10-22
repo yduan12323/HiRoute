@@ -1,5 +1,16 @@
 ## 2026-10-22 M5-E2E delivery
 
+Evaluated code/config source: `b44f391ba1ccd98ed7f1d173ef165ee194e90ca1`. Its GitHub code alias is `17fbe11df306aa0780c7ee07d108c276df572d1c`, with exactly equal tree `a2341935371490c80b0a03c9549c19bfe39f2dbf`. Connector publication changes commit metadata; the published SHA was not itself tested. The delivery commit after the code alias changes documentation only.
+
+- Code delivery: implemented interfaces and reviewed PARTIAL delivery; draft PR is the stopping point, not a completion claim.
+- Current CI: local supported main 701 tests + 9,273 subtests per mode, REF 36 per mode, new installed E2E 40 per mode; published-head GitHub CI is intentionally NOT_RUN via the docs-only [skip ci] delivery commit, avoiding duplicate automatic computations after the required PR stopping point. Local passing gates do not imply remote CI passed.
+- Historical M5-D: M5D_LIMITED_BY_DATA_OR_SCALE, with historical accounting UNKNOWN unchanged.
+- Current M5-E2E: PARTIAL / BLOCKED. Both installed preflights reject insufficient 10 GiB host reserve; zero independent raw rebuilds and all 18 real method slots NOT_RUN_DEPENDENCY.
+- Original Shandong REF: UNKNOWN. Bridge NOT_RUN_ENVIRONMENT, not claimed missing or completed.
+- Final holdout: NOT_STARTED; final_holdout_completed=false; project_completed=false.
+
+Evidence archive: 1,800,487 bytes, SHA256 `64bad2677d3f23e8cd6425b2b29540c346e1a705a9a15193f20c209313ec81fc`, below the 2 GiB cap. No raw/processed maps are included or were regenerated. Owner-private backup was independently downloaded and verified against the same byte count and SHA256. The archive contains actual blocked preflight receipts, source bundle, both wheels, configuration, all test logs and explicit accounting limitations.
+
 New installed interfaces and synthetic validation are documented in [MILESTONE_5_E2E_REPORT.md](MILESTONE_5_E2E_REPORT.md) and [M5_E2E_REPRODUCING.md](M5_E2E_REPRODUCING.md). Real A/B and original bridge remain unexecuted because the host fails memory safety admission. No historical conclusion below is changed.
 
 # Current research status

@@ -55,3 +55,19 @@ it is NOT_RUN_ENVIRONMENT and original REF remains UNKNOWN.
 
 The E2E report lists unexecuted branches. Do not present canonical MATCH,
 installed synthetic success, or source-identical wheels as clean real A/B success.
+
+## Exact commit recovery after connector publication
+
+GitHub code commit `17fbe11df306aa0780c7ee07d108c276df572d1c` has exactly the
+same Git tree `a2341935371490c80b0a03c9549c19bfe39f2dbf` as locally evaluated
+`b44f391ba1ccd98ed7f1d173ef165ee194e90ca1`. Direct Git push had no credentials;
+the authorized connector assigned new commit metadata. The server SHA was not
+itself tested. Do not silently substitute it into source-bound receipts.
+
+The owner-private verified evidence archive contains `evaluated-source.bundle`.
+Starting from a clone that contains base `c33f621f080eea500dfc9ca32b79e23aa9ae9c6a`,
+use `git bundle verify /path/evaluated-source.bundle`, then
+`git bundle unbundle /path/evaluated-source.bundle` and
+`git checkout --detach b44f391ba1ccd98ed7f1d173ef165ee194e90ca1`.
+This restores the exact evaluated commit without changing any remote branch.
+Use independent fresh restored checkouts and the archived wheels for A/B.
