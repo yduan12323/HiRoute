@@ -19,7 +19,8 @@ from urllib.request import urlopen
 from datetime import datetime,timezone
 
 ROOT=Path(__file__).resolve().parents[2]
-sys.path[:0]=[str(ROOT),str(ROOT/'scripts'),str(ROOT/'src')]
+if not __package__:
+    sys.path.insert(0,str(ROOT))  # Legacy script entry; production must be installed.
 # Root must replace these only in a reviewed, source-frozen follow-up commit.
 USER_DATA_SCOPE_APPROVAL = None
 ROOT_PROTOCOL_FREEZE = None
@@ -230,9 +231,9 @@ def source(out,prior,config,osmium,fixture):
 
 def graph(out,prior,config,osmium,fixture):
     from pyrosm.config import NetworkFilter
-    from bounded_io import literal_exclusions, progress, DENSE_FORMAT
+    from experiments.shandong_preprocessing_v1.bounded_io import literal_exclusions, progress, DENSE_FORMAT
     import yaml
-    from way_partition import build_partitioned_graph
+    from experiments.shandong_preprocessing_v1.way_partition import build_partitioned_graph
     import pandas as pd
     from graph.road_graph import IgraphRoadGraph
     src=verify_stage(prior['source'],'source')
@@ -246,7 +247,7 @@ def graph(out,prior,config,osmium,fixture):
     roads=out/'highways.pbf'
     native(osmium,'tags-filter',filtered,'w/highway','-f',DENSE_FORMAT,'-o',roads)
     native(osmium,'check-refs',roads)
-    routing=yaml.safe_load((ROOT/'configs/routing.yaml').read_text())
+    routing=yaml.safe_load((Path(config.get('config_root',ROOT))/'configs/routing.yaml').read_text())
     progress(report,'parser_started',engine='whole_way_partitioned_out_of_core',workers=1,
              literal_exclusions=exclusions,max_way_refs=50000,max_ways=10000)
     audit=build_partitioned_graph(roads,out/'scratch',out,routing,osmium,report)
@@ -260,7 +261,7 @@ def graph(out,prior,config,osmium,fixture):
     progress(report,'graph_files_written',nodes=node_count,edges=edge_count)
     write(out/'metadata.json',{'schema_version':1,'crs':'EPSG:4326','directed':True,'parallel_edges':True,
         'all_components_retained':True,'simplified':False,'node_count':node_count,'edge_count':edge_count,
-        'source_sha256':digest(src/'source.osm.pbf'),'routing_config_sha256':digest(ROOT/'configs/routing.yaml'),
+        'source_sha256':digest(src/'source.osm.pbf'),'routing_config_sha256':digest(Path(config.get('config_root',ROOT))/'configs/routing.yaml'),
         'audit':audit,'files':{n:{'sha256':digest(out/n),'size_bytes':(out/n).stat().st_size} for n in ('nodes.parquet','edges.parquet')}})
 
 
@@ -269,9 +270,9 @@ def inventory(out,prior,config,osmium,fixture):
     import shapely.geometry
     import yaml
     from opportunity.taxonomy import filter_expressions
-    from prepare_opportunity_data import object_catalogue,parse_geometry
+    from scripts.prepare_opportunity_data import object_catalogue,parse_geometry
     src=verify_stage(prior['source'],'source')
-    cfg=yaml.safe_load((ROOT/'configs/opportunity.yaml').read_text())['extraction']
+    cfg=yaml.safe_load((Path(config.get('config_root',ROOT))/'configs/opportunity.yaml').read_text())['extraction']
     filtered=out/'opportunities-filtered.pbf'; crop=out/'opportunities.pbf'
     native(osmium,'tags-filter',src/'source.osm.pbf',*filter_expressions(cfg),'-o',filtered)
     native(osmium,'extract','-p',src/'boundary.geojson','-s',cfg['strategy'],'-S','types='+cfg['relation_types'],filtered,'-o',crop)
@@ -292,8 +293,8 @@ def inventory(out,prior,config,osmium,fixture):
 def sites(out,prior,config,osmium,fixture):
     import pandas as pd
     import yaml
-    from attachment_view import load_attachment_view
-    from bounded_io import progress
+    from experiments.shandong_preprocessing_v1.attachment_view import load_attachment_view
+    from experiments.shandong_preprocessing_v1.bounded_io import progress
     from opportunity.attachment import attach_opportunities
     from opportunity.models import Opportunity,OpportunityId,Provenance
     from stopplan4r.sites import build_sites
@@ -307,7 +308,7 @@ def sites(out,prior,config,osmium,fixture):
     checkpoint('inventory_loaded', inventory_count=len(table))
     ops=[Opportunity(OpportunityId(r.osm_type,int(r.osm_id)),float(r.lat),float(r.lon),frozenset(r.capabilities),r.subtype,
         json.loads(r.original_tags),Provenance(tuple(r.source_datasets),r.snapshot_timestamp,r.geometry_method)) for r in table.itertuples()]
-    cfg=yaml.safe_load((ROOT/'configs/opportunity.yaml').read_text())['attachment']
+    cfg=yaml.safe_load((Path(config.get('config_root',ROOT))/'configs/opportunity.yaml').read_text())['attachment']
     checkpoint('attachment_started', opportunity_count=len(ops))
     attached=attach_opportunities(ops,g,road_classes,cfg)
     checkpoint('attachment_completed', opportunity_count=len(attached))
@@ -315,7 +316,7 @@ def sites(out,prior,config,osmium,fixture):
     attachments=pd.DataFrame([{'osm_type':o.identity.osm_type,'osm_id':o.identity.osm_id,'access_node':o.access_node,
         'access_osm_node_id':o.access_osm_node_id,'access_distance_m':o.access_distance_m,'attachment_status':o.attachment_status} for o in attached])
     del attached
-    support=yaml.safe_load((ROOT/'configs/stopplan_4r.yaml').read_text())['support']
+    support=yaml.safe_load((Path(config.get('config_root',ROOT))/'configs/stopplan_4r.yaml').read_text())['support']
     checkpoint('site_build_started')
     static,local,stats=build_sites(table,attachments,support['radii_m'],support['primary_radius_m'])
     for filename,t in [('attachments.parquet',attachments),('stop_sites.parquet',static),('local_support.parquet',local)]:
@@ -349,7 +350,8 @@ def hierarchy(out,prior,config,osmium,fixture):
         np.array([len(nodes),len(edges),len(table)],dtype=np.int64).tofile(f)
         np.column_stack([rank[edges.source.to_numpy()],rank[edges.target.to_numpy()]]).astype(np.int32).tofile(f);access.tofile(f)
     del edges,nodes
-    cpp=ROOT/'src/hierarchy4r/bisection.cpp'
+    from importlib.resources import files
+    cpp=Path(str(files('hierarchy4r').joinpath('bisection.cpp')))
     compiler=json.loads(os.environ['HIROUTE_TOOLCHAIN_IDENTITY'])['compiler']
     subprocess.run([compiler['path'],*compiler['flags'],str(cpp),'-o',str(out/'bisection')],check=True)
     for label in ('primary','rebuild'):

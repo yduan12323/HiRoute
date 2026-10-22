@@ -23,3 +23,5 @@ opportunity = ["*.cpp"]
 microplan = ["*.cpp"]
 
 timecut5 = ["*.cpp"]
+
+hierarchy4r = ["*.cpp"]
