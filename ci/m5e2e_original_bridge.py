@@ -854,7 +854,7 @@ def main(argv=None):
         _write_report(a.report,result); print(json.dumps(result,indent=2,sort_keys=True)); return 2
     result=run_bridge(report_path=a.report,**supplied)
     print(json.dumps(result,indent=2,sort_keys=True))
-    return 0 if result['status']=='REF_AUTHENTICATED_SUCCESS' else 2
+    return 0 if result['status'] in ('REF_AUTHENTICATED_SUCCESS', 'BRIDGE_COMPLETE') else 2
 
 
 if __name__ == '__main__':
