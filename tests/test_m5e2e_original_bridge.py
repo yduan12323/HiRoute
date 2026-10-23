@@ -153,3 +153,39 @@ def test_invocation_freeze_is_immutable_and_canonical(tmp_path):
     assert json.loads(path.read_bytes())==frozen
     with pytest.raises(FileExistsError):
         bridge._write_frozen_invocation(path,frozen)
+
+
+def test_worker_invocation_loader_uses_passed_arguments_not_main_global(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    from ci import m5e2e_original_bridge_worker as worker
+
+    freeze = {
+        'schema': 'hiroute.m5e2e.original_bridge_invocation.v1',
+        'run_identity': 'r' * 64,
+        'wrapper_identity_sha256': 'w' * 64,
+        'interpreter_path': str(__import__('pathlib').Path(__import__('sys').executable).resolve()),
+        'interpreter_sha256': 'i' * 64,
+        'source_identity_sha256': 's' * 64,
+        'configuration': {'path': '/cfg', 'sha256': 'c' * 64},
+        'manifest': {'path': '/manifest', 'sha256': 'm' * 64},
+        'common': {'path': '/common', 'sha256': 'n' * 64},
+        'master_accounting_sha256': 'a' * 64,
+        'phase_ledger_sha256': 'l' * 64,
+        'run_root': str(tmp_path.resolve()),
+        'planned_method_order': ['flat', 'hier'],
+    }
+    raw = bridge._canonical(freeze)
+    path = tmp_path / 'invocation.json'
+    path.write_bytes(raw)
+    digest = hashlib.sha256(raw).hexdigest()
+    monkeypatch.setattr(worker, '_verify_wrapper_identity', lambda: 'w' * 64)
+    monkeypatch.setattr(worker, '_sha256_file', lambda _: 'i' * 64)
+    args = SimpleNamespace(
+        invocation_freeze=str(path), freeze_sha256=digest, operation='ref',
+        attestation=str(tmp_path / 'ref' / 'worker-attestation.json'),
+        strategy=None, wrapper_identity_sha256='w' * 64,
+        configuration='/cfg', configuration_sha256='c' * 64,
+        manifest='/manifest', manifest_sha256='m' * 64,
+        common='/common', common_sha256='n' * 64, run_identity='r' * 64,
+    )
+    assert worker._load_invocation(args) == freeze
