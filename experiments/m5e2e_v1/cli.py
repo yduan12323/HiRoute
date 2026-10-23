@@ -147,8 +147,8 @@ def summarize(root,other):
     # Gates not established are never inferred from absent artifacts.
     result=dict(delivery_status='PARTIAL',clean_e2e_status='BLOCKED' if preflight['status']!='READY' else 'PARTIAL',
         original_shandong_ref_status='UNKNOWN',
-        original_bridge_execution='NOT_RUN_ENVIRONMENT',
-        original_bridge_reason='Memory safety admission failed; no bridge attempted. Current original artifact binding not independently revalidated.',
+        original_bridge_execution='NOT_RUN_DEPENDENCY',
+        original_bridge_reason='Original REF input binding remains unverified; no bridge attempt was made.',
         historical_m5d_disposition='M5D_LIMITED_BY_DATA_OR_SCALE',historical_accounting_repaired=False,
         full_shandong_batch_confirmed=False,final_holdout_completed=False,project_completed=False,
         reproduction_scope='NOT_RUN',gates={g:'NOT_ESTABLISHED' for g in ('E0','E1','E2','E3','E4','E5','E6','E7')})
@@ -164,6 +164,15 @@ def summarize(root,other):
         result['reproduction']=compare_builds(root,other.resolve())
         result['gates']['E4']=result['reproduction']['status']
         result['reproduction_scope']=result['reproduction'].get('reproduction_scope','NOT_RUN')
+    report_identity_path=Path(__file__).with_name('source_identity.json')
+    if report_identity_path.exists():
+        report_identity=load(report_identity_path)
+        result['report_source']={'commit':report_identity.get('source_sha'),
+                                'dirty':report_identity.get('source_dirty'),
+                                'canonicalization_schema':result.get('reproduction',{}).get('canonicalization_schema')}
+    else:
+        result['report_source']={'commit':'UNAVAILABLE','dirty':None,
+                                'canonicalization_schema':result.get('reproduction',{}).get('canonicalization_schema')}
     write_new(root/'acceptance.json',result)
     print(json.dumps(result,indent=2)); return 0
 
