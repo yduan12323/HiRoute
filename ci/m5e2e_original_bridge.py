@@ -585,6 +585,8 @@ def _execute_claimed(command, *, master_root, claim_root, run_identity, wrapper_
             status=receipt['status']))
         if not receipt['cleanup_verified']:
             raise RuntimeError('Worker cleanup unverified; stop all work')
+        # Capture the locked post-REF ledger state before releasing the global lock.
+        receipt['ledger_sha256_after_ref'] = _hash(ledger.read_bytes())
         return receipt
 
 
@@ -794,14 +796,13 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
             report.update(status='REF_AUTHENTICATED_SUCCESS',
                 post_ref_methods_status='METHODS_PENDING')
             try:
-                current_ledger=_read_regular(account['ledger_path'],MAX_EVIDENCE_BYTES)
                 method_report=_run_original_methods_after_ref(
                     ref_result=result,physical=__import__('experiments.m6h_manifest_v1.physical',fromlist=['physical']),
                     manifest=manifest,manifest_binding=manifest_binding,common=common,
                     common_binding=common_binding,run_identity=run_identity,
                     wrapper_identity_sha256=wrapper_identity_sha256,freeze_path=freeze_path,
                     freeze_sha256=freeze_sha256,run_root=output,master_root=root,
-                    expected_ledger_sha256=_hash(current_ledger),
+                    expected_ledger_sha256=receipt['ledger_sha256_after_ref'],
                     remaining_cpu=account['remaining_cpu_seconds']-receipt['accounted_owned_cpu_seconds'],
                     remaining_wall=account['remaining_wall_seconds']-receipt['wall_seconds'])
                 report['method_report']=method_report
