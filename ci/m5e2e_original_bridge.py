@@ -456,14 +456,14 @@ def _method_phase_identity(physical, manifest, manifest_sha256, common_sha256, s
 def _classify_300_second_method_receipt(receipt, expected_identity):
     if type(receipt) is not dict or receipt.get('cleanup_verified') is not True:
         return 'INCOMPLETE'
-    if receipt.get('status') == 'TIMEOUT':
-        return 'EXTERNAL_LIMIT_UNVERIFIED'
-    if receipt.get('status') != 'SUCCESS':
-        return 'INCOMPLETE'
     phase = receipt.get('phase_budget')
     if (type(phase) is not dict or phase.get('seconds') != 300
             or phase.get('identity') != expected_identity):
         return 'IDENTITY_MISMATCH'
+    if receipt.get('status') == 'TIMEOUT':
+        return 'EXTERNAL_LIMIT_UNVERIFIED'
+    if receipt.get('status') != 'SUCCESS':
+        return 'INCOMPLETE'
     return 'SUCCESS'
 
 
