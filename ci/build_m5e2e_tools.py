@@ -68,7 +68,8 @@ def main():
         (stage/'setup.py').write_text(
             'from setuptools import setup\nsetup(name="hiroute-e2e-tools", version="0.1.0", '
             'python_requires=">=3.11,<3.12", packages=' + repr(sorted(packages)) + ', '
-            'package_data={"": ["*.cpp", "*.txt", "source_identity.json", "dev_cohort_v1_bindings.json"]})\n')
+            'package_data={"": ["*.cpp", "*.txt", "source_identity.json", "dev_cohort_v1_bindings.json"], '
+            '"ci": ["original_bridge_identity.json"]})\n')
         production = {str(p.relative_to(ROOT/'src')):hashlib.sha256(p.read_bytes()).hexdigest()
                       for p in sorted((ROOT/'src').rglob('*'))
                       if p.is_file() and p.suffix in ('.py','.cpp') and '__pycache__' not in p.parts
