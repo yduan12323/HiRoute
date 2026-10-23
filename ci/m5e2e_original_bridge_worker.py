@@ -49,8 +49,8 @@ def _write_worker_attestation(path, frozen, freeze_sha256, operation, strategy):
     value = {'schema': 'hiroute.m5e2e.original_bridge_attestation.v1',
         'run_identity': frozen['run_identity'],
         'wrapper_identity_sha256': frozen['wrapper_identity_sha256'],
-        'invocation_freeze_sha256': freeze_sha256,
-        'worker_returned': True}
+        'invocation_freeze_sha256': freeze_sha256, 'operation': operation,
+        'strategy': strategy, 'worker_returned': True}
     raw = _canonical(value)
     fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
     try:
