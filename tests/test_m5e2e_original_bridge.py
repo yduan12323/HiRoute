@@ -43,8 +43,8 @@ def test_jsonl_append_round_trips_start_end(tmp_path):
     bridge._append_jsonl(ledger,start)
     bridge._append_jsonl(ledger,end)
     raw=ledger.read_bytes()
-    assert raw.endswith(b'\\n')
-    assert raw.count(b'\\n') == 2
+    assert raw.endswith(b'\n')
+    assert raw.count(b'\n') == 2
     cpu,wall,starts,ends=bridge._ledger_totals(raw)
     assert (cpu,wall)==(1,2)
     assert set(starts)==set(ends)=={'one'}
