@@ -494,7 +494,9 @@ def _execute_claimed(command, *, master_root, claim_root, run_identity, wrapper_
         append(dict(kind='end',invocation_id=invocation,phase='original-shandong-n8-ref',
             cpu_seconds=measured,measured_cpu_seconds=measured,wall_seconds=receipt['wall_seconds'],
             charge_kind='outer_owned_tree',nested_inclusive_not_added=True,
-            cleanup_verified=receipt['cleanup_verified'],receipt=str(receipt_path),receipt_sha256=receipt_sha256,\n            worker_attestation=str(attestation_path),worker_attestation_sha256=_hash(attestation_raw),\n            invocation_freeze_sha256=freeze_sha256,wrapper_identity_sha256=wrapper_identity_sha256,
+            cleanup_verified=receipt['cleanup_verified'],receipt=str(receipt_path),receipt_sha256=receipt_sha256,
+            worker_attestation=str(attestation_path),worker_attestation_sha256=_hash(attestation_raw),
+            invocation_freeze_sha256=freeze_sha256,wrapper_identity_sha256=wrapper_identity_sha256,
             status=receipt['status']))
         if not receipt['cleanup_verified']:
             raise RuntimeError('Worker cleanup unverified; stop all work')
