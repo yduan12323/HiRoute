@@ -210,3 +210,36 @@ def test_changed_post_ref_ledger_snapshot_blocks_followup(tmp_path):
 def test_bridge_complete_is_a_successful_cli_exit():
     assert bridge._exit_code('BRIDGE_COMPLETE') == 0
     assert bridge._exit_code('REF_ATTEMPT_CONSUMED_INCOMPLETE') == 2
+
+
+def test_timeout_receipt_settles_without_worker_attestation(tmp_path):
+    receipt = {
+        'status': 'TIMEOUT',
+        'cleanup_verified': True,
+        'accounted_owned_cpu_seconds': 117.5,
+        'wall_seconds': 120.0,
+        'argv': ['/venv/bin/python', '-I', '-m', 'ci.m5e2e_original_bridge_worker'],
+    }
+    receipt_path = tmp_path / 'receipt.json'
+    receipt_path.write_bytes(bridge._canonical(receipt))
+    attestation_path = tmp_path / 'worker-attestation.json'
+    rows = [{'kind': 'start', 'invocation_id': 'timeout-1',
+             'phase': 'original-shandong-n8-ref'}]
+
+    result = bridge._append_ref_supervisor_end(
+        rows.append, invocation='timeout-1', command=receipt['argv'],
+        receipt=receipt, receipt_path=receipt_path,
+        attestation_path=attestation_path, run_identity='r' * 64,
+        wrapper_identity_sha256='w' * 64, freeze_sha256='f' * 64)
+
+    cpu, wall, starts, ends = bridge._ledger_totals(
+        b'\\n'.join(bridge._canonical(row) for row in rows))
+    assert (cpu, wall) == (117.5, 120.0)
+    assert set(starts) == set(ends) == {'timeout-1'}
+    assert ends['timeout-1']['status'] == 'TIMEOUT'
+    assert ends['timeout-1']['cleanup_verified'] is True
+    assert ends['timeout-1']['receipt_sha256'] == hashlib.sha256(
+        receipt_path.read_bytes()).hexdigest()
+    assert not attestation_path.exists()
+    assert result['worker_authenticated'] is False
+    assert result['worker_attestation_sha256'] is None
