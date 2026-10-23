@@ -421,8 +421,7 @@ def _execute_claimed(command, *, master_root, claim_root, run_identity, source_r
         state['claim']=True
         invocation=__import__('uuid').uuid4().hex
         def append(row):
-            with ledger.open('ab') as stream:
-                stream.write(_canonical(row)+b'\n'); stream.flush(); os.fsync(stream.fileno())
+            _append_jsonl(ledger, row)
         append(dict(kind='start',invocation_id=invocation,phase='original-shandong-n8-ref',
             argv=command,cpu_reserved=REF_SECONDS,wall_reserved=REF_SECONDS,timestamp=time.time()))
         started=time.monotonic()
