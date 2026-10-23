@@ -565,7 +565,7 @@ def _execute_claimed(command, *, master_root, claim_root, run_identity, wrapper_
         attestation=json.loads(attestation_raw,object_pairs_hook=_unique_pairs)
         expected_attestation={'schema':'hiroute.m5e2e.original_bridge_attestation.v1',
             'run_identity':run_identity,'wrapper_identity_sha256':wrapper_identity_sha256,
-            'invocation_freeze_sha256':freeze_sha256,'worker_returned':True}
+            'invocation_freeze_sha256':freeze_sha256,'operation':'ref','strategy':None,'worker_returned':True}
         if attestation_raw!=_canonical(expected_attestation) or attestation!=expected_attestation:
             raise AdmissionError('worker final attestation does not match frozen parent invocation')
         measured=receipt['accounted_owned_cpu_seconds']
@@ -612,6 +612,7 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
             'interpreter_path':str(interpreter),'interpreter_sha256':_sha256_file(interpreter),
             'source_identity_sha256':_hash(_canonical(freeze['source'])),
             'configuration':configuration,'manifest':manifest_binding,'common':common_binding,
+            'run_root':str(output),'planned_method_order':['flat','hier'],
             'master_accounting_sha256':account['account_sha256'],'phase_ledger_sha256':account['ledger_sha256']}
         freeze_path=output/'invocation-freeze.json'
         freeze_sha256=_write_frozen_invocation(freeze_path,invocation_freeze)
