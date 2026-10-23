@@ -882,6 +882,7 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
             'run_identity':run_identity,'wrapper_identity_sha256':wrapper_identity_sha256,
             'interpreter_path':str(interpreter),'interpreter_sha256':_sha256_file(interpreter),
             'source_identity_sha256':_hash(_canonical(freeze['source'])),
+            'source_root':str(module_root),
             'configuration':configuration,'manifest':manifest_binding,'common':common_binding,
             'run_root':str(output),'planned_method_order':['flat','hier'],
             'master_accounting_sha256':account['account_sha256'],'phase_ledger_sha256':account['ledger_sha256']}
@@ -955,13 +956,26 @@ def _exit_code(status):
 
 def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--report',required=True,type=Path)
+    p.add_argument('--report',type=Path)
+    p.add_argument('--check-install',action='store_true')
     p.add_argument('--run-root',type=Path); p.add_argument('--master-root',type=Path); p.add_argument('--source-root',type=Path)
     p.add_argument('--master-accounting',type=Path); p.add_argument('--master-accounting-sha256')
     p.add_argument('--configuration'); p.add_argument('--configuration-sha256')
     p.add_argument('--manifest'); p.add_argument('--manifest-sha256')
     p.add_argument('--common'); p.add_argument('--common-sha256')
     a=p.parse_args(argv)
+    if a.check_install:
+        if not a.source_root or not a.configuration or not a.configuration_sha256:
+            result={'schema':'hiroute.m5e2e.bridge_install_preflight.v1',
+                'status':'NOT_RUN_DEPENDENCY','numerical_worker_started':False,
+                'claim_created':False,'reason':'missing source-root/configuration binding'}
+        else:
+            result=_install_preflight_result(
+                {'path':a.configuration,'sha256':a.configuration_sha256},a.source_root)
+        print(json.dumps(result,indent=2,sort_keys=True))
+        return 0 if result.get('status')=='INSTALL_READY' else 2
+    if a.report is None:
+        p.error('--report is required outside --check-install mode')
     supplied={'run_root':a.run_root,'master_root':a.master_root,'source_root':a.source_root,'account_path':a.master_accounting,
         'account_sha':a.master_accounting_sha256,
         'configuration':({'path':a.configuration,'sha256':a.configuration_sha256}
