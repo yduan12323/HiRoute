@@ -189,3 +189,12 @@ def test_worker_invocation_loader_uses_passed_arguments_not_main_global(tmp_path
         common='/common', common_sha256='n' * 64, run_identity='r' * 64,
     )
     assert worker._load_invocation(args) == freeze
+
+
+def test_incomplete_ref_status_is_recorded_before_authentication_failure():
+    report = {'ref_status': 'NOT_RUN'}
+    bridge._store_ref_result(report, {'status': 'UNKNOWN', 'reason': 'receipt incomplete'})
+    with pytest.raises(bridge.AdmissionError, match='independent exact authentication'):
+        bridge._require_authenticated_ref({'status': 'UNKNOWN', 'reason': 'receipt incomplete'})
+    assert report['ref_status'] == 'UNKNOWN'
+    assert report['ref_reason'] == 'receipt incomplete'
