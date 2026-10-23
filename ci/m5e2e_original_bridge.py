@@ -18,7 +18,7 @@ import time
 SCHEMA = 'hiroute.m5e2e.original_bridge_admission.v1'
 ACCOUNT_SCHEMA = 'hiroute.m5e2e.master_accounting.v1'
 CPU_CAP, WALL_CAP = 8 * 3600, 12 * 3600
-REF_SECONDS, FOLLOWUP_RESERVE_SECONDS = 120, 600
+REF_SECONDS, FOLLOWUP_RESERVE_SECONDS = 120, 840
 MAX_ACCOUNT_BYTES, MAX_EVIDENCE_BYTES = 4*1024**2, 16*1024**2
 CLAIM_RELATIVE = Path('.m5e2e_bridge_claims/original-shandong-n8-ref.claim.json')
 ORIGINAL_LEDGER_SHA256 = 'ba453f3fcdc72ef5c5b8a0418164672dcaa0446210e74035d46d76140360645f'
@@ -581,6 +581,158 @@ def _execute_claimed(command, *, master_root, claim_root, run_identity, wrapper_
         if not receipt['cleanup_verified']:
             raise RuntimeError('Worker cleanup unverified; stop all work')
         return receipt
+
+
+def _run_original_methods_after_ref(*, ref_result, physical, manifest, manifest_binding,
+                                    common, common_binding, run_identity, wrapper_identity_sha256,
+                                    freeze_path, freeze_sha256, run_root, master_root,
+                                    expected_ledger_sha256, remaining_cpu, remaining_wall):
+    """Run only the original N8 FLAT/HIER pair after authenticated REF success."""
+    _require_authenticated_ref(ref_result)
+    if ref_result['status'] != 'SUCCESS':
+        return {'status': 'NOT_ADMITTED_REF_INCOMPLETE', 'methods': []}
+    import fcntl
+    root = Path(master_root)
+    ledger = root/'phase_ledger.jsonl'
+    results = []
+    with (root/'exclusive.lock').open('a') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX|fcntl.LOCK_NB)
+        current = _read_regular(ledger, MAX_EVIDENCE_BYTES)
+        if _hash(current) != expected_ledger_sha256:
+            raise AdmissionError('master ledger changed after REF; method continuation is blocked')
+        _ledger_totals(current)
+        for strategy in ('flat', 'hier'):
+            identity = _method_phase_identity(physical, manifest, manifest_binding['sha256'],
+                common_binding['sha256'], strategy, run_identity)
+            search_dir = Path(run_root)/strategy/'search'
+            verify_dir = Path(run_root)/strategy/'verify'
+            if min(remaining_cpu, remaining_wall) < 420:
+                results.append({'strategy':strategy,'status':'NOT_RUN_BUDGET'})
+                continue
+            search_attestation = search_dir/'worker-attestation.json'
+            search_command = _ref_worker_command(
+                Path(sys.executable).resolve(), {'path':freeze_path.parent.parent/'unused','sha256':'0'*64},
+                manifest_binding, common_binding, wrapper_identity_sha256, run_identity,
+                freeze_path, freeze_sha256, search_attestation, operation='arm', strategy=strategy)
+            # Replace the placeholder configuration binding with the exact frozen one.
+            freeze_value, _ = _json_binding({'path':str(freeze_path),'sha256':freeze_sha256},
+                limit=128*1024, canonical=True)
+            search_command = _ref_worker_command(Path(sys.executable).resolve(),
+                freeze_value['configuration'], manifest_binding, common_binding,
+                wrapper_identity_sha256, run_identity, freeze_path, freeze_sha256,
+                search_attestation, operation='arm', strategy=strategy)
+            search_invocation = __import__('uuid').uuid4().hex
+            _append_jsonl(ledger, {'kind':'start','invocation_id':search_invocation,
+                'phase':'original-shandong-n8-'+strategy+'-outer-300','argv':search_command,
+                'cpu_reserved':300,'wall_reserved':300,'timestamp':time.time()})
+            try:
+                search_receipt = _run_method_search_300(search_command, output_dir=search_dir,
+                    cwd=manifest['repo'], identity=identity, cpu=min(os.sched_getaffinity(0)),
+                    global_cpu_remaining=remaining_cpu, global_wall_remaining=remaining_wall)
+            except BaseException as exc:
+                _append_jsonl(ledger, {'kind':'end','invocation_id':search_invocation,
+                    'phase':'original-shandong-n8-'+strategy+'-outer-300','cpu_seconds':300,
+                    'measured_cpu_seconds':None,'wall_seconds':300,'cleanup_verified':False,
+                    'charge_kind':'conservative_reservation','error':type(exc).__name__})
+                raise
+            search_path = search_dir/'receipt.json'
+            search_raw = _read_regular(search_path, MAX_EVIDENCE_BYTES)
+            _append_jsonl(ledger, {'kind':'end','invocation_id':search_invocation,
+                'phase':'original-shandong-n8-'+strategy+'-outer-300',
+                'cpu_seconds':search_receipt['accounted_owned_cpu_seconds'],
+                'measured_cpu_seconds':search_receipt['accounted_owned_cpu_seconds'],
+                'wall_seconds':search_receipt['wall_seconds'],
+                'cleanup_verified':search_receipt['cleanup_verified'],
+                'receipt':str(search_path),'receipt_sha256':_hash(search_raw),
+                'wrapper_identity_sha256':wrapper_identity_sha256,
+                'invocation_freeze_sha256':freeze_sha256,'status':search_receipt['status']})
+            remaining_cpu -= search_receipt['accounted_owned_cpu_seconds']
+            remaining_wall -= search_receipt['wall_seconds']
+            phase_status = _classify_300_second_method_receipt(search_receipt, identity)
+            row={'strategy':strategy,'outer_status':phase_status,
+                'search_receipt_sha256':_hash(search_raw),'external_seconds':300,
+                'legacy_internal_seconds':1200,'fresh_verify_seconds':120}
+            if not search_receipt.get('cleanup_verified'):
+                raise AdmissionError('method worker cleanup unverified; stop all further work')
+            if phase_status != 'SUCCESS':
+                row['status']=phase_status
+                results.append(row)
+                continue
+            if search_receipt.get('argv') != search_command:
+                raise AdmissionError('method search supervisor argv differs from freeze')
+            attestation_raw=_read_regular(search_attestation,64*1024)
+            expected_att={'schema':'hiroute.m5e2e.original_bridge_attestation.v1',
+                'run_identity':run_identity,'wrapper_identity_sha256':wrapper_identity_sha256,
+                'invocation_freeze_sha256':freeze_sha256,'operation':'arm','strategy':strategy,
+                'worker_returned':True}
+            if attestation_raw != _canonical(expected_att):
+                raise AdmissionError('method worker attestation differs from frozen search')
+            if min(remaining_cpu,remaining_wall) < 120:
+                row['status']='NOT_RUN_VERIFY_BUDGET'
+                results.append(row)
+                continue
+            verify_attestation=verify_dir/'worker-attestation.json'
+            search_sha=_hash(search_raw)
+            verify_command=_ref_worker_command(Path(sys.executable).resolve(),
+                freeze_value['configuration'],manifest_binding,common_binding,
+                wrapper_identity_sha256,run_identity,freeze_path,freeze_sha256,
+                verify_attestation,operation='verify',strategy=strategy,
+                search_directory=search_dir,search_receipt_sha256=search_sha)
+            verify_invocation=__import__('uuid').uuid4().hex
+            _append_jsonl(ledger, {'kind':'start','invocation_id':verify_invocation,
+                'phase':'original-shandong-n8-'+strategy+'-fresh-verify-120','argv':verify_command,
+                'cpu_reserved':120,'wall_reserved':120,'timestamp':time.time()})
+            try:
+                verify_receipt=_run_method_verify_120(verify_command,output_dir=verify_dir,
+                    cwd=manifest['repo'],cpu=min(os.sched_getaffinity(0)),
+                    global_cpu_remaining=remaining_cpu,global_wall_remaining=remaining_wall)
+            except BaseException as exc:
+                _append_jsonl(ledger, {'kind':'end','invocation_id':verify_invocation,
+                    'phase':'original-shandong-n8-'+strategy+'-fresh-verify-120',
+                    'cpu_seconds':120,'measured_cpu_seconds':None,'wall_seconds':120,
+                    'cleanup_verified':False,'charge_kind':'conservative_reservation',
+                    'error':type(exc).__name__})
+                raise
+            verify_path=verify_dir/'receipt.json'
+            verify_raw=_read_regular(verify_path,MAX_EVIDENCE_BYTES)
+            _append_jsonl(ledger, {'kind':'end','invocation_id':verify_invocation,
+                'phase':'original-shandong-n8-'+strategy+'-fresh-verify-120',
+                'cpu_seconds':verify_receipt['accounted_owned_cpu_seconds'],
+                'measured_cpu_seconds':verify_receipt['accounted_owned_cpu_seconds'],
+                'wall_seconds':verify_receipt['wall_seconds'],
+                'cleanup_verified':verify_receipt['cleanup_verified'],
+                'receipt':str(verify_path),'receipt_sha256':_hash(verify_raw),
+                'wrapper_identity_sha256':wrapper_identity_sha256,
+                'invocation_freeze_sha256':freeze_sha256,'status':verify_receipt['status']})
+            remaining_cpu -= verify_receipt['accounted_owned_cpu_seconds']
+            remaining_wall -= verify_receipt['wall_seconds']
+            if verify_receipt.get('status') != 'SUCCESS' or not verify_receipt.get('cleanup_verified'):
+                row['status']='FRESH_VERIFY_INCOMPLETE'
+                results.append(row)
+                if not verify_receipt.get('cleanup_verified'):
+                    raise AdmissionError('fresh verification cleanup unverified; stop')
+                continue
+            if verify_receipt.get('argv') != verify_command:
+                raise AdmissionError('fresh verify supervisor argv differs from freeze')
+            verify_att_raw=_read_regular(verify_attestation,64*1024)
+            expected_verify={'schema':'hiroute.m5e2e.original_bridge_attestation.v1',
+                'run_identity':run_identity,'wrapper_identity_sha256':wrapper_identity_sha256,
+                'invocation_freeze_sha256':freeze_sha256,'operation':'verify','strategy':strategy,
+                'worker_returned':True}
+            if verify_att_raw != _canonical(expected_verify):
+                raise AdmissionError('fresh verifier attestation differs from frozen plan')
+            admitted=_admit_method_300(physical,manifest,manifest_binding['sha256'],
+                common,common_binding['sha256'],strategy,search_dir,search_receipt,
+                verify_dir,verify_receipt,identity)
+            match = physical.base.canonical(admitted['terminal']) == physical.base.canonical(ref_result['canonical_outcome'])
+            row.update(status='MATCH' if match else 'REPRODUCTION_MISMATCH',
+                accepted_key=admitted['terminal'],comparison_complete=True,
+                fresh_verify_receipt_sha256=_hash(verify_raw))
+            results.append(row)
+    final_status='MATCH' if len(results)==2 and all(r.get('status')=='MATCH' for r in results) else 'PARTIAL'
+    return {'status':final_status,'methods':results,
+        'remaining_cpu_seconds':remaining_cpu,'remaining_wall_seconds':remaining_wall,
+        'budget_account_snapshot':'requires_reconciliation_before_any_further_admission'}
 
 
 def run_bridge(*, configuration, manifest_binding, common_binding, account_path, account_sha,
