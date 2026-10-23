@@ -520,6 +520,89 @@ def _run_method_verify_120(command, *, output_dir, cwd, cpu,
         owned_temp=True, extra_env={'PYTHONNOUSERSITE':'1'})
 
 
+
+def _append_ref_supervisor_end(append, *, invocation, command, receipt,
+                               receipt_path, attestation_path, run_identity,
+                               wrapper_identity_sha256, freeze_sha256):
+    """Always settle a returned supervisor terminal before trusting worker output."""
+    phase = 'original-shandong-n8-ref'
+    receipt_path = Path(receipt_path)
+    receipt_raw = None
+    receipt_matches = False
+    receipt_error = None
+    try:
+        receipt_raw = _read_regular(receipt_path, MAX_EVIDENCE_BYTES)
+        parsed = json.loads(receipt_raw, object_pairs_hook=_unique_pairs)
+        receipt_matches = parsed == receipt
+        if not receipt_matches:
+            receipt_error = 'supervisor_receipt_object_file_mismatch'
+    except Exception as exc:
+        receipt_error = 'supervisor_receipt_unavailable:' + type(exc).__name__
+
+    try:
+        measured_cpu = _number(receipt.get('accounted_owned_cpu_seconds'), 'receipt cpu')
+    except Exception:
+        measured_cpu = None
+    try:
+        wall_seconds = _number(receipt.get('wall_seconds'), 'receipt wall')
+    except Exception:
+        wall_seconds = None
+    status = receipt.get('status') if type(receipt.get('status')) is str else 'UNKNOWN'
+    argv_matches = receipt.get('argv') == command
+    cleanup_verified = (receipt.get('cleanup_verified') is True
+                        and receipt_matches and measured_cpu is not None
+                        and wall_seconds is not None)
+    row = dict(kind='end', invocation_id=invocation, phase=phase,
+        cpu_seconds=measured_cpu if measured_cpu is not None else REF_SECONDS,
+        measured_cpu_seconds=measured_cpu,
+        wall_seconds=wall_seconds if wall_seconds is not None else REF_SECONDS,
+        charge_kind='outer_owned_tree' if measured_cpu is not None else 'conservative_reservation',
+        nested_inclusive_not_added=True, cleanup_verified=cleanup_verified,
+        status=status, supervisor_argv_matches=argv_matches,
+        invocation_freeze_sha256=freeze_sha256,
+        wrapper_identity_sha256=wrapper_identity_sha256)
+    if receipt_raw is not None:
+        row.update(receipt=str(receipt_path), receipt_sha256=_hash(receipt_raw))
+    if receipt_error:
+        row['receipt_error'] = receipt_error
+
+    worker_authenticated = False
+    attestation_raw = None
+    attestation_error = None
+    if status == 'SUCCESS' and cleanup_verified and argv_matches:
+        try:
+            attestation_raw = _read_regular(attestation_path, 64 * 1024)
+            attestation = json.loads(attestation_raw, object_pairs_hook=_unique_pairs)
+            expected = {'schema':'hiroute.m5e2e.original_bridge_attestation.v1',
+                'run_identity':run_identity,
+                'wrapper_identity_sha256':wrapper_identity_sha256,
+                'invocation_freeze_sha256':freeze_sha256,
+                'operation':'ref','strategy':None,'worker_returned':True}
+            worker_authenticated = (attestation_raw == _canonical(expected)
+                                    and attestation == expected)
+            if not worker_authenticated:
+                attestation_error = 'worker_attestation_mismatch'
+        except Exception as exc:
+            attestation_error = 'worker_attestation_unavailable:' + type(exc).__name__
+    elif status == 'SUCCESS':
+        attestation_error = 'supervisor_receipt_or_cleanup_not_admitted'
+    else:
+        attestation_error = 'supervisor_status:' + status
+
+    if attestation_raw is not None and worker_authenticated:
+        row.update(worker_attestation=str(attestation_path),
+            worker_attestation_sha256=_hash(attestation_raw))
+    append(row)
+    settled = dict(receipt)
+    settled['_worker_authenticated'] = worker_authenticated
+    settled['_worker_attestation_sha256'] = (_hash(attestation_raw)
+        if attestation_raw is not None and worker_authenticated else None)
+    settled['_worker_attestation_error'] = attestation_error
+    settled['_receipt_sha256'] = _hash(receipt_raw) if receipt_raw is not None else None
+    settled['_ledger_settled'] = True
+    return settled
+
+
 def _execute_claimed(command, *, master_root, claim_root, run_identity, wrapper_identity_sha256, freeze_sha256, source_root, account_path, account_sha, run_output,
                      claim_payload, state):
     """Run the existing supervisor while holding the same global budget lock."""
@@ -529,7 +612,6 @@ def _execute_claimed(command, *, master_root, claim_root, run_identity, wrapper_
     ledger=root/'phase_ledger.jsonl'
     with (root/'exclusive.lock').open('a') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
-        entries=[json.loads(line) for line in ledger.read_text().splitlines()]
         cpu,wall,_,_=_ledger_totals(ledger.read_bytes())
         if cpu+REF_SECONDS>CPU_CAP or wall+REF_SECONDS>WALL_CAP:
             raise AdmissionError('shared phase ledger no longer has REF capacity')
@@ -545,7 +627,6 @@ def _execute_claimed(command, *, master_root, claim_root, run_identity, wrapper_
             _append_jsonl(ledger, row)
         append(dict(kind='start',invocation_id=invocation,phase='original-shandong-n8-ref',
             argv=command,cpu_reserved=REF_SECONDS,wall_reserved=REF_SECONDS,timestamp=time.time()))
-        started=time.monotonic()
         try:
             state['started']='UNKNOWN_AFTER_CLAIM'
             receipt=run(command,output_dir=run_output,cwd=source_root,
@@ -558,37 +639,23 @@ def _execute_claimed(command, *, master_root, claim_root, run_identity, wrapper_
                 owned_temp=True,extra_env={'PYTHONNOUSERSITE':'1'})
         except BaseException as exc:
             append(dict(kind='end',invocation_id=invocation,phase='original-shandong-n8-ref',
-                cpu_seconds=REF_SECONDS,wall_seconds=max(REF_SECONDS,time.monotonic()-started),
+                cpu_seconds=REF_SECONDS,wall_seconds=REF_SECONDS,
                 measured_cpu_seconds=None,charge_kind='conservative_reservation',
                 cleanup_verified=False,error=type(exc).__name__+': '+str(exc)))
             raise
         state['started']=True
-        if receipt.get('argv') != command:
-            raise AdmissionError('supervisor receipt command differs from the frozen invocation')
-        attestation_path=Path(run_output)/'worker-attestation.json'
-        attestation_raw=_read_regular(attestation_path,64*1024)
-        attestation=json.loads(attestation_raw,object_pairs_hook=_unique_pairs)
-        expected_attestation={'schema':'hiroute.m5e2e.original_bridge_attestation.v1',
-            'run_identity':run_identity,'wrapper_identity_sha256':wrapper_identity_sha256,
-            'invocation_freeze_sha256':freeze_sha256,'operation':'ref','strategy':None,'worker_returned':True}
-        if attestation_raw!=_canonical(expected_attestation) or attestation!=expected_attestation:
-            raise AdmissionError('worker final attestation does not match frozen parent invocation')
-        measured=receipt['accounted_owned_cpu_seconds']
-        receipt_path=Path(run_output)/'receipt.json'
-        receipt_sha256=_hash(_read_regular(receipt_path,MAX_EVIDENCE_BYTES))
-        append(dict(kind='end',invocation_id=invocation,phase='original-shandong-n8-ref',
-            cpu_seconds=measured,measured_cpu_seconds=measured,wall_seconds=receipt['wall_seconds'],
-            charge_kind='outer_owned_tree',nested_inclusive_not_added=True,
-            cleanup_verified=receipt['cleanup_verified'],receipt=str(receipt_path),receipt_sha256=receipt_sha256,
-            worker_attestation=str(attestation_path),worker_attestation_sha256=_hash(attestation_raw),
-            invocation_freeze_sha256=freeze_sha256,wrapper_identity_sha256=wrapper_identity_sha256,
-            status=receipt['status']))
-        if not receipt['cleanup_verified']:
-            raise RuntimeError('Worker cleanup unverified; stop all work')
+        settled=_append_ref_supervisor_end(append,invocation=invocation,command=command,
+            receipt=receipt,receipt_path=Path(run_output)/'receipt.json',
+            attestation_path=Path(run_output)/'worker-attestation.json',
+            run_identity=run_identity,wrapper_identity_sha256=wrapper_identity_sha256,
+            freeze_sha256=freeze_sha256)
+        if not settled['cleanup_verified']:
+            state['cleanup_verified']=False
+        else:
+            state['cleanup_verified']=True
         # Capture the locked post-REF ledger state before releasing the global lock.
-        receipt['ledger_sha256_after_ref'] = _hash(ledger.read_bytes())
-        return receipt
-
+        settled['ledger_sha256_after_ref'] = _hash(ledger.read_bytes())
+        return settled
 
 def _verify_locked_ledger_snapshot(path, expected_sha256):
     raw = _read_regular(path, MAX_EVIDENCE_BYTES)
@@ -830,7 +897,7 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
 
 
 def _exit_code(status):
-    return 0 if status in ('REF_AUTHENTICATED_SUCCESS', 'BRIDGE_COMPLETE') else 2
+    return 0 if status == 'BRIDGE_COMPLETE' else 2
 
 def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__)
