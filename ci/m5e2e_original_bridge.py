@@ -425,14 +425,23 @@ def _append_jsonl(path, row):
 
 
 def _ref_worker_command(interpreter, configuration, manifest, common,
-                        wrapper_identity_sha256, run_identity, freeze_path, freeze_sha256, attestation_path):
-    return [str(interpreter), '-I', '-m', 'ci.m5e2e_original_bridge_worker',
+                        wrapper_identity_sha256, run_identity, freeze_path, freeze_sha256, attestation_path,
+                        operation='ref', strategy=None, search_directory=None, search_receipt_sha256=None):
+    command=[str(interpreter), '-I', '-m', 'ci.m5e2e_original_bridge_worker',
+        '--operation', operation,
         '--configuration', configuration['path'], '--configuration-sha256', configuration['sha256'],
         '--manifest', manifest['path'], '--manifest-sha256', manifest['sha256'],
         '--common', common['path'], '--common-sha256', common['sha256'],
         '--wrapper-identity-sha256', wrapper_identity_sha256,
         '--run-identity', run_identity, '--invocation-freeze', str(freeze_path),
         '--freeze-sha256', freeze_sha256, '--attestation', str(attestation_path)]
+    if strategy is not None:
+        command.extend(['--strategy', strategy])
+    if search_directory is not None:
+        command.extend(['--search-directory', str(search_directory)])
+    if search_receipt_sha256 is not None:
+        command.extend(['--search-receipt-sha256', search_receipt_sha256])
+    return command
 
 
 def _execute_claimed(command, *, master_root, claim_root, run_identity, wrapper_identity_sha256, freeze_sha256, source_root, account_path, account_sha, run_output,
