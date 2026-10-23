@@ -371,6 +371,7 @@ def _admit_inputs(configuration, manifest_binding, common_binding, source_root):
 
 def _check_install_layout(configuration, source_root):
     """Read-only -I preflight; validates the real editable install before any claim."""
+    freeze = _json_binding(configuration, limit=128 * 1024, canonical=True)[0]
     wrapper_identity_sha256 = _verify_wrapper_identity()
     supplied_root = Path(source_root)
     if not supplied_root.is_absolute() or supplied_root.is_symlink():
@@ -378,7 +379,6 @@ def _check_install_layout(configuration, source_root):
     source_root = supplied_root.resolve(strict=True)
     if not source_root.is_dir():
         raise AdmissionError('trusted source root must be a directory')
-    freeze = _json_binding(configuration, limit=128 * 1024, canonical=True)[0]
     from experiments.m6h_manifest_v1 import recovery_runtime
     trusted = recovery_runtime.activate(configuration)
     repo = Path(trusted['repo']).resolve()
