@@ -156,13 +156,16 @@ def test_frozen_model_window_and_source_drift_rejected():
 
 @pytest.fixture(scope='module')
 def source_osmium_version_gate():
-    import importlib.util
+    import importlib
+    import sys
     from pathlib import Path
 
-    source = Path(__file__).resolve().parents[1] / 'experiments/shandong_preprocessing_v1/phases.py'
-    spec = importlib.util.spec_from_file_location('m5e2e_source_phases', source)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    module = importlib.import_module('experiments.shandong_preprocessing_v1.phases')
+    module_path = Path(module.__file__).resolve()
+    prefix = Path(sys.prefix).resolve()
+    assert module_path.is_relative_to(prefix), (
+        f'expected installed phases module under {prefix}, got {module_path}'
+    )
     return module._require_osmium_version
 
 
@@ -193,4 +196,4 @@ def test_osmium_version_gate_accepts_exact_pinned_lines(version_line, source_osm
 )
 def test_osmium_version_gate_rejects_unpinned_or_malformed_output(output, source_osmium_version_gate):
     with pytest.raises(RuntimeError, match='^Pinned osmium version mismatch$'):
-        source_osmium_version_gate()
+        source_osmium_version_gate(output)
