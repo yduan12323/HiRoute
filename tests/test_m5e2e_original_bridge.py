@@ -90,7 +90,11 @@ def test_wrapper_identity_drift_is_rejected(tmp_path):
     worker=b'worker-wrapper'
     (package/'m5e2e_original_bridge.py').write_bytes(parent)
     (package/'m5e2e_original_bridge_worker.py').write_bytes(worker)
-    identity={'schema':'hiroute.m5e2e.original_bridge_wrapper.v1','modules':{
+    builder = b'bridge builder source'
+    (package/'build_m5e2e_bridge_tools.py').write_bytes(builder)
+    identity={'schema':'hiroute.m5e2e.original_bridge_wrapper.v2',
+        'bridge_source_revision':'1'*40,'original_source_revision':'2'*40,
+        'build_script_sha256':hashlib.sha256(builder).hexdigest(),'modules':{
         'm5e2e_original_bridge.py':hashlib.sha256(parent).hexdigest(),
         'm5e2e_original_bridge_worker.py':hashlib.sha256(worker).hexdigest()}}
     (package/'original_bridge_identity.json').write_bytes(bridge._canonical(identity))
@@ -172,6 +176,7 @@ def test_worker_invocation_loader_uses_passed_arguments_not_main_global(tmp_path
         'master_accounting_sha256': 'a' * 64,
         'phase_ledger_sha256': 'l' * 64,
         'run_root': str(tmp_path.resolve()),
+        'source_root': str(tmp_path.resolve()),
         'planned_method_order': ['flat', 'hier'],
     }
     raw = bridge._canonical(freeze)
