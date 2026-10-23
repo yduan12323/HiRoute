@@ -17,3 +17,12 @@ This adapter has not been executed. Focused tests are added but unrun because th
 The adapter dispatches only the original REF. Existing M6 physical methods use `EXACT_PHASE_SECONDS=1200` and 1200-second arm limits in `physical_domain.py` / `physical.py`; taskbook follow-ups are capped at 300 seconds. M5 microdomain `solve.py` consumes different frozen inputs and is not a valid substitute for original N8. Therefore successful REF is necessary but insufficient to run FLAT/HIER; a taskbook-compatible method adapter remains an explicit implementation gap. No math or root gate was weakened to conceal that mismatch.
 
 Invocation: `python -m ci.m5e2e_original_bridge --source-root /clean/original/HiRoute --report /outside/report.json ...`. All bindings are required for launch; missing CLI inputs still write a `NOT_RUN_DEPENDENCY` report.
+
+
+## Static review update (2026-10-23)
+
+The bridge source now derives a stable run identity and one claim location from the root-pinned continuation's parent waited-round receipt, independently of the caller's selected master accounting directory. The accounting validator parses canonical evidence content and compares IDs and amounts, checks ledger carry snapshots, and requires each completed worker ledger row to bind its supervisor receipt digest and cleanup result. JSONL writes use newline-delimited canonical records. The tools-wheel builder includes both bridge wrappers and a manifest of their source hashes; parent and supervised worker verify that installed identity. Worker launch uses isolated Python mode without `PYTHONPATH` or source-path injection.
+
+Focused tests for amount tampering, line-delimited ledger parsing, root identity, wrapper drift, command construction, and REF authentication refusal were added. They have **not been run**; no test or numerical budget was certified for this review cycle.
+
+This is not a runnable/accepted bridge yet. The current evidence inventory has no independently verified authority proving its source list is exhaustive. The per-invocation freeze/attestation chain is not yet complete, and the original N8 FLAT/HIER 300-second adapter is not implemented here. The clean installed-wrapper plus old source-checkout import layout also needs a static compatibility resolution. Therefore this code cannot be used to start REF or follow-on solvers, and the original Shandong status remains UNKNOWN / NOT_RUN_DEPENDENCY. No claim or worker attempt is asserted by this update.
