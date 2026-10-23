@@ -25,17 +25,13 @@ def test_claim_is_create_once_and_root_scoped(tmp_path):
     assert json.loads(first.read_text())=={'schema':'test'}
 
 
-def test_unknown_costs_block_master_accounting(tmp_path):
-    ledger=tmp_path/'phase_ledger.jsonl'; ledger.write_bytes(b'{}')
-    account={'schema':bridge.ACCOUNT_SCHEMA,'master_root':str(tmp_path),'budget_root':str(tmp_path),
-      'cpu_cap_seconds':bridge.CPU_CAP,'wall_cap_seconds':bridge.WALL_CAP,
-      'phase_ledger':{'path':str(ledger),'sha256':hashlib.sha256(b'{}').hexdigest()},
-      'external_charges':[],'reservations':[],'unknown_costs':['unresolved'],'unsettled_invocations':[],
-      'charged_cpu_seconds':0,'charged_wall_seconds':0,'reserved_cpu_seconds':0,'reserved_wall_seconds':0,
-      'remaining_cpu_seconds':bridge.CPU_CAP,'remaining_wall_seconds':bridge.WALL_CAP,'accounting_complete':False}
+def test_caller_declared_empty_unknowns_do_not_certify_accounting(tmp_path):
+    account={'schema':bridge.ACCOUNT_SCHEMA,'unknown_costs':[],
+        'accounting_complete':True,'external_charges':[],'reservations':[]}
     path=tmp_path/'account.json'; path.write_bytes(bridge._canonical(account))
-    with pytest.raises(bridge.AdmissionError,match='incomplete'):
-        bridge.validate_master_accounting(path,hashlib.sha256(path.read_bytes()).hexdigest(),tmp_path)
+    with pytest.raises(bridge.AdmissionError,match='schema/fields'):
+        bridge.validate_master_accounting(path,hashlib.sha256(path.read_bytes()).hexdigest(),
+                                          tmp_path,'trusted-run-id')
 
 
 
