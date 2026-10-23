@@ -26,9 +26,11 @@ def main():
                         help="the exact trusted M6 source checkout named by the recovery configuration")
     parser.add_argument("--out", required=True, type=Path)
     args = parser.parse_args()
+    if not args.source_root.is_absolute() or args.source_root.is_symlink():
+        raise ValueError("trusted source root must be absolute and not a symlink")
     source_root = args.source_root.resolve(strict=True)
-    if not source_root.is_dir():
-        raise ValueError("trusted source root must be a directory")
+    if not source_root.is_dir() or source_root == ROOT.resolve():
+        raise ValueError("trusted source root must be a separate directory from the bridge checkout")
     bridge_revision = git(ROOT, "rev-parse", "HEAD")
     source_revision = git(source_root, "rev-parse", "HEAD")
     if git(ROOT, "status", "--porcelain") or git(source_root, "status", "--porcelain"):
