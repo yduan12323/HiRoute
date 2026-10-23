@@ -24,7 +24,7 @@ def totals(entries):
 
 
 def execute(argv, *, budget_root, output_dir, phase, wall_seconds=120, cpu_seconds=120,
-            memory_bytes=4 * 1024**3, preprocessing=False, before_start=None):
+            memory_bytes=4 * 1024**3, preprocessing=False):
     budget_root = Path(budget_root); budget_root.mkdir(parents=True, exist_ok=True)
     with (budget_root/'exclusive.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -35,10 +35,6 @@ def execute(argv, *, budget_root, output_dir, phase, wall_seconds=120, cpu_secon
             raise RuntimeError('At most two raw preprocessing/freeze attempts in this round')
         if cpu + cpu_seconds > CPU_CAP or wall + wall_seconds > WALL_CAP:
             raise RuntimeError('M5-E2E aggregate reservation exceeds remaining budget')
-        if before_start is not None:
-            # Strict adapters may create an exactly-once claim under this same
-            # global lock, after current accounting/cap validation and before start.
-            before_start(ledger_path=ledger, entries=entries, cpu=cpu, wall=wall)
         invocation = uuid.uuid4().hex
         def append(value):
             with ledger.open('ab') as f:
