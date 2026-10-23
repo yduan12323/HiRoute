@@ -529,9 +529,20 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
     state={'claim':False,'started':False}
     try:
         output.mkdir(parents=True,exist_ok=False)
-        interpreter=freeze['toolchain']['interpreter']['requested_executable']
-        command=_ref_worker_command(interpreter,configuration,manifest_binding,common_binding,wrapper_identity_sha256)
+        interpreter=Path(freeze['toolchain']['interpreter']['requested_executable']).resolve()
+        invocation_freeze={'schema':'hiroute.m5e2e.original_bridge_invocation.v1',
+            'run_identity':run_identity,'wrapper_identity_sha256':wrapper_identity_sha256,
+            'interpreter_path':str(interpreter),'interpreter_sha256':_sha256_file(interpreter),
+            'source_identity_sha256':_hash(_canonical(freeze['source'])),
+            'configuration':configuration,'manifest':manifest_binding,'common':common_binding,
+            'master_accounting_sha256':account['account_sha256'],'phase_ledger_sha256':account['ledger_sha256']}
+        freeze_path=output/'invocation-freeze.json'
+        freeze_sha256=_write_frozen_invocation(freeze_path,invocation_freeze)
+        attestation_path=output/'worker-attestation.json'
+        command=_ref_worker_command(interpreter,configuration,manifest_binding,common_binding,
+            wrapper_identity_sha256,run_identity,freeze_path,freeze_sha256,attestation_path)
         receipt=_execute_claimed(command,master_root=root,claim_root=claim_root,run_identity=run_identity,
+            wrapper_identity_sha256=wrapper_identity_sha256,freeze_sha256=freeze_sha256,
             source_root=module_root,account_path=account_path,account_sha=account_sha,run_output=output/'ref',
             claim_payload=payload,state=state)
         report.update(numerical_worker_started=state['started'],claim_created=True,claim_path=str(claim),
