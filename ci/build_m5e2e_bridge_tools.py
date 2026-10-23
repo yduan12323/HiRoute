@@ -35,6 +35,7 @@ def main():
     source_revision = git(source_root, "rev-parse", "HEAD")
     if git(ROOT, "status", "--porcelain") or git(source_root, "status", "--porcelain"):
         raise ValueError("bridge and original source checkouts must both be clean")
+    args.out = args.out.expanduser().resolve()
     args.out.mkdir(parents=True, exist_ok=False)
     overlay = args.out / "original-source-overlay"
     overlay.mkdir()
@@ -42,7 +43,7 @@ def main():
         "from setuptools import setup, find_namespace_packages\n"
         "from pathlib import Path\n"
         f"SOURCE_ROOT = Path({str(source_root)!r}).resolve(strict=True)\n"
-        "packages = find_namespace_packages(where=str(SOURCE_ROOT), include=['experiments', 'experiments.*'])\n"
+        "packages = find_namespace_packages(where=str(SOURCE_ROOT), include=['experiments', 'experiments.*', 'validation', 'validation.*', 'scripts', 'scripts.*'])\n"
         "if not packages: raise RuntimeError('no experiments namespace packages found')\n"
         "setup(name='hiroute-original-m6-source-overlay', version='0.1.0', packages=packages, package_dir={'': str(SOURCE_ROOT)})\n"
     )
