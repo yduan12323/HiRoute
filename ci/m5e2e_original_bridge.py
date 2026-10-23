@@ -519,13 +519,6 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
         report['reason']='run_root_must_be_outside_master_root_and_source_checkout'
         _write_report(report_path,report); return report
     claim=claim_root/CLAIM_RELATIVE
-    payload=dict(schema='hiroute.m5e2e.original_bridge_claim.v1',run_identity=run_identity,
-        wrapper_identity_sha256=wrapper_identity_sha256,
-        case_id='N8',
-        candidate_count=8,soc='3/10',seed_depth=10,master_root=str(root),
-        master_accounting_sha256=account['account_sha256'],phase_ledger_sha256=account['ledger_sha256'],
-        recovery_configuration_sha256=configuration['sha256'],manifest_sha256=manifest_binding['sha256'],
-        common_sha256=common_binding['sha256'],created_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()))
     state={'claim':False,'started':False}
     try:
         output.mkdir(parents=True,exist_ok=False)
@@ -538,7 +531,13 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
             'master_accounting_sha256':account['account_sha256'],'phase_ledger_sha256':account['ledger_sha256']}
         freeze_path=output/'invocation-freeze.json'
         freeze_sha256=_write_frozen_invocation(freeze_path,invocation_freeze)
-        attestation_path=output/'worker-attestation.json'
+        attestation_path=output/'ref'/'worker-attestation.json'
+        payload=dict(schema='hiroute.m5e2e.original_bridge_claim.v1',run_identity=run_identity,
+            wrapper_identity_sha256=wrapper_identity_sha256,invocation_freeze_sha256=freeze_sha256,
+            case_id='N8',candidate_count=8,soc='3/10',seed_depth=10,master_root=str(root),
+            master_accounting_sha256=account['account_sha256'],phase_ledger_sha256=account['ledger_sha256'],
+            recovery_configuration_sha256=configuration['sha256'],manifest_sha256=manifest_binding['sha256'],
+            common_sha256=common_binding['sha256'],created_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()))
         command=_ref_worker_command(interpreter,configuration,manifest_binding,common_binding,
             wrapper_identity_sha256,run_identity,freeze_path,freeze_sha256,attestation_path)
         receipt=_execute_claimed(command,master_root=root,claim_root=claim_root,run_identity=run_identity,
@@ -546,12 +545,15 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
             source_root=module_root,account_path=account_path,account_sha=account_sha,run_output=output/'ref',
             claim_payload=payload,state=state)
         report.update(numerical_worker_started=state['started'],claim_created=True,claim_path=str(claim),
+            invocation_freeze=str(freeze_path),invocation_freeze_sha256=freeze_sha256,
             supervisor_status=receipt.get('status'),cleanup_verified=receipt.get('cleanup_verified'),
-            supervisor_receipt=str(output/'ref'/'receipt.json'))
+            supervisor_receipt=str(output/'ref'/'receipt.json'),
+            worker_attestation_sha256=_hash(_read_regular(attestation_path,64*1024)))
         from experiments.m6h_manifest_v1 import reference
         result=reference.load_worker_result(output/'ref',receipt,'N8',common=common,manifest=manifest)
+        report['ref_status']=result.get('status','UNKNOWN')
+        report['ref_reason']=result.get('reason')
         _require_authenticated_ref(result)
-        report['ref_status']=result['status']
         if result['status']=='SUCCESS' and result.get('independent_exact') is True:
             report.update(status='REF_AUTHENTICATED_SUCCESS',
                 post_ref_methods_status='BLOCKED_TASKBOOK_METHOD_ADAPTER_MISSING',
