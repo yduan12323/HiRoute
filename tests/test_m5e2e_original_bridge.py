@@ -233,7 +233,7 @@ def test_timeout_receipt_settles_without_worker_attestation(tmp_path):
         wrapper_identity_sha256='w' * 64, freeze_sha256='f' * 64)
 
     cpu, wall, starts, ends = bridge._ledger_totals(
-        b'\\n'.join(bridge._canonical(row) for row in rows))
+        b'\n'.join(bridge._canonical(row) for row in rows))
     assert (cpu, wall) == (117.5, 120.0)
     assert set(starts) == set(ends) == {'timeout-1'}
     assert ends['timeout-1']['status'] == 'TIMEOUT'
