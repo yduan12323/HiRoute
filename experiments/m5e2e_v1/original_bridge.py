@@ -61,8 +61,14 @@ def _verify_evidence(row, field):
     evidence = row.get('evidence')
     if type(evidence) is not dict or set(evidence) != {'path', 'sha256'}:
         raise AdmissionError(field + ' requires exact evidence path and SHA256')
-    if _hash(_read_regular(evidence['path'], MAX_EVIDENCE_BYTES)) != evidence['sha256']:
+    raw = _read_regular(evidence['path'], MAX_EVIDENCE_BYTES)
+    if _hash(raw) != evidence['sha256']:
         raise AdmissionError(field + ' evidence SHA256 mismatch')
+    value = json.loads(raw, object_pairs_hook=_unique_pairs)
+    expected = {'schema':'hiroute.m5e2e.accounting_evidence.v1','id':row['id'],'kind':field,
+        'cpu_seconds':row['cpu_seconds'],'wall_seconds':row['wall_seconds']}
+    if raw != _canonical(expected) or value != expected:
+        raise AdmissionError(field + ' evidence content differs from declared charge')
 
 
 def _ledger_totals(raw):
@@ -90,7 +96,7 @@ def _ledger_totals(raw):
             raise AdmissionError('worker cleanup not verified')
         cpu += _number(end.get('cpu_seconds'), 'ledger cpu_seconds')
         wall += _number(end.get('wall_seconds'), 'ledger wall_seconds')
-    return cpu, wall
+    return cpu, wall, set(starts)
 
 
 def _number(value, field):
@@ -131,7 +137,7 @@ def validate_master_accounting(path, expected_sha256, expected_root):
     ledger_raw = _read_regular(ledger_path, MAX_EVIDENCE_BYTES)
     if _hash(ledger_raw) != ledger['sha256']:
         raise AdmissionError('phase ledger SHA256 mismatch')
-    ledger_cpu, ledger_wall = _ledger_totals(ledger_raw)
+    ledger_cpu, ledger_wall, ledger_ids = _ledger_totals(ledger_raw)
     if type(account['external_charges']) is not list or type(account['reservations']) is not list:
         raise AdmissionError('charge and reservation lists required')
     ids = set()
@@ -142,6 +148,8 @@ def validate_master_accounting(path, expected_sha256, expected_root):
                 raise AdmissionError(label + ' schema differs')
             if type(row['id']) is not str or not row['id'] or row['id'] in ids:
                 raise AdmissionError('charge/reservation IDs must be unique')
+            if row['id'] in ledger_ids:
+                raise AdmissionError('external accounting entry overlaps a phase-ledger invocation')
             ids.add(row['id']); _verify_evidence(row, label)
             c, w = _number(row['cpu_seconds'],label+' cpu_seconds'), _number(row['wall_seconds'],label+' wall_seconds')
             if label == 'charge':
@@ -241,7 +249,11 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
     except Exception as exc:
         report['reason'] = type(exc).__name__+': '+str(exc)
         _write_report(report_path, report); return report
-    root = account['master_root']; output = Path(run_root).resolve()
+    root = account['master_root']; output = Path(run_root).resolve(); report = Path(report_path).resolve()
+    if report.is_relative_to(root) or report.is_relative_to(module_root):
+        report = dict(schema=SCHEMA,status='NOT_RUN_DEPENDENCY',reason='report_must_be_outside_master_root_and_source_checkout',
+            numerical_worker_started=False,claim_created=False,ref_status='NOT_RUN',post_ref_methods_status='NOT_ADMITTED')
+        _write_report(report_path,report); return report
     if output.is_relative_to(root) or output.is_relative_to(module_root):
         report['reason']='run_root_must_be_outside_master_root_and_source_checkout'
         _write_report(report_path,report); return report
@@ -287,7 +299,7 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
     except Exception as exc:
         report.update(reason=type(exc).__name__+': '+str(exc),claim_created=state['claim'],
             claim_path=str(claim) if state['claim'] else None,
-            numerical_worker_started=state['started'],
+            numerical_worker_started=('UNKNOWN_AFTER_CLAIM' if state['claim'] else False),
             status=('REF_ATTEMPT_CONSUMED_INCOMPLETE' if state['claim'] else 'NOT_RUN_DEPENDENCY'),
             post_ref_methods_status='NOT_ADMITTED',post_ref_methods_admitted=False)
     _write_report(report_path,report)
