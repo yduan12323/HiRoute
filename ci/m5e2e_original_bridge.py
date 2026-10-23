@@ -467,6 +467,29 @@ def _classify_300_second_method_receipt(receipt, expected_identity):
     return 'SUCCESS'
 
 
+def _admit_method_300(physical, manifest, manifest_sha256, common, common_sha256,
+                       strategy, search_output, search_receipt, verify_output, verify_receipt,
+                       expected_phase_identity):
+    """Authenticate early-success FLAT/HIER results without rewriting M6's 1200s gate."""
+    from experiments.mechanism_recovery_v1 import run as base
+    phase_status = _classify_300_second_method_receipt(search_receipt, expected_phase_identity)
+    if phase_status != 'SUCCESS':
+        raise AdmissionError('300-second outer method phase is not certifiable: ' + phase_status)
+    if (verify_receipt.get('status') != 'SUCCESS'
+            or verify_receipt.get('cleanup_verified') is not True):
+        raise AdmissionError('fresh 120-second method replay did not complete cleanly')
+    completed = base.load_worker_result(search_output, search_receipt, 'arm', 'N8', strategy)
+    full = base.load_worker_result(verify_output, verify_receipt, 'verify', 'N8', strategy)
+    if base.canonical(completed.get('seed_key')).decode() != common['seed']['key_bytes']:
+        raise AdmissionError('method result did not retain the original common seed')
+    terminal = physical.validate_terminal(completed, full, strategy, common['seed']['max_depth'])
+    return dict(terminal=terminal, completed=completed, replay=full,
+        search_receipt_sha256=_hash(_read_regular(Path(search_output)/'receipt.json', MAX_EVIDENCE_BYTES)),
+        verify_receipt_sha256=_hash(_read_regular(Path(verify_output)/'receipt.json', MAX_EVIDENCE_BYTES)),
+        outer_phase_seconds=300, fresh_verify_seconds=120,
+        legacy_internal_phase_seconds=1200, legacy_phase_gate_changed=False)
+
+
 def _run_method_search_300(command, *, output_dir, cwd, identity, cpu,
                            global_cpu_remaining, global_wall_remaining):
     from experiments.m6h_manifest_v1.supervisor import Limits, PhaseBudget, run
