@@ -101,7 +101,10 @@ def _number(value, field):
 
 def validate_master_accounting(path, expected_sha256, expected_root):
     """Validate the complete external master account against hashed evidence."""
-    path = Path(path).resolve()
+    path = Path(path)
+    if path.is_symlink():
+        raise AdmissionError('master accounting symlink is forbidden')
+    path = path.resolve()
     raw = _read_regular(path, MAX_ACCOUNT_BYTES)
     if _hash(raw) != expected_sha256:
         raise AdmissionError('master accounting SHA256 mismatch')
@@ -266,7 +269,7 @@ def _execute_claimed(command, *, master_root, account_path, account_sha, run_out
                     file_output_bytes=2*1024**3,max_output_entries=10000,max_processes=16),
                 tree_rss_stop_bytes=4*1024**3,available_stop_bytes=10*1024**3,
                 prelaunch_available_bytes=14*1024**3,tree_cpu_seconds=REF_SECONDS,
-                global_cpu_remaining=budget.CPU_CAP-cpu,global_wall_remaining=budget.WALL_CAP-wall,
+                global_cpu_remaining=latest['remaining_cpu_seconds'],global_wall_remaining=latest['remaining_wall_seconds'],
                 owned_temp=True,extra_env={'PYTHONPATH':'','PYTHONNOUSERSITE':'1'})
         except BaseException as exc:
             append(dict(kind='end',invocation_id=invocation,phase='original-shandong-n8-ref',
@@ -327,8 +330,8 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
         report['ref_status']=result['status']
         if result['status']=='SUCCESS' and result.get('independent_exact') is True:
             report.update(status='REF_AUTHENTICATED_SUCCESS',
-                post_ref_methods_status='ELIGIBLE_ONLY_AFTER_TASKBOOK_COMPATIBLE_METHOD_ADAPTER',
-                post_ref_methods_admitted=True)
+                post_ref_methods_status='BLOCKED_TASKBOOK_METHOD_ADAPTER_MISSING',
+                post_ref_methods_admitted=False)
         else:
             report.update(status='REF_ATTEMPT_CONSUMED_INCOMPLETE',
                 reason=result.get('reason','REF_NOT_EXACT'),post_ref_methods_status='NOT_ADMITTED',
