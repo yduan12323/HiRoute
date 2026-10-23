@@ -389,6 +389,33 @@ def _admission(configuration, manifest_binding, common_binding, account_path, ac
     return account, freeze, manifest, common, module_root, run_identity, claim_root, wrapper_identity_sha256
 
 
+def _sha256_file(path):
+    digest = hashlib.sha256()
+    with Path(path).open('rb') as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b''):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _write_frozen_invocation(path, value):
+    path = Path(path)
+    raw = _canonical(value)
+    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    try:
+        with os.fdopen(fd, 'wb', closefd=False) as stream:
+            stream.write(raw)
+            stream.flush()
+            os.fsync(stream.fileno())
+    finally:
+        os.close(fd)
+    directory = os.open(path.parent, os.O_RDONLY | getattr(os, 'O_DIRECTORY', 0))
+    try:
+        os.fsync(directory)
+    finally:
+        os.close(directory)
+    return _hash(raw)
+
+
 def _append_jsonl(path, row):
     path = Path(path)
     with path.open('ab') as stream:
@@ -397,15 +424,18 @@ def _append_jsonl(path, row):
         os.fsync(stream.fileno())
 
 
-def _ref_worker_command(interpreter, configuration, manifest, common, wrapper_identity_sha256):
+def _ref_worker_command(interpreter, configuration, manifest, common,
+                        wrapper_identity_sha256, run_identity, freeze_path, freeze_sha256, attestation_path):
     return [str(interpreter), '-I', '-m', 'ci.m5e2e_original_bridge_worker',
         '--configuration', configuration['path'], '--configuration-sha256', configuration['sha256'],
         '--manifest', manifest['path'], '--manifest-sha256', manifest['sha256'],
         '--common', common['path'], '--common-sha256', common['sha256'],
-        '--wrapper-identity-sha256', wrapper_identity_sha256]
+        '--wrapper-identity-sha256', wrapper_identity_sha256,
+        '--run-identity', run_identity, '--invocation-freeze', str(freeze_path),
+        '--freeze-sha256', freeze_sha256, '--attestation', str(attestation_path)]
 
 
-def _execute_claimed(command, *, master_root, claim_root, run_identity, source_root, account_path, account_sha, run_output,
+def _execute_claimed(command, *, master_root, claim_root, run_identity, wrapper_identity_sha256, freeze_sha256, source_root, account_path, account_sha, run_output,
                      claim_payload, state):
     """Run the existing supervisor while holding the same global budget lock."""
     import fcntl
@@ -448,13 +478,21 @@ def _execute_claimed(command, *, master_root, claim_root, run_identity, source_r
                 cleanup_verified=False,error=type(exc).__name__+': '+str(exc)))
             raise
         state['started']=True
+        attestation_path=Path(run_output)/'worker-attestation.json'
+        attestation_raw=_read_regular(attestation_path,64*1024)
+        attestation=json.loads(attestation_raw,object_pairs_hook=_unique_pairs)
+        expected_attestation={'schema':'hiroute.m5e2e.original_bridge_attestation.v1',
+            'run_identity':run_identity,'wrapper_identity_sha256':wrapper_identity_sha256,
+            'invocation_freeze_sha256':freeze_sha256,'worker_returned':True}
+        if attestation_raw!=_canonical(expected_attestation) or attestation!=expected_attestation:
+            raise AdmissionError('worker final attestation does not match frozen parent invocation')
         measured=receipt['accounted_owned_cpu_seconds']
         receipt_path=Path(run_output)/'receipt.json'
         receipt_sha256=_hash(_read_regular(receipt_path,MAX_EVIDENCE_BYTES))
         append(dict(kind='end',invocation_id=invocation,phase='original-shandong-n8-ref',
             cpu_seconds=measured,measured_cpu_seconds=measured,wall_seconds=receipt['wall_seconds'],
             charge_kind='outer_owned_tree',nested_inclusive_not_added=True,
-            cleanup_verified=receipt['cleanup_verified'],receipt=str(receipt_path),receipt_sha256=receipt_sha256,
+            cleanup_verified=receipt['cleanup_verified'],receipt=str(receipt_path),receipt_sha256=receipt_sha256,\n            worker_attestation=str(attestation_path),worker_attestation_sha256=_hash(attestation_raw),\n            invocation_freeze_sha256=freeze_sha256,wrapper_identity_sha256=wrapper_identity_sha256,
             status=receipt['status']))
         if not receipt['cleanup_verified']:
             raise RuntimeError('Worker cleanup unverified; stop all work')
