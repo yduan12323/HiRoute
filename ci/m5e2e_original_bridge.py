@@ -291,7 +291,27 @@ def _claim_once(root, payload):
     return claim
 
 
+def _verify_wrapper_identity(package_dir=None, prefix=None):
+    package_dir = Path(package_dir or Path(__file__).resolve().parent).resolve()
+    prefix = Path(prefix or sys.prefix).resolve()
+    parent = package_dir / 'm5e2e_original_bridge.py'
+    worker = package_dir / 'm5e2e_original_bridge_worker.py'
+    manifest_path = package_dir / 'original_bridge_identity.json'
+    if not package_dir.is_relative_to(prefix):
+        raise AdmissionError('bridge wrapper is not loaded from the installed tools environment')
+    raw = _read_regular(manifest_path, 64 * 1024)
+    value = json.loads(raw, object_pairs_hook=_unique_pairs)
+    expected = {'schema': 'hiroute.m5e2e.original_bridge_wrapper.v1', 'modules': {
+        'm5e2e_original_bridge.py': _hash(_read_regular(parent, 2 * 1024**2)),
+        'm5e2e_original_bridge_worker.py': _hash(_read_regular(worker, 2 * 1024**2)),
+    }}
+    if raw != _canonical(value) or value != expected:
+        raise AdmissionError('installed bridge wrapper identity drift')
+    return _hash(raw)
+
+
 def _admit_inputs(configuration, manifest_binding, common_binding, source_root):
+    wrapper_identity_sha256 = _verify_wrapper_identity()
     source_root=Path(source_root).resolve()
     adapter_root=Path(__file__).resolve().parents[1]
     if not source_root.is_dir() or source_root == adapter_root:
@@ -328,7 +348,7 @@ def _admit_inputs(configuration, manifest_binding, common_binding, source_root):
         raise AdmissionError('current Python executable differs from the trusted recovery toolchain')
     if manifest.get('case_id') not in ('N8', None):
         raise AdmissionError('manifest identity differs from original N8')
-    return freeze, manifest, common, module_root
+    return freeze, manifest, common, module_root, wrapper_identity_sha256
 
 
 def _admission(configuration, manifest_binding, common_binding, account_path, account_sha, master_root, source_root):
@@ -338,7 +358,7 @@ def _admission(configuration, manifest_binding, common_binding, account_path, ac
         raise AdmissionError('exact original manifest binding required')
     if type(common_binding) is not dict or set(common_binding) != {'path','sha256'}:
         raise AdmissionError('exact original common seed binding required')
-    freeze, manifest, common, module_root = _admit_inputs(configuration, manifest_binding, common_binding, source_root)
+    freeze, manifest, common, module_root, wrapper_identity_sha256 = _admit_inputs(configuration, manifest_binding, common_binding, source_root)
     parent = freeze.get('continuation_admission', {}).get('parent_waited_receipt')
     if type(parent) is not dict or set(parent) != {'path', 'sha256'}:
         raise AdmissionError('trusted continuation lacks the fixed parent waited receipt binding')
@@ -348,7 +368,7 @@ def _admission(configuration, manifest_binding, common_binding, account_path, ac
         'parent_waited_receipt': parent,
     }))
     account = validate_master_accounting(account_path, account_sha, master_root, run_identity)
-    return account, freeze, manifest, common, module_root, run_identity, Path(parent['path']).resolve().parent
+    return account, freeze, manifest, common, module_root, run_identity, Path(parent['path']).resolve().parent, wrapper_identity_sha256
 
 
 def _execute_claimed(command, *, master_root, claim_root, run_identity, source_root, account_path, account_sha, run_output,
@@ -412,7 +432,7 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
         numerical_worker_started=False,claim_created=False,ref_status='NOT_RUN',
         legacy_root_gate='UNCHANGED_AND_RECHECKED_IN_WORKER',post_ref_methods_status='NOT_ADMITTED')
     try:
-        account,freeze,manifest,common,module_root,run_identity,claim_root=_admission(configuration,manifest_binding,
+        account,freeze,manifest,common,module_root,run_identity,claim_root,wrapper_identity_sha256=_admission(configuration,manifest_binding,
             common_binding,account_path,account_sha,master_root,source_root)
     except Exception as exc:
         report['reason']=type(exc).__name__+': '+str(exc)
@@ -426,7 +446,7 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
         report['reason']='run_root_must_be_outside_master_root_and_source_checkout'
         _write_report(report_path,report); return report
     claim=claim_root/CLAIM_RELATIVE
-    payload=dict(schema='hiroute.m5e2e.original_bridge_claim.v1',run_identity=run_identity,
+    payload=dict(schema='hiroute.m5e2e.original_bridge_claim.v1',run_identity=run_identity,\n        wrapper_identity_sha256=wrapper_identity_sha256,
         case_id='N8',
         candidate_count=8,soc='3/10',seed_depth=10,master_root=str(root),
         master_accounting_sha256=account['account_sha256'],phase_ledger_sha256=account['ledger_sha256'],
@@ -436,7 +456,7 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
     try:
         output.mkdir(parents=True,exist_ok=False)
         interpreter=freeze['toolchain']['interpreter']['requested_executable']
-        command=[interpreter,'-m','ci.m5e2e_original_bridge_worker',
+        command=[interpreter,'-I','-m','ci.m5e2e_original_bridge_worker',
             '--configuration',configuration['path'],'--configuration-sha256',configuration['sha256'],
             '--manifest',manifest_binding['path'],'--manifest-sha256',manifest_binding['sha256'],
             '--common',common_binding['path'],'--common-sha256',common_binding['sha256']]
