@@ -22,7 +22,7 @@ def _load_invocation(args):
     expected_keys = {'schema', 'run_identity', 'wrapper_identity_sha256',
         'interpreter_path', 'interpreter_sha256', 'source_identity_sha256',
         'configuration', 'manifest', 'common', 'master_accounting_sha256',
-        'phase_ledger_sha256', 'run_root', 'planned_method_order'}
+        'phase_ledger_sha256', 'run_root', 'source_root', 'planned_method_order'}
     if type(frozen) is not dict or set(frozen) != expected_keys:
         raise AdmissionError('invocation freeze fields differ')
     if frozen['schema'] != 'hiroute.m5e2e.original_bridge_invocation.v1':
@@ -99,6 +99,10 @@ def main(argv=None):
     config = {'path': a.configuration, 'sha256': a.configuration_sha256}
     trusted = recovery_runtime.activate(config)
     run_identity, _ = _trusted_run_identity(trusted, config)
+    module_root = Path(recovery_runtime.__file__).resolve().parents[2]
+    if (module_root != Path(frozen['source_root']).resolve()
+            or Path(trusted['repo']).resolve() != module_root):
+        raise AdmissionError('isolated worker source overlay differs from invocation freeze')
     if run_identity != a.run_identity or _hash(_canonical(trusted['source'])) != frozen['source_identity_sha256']:
         raise AdmissionError('old source closure or run identity differs from invocation freeze')
     manifest = physical._manifest(a.manifest, a.manifest_sha256)
