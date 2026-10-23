@@ -198,3 +198,10 @@ def test_incomplete_ref_status_is_recorded_before_authentication_failure():
         bridge._require_authenticated_ref({'status': 'UNKNOWN', 'reason': 'receipt incomplete'})
     assert report['ref_status'] == 'UNKNOWN'
     assert report['ref_reason'] == 'receipt incomplete'
+
+
+def test_changed_post_ref_ledger_snapshot_blocks_followup(tmp_path):
+    ledger = tmp_path / 'phase_ledger.jsonl'
+    ledger.write_bytes(b'{}\\n')
+    with pytest.raises(bridge.AdmissionError, match='ledger changed after REF'):
+        bridge._verify_locked_ledger_snapshot(ledger, '0' * 64)
