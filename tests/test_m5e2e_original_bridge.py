@@ -205,3 +205,8 @@ def test_changed_post_ref_ledger_snapshot_blocks_followup(tmp_path):
     ledger.write_bytes(b'{}\\n')
     with pytest.raises(bridge.AdmissionError, match='ledger changed after REF'):
         bridge._verify_locked_ledger_snapshot(ledger, '0' * 64)
+
+
+def test_bridge_complete_is_a_successful_cli_exit():
+    assert bridge._exit_code('BRIDGE_COMPLETE') == 0
+    assert bridge._exit_code('REF_ATTEMPT_CONSUMED_INCOMPLETE') == 2
