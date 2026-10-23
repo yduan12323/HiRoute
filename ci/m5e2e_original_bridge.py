@@ -566,6 +566,8 @@ def _append_ref_supervisor_end(append, *, invocation, command, receipt,
     if receipt_error:
         row['receipt_error'] = receipt_error
 
+    # Persist the supervisor terminal before attempting optional worker attestation reads.
+    append(row)
     worker_authenticated = False
     attestation_raw = None
     attestation_error = None
@@ -589,10 +591,6 @@ def _append_ref_supervisor_end(append, *, invocation, command, receipt,
     else:
         attestation_error = 'supervisor_status:' + status
 
-    if attestation_raw is not None and worker_authenticated:
-        row.update(worker_attestation=str(attestation_path),
-            worker_attestation_sha256=_hash(attestation_raw))
-    append(row)
     return dict(supervisor_receipt=receipt,
         worker_authenticated=worker_authenticated,
         worker_attestation_sha256=(_hash(attestation_raw)
