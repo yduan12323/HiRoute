@@ -255,3 +255,73 @@ def test_install_preflight_missing_configuration_fails_closed():
     assert result['status'] == 'NOT_RUN_DEPENDENCY'
     assert result['numerical_worker_started'] is False
     assert result['claim_created'] is False
+
+
+
+def test_installed_bridge_dependency_origin_matches_trusted_source(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    import importlib
+
+    source_root = tmp_path / 'trusted'
+    module_path = source_root / 'experiments' / 'fake_dependency.py'
+    module_path.parent.mkdir(parents=True)
+    module_path.write_bytes(b'from trusted source\\n')
+    module = SimpleNamespace(__file__=str(module_path))
+    monkeypatch.setattr(bridge, '_BRIDGE_PREFLIGHT_IMPORTS', ('experiments.fake_dependency',))
+    monkeypatch.setattr(bridge, 'sys', SimpleNamespace(
+        modules={'experiments.fake_dependency': module}, prefix=str(tmp_path / 'venv')))
+    monkeypatch.setattr(importlib, 'import_module', lambda name: module)
+    closure = {'experiments/fake_dependency.py':
+               hashlib.sha256(module_path.read_bytes()).hexdigest()}
+
+    assert bridge._import_and_verify_bridge_dependencies(source_root, closure) == (
+        str(module_path.resolve()),)
+
+
+def test_installed_bridge_dependency_origin_drift_fails_closed(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    import importlib
+
+    source_root = tmp_path / 'trusted'
+    outside = tmp_path / 'unexpected' / 'fake_dependency.py'
+    outside.parent.mkdir(parents=True)
+    outside.write_bytes(b'wrong checkout\\n')
+    module = SimpleNamespace(__file__=str(outside))
+    monkeypatch.setattr(bridge, '_BRIDGE_PREFLIGHT_IMPORTS', ('experiments.fake_dependency',))
+    monkeypatch.setattr(bridge, 'sys', SimpleNamespace(
+        modules={'experiments.fake_dependency': module}, prefix=str(tmp_path / 'venv')))
+    monkeypatch.setattr(importlib, 'import_module', lambda name: module)
+
+    with pytest.raises(bridge.AdmissionError, match='outside original source root'):
+        bridge._import_and_verify_bridge_dependencies(source_root, {
+            'experiments/fake_dependency.py': hashlib.sha256(outside.read_bytes()).hexdigest()})
+
+
+def test_bridge_builder_resolves_relative_output_before_changing_build_cwd(tmp_path, monkeypatch):
+    import sys
+    from ci import build_m5e2e_bridge_tools as builder
+
+    source_root = tmp_path / 'trusted-source'
+    source_root.mkdir()
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(sys, 'argv', [
+        'build_m5e2e_bridge_tools.py', '--source-root', str(source_root), '--out', 'relative-output'])
+    monkeypatch.setattr(builder, 'git', lambda root, *args: (
+        '1' * 40 if args == ('rev-parse', 'HEAD') else ''))
+    observed = {}
+
+    def fake_build(command, cwd, check):
+        observed['command'] = command
+        observed['cwd'] = cwd
+        outdir = Path(command[command.index('--outdir') + 1])
+        outdir.mkdir(parents=True, exist_ok=True)
+        (outdir / 'bridge.whl').write_bytes(b'synthetic wheel placeholder')
+
+    from pathlib import Path
+    monkeypatch.setattr(builder.subprocess, 'run', fake_build)
+    builder.main()
+
+    expected_wheelhouse = (tmp_path / 'relative-output' / 'wheelhouse').resolve()
+    assert Path(observed['command'][observed['command'].index('--outdir') + 1]) == expected_wheelhouse
+    assert Path(observed['cwd']).is_absolute()
+    assert Path(observed['cwd']) != tmp_path
