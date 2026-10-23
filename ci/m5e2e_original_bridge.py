@@ -610,11 +610,6 @@ def _run_original_methods_after_ref(*, ref_result, physical, manifest, manifest_
                 results.append({'strategy':strategy,'status':'NOT_RUN_BUDGET'})
                 continue
             search_attestation = search_dir/'worker-attestation.json'
-            search_command = _ref_worker_command(
-                Path(sys.executable).resolve(), {'path':freeze_path.parent.parent/'unused','sha256':'0'*64},
-                manifest_binding, common_binding, wrapper_identity_sha256, run_identity,
-                freeze_path, freeze_sha256, search_attestation, operation='arm', strategy=strategy)
-            # Replace the placeholder configuration binding with the exact frozen one.
             freeze_value, _ = _json_binding({'path':str(freeze_path),'sha256':freeze_sha256},
                 limit=128*1024, canonical=True)
             search_command = _ref_worker_command(Path(sys.executable).resolve(),
@@ -793,12 +788,28 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
         _require_authenticated_ref(result)
         if result['status']=='SUCCESS' and result.get('independent_exact') is True:
             report.update(status='REF_AUTHENTICATED_SUCCESS',
-                post_ref_methods_status='BLOCKED_TASKBOOK_METHOD_ADAPTER_MISSING',
-                post_ref_methods_admitted=False)
+                post_ref_methods_status='METHODS_PENDING')
+            try:
+                current_ledger=_read_regular(account['ledger_path'],MAX_EVIDENCE_BYTES)
+                method_report=_run_original_methods_after_ref(
+                    ref_result=result,physical=__import__('experiments.m6h_manifest_v1.physical',fromlist=['physical']),
+                    manifest=manifest,manifest_binding=manifest_binding,common=common,
+                    common_binding=common_binding,run_identity=run_identity,
+                    wrapper_identity_sha256=wrapper_identity_sha256,freeze_path=freeze_path,
+                    freeze_sha256=freeze_sha256,run_root=output,master_root=root,
+                    expected_ledger_sha256=_hash(current_ledger),
+                    remaining_cpu=account['remaining_cpu_seconds']-receipt['accounted_owned_cpu_seconds'],
+                    remaining_wall=account['remaining_wall_seconds']-receipt['wall_seconds'])
+                report['method_report']=method_report
+                report['post_ref_methods_status']=method_report['status']
+                report['status']='BRIDGE_COMPLETE' if method_report['status']=='MATCH' else 'PARTIAL'
+            except Exception as method_exc:
+                report.update(status='REF_AUTHENTICATED_METHODS_BLOCKED',
+                    post_ref_methods_status='NOT_RUN_DEPENDENCY',
+                    method_failure=type(method_exc).__name__+': '+str(method_exc))
         else:
             report.update(status='REF_ATTEMPT_CONSUMED_INCOMPLETE',
-                reason=result.get('reason','REF_NOT_EXACT'),post_ref_methods_status='NOT_ADMITTED',
-                post_ref_methods_admitted=False)
+                reason=result.get('reason','REF_NOT_EXACT'),post_ref_methods_status='NOT_ADMITTED')
     except Exception as exc:
         report.update(reason=type(exc).__name__+': '+str(exc),claim_created=state['claim'],
             claim_path=str(claim) if state['claim'] else None,
