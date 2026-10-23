@@ -350,6 +350,16 @@ def _admit_inputs(configuration, manifest_binding, common_binding, source_root):
     module_root = Path(recovery_runtime.__file__).resolve().parents[2]
     if repo != module_root or repo != source_root:
         raise AdmissionError('trusted recovery source layout differs from supplied original checkout')
+    identity = json.loads(_read_regular(
+        Path(__file__).resolve().parent / 'original_bridge_identity.json', 64 * 1024),
+        object_pairs_hook=_unique_pairs)
+    import subprocess
+    source_revision = subprocess.check_output(
+        ['git', '-C', str(source_root), 'rev-parse', 'HEAD'], text=True).strip()
+    dirty = subprocess.check_output(
+        ['git', '-C', str(source_root), 'status', '--porcelain'], text=True).strip()
+    if dirty or identity.get('original_source_revision') != source_revision:
+        raise AdmissionError('installed source overlay revision/cleanliness differs from bridge build identity')
     interpreter=Path(freeze['toolchain']['interpreter']['requested_executable']).resolve()
     if not interpreter.is_file() or interpreter != Path(sys.executable).resolve():
         raise AdmissionError('current Python executable differs from the trusted recovery toolchain')
@@ -362,9 +372,12 @@ def _admit_inputs(configuration, manifest_binding, common_binding, source_root):
 def _check_install_layout(configuration, source_root):
     """Read-only -I preflight; validates the real editable install before any claim."""
     wrapper_identity_sha256 = _verify_wrapper_identity()
-    source_root = Path(source_root).resolve(strict=True)
-    if not source_root.is_dir() or source_root.is_symlink():
+    supplied_root = Path(source_root)
+    if not supplied_root.is_absolute() or supplied_root.is_symlink():
         raise AdmissionError('trusted source root must be an absolute non-symlink directory')
+    source_root = supplied_root.resolve(strict=True)
+    if not source_root.is_dir():
+        raise AdmissionError('trusted source root must be a directory')
     freeze = _json_binding(configuration, limit=128 * 1024, canonical=True)[0]
     from experiments.m6h_manifest_v1 import recovery_runtime
     trusted = recovery_runtime.activate(configuration)
