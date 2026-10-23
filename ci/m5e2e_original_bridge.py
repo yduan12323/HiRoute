@@ -301,11 +301,20 @@ def _verify_wrapper_identity(package_dir=None, prefix=None):
         raise AdmissionError('bridge wrapper is not loaded from the installed tools environment')
     raw = _read_regular(manifest_path, 64 * 1024)
     value = json.loads(raw, object_pairs_hook=_unique_pairs)
-    expected = {'schema': 'hiroute.m5e2e.original_bridge_wrapper.v1', 'modules': {
-        'm5e2e_original_bridge.py': _hash(_read_regular(parent, 2 * 1024**2)),
-        'm5e2e_original_bridge_worker.py': _hash(_read_regular(worker, 2 * 1024**2)),
-    }}
-    if raw != _canonical(value) or value != expected:
+    expected = {'schema': 'hiroute.m5e2e.original_bridge_wrapper.v2',
+        'bridge_source_revision': value.get('bridge_source_revision'),
+        'original_source_revision': value.get('original_source_revision'),
+        'build_script_sha256': _hash(_read_regular(
+            package_dir / 'build_m5e2e_bridge_tools.py', 128 * 1024)),
+        'modules': {
+            'm5e2e_original_bridge.py': _hash(_read_regular(parent, 2 * 1024**2)),
+            'm5e2e_original_bridge_worker.py': _hash(_read_regular(worker, 2 * 1024**2)),
+        }}
+    digest_fields = (expected['bridge_source_revision'], expected['original_source_revision'],
+                     expected['build_script_sha256'], *expected['modules'].values())
+    if (raw != _canonical(value) or value != expected
+            or any(type(item) is not str or len(item) != 40 for item in digest_fields[:2])
+            or any(type(item) is not str or len(item) != 64 for item in digest_fields[2:])):
         raise AdmissionError('installed bridge wrapper identity drift')
     return _hash(raw)
 
@@ -321,8 +330,6 @@ def _admit_inputs(configuration, manifest_binding, common_binding, source_root):
             location=getattr(module,'__file__',None)
             if location and not Path(location).resolve().is_relative_to(source_root):
                 raise AdmissionError('an incompatible experiments module was imported before admission')
-    if str(source_root) not in {str(Path(p or '.').resolve()) for p in sys.path}:
-        raise AdmissionError('original source checkout must be naturally importable; path injection is forbidden')
     from experiments.m6h_manifest_v1 import recovery_runtime
     freeze = recovery_runtime.activate(configuration)
     from experiments.m6h_manifest_v1 import physical, reference
@@ -350,6 +357,51 @@ def _admit_inputs(configuration, manifest_binding, common_binding, source_root):
         raise AdmissionError('manifest identity differs from original N8')
     return freeze, manifest, common, module_root, wrapper_identity_sha256
 
+
+
+def _check_install_layout(configuration, source_root):
+    """Read-only -I preflight; validates the real editable install before any claim."""
+    wrapper_identity_sha256 = _verify_wrapper_identity()
+    source_root = Path(source_root).resolve(strict=True)
+    if not source_root.is_dir() or source_root.is_symlink():
+        raise AdmissionError('trusted source root must be an absolute non-symlink directory')
+    freeze = _json_binding(configuration, limit=128 * 1024, canonical=True)[0]
+    from experiments.m6h_manifest_v1 import recovery_runtime
+    trusted = recovery_runtime.activate(configuration)
+    repo = Path(trusted['repo']).resolve()
+    module_root = Path(recovery_runtime.__file__).resolve().parents[2]
+    if repo != source_root or module_root != source_root:
+        raise AdmissionError('isolated editable install does not resolve the pinned source root')
+    interpreter = Path(trusted['toolchain']['interpreter']['requested_executable']).resolve()
+    if interpreter != Path(sys.executable).resolve():
+        raise AdmissionError('preflight Python differs from trusted configured interpreter')
+    identity_path = Path(__file__).resolve().parent / 'original_bridge_identity.json'
+    identity = json.loads(_read_regular(identity_path, 64 * 1024), object_pairs_hook=_unique_pairs)
+    import subprocess
+    source_revision = subprocess.check_output(
+        ['git', '-C', str(source_root), 'rev-parse', 'HEAD'], text=True).strip()
+    dirty = subprocess.check_output(
+        ['git', '-C', str(source_root), 'status', '--porcelain'], text=True).strip()
+    if dirty or identity.get('original_source_revision') != source_revision:
+        raise AdmissionError('installed source overlay revision/cleanliness differs from bridge build identity')
+    if _hash(_canonical(trusted['source'])) != _hash(_canonical(freeze['source'])):
+        raise AdmissionError('configured source identity changed during install preflight')
+    return {'schema':'hiroute.m5e2e.bridge_install_preflight.v1','status':'INSTALL_READY',
+        'numerical_worker_started':False,'claim_created':False,
+        'wrapper_identity_sha256':wrapper_identity_sha256,
+        'bridge_module':str(Path(__file__).resolve()),
+        'original_recovery_module':str(Path(recovery_runtime.__file__).resolve()),
+        'source_root':str(source_root),'source_revision':source_revision,
+        'interpreter':str(interpreter)}
+
+
+def _install_preflight_result(configuration, source_root):
+    try:
+        return _check_install_layout(configuration, source_root)
+    except Exception as exc:
+        return {'schema':'hiroute.m5e2e.bridge_install_preflight.v1',
+            'status':'NOT_RUN_DEPENDENCY','numerical_worker_started':False,
+            'claim_created':False,'reason':type(exc).__name__+': '+str(exc)}
 
 def _trusted_run_identity(freeze, configuration):
     admission_binding = freeze.get('continuation_admission')
