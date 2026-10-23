@@ -30,16 +30,16 @@ def _load_invocation(args):
     run_root = Path(frozen['run_root']).resolve()
     if (not run_root.is_absolute() or frozen['planned_method_order'] != ['flat', 'hier']):
         raise AdmissionError('invocation freeze method plan differs')
-    if a.operation == 'ref':
-        if a.strategy is not None or Path(a.attestation).resolve() != run_root/'ref'/'worker-attestation.json':
+    if args.operation == 'ref':
+        if args.strategy is not None or Path(args.attestation).resolve() != run_root/'ref'/'worker-attestation.json':
             raise AdmissionError('REF worker paths differ from invocation freeze')
     else:
-        if a.strategy not in frozen['planned_method_order']:
+        if args.strategy not in frozen['planned_method_order']:
             raise AdmissionError('method is not in the frozen original N8 plan')
-        expected_stage = run_root/a.strategy/('search' if a.operation == 'arm' else 'verify')
-        if Path(a.attestation).resolve() != expected_stage/'worker-attestation.json':
+        expected_stage = run_root/args.strategy/('search' if args.operation == 'arm' else 'verify')
+        if Path(args.attestation).resolve() != expected_stage/'worker-attestation.json':
             raise AdmissionError('method worker path differs from invocation freeze')
-        if a.operation == 'verify' and Path(a.search_directory).resolve() != run_root/a.strategy/'search':
+        if args.operation == 'verify' and Path(args.search_directory).resolve() != run_root/args.strategy/'search':
             raise AdmissionError('fresh verifier search binding differs from invocation freeze')
     if _verify_wrapper_identity() != args.wrapper_identity_sha256:
         raise AdmissionError('installed bridge wrapper identity changed')
