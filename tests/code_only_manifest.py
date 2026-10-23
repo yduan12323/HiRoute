@@ -1,5 +1,6 @@
 """Main default cohort and separately isolated code gates; no archived evidence."""
 CODE_ONLY_MODULES = (
+    "tests/test_m5e2e_reproduction_canonical_v2.py",
     "tests/test_site_attachment_view.py",
     "tests/test_m6h_receipt_continuation.py",
     "tests/test_m6h_recovery_protocol.py",
@@ -60,6 +61,9 @@ CODE_ONLY_DIRECTORIES = (
     'tests/terminal_energy',
 )
 CODE_GATE_MODULES = (
+    "tests/test_m5e2e_solver.py",
+    "tests/test_m5e2e_selection_prepare.py",
+    "tests/test_m5e2e_orchestration.py",
     "tests/test_way_partition_semantics.py",
     "tests/test_partition_normalization.py",
     "tests/test_m6h_reference.py",

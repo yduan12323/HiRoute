@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 # Explicit selection: never silently substitute the legacy full-suite result.
 TESTS = (
+    "tests/test_m5e2e_reproduction_canonical_v2.py",
     "tests/test_raw_way_policy_logic.py",
     "tests/test_node_domain_batch.py",
     "tests/test_m5d_aggregate_screen.py",

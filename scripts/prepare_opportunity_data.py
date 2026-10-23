@@ -15,9 +15,6 @@ import pandas as pd
 from pyproj import Transformer
 import shapely
 import yaml
-from _common import ROOT, read_config, sha256
-from _regional_common import measured_command
-from prepare_regional_data import immutable_install, osmium_version
 from opportunity.taxonomy import classify_tags, filter_expressions
 from opportunity.regions import fingerprint
 
@@ -87,6 +84,11 @@ def parse_geometry(path, catalogue, polygon, projection="EPSG:3035"):
 
 
 def run(config, osmium, reproduce=False):
+    # Legacy acquisition CLI dependencies are deliberately not imported by the
+    # reusable geometry/catalogue functions (which use installed production).
+    from _common import ROOT, read_config, sha256
+    from _regional_common import measured_command
+    from prepare_regional_data import immutable_install, osmium_version
     regional=read_config(config['regional_config'])
     polygon=ROOT/regional['polygon_path']
     if sha256(polygon)!=config['polygon_sha256']: raise ValueError('Frozen polygon checksum mismatch')
@@ -175,6 +177,7 @@ def run(config, osmium, reproduce=False):
 
 
 def main():
+    from _common import read_config
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--config',default='configs/opportunity.yaml')
     parser.add_argument('--osmium',default='../osmium-env/bin/osmium')

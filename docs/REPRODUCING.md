@@ -1,3 +1,7 @@
+## 2026-10-22 M5-E2E delivery
+
+New installed interfaces and synthetic validation are documented in [MILESTONE_5_E2E_REPORT.md](MILESTONE_5_E2E_REPORT.md) and [M5_E2E_REPRODUCING.md](M5_E2E_REPRODUCING.md). Real A/B and original bridge remain unexecuted because the host fails memory safety admission. No historical conclusion below is changed.
+
 # Reproducing HiRoute without publishing experiment data
 
 The Git repository is the code distribution: implementation, runner scripts,

@@ -1,0 +1,198 @@
+{
+  "exposed_queries": [
+    {
+      "destination_coordinates": {
+        "lat": 34.7846552,
+        "lon": 116.1079541
+      },
+      "destination_site_id": "4r:node/10989595563",
+      "exposure_class": "DEV",
+      "origin_coordinates": {
+        "lat": 34.944954297500196,
+        "lon": 115.29340155859094
+      },
+      "origin_site_id": "4r:way/1175250869",
+      "query_id": "HOD00",
+      "source_sha256": "d4f479c59e39b6ebbd23beb90507992b6d7947f2435b17837d7768adfdb94a67"
+    },
+    {
+      "destination_coordinates": {
+        "lat": 34.80820980000001,
+        "lon": 117.32464999999999
+      },
+      "destination_site_id": "4r:node/3290132079",
+      "exposure_class": "DEV",
+      "origin_coordinates": {
+        "lat": 34.95113490000001,
+        "lon": 115.9086904
+      },
+      "origin_site_id": "4r:node/11586589201",
+      "query_id": "HOD01",
+      "source_sha256": "d4f479c59e39b6ebbd23beb90507992b6d7947f2435b17837d7768adfdb94a67"
+    },
+    {
+      "destination_coordinates": {
+        "lat": 34.55958907097567,
+        "lon": 117.72577709336086
+      },
+      "destination_site_id": "4r:way/1217091492",
+      "exposure_class": "DEV",
+      "origin_coordinates": {
+        "lat": 34.986511875520144,
+        "lon": 116.55501277704862
+      },
+      "origin_site_id": "4r:way/1196369717",
+      "query_id": "HOD02",
+      "source_sha256": "d4f479c59e39b6ebbd23beb90507992b6d7947f2435b17837d7768adfdb94a67"
+    },
+    {
+      "destination_coordinates": {
+        "lat": 35.24782130000002,
+        "lon": 115.4615531
+      },
+      "destination_site_id": "4r:node/13096654177",
+      "exposure_class": "DEV",
+      "origin_coordinates": {
+        "lat": 34.97944739999999,
+        "lon": 118.4247916
+      },
+      "origin_site_id": "4r:node/10308325016",
+      "query_id": "HOD03",
+      "source_sha256": "d4f479c59e39b6ebbd23beb90507992b6d7947f2435b17837d7768adfdb94a67"
+    },
+    {
+      "destination_coordinates": {
+        "lat": 35.307882,
+        "lon": 116.3328467
+      },
+      "destination_site_id": "4r:node/13071699559",
+      "exposure_class": "DEV",
+      "origin_coordinates": {
+        "lat": 34.89634620000001,
+        "lon": 118.7098586
+      },
+      "origin_site_id": "4r:node/13016344755",
+      "query_id": "HOD04",
+      "source_sha256": "d4f479c59e39b6ebbd23beb90507992b6d7947f2435b17837d7768adfdb94a67"
+    },
+    {
+      "destination_coordinates": {
+        "lat": 35.4518569,
+        "lon": 119.54506389999999
+      },
+      "destination_site_id": "4r:node/13124657043",
+      "exposure_class": "DEV",
+      "origin_coordinates": {
+        "lat": 35.41535460000001,
+        "lon": 115.83018320000001
+      },
+      "origin_site_id": "4r:node/13096654176",
+      "query_id": "HOD05",
+      "source_sha256": "d4f479c59e39b6ebbd23beb90507992b6d7947f2435b17837d7768adfdb94a67"
+    }
+  ],
+  "exposure_class": "DEV_E2E",
+  "geometry": {
+    "attachment_metric": "unchanged WGS84 Geod.inv",
+    "definition_source": "https://proj.org/en/stable/operations/projections/lcc.html",
+    "geography_source": "https://shandong-chorography.org/database/a/section/7/article/4/",
+    "graph_length_metric": "unchanged Pyrosm segment length",
+    "local_support_metric": "unchanged unit-sphere great-circle proxy",
+    "maximum_scale_error": 0.003,
+    "projection": "+proj=lcc +lat_1=35 +lat_2=38 +lat_0=36.5 +lon_0=118.5 +datum=WGS84 +units=m +no_defs +type=crs",
+    "projection_status": "PROPOSED_PUBLIC_GEOGRAPHY_ONLY",
+    "public_validation_box_lon_lat": [
+      114.0,
+      34.0,
+      124.0,
+      39.0
+    ],
+    "representative_rule": "projected point-on-surface or normalized line midpoint; polygon priority over line over point"
+  },
+  "initial_energy_kwh": "18",
+  "physical": {
+    "capacity_kwh": "60",
+    "charging_segments": [
+      [
+        "0",
+        "30",
+        "36",
+        "0"
+      ],
+      [
+        "30",
+        "48",
+        "60",
+        "-720"
+      ],
+      [
+        "48",
+        "60",
+        "120",
+        "-3600"
+      ]
+    ],
+    "consumption_kwh_per_m": "1/6250",
+    "lambda_stop_s": "600",
+    "minimum_energy_kwh": "0",
+    "overhead_s": "300",
+    "reserve_kwh": "6",
+    "start_time_s": "0"
+  },
+  "provenance": {
+    "holdout_read": false,
+    "initial_energy_source": "experiments/m6h_manifest_v1/physical_inputs.py:67; original SOC3/10 with capacity60",
+    "model_source_sha256": {
+      "experiments/m6h_manifest_v1/generation.py": "5ee64221aaadc713e88381aa1008ceace47580eb35900d09d29d56f487ac8848",
+      "experiments/m6h_manifest_v1/physical.py": "72671572c6f059efc5165e0ca21d2c5c9e1dcc5b66e002f9e7711277175d312e",
+      "experiments/m6h_manifest_v1/physical_inputs.py": "3c49a3c34c60ff1a3f0f6a400819763f00b65f843795e0a19e720e5c31062181"
+    },
+    "physical_source": "experiments/m6h_manifest_v1/physical_inputs.py:PHYSICAL",
+    "polygon_scope": "Oct21 frozen provider polygon, not claimed historical Oct16 polygon",
+    "query_source": "Oct21 reconstructed disclosed DEV OD slate; no old graph node indexes imported",
+    "query_source_sha256": "d4f479c59e39b6ebbd23beb90507992b6d7947f2435b17837d7768adfdb94a67",
+    "window_source": "experiments/m6h_manifest_v1/generation.py direct selected-road ratio"
+  },
+  "resources": {
+    "evidence_bytes": 2147483648,
+    "host_reserve_bytes": 10737418240,
+    "preprocess_cpu_seconds": 7200,
+    "preprocess_wall_seconds": 5400,
+    "total_cpu_seconds": 28800,
+    "total_wall_seconds": 43200,
+    "worker_memory_bytes": 4294967296,
+    "worker_seconds": 120
+  },
+  "schema": "hiroute.m5e2e.config.v1",
+  "selection": {
+    "H_ref": 3,
+    "candidate_limit": 4,
+    "candidate_order": "C/S/CS representative by geographic_detour,site_id; fill remaining by same rank",
+    "case_ids": [
+      "E01",
+      "E02",
+      "E03"
+    ],
+    "multicharge_requirement": "target only; necessary lower bound UNKNOWN",
+    "query_order": "query_id lexical; first three without replacement",
+    "window": {
+      "D": "2700",
+      "a_direct_time_ratio": "2/5",
+      "b_direct_time_ratio": "7/10"
+    }
+  },
+  "source": {
+    "attribution": "OpenStreetMap contributors; extracts by Geofabrik",
+    "expected_size_bytes": 71651758,
+    "license": "ODbL-1.0",
+    "license_url": "https://www.openstreetmap.org/copyright",
+    "polygon_sha256": "cbba0cf1e5fe764bde8614477e9c027d7a7ace1e564b6bd3e42e7d32d1eb9166",
+    "polygon_url": "https://download.geofabrik.de/asia/china/shandong.poly",
+    "publisher_md5": "8e4dbde17f17916534a561c51737b6c3",
+    "region": "Shandong",
+    "sha256": "844f1de519e56f341b62e3d8f4c2db6984e32f1a8a5ca2a851e9ccdd35fc7464",
+    "snapshot_timestamp": "2026-10-16T20:21:21Z",
+    "source_page": "https://download.geofabrik.de/asia/china/shandong.html",
+    "url": "https://download.geofabrik.de/asia/china/shandong-261016.osm.pbf"
+  }
+}

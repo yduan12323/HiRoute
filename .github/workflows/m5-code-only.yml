@@ -63,3 +63,5 @@ jobs:
             "$RUNNER_TEMP/m5-ci-venv/bin/python" $flags -m unittest discover -s experiments/shandong_preprocessing_v1 -p test_driver.py
             "$RUNNER_TEMP/m5-ci-venv/bin/python" $flags -m unittest discover -s experiments/shandong_preprocessing_v1 -p test_stage_identity.py
           done
+      - name: Test installed E2E interfaces on synthetic cases only
+        run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_m5e2e_code.py'

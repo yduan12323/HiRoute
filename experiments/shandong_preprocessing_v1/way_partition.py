@@ -18,7 +18,8 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path[:0] = [str(ROOT / 'src'), str(Path(__file__).parent)]
+if not __package__:
+    sys.path.insert(0, str(ROOT))  # Legacy script entry, never a production src fallback.
 
 
 def native(osmium, *args):
@@ -155,7 +156,7 @@ def build_partitioned_graph(roads: Path, scratch: Path, out: Path, routing: dict
     import pandas as pd
     import pyarrow as pa
     import pyarrow.parquet as pq
-    from bounded_io import DENSE_FORMAT, progress
+    from experiments.shandong_preprocessing_v1.bounded_io import DENSE_FORMAT, progress
     directory = scratch / 'whole-way-partitions'
     directory.mkdir(mode=0o700)
     routing_path = directory / 'routing.json'
