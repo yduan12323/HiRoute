@@ -250,15 +250,14 @@ def _execute_claimed(command, *, master_root, source_root, adapter_root, account
                      claim_payload, state):
     """Run the existing supervisor while holding the same global budget lock."""
     import fcntl
-    from experiments.m5e2e_v1 import budget
     from experiments.m6h_manifest_v1.supervisor import Limits, run
     root=Path(master_root); root.mkdir(parents=True,exist_ok=True)
     ledger=root/'phase_ledger.jsonl'
     with (root/'exclusive.lock').open('a') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
         entries=[json.loads(line) for line in ledger.read_text().splitlines()]
-        cpu,wall=budget.totals(entries)
-        if cpu+REF_SECONDS>budget.CPU_CAP or wall+REF_SECONDS>budget.WALL_CAP:
+        cpu,wall,_=_ledger_totals(ledger.read_bytes())
+        if cpu+REF_SECONDS>CPU_CAP or wall+REF_SECONDS>WALL_CAP:
             raise AdmissionError('shared phase ledger no longer has REF capacity')
         latest=validate_master_accounting(account_path,account_sha,root)
         if latest['ledger_sha256']!=_hash(ledger.read_bytes()):
