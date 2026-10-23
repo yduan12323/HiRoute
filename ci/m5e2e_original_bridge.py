@@ -195,7 +195,17 @@ def _claim_once(root, payload):
     return claim
 
 
-def _admit_inputs(configuration, manifest_binding, common_binding):
+def _admit_inputs(configuration, manifest_binding, common_binding, source_root):
+    source_root=Path(source_root).resolve()
+    adapter_root=Path(__file__).resolve().parents[1]
+    if not source_root.is_dir() or source_root == adapter_root:
+        raise AdmissionError('separate existing original source checkout required')
+    for name,module in tuple(sys.modules.items()):
+        if name == 'experiments' or name.startswith('experiments.'):
+            location=getattr(module,'__file__',None)
+            if location and not Path(location).resolve().is_relative_to(source_root):
+                raise AdmissionError('an incompatible experiments module was imported before admission')
+    sys.path.insert(0,str(source_root))
     from experiments.m6h_manifest_v1 import recovery_runtime
     freeze = recovery_runtime.activate(configuration)
     from experiments.m6h_manifest_v1 import physical, reference
@@ -213,15 +223,18 @@ def _admit_inputs(configuration, manifest_binding, common_binding):
     if common['seed'].get('max_depth') != 10:
         raise AdmissionError('original seed-derived N8 depth is not the recorded depth 10')
     repo = Path(freeze['repo']).resolve()
-    module_root = Path(__file__).resolve().parents[1]
-    if repo != module_root:
-        raise AdmissionError('trusted recovery source layout differs from active module root')
+    module_root = Path(recovery_runtime.__file__).resolve().parents[2]
+    if repo != module_root or repo != source_root:
+        raise AdmissionError('trusted recovery source layout differs from supplied original checkout')
+    interpreter=Path(freeze['toolchain']['interpreter']['requested_executable']).resolve()
+    if not interpreter.is_file() or interpreter != Path(sys.executable).resolve():
+        raise AdmissionError('current Python executable differs from the trusted recovery toolchain')
     if manifest.get('case_id') not in ('N8', None):
         raise AdmissionError('manifest identity differs from original N8')
     return freeze, manifest, common, module_root
 
 
-def _admission(configuration, manifest_binding, common_binding, account_path, account_sha, master_root):
+def _admission(configuration, manifest_binding, common_binding, account_path, account_sha, master_root, source_root):
     if type(configuration) is not dict or set(configuration) != {'path','sha256'}:
         raise AdmissionError('exact trusted recovery configuration binding required')
     if type(manifest_binding) is not dict or set(manifest_binding) != {'path','sha256'}:
@@ -229,11 +242,11 @@ def _admission(configuration, manifest_binding, common_binding, account_path, ac
     if type(common_binding) is not dict or set(common_binding) != {'path','sha256'}:
         raise AdmissionError('exact original common seed binding required')
     account = validate_master_accounting(account_path, account_sha, master_root)
-    freeze, manifest, common, module_root = _admit_inputs(configuration, manifest_binding, common_binding)
+    freeze, manifest, common, module_root = _admit_inputs(configuration, manifest_binding, common_binding, source_root)
     return account, freeze, manifest, common, module_root
 
 
-def _execute_claimed(command, *, master_root, account_path, account_sha, run_output,
+def _execute_claimed(command, *, master_root, source_root, adapter_root, account_path, account_sha, run_output,
                      claim_payload, state):
     """Run the existing supervisor while holding the same global budget lock."""
     import fcntl
@@ -263,14 +276,15 @@ def _execute_claimed(command, *, master_root, account_path, account_sha, run_out
         started=time.monotonic()
         try:
             state['started']='UNKNOWN_AFTER_CLAIM'
-            receipt=run(command,output_dir=run_output,cwd=Path(__file__).resolve().parents[1],
+            receipt=run(command,output_dir=run_output,cwd=source_root,
                 limits=Limits(wall_seconds=REF_SECONDS,cpu_seconds=REF_SECONDS,
                     address_space_bytes=4*1024**3,cpu=min(os.sched_getaffinity(0)),
                     file_output_bytes=2*1024**3,max_output_entries=10000,max_processes=16),
                 tree_rss_stop_bytes=4*1024**3,available_stop_bytes=10*1024**3,
                 prelaunch_available_bytes=14*1024**3,tree_cpu_seconds=REF_SECONDS,
                 global_cpu_remaining=latest['remaining_cpu_seconds'],global_wall_remaining=latest['remaining_wall_seconds'],
-                owned_temp=True,extra_env={'PYTHONPATH':'','PYTHONNOUSERSITE':'1'})
+                owned_temp=True,extra_env={'PYTHONPATH':os.pathsep.join((str(source_root),str(adapter_root))),
+                    'PYTHONNOUSERSITE':'1'})
         except BaseException as exc:
             append(dict(kind='end',invocation_id=invocation,phase='original-shandong-n8-ref',
                 cpu_seconds=REF_SECONDS,wall_seconds=max(REF_SECONDS,time.monotonic()-started),
@@ -290,21 +304,22 @@ def _execute_claimed(command, *, master_root, account_path, account_sha, run_out
 
 
 def run_bridge(*, configuration, manifest_binding, common_binding, account_path, account_sha,
-               master_root, report_path, run_root):
+               master_root, source_root, report_path, run_root):
     report=dict(schema=SCHEMA,status='NOT_RUN_DEPENDENCY',reason='admission_not_completed',
         numerical_worker_started=False,claim_created=False,ref_status='NOT_RUN',
         legacy_root_gate='UNCHANGED_AND_RECHECKED_IN_WORKER',post_ref_methods_status='NOT_ADMITTED')
     try:
         account,freeze,manifest,common,module_root=_admission(configuration,manifest_binding,
-            common_binding,account_path,account_sha,master_root)
+            common_binding,account_path,account_sha,master_root,source_root)
     except Exception as exc:
         report['reason']=type(exc).__name__+': '+str(exc)
         _write_report(report_path,report); return report
     root=account['master_root']; output=Path(run_root).resolve(); report_file=Path(report_path).resolve()
-    if report_file.is_relative_to(root) or report_file.is_relative_to(module_root):
+    adapter_root=Path(__file__).resolve().parents[1]
+    if report_file.is_relative_to(root) or report_file.is_relative_to(module_root) or report_file.is_relative_to(adapter_root):
         report['reason']='report_must_be_outside_master_root_and_source_checkout'
         _write_report(report_path,report); return report
-    if output.is_relative_to(root) or output.is_relative_to(module_root):
+    if output.is_relative_to(root) or output.is_relative_to(module_root) or output.is_relative_to(adapter_root):
         report['reason']='run_root_must_be_outside_master_root_and_source_checkout'
         _write_report(report_path,report); return report
     claim=root/CLAIM_RELATIVE
@@ -316,11 +331,12 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
     state={'claim':False,'started':False}
     try:
         output.mkdir(parents=True,exist_ok=False)
-        command=[sys.executable,'-m','ci.m5e2e_original_bridge_worker',
+        interpreter=freeze['toolchain']['interpreter']['requested_executable']
+        command=[interpreter,'-m','ci.m5e2e_original_bridge_worker',
             '--configuration',configuration['path'],'--configuration-sha256',configuration['sha256'],
             '--manifest',manifest_binding['path'],'--manifest-sha256',manifest_binding['sha256'],
             '--common',common_binding['path'],'--common-sha256',common_binding['sha256']]
-        receipt=_execute_claimed(command,master_root=root,account_path=account_path,
+        receipt=_execute_claimed(command,master_root=root,source_root=module_root,adapter_root=adapter_root,account_path=account_path,
             account_sha=account_sha,run_output=output/'ref',claim_payload=payload,state=state)
         report.update(numerical_worker_started=state['started'],claim_created=True,claim_path=str(claim),
             supervisor_status=receipt.get('status'),cleanup_verified=receipt.get('cleanup_verified'),
@@ -349,13 +365,13 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
 def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--report',required=True,type=Path)
-    p.add_argument('--run-root',type=Path); p.add_argument('--master-root',type=Path)
+    p.add_argument('--run-root',type=Path); p.add_argument('--master-root',type=Path); p.add_argument('--source-root',type=Path)
     p.add_argument('--master-accounting',type=Path); p.add_argument('--master-accounting-sha256')
     p.add_argument('--configuration'); p.add_argument('--configuration-sha256')
     p.add_argument('--manifest'); p.add_argument('--manifest-sha256')
     p.add_argument('--common'); p.add_argument('--common-sha256')
     a=p.parse_args(argv)
-    supplied={'run_root':a.run_root,'master_root':a.master_root,'account_path':a.master_accounting,
+    supplied={'run_root':a.run_root,'master_root':a.master_root,'source_root':a.source_root,'account_path':a.master_accounting,
         'account_sha':a.master_accounting_sha256,
         'configuration':({'path':a.configuration,'sha256':a.configuration_sha256}
             if a.configuration and a.configuration_sha256 else None),
