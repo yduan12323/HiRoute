@@ -333,6 +333,7 @@ def _admit_inputs(configuration, manifest_binding, common_binding, source_root):
     from experiments.m6h_manifest_v1 import recovery_runtime
     freeze = recovery_runtime.activate(configuration)
     from experiments.m6h_manifest_v1 import physical, reference
+    _import_and_verify_bridge_dependencies(source_root, freeze['source'].get('closure'))
     manifest = physical._manifest(manifest_binding['path'], manifest_binding['sha256'])
     raw = _read_regular(common_binding['path'], MAX_EVIDENCE_BYTES)
     if _hash(raw) != common_binding['sha256']:
@@ -369,6 +370,77 @@ def _admit_inputs(configuration, manifest_binding, common_binding, source_root):
 
 
 
+
+_CORE_SOURCE_PACKAGES = frozenset({
+    'graph', 'envelope', 'opportunity', 'microplan', 'stopplan4r',
+    'hierarchy4r', 'timecut5',
+})
+_TRUSTED_SOURCE_NAMESPACES = frozenset({'experiments', 'validation', 'scripts'})
+_BRIDGE_PREFLIGHT_IMPORTS = (
+    'experiments.m6h_manifest_v1.physical',
+    'experiments.m6h_manifest_v1.reference',
+    'experiments.m6h_manifest_v1.physical_domain',
+    'experiments.m6h_manifest_v1.physical_inputs',
+    'experiments.mechanism_recovery_v1.run',
+    'experiments.dev_cohort_v1.domain',
+    'experiments.pending_window_completion_v1.domain',
+    'validation.reference5',
+    'validation.reference5.real_input',
+    'validation.reference5.real_solver',
+    'timecut5.analytic_charge',
+    'timecut5.envelope_sweep',
+    'timecut5.pwa',
+    'timecut5.exact_progress',
+    'timecut5.real_adapter',
+    'timecut5.real_legs',
+)
+
+
+def _import_and_verify_bridge_dependencies(source_root, source_closure):
+    """Import actual bridge/helper dependencies and verify every project module origin."""
+    import importlib
+    source_root = Path(source_root).resolve()
+    modules = [importlib.import_module(name) for name in _BRIDGE_PREFLIGHT_IMPORTS]
+    if not isinstance(source_closure, dict):
+        raise AdmissionError('trusted source closure map is missing')
+    for name, module in tuple(sys.modules.items()):
+        top = name.split('.', 1)[0]
+        if top not in _TRUSTED_SOURCE_NAMESPACES and top not in _CORE_SOURCE_PACKAGES:
+            continue
+        locations = getattr(module, '__path__', None)
+        if getattr(module, '__file__', None) is None:
+            if locations is None:
+                continue
+            roots = [Path(location).resolve() for location in locations]
+            if top in _TRUSTED_SOURCE_NAMESPACES and (
+                    not roots or any(not root.is_relative_to(source_root) for root in roots)):
+                raise AdmissionError('trusted namespace import escaped original source root: ' + name)
+            if top in _CORE_SOURCE_PACKAGES and (
+                    not roots or any(not root.is_relative_to(Path(sys.prefix).resolve())
+                                     for root in roots)):
+                raise AdmissionError('installed core namespace import escaped its environment: ' + name)
+            continue
+        origin = Path(module.__file__).resolve()
+        if top in _TRUSTED_SOURCE_NAMESPACES:
+            if not origin.is_relative_to(source_root):
+                raise AdmissionError('trusted module imported outside original source root: ' + name)
+            relative = origin.relative_to(source_root).as_posix()
+        else:
+            if not origin.is_relative_to(Path(sys.prefix).resolve()):
+                raise AdmissionError('core module is not imported from the installed environment: ' + name)
+            if origin.suffix != '.py':
+                raise AdmissionError('core module has no source-verifiable installed origin: ' + name)
+            relative = 'src/' + name.replace('.', '/') + (
+                '/__init__.py' if origin.name == '__init__.py' else '.py')
+        expected = source_closure.get(relative)
+        if type(expected) is not str or len(expected) != 64:
+            raise AdmissionError('imported project module is absent from trusted source closure: ' + relative)
+        actual = _hash(_read_regular(origin, 16 * 1024**2))
+        if actual != expected:
+            raise AdmissionError('imported project module differs from trusted source closure: ' + relative)
+    return tuple(str(Path(module.__file__).resolve()) for module in modules)
+
+
 def _check_install_layout(configuration, source_root):
     """Read-only -I preflight; validates the real editable install before any claim."""
     freeze = _json_binding(configuration, limit=128 * 1024, canonical=True)[0]
@@ -399,7 +471,9 @@ def _check_install_layout(configuration, source_root):
         raise AdmissionError('installed source overlay revision/cleanliness differs from bridge build identity')
     if _hash(_canonical(trusted['source'])) != _hash(_canonical(freeze['source'])):
         raise AdmissionError('configured source identity changed during install preflight')
+    imported = _import_and_verify_bridge_dependencies(source_root, trusted['source'].get('closure'))
     return {'schema':'hiroute.m5e2e.bridge_install_preflight.v1','status':'INSTALL_READY',
+        'verified_project_imports':list(imported),
         'numerical_worker_started':False,'claim_created':False,
         'wrapper_identity_sha256':wrapper_identity_sha256,
         'bridge_module':str(Path(__file__).resolve()),
