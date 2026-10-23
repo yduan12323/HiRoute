@@ -369,6 +369,11 @@ def _trusted_run_identity(freeze, configuration):
     return identity, Path(parent['path']).resolve().parent
 
 
+def _store_ref_result(report, result):
+    report['ref_status'] = result.get('status', 'UNKNOWN') if type(result) is dict else 'UNKNOWN'
+    report['ref_reason'] = result.get('reason') if type(result) is dict else 'invalid_result'
+    return report
+
 def _require_authenticated_ref(result):
     if (type(result) is not dict or result.get('status') != 'SUCCESS'
             or result.get('independent_exact') is not True):
@@ -783,8 +788,7 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
             worker_attestation_sha256=_hash(_read_regular(attestation_path,64*1024)))
         from experiments.m6h_manifest_v1 import reference
         result=reference.load_worker_result(output/'ref',receipt,'N8',common=common,manifest=manifest)
-        report['ref_status']=result.get('status','UNKNOWN')
-        report['ref_reason']=result.get('reason')
+        _store_ref_result(report, result)
         _require_authenticated_ref(result)
         if result['status']=='SUCCESS' and result.get('independent_exact') is True:
             report.update(status='REF_AUTHENTICATED_SUCCESS',
