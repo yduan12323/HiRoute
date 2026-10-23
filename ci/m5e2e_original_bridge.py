@@ -371,6 +371,14 @@ def _admission(configuration, manifest_binding, common_binding, account_path, ac
     return account, freeze, manifest, common, module_root, run_identity, Path(parent['path']).resolve().parent, wrapper_identity_sha256
 
 
+def _append_jsonl(path, row):
+    path = Path(path)
+    with path.open('ab') as stream:
+        stream.write(_canonical(row) + b'\n')
+        stream.flush()
+        os.fsync(stream.fileno())
+
+
 def _execute_claimed(command, *, master_root, claim_root, run_identity, source_root, account_path, account_sha, run_output,
                      claim_payload, state):
     """Run the existing supervisor while holding the same global budget lock."""
@@ -416,10 +424,12 @@ def _execute_claimed(command, *, master_root, claim_root, run_identity, source_r
             raise
         state['started']=True
         measured=receipt['accounted_owned_cpu_seconds']
+        receipt_path=Path(run_output)/'receipt.json'
+        receipt_sha256=_hash(_read_regular(receipt_path,MAX_EVIDENCE_BYTES))
         append(dict(kind='end',invocation_id=invocation,phase='original-shandong-n8-ref',
             cpu_seconds=measured,measured_cpu_seconds=measured,wall_seconds=receipt['wall_seconds'],
             charge_kind='outer_owned_tree',nested_inclusive_not_added=True,
-            cleanup_verified=receipt['cleanup_verified'],receipt=str(Path(run_output)/'receipt.json'),
+            cleanup_verified=receipt['cleanup_verified'],receipt=str(receipt_path),receipt_sha256=receipt_sha256,
             status=receipt['status']))
         if not receipt['cleanup_verified']:
             raise RuntimeError('Worker cleanup unverified; stop all work')
@@ -459,7 +469,8 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
         command=[interpreter,'-I','-m','ci.m5e2e_original_bridge_worker',
             '--configuration',configuration['path'],'--configuration-sha256',configuration['sha256'],
             '--manifest',manifest_binding['path'],'--manifest-sha256',manifest_binding['sha256'],
-            '--common',common_binding['path'],'--common-sha256',common_binding['sha256']]
+            '--common',common_binding['path'],'--common-sha256',common_binding['sha256'],
+            '--wrapper-identity-sha256',wrapper_identity_sha256]
         receipt=_execute_claimed(command,master_root=root,claim_root=claim_root,run_identity=run_identity,
             source_root=module_root,account_path=account_path,account_sha=account_sha,run_output=output/'ref',
             claim_payload=payload,state=state)
