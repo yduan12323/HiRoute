@@ -100,6 +100,19 @@ def _ledger_totals(raw):
     return cpu, wall, starts, ends
 
 
+def _json_binding(binding, *, limit, canonical=False):
+    if type(binding) is not dict or set(binding) != {'path', 'sha256'}:
+        raise AdmissionError('exact path/SHA256 evidence binding required')
+    raw = _read_regular(binding['path'], limit)
+    if _hash(raw) != binding['sha256']:
+        raise AdmissionError('bound evidence SHA256 mismatch')
+    value = json.loads(raw, object_pairs_hook=_unique_pairs,
+        parse_constant=lambda _: (_ for _ in ()).throw(AdmissionError('nonfinite evidence JSON')))
+    if canonical and raw != _canonical(value):
+        raise AdmissionError('bound evidence is not canonical JSON')
+    return value, raw
+
+
 def _number(value, field):
     if type(value) not in (int, float) or not math.isfinite(value) or value < 0:
         raise AdmissionError(field + ' must be finite and nonnegative')
@@ -211,7 +224,7 @@ def validate_master_accounting(path, expected_sha256, expected_root, expected_ru
                 raise AdmissionError('carry row misclassified as worker')
             if end.get('receipt')!=evidence['path']:
                 raise AdmissionError('ledger worker receipt path differs from source inventory')
-            if end.get('receipt_sha256') not in (None,evidence['sha256']):
+            if end.get('receipt_sha256') != evidence['sha256']:
                 raise AdmissionError('ledger receipt SHA256 differs from source inventory')
             if (value.get('cleanup_verified') is not True or
                 not math.isclose(_number(value.get('accounted_owned_cpu_seconds'),'receipt cpu'),_number(end['cpu_seconds'],'ledger cpu'),rel_tol=0,abs_tol=1e-6) or
@@ -223,7 +236,8 @@ def validate_master_accounting(path, expected_sha256, expected_root, expected_ru
             expected={'schema':'hiroute.m5e2e.accounting_transfer.v1','run_identity':expected_run_identity,
                 'invocation_id':invocation,'previous_ledger_sha256':end.get('previous_ledger_sha256'),
                 'cpu_seconds':end['cpu_seconds'],'wall_seconds':end['wall_seconds']}
-            if value!=expected or raw!=_canonical(expected):
+            if (value!=expected or raw!=_canonical(expected) or
+                expected['previous_ledger_sha256'] not in {item['sha256'] for item in snapshots}):
                 raise AdmissionError('carry transfer evidence/lineage differs')
         else:
             raise AdmissionError('ledger invocation has unknown inventory kind')
@@ -287,7 +301,8 @@ def _admit_inputs(configuration, manifest_binding, common_binding, source_root):
             location=getattr(module,'__file__',None)
             if location and not Path(location).resolve().is_relative_to(source_root):
                 raise AdmissionError('an incompatible experiments module was imported before admission')
-    sys.path.insert(0,str(source_root))
+    if str(source_root) not in {str(Path(p or '.').resolve()) for p in sys.path}:
+        raise AdmissionError('original source checkout must be naturally importable; path injection is forbidden')
     from experiments.m6h_manifest_v1 import recovery_runtime
     freeze = recovery_runtime.activate(configuration)
     from experiments.m6h_manifest_v1 import physical, reference
@@ -323,12 +338,20 @@ def _admission(configuration, manifest_binding, common_binding, account_path, ac
         raise AdmissionError('exact original manifest binding required')
     if type(common_binding) is not dict or set(common_binding) != {'path','sha256'}:
         raise AdmissionError('exact original common seed binding required')
-    account = validate_master_accounting(account_path, account_sha, master_root)
     freeze, manifest, common, module_root = _admit_inputs(configuration, manifest_binding, common_binding, source_root)
-    return account, freeze, manifest, common, module_root
+    parent = freeze.get('continuation_admission', {}).get('parent_waited_receipt')
+    if type(parent) is not dict or set(parent) != {'path', 'sha256'}:
+        raise AdmissionError('trusted continuation lacks the fixed parent waited receipt binding')
+    run_identity = _hash(_canonical({
+        'schema': 'hiroute.m5e2e.original_run_identity.v1',
+        'configuration_sha256': configuration['sha256'],
+        'parent_waited_receipt': parent,
+    }))
+    account = validate_master_accounting(account_path, account_sha, master_root, run_identity)
+    return account, freeze, manifest, common, module_root, run_identity, Path(parent['path']).resolve().parent
 
 
-def _execute_claimed(command, *, master_root, source_root, adapter_root, account_path, account_sha, run_output,
+def _execute_claimed(command, *, master_root, claim_root, run_identity, source_root, account_path, account_sha, run_output,
                      claim_payload, state):
     """Run the existing supervisor while holding the same global budget lock."""
     import fcntl
@@ -338,20 +361,20 @@ def _execute_claimed(command, *, master_root, source_root, adapter_root, account
     with (root/'exclusive.lock').open('a') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
         entries=[json.loads(line) for line in ledger.read_text().splitlines()]
-        cpu,wall,_=_ledger_totals(ledger.read_bytes())
+        cpu,wall,_,_=_ledger_totals(ledger.read_bytes())
         if cpu+REF_SECONDS>CPU_CAP or wall+REF_SECONDS>WALL_CAP:
             raise AdmissionError('shared phase ledger no longer has REF capacity')
-        latest=validate_master_accounting(account_path,account_sha,root)
+        latest=validate_master_accounting(account_path,account_sha,root,run_identity)
         if latest['ledger_sha256']!=_hash(ledger.read_bytes()):
             raise AdmissionError('master ledger changed before locked claim')
         if min(latest['remaining_cpu_seconds'],latest['remaining_wall_seconds']) < REF_SECONDS+FOLLOWUP_RESERVE_SECONDS:
             raise AdmissionError('global budget reserve changed before claim')
-        _claim_once(root,claim_payload)
+        _claim_once(claim_root,claim_payload)
         state['claim']=True
         invocation=__import__('uuid').uuid4().hex
         def append(row):
             with ledger.open('ab') as stream:
-                stream.write(_canonical(row)+b'\\n'); stream.flush(); os.fsync(stream.fileno())
+                stream.write(_canonical(row)+b'\n'); stream.flush(); os.fsync(stream.fileno())
         append(dict(kind='start',invocation_id=invocation,phase='original-shandong-n8-ref',
             argv=command,cpu_reserved=REF_SECONDS,wall_reserved=REF_SECONDS,timestamp=time.time()))
         started=time.monotonic()
@@ -364,8 +387,7 @@ def _execute_claimed(command, *, master_root, source_root, adapter_root, account
                 tree_rss_stop_bytes=4*1024**3,available_stop_bytes=10*1024**3,
                 prelaunch_available_bytes=14*1024**3,tree_cpu_seconds=REF_SECONDS,
                 global_cpu_remaining=latest['remaining_cpu_seconds'],global_wall_remaining=latest['remaining_wall_seconds'],
-                owned_temp=True,extra_env={'PYTHONPATH':os.pathsep.join((str(source_root),str(adapter_root))),
-                    'PYTHONNOUSERSITE':'1'})
+                owned_temp=True,extra_env={'PYTHONNOUSERSITE':'1'})
         except BaseException as exc:
             append(dict(kind='end',invocation_id=invocation,phase='original-shandong-n8-ref',
                 cpu_seconds=REF_SECONDS,wall_seconds=max(REF_SECONDS,time.monotonic()-started),
@@ -390,7 +412,7 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
         numerical_worker_started=False,claim_created=False,ref_status='NOT_RUN',
         legacy_root_gate='UNCHANGED_AND_RECHECKED_IN_WORKER',post_ref_methods_status='NOT_ADMITTED')
     try:
-        account,freeze,manifest,common,module_root=_admission(configuration,manifest_binding,
+        account,freeze,manifest,common,module_root,run_identity,claim_root=_admission(configuration,manifest_binding,
             common_binding,account_path,account_sha,master_root,source_root)
     except Exception as exc:
         report['reason']=type(exc).__name__+': '+str(exc)
@@ -403,8 +425,9 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
     if output.is_relative_to(root) or output.is_relative_to(module_root) or output.is_relative_to(adapter_root):
         report['reason']='run_root_must_be_outside_master_root_and_source_checkout'
         _write_report(report_path,report); return report
-    claim=root/CLAIM_RELATIVE
-    payload=dict(schema='hiroute.m5e2e.original_bridge_claim.v1',case_id='N8',
+    claim=claim_root/CLAIM_RELATIVE
+    payload=dict(schema='hiroute.m5e2e.original_bridge_claim.v1',run_identity=run_identity,
+        case_id='N8',
         candidate_count=8,soc='3/10',seed_depth=10,master_root=str(root),
         master_accounting_sha256=account['account_sha256'],phase_ledger_sha256=account['ledger_sha256'],
         recovery_configuration_sha256=configuration['sha256'],manifest_sha256=manifest_binding['sha256'],
@@ -417,8 +440,9 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
             '--configuration',configuration['path'],'--configuration-sha256',configuration['sha256'],
             '--manifest',manifest_binding['path'],'--manifest-sha256',manifest_binding['sha256'],
             '--common',common_binding['path'],'--common-sha256',common_binding['sha256']]
-        receipt=_execute_claimed(command,master_root=root,source_root=module_root,adapter_root=adapter_root,account_path=account_path,
-            account_sha=account_sha,run_output=output/'ref',claim_payload=payload,state=state)
+        receipt=_execute_claimed(command,master_root=root,claim_root=claim_root,run_identity=run_identity,
+            source_root=module_root,account_path=account_path,account_sha=account_sha,run_output=output/'ref',
+            claim_payload=payload,state=state)
         report.update(numerical_worker_started=state['started'],claim_created=True,claim_path=str(claim),
             supervisor_status=receipt.get('status'),cleanup_verified=receipt.get('cleanup_verified'),
             supervisor_receipt=str(output/'ref'/'receipt.json'))
