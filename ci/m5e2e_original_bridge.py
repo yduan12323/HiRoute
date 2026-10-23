@@ -21,6 +21,7 @@ CPU_CAP, WALL_CAP = 8 * 3600, 12 * 3600
 REF_SECONDS, FOLLOWUP_RESERVE_SECONDS = 120, 600
 MAX_ACCOUNT_BYTES, MAX_EVIDENCE_BYTES = 4*1024**2, 16*1024**2
 CLAIM_RELATIVE = Path('.m5e2e_bridge_claims/original-shandong-n8-ref.claim.json')
+ORIGINAL_LEDGER_SHA256 = 'ba453f3fcdc72ef5c5b8a0418164672dcaa0446210e74035d46d76140360645f'
 
 
 class AdmissionError(ValueError):
@@ -59,10 +60,16 @@ def _read_regular(path, limit):
 
 def _verify_evidence(row, field):
     evidence = row.get('evidence')
-    if type(evidence) is not dict or set(evidence) != {'path', 'sha256'}:
-        raise AdmissionError(field + ' requires exact evidence path and SHA256')
-    if _hash(_read_regular(evidence['path'], MAX_EVIDENCE_BYTES)) != evidence['sha256']:
-        raise AdmissionError(field + ' evidence SHA256 mismatch')
+    if type(evidence) is not dict or set(evidence) != {'path','sha256'}:
+        raise AdmissionError(field+' requires exact evidence path and SHA256')
+    raw=_read_regular(evidence['path'],MAX_EVIDENCE_BYTES)
+    if _hash(raw)!=evidence['sha256']:
+        raise AdmissionError(field+' evidence SHA256 mismatch')
+    expected={'schema':'hiroute.m5e2e.accounting_evidence.v1','id':row['id'],'kind':field,
+        'cpu_seconds':row['cpu_seconds'],'wall_seconds':row['wall_seconds']}
+    value=json.loads(raw,object_pairs_hook=_unique_pairs)
+    if raw!=_canonical(expected) or value!=expected:
+        raise AdmissionError(field+' evidence content/ID/amount differs')
 
 
 def _ledger_totals(raw):
@@ -90,7 +97,7 @@ def _ledger_totals(raw):
             raise AdmissionError('worker cleanup not verified')
         cpu += _number(end.get('cpu_seconds'), 'ledger cpu_seconds')
         wall += _number(end.get('wall_seconds'), 'ledger wall_seconds')
-    return cpu, wall
+    return cpu, wall, starts, ends
 
 
 def _number(value, field):
@@ -99,73 +106,148 @@ def _number(value, field):
     return float(value)
 
 
-def validate_master_accounting(path, expected_sha256, expected_root):
-    """Validate the complete external master account against hashed evidence."""
-    path = Path(path)
-    if path.is_symlink():
-        raise AdmissionError('master accounting symlink is forbidden')
-    path = path.resolve()
-    raw = _read_regular(path, MAX_ACCOUNT_BYTES)
-    if _hash(raw) != expected_sha256:
-        raise AdmissionError('master accounting SHA256 mismatch')
-    account = json.loads(raw, object_pairs_hook=_unique_pairs,
+def validate_master_accounting(path, expected_sha256, expected_root, expected_run_identity):
+    """Require a closed, hash-checked inventory and append-only ledger lineage."""
+    path=Path(path)
+    if path.is_symlink():raise AdmissionError('master accounting symlink is forbidden')
+    path=path.resolve(); raw=_read_regular(path,MAX_ACCOUNT_BYTES)
+    if _hash(raw)!=expected_sha256:raise AdmissionError('master accounting SHA256 mismatch')
+    account=json.loads(raw,object_pairs_hook=_unique_pairs,
         parse_constant=lambda _: (_ for _ in ()).throw(AdmissionError('nonfinite accounting JSON')))
-    if raw != _canonical(account):
-        raise AdmissionError('master accounting must be canonical JSON')
-    fields = {'schema','master_root','budget_root','cpu_cap_seconds','wall_cap_seconds',
-        'phase_ledger','external_charges','reservations','unknown_costs','unsettled_invocations',
+    if raw!=_canonical(account):raise AdmissionError('master accounting must be canonical JSON')
+    fields={'schema','run_identity','master_root','budget_root','cpu_cap_seconds','wall_cap_seconds',
+        'phase_ledger','ledger_lineage','accounting_inventory','external_charges','reservations',
         'charged_cpu_seconds','charged_wall_seconds','reserved_cpu_seconds','reserved_wall_seconds',
-        'remaining_cpu_seconds','remaining_wall_seconds','accounting_complete'}
-    if type(account) is not dict or set(account) != fields or account.get('schema') != ACCOUNT_SCHEMA:
+        'remaining_cpu_seconds','remaining_wall_seconds'}
+    if type(account) is not dict or set(account)!=fields or account.get('schema')!=ACCOUNT_SCHEMA:
         raise AdmissionError('master accounting schema/fields differ')
-    root = Path(expected_root).resolve()
-    if account['master_root'] != str(root) or account['budget_root'] != str(root):
-        raise AdmissionError('master_root and budget_root must equal the fixed supplied root')
-    if account['cpu_cap_seconds'] != CPU_CAP or account['wall_cap_seconds'] != WALL_CAP:
+    root=Path(expected_root).resolve()
+    if account['run_identity']!=expected_run_identity:
+        raise AdmissionError('master accounting belongs to another original run identity')
+    if account['master_root']!=str(root) or account['budget_root']!=str(root):
+        raise AdmissionError('master_root and budget_root must equal the selected fixed root')
+    if account['cpu_cap_seconds']!=CPU_CAP or account['wall_cap_seconds']!=WALL_CAP:
         raise AdmissionError('original 8 CPU-hour / 12 wall-hour caps required')
-    if account['accounting_complete'] is not True or account['unknown_costs'] != [] or account['unsettled_invocations'] != []:
-        raise AdmissionError('master accounting incomplete, unknown, or unsettled')
-    ledger = account['phase_ledger']
-    if type(ledger) is not dict or set(ledger) != {'path','sha256'}:
+    ledger=account['phase_ledger']
+    if type(ledger) is not dict or set(ledger)!={'path','sha256'}:
         raise AdmissionError('exact phase ledger binding required')
-    ledger_path = Path(ledger['path'])
-    if ledger_path.resolve() != root/'phase_ledger.jsonl' or ledger_path.is_symlink():
+    ledger_path=Path(ledger['path'])
+    if ledger_path.resolve()!=root/'phase_ledger.jsonl' or ledger_path.is_symlink():
         raise AdmissionError('phase ledger must be the fixed ledger under master_root')
-    ledger_raw = _read_regular(ledger_path, MAX_EVIDENCE_BYTES)
-    if _hash(ledger_raw) != ledger['sha256']:
-        raise AdmissionError('phase ledger SHA256 mismatch')
-    ledger_cpu, ledger_wall = _ledger_totals(ledger_raw)
-    if type(account['external_charges']) is not list or type(account['reservations']) is not list:
-        raise AdmissionError('charge and reservation lists required')
-    ids = set()
-    charge_cpu = charge_wall = reserve_cpu = reserve_wall = 0.0
-    for label, rows in (('charge', account['external_charges']), ('reservation', account['reservations'])):
+    ledger_raw=_read_regular(ledger_path,MAX_EVIDENCE_BYTES)
+    if _hash(ledger_raw)!=ledger['sha256']:raise AdmissionError('phase ledger SHA256 mismatch')
+    ledger_cpu,ledger_wall,starts,ends=_ledger_totals(ledger_raw)
+    lineage_binding=account['ledger_lineage']
+    lineage,lineage_raw=_json_binding(lineage_binding,limit=MAX_ACCOUNT_BYTES,canonical=True)
+    lf={'schema','run_identity','origin_ledger_sha256','snapshots'}
+    if type(lineage) is not dict or set(lineage)!=lf or lineage.get('schema')!='hiroute.m5e2e.ledger_lineage.v1':
+        raise AdmissionError('append-only ledger lineage schema differs')
+    if lineage['run_identity']!=expected_run_identity or lineage['origin_ledger_sha256']!=ORIGINAL_LEDGER_SHA256:
+        raise AdmissionError('ledger lineage is not rooted in the original master snapshot')
+    snapshots=lineage['snapshots']
+    if type(snapshots) is not list or not snapshots:
+        raise AdmissionError('ledger lineage snapshots are required')
+    raws=[]; prior=None
+    for item in snapshots:
+        if type(item) is not dict or set(item)!={'path','sha256'}:
+            raise AdmissionError('ledger lineage snapshot binding differs')
+        snap=Path(item['path'])
+        data=_read_regular(snap,MAX_EVIDENCE_BYTES)
+        if _hash(data)!=item['sha256']:raise AdmissionError('ledger lineage snapshot hash mismatch')
+        if prior is not None and not data.startswith(prior):
+            raise AdmissionError('ledger lineage is not append-only')
+        raws.append(data); prior=data
+    if _hash(raws[0])!=ORIGINAL_LEDGER_SHA256 or raws[-1]!=ledger_raw:
+        raise AdmissionError('ledger lineage does not reach the pinned original/current ledger')
+    inventory_binding=account['accounting_inventory']
+    inventory,inventory_raw=_json_binding(inventory_binding,limit=MAX_ACCOUNT_BYTES,canonical=True)
+    inf={'schema','run_identity','master_root','closed_world','source_ids','unresolved_sources','records'}
+    if type(inventory) is not dict or set(inventory)!=inf or inventory.get('schema')!='hiroute.m5e2e.accounting_inventory.v1':
+        raise AdmissionError('accounting source inventory schema differs')
+    if inventory['run_identity']!=expected_run_identity or inventory['master_root']!=str(root):
+        raise AdmissionError('accounting source inventory root identity differs')
+    if inventory['closed_world'] is not True or inventory['unresolved_sources']!=[]:
+        raise AdmissionError('accounting source inventory is open or has unresolved items')
+    records=inventory['records']
+    if type(records) is not list:raise AdmissionError('accounting source records must be a list')
+    by_id={}
+    for row in records:
+        if type(row) is not dict or set(row)!={'id','kind','cpu_seconds','wall_seconds','evidence'}:
+            raise AdmissionError('accounting source record schema differs')
+        if type(row['id']) is not str or not row['id'] or row['id'] in by_id:
+            raise AdmissionError('accounting source IDs must be unique')
+        by_id[row['id']]=row
+    ext=account['external_charges']; reserves=account['reservations']
+    if type(ext) is not list or type(reserves) is not list:
+        raise AdmissionError('external charges and reservations must be lists')
+    extids=set(); reserveids=set(); charge_cpu=charge_wall=reserve_cpu=reserve_wall=0.0
+    for label,rows in (('charge',ext),('reservation',reserves)):
         for row in rows:
-            if type(row) is not dict or set(row) != {'id','cpu_seconds','wall_seconds','evidence'}:
-                raise AdmissionError(label + ' schema differs')
-            if type(row['id']) is not str or not row['id'] or row['id'] in ids:
-                raise AdmissionError('charge/reservation IDs must be unique')
-            ids.add(row['id']); _verify_evidence(row, label)
-            c, w = _number(row['cpu_seconds'],label+' cpu_seconds'), _number(row['wall_seconds'],label+' wall_seconds')
-            if label == 'charge':
-                charge_cpu += c; charge_wall += w
-            else:
-                reserve_cpu += c; reserve_wall += w
-    charged_cpu, charged_wall = ledger_cpu+charge_cpu, ledger_wall+charge_wall
-    remaining_cpu, remaining_wall = CPU_CAP-charged_cpu-reserve_cpu, WALL_CAP-charged_wall-reserve_wall
-    calculated = {'charged_cpu_seconds':charged_cpu,'charged_wall_seconds':charged_wall,
+            if type(row) is not dict or set(row)!={'id','cpu_seconds','wall_seconds','evidence'}:
+                raise AdmissionError(label+' schema differs')
+            if type(row['id']) is not str or not row['id']:
+                raise AdmissionError(label+' ID missing')
+            (_verify_evidence(row,label))
+            target=extids if label=='charge' else reserveids
+            if row['id'] in target:raise AdmissionError('duplicate '+label+' ID')
+            target.add(row['id'])
+            inv=by_id.get(row['id'])
+            if inv is None or inv['kind']!=label or inv['cpu_seconds']!=row['cpu_seconds'] or inv['wall_seconds']!=row['wall_seconds'] or inv['evidence']!=row['evidence']:
+                raise AdmissionError(label+' is missing/mismatched in the closed source inventory')
+            c,w=_number(row['cpu_seconds'],label+' cpu_seconds'),_number(row['wall_seconds'],label+' wall_seconds')
+            if label=='charge':charge_cpu+=c;charge_wall+=w
+            else:reserve_cpu+=c;reserve_wall+=w
+    for invocation,end in ends.items():
+        inv=by_id.get(invocation)
+        start=starts[invocation]
+        if inv is None or inv['cpu_seconds']!=end['cpu_seconds'] or inv['wall_seconds']!=end['wall_seconds']:
+            raise AdmissionError('worker/carry end is missing from source inventory')
+        evidence=inv['evidence']
+        raw=_read_regular(evidence['path'],MAX_EVIDENCE_BYTES)
+        if _hash(raw)!=evidence['sha256']:raise AdmissionError('ledger source evidence SHA256 mismatch')
+        value=json.loads(raw,object_pairs_hook=_unique_pairs)
+        if inv['kind']=='worker':
+            if end.get('record_type')=='accounting_transfer_not_worker':
+                raise AdmissionError('carry row misclassified as worker')
+            if end.get('receipt')!=evidence['path']:
+                raise AdmissionError('ledger worker receipt path differs from source inventory')
+            if end.get('receipt_sha256') not in (None,evidence['sha256']):
+                raise AdmissionError('ledger receipt SHA256 differs from source inventory')
+            if (value.get('cleanup_verified') is not True or
+                not math.isclose(_number(value.get('accounted_owned_cpu_seconds'),'receipt cpu'),_number(end['cpu_seconds'],'ledger cpu'),rel_tol=0,abs_tol=1e-6) or
+                not math.isclose(_number(value.get('wall_seconds'),'receipt wall'),_number(end['wall_seconds'],'ledger wall'),rel_tol=0,abs_tol=1e-6)):
+                raise AdmissionError('supervisor receipt cleanup/cost differs from ledger')
+        elif inv['kind']=='carry':
+            if end.get('record_type')!='accounting_transfer_not_worker':
+                raise AdmissionError('non-worker transfer misclassified')
+            expected={'schema':'hiroute.m5e2e.accounting_transfer.v1','run_identity':expected_run_identity,
+                'invocation_id':invocation,'previous_ledger_sha256':end.get('previous_ledger_sha256'),
+                'cpu_seconds':end['cpu_seconds'],'wall_seconds':end['wall_seconds']}
+            if value!=expected or raw!=_canonical(expected):
+                raise AdmissionError('carry transfer evidence/lineage differs')
+        else:
+            raise AdmissionError('ledger invocation has unknown inventory kind')
+    ledger_ids=set(ends)
+    expected_ids=ledger_ids|extids|reserveids
+    if set(by_id)!=expected_ids or sorted(inventory['source_ids'])!=sorted(expected_ids):
+        raise AdmissionError('source inventory omits or adds an accounting record')
+    if len(inventory['source_ids'])!=len(set(inventory['source_ids'])):
+        raise AdmissionError('duplicate ID in source catalog')
+    charged_cpu,charged_wall=ledger_cpu+charge_cpu,ledger_wall+charge_wall
+    remaining_cpu,remaining_wall=CPU_CAP-charged_cpu-reserve_cpu,WALL_CAP-charged_wall-reserve_wall
+    calculated={'charged_cpu_seconds':charged_cpu,'charged_wall_seconds':charged_wall,
         'reserved_cpu_seconds':reserve_cpu,'reserved_wall_seconds':reserve_wall,
         'remaining_cpu_seconds':remaining_cpu,'remaining_wall_seconds':remaining_wall}
-    for key, value in calculated.items():
-        if not math.isclose(_number(account[key],key), value, rel_tol=0.0, abs_tol=1e-6):
+    for key,value in calculated.items():
+        if not math.isclose(_number(account[key],key),value,rel_tol=0,abs_tol=1e-6):
             raise AdmissionError('master accounting arithmetic mismatch: '+key)
-    if remaining_cpu < REF_SECONDS+FOLLOWUP_RESERVE_SECONDS or remaining_wall < REF_SECONDS+FOLLOWUP_RESERVE_SECONDS:
+    if min(remaining_cpu,remaining_wall)<REF_SECONDS+FOLLOWUP_RESERVE_SECONDS:
         raise AdmissionError('verified remaining budget cannot reserve REF and taskbook follow-up')
-    return dict(account=account, account_sha256=_hash(raw), ledger_path=ledger_path,
-        ledger_sha256=_hash(ledger_raw), ledger_cpu_seconds=ledger_cpu, ledger_wall_seconds=ledger_wall,
-        charged_cpu_seconds=charged_cpu, charged_wall_seconds=charged_wall,
-        reserved_cpu_seconds=reserve_cpu, reserved_wall_seconds=reserve_wall,
-        remaining_cpu_seconds=remaining_cpu, remaining_wall_seconds=remaining_wall, master_root=root)
+    return dict(account=account,account_sha256=_hash(raw if False else _canonical(account)),
+        ledger_path=ledger_path,ledger_sha256=_hash(ledger_raw),ledger_cpu_seconds=ledger_cpu,
+        ledger_wall_seconds=ledger_wall,charged_cpu_seconds=charged_cpu,charged_wall_seconds=charged_wall,
+        reserved_cpu_seconds=reserve_cpu,reserved_wall_seconds=reserve_wall,remaining_cpu_seconds=remaining_cpu,
+        remaining_wall_seconds=remaining_wall,master_root=root,run_identity=expected_run_identity)
 
 
 def _write_report(path, value):
