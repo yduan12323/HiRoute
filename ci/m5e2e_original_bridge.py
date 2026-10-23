@@ -829,6 +829,9 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
     return report
 
 
+def _exit_code(status):
+    return 0 if status in ('REF_AUTHENTICATED_SUCCESS', 'BRIDGE_COMPLETE') else 2
+
 def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--report',required=True,type=Path)
@@ -854,7 +857,7 @@ def main(argv=None):
         _write_report(a.report,result); print(json.dumps(result,indent=2,sort_keys=True)); return 2
     result=run_bridge(report_path=a.report,**supplied)
     print(json.dumps(result,indent=2,sort_keys=True))
-    return 0 if result['status'] in ('REF_AUTHENTICATED_SUCCESS', 'BRIDGE_COMPLETE') else 2
+    return _exit_code(result['status'])
 
 
 if __name__ == '__main__':
