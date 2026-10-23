@@ -351,6 +351,25 @@ def _admit_inputs(configuration, manifest_binding, common_binding, source_root):
     return freeze, manifest, common, module_root, wrapper_identity_sha256
 
 
+def _trusted_run_identity(freeze, configuration):
+    parent = freeze.get('continuation_admission', {}).get('parent_waited_receipt')
+    if type(parent) is not dict or set(parent) != {'path', 'sha256'}:
+        raise AdmissionError('trusted continuation lacks the fixed parent waited receipt binding')
+    identity = _hash(_canonical({
+        'schema': 'hiroute.m5e2e.original_run_identity.v1',
+        'configuration_sha256': configuration['sha256'],
+        'parent_waited_receipt': parent,
+    }))
+    return identity, Path(parent['path']).resolve().parent
+
+
+def _require_authenticated_ref(result):
+    if (type(result) is not dict or result.get('status') != 'SUCCESS'
+            or result.get('independent_exact') is not True):
+        raise AdmissionError('REF result lacks independent exact authentication')
+    return result
+
+
 def _admission(configuration, manifest_binding, common_binding, account_path, account_sha, master_root, source_root):
     if type(configuration) is not dict or set(configuration) != {'path','sha256'}:
         raise AdmissionError('exact trusted recovery configuration binding required')
@@ -359,16 +378,9 @@ def _admission(configuration, manifest_binding, common_binding, account_path, ac
     if type(common_binding) is not dict or set(common_binding) != {'path','sha256'}:
         raise AdmissionError('exact original common seed binding required')
     freeze, manifest, common, module_root, wrapper_identity_sha256 = _admit_inputs(configuration, manifest_binding, common_binding, source_root)
-    parent = freeze.get('continuation_admission', {}).get('parent_waited_receipt')
-    if type(parent) is not dict or set(parent) != {'path', 'sha256'}:
-        raise AdmissionError('trusted continuation lacks the fixed parent waited receipt binding')
-    run_identity = _hash(_canonical({
-        'schema': 'hiroute.m5e2e.original_run_identity.v1',
-        'configuration_sha256': configuration['sha256'],
-        'parent_waited_receipt': parent,
-    }))
+    run_identity, claim_root = _trusted_run_identity(freeze, configuration)
     account = validate_master_accounting(account_path, account_sha, master_root, run_identity)
-    return account, freeze, manifest, common, module_root, run_identity, Path(parent['path']).resolve().parent, wrapper_identity_sha256
+    return account, freeze, manifest, common, module_root, run_identity, claim_root, wrapper_identity_sha256
 
 
 def _append_jsonl(path, row):
@@ -479,7 +491,7 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
             supervisor_receipt=str(output/'ref'/'receipt.json'))
         from experiments.m6h_manifest_v1 import reference
         result=reference.load_worker_result(output/'ref',receipt,'N8',common=common,manifest=manifest)
-        report['ref_status']=result['status']
+        _require_authenticated_ref(result)\n        report['ref_status']=result['status']
         if result['status']=='SUCCESS' and result.get('independent_exact') is True:
             report.update(status='REF_AUTHENTICATED_SUCCESS',
                 post_ref_methods_status='BLOCKED_TASKBOOK_METHOD_ADAPTER_MISSING',
