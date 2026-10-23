@@ -248,3 +248,10 @@ def test_timeout_receipt_settles_without_worker_attestation(tmp_path):
     assert not attestation_path.exists()
     assert result['worker_authenticated'] is False
     assert result['worker_attestation_sha256'] is None
+
+
+def test_install_preflight_missing_configuration_fails_closed():
+    result = bridge._install_preflight_result({}, '/missing/source-root')
+    assert result['status'] == 'NOT_RUN_DEPENDENCY'
+    assert result['numerical_worker_started'] is False
+    assert result['claim_created'] is False
