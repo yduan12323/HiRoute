@@ -135,10 +135,13 @@ def test_original_method_phase_is_exactly_external_300():
 
 
 def test_original_method_300_timeout_is_not_legacy_phase_timeout():
-    receipt={'status':'TIMEOUT','cleanup_verified':True}
-    assert bridge._classify_300_second_method_receipt(receipt,{})=='EXTERNAL_LIMIT_UNVERIFIED'
-    legacy={'status':'PHASE_TIMEOUT','cleanup_verified':True}
-    assert bridge._classify_300_second_method_receipt(legacy,{})=='INCOMPLETE'
+    identity={'nonce':'n','run_identity_sha256':'r'}
+    receipt={'status':'TIMEOUT','cleanup_verified':True,
+             'phase_budget':{'seconds':300,'identity':identity}}
+    assert bridge._classify_300_second_method_receipt(receipt,identity)=='EXTERNAL_LIMIT_UNVERIFIED'
+    legacy={'status':'PHASE_TIMEOUT','cleanup_verified':True,
+            'phase_budget':{'seconds':1200,'identity':identity}}
+    assert bridge._classify_300_second_method_receipt(legacy,identity)=='IDENTITY_MISMATCH'
 
 
 def test_invocation_freeze_is_immutable_and_canonical(tmp_path):
