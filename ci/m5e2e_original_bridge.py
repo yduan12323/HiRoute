@@ -391,6 +391,14 @@ def _append_jsonl(path, row):
         os.fsync(stream.fileno())
 
 
+def _ref_worker_command(interpreter, configuration, manifest, common, wrapper_identity_sha256):
+    return [str(interpreter), '-I', '-m', 'ci.m5e2e_original_bridge_worker',
+        '--configuration', configuration['path'], '--configuration-sha256', configuration['sha256'],
+        '--manifest', manifest['path'], '--manifest-sha256', manifest['sha256'],
+        '--common', common['path'], '--common-sha256', common['sha256'],
+        '--wrapper-identity-sha256', wrapper_identity_sha256]
+
+
 def _execute_claimed(command, *, master_root, claim_root, run_identity, source_root, account_path, account_sha, run_output,
                      claim_payload, state):
     """Run the existing supervisor while holding the same global budget lock."""
@@ -478,11 +486,7 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
     try:
         output.mkdir(parents=True,exist_ok=False)
         interpreter=freeze['toolchain']['interpreter']['requested_executable']
-        command=[interpreter,'-I','-m','ci.m5e2e_original_bridge_worker',
-            '--configuration',configuration['path'],'--configuration-sha256',configuration['sha256'],
-            '--manifest',manifest_binding['path'],'--manifest-sha256',manifest_binding['sha256'],
-            '--common',common_binding['path'],'--common-sha256',common_binding['sha256'],
-            '--wrapper-identity-sha256',wrapper_identity_sha256]
+        command=_ref_worker_command(interpreter,configuration,manifest_binding,common_binding,wrapper_identity_sha256)
         receipt=_execute_claimed(command,master_root=root,claim_root=claim_root,run_identity=run_identity,
             source_root=module_root,account_path=account_path,account_sha=account_sha,run_output=output/'ref',
             claim_payload=payload,state=state)
