@@ -478,6 +478,8 @@ def _execute_claimed(command, *, master_root, claim_root, run_identity, wrapper_
                 cleanup_verified=False,error=type(exc).__name__+': '+str(exc)))
             raise
         state['started']=True
+        if receipt.get('argv') != command:
+            raise AdmissionError('supervisor receipt command differs from the frozen invocation')
         attestation_path=Path(run_output)/'worker-attestation.json'
         attestation_raw=_read_regular(attestation_path,64*1024)
         attestation=json.loads(attestation_raw,object_pairs_hook=_unique_pairs)
