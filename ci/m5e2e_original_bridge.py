@@ -593,14 +593,13 @@ def _append_ref_supervisor_end(append, *, invocation, command, receipt,
         row.update(worker_attestation=str(attestation_path),
             worker_attestation_sha256=_hash(attestation_raw))
     append(row)
-    settled = dict(receipt)
-    settled['_worker_authenticated'] = worker_authenticated
-    settled['_worker_attestation_sha256'] = (_hash(attestation_raw)
-        if attestation_raw is not None and worker_authenticated else None)
-    settled['_worker_attestation_error'] = attestation_error
-    settled['_receipt_sha256'] = _hash(receipt_raw) if receipt_raw is not None else None
-    settled['_ledger_settled'] = True
-    return settled
+    return dict(supervisor_receipt=receipt,
+        worker_authenticated=worker_authenticated,
+        worker_attestation_sha256=(_hash(attestation_raw)
+            if attestation_raw is not None and worker_authenticated else None),
+        worker_attestation_error=attestation_error,
+        receipt_sha256=_hash(receipt_raw) if receipt_raw is not None else None,
+        ledger_settled=True)
 
 
 def _execute_claimed(command, *, master_root, claim_root, run_identity, wrapper_identity_sha256, freeze_sha256, source_root, account_path, account_sha, run_output,
@@ -649,10 +648,7 @@ def _execute_claimed(command, *, master_root, claim_root, run_identity, wrapper_
             attestation_path=Path(run_output)/'worker-attestation.json',
             run_identity=run_identity,wrapper_identity_sha256=wrapper_identity_sha256,
             freeze_sha256=freeze_sha256)
-        if not settled['cleanup_verified']:
-            state['cleanup_verified']=False
-        else:
-            state['cleanup_verified']=True
+        state['cleanup_verified']=bool(settled['supervisor_receipt'].get('cleanup_verified') is True and settled['ledger_settled'])
         # Capture the locked post-REF ledger state before releasing the global lock.
         settled['ledger_sha256_after_ref'] = _hash(ledger.read_bytes())
         return settled
@@ -850,15 +846,23 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
             common_sha256=common_binding['sha256'],created_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()))
         command=_ref_worker_command(interpreter,configuration,manifest_binding,common_binding,
             wrapper_identity_sha256,run_identity,freeze_path,freeze_sha256,attestation_path)
-        receipt=_execute_claimed(command,master_root=root,claim_root=claim_root,run_identity=run_identity,
+        execution=_execute_claimed(command,master_root=root,claim_root=claim_root,run_identity=run_identity,
             wrapper_identity_sha256=wrapper_identity_sha256,freeze_sha256=freeze_sha256,
             source_root=module_root,account_path=account_path,account_sha=account_sha,run_output=output/'ref',
             claim_payload=payload,state=state)
+        receipt=execution['supervisor_receipt']
         report.update(numerical_worker_started=state['started'],claim_created=True,claim_path=str(claim),
             invocation_freeze=str(freeze_path),invocation_freeze_sha256=freeze_sha256,
             supervisor_status=receipt.get('status'),cleanup_verified=receipt.get('cleanup_verified'),
             supervisor_receipt=str(output/'ref'/'receipt.json'),
-            worker_attestation_sha256=_hash(_read_regular(attestation_path,64*1024)))
+            supervisor_receipt_sha256=execution.get('receipt_sha256'),
+            worker_attestation_sha256=execution.get('worker_attestation_sha256'))
+        if receipt.get('status') != 'SUCCESS' or execution.get('worker_authenticated') is not True:
+            report.update(status='REF_ATTEMPT_CONSUMED_INCOMPLETE',ref_status='UNKNOWN',
+                ref_reason=execution.get('worker_attestation_error') or 'REF_SUPERVISOR_NOT_SUCCESS',
+                post_ref_methods_status='NOT_ADMITTED')
+            _write_report(report_path,report)
+            return report
         from experiments.m6h_manifest_v1 import reference
         result=reference.load_worker_result(output/'ref',receipt,'N8',common=common,manifest=manifest)
         _store_ref_result(report, result)
@@ -873,7 +877,7 @@ def run_bridge(*, configuration, manifest_binding, common_binding, account_path,
                     common_binding=common_binding,run_identity=run_identity,
                     wrapper_identity_sha256=wrapper_identity_sha256,freeze_path=freeze_path,
                     freeze_sha256=freeze_sha256,run_root=output,master_root=root,
-                    expected_ledger_sha256=receipt['ledger_sha256_after_ref'],
+                    expected_ledger_sha256=execution['ledger_sha256_after_ref'],
                     remaining_cpu=account['remaining_cpu_seconds']-receipt['accounted_owned_cpu_seconds'],
                     remaining_wall=account['remaining_wall_seconds']-receipt['wall_seconds'])
                 report['method_report']=method_report
