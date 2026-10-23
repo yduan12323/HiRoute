@@ -22,7 +22,7 @@ def _load_invocation(args):
     expected_keys = {'schema', 'run_identity', 'wrapper_identity_sha256',
         'interpreter_path', 'interpreter_sha256', 'source_identity_sha256',
         'configuration', 'manifest', 'common', 'master_accounting_sha256',
-        'phase_ledger_sha256'}
+        'phase_ledger_sha256', 'run_root', 'planned_method_order'}
     if type(frozen) is not dict or set(frozen) != expected_keys:
         raise AdmissionError('invocation freeze fields differ')
     if frozen['schema'] != 'hiroute.m5e2e.original_bridge_invocation.v1':
@@ -45,7 +45,7 @@ def _load_invocation(args):
     return frozen
 
 
-def _write_worker_attestation(path, frozen, freeze_sha256):
+def _write_worker_attestation(path, frozen, freeze_sha256, operation, strategy):
     value = {'schema': 'hiroute.m5e2e.original_bridge_attestation.v1',
         'run_identity': frozen['run_identity'],
         'wrapper_identity_sha256': frozen['wrapper_identity_sha256'],
@@ -92,7 +92,7 @@ def main(argv=None):
         from experiments.m6h_manifest_v1 import reference
         reference.worker(a.manifest, a.manifest_sha256, 'N8', a.common, a.common_sha256)
     else:
-        if a.strategy not in physical.ARMS:
+        if (a.strategy not in physical.ARMS or a.strategy not in frozen['planned_method_order']):
             raise AdmissionError('bridge method must be a pinned FLAT/HIER arm')
         from experiments.mechanism_recovery_v1 import run as base
         raw = _read_regular(a.common, 16 * 1024**2)
@@ -115,7 +115,7 @@ def main(argv=None):
             a.operation, 'N8', a.strategy)
         result_path.write_bytes(base.canonical(dict(status='COMPLETED', result=result)))
     physical._manifest(a.manifest, a.manifest_sha256)
-    _write_worker_attestation(a.attestation, frozen, a.freeze_sha256)
+    _write_worker_attestation(a.attestation, frozen, a.freeze_sha256, a.operation, a.strategy)
 
 
 if __name__ == '__main__':
