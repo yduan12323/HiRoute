@@ -64,11 +64,20 @@ def test_accounting_evidence_amount_tampering_is_rejected(tmp_path):
 
 def test_master_root_change_keeps_same_authoritative_claim_root(tmp_path):
     parent=tmp_path/'original'/'waited_round_receipt.json'
+    waited={'path':str(parent),'sha256':'b'*64}
+    admission={'schema':'hiroute.m6h.parent_receipt_continuation.v1',
+        'parent_waited_receipt':waited}
+    raw=bridge._canonical(admission)
+    admission_path=tmp_path/'continuation-admission.json'
+    admission_path.write_bytes(raw)
+    freeze={'continuation_admission':{'path':str(admission_path),
+        'sha256':hashlib.sha256(raw).hexdigest()}}
     configuration={'sha256':'a'*64}
-    freeze={'continuation_admission':{'parent_waited_receipt':
-        {'path':str(parent),'sha256':'b'*64}}}
+    # Caller-selected master roots do not enter this identity derivation.
     first_id,first_root=bridge._trusted_run_identity(freeze,configuration)
+    alternate_requested_master_root=tmp_path/'different-master-root'
     second_id,second_root=bridge._trusted_run_identity(freeze,configuration)
+    assert alternate_requested_master_root != first_root
     assert first_id==second_id
     assert first_root==second_root==parent.parent
 
