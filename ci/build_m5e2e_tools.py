@@ -25,7 +25,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='hiroute-tools-build-') as temporary:
         stage = Path(temporary)
         packages = set()
-        for top in ('experiments', 'validation', 'scripts'):
+        for top in ('experiments', 'validation', 'scripts', 'ci'):
             for path in sorted((ROOT / top).rglob('*')):
                 if not path.is_file() or path.suffix not in ('.py', '.cpp') and path.name not in ('installed.txt','requirements-hashed.txt'):
                     continue
@@ -42,6 +42,18 @@ def main():
                 while parent.parts:
                     packages.add('.'.join(parent.parts))
                     parent = parent.parent
+        bridge_dir = stage / 'ci'
+        bridge_dir.mkdir(parents=True, exist_ok=True)
+        bridge_identity = {
+            'schema': 'hiroute.m5e2e.original_bridge_wrapper.v1',
+            'modules': {
+                name: hashlib.sha256((bridge_dir / name).read_bytes()).hexdigest()
+                for name in ('m5e2e_original_bridge.py', 'm5e2e_original_bridge_worker.py')
+            },
+        }
+        (bridge_dir / 'original_bridge_identity.json').write_text(
+            json.dumps(bridge_identity, sort_keys=True, separators=(',', ':')))
+
         # Existing NativeDomain imports the frozen DEV cohort metadata at import
         # time. Ship its exact source-bound resource, never processed map inputs.
         relative=Path('docs/dev_cohort_v1_bindings.json')
