@@ -1,3 +1,14 @@
+## 2026-10-23 M5-E2E failure exit (current status)
+
+- Delivery: PARTIAL; clean E2E: BLOCKED. Repair source `04e87d21352fa93c8a04b4d4d4d92358b6aab5f6` fixes the exact osmium 1.18.0 tagged banner, but its installed synthetic gate reported 40 passed and 11 setup errors in normal mode; optimized mode and remote CI are NOT_RUN.
+- The original b44 prepare invocation started once and failed before raw input processing. Repaired prepare=0; repaired freeze=0. All 18 main-method slots are NOT_RUN. No repaired A/B map, solver, or holdout execution occurred.
+- Original Shandong REF: UNKNOWN; bridge operation: NOT_RUN_DEPENDENCY. Original binding sources were not fully inspected in this cycle. An earlier private archive draft labels the bridge NOT_RUN_MISSING_ORIGINAL_BINDING; this status is corrected here to UNKNOWN.
+- Historical M5-D remains M5D_LIMITED_BY_DATA_OR_SCALE; historical accounting remains UNKNOWN.
+- Current remaining budget: 27,024.969078 CPU seconds / 28,535.638004 external wall seconds, including conservative setup/evidence/publication reserves.
+- Failure-exit detail: [M5_E2E_FAILURE_EXIT_20261023.md](M5_E2E_FAILURE_EXIT_20261023.md). This PR remains open for review; no merge or holdout.
+
+---
+
 ## 2026-10-22 M5-E2E delivery
 
 Evaluated code/config source: `b44f391ba1ccd98ed7f1d173ef165ee194e90ca1`. Its GitHub code alias is `17fbe11df306aa0780c7ee07d108c276df572d1c`, with exactly equal tree `a2341935371490c80b0a03c9549c19bfe39f2dbf`. Connector publication changes commit metadata; the published SHA was not itself tested. The delivery commit after the code alias changes documentation only.

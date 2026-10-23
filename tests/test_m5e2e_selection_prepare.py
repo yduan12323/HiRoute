@@ -152,3 +152,45 @@ def test_frozen_model_window_and_source_drift_rejected():
     config['physical']['reserve_kwh']='6'
     config['provenance']['model_source_sha256']['experiments/m6h_manifest_v1/physical.py']='0'*64
     with pytest.raises(ValueError,match='physical source changed'):validate_frozen_model(config)
+
+
+@pytest.fixture(scope='module')
+def source_osmium_version_gate():
+    import importlib.util
+    from pathlib import Path
+
+    source = Path(__file__).resolve().parents[1] / 'experiments/shandong_preprocessing_v1/phases.py'
+    spec = importlib.util.spec_from_file_location('m5e2e_source_phases', source)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module._require_osmium_version
+
+
+@pytest.mark.parametrize(
+    'version_line',
+    [
+        'osmium version 1.18.0',
+        'osmium version 1.18.0 (v1.18.0)',
+    ],
+)
+def test_osmium_version_gate_accepts_exact_pinned_lines(version_line, source_osmium_version_gate):
+    assert source_osmium_version_gate(version_line + '\nlibosmium version 2.23.0\n') is None
+
+
+@pytest.mark.parametrize(
+    'output',
+    [
+        '',
+        'osmium version 1.18.0',
+        'osmium version 1.18.01\n',
+        'osmium version 1.19.0\n',
+        'osmium version 1.18.0 (v1.18.01)\n',
+        'osmium version 1.18.0 (v1.19.0)\n',
+        'osmium version 1.18.0 (v1.18.0-dirty)\n',
+        'osmium version 1.18.0 (arbitrary suffix)\n',
+        'osmium version 1.18.0 unrecognized\n',
+    ],
+)
+def test_osmium_version_gate_rejects_unpinned_or_malformed_output(output, source_osmium_version_gate):
+    with pytest.raises(RuntimeError, match='^Pinned osmium version mismatch$'):
+        source_osmium_version_gate()

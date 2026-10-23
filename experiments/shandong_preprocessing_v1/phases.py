@@ -69,6 +69,18 @@ def native(osmium,*args):
                                   env={**os.environ,'OSMIUM_POOL_THREADS':'1'})
 
 
+_OSMIUM_VERSION_LINES = (
+    'osmium version 1.18.0',
+    'osmium version 1.18.0 (v1.18.0)',
+)
+
+
+def _require_osmium_version(output):
+    first, sep, _ = output.partition('\n')
+    if not sep or first not in _OSMIUM_VERSION_LINES:
+        raise RuntimeError('Pinned osmium version mismatch')
+
+
 REQUIRED_FILES = {
     'source': {'source.osm.pbf','boundary.poly','boundary.geojson','sources.json'},
     'graph': {'nodes.parquet','edges.parquet','metadata.json','highways.pbf'},
@@ -381,7 +393,7 @@ def main():
     for line in (Path(__file__).parent/'installed.txt').read_text().splitlines():
         name,version=line.split('==')
         if importlib.metadata.version(name)!=version:raise ValueError('Pinned dependency version mismatch: '+name)
-    if not native(args.osmium,'--version').startswith('osmium version 1.18.0\n'):raise ValueError('Pinned osmium version mismatch')
+    _require_osmium_version(native(args.osmium,'--version'))
     config_path=Path(__file__).parent/'config.json'
     if not args.fixture:
         from experiments.m6h_manifest_v1.recovery_runtime import preprocessing_config_path

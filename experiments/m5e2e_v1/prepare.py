@@ -90,8 +90,7 @@ def prepare_inputs(config, raw_cache, output_root, *, osmium, compiler, config_r
     for line in (package_root/'experiments/shandong_preprocessing_v1/installed.txt').read_text().splitlines():
         name,version=line.split('==')
         if importlib.metadata.version(name)!=version: raise RuntimeError('Pinned preprocessing dependency mismatch: '+name)
-    if not phases.native(osmium,'--version').startswith('osmium version 1.18.0\n'):
-        raise RuntimeError('Pinned osmium version mismatch')
+    phases._require_osmium_version(phases.native(osmium,'--version'))
     tools=phases.toolchain_identity(sys.executable,osmium,compiler)
     os.environ['HIROUTE_TOOLCHAIN_IDENTITY']=json.dumps(tools,sort_keys=True)
     root=Path(output_root).resolve(); root.mkdir(parents=True,exist_ok=False)
