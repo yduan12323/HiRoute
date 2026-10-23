@@ -444,6 +444,54 @@ def _ref_worker_command(interpreter, configuration, manifest, common,
     return command
 
 
+def _method_phase_identity(physical, manifest, manifest_sha256, common_sha256, strategy, run_identity):
+    if strategy not in ('flat', 'hier'):
+        raise AdmissionError('only the original FLAT/HIER arms are admitted')
+    identity = physical.phase_identity(manifest, manifest_sha256, strategy, common_sha256)
+    identity['run_identity_sha256'] = run_identity
+    identity['nonce'] = __import__('uuid').uuid4().hex
+    return identity
+
+
+def _classify_300_second_method_receipt(receipt, expected_identity):
+    if type(receipt) is not dict or receipt.get('cleanup_verified') is not True:
+        return 'INCOMPLETE'
+    if receipt.get('status') == 'TIMEOUT':
+        return 'EXTERNAL_LIMIT_UNVERIFIED'
+    if receipt.get('status') != 'SUCCESS':
+        return 'INCOMPLETE'
+    phase = receipt.get('phase_budget')
+    if (type(phase) is not dict or phase.get('seconds') != 300
+            or phase.get('identity') != expected_identity):
+        return 'IDENTITY_MISMATCH'
+    return 'SUCCESS'
+
+
+def _run_method_search_300(command, *, output_dir, cwd, identity, cpu,
+                           global_cpu_remaining, global_wall_remaining):
+    from experiments.m6h_manifest_v1.supervisor import Limits, PhaseBudget, run
+    return run(command, output_dir=output_dir, cwd=cwd,
+        limits=Limits(wall_seconds=300, cpu_seconds=300, address_space_bytes=4*1024**3,
+            cpu=cpu, file_output_bytes=2*1024**3, max_output_entries=10000, max_processes=16),
+        phase_budget=PhaseBudget(seconds=300, identity=identity, marker_name='m5_method_entry.json'),
+        tree_rss_stop_bytes=4*1024**3, available_stop_bytes=10*1024**3,
+        prelaunch_available_bytes=14*1024**3, tree_cpu_seconds=300,
+        global_cpu_remaining=global_cpu_remaining, global_wall_remaining=global_wall_remaining,
+        owned_temp=True, extra_env={'PYTHONNOUSERSITE':'1'})
+
+
+def _run_method_verify_120(command, *, output_dir, cwd, cpu,
+                           global_cpu_remaining, global_wall_remaining):
+    from experiments.m6h_manifest_v1.supervisor import Limits, run
+    return run(command, output_dir=output_dir, cwd=cwd,
+        limits=Limits(wall_seconds=120, cpu_seconds=120, address_space_bytes=4*1024**3,
+            cpu=cpu, file_output_bytes=2*1024**3, max_output_entries=10000, max_processes=16),
+        tree_rss_stop_bytes=4*1024**3, available_stop_bytes=10*1024**3,
+        prelaunch_available_bytes=14*1024**3, tree_cpu_seconds=120,
+        global_cpu_remaining=global_cpu_remaining, global_wall_remaining=global_wall_remaining,
+        owned_temp=True, extra_env={'PYTHONNOUSERSITE':'1'})
+
+
 def _execute_claimed(command, *, master_root, claim_root, run_identity, wrapper_identity_sha256, freeze_sha256, source_root, account_path, account_sha, run_output,
                      claim_payload, state):
     """Run the existing supervisor while holding the same global budget lock."""
