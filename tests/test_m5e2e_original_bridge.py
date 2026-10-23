@@ -104,9 +104,13 @@ def test_wrapper_identity_drift_is_rejected(tmp_path):
 def test_worker_command_is_isolated_and_binds_all_inputs():
     command=bridge._ref_worker_command('/venv/bin/python',
         {'path':'/cfg','sha256':'c'*64},{'path':'/manifest','sha256':'m'*64},
-        {'path':'/common','sha256':'n'*64},'w'*64)
+        {'path':'/common','sha256':'n'*64},'w'*64,'r'*64,'/freeze.json','f'*64,
+        '/attestation.json',operation='arm',strategy='flat')
     assert command[:4]==['/venv/bin/python','-I','-m','ci.m5e2e_original_bridge_worker']
-    assert command[-2:]==['--wrapper-identity-sha256','w'*64]
+    assert command[4:6]==['--operation','arm']
+    assert command[-2:]==['--strategy','flat']
+    assert '--invocation-freeze' in command and '--freeze-sha256' in command
+    assert '--wrapper-identity-sha256' in command
     assert '--configuration-sha256' in command and '--manifest-sha256' in command
     assert '--common-sha256' in command
 
@@ -114,3 +118,35 @@ def test_worker_command_is_isolated_and_binds_all_inputs():
 def test_ref_result_authentication_failure_blocks_followup():
     with pytest.raises(bridge.AdmissionError,match='independent exact authentication'):
         bridge._require_authenticated_ref({'status':'SUCCESS','independent_exact':False})
+
+
+
+def test_original_method_phase_is_exactly_external_300():
+    class Physical:
+        @staticmethod
+        def phase_identity(manifest, manifest_sha256, strategy, common_sha256):
+            return {'case_id':'N8','strategy':strategy,
+                    'manifest_sha256':manifest_sha256,'common_sha256':common_sha256}
+    identity=bridge._method_phase_identity(Physical,{},'m'*64,'c'*64,'flat','r'*64)
+    assert identity['strategy']=='flat'
+    receipt={'status':'SUCCESS','cleanup_verified':True,
+             'phase_budget':{'seconds':300,'identity':identity}}
+    assert bridge._classify_300_second_method_receipt(receipt,identity)=='SUCCESS'
+
+
+def test_original_method_300_timeout_is_not_legacy_phase_timeout():
+    receipt={'status':'TIMEOUT','cleanup_verified':True}
+    assert bridge._classify_300_second_method_receipt(receipt,{})=='EXTERNAL_LIMIT_UNVERIFIED'
+    legacy={'status':'PHASE_TIMEOUT','cleanup_verified':True}
+    assert bridge._classify_300_second_method_receipt(legacy,{})=='INCOMPLETE'
+
+
+def test_invocation_freeze_is_immutable_and_canonical(tmp_path):
+    path=tmp_path/'invocation-freeze.json'
+    frozen={'schema':'hiroute.m5e2e.original_bridge_invocation.v1',
+        'run_identity':'r'*64,'wrapper_identity_sha256':'w'*64}
+    digest=bridge._write_frozen_invocation(path,frozen)
+    assert hashlib.sha256(path.read_bytes()).hexdigest()==digest
+    assert json.loads(path.read_bytes())==frozen
+    with pytest.raises(FileExistsError):
+        bridge._write_frozen_invocation(path,frozen)
