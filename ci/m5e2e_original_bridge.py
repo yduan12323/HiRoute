@@ -590,6 +590,13 @@ def _execute_claimed(command, *, master_root, claim_root, run_identity, wrapper_
         return receipt
 
 
+def _verify_locked_ledger_snapshot(path, expected_sha256):
+    raw = _read_regular(path, MAX_EVIDENCE_BYTES)
+    if _hash(raw) != expected_sha256:
+        raise AdmissionError('master ledger changed after REF; method continuation is blocked')
+    _ledger_totals(raw)
+    return raw
+
 def _run_original_methods_after_ref(*, ref_result, physical, manifest, manifest_binding,
                                     common, common_binding, run_identity, wrapper_identity_sha256,
                                     freeze_path, freeze_sha256, run_root, master_root,
@@ -604,10 +611,7 @@ def _run_original_methods_after_ref(*, ref_result, physical, manifest, manifest_
     results = []
     with (root/'exclusive.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX|fcntl.LOCK_NB)
-        current = _read_regular(ledger, MAX_EVIDENCE_BYTES)
-        if _hash(current) != expected_ledger_sha256:
-            raise AdmissionError('master ledger changed after REF; method continuation is blocked')
-        _ledger_totals(current)
+        _verify_locked_ledger_snapshot(ledger, expected_ledger_sha256)
         for strategy in ('flat', 'hier'):
             identity = _method_phase_identity(physical, manifest, manifest_binding['sha256'],
                 common_binding['sha256'], strategy, run_identity)
