@@ -2,7 +2,7 @@
 import hashlib
 import json
 import pytest
-from experiments.m5e2e_v1 import original_bridge as bridge
+from ci import m5e2e_original_bridge as bridge
 
 
 def test_ledger_rejects_unsettled_attempt():
