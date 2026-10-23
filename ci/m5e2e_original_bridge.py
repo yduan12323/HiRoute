@@ -352,12 +352,18 @@ def _admit_inputs(configuration, manifest_binding, common_binding, source_root):
 
 
 def _trusted_run_identity(freeze, configuration):
-    parent = freeze.get('continuation_admission', {}).get('parent_waited_receipt')
+    admission_binding = freeze.get('continuation_admission')
+    admission, _ = _json_binding(admission_binding, limit=128 * 1024, canonical=True)
+    if (type(admission) is not dict
+            or admission.get('schema') != 'hiroute.m6h.parent_receipt_continuation.v1'):
+        raise AdmissionError('root-verified continuation admission schema differs')
+    parent = admission.get('parent_waited_receipt')
     if type(parent) is not dict or set(parent) != {'path', 'sha256'}:
-        raise AdmissionError('trusted continuation lacks the fixed parent waited receipt binding')
+        raise AdmissionError('verified continuation lacks its parent waited receipt binding')
     identity = _hash(_canonical({
         'schema': 'hiroute.m5e2e.original_run_identity.v1',
         'configuration_sha256': configuration['sha256'],
+        'continuation_admission_sha256': admission_binding['sha256'],
         'parent_waited_receipt': parent,
     }))
     return identity, Path(parent['path']).resolve().parent
