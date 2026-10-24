@@ -1,0 +1,446 @@
+{
+  "budget_cpu_hours": 24,
+  "started_at": "2026-10-24T08:27:19Z",
+  "accounting": {
+    "measured_cpu_seconds": 36.52,
+    "estimated_cpu_seconds": 0,
+    "reserved_cpu_seconds": 10680,
+    "unknown": [
+      "temporary venv creation CPU was not measured or retained; it occurred during R1 setup and is not charged as measured"
+    ]
+  },
+  "runs": [
+    {
+      "phase": "R1 initial official build, install, contract tests and C01 adapter attempts",
+      "measured_cpu_seconds": {
+        "wheel_build": 0.83,
+        "contract_tests": 0.04,
+        "failed_initial_c01_adapter_attempt": 0.1,
+        "final_timed_c01_installed_call": 0.08
+      },
+      "estimated_cpu_seconds": {},
+      "reserved_cpu_seconds": 10680,
+      "evidence": [
+        "runs/r1/build-output.log",
+        "runs/r1/install-output.log",
+        "runs/r1/contract-tests-output.log",
+        "runs/r1/c01-initial-failure.log",
+        "runs/r1/c01-final-time.log",
+        "runs/r1/install-reconstruction.json"
+      ],
+      "note": "The earlier 220.416s estimate based on file timestamps is withdrawn. For the original untimed installation, reserve the entire observed rebuild-round wall window from 2026-10-24T08:27:19Z to 2026-10-24T08:42:09Z (890s) at the host logical-core ceiling of 12: 10,680 CPU-s reserved. This is a conservative gross reservation, not a measured value or a trusted command-specific bound; original argv/process start were not captured. Current supervised REF install is separately measured."
+    },
+    {
+      "run_id": "ref-wheel-build",
+      "measured_cpu_seconds": 0.51,
+      "exit_code": 0,
+      "evidence": "runs/supervised/ref-wheel-build"
+    },
+    {
+      "run_id": "ref-venv-create",
+      "measured_cpu_seconds": 2.16,
+      "exit_code": 0,
+      "evidence": "runs/supervised/ref-venv-create"
+    },
+    {
+      "run_id": "ref-wheel-install-and-deps",
+      "measured_cpu_seconds": 10.19,
+      "exit_code": 0,
+      "evidence": "runs/supervised/ref-wheel-install-and-deps"
+    },
+    {
+      "run_id": "r1-ref-entry",
+      "measured_cpu_seconds": 0.31,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-ref-entry"
+    },
+    {
+      "run_id": "r0-c18-inherited-family",
+      "measured_cpu_seconds": 0.2,
+      "exit_code": 4,
+      "evidence": "runs/supervised/r0-c18-inherited-family"
+    },
+    {
+      "run_id": "r1-ref-wheel-rebuild",
+      "measured_cpu_seconds": 0.58,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-ref-wheel-rebuild"
+    },
+    {
+      "run_id": "r1-ref-wheel-refresh",
+      "measured_cpu_seconds": 0.32,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-ref-wheel-refresh"
+    },
+    {
+      "run_id": "r1-ref-entry",
+      "measured_cpu_seconds": 0.32,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-ref-entry"
+    },
+    {
+      "run_id": "r0-c18-inherited-family",
+      "measured_cpu_seconds": 0.02,
+      "exit_code": 1,
+      "evidence": "runs/supervised/r0-c18-inherited-family"
+    },
+    {
+      "run_id": "r1-ref-wheel-rebuild-local",
+      "measured_cpu_seconds": 0.6,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-ref-wheel-rebuild-local"
+    },
+    {
+      "run_id": "r1-ref-wheel-refresh-local",
+      "measured_cpu_seconds": 0.31,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-ref-wheel-refresh-local"
+    },
+    {
+      "run_id": "r1-ref-module-entry",
+      "measured_cpu_seconds": 0.31,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-ref-module-entry"
+    },
+    {
+      "run_id": "r0-c18-inherited-family",
+      "measured_cpu_seconds": 0.03,
+      "exit_code": 1,
+      "evidence": "runs/supervised/r0-c18-inherited-family"
+    },
+    {
+      "run_id": "r0-c18-inherited-family",
+      "measured_cpu_seconds": 0.03,
+      "exit_code": 1,
+      "evidence": "runs/supervised/r0-c18-inherited-family"
+    },
+    {
+      "run_id": "r0-c18-inherited-family-v2",
+      "measured_cpu_seconds": 0.06,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r0-c18-inherited-family-v2"
+    },
+    {
+      "run_id": "r0-c20-c24-executable-v1",
+      "measured_cpu_seconds": 0.13,
+      "exit_code": 1,
+      "evidence": "runs/supervised/r0-c20-c24-executable-v1",
+      "note": "C24 fixture expected key was stale; solver returned J=5, so this evidence is a failed assertion retained, not omitted."
+    },
+    {
+      "run_id": "r0-c20-c24-executable-v2",
+      "measured_cpu_seconds": 0.13,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r0-c20-c24-executable-v2",
+      "note": "C18 and executable C20-C24 checks passed."
+    },
+    {
+      "run_id": "r1-ref-small-real-case-v1",
+      "measured_cpu_seconds": 1.69,
+      "exit_code": 1,
+      "evidence": "runs/supervised/r1-ref-small-real-case",
+      "note": "Input generator emitted a literal backslash-n; REF rejected JSON. Retained as failed attempt."
+    },
+    {
+      "run_id": "r1-ref-small-real-case-v2",
+      "measured_cpu_seconds": 1.75,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-ref-small-real-case",
+      "note": "Independent installed REF CLI solved the two-node C01-derived snapshot; attained_optimum. This is a synthetic small-case reference run, not real production data or broader optimality coverage."
+    },
+    {
+      "run_id": "r2-exact-cut-v1",
+      "measured_cpu_seconds": 0.05,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-exact-cut-v1"
+    },
+    {
+      "run_id": "r2-strict-projection-v1",
+      "measured_cpu_seconds": 0.05,
+      "exit_code": 1,
+      "evidence": "runs/supervised/r2-strict-projection-v1"
+    },
+    {
+      "run_id": "r2-strict-projection-v2",
+      "measured_cpu_seconds": 0.06,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-strict-projection-v2"
+    },
+    {
+      "run_id": "r0-c09-original-76-v1",
+      "measured_cpu_seconds": 0.01,
+      "exit_code": 1,
+      "evidence": "runs/supervised/r0-c09-original-76-v1"
+    },
+    {
+      "run_id": "r0-c09-bounded-unittest-v1",
+      "measured_cpu_seconds": 2.04,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r0-c09-bounded-unittest-v1"
+    },
+    {
+      "run_id": "r2-interval-v1",
+      "measured_cpu_seconds": 0.05,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-interval-v1"
+    },
+    {
+      "run_id": "r2-interval-v1",
+      "measured_cpu_seconds": 0.05,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-interval-v1"
+    },
+    {
+      "run_id": "r2-pwa-piece-v1",
+      "measured_cpu_seconds": 0.06,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-pwa-piece-v1"
+    },
+    {
+      "run_id": "r2-pwa-projection-parity-v2",
+      "measured_cpu_seconds": 0.06,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-pwa-projection-parity-v2"
+    },
+    {
+      "run_id": "r0-c24-key-probe-v1",
+      "measured_cpu_seconds": 0.01,
+      "exit_code": 1,
+      "evidence": "runs/supervised/r0-c24-key-probe-v1"
+    },
+    {
+      "run_id": "r0-c24-key-probe-v2",
+      "measured_cpu_seconds": 0.05,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r0-c24-key-probe-v2"
+    },
+    {
+      "run_id": "r0-c24-observer-fullkey-v1",
+      "measured_cpu_seconds": 0.08,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r0-c24-observer-fullkey-v1"
+    },
+    {
+      "run_id": "r2-projection-dimension-regression-v1",
+      "measured_cpu_seconds": 0.06,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-projection-dimension-regression-v1"
+    },
+    {
+      "run_id": "r2-wheel-build-v1",
+      "measured_cpu_seconds": 0.51,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-wheel-build-v1"
+    },
+    {
+      "run_id": "r2-wheel-install-v1",
+      "measured_cpu_seconds": 0.3,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-wheel-install-v1"
+    },
+    {
+      "run_id": "r2-wheel-import-check-v1",
+      "measured_cpu_seconds": 0.04,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-wheel-import-check-v1"
+    },
+    {
+      "run_id": "r0-contracts-result-invariants-v1",
+      "measured_cpu_seconds": 0.08,
+      "exit_code": 1,
+      "evidence": "runs/supervised/r0-contracts-result-invariants-v1"
+    },
+    {
+      "run_id": "r0-contracts-result-invariants-v2",
+      "measured_cpu_seconds": 0.07,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r0-contracts-result-invariants-v2"
+    },
+    {
+      "run_id": "r2-wheel-build-v2",
+      "measured_cpu_seconds": 0.51,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-wheel-build-v2"
+    },
+    {
+      "run_id": "r2-wheel-install-v2",
+      "measured_cpu_seconds": 0.3,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-wheel-install-v2"
+    },
+    {
+      "run_id": "r1-installed-cli-mutation-v1",
+      "measured_cpu_seconds": 0.41,
+      "exit_code": 1,
+      "evidence": "runs/supervised/r1-installed-cli-mutation-v1"
+    },
+    {
+      "run_id": "r2-wheel-build-v3",
+      "measured_cpu_seconds": 0.51,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-wheel-build-v3"
+    },
+    {
+      "run_id": "r2-wheel-install-v3",
+      "measured_cpu_seconds": 0.29,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-wheel-install-v3"
+    },
+    {
+      "run_id": "r1-installed-cli-mutation-v2",
+      "measured_cpu_seconds": 0.42,
+      "exit_code": 1,
+      "evidence": "runs/supervised/r1-installed-cli-mutation-v2"
+    },
+    {
+      "run_id": "r1-installed-cli-mutation-v3",
+      "measured_cpu_seconds": 0.42,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-installed-cli-mutation-v3"
+    },
+    {
+      "run_id": "r0-result-snapshot-ref-admission-v1",
+      "measured_cpu_seconds": 0.4,
+      "exit_code": 1,
+      "evidence": "runs/supervised/r0-result-snapshot-ref-admission-v1"
+    },
+    {
+      "run_id": "r0-result-snapshot-ref-admission-v2",
+      "measured_cpu_seconds": 0.39,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r0-result-snapshot-ref-admission-v2"
+    },
+    {
+      "run_id": "r2-wheel-build-v4",
+      "measured_cpu_seconds": 0.51,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-wheel-build-v4"
+    },
+    {
+      "run_id": "r2-wheel-install-v4",
+      "measured_cpu_seconds": 2.18,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-wheel-install-v4"
+    },
+    {
+      "run_id": "r2-wheel-pip-install-v4",
+      "measured_cpu_seconds": 0.3,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-wheel-pip-install-v4"
+    },
+    {
+      "run_id": "r1-installed-cli-mutation-v4",
+      "measured_cpu_seconds": 0.41,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-installed-cli-mutation-v4"
+    },
+    {
+      "run_id": "r1-ref-wheel-build-v2",
+      "measured_cpu_seconds": 0.32,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-ref-wheel-build-v2"
+    },
+    {
+      "run_id": "r1-ref-wheel-install-v2",
+      "measured_cpu_seconds": 0.29,
+      "exit_code": 1,
+      "evidence": "runs/supervised/r1-ref-wheel-install-v2"
+    },
+    {
+      "run_id": "r1-ref-installed-admission-v1",
+      "measured_cpu_seconds": 0.33,
+      "exit_code": 1,
+      "evidence": "runs/supervised/r1-ref-installed-admission-v1"
+    },
+    {
+      "run_id": "r1-ref-wheel-build-v3",
+      "measured_cpu_seconds": 0.6,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-ref-wheel-build-v3"
+    },
+    {
+      "run_id": "r1-ref-wheel-install-v3",
+      "measured_cpu_seconds": 0.31,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-ref-wheel-install-v3"
+    },
+    {
+      "run_id": "r1-ref-installed-admission-v2",
+      "measured_cpu_seconds": 0.32,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-ref-installed-admission-v2"
+    },
+    {
+      "run_id": "r1-ref-small-real-case-v3",
+      "measured_cpu_seconds": 0.32,
+      "exit_code": 1,
+      "evidence": "runs/supervised/r1-ref-small-real-case-v3"
+    },
+    {
+      "run_id": "r1-ref-small-real-case-v4",
+      "measured_cpu_seconds": 0.34,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-ref-small-real-case-v4"
+    },
+    {
+      "run_id": "r1-wheel-contract-unit-v4",
+      "measured_cpu_seconds": 0.05,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-wheel-contract-unit-v4"
+    },
+    {
+      "run_id": "r0-r2-batch-regression-v5",
+      "measured_cpu_seconds": 0.37,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r0-r2-batch-regression-v5"
+    },
+    {
+      "run_id": "r2-exact-slice-regression-v3",
+      "measured_cpu_seconds": 0.06,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-exact-slice-regression-v3"
+    },
+    {
+      "run_id": "r0-r2-batch-regression-v6",
+      "measured_cpu_seconds": 0.37,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r0-r2-batch-regression-v6"
+    },
+    {
+      "run_id": "r2-exact-slice-regression-v4",
+      "measured_cpu_seconds": 0.06,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-exact-slice-regression-v4"
+    },
+    {
+      "run_id": "r2-wheel-build-v5",
+      "measured_cpu_seconds": 0.6,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-wheel-build-v5"
+    },
+    {
+      "run_id": "r2-wheel-install-v5",
+      "measured_cpu_seconds": 0.35,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r2-wheel-install-v5"
+    },
+    {
+      "run_id": "r1-wheel-contract-unit-v5",
+      "measured_cpu_seconds": 0.04,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-wheel-contract-unit-v5"
+    },
+    {
+      "run_id": "r1-installed-cli-mutation-v5",
+      "measured_cpu_seconds": 0.0,
+      "exit_code": 2,
+      "evidence": "runs/supervised/r1-installed-cli-mutation-v5"
+    },
+    {
+      "run_id": "r1-installed-cli-mutation-v6",
+      "measured_cpu_seconds": 0.41,
+      "exit_code": 0,
+      "evidence": "runs/supervised/r1-installed-cli-mutation-v6"
+    }
+  ]
+}

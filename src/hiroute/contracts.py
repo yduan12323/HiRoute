@@ -10,6 +10,7 @@ from fractions import Fraction
 import hashlib
 import json
 import re
+from types import MappingProxyType
 from typing import Any, Mapping
 
 SNAPSHOT_SCHEMA = "hiroute.problem_snapshot.v1"
@@ -80,6 +81,14 @@ class ProblemSnapshot:
         for key in ("model_contract_id", "numerical_contract_id", "origin",
                     "destination", "selected_leg_contract", "graph_or_leg_identity"):
             _identifier(getattr(self, key), key)
+        if self.schedule is not None:
+            object.__setattr__(self, "schedule", MappingProxyType(dict(self.schedule)))
+        object.__setattr__(self, "candidate_order", tuple(self.candidate_order))
+        object.__setattr__(self, "site_capabilities", MappingProxyType(
+            {str(k): tuple(v) for k, v in self.site_capabilities.items()}))
+        object.__setattr__(self, "charging_curve", tuple(tuple(row) for row in self.charging_curve))
+        object.__setattr__(self, "directed_edges", tuple(
+            MappingProxyType(dict(row)) for row in self.directed_edges))
         numeric = ("departure_time_s", "initial_energy_kwh", "capacity_kwh",
                    "minimum_energy_kwh", "destination_reserve_kwh",
                    "stop_overhead_s", "stop_penalty_s", "consumption_kwh_per_m")
@@ -305,24 +314,69 @@ class SolveResult:
     def __post_init__(self) -> None:
         if self.schema != RESULT_SCHEMA:
             raise ValueError("Unsupported result schema")
-        if self.execution_status not in {"completed", "time_limit", "memory_limit",
-                                         "interrupted", "invalid_input", "unsupported_model", "error"}:
+        executions = {"completed", "time_limit", "memory_limit", "interrupted",
+                      "invalid_input", "unsupported_model", "error"}
+        mathematics = {"attained_optimum", "primary_unattained", "secondary_unattained",
+                       "infeasible_within_declared_domain", "unknown"}
+        verifications = {"not_run", "witness_verified", "independently_optimality_verified", "failed"}
+        if self.execution_status not in executions:
             raise ValueError("Unknown execution status")
-        if self.mathematical_status not in {"attained_optimum", "primary_unattained",
-                                            "secondary_unattained",
-                                            "infeasible_within_declared_domain", "unknown"}:
+        if self.mathematical_status not in mathematics:
             raise ValueError("Unknown mathematical status")
-        if self.verification_status not in {"not_run", "witness_verified",
-                                            "independently_optimality_verified", "failed"}:
+        if self.verification_status not in verifications:
             raise ValueError("Unknown verification status")
-        if self.mathematical_status == "attained_optimum" and self.key is None:
-            raise ValueError("An attained optimum requires its complete key")
-        if self.mathematical_status == "primary_unattained" and self.primary_infimum is None:
-            raise ValueError("Primary nonattainment requires the primary infimum")
-        if self.mathematical_status == "secondary_unattained" and (
-            self.key is not None or self.witness is not None or self.secondary_infimum is None
-        ):
-            raise ValueError("Secondary nonattainment cannot claim an attained key or witness")
+        for name in ("semantic_problem_id", "representation_id", "build_id", "run_id", "backend"):
+            _identifier(getattr(self, name), name)
+        if not isinstance(self.backend_evidence, Mapping):
+            raise TypeError("backend_evidence must be a mapping")
+        object.__setattr__(self, "backend_evidence", MappingProxyType(dict(self.backend_evidence)))
+        if self.execution_status != "completed" and self.mathematical_status != "unknown":
+            raise ValueError("Non-completed execution cannot claim a mathematical conclusion")
+        if self.execution_status in {"invalid_input", "unsupported_model", "error"} and self.witness is not None:
+            raise ValueError("Rejected or errored execution cannot carry a feasible witness")
+        if self.mathematical_status == "attained_optimum":
+            if self.execution_status != "completed" or self.key is None:
+                raise ValueError("An attained optimum requires completed execution and its full key")
+            if not isinstance(self.key, (tuple, list)) or len(self.key) != 4:
+                raise ValueError("An attained optimum key must contain (J,Q,H,Pi)")
+            j, q, h, actions = self.key
+            normalized = (rational_text(j, "key.J"), rational_text(q, "key.Q"), h,
+                          tuple(tuple(pair) for pair in actions))
+            if type(h) is not int or h < 0:
+                raise ValueError("Key H must be a nonnegative integer")
+            if any(len(pair) != 2 or not all(isinstance(x, str) and x for x in pair)
+                   for pair in normalized[3]):
+                raise ValueError("Key Pi must contain node/action string pairs")
+            if any(action not in {"C", "S", "CS"} for _, action in normalized[3]):
+                raise ValueError("Key Pi contains an unsupported Site action")
+            if h != len(normalized[3]):
+                raise ValueError("Key H must equal the number of Site actions in Pi")
+            object.__setattr__(self, "key", normalized)
+            if self.witness is not None and tuple(self.witness.actions) != normalized[3]:
+                raise ValueError("Attained key Pi must match the replayed witness actions")
+        elif self.key is not None:
+            raise ValueError("Only an attained optimum may carry a complete lexicographic key")
+        if self.mathematical_status == "primary_unattained":
+            if self.execution_status != "completed" or self.primary_infimum is None:
+                raise ValueError("Primary nonattainment requires completed execution and its infimum")
+            if self.secondary_infimum is not None:
+                raise ValueError("Primary nonattainment cannot claim a secondary infimum")
+        elif self.primary_infimum is not None:
+            raise ValueError("Primary infimum is only defined for primary_unattained")
+        if self.mathematical_status == "secondary_unattained":
+            if self.execution_status != "completed" or self.witness is not None or self.secondary_infimum is None:
+                raise ValueError("Secondary nonattainment requires its infimum and no attained witness")
+        elif self.secondary_infimum is not None:
+            raise ValueError("Secondary infimum is only defined for secondary_unattained")
+        if self.mathematical_status == "infeasible_within_declared_domain":
+            if self.execution_status != "completed" or self.key is not None or self.witness is not None:
+                raise ValueError("Infeasibility requires completed execution and cannot carry a witness or key")
+        if self.verification_status == "witness_verified" and self.witness is None:
+            raise ValueError("witness_verified requires a witness")
+        if self.verification_status == "independently_optimality_verified" and self.mathematical_status != "attained_optimum":
+            raise ValueError("Independent optimality verification requires an attained optimum")
+        if self.verification_status == "failed" and self.mathematical_status != "unknown":
+            raise ValueError("Failed verification cannot accompany a mathematical conclusion")
 
     def to_dict(self) -> dict[str, Any]:
         return {"schema": self.schema, "execution_status": self.execution_status,

@@ -97,16 +97,22 @@ class Projection:
     original: tuple[Row, ...]
     rows: tuple[Row, ...]
     history: tuple[tuple[int, tuple[Row, ...]], ...]
+    dimension: int
     @classmethod
     def build(cls, rows: Iterable[Row], variables: Iterable[int]) -> "Projection | None":
-        original = normalize(rows)
+        declared_rows = tuple(rows)
+        dimension = len(declared_rows[0].coefficients) if declared_rows else 0
+        if any(not isinstance(row, Row) for row in declared_rows):
+            raise TypeError("Projection rows must be Row instances")
+        if any(len(row.coefficients) != dimension for row in declared_rows):
+            raise ValueError("Inconsistent row dimensions")
+        original = normalize(declared_rows)
         if original is None:
             return None
         variables = tuple(variables)
         if len(set(variables)) != len(variables):
             raise ValueError("Cannot eliminate a variable twice")
         current, history = original, []
-        dimension = len(original[0].coefficients) if original else 0
         if any(type(v) is not int or v < 0 or v >= dimension for v in variables):
             raise IndexError("Eliminated variable is outside the row dimension")
         for variable in variables:
@@ -114,7 +120,7 @@ class Projection:
             current = eliminate(current, variable)
             if current is None:
                 return None
-        return cls(original, current, tuple(history))
+        return cls(original, current, tuple(history), dimension)
     def lift(self, fixed: dict[int, Fraction]) -> tuple[Fraction, ...]:
         values = {i: exact(value, "fixed coordinate") for i, value in fixed.items()}
         for variable, rows in reversed(self.history):
@@ -131,7 +137,7 @@ class Projection:
                     residual -= coefficient * values[i]
                 bounds.append((row.coefficients[variable], residual, row.strict))
             values[variable] = _choose(bounds)
-        dimension = len(self.original[0].coefficients) if self.original else len(values)
+        dimension = self.dimension
         if any(i not in values for i in range(dimension)):
             raise ValueError("Missing projected coordinate during lifting")
         point = tuple(values[i] for i in range(dimension))

@@ -50,6 +50,19 @@ class StrictProjectionTests(unittest.TestCase):
                     old_eliminated = frozen_eliminate(old, v)
                     self.assertEqual(None if new_eliminated is None else tuple((r.coefficients, r.rhs, r.strict) for r in new_eliminated), None if old_eliminated is None else tuple((r.coefficients, r.rhs, r.strict) for r in old_eliminated), (raw, v))
 
+    def test_declared_dimension_survives_true_zero_rows_and_lifts(self):
+        truth = Row((F(0), F(0)), F(1))
+        projection = Projection.build((truth,), (0,))
+        self.assertEqual(projection.dimension, 2)
+        self.assertEqual(projection.original, ())
+        self.assertEqual(projection.rows, ())
+        self.assertEqual(projection.lift({1: F(7)}), (F(0), F(7)))
+
+    def test_empty_row_projection_retains_declared_space(self):
+        projection = Projection.build((Row((F(0), F(0)), F(1)),), ())
+        self.assertEqual(projection.dimension, 2)
+        self.assertEqual(projection.lift({0: F(5), 1: F(7)}), (F(5), F(7)))
+
     def test_duplicate_variable_elimination_rejected(self):
         with self.assertRaises(ValueError):
             Projection.build((Row((1, 0), 1),), (0, 0))

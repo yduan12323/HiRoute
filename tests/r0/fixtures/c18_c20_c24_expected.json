@@ -42,7 +42,7 @@
   "C24": {
     "same_snapshot_algorithm_profile":"hier",
     "observation_profiles":["off","metrics","detailed_trace"],
-    "expected_key":["5","0",0,[]],
+    "expected_key":["5","1",1,[["c","C"]]],
     "expected":"identical defined mathematical result for every observation profile",
     "source": "tests/r0/test_remaining_contract_fixtures.py::test_c24_observation_profiles_do_not_change_solver_result"
   }

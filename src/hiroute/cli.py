@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
@@ -12,7 +11,7 @@ import tempfile
 import uuid
 
 from . import __version__
-from .contracts import (ProblemSnapshot, SolverConfig, canonical_json, content_id)
+from .contracts import (ProblemSnapshot, SolverConfig, SolveResult, Witness, canonical_json, content_id)
 
 
 def _read_object(path: Path) -> dict:
@@ -50,14 +49,40 @@ def validate_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def validate_migration_support(snapshot: ProblemSnapshot, config: SolverConfig) -> None:
+    """Reject contracts the migration adapter has not implemented; never reinterpret them."""
+    supported_snapshot = {
+        "model_contract_id": "hiroute.time_cut_v2.bounded",
+        "numerical_contract_id": "exact_rational_inputs_v1",
+        "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+        "depth_mode": "diagnostic_cap",
+    }
+    for field, expected in supported_snapshot.items():
+        actual = getattr(snapshot, field)
+        if actual != expected:
+            raise NotImplementedError(f"unsupported_model: {field}={actual!r}; supported value is {expected!r}")
+    supported_config = {
+        "method": "flat",
+        "reduction_profile": "none",
+        "charging_operator_profile": "bounded_time_cut_v2",
+        "coalescing_profile": "none",
+        "bound_profile": "none",
+        "seed_policy": "none",
+        "deterministic_tie_policy": "full_lexicographic_J_Q_H_Pi",
+    }
+    for field, expected in supported_config.items():
+        actual = getattr(config, field)
+        if actual != expected:
+            raise NotImplementedError(f"unsupported solver profile: {field}={actual!r}; supported value is {expected!r}")
+
+
 def solve_command(args: argparse.Namespace) -> int:
     snapshot_obj = _read_object(Path(args.problem))
+    if not snapshot_obj.get("semantic_problem_id"):
+        raise ValueError("solve input must include semantic_problem_id; run hiroute validate and use its canonical snapshot")
     snapshot = ProblemSnapshot.from_dict(snapshot_obj)
     config = SolverConfig.from_dict(_read_object(Path(args.config)))
-    if snapshot.depth_mode != "diagnostic_cap":
-        raise NotImplementedError("The R1 adapter does not certify seed-derived depth")
-    if config.method != "flat":
-        raise NotImplementedError("The R1 migration adapter supports only the bounded FLAT profile")
+    validate_migration_support(snapshot, config)
     if args.backend != "legacy_migration_adapter":
         raise ValueError("R1 requires explicit backend=legacy_migration_adapter")
     if not args.adapter_script or not args.adapter_python or not args.adapter_source_root:
@@ -89,24 +114,24 @@ def solve_command(args: argparse.Namespace) -> int:
     raw_witness = evidence.get("witness")
     witness = None
     if raw_witness is not None:
-        witness = raw_witness
-    result_record = {
-        "schema": "hiroute.solve_result.v1",
-        "execution_status": execution,
-        "mathematical_status": mathematical,
-        "verification_status": "witness_verified" if evidence.get("witness_replayed") else "not_run",
-        "semantic_problem_id": snapshot.semantic_problem_id,
-        "representation_id": content_id({"method": config.method, "config": config.to_dict()}),
-        "build_id": __version__,
-        "run_id": str(uuid.uuid4()),
-        "key": result.get("key"),
-        "witness": witness,
-        "primary_infimum": result.get("primary_infimum"),
-        "secondary_infimum": result.get("secondary_infimum"),
-        "backend": "legacy_migration_adapter",
-        "backend_evidence": evidence,
-        "created_at": datetime.now(timezone.utc).isoformat(),
-    }
+        witness = Witness(tuple(tuple(x) for x in raw_witness["actions"]),
+                          tuple(raw_witness["charges_kwh"]),
+                          tuple(raw_witness["route_legs"]),
+                          tuple(raw_witness["events"]))
+    result_record = SolveResult(
+        execution_status=execution,
+        mathematical_status=mathematical,
+        verification_status="witness_verified" if evidence.get("witness_replayed") else "not_run",
+        semantic_problem_id=snapshot.semantic_problem_id,
+        representation_id=content_id({"method": config.method, "config": config.to_dict()}),
+        build_id=__version__, run_id=str(uuid.uuid4()),
+        key=None if result.get("key") is None else tuple(result["key"]),
+        witness=witness,
+        primary_infimum=result.get("primary_infimum") if mathematical == "primary_unattained" else None,
+        secondary_infimum=result.get("secondary_infimum") if mathematical == "secondary_unattained" else None,
+        backend="legacy_migration_adapter",
+        backend_evidence=evidence,
+    ).to_dict()
     out = Path(args.output)
     _atomic_new_file(out, canonical_json(result_record))
     print(json.dumps({"output": str(out), "run_id": result_record["run_id"],
@@ -141,7 +166,10 @@ def main(argv: list[str] | None = None) -> int:
     try:
         args = parser().parse_args(argv)
         return args.run(args)
-    except (ValueError, TypeError, NotImplementedError) as exc:
+    except NotImplementedError as exc:
+        print(f"hiroute: {exc}", file=sys.stderr)
+        return 3
+    except (ValueError, TypeError) as exc:
         print(f"hiroute: {exc}", file=sys.stderr)
         return 2
     except (OSError, RuntimeError, KeyError, subprocess.SubprocessError) as exc:

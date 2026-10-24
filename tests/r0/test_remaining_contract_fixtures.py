@@ -106,7 +106,16 @@ class RemainingFixtureTests(unittest.TestCase):
         self.assertEqual(results["off"], results["detailed_trace"])
         self.assertGreater(observations["metrics"]["events"], 0)
         self.assertGreater(len(observations["detailed_trace"]["events"]), 0)
-        self.assertEqual(str(results["off"]["result"]["J"]), SPECS["C24"]["expected_key"][0])
+        expected = SPECS["C24"]["expected_key"]
+        self.assertEqual(
+            results["off"]["result"]["lex_key"],
+            (int(expected[0]), int(expected[1]), expected[2],
+             tuple(tuple(action) for action in expected[3])),
+        )
+        self.assertTrue(results["off"]["result"]["witness_replayed"])
+        for profile in profiles:
+            self.assertEqual(results[profile]["result"]["lex_key"], results["off"]["result"]["lex_key"])
+            self.assertEqual(results[profile]["result"]["witness_replayed"], True)
 
 
 if __name__ == "__main__":

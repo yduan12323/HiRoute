@@ -3,5 +3,6 @@ from .scalar import exact, rational_text
 from .cut import CutWitness, TimeCut, UnattainedError, cut_le, fixed_member
 from .linear import Projection, Row, eliminate, normalize
 from .interval import Interval
+from .pwa import AffineCutPiece
 __all__ = ["exact", "rational_text", "CutWitness", "TimeCut", "UnattainedError",
-           "cut_le", "fixed_member", "Interval", "Projection", "Row", "eliminate", "normalize"]
+           "cut_le", "fixed_member", "Interval", "AffineCutPiece", "Projection", "Row", "eliminate", "normalize"]

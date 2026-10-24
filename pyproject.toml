@@ -13,5 +13,5 @@ dependencies = []
 hiroute = "hiroute.cli:main"
 
 [tool.setuptools]
-packages = ["hiroute"]
+packages = ["hiroute", "hiroute.exact"]
 package-dir = {"" = "src"}

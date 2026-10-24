@@ -15,6 +15,17 @@ def snapshot_case(snapshot):
                                               separators=(",", ":")) + "\n").encode()).hexdigest()
     if snapshot.get("semantic_problem_id") != semantic_id:
         raise ValueError("Snapshot semantic_problem_id does not match its content")
+    # The REF owns its admission contract independently; unsupported identifiers
+    # must not be silently interpreted as the bounded time-cut model.
+    supported = {
+        "model_contract_id": "hiroute.time_cut_v2.bounded",
+        "numerical_contract_id": "exact_rational_inputs_v1",
+        "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+        "depth_mode": "diagnostic_cap",
+    }
+    for field, expected in supported.items():
+        if snapshot.get(field) != expected:
+            raise ValueError(f"unsupported REF input: {field}={snapshot.get(field)!r}")
     case = {
         "case_id": snapshot["semantic_problem_id"],
         "H_ref": snapshot["depth_limit"], "origin": snapshot["origin"],
