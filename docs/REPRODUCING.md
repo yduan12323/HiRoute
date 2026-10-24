@@ -236,3 +236,9 @@ JSON configs/schemas and synthetic fixtures remain normal tracked source.
 The publication commit is based on the last public commit, with reviewed code
 snapshotted from `00e5aa4dda8225a7d740e4ec2a42b1553a9d52b4`; it does not merge
 private experiment history. Existing public history is preserved, not rewritten.
+
+## R0–R4 rebuild execution (2026-10-24)
+
+The rebuild worktree is `/home/dy/HiRoute/rebuild-r0-r4` on branch `dot/rebuild-r0-r4`, initially based on `c33f621f080eea500dfc9ca32b79e23aa9ae9c6a`. GitHub refs checked on 2026-10-24: main `c33f621f080eea500dfc9ca32b79e23aa9ae9c6a`, PR #14 `8809424e60eedf519cab814f2fa71af976ff1d25`. R0 preservation files are in `/home/dy/HiRoute/r0_rebuild_20261024_baseline/`.
+
+No package build, install, test, solver, REF or data-generation command has been run in this checkpoint. Static AST parsing covered `src/*.py`. The old M5-E2E path was inspected read-only. Resolve Python 3.11 before R1; host default is 3.13.13 and project metadata requires `>=3.11,<3.12`. The new branch has not been installed outside the checkout, and no test pass or numerical/reproduction claim is made.

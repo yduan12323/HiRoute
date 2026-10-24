@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hiroute-ref"
+version = "0.2.0"
+description = "Independent bounded continuous reference optimizer for HiRoute"
+requires-python = ">=3.11,<3.12"
+dependencies = ["numpy>=1.24,<3", "scipy>=1.10,<2"]
+
+[project.scripts]
+hiroute-ref = "hiroute_ref.cli:main"
+
+[tool.setuptools]
+packages = ["hiroute_ref"]
+package-dir = {"" = "src"}
