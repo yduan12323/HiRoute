@@ -90,3 +90,33 @@ R1 remains partial. Core CLI still requires the explicitly named legacy adapter.
 ## R2–R4
 
 Not started. Next: exact kernel, FLAT/HIER, routing, independent REF and supervision, then raw-data A/B reproduction. Mainline performance, Shandong N8 bridge and holdout remain out of scope.
+
+## 2026-10-24 supervised checkpoint (authoritative update)
+
+This checkpoint supersedes stale stage summaries above. It records work on branch `dot/rebuild-r0-r4`; no PR was created or changed.
+
+### R0 status and C01–C24 disposition
+
+- Candidate-to-spec mapping is complete in the table above, but candidate references are not all rebuild-owned conformance fixtures. Executable migration-owned checks are currently C18 and C20–C24; their mathematical roles are kept distinct: C18 is inherited-family restriction plus witness lifting; C20 diagnostic versus seed-derived depth; C21 missing seed does not imply infeasibility; C22 malformed identity/corruption/unsupported input; C23 timeout preserves a feasible incumbent without claiming optimality; C24 observer profiles do not change mathematical output.
+- C09 is the original 76 kWh fixture at `tests/fixtures/milestone_4r_b2_b21/hand_cases.json`, SHA-256 `5e8f4b92bdbefdf5f35104b9430bbc2d0541517e0df41b4ecdb9ca67f85a5744`. The bounded unittest `test_original_76_regression_full_bounded_d_on_off` passed under `runs/supervised/r0-c09-bounded-unittest-v1/` (2.04 measured CPU-s, exit 0). A separate pytest invocation remains as a failed environment attempt because pytest is not installed; that does not invalidate the passing unittest.
+- C01–C08, C10–C17, and C19 remain mapped to historical candidates; not every one has an executable rebuild-owned expected fixture. Thus the C01–C24 suite is not complete and R0 remains partial.
+- The exact-byte taskbook copy under the local workspace still has a SHA mismatch and is not represented as the source original. Work in this repository follows the available taskbook content as a working specification; byte identity remains unresolved.
+
+### R1 status
+
+- Wheel build/install and installed entry-point evidence remain as recorded above. The independent REF package was separately installed and solved a small C01-derived two-node snapshot (`r1-ref-small-real-case-v2`, 1.75 measured CPU-s, exit 0). This proves only the migration entry point on a synthetic small case, not production correctness or independent optimality coverage.
+- The production CLI still uses the explicitly named legacy adapter. Independent REF remains a separate package and must not become a production mathematical optimization dependency.
+- Remaining R1: broader contract parity, installed C01–C24 conformance, production import-boundary proof, and removal of the legacy CLI adapter.
+
+### R2 exact-kernel slices completed
+
+- `src/hiroute/exact/scalar.py`: exact rational parsing/text; floats and booleans rejected.
+- `src/hiroute/exact/interval.py`: rational nonempty intervals, endpoint closure, intersection, affine infimum and constructive approach.
+- `src/hiroute/exact/cut.py`: attainment-aware lower cuts, context/family-bound approach witnesses and time-budget realization.
+- `src/hiroute/exact/linear.py`: strict rational rows, normalization, Fourier–Motzkin projection and checked back-substitution lift.
+- Supervised passing tests: `r2-exact-cut-v1` (5), `r2-strict-projection-v2` (10), `r2-interval-v1` (4). The earlier syntax-error attempt `r2-strict-projection-v1` is retained in the ledger.
+- These slices do not constitute a complete exact kernel. Remaining R2 dependencies, in order: PWA pieces and endpoint semantics; Drive/S/C/CS operators; inherited-family union; safe reduction and dominance; terminal lexicographic J/Q optimization; complete constructive witness/provenance bridge; differential and integration parity. No full production solve or optimality claim is made.
+
+### Supervision and cost
+
+All new formal numerical validation and build/test attempts use `tools_rebuild_run.sh`; measured CPU seconds and failed attempts are in `runs/rebuild_budget.json`. The old install reservation remains a gross reserved allowance derived from the entire prior round window times the 12-CPU ceiling. It is neither measured usage nor a trustworthy command-specific bound. Current new runs do not rely on that reservation as evidence of exact historical cost.
