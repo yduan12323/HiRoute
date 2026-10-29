@@ -363,7 +363,7 @@ class NativeSearchTests(unittest.TestCase):
             solver.write_text(json.dumps(config().to_dict()))
             with redirect_stdout(StringIO()):
                 code = cli_main(["solve", "--problem", str(problem), "--config", str(solver),
-                                 "--backend", "exact_core_search", "--output", str(output)])
+                                 "--output", str(output)])
             self.assertEqual(code, 0)
             record = json.loads(output.read_text())
             self.assertEqual(record["backend"], "exact_core_search")
@@ -387,7 +387,7 @@ class NativeSearchTests(unittest.TestCase):
             solver.write_text(json.dumps(config().to_dict()))
             with redirect_stdout(StringIO()), redirect_stderr(StringIO()) as errors:
                 code = cli_main(["solve", "--problem", str(problem), "--config", str(solver),
-                                 "--backend", "exact_core_search", "--output", str(output)])
+                                 "--output", str(output)])
             self.assertEqual(code, 3)
             self.assertIn("unsupported_model", errors.getvalue())
             self.assertFalse(output.exists())
@@ -502,7 +502,7 @@ class NativeSearchTests(unittest.TestCase):
             solver.write_text(json.dumps(config().to_dict()))
             with redirect_stdout(StringIO()):
                 self.assertEqual(cli_main(["solve", "--problem", str(problem), "--config", str(solver),
-                                           "--backend", "exact_core_search", "--output", str(output)]), 0)
+                                           "--output", str(output)]), 0)
             record = json.loads(output.read_text())
             self.assertEqual(record["mathematical_status"], "infeasible_within_declared_domain")
             self.assertEqual(record["backend_evidence"]["depth_contract"],
@@ -521,7 +521,7 @@ class NativeSearchTests(unittest.TestCase):
             solver.write_text(json.dumps(config().to_dict()))
             with redirect_stdout(StringIO()), redirect_stderr(StringIO()) as errors:
                 code = cli_main(["solve", "--problem", str(problem), "--config", str(solver),
-                                 "--backend", "exact_core_search", "--output", str(output)])
+                                 "--output", str(output)])
             self.assertEqual(code, 3)
             self.assertIn("unsupported_model", errors.getvalue())
             self.assertFalse(output.exists())
@@ -624,7 +624,7 @@ class NativeSearchTests(unittest.TestCase):
             cert_path.write_text(json.dumps(certificate))
             with redirect_stdout(StringIO()):
                 code = cli_main(["solve", "--problem", str(problem), "--config", str(config_path),
-                                 "--backend", "exact_core_search", "--depth-certificate", str(cert_path),
+                                 "--depth-certificate", str(cert_path),
                                  "--output", str(output), "--time-limit-s", "60"])
             self.assertEqual(code, 0)
             record = json.loads(output.read_text())

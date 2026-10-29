@@ -5,7 +5,6 @@ import argparse
 import json
 import os
 from pathlib import Path
-import subprocess
 import sys
 import tempfile
 import uuid
@@ -49,33 +48,6 @@ def validate_command(args: argparse.Namespace) -> int:
     print(json.dumps({"valid": True, "semantic_problem_id": snapshot.semantic_problem_id,
                       "schema": "hiroute.problem_snapshot.v1"}, sort_keys=True))
     return 0
-
-
-def validate_migration_support(snapshot: ProblemSnapshot, config: SolverConfig) -> None:
-    """Reject contracts the migration adapter has not implemented; never reinterpret them."""
-    supported_snapshot = {
-        "model_contract_id": "hiroute.time_cut_v2.bounded",
-        "numerical_contract_id": "exact_rational_inputs_v1",
-        "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
-        "depth_mode": "diagnostic_cap",
-    }
-    for field, expected in supported_snapshot.items():
-        actual = getattr(snapshot, field)
-        if actual != expected:
-            raise NotImplementedError(f"unsupported_model: {field}={actual!r}; supported value is {expected!r}")
-    supported_config = {
-        "method": "flat",
-        "reduction_profile": "none",
-        "charging_operator_profile": "bounded_time_cut_v2",
-        "coalescing_profile": "none",
-        "bound_profile": "none",
-        "seed_policy": "none",
-        "deterministic_tie_policy": "full_lexicographic_J_Q_H_Pi",
-    }
-    for field, expected in supported_config.items():
-        actual = getattr(config, field)
-        if actual != expected:
-            raise NotImplementedError(f"unsupported solver profile: {field}={actual!r}; supported value is {expected!r}")
 
 
 def validate_native_support(snapshot: ProblemSnapshot, config: SolverConfig) -> None:
@@ -216,88 +188,26 @@ def _leg_dict(leg):
 
 def solve_command(args: argparse.Namespace) -> int:
     snapshot_obj = _read_object(Path(args.problem))
-    if not snapshot_obj.get("semantic_problem_id"):
-        raise ValueError("solve input must include semantic_problem_id; run hiroute validate and use its canonical snapshot")
     snapshot = ProblemSnapshot.from_dict(snapshot_obj)
     config = SolverConfig.from_dict(_read_object(Path(args.config)))
-    if args.backend == "exact_core_search":
-        validate_native_support(snapshot, config)
-        certificate = _read_object(Path(args.depth_certificate)) if args.depth_certificate else None
-        if snapshot.depth_mode == "seed_derived" and certificate is None:
-            raise ValueError("seed_derived requires --depth-certificate")
-        if snapshot.depth_mode == "diagnostic_cap" and certificate is not None:
-            raise ValueError("--depth-certificate is only valid for seed_derived depth")
-        solved = solve_native_snapshot(snapshot, config, time_limit_s=args.time_limit_s,
-                                       observer=args.observer, depth_certificate=certificate)
-        result_record = _native_result(snapshot, config, solved, args.observer)
-        out = Path(args.output)
-        _atomic_new_file(out, canonical_json(result_record))
-        print(json.dumps({"output": str(out), "run_id": result_record["run_id"],
-                          "semantic_problem_id": snapshot.semantic_problem_id,
-                          "execution_status": result_record["execution_status"],
-                          "mathematical_status": result_record["mathematical_status"],
-                          "verification_status": result_record["verification_status"],
-                          "backend": result_record["backend"]}, sort_keys=True))
-        return 0
-    validate_migration_support(snapshot, config)
-    if args.backend != "legacy_migration_adapter":
-        raise ValueError("Unsupported backend")
-    if not args.adapter_script or not args.adapter_python or not args.adapter_source_root:
-        raise ValueError("The migration adapter requires explicit script, interpreter and legacy source root")
-    child_env = os.environ.copy()
-    child_env.pop("PYTHONPATH", None)
-    child_env["HIROUTE_LEGACY_SOURCE_ROOT"] = args.adapter_source_root
-    completed = subprocess.run(
-        [args.adapter_python, args.adapter_script],
-        input=canonical_json(snapshot.to_dict()), stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE, check=False, env=child_env,
-    )
-    if completed.returncode != 0:
-        raise RuntimeError(f"Migration adapter exited {completed.returncode}: "
-                           f"{completed.stderr.decode('utf-8', 'replace')[-2000:]}")
-    try:
-        evidence = json.loads(completed.stdout.decode("utf-8"))
-    except (UnicodeError, json.JSONDecodeError) as exc:
-        raise RuntimeError("Migration adapter did not return one JSON object") from exc
-    result = evidence["result"]
-    status = result.get("status")
-    mathematical = {
-        "attained_optimum": "attained_optimum",
-        "primary_unattained": "primary_unattained",
-        "secondary_unattained": "secondary_unattained",
-        "infeasible_within_H_ref": "infeasible_within_declared_domain",
-    }.get(status, "unknown")
-    execution = "completed" if mathematical != "unknown" else "error"
-    raw_witness = evidence.get("witness")
-    witness = None
-    if raw_witness is not None:
-        witness = Witness(tuple(tuple(x) for x in raw_witness["actions"]),
-                          tuple(raw_witness["charges_kwh"]),
-                          tuple(raw_witness["route_legs"]),
-                          tuple(raw_witness["events"]))
-    result_record = SolveResult(
-        execution_status=execution,
-        mathematical_status=mathematical,
-        verification_status="witness_verified" if evidence.get("witness_replayed") else "not_run",
-        semantic_problem_id=snapshot.semantic_problem_id,
-        representation_id=content_id({"method": config.method, "config": config.to_dict()}),
-        build_id=__version__, run_id=str(uuid.uuid4()),
-        key=None if result.get("key") is None else tuple(result["key"]),
-        witness=witness,
-        primary_infimum=(result.get("primary_infimum", result.get("J"))
-                         if mathematical in {"primary_unattained", "secondary_unattained"} else None),
-        secondary_infimum=result.get("secondary_infimum") if mathematical == "secondary_unattained" else None,
-        backend="legacy_migration_adapter",
-        backend_evidence=evidence,
-    ).to_dict()
+    validate_native_support(snapshot, config)
+    certificate = _read_object(Path(args.depth_certificate)) if args.depth_certificate else None
+    if snapshot.depth_mode == "seed_derived" and certificate is None:
+        raise ValueError("seed_derived requires --depth-certificate")
+    if snapshot.depth_mode == "diagnostic_cap" and certificate is not None:
+        raise ValueError("--depth-certificate is only valid for seed_derived depth")
+    solved = solve_native_snapshot(snapshot, config, time_limit_s=args.time_limit_s,
+                                   observer=args.observer, depth_certificate=certificate)
+    result_record = _native_result(snapshot, config, solved, args.observer)
     out = Path(args.output)
     _atomic_new_file(out, canonical_json(result_record))
     print(json.dumps({"output": str(out), "run_id": result_record["run_id"],
                       "semantic_problem_id": snapshot.semantic_problem_id,
-                      "execution_status": execution, "mathematical_status": mathematical,
+                      "execution_status": result_record["execution_status"],
+                      "mathematical_status": result_record["mathematical_status"],
                       "verification_status": result_record["verification_status"],
                       "backend": result_record["backend"]}, sort_keys=True))
-    return 0 if execution == "completed" else 4
+    return 0
 
 
 def parser() -> argparse.ArgumentParser:
@@ -307,14 +217,9 @@ def parser() -> argparse.ArgumentParser:
     validate = sub.add_parser("validate", help="validate one versioned ProblemSnapshot")
     validate.add_argument("--problem", required=True)
     validate.set_defaults(run=validate_command)
-    solve = sub.add_parser("solve", help="run a declared solver backend on a snapshot")
+    solve = sub.add_parser("solve", help="run the built-in exact solver on a snapshot")
     solve.add_argument("--problem", required=True)
     solve.add_argument("--config", required=True)
-    solve.add_argument("--backend", required=True,
-                       choices=["exact_core_search", "legacy_migration_adapter"])
-    solve.add_argument("--adapter-script")
-    solve.add_argument("--adapter-python")
-    solve.add_argument("--adapter-source-root")
     solve.add_argument("--output", required=True)
     solve.add_argument("--time-limit-s", type=float,
                        help="optional exact-search wall deadline; timeout output keeps a feasible incumbent separately")
@@ -334,6 +239,6 @@ def main(argv: list[str] | None = None) -> int:
     except (ValueError, TypeError) as exc:
         print(f"hiroute: {exc}", file=sys.stderr)
         return 2
-    except (OSError, RuntimeError, KeyError, subprocess.SubprocessError) as exc:
+    except (OSError, RuntimeError, KeyError) as exc:
         print(f"hiroute: {exc}", file=sys.stderr)
         return 4

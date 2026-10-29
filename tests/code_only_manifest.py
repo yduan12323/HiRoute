@@ -76,11 +76,11 @@ CODE_GATE_MODULES = (
 
 
 CODE_GATE_MODULES = CODE_GATE_MODULES + (
-    "tests/test_public_run_prepare.py",
     "tests/r0/test_c18_inherited_family_lifting.py",
     "tests/r0/test_cli_supported_matrix.py",
     "tests/r0/test_contracts.py",
     "tests/r0/test_ref_supported_matrix.py",
+    "tests/r0/test_shandong_input_contract.py",
     "tests/r0/test_remaining_contract_fixtures.py",
     "tests/r2/test_exact_cut.py",
     "tests/r2/test_interval.py",

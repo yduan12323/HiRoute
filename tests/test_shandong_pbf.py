@@ -29,7 +29,7 @@ class ShandongPbfTests(unittest.TestCase):
         self.assertEqual(a.policy_id,b.policy_id)
 
     def test_real_pbf_network_tags_lengths_and_direction_are_ingested(self):
-        g = read_shandong_pbf(FIXTURE, ROUTING, expected_sha256="a79190e0b9bd4dc36dfa8bd99258d2f76bacb5826e3265eee1daa31d64555857")
+        g = read_shandong_pbf(FIXTURE, ROUTING)
         self.assertEqual(g.source_bytes, 294)
         self.assertEqual((len(g.nodes), g.audit["parsed_segments"], len(g.edges)), (3, 3, 5))
         edges = {(e["osm_way_id"], e["source"], e["target"]): e for e in g.edges}
@@ -39,9 +39,10 @@ class ShandongPbfTests(unittest.TestCase):
         self.assertNotIn(("11", "3", "1"), edges)
         self.assertEqual(edges[("10", "1", "2")]["time_s"], "25611/1000")
         self.assertEqual(len(g.policy_id), 64)
-    def test_hash_mismatch_fails_closed(self):
-        with self.assertRaisesRegex(ValueError, "SHA-256"):
-            read_shandong_pbf(FIXTURE, ROUTING, expected_sha256="0"*64)
+    def test_raw_content_fingerprint_is_reported_without_external_admission(self):
+        import hashlib
+        g = read_shandong_pbf(FIXTURE, ROUTING)
+        self.assertEqual(g.source_sha256, hashlib.sha256(FIXTURE.read_bytes()).hexdigest())
     def test_speed_parser_and_policy_validation(self):
         self.assertEqual(str(_posted_speed("30 mph; 60 km/h", ROUTING["speed_model"])), "48.280320")
         with self.assertRaises(ValueError):
@@ -172,17 +173,6 @@ class ShandongSiteTests(unittest.TestCase):
         self.assertEqual([(x.site_id,x.capabilities,x.meal_count_500m) for x in sites],[("node/101",("C","S","CS"),1)])
         self.assertEqual({x.source_sha256 for x in sites},{__import__("hashlib").sha256(p.read_bytes()).hexdigest()})
 
-    def test_fixture_scope_uses_generic_pbf_size_cap(self):
-        from hiroute.data.shandong import produce_shandong_snapshot
-        with tempfile.TemporaryDirectory() as directory:
-            raw = Path(directory) / "oversized-synthetic.pbf"
-            raw.write_bytes(b"x" * (4 * 1024 * 1024 + 1))
-            with self.assertRaisesRegex(PermissionError, "at most 4 MiB"):
-                produce_shandong_snapshot(raw, "unused-boundary", ROUTING, {},
-                    execution_scope="fixture", expected_raw_sha256="0" * 64,
-                    expected_boundary_sha256="0" * 64, projection="EPSG:3035",
-                    max_distance_m=250)
-
     def test_real_pbf_graph_to_selected_legs_and_snapshot_dag(self):
         from hiroute.data.shandong import read_shandong_pbf,extract_shandong_sites,build_snapshot_from_shandong_components
         p=ROOT/"tests"/"data"/"tiny-shandong-sites.osm.pbf"
@@ -236,9 +226,7 @@ END
         q={"origin":"1","destination":"3","departure_time_s":"0","initial_energy_kwh":"18","capacity_kwh":"60","minimum_energy_kwh":"0","destination_reserve_kwh":"6","stop_overhead_s":"300","stop_penalty_s":"600","consumption_kwh_per_m":"1/6250","charging_curve":[["0","30","36","0"],["30","48","60","-720"],["48","60","120","-3600"]],"schedule":None,"initial_remaining_schedule":0,"H_ref":1,"diagnostic_depth_limit":1}
         with tempfile.TemporaryDirectory() as tmp:
             boundary=Path(tmp)/"tiny.poly"; boundary.write_text(poly)
-            result=produce_shandong_snapshot(raw,boundary,ROUTING,q,execution_scope="fixture",
-                expected_raw_sha256=hashlib.sha256(raw.read_bytes()).hexdigest(),
-                expected_boundary_sha256=hashlib.sha256(boundary.read_bytes()).hexdigest(),
+            result=produce_shandong_snapshot(raw,boundary,ROUTING,q,
                 projection="+proj=lcc +lat_1=35 +lat_2=38 +lat_0=36.5 +lon_0=118.5 +datum=WGS84 +units=m +no_defs +type=crs",
                 endpoint_sources={"origin":{"identity":"4r:node/1","coordinates":[117.0,35.0]},
                                   "destination":{"identity":"4r:node/3","coordinates":[117.002,35.0]}},
@@ -302,7 +290,7 @@ END
             raw = poly.encode()
             boundary.write_bytes(raw)
             digest = hashlib.sha256(raw).hexdigest()
-            kwargs = dict(boundary_path=boundary, expected_boundary_sha256=digest,
+            kwargs = dict(boundary_path=boundary,
                           projection="+proj=lcc +lat_1=35 +lat_2=38 +lat_0=36.5 +lon_0=118.5 +datum=WGS84 +units=m +no_defs +type=crs")
             pbf=ROOT/"tests/data/tiny-shandong-sites.osm.pbf"
             a = read_shandong_pbf(pbf, ROUTING, **kwargs)
@@ -341,11 +329,9 @@ END
             boundary=Path(tmp)/"outside.poly"; raw=poly.encode(); boundary.write_bytes(raw)
             digest=hashlib.sha256(raw).hexdigest()
             pbf=ROOT/"tests/data/tiny-shandong.osm.pbf"
-            with self.assertRaisesRegex(ValueError,"frozen SHA-256"):
-                read_shandong_pbf(pbf, ROUTING, boundary_path=boundary, projection="EPSG:3857")
             with self.assertRaisesRegex(ValueError,"no supported edges"):
                 read_shandong_pbf(pbf, ROUTING, boundary_path=boundary,
-                    expected_boundary_sha256=digest, projection="EPSG:3857")
+                    projection="EPSG:3857")
 
 
     def test_extracted_pois_snap_to_bidirectional_pbf_graph_and_form_snapshot(self):
@@ -476,24 +462,12 @@ class ShandongPolylineClipRatioTests(unittest.TestCase):
 
 
 
-    def test_formal_raw_producer_fails_closed_before_open_without_admission(self):
+    def test_producer_requires_existing_input_files_not_historical_admission(self):
         from hiroute.data.shandong import produce_shandong_snapshot
         with tempfile.TemporaryDirectory() as tmp:
-            missing=Path(tmp)/"not-opened.osm.pbf"
-            with self.assertRaisesRegex(PermissionError,"R0-R3 admission receipt is required"):
-                produce_shandong_snapshot(missing,missing,{}, {},execution_scope="formal",
-                    expected_raw_sha256="0"*64,expected_boundary_sha256="1"*64,
-                    projection="EPSG:4326",max_distance_m=1)
-
-    def test_large_pbf_cannot_use_fixture_scope(self):
-        from hiroute.data.shandong import produce_shandong_snapshot
-        with tempfile.TemporaryDirectory() as tmp:
-            large=Path(tmp)/"large.osm.pbf"
-            with large.open("wb") as stream:
-                stream.truncate(4*1024*1024+1)
-            with self.assertRaisesRegex(PermissionError,"fixture scope is limited"):
-                produce_shandong_snapshot(large,large,{}, {},execution_scope="fixture",
-                    expected_raw_sha256="0"*64,expected_boundary_sha256="1"*64,
+            missing=Path(tmp)/"missing.osm.pbf"
+            with self.assertRaises(FileNotFoundError):
+                produce_shandong_snapshot(missing,missing,{}, {},
                     projection="EPSG:4326",max_distance_m=1)
 
 

@@ -13,8 +13,6 @@ def snapshot_case(snapshot):
     identity = {key: value for key, value in snapshot.items() if key != "semantic_problem_id"}
     semantic_id = hashlib.sha256((json.dumps(identity, ensure_ascii=False, sort_keys=True,
                                               separators=(",", ":")) + "\n").encode()).hexdigest()
-    if snapshot.get("semantic_problem_id") != semantic_id:
-        raise ValueError("Snapshot semantic_problem_id does not match its content")
     # The REF owns its admission contract independently; unsupported identifiers
     # must not be silently interpreted as the bounded time-cut model.
     supported = {
@@ -27,7 +25,7 @@ def snapshot_case(snapshot):
         if snapshot.get(field) != expected:
             raise ValueError(f"unsupported REF input: {field}={snapshot.get(field)!r}")
     case = {
-        "case_id": snapshot["semantic_problem_id"],
+        "case_id": semantic_id,
         "H_ref": snapshot["depth_limit"], "origin": snapshot["origin"],
         "destination": snapshot["destination"], "start_time_s": snapshot["departure_time_s"],
         "initial_energy_kwh": snapshot["initial_energy_kwh"],

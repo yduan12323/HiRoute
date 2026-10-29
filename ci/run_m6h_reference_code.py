@@ -30,12 +30,10 @@ def audit(event, args):
         raise PermissionError('Tiny REF gate forbids helper processes and network')
 sys.addaudithook(audit)
 import pytest
-import timecut5
+import hiroute
 def check_origins():
-    for name, module in tuple(sys.modules.items()):
-        if name == 'timecut5' or name.startswith('timecut5.'):
-            if not Path(module.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()):
-                raise RuntimeError('Production imports must remain in the installed wheel: ' + name)
+    if not Path(hiroute.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()):
+        raise RuntimeError('HiRoute imports must remain in the installed core wheel')
 check_origins()
 result = pytest.main(sys.argv[1:])
 check_origins()

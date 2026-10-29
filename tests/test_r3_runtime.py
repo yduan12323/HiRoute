@@ -139,8 +139,8 @@ class TestR3Runtime(unittest.TestCase):
             for output, observer in ((out_off, "off"), (out_trace, "detailed_trace")):
                 with redirect_stdout(StringIO()):
                     self.assertEqual(cli_main(["solve", "--problem", str(problem),
-                        "--config", str(solver), "--backend", "exact_core_search",
-                        "--observer", observer, "--output", str(output)]), 0)
+                        "--config", str(solver), "--observer", observer,
+                        "--output", str(output)]), 0)
             a, b = json.loads(out_off.read_text()), json.loads(out_trace.read_text())
             self.assertEqual(a["key"], b["key"])
             self.assertEqual(a["witness"], b["witness"])
