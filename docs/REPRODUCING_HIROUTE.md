@@ -11,7 +11,7 @@ python -m venv .venv
 . .venv/bin/activate
 python -m pip install --upgrade pip build pytest
 python -m build --wheel
-python -m pip install 'dist/hiroute-*.whl[geo]'
+python -m pip install 'dist/hiroute-*.whl[geo,legacy]'
 python -m pytest -q tests/test_exact_search.py tests/test_exact_pipeline.py tests/test_exact_pwa_migrations.py tests/test_exact_pwa_partition.py tests/test_exact_terminal.py tests/test_time_cut_v2.py tests/r0 tests/r2
 python -m pytest -q tests/test_shandong_raw_policy.py tests/test_shandong_spatial.py tests/test_shandong_spatial_parallel.py tests/test_shandong_pbf.py tests/test_data_producer.py
 ```
