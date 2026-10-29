@@ -74,6 +74,35 @@ CODE_GATE_MODULES = (
     'tests/test_suffix_final_collector.py',
 )
 
+
+CODE_GATE_MODULES = CODE_GATE_MODULES + (
+    "tests/test_public_run_prepare.py",
+    "tests/r0/test_c18_inherited_family_lifting.py",
+    "tests/r0/test_cli_supported_matrix.py",
+    "tests/r0/test_contracts.py",
+    "tests/r0/test_ref_supported_matrix.py",
+    "tests/r0/test_remaining_contract_fixtures.py",
+    "tests/r2/test_exact_cut.py",
+    "tests/r2/test_interval.py",
+    "tests/r2/test_pwa_piece.py",
+    "tests/r2/test_strict_projection.py",
+    "tests/test_shandong_raw_policy.py",
+    "tests/test_c09_new_kernel_path_parity.py",
+    "tests/test_data_producer.py",
+    "tests/test_exact_pipeline.py",
+    "tests/test_exact_pwa_migrations.py",
+    "tests/test_exact_pwa_partition.py",
+    "tests/test_exact_search.py",
+    "tests/test_exact_terminal.py",
+    "tests/test_r3_memory_limit.py",
+    "tests/test_r3_os_supervisor.py",
+    "tests/test_r3_runtime.py",
+    "tests/test_shandong_pbf.py",
+    "tests/test_shandong_spatial.py",
+    "tests/test_shandong_spatial_parallel.py",
+)
+
+
 # Explicit historical/research modules; register new modules instead of hiding them.
 LEGACY_MODULES = (
     'tests/test_active_face_diagnostic.py',

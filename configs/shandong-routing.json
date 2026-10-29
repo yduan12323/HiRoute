@@ -1,0 +1,155 @@
+{
+  "access": {
+    "allowed": [
+      "yes",
+      "permissive",
+      "designated",
+      "official"
+    ],
+    "exclude_closed_shelter_contour": true,
+    "exclude_conditional_access": true,
+    "exclude_conditional_oneway": true,
+    "excluded": [
+      "no",
+      "private",
+      "destination",
+      "delivery",
+      "customers",
+      "agricultural",
+      "forestry"
+    ],
+    "excluded_highway": [
+      "busway",
+      "bus_guideway",
+      "escape",
+      "rest_area",
+      "services",
+      "via_ferrata",
+      "bus_stop",
+      "emergency_bay",
+      "ladder",
+      "street_lamp"
+    ],
+    "hierarchy": [
+      "motorcar",
+      "motor_vehicle",
+      "vehicle",
+      "access"
+    ]
+  },
+  "network_type": "driving",
+  "retain_all_components": true,
+  "simplify": false,
+  "site_policy": {
+    "taxonomy": {
+      "amenity": {
+        "charging_station": [
+          "charge"
+        ],
+        "restaurant": [
+          "meal"
+        ],
+        "cafe": [
+          "meal"
+        ],
+        "fast_food": [
+          "meal"
+        ],
+        "food_court": [
+          "meal"
+        ],
+        "pharmacy": [
+          "pharmacy"
+        ],
+        "toilets": [
+          "toilets"
+        ],
+        "parking": [
+          "parking"
+        ]
+      },
+      "tourism": {
+        "hotel": [
+          "sleep"
+        ],
+        "motel": [
+          "sleep"
+        ],
+        "hostel": [
+          "sleep"
+        ],
+        "guest_house": [
+          "sleep"
+        ]
+      },
+      "shop": {
+        "supermarket": [
+          "groceries"
+        ],
+        "convenience": [
+          "groceries"
+        ]
+      },
+      "highway": {
+        "rest_area": [
+          "rest"
+        ],
+        "services": [
+          "services",
+          "rest"
+        ]
+      }
+    },
+    "excluded_access": [
+      "private",
+      "no"
+    ],
+    "parking_min_explicit_capacity": 3,
+    "support_radius_m": 500,
+    "support_method": "unit_sphere_chord; raw OSM identity count; Earth radius 6371008.8m",
+    "representative_geometry": "Point unchanged; LineString/MultiLineString normalized midpoint and Polygon/MultiPolygon point-on-surface in EPSG:3035; representative must be covered by frozen WGS84 boundary",
+    "osm_identity_deduplication": "way/relation/node identity; polygon > line > point geometry priority; conflicting taxonomy on same identity rejected"
+  },
+  "speed_model": {
+    "class_kph": {
+      "living_street": 10,
+      "motorway": 110,
+      "motorway_link": 50,
+      "primary": 70,
+      "primary_link": 40,
+      "residential": 30,
+      "road": 20,
+      "secondary": 60,
+      "secondary_link": 35,
+      "service": 15,
+      "tertiary": 50,
+      "tertiary_link": 30,
+      "trunk": 90,
+      "trunk_link": 45,
+      "unclassified": 40
+    },
+    "max_kph": 140,
+    "min_kph": 1,
+    "mph_to_kph": 1.609344,
+    "symbolic_maxspeed_kph": {
+      "SI:motorway": 130,
+      "SI:rural": 90,
+      "SI:trunk": 110,
+      "SI:urban": 50,
+      "walk": 5
+    }
+  },
+  "attachment": {
+    "default_threshold_m": 250,
+    "candidate_count": 4,
+    "require_in_and_out_edges": true,
+    "excluded_highway": [
+      "motorway",
+      "motorway_link",
+      "trunk",
+      "trunk_link"
+    ],
+    "prefilter_metric": "unit_sphere_chord_then_WGS84_Geod.inv",
+    "tie_break": "WGS84 distance then stable road node ID"
+  }
+}

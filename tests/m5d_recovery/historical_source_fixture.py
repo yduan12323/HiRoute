@@ -24,4 +24,4 @@ def current_production_source(root):
             for p in sorted((root / 'src').rglob('*'))
             if p.is_file() and '__pycache__' not in p.parts and
             p.suffix not in ('.pyc', '.pyo') and
-            not str(p.relative_to(root)).startswith('src/hiroute.egg-info/')}
+            not str(p.relative_to(root)).startswith(('src/hiroute.egg-info/','src/hiroute/'))}
