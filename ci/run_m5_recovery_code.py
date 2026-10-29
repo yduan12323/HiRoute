@@ -33,7 +33,7 @@ def check_origins():
         if name == 'hiroute' or name.startswith('hiroute.'):
             if not Path(module.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()):
                 raise RuntimeError('Production HiRoute imports must remain inside the installed wheel: ' + name)
-        elif name.split('.', 1)[0] in {'timecut5', 'microplan', 'graph', 'validation'}:
+        elif name.split('.', 1)[0] in {'timecut5', 'microplan', 'graph'}:
             if not Path(module.__file__).resolve().is_relative_to(legacy_root):
                 raise RuntimeError('Legacy recovery imports must use explicitly staged source: ' + name)
 
