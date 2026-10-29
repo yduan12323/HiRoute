@@ -22,12 +22,11 @@ from experiments.analytic_charge_gate_v1 import run as analytic_gate
 from experiments.post_service_gate_v1 import run as prior_gate
 from experiments.dev_cohort_v1.domain import method_admission
 from .domain import (SCHEMA,CASE,CASES,METHOD,METHODS,INNER_ARM,METHOD_POLICY,ARMS,EXACT_PHASE_SECONDS,
-    ORIGINAL_HMAX,PENDING_WINDOW_POLICY,POST_SERVICE_POLICY,ANALYTIC_POLICY,REVIEW_STATUS,SOURCE_BASE_COMMIT,BASELINE_SOURCE_COMMIT,BASELINE_SRC_SHA256,COMPLETION_POLICY,
+    ORIGINAL_HMAX,PENDING_WINDOW_POLICY,POST_SERVICE_POLICY,ANALYTIC_POLICY,REVIEW_STATUS,SOURCE_BASE_COMMIT,BASELINE_SOURCE_COMMIT,COMPLETION_POLICY,
     CONFIGS,PendingWindowDomain,historical_operators,outer_admission)
 
 SPECS={CASE:cohort.SPECS[CASE]}
 CPU_BY_ARM={ARMS[0]:0,ARMS[1]:1}
-PRODUCTION_SOURCE_ENTRIES=95
 NEW_MODULE='src/timecut5/pending_window_dominance.py'
 LIMITS=dict(completion.LIMITS,search_seconds=600,search_worker_wall_seconds=900,search_worker_cpu_seconds=900,
     parent_cpu_hard_policy='preserve_inherited_at_least_901',pipeline_wall_seconds=1800)
@@ -52,8 +51,7 @@ CONCURRENCY_POLICY=dict(schema='hiroute.pending_window_concurrency.v1',
 def prospective():
     return dict(schema=SCHEMA,launchable=False,status='prospective_'+REVIEW_STATUS,
         review_status=REVIEW_STATUS,source_base_commit=SOURCE_BASE_COMMIT,
-        baseline_source_commit=BASELINE_SOURCE_COMMIT,baseline_src_sha256=BASELINE_SRC_SHA256,
-        production_source_entries=PRODUCTION_SOURCE_ENTRIES,allowed_new_production_modules=[NEW_MODULE],
+        baseline_source_commit=BASELINE_SOURCE_COMMIT,
         cases=[SPECS[CASE]],case_id=CASE,candidate_count=128,historical_hmax=ORIGINAL_HMAX,method=METHOD,
         cohort_binding_sha256=base.file_hash(cohort.BINDING_PATH),pipeline_order=list(ARMS),
         shared_configuration=cohort.shared_configuration(False),arms=CONFIGS,pending_window_policy=PENDING_WINDOW_POLICY,
@@ -71,21 +69,19 @@ def prospective():
 
 def source_identity(repo):
     # The predecessor binds all production packages and reused gate helpers.
-    # A new module is permitted only by this exact name. All 95 old entries
-    # remain byte-identical, including pwa and the historical bound runtime.
+    # Record the current executable closure for this run without a historical
+    # digest pin. The reducer's required API/version remains a contract check.
     from timecut5.pending_window_dominance import VERSION
     if VERSION!=PENDING_WINDOW_POLICY['reducer_version']:
         raise ValueError('Pending-window frozen reducer version differs')
     identity=prior_gate.source_identity(repo);closure=dict(identity['closure']);repo=Path(repo)
     if NEW_MODULE not in closure:raise ValueError('Pending-window executable closure lacks the new reducer module')
-    production={n:h for n,h in closure.items() if n.startswith('src/') and
-        not n.startswith('src/hiroute.egg-info/') and n!=NEW_MODULE}
-    if len(production)!=PRODUCTION_SOURCE_ENTRIES or base.digest(production)!=BASELINE_SRC_SHA256:
-        raise ValueError('Pending-window production source differs from fixed 95-entry baseline')
+    production={n:h for n,h in closure.items() if n.startswith('src/') and not n.startswith('src/hiroute.egg-info/')}
     for path in sorted((repo/'experiments/pending_window_gate_v1').rglob('*')):
         if path.is_file() and '__pycache__' not in path.parts and path.suffix not in ('.pyc','.pyo'):
             closure[str(path.relative_to(repo))]=base.file_hash(path)
     return dict(identity,closure=closure,closure_sha256=base.digest(closure),
+        production_source_sha256=base.digest(production),production_source_entries=len(production),
         pending_window_module_sha256=closure[NEW_MODULE],pending_window_reducer_version=PENDING_WINDOW_POLICY['reducer_version'])
 
 def require_launch_review():

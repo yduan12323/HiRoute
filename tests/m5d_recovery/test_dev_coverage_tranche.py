@@ -199,8 +199,9 @@ class DevCoverageTrancheTests(unittest.TestCase):
         for case, n in QUEUE:
             plan = gate.prospective(case, n)
             self.assertEqual(plan['source_base_commit'], '43e83b57429dc06c18763339f06444bd5b40f44d')
-            self.assertEqual(plan['production_source_entries'], 96)
-            self.assertEqual(plan['allowed_new_production_modules'], [])
+            self.assertNotIn('production_source_entries', plan)
+            self.assertNotIn('production_src_sha256', plan)
+            self.assertNotIn('allowed_new_production_modules', plan)
             self.assertEqual(plan['denominator'], dict(common_preparations=1, search_arms=2, independent_replays=2, total_stages=5))
             self.assertEqual((plan['limits']['search_seconds'], plan['limits']['search_worker_wall_seconds'],
                               plan['limits']['search_worker_cpu_seconds']), (1200, 1500, 1500))

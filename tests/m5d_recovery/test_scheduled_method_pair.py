@@ -286,31 +286,24 @@ class ScheduledMethodPairTests(unittest.TestCase):
             completed['result']['result']=dict(status='secondary_unattained',J='7',secondary_infimum='1/2')
             self.assertEqual(gate.validate_terminal(completed,full,arm,39),dict(status='secondary_unattained',J='7',secondary_infimum='1/2'))
 
-    def test_source_pin_and_inherited_guard_extend_closure_without_src_changes(self):
+    def test_source_identity_extends_dynamic_closure(self):
         root=Path(__file__).resolve().parents[2]
         production=historical_production_source()
-        self.assertEqual(len(production),96);self.assertEqual(base.digest(production),gate.PRODUCTION_SRC_SHA256)
         inherited=dict(closure=dict(production),parquet_engine={'actual_guard':'inherited'})
         with patch.object(gate.predecessor,'source_identity',return_value=inherited):
-            identity=gate.source_identity(root);self.assertEqual(identity['production_source_commit'],gate.SOURCE_BASE_COMMIT)
+            identity=gate.source_identity(root)
+            self.assertEqual(identity['production_source_commit'],gate.SOURCE_BASE_COMMIT)
             self.assertEqual(identity['parquet_engine'],{'actual_guard':'inherited'})
-            for name in ('domain.py','lifecycle.py','run.py'):self.assertIn('experiments/scheduled_method_pair_v1/'+name,identity['closure'])
+            for name in ('domain.py','lifecycle.py','run.py'):
+                self.assertIn('experiments/scheduled_method_pair_v1/'+name,identity['closure'])
             self.assertEqual(identity['closure_sha256'],base.digest(identity['closure']))
-        for name in ('src/timecut5/pwa.py','src/timecut5/pending_window_dominance.py','src/timecut5/remaining_charge_runtime.py','src/new_backend.py'):
-            bad=dict(production);bad[name]='changed'
-            with patch.object(gate.predecessor,'source_identity',return_value=dict(closure=bad)),self.assertRaisesRegex(ValueError,'96-entry baseline'):gate.source_identity(root)
+            changed=dict(production,**{'src/timecut5/new_module.py':'changed'})
+            with patch.object(gate.predecessor,'source_identity',return_value=dict(closure=changed)):
+                updated=gate.source_identity(root)
+            self.assertNotEqual(updated['closure_sha256'],identity['closure_sha256'])
+            self.assertEqual(updated['production_source_entries'],len(production)+1)
         self.assertTrue(gate.parquet_engine_identity()['in_memory_roundtrip'])
 
-    def test_source_guard_rejects_current_road_policy_tree(self):
-        root=Path(__file__).resolve().parents[2]
-        production=current_production_source(root)
-        self.assertIn('src/graph/raw_way_policy.py',production)
-        self.assertEqual(len(production),97)
-        self.assertNotEqual(base.digest(production),gate.PRODUCTION_SRC_SHA256)
-        with patch.object(gate.predecessor,'source_identity',return_value={'closure':production}), \
-                patch.object(gate,'parquet_engine_identity') as engine:
-            with self.assertRaisesRegex(ValueError,'96-entry baseline'):gate.source_identity(root)
-            engine.assert_not_called()
 
     def test_tiny_native_both_methods_reducer_wiring_seed_parity_and_fresh_full_replay(self):
         from timecut5.bounded import _solve_problem

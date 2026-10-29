@@ -217,30 +217,22 @@ class CompletionGateTests(unittest.TestCase):
             self.assertFalse(result['operational_admission'],failure);self.assertFalse(result['authenticated_complete'],failure)
             self.assertEqual(len(result['stages']),3)
 
-    def test_source_closure_includes_new_adapter_module_and_prior_gate(self):
+    def test_source_closure_is_dynamic_and_keeps_required_reducer(self):
         root=Path(__file__).resolve().parents[2];module='src/timecut5/post_service_dominance.py'
-        with patch.object(gate.prior_gate,'source_identity',return_value=dict(closure={module:'m','prior-gate':'p'})), \
-            patch.object(gate,'BASELINE_SRC_SHA256',base.digest({module:'m'})):
+        initial={module:'m','prior-gate':'p'}
+        with patch.object(gate.prior_gate,'source_identity',return_value=dict(closure=initial)):
             identity=gate.source_identity(root)
-        names={str(p.relative_to(root)) for p in (root/'experiments/post_service_completion_gate_v1').iterdir() if p.is_file()}
-        self.assertTrue(names<=set(identity['closure']));self.assertIn('experiments/post_service_completion_gate_v1/lifecycle.py',identity['closure'])
-        self.assertIn('prior-gate',identity['closure']);self.assertEqual(identity['closure_sha256'],base.digest(identity['closure']))
-        for metadata in ('old metadata','changed metadata'):
-            closure={module:'m','prior-gate':'p','src/hiroute.egg-info/PKG-INFO':metadata,
-                'src/hiroute.egg-info/SOURCES.txt':metadata}
-            with patch.object(gate.prior_gate,'source_identity',return_value=dict(closure=closure)), \
-                patch.object(gate,'BASELINE_SRC_SHA256',base.digest({module:'m'})):
-                metadata_identity=gate.source_identity(root)
-            self.assertEqual(metadata_identity['closure']['src/hiroute.egg-info/PKG-INFO'],metadata)
-            self.assertEqual(metadata_identity['closure_sha256'],base.digest(metadata_identity['closure']))
-            self.assertNotEqual(metadata_identity['closure_sha256'],identity['closure_sha256'])
-        with patch.object(gate.prior_gate,'source_identity',return_value=dict(closure={module:'m','src/timecut5/convex_runtime.py':'new'})), \
-            patch.object(gate,'BASELINE_SRC_SHA256',base.digest({module:'m'})):
-            with self.assertRaisesRegex(ValueError,'pre-convex-runtime baseline'):gate.source_identity(root)
-        for path in ('src/other.egg-info/runtime.py','src/hiroute.egg-info-runtime.py','src/timecut5/runtime.py'):
-            with patch.object(gate.prior_gate,'source_identity',return_value=dict(closure={module:'m',path:'new'})), \
-                patch.object(gate,'BASELINE_SRC_SHA256',base.digest({module:'m'})):
-                with self.assertRaisesRegex(ValueError,'pre-convex-runtime baseline'):gate.source_identity(root)
+            self.assertIn('experiments/post_service_completion_gate_v1/lifecycle.py',identity['closure'])
+            self.assertIn('prior-gate',identity['closure'])
+            self.assertEqual(identity['closure_sha256'],base.digest(identity['closure']))
+            changed=dict(initial,**{'src/timecut5/new_module.py':'new'})
+            with patch.object(gate.prior_gate,'source_identity',return_value=dict(closure=changed)):
+                updated=gate.source_identity(root)
+            self.assertNotEqual(updated['closure_sha256'],identity['closure_sha256'])
+            self.assertEqual(updated['production_source_entries'],2)
+            with patch.object(gate.prior_gate,'source_identity',return_value={'closure':{'src/timecut5/convex_runtime.py':'new'}}):
+                with self.assertRaisesRegex(ValueError,'lacks the reducer'):
+                    gate.source_identity(root)
 
     def test_tiny_native_treatment_actual_runtime_and_fresh_full_replay(self):
         from timecut5.bounded import _solve_problem

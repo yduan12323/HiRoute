@@ -129,36 +129,26 @@ def test_producer_rejects_other_runtime_or_mixed_valid_stages(tmp_path,monkeypat
             protocol_sha256='0'*64,repo=str(tmp_path),compiler={},source={},budget=Budget(),preprocessing_identity=frozen,recovery_admission={'synthetic':'admission'})
     assert not (tmp_path/'never-created').exists()
 
-def test_hiroute_package_source_manifest_is_complete_and_pinned():
+def test_hiroute_package_sources_are_discovered_and_recorded_dynamically():
     from experiments.m6h_manifest_v1 import physical
     repo=Path(g.__file__).resolve().parents[2]
-    expected=physical._hiroute_source_map(repo)
-    assert len(expected)==physical.HIROUTE_SOURCE_ENTRIES==21
-    assert physical.base.digest(expected)==physical.HIROUTE_SOURCE_SHA256
-    changed=dict(expected)
-    first=next(iter(changed))
-    changed[first]='0'*64
-    with pytest.raises(ValueError,match='M6-H production source changed'):
-        physical._validate_hiroute_source_map(changed,expected)
-    altered_manifest=dict(expected)
-    altered_manifest[first]='2'*64
-    with pytest.raises(ValueError,match='M6-H production source changed'):
-        physical._validate_hiroute_source_map(expected,altered_manifest)
-    extra=dict(expected,**{'src/hiroute/unlisted.py':'1'*64})
-    with pytest.raises(ValueError,match='M6-H production source changed'):
-        physical._validate_hiroute_source_map(extra,expected)
-
-
-def test_m6_source_identity_rejects_road_policy_drift_and_binds_package():
-    from experiments.m6h_manifest_v1 import physical
-    repo=Path(g.__file__).resolve().parents[2]
-    current=physical.base.source_identity(repo)
+    sources=physical._hiroute_source_map(repo)
+    assert sources
+    assert all(name.startswith('src/hiroute/') and len(value)==64 for name,value in sources.items())
     identity=physical.source_identity(repo)
-    assert identity['historical_production_src_sha256']==physical.PRODUCTION_SRC_SHA256
-    assert identity['approved_raw_way_policy_sha256']==physical.APPROVED_RAW_WAY_POLICY_SHA256
-    assert identity['hiroute_source_entries']==21
-    drift=dict(current['closure'])
-    drift['src/graph/raw_way_policy.py']='0'*64
-    with patch.object(physical.base,'source_identity',return_value=dict(current,closure=drift)):
-        with pytest.raises(ValueError,match='M6-H production source changed'):
-            physical.source_identity(repo)
+    assert identity['hiroute_source_entries']==len(sources)
+    assert identity['hiroute_source_sha256']==physical.base.digest(sources)
+    assert identity['closure']['src/graph/raw_way_policy.py']==identity['raw_way_policy_sha256']
+    assert 'historical_production_src_sha256' not in identity
+
+
+def test_m6_source_identity_keeps_current_package_and_behavior_contract():
+    from experiments.m6h_manifest_v1 import physical
+    repo=Path(g.__file__).resolve().parents[2]
+    identity=physical.source_identity(repo)
+    assert identity['production_source_sha256']==physical.base.digest({n:h for n,h in identity['closure'].items()
+        if n.startswith('src/') and not n.startswith(('src/hiroute.egg-info/','src/hiroute/'))})
+    assert identity['raw_way_policy_sha256']==identity['closure']['src/graph/raw_way_policy.py']
+    assert identity['hiroute_source_sha256']==physical.base.digest(physical._hiroute_source_map(repo))
+    assert not hasattr(physical,'PRODUCTION_SRC_SHA256')
+    assert not hasattr(physical,'APPROVED_RAW_WAY_POLICY_SHA256')

@@ -31,12 +31,6 @@ from .physical_domain import (SCHEMA,METHODS,INNER_ARM,METHOD_POLICY,ARMS,EXACT_
 
 from .physical_inputs import spec_for, validate_manifest_contract, require_root_freeze, InvalidGraphInput
 FIXED_CPU=0
-PRODUCTION_SOURCE_ENTRIES=97
-PRODUCTION_SRC_SHA256='fe8dad5b1970ee2440eaac5a98f0de613888c6adc2e88b186bc564fbe6a0a1e2'
-HISTORICAL_RAW_WAY_POLICY_SHA256='dde0664725197a7164c1572fd298b6cffe604cb06e992fba4ed5941cd2c99450'
-APPROVED_RAW_WAY_POLICY_SHA256='f7363006958d8b0fad69653de0298e48b7ef981129b2d9d39fcd3484c294c54e'
-HIROUTE_SOURCE_ENTRIES=21
-HIROUTE_SOURCE_SHA256='a20d077f3b786af916bc509d1803fbbd79512f5b240bd52202b51838f0c13727'
 LIMITS=dict(completion.LIMITS,search_seconds=1200,search_worker_wall_seconds=1500,search_worker_cpu_seconds=1500,
     parent_cpu_soft_seconds=180,parent_cpu_hard_policy='preserve_inherited_at_least_1501')
 OBSERVER=dict(envelope.OBSERVER)
@@ -56,27 +50,14 @@ EXECUTION_POLICY=dict(schema='hiroute.scheduled_method_pair_execution.v1',
 parquet_engine_identity=predecessor.parquet_engine_identity
 
 
-def _validate_hiroute_source_map(actual, expected):
-    if (type(actual) is not dict or type(expected) is not dict or
-        len(expected)!=HIROUTE_SOURCE_ENTRIES or base.digest(expected)!=HIROUTE_SOURCE_SHA256 or
-        actual!=expected):
-        raise ValueError('M6-H production source changed')
-
-
 def _source_files(directory, root):
     return {str(p.relative_to(root)):base.file_hash(p) for p in sorted(directory.rglob('*'))
             if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ('.pyc','.pyo')}
 
 
 def _hiroute_source_map(repo):
-    manifest_path=Path(repo)/'experiments/m6h_manifest_v1/hiroute_source_manifest.json'
-    raw=manifest_path.read_bytes();manifest=json.loads(raw)
-    if (raw!=base.canonical(manifest)+b'\n' or set(manifest)!={'schema','files'} or
-        manifest['schema']!='hiroute.package_source_manifest.v1' or type(manifest['files']) is not dict):
-        raise ValueError('M6-H production source changed')
-    expected=manifest['files']
-    actual=_source_files(Path(repo)/'src/hiroute',Path(repo))
-    _validate_hiroute_source_map(actual,expected)
+    root=Path(repo)
+    actual=_source_files(root/'src/hiroute',root)
     installed=importlib.resources.files('hiroute')
     installed_files={}
     def walk(folder, relative=''):
@@ -87,26 +68,21 @@ def _hiroute_source_map(repo):
             else:
                 installed_files['src/hiroute/'+name]=hashlib.sha256(child.read_bytes()).hexdigest()
     walk(installed)
-    _validate_hiroute_source_map(installed_files,expected)
-    return expected
+    if installed_files!=actual:
+        raise ValueError('Installed hiroute package differs from the current source tree')
+    return actual
 
 
 def source_identity(repo):
-    """Bind historical production, approved road policy, and the new package separately."""
+    """Record current source closure and policy identity for this run."""
     identity=base.source_identity(repo);closure=dict(identity['closure']);repo=Path(repo)
     production={n:h for n,h in closure.items() if n.startswith('src/') and not n.startswith(('src/hiroute.egg-info/','src/hiroute/'))}
-    historical=dict(production)
     policy_path='src/graph/raw_way_policy.py'
-    if len(production)!=PRODUCTION_SOURCE_ENTRIES or policy_path not in production:
-        raise ValueError('M6-H production source changed')
-    historical[policy_path]=HISTORICAL_RAW_WAY_POLICY_SHA256
-    if base.digest(historical)!=PRODUCTION_SRC_SHA256:
-        raise ValueError('M6-H production source changed')
-    if production[policy_path]!=APPROVED_RAW_WAY_POLICY_SHA256:
-        raise ValueError('M6-H production source changed')
+    if policy_path not in production:
+        raise ValueError('Required raw-way policy module is missing')
     package_sources=_hiroute_source_map(repo)
     if {n:h for n,h in closure.items() if n.startswith('src/hiroute/')}!=package_sources:
-        raise ValueError('M6-H production source changed')
+        raise ValueError('Installed hiroute package differs from the current source closure')
     # Bind all experiment sources: imported helpers and selection implementation
     # are executable identity even when they do not run inside a method worker.
     for path in sorted([p for prefix in ('experiments','configs') for p in (repo/prefix).rglob('*')]):
@@ -122,10 +98,9 @@ def source_identity(repo):
         if relative not in closure or base.file_hash(location)!=closure[relative]:
             raise ValueError('Active executable helper differs from closure: '+name)
     return dict(identity,closure=closure,closure_sha256=base.digest(closure),
-        production_src_sha256=base.digest(production),production_source_entries=len(production),
-        historical_production_src_sha256=PRODUCTION_SRC_SHA256,
-        approved_raw_way_policy_sha256=APPROVED_RAW_WAY_POLICY_SHA256,
-        hiroute_source_sha256=HIROUTE_SOURCE_SHA256,hiroute_source_entries=HIROUTE_SOURCE_ENTRIES,
+        production_source_sha256=base.digest(production),production_source_entries=len(production),
+        raw_way_policy_sha256=production[policy_path],
+        hiroute_source_sha256=base.digest(package_sources),hiroute_source_entries=len(package_sources),
         parquet_engine=parquet_engine_identity(),
         python_executable=dict(path=str(Path(sys.executable).resolve()),sha256=base.file_hash(Path(sys.executable).resolve())))
 

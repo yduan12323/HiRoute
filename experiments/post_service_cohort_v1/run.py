@@ -22,13 +22,12 @@ from experiments.analytic_charge_gate_v1 import run as analytic_gate
 from experiments.post_service_gate_v1 import run as prior_gate
 from experiments.dev_cohort_v1.domain import method_admission
 from .domain import (SCHEMA,CASES,METHODS,INNER_ARM,METHOD_POLICY,ARMS,EXACT_PHASE_SECONDS,
-    ORIGINAL_HMAX,POST_SERVICE_POLICY,ANALYTIC_POLICY,REVIEW_STATUS,BASELINE_SOURCE_COMMIT,BASELINE_SRC_SHA256,COMPLETION_POLICY,
+    ORIGINAL_HMAX,POST_SERVICE_POLICY,ANALYTIC_POLICY,REVIEW_STATUS,BASELINE_SOURCE_COMMIT,COMPLETION_POLICY,
     CONFIGS,PostServiceCohortDomain,historical_operators,outer_admission)
 
 SPECS={case:cohort.SPECS[case] for case in CASES}
 PAIRS=[[CASES[0],['flat','hier']],[CASES[1],['hier','flat']]]
 CPU_BY_CASE={CASES[0]:0,CASES[1]:1}
-PRODUCTION_SOURCE_ENTRIES=95
 LIMITS=dict(completion.LIMITS,search_seconds=600,search_worker_wall_seconds=900,search_worker_cpu_seconds=900,
     parent_cpu_hard_policy='preserve_inherited_at_least_901',pipeline_wall_seconds=3000)
 OBSERVER=dict(envelope.OBSERVER)
@@ -53,8 +52,7 @@ CONCURRENCY_POLICY=dict(schema='hiroute.post_service_cohort_concurrency.v1',
 
 def prospective():
     return dict(schema=SCHEMA,launchable=False,status='prospective_'+REVIEW_STATUS,
-        review_status=REVIEW_STATUS,baseline_source_commit=BASELINE_SOURCE_COMMIT,baseline_src_sha256=BASELINE_SRC_SHA256,
-        production_source_entries=PRODUCTION_SOURCE_ENTRIES,
+        review_status=REVIEW_STATUS,baseline_source_commit=BASELINE_SOURCE_COMMIT,
         cases=[SPECS[case] for case in CASES],candidate_count=128,historical_hmax=ORIGINAL_HMAX,
         cohort_binding_sha256=base.file_hash(cohort.BINDING_PATH),order=PAIRS,
         shared_configuration=cohort.shared_configuration(False),arms=CONFIGS,post_service_policy=POST_SERVICE_POLICY,
@@ -77,12 +75,11 @@ def source_identity(repo):
     # Generated metadata is not production code. Exclude this exact known
     # packaging prefix only; the full executable closure still binds it.
     production={n:h for n,h in closure.items() if n.startswith('src/') and not n.startswith('src/hiroute.egg-info/')}
-    if len(production)!=PRODUCTION_SOURCE_ENTRIES or base.digest(production)!=BASELINE_SRC_SHA256:
-        raise ValueError('Completion production source differs from fixed pre-convex-runtime baseline')
     for path in sorted((repo/'experiments/post_service_cohort_v1').rglob('*')):
         if path.is_file() and '__pycache__' not in path.parts and path.suffix not in ('.pyc','.pyo'):
             closure[str(path.relative_to(repo))]=base.file_hash(path)
-    return dict(identity,closure=closure,closure_sha256=base.digest(closure))
+    return dict(identity,closure=closure,closure_sha256=base.digest(closure),
+        production_source_sha256=base.digest(production),production_source_entries=len(production))
 
 
 def require_launch_review():

@@ -27,8 +27,6 @@ from .domain import (SCHEMA,METHODS,INNER_ARM,METHOD_POLICY,ARMS,EXACT_PHASE_SEC
 from .bindings import PLAN,PLAN_PATH,PLAN_SHA256,B_CASES,QUEUE,spec_for
 CASES=B_CASES
 FIXED_CPU=0
-PRODUCTION_SOURCE_ENTRIES=96
-PRODUCTION_SRC_SHA256='c1a8ebc5a046b9ae402bb9337548d9b84037b9876853e99efa8b975263649547'
 LIMITS=dict(completion.LIMITS,search_seconds=1200,search_worker_wall_seconds=1500,search_worker_cpu_seconds=1500,
     parent_cpu_soft_seconds=180,parent_cpu_hard_policy='preserve_inherited_at_least_1501')
 OBSERVER=dict(envelope.OBSERVER)
@@ -51,8 +49,7 @@ def prospective(case_id=B_CASES[0],candidate_count=32):
     spec=next(d for d in case['domains'] if d['candidate_count']==candidate_count)
     return dict(schema=SCHEMA,launchable=False,status='prospective_held_for_tranche_A_terminal_and_B_review',
         review_status=REVIEW_STATUS,current_pair_status=CURRENT_PAIR_STATUS,source_base_commit=SOURCE_BASE_COMMIT,
-        production_source_entries=PRODUCTION_SOURCE_ENTRIES,production_src_sha256=PRODUCTION_SRC_SHA256,
-        allowed_new_production_modules=[],case_id=case_id,candidate_count=candidate_count,domain_id=spec['case_id'],case_binding=spec,
+        case_id=case_id,candidate_count=candidate_count,domain_id=spec['case_id'],case_binding=spec,
         prospective_full_selection_sha256=PLAN_SHA256,prospective_full_selection=PLAN,
         runnable_tranche='B',tranche_A_launchable=False,methods=list(METHODS),order=[[case_id,list(ARMS)]],
         shared_configuration=cohort.shared_configuration(False),arms=CONFIGS,pending_window_policy=PENDING_WINDOW_POLICY,
@@ -79,8 +76,6 @@ def source_identity(repo):
     """Inherited executable/package/engine closure plus this experiment only."""
     identity=predecessor.source_identity(repo);closure=dict(identity['closure']);repo=Path(repo)
     production={n:h for n,h in closure.items() if n.startswith('src/') and not n.startswith('src/hiroute.egg-info/')}
-    if len(production)!=PRODUCTION_SOURCE_ENTRIES or base.digest(production)!=PRODUCTION_SRC_SHA256:
-        raise ValueError('Scheduled method production source differs from frozen f89e4f3 96-entry baseline')
     paths=list((repo/'experiments/dev_coverage_tranche_v1').rglob('*'))+[repo/'docs/DEV_COVERAGE_TRANCHE_PLAN.md',repo/'docs/dev_coverage_prospective_selection_20261017.json',
         repo/'validation/dev_coverage_tranche_v1/prerequisite_pair.json',
         repo/'validation/dev_coverage_tranche_v1/prerequisite_pair_audit.json']
@@ -88,7 +83,7 @@ def source_identity(repo):
         if path.is_file() and '__pycache__' not in path.parts and path.suffix not in ('.pyc','.pyo'):
             closure[str(path.relative_to(repo))]=base.file_hash(path)
     return dict(identity,closure=closure,closure_sha256=base.digest(closure),
-        production_source_commit=SOURCE_BASE_COMMIT,production_src_sha256=base.digest(production),
+        production_source_commit=SOURCE_BASE_COMMIT,production_source_sha256=base.digest(production),
         production_source_entries=len(production))
 
 

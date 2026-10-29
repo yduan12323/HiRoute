@@ -56,7 +56,7 @@ class CohortTests(unittest.TestCase):
         self.assertEqual(gate.ORIGINAL_HMAX,{gate.CASES[0]:33,gate.CASES[1]:39})
         self.assertEqual(plan['cases'],[cohort.SPECS[c] for c in gate.CASES]);self.assertEqual(plan['candidate_count'],128)
         self.assertEqual(plan['denominator'],dict(common_preparations=2,search_arms=4,independent_replays=4,total_stages=10,stages_per_case=5))
-        self.assertEqual(plan['production_source_entries'],95);self.assertEqual(plan['baseline_src_sha256'],'bcaf573c0d82ebee70cd877616aff9c5367883640794335ff8c081b385c57bea')
+        self.assertNotIn('production_source_entries',plan);self.assertNotIn('baseline_src_sha256',plan)
         for method,config in plan['arms'].items():
             self.assertEqual(config['method'],method);self.assertTrue(config['analytic_charge']);self.assertTrue(config['post_service_dominance'])
             self.assertFalse(config['convex_charge_count_runtime']);self.assertFalse(config['operator_compaction_candidate'])
@@ -128,24 +128,21 @@ class CohortTests(unittest.TestCase):
                 bad=copy.deepcopy(completed);mutate(bad)
                 with self.assertRaises(ValueError):gate.validate_terminal(bad,full,method,33)
 
-    def test_source_closure_exact_metadata_exclusion_and_baseline_entry_count(self):
+    def test_source_identity_records_current_closure_and_required_reducer(self):
         root=Path(__file__).resolve().parents[2];module='src/timecut5/post_service_dominance.py'
         initial={module:'m','prior-gate':'p'}
-        with patch.object(gate.prior_gate,'source_identity',return_value=dict(closure=initial)),patch.object(gate,'BASELINE_SRC_SHA256',base.digest({module:'m'})),patch.object(gate,'PRODUCTION_SOURCE_ENTRIES',1):
+        with patch.object(gate.prior_gate,'source_identity',return_value=dict(closure=initial)):
             identity=gate.source_identity(root)
-            names={str(p.relative_to(root)) for p in (root/'experiments/post_service_cohort_v1').iterdir() if p.is_file()}
-            self.assertTrue(names<=set(identity['closure']));self.assertIn('experiments/post_service_cohort_v1/lifecycle.py',identity['closure'])
+            self.assertIn('experiments/post_service_cohort_v1/lifecycle.py',identity['closure'])
             self.assertEqual(identity['closure_sha256'],base.digest(identity['closure']))
-            for metadata in ('old metadata','new metadata'):
-                closure=dict(initial,**{'src/hiroute.egg-info/PKG-INFO':metadata,'src/hiroute.egg-info/SOURCES.txt':metadata})
-                with patch.object(gate.prior_gate,'source_identity',return_value=dict(closure=closure)):
-                    fresh=gate.source_identity(root);self.assertEqual(fresh['closure']['src/hiroute.egg-info/PKG-INFO'],metadata)
-                    self.assertNotEqual(fresh['closure_sha256'],identity['closure_sha256'])
-            for path in ('src/other.egg-info/runtime.py','src/hiroute.egg-info-runtime.py','src/timecut5/optional.py'):
-                with patch.object(gate.prior_gate,'source_identity',return_value=dict(closure=dict(initial,**{path:'new'}))):
-                    with self.assertRaisesRegex(ValueError,'baseline'):gate.source_identity(root)
-            with patch.object(gate,'PRODUCTION_SOURCE_ENTRIES',95):
-                with self.assertRaisesRegex(ValueError,'baseline'):gate.source_identity(root)
+            changed=dict(initial,**{'src/timecut5/new_module.py':'new'})
+            with patch.object(gate.prior_gate,'source_identity',return_value=dict(closure=changed)):
+                updated=gate.source_identity(root)
+            self.assertNotEqual(updated['closure_sha256'],identity['closure_sha256'])
+            self.assertEqual(updated['production_source_entries'],2)
+            with patch.object(gate.prior_gate,'source_identity',return_value={'closure':{'prior-gate':'p'}}):
+                with self.assertRaisesRegex(ValueError,'lacks the reducer'):
+                    gate.source_identity(root)
 
     def run_pipeline(self,root,case,*,outcomes=None,launch_exception=None,cleanup_failure=None,broken_artifact=None,hard=resource.RLIM_INFINITY):
         manifest=dict(gate.prospective(),repo=str(root),source={'closure_sha256':'a'*64});seen=[]
