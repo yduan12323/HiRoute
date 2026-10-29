@@ -3,7 +3,7 @@
 **Project:** dy-HiRoute  
 **Stage:** Milestone 4R-B1E — Deployable Baseline & Certificate Decomposition  
 **Status:** diagnostic specification after B1-D v1  
-**Normative predecessors:** `RESEARCH_SPEC_v0.2.md`, `MILESTONE_4R_B0_FORMAL_SPEC.md`, B1 action-domain amendment, `MILESTONE_4R_B1D_FORMAL_SPEC.md`, accepted B1/B1-D reports  
+**Normative predecessors:** `RESEARCH_SPEC_v0.2.md`, `docs/authority/milestone-4r/MILESTONE_4R_B0_FORMAL_SPEC.md`, B1 action-domain amendment, `docs/authority/milestone-4r/MILESTONE_4R_B1D_FORMAL_SPEC.md`, accepted B1/B1-D reports
 **Implementation authorization:** diagnostic only — no hierarchy redesign, no landmark retuning, no B2
 
 ---

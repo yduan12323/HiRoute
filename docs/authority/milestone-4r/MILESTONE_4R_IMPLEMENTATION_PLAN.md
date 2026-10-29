@@ -340,7 +340,7 @@ The first 4R implementation pass should produce, using repository naming convent
 - a reproducible config file;
 - a serialized Stop Site artifact;
 - diagnostic CSV/Parquet outputs;
-- `MILESTONE_4R_REPORT.md`.
+- `docs/MILESTONE_4R_REPORT.md`.
 
 The report must include:
 
@@ -383,4 +383,4 @@ Use a high-reasoning coding configuration. The task requires repository archaeol
 
 Run in a fresh branch if Git is available.
 
-The companion `MILESTONE_4R_CODEX_PROMPT.md` is intentionally scoped to this first stage-gated implementation pass.
+The companion `docs/authority/milestone-4r/MILESTONE_4R_CODEX_PROMPT.md` is intentionally scoped to this first stage-gated implementation pass.

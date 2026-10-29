@@ -26,12 +26,12 @@ The REF tests need the repository's scientific Python test dependencies. Product
 
 ## Evidence and limits
 
-- [Semantic contract](docs/MILESTONE_5_TIME_CUT_CONTRACT_V2.md)
-- [Conditional theory review](docs/MILESTONE_5_TIME_CUT_THEORY_REVIEW_V2.md)
-- [PWA design](docs/MILESTONE_5_TIME_CUT_PWA_DESIGN_V2.md)
-- [Independent operator review](experiments/time_cut_v2/oracle/REVIEW.md)
-- [Independent solver audit](experiments/time_cut_v2/solver_audit/REPORT.md)
-- [Exact real-input and remaining-gate audit](experiments/time_cut_v2/real_inputs/REAL_INPUT_AUDIT.md)
+- [Semantic contract](../../MILESTONE_5_TIME_CUT_CONTRACT_V2.md)
+- [Conditional theory review](../../MILESTONE_5_TIME_CUT_THEORY_REVIEW_V2.md)
+- [PWA design](../../MILESTONE_5_TIME_CUT_PWA_DESIGN_V2.md)
+- [Independent operator review](../../../experiments/time_cut_v2/oracle/REVIEW.md)
+- [Independent solver audit](../../../experiments/time_cut_v2/solver_audit/REPORT.md)
+- [Exact real-input and remaining-gate audit](../../../experiments/time_cut_v2/real_inputs/REAL_INPUT_AUDIT.md)
 - Machine-readable results: `results/milestone_5_time_cut_v2/`, `results/milestone_5_reference/`.
 
 This is bounded `H_ref` validation, not completion of the original A20/B64/C32 populations, real 2047-Region integration, deployable long-haul evaluation or holdout. Tiny-tree member scans are counted; no scalability claim is made.

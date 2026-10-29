@@ -308,7 +308,7 @@ Do not tune the method to specific known bad ODs and then treat the same OD set 
 
 ## Step 9 — Report and preservation check
 
-Produce `MILESTONE_4R_REPORT.md`.
+Produce `docs/MILESTONE_4R_REPORT.md`.
 
 The report must include:
 

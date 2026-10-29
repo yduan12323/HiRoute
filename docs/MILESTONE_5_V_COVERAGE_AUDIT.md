@@ -35,7 +35,7 @@ The [formal specification](time_cut_v2_authority/HIROUTE_FORMAL_SPEC.md),
 sections 27–29, requires an independent REF without quotient reduction or
 Region pruning, complete production-key parity including status/attainment,
 zero bounded-case violations, and separate theory closure.
-The [B2/B2.1 protocol](../MILESTONE_4R_B2_B21_EXPERIMENT_PROTOCOL.md),
+The [B2/B2.1 protocol](authority/milestone-4r/MILESTONE_4R_B2_B21_EXPERIMENT_PROTOCOL.md),
 sections 16, 18, 20, 22 and 31, adds both FLAT dominance modes, exact action
 partitioning, constrained Region bounds and the complete gate matrix.
 A FLAT D-on projection alone omits an original FLAT D-off obligation.
@@ -132,7 +132,7 @@ with archive SHA-256
 `249a0e594565ec1bef46f5744ff8f483aadfd23a3ca5020f3002fb3d1408bddd`.
 
 Historical checkpoint evidence is explicitly bounded in
-[`MILESTONE_5_CUT_CHECKPOINT.md`](../MILESTONE_5_CUT_CHECKPOINT.md):
+[`MILESTONE_5_CUT_CHECKPOINT.md`](authority/milestone-5/MILESTONE_5_CUT_CHECKPOINT.md):
 18 new analytic + 100 generated cases and 400 cross-solver comparisons
 do not mean original A20/B64/C32 completion or real 2,047-region integration.
 The [real input audit](../experiments/time_cut_v2/real_inputs/REAL_INPUT_AUDIT.md)
@@ -219,7 +219,7 @@ representation, full expected/actual key, receipt and gate-specific evidence.
 - [ ] Retain the exact-validation protocol's 50 algebra objects, permanent
   44,950-second/76-kWh blocking regression, ten reset adversaries and
   explicit explanations for changed legacy expectations
-  ([B2.1 exact protocol](../MILESTONE_5_B21_EXACT_VALIDATION_PROTOCOL_V1.md),
+  ([B2.1 exact protocol](authority/milestone-5/MILESTONE_5_B21_EXACT_VALIDATION_PROTOCOL_V1.md),
   sections 21–26). Its v1 equivalence claim was refuted; do not revive that
   refuted assertion as a new passing criterion.
 - [ ] Freeze a complete aggregate case/solver/dominance/representation/input/
