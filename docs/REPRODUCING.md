@@ -46,6 +46,16 @@ Moving the remaining gate policies to explicit versioned configs and completing
 the downstream M5 input-generation stages are separate remaining tasks. Do not silently
 change their values or label a fresh configuration as the historical experiment.
 
+### Tracked inputs versus generated outputs
+
+Classify files by purpose, not extension. Keep small JSON/YAML configuration,
+schemas, test fixtures, frozen selection inputs and provenance manifests when a
+runner, test or reproduction procedure consumes them. Write derived results,
+logs, caches and temporary exports to the run directory and keep them out of
+the source tree. Before removing a historical evidence file, verify that a
+recoverable independent archive exists; do not delete files merely because
+they are JSON or because they describe a completed run.
+
 ## 1. Data-free development
 
 From a fresh checkout, follow [the isolated-wheel gate](../ci/README.md).
