@@ -137,10 +137,11 @@ class TargetRoutingTests(unittest.TestCase):
         self.addCleanup(c.close)
         return c
 
-    def test_installed_origin_same_build_distinct_loads_and_legacy_full(self):
-        # CI explicitly requires installed-wheel origin; ordinary pytest uses src.
-        expected = (Path(sys.prefix) if os.environ.get('HIROUTE_REQUIRE_INSTALLED_WHEEL') == '1'
-                    else Path(__file__).resolve().parents[2] / 'src')
+    def test_staged_legacy_origin_same_build_distinct_loads_and_legacy_full(self):
+        # This optional legacy package is staged separately from the core hiroute wheel.
+        expected = Path(os.environ.get(
+            'HIROUTE_LEGACY_TEST_SOURCE_ROOT',
+            Path(__file__).resolve().parents[2] / 'src'))
         self.assertTrue(Path(routing.__file__).resolve().is_relative_to(expected.resolve()))
         g = graph(3, [(0, 1, 1, 1), (1, 2, 1, 1)])
         full, target = self.router(g), self.router(g, mode='destination_target')
