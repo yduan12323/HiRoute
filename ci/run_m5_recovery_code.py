@@ -2,6 +2,7 @@
 from collections import Counter
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -13,25 +14,28 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     if sys.version_info[:2] != (3, 11) or sys.prefix == sys.base_prefix:
         raise RuntimeError('Use the existing isolated Python3.11 CI environment')
-    env = dict(os.environ, PYTHONPATH=str(ROOT), PYTHONDONTWRITEBYTECODE='1',
+    env = dict(os.environ, PYTHONDONTWRITEBYTECODE='1',
                PYTHONNOUSERSITE='1', PYTEST_DISABLE_PLUGIN_AUTOLOAD='1',
                OMP_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1', MKL_NUM_THREADS='1')
-    for key in ('PYTHONOPTIMIZE', 'PYTHONHOME', 'PYTEST_ADDOPTS'):
+    for key in ('PYTHONPATH', 'PYTHONHOME', 'PYTHONOPTIMIZE', 'PYTEST_ADDOPTS'):
         env.pop(key, None)
     script = """
 from pathlib import Path
 import sys
 import pytest
-import timecut5
+import hiroute, timecut5
 
+legacy_root = Path(sys.argv[1]).resolve()
 def check_origins():
+    if not Path(hiroute.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()):
+        raise RuntimeError('Production HiRoute imports must remain inside the installed wheel')
     for name, module in tuple(sys.modules.items()):
         if name == 'timecut5' or name.startswith('timecut5.'):
-            if not Path(module.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()):
-                raise RuntimeError('Production imports must remain inside the installed wheel: ' + name)
+            if not Path(module.__file__).resolve().is_relative_to(legacy_root):
+                raise RuntimeError('Legacy recovery tests must use explicitly staged source: ' + name)
 
 check_origins()
-result = pytest.main(sys.argv[1:])
+result = pytest.main(sys.argv[2:])
 check_origins()
 raise SystemExit(result)
 """
@@ -40,11 +44,15 @@ raise SystemExit(result)
     # Pytest collects both unittest classes and free-function supervisor checks.
     with tempfile.TemporaryDirectory(prefix='hiroute-recovery-ci-') as temporary:
         work = Path(temporary)
+        legacy_root = work / 'legacy-source'
+        shutil.copytree(ROOT / 'src' / 'timecut5', legacy_root / 'timecut5')
+        env['PYTHONPATH'] = os.pathsep.join((str(legacy_root), str(ROOT)))
         config = work / 'pytest.ini'
         config.write_text('[pytest]\naddopts = -ra\n')
         for flags, label in (([], 'normal'), (['-OO'], 'optimized')):
             report = work / (label + '.xml')
             subprocess.run([sys.executable, *flags, '-B', '-c', script,
+                            str(legacy_root),
                             '-q', '-p', 'no:cacheprovider', '-c', str(config),
                             '--junitxml=' + str(report), str(ROOT / 'tests/m5d_recovery')],
                            cwd=ROOT, env=env, check=True, timeout=900)
