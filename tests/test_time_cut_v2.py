@@ -11,6 +11,8 @@ from timecut5.probe import (
     charge_at, charge_point, combined_point, continuation_equivalent, cut_le,
     dominates, drive, reduce_cuts, schedule, terminal,
 )
+from hiroute.exact.pwa import AffineCutPiece, charge_fixed, schedule_piece
+from hiroute.exact.interval import Interval as PwaInterval
 
 
 def seed(tau=0, chi=True, energy=1, rho=0, pi=(("1", "C"),),
@@ -253,6 +255,34 @@ class TestCombinedPoint(unittest.TestCase):
             result = combined_point(seed(9, chi, energy=0), 1, curve, "s", 10, 12, 3, 1)
             self.assertEqual((result.tau, result.chi), (13, chi))
         self.assertIsNone(combined_point(seed(11, False, energy=0), 1, curve, "s", 10, 12, 3, 1))
+
+
+class TestOpenCutAtHardDeadline(unittest.TestCase):
+    def test_c13_open_cut_at_deadline_is_rejected_but_earlier_cut_is_reachable(self):
+        # A fixed strictly-positive charge has an open lower-time endpoint.
+        # If that infimum is exactly the latest legal schedule start b-h, the
+        # endpoint cannot be executed. Moving the same cut strictly earlier
+        # leaves a nonempty domain; no Snapshot schedule contract is changed.
+        source = AffineCutPiece(
+            domain=PwaInterval(0, 1, True, False), slope=0, intercept=0,
+            attained=True, rho=0, prefix=(), state_key=("o", 1, 0),
+        )
+        charged = charge_fixed(source, 1, ((0, 10, 1, 0),), 7)
+        self.assertEqual((charged.tau, charged.attained), (7, False))
+        cut = AffineCutPiece(
+            domain=PwaInterval(1, 1), slope=0, intercept=charged.tau,
+            attained=charged.attained, rho=0, prefix=(("s", "C"),),
+            state_key=("s", 1, 1),
+        )
+        rejected = schedule_piece(cut, "s", 11, 10, 1, 3)
+        self.assertEqual(rejected, ())  # b-h = 7, exactly the open cut
+
+        reachable = schedule_piece(cut, "s", 11, 11, 1, 3)
+        self.assertTrue(reachable)  # b-h = 8, cut 7 is strictly earlier
+        self.assertTrue(any(piece.domain for piece in reachable))
+        # The new waiting plateau is attained at a=11 plus duration=1.
+        plateau = next(piece for piece in reachable if piece.slope == 0)
+        self.assertEqual((plateau.intercept, plateau.attained), (12, True))
 
 
 class TestTerminalAndV0AnalyticRegression(unittest.TestCase):

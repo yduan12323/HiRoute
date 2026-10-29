@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="HiRoute test">
+ <node id="101" lat="35.0010" lon="117.0010"><tag k="amenity" v="charging_station"/><tag k="access" v="yes"/></node>
+ <node id="102" lat="35.0010" lon="117.0010"/>
+ <node id="103" lat="35.0020" lon="117.0020"/>
+ <node id="1" lat="35.0000" lon="117.0000"/><node id="2" lat="35.0010" lon="117.0010"/><node id="3" lat="35.0020" lon="117.0020"/>
+ <way id="10"><nd ref="1"/><nd ref="2"/><tag k="highway" v="residential"/><tag k="maxspeed" v="30"/></way>
+ <way id="11"><nd ref="1"/><nd ref="3"/><tag k="highway" v="residential"/><tag k="maxspeed" v="30"/><tag k="oneway" v="yes"/></way>
+ <node id="201" lat="35.0002" lon="117.0002"/><node id="202" lat="35.0002" lon="117.0004"/><node id="203" lat="35.0004" lon="117.0004"/><node id="204" lat="35.0004" lon="117.0002"/>
+ <way id="20"><nd ref="201"/><nd ref="202"/><nd ref="203"/><nd ref="204"/><nd ref="201"/><tag k="building" v="yes"/></way>
+ <relation id="100"><member type="way" ref="20" role="outer"/><tag k="type" v="multipolygon"/><tag k="amenity" v="cafe"/></relation>
+</osm>

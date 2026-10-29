@@ -1,0 +1,1 @@
+"""Raw Shandong input adapters."""

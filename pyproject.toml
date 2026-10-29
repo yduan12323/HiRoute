@@ -4,22 +4,17 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hiroute"
-version = "0.1.0"
-description = "Frozen OSM road graph infrastructure for HiRoute research"
+version = "0.2.0"
+description = "HiRoute explicit problem contracts and portable core interface"
 requires-python = ">=3.11,<3.12"
-dependencies = ["numpy", "scipy", "pandas", "pyarrow", "geopandas", "shapely", "pyproj", "pyrosm", "osmium>=4,<5", "igraph", "pyyaml"]
+dependencies = []
+
+[project.optional-dependencies]
+geo = ["pyrosm==0.13.1", "pyproj==3.7.2", "shapely==2.1.2", "pandas==3.0.6", "osmium==4.3.2"]
+
+[project.scripts]
+hiroute = "hiroute.cli:main"
 
 [tool.setuptools]
-packages = ["graph", "envelope", "opportunity", "microplan", "stopplan4r", "hierarchy4r", "timecut5"]
+packages = ["hiroute", "hiroute.exact", "hiroute.data"]
 package-dir = {"" = "src"}
-
-[tool.pytest.ini_options]
-testpaths = ["tests", "validation/family5/test_checker_units.py", "validation/trace5/test_checker_units.py", "validation/suffix5/test_certificate_checker.py", "validation/suffix5/test_witness_checker.py", "validation/suffix5/test_convex_checker.py"]
-pythonpath = ["src"]
-markers = ["integration: requires frozen processed Slovenia data"]
-
-[tool.setuptools.package-data]
-opportunity = ["*.cpp"]
-microplan = ["*.cpp"]
-
-timecut5 = ["*.cpp"]

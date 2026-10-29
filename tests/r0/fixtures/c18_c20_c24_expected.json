@@ -1,0 +1,50 @@
+{
+  "C18": {
+    "fixture": "test_c18_inherited_family_lifting.py",
+    "claim": "an inherited-family restriction remains attached through a later charge and the approach witness lifts within that restricted family",
+    "expected": {
+      "restricted_predecessor_energy": ["1", "3/2"],
+      "approach_witness_time_strictly_above_cut": true,
+      "unrestricted_equal_bound_pruning_claim": false
+    },
+    "source": "tests/r0/test_c18_inherited_family_lifting.py::InheritedFamilyWitnessLifting.test_restriction_survives_second_charge_and_lifts_approach_witness"
+  },
+  "C20": {
+    "depth_modes": [
+      {"depth_mode":"diagnostic_cap","depth_limit":1,"certificate":null,"expected":"accepted as declared diagnostic domain"},
+      {"depth_mode":"seed_derived","depth_limit":1,"certificate":null,"expected":"rejected; no certificate cannot justify an incumbent-derived depth"},
+      {"depth_mode":"seed_derived","depth_limit":1,"certificate":"fixture:seed-certificate","certificate_contents_verified":false,"expected":"schema admits reference; referenced certificate remains separately unverified"}
+    ],
+    "source": "tests/r0/test_remaining_contract_fixtures.py::test_c20_depth_modes_have_separate_contract_admission"
+  },
+  "C21": {
+    "no_seed": {"execution_status":"completed","mathematical_status":"unknown","key":null},
+    "expected": "no seed does not imply infeasibility",
+    "source": "tests/r0/test_remaining_contract_fixtures.py::test_c21_no_seed_is_unknown_not_infeasible"
+  },
+  "C22": {
+    "cases": [
+      {"mutation":"semantic_problem_id changed","expected":"reject invalid input"},
+      {"mutation":"required snapshot field removed","expected":"reject invalid input"},
+      {"mutation":"unsupported model contract","expected":"unsupported_model execution status; no mathematical infeasibility claim"}
+    ],
+    "source": "tests/r0/test_remaining_contract_fixtures.py::test_c22_bad_input_and_unsupported_model_do_not_claim_infeasibility"
+  },
+  "C23": {
+    "timeout": {
+      "execution_status":"time_limit","mathematical_status":"unknown","verification_status":"witness_verified","key":null,
+      "witness":{"schema":"hiroute.witness.v1","actions":[["s","C"]],"charges_kwh":["1"],"route_legs":[],"events":[]},
+      "backend":"core"
+    },
+    "expected": "preserve verified feasible incumbent; do not claim optimum",
+    "source": "tests/r0/test_remaining_contract_fixtures.py::test_c23_timeout_preserves_feasible_incumbent_without_optimum_key"
+  },
+  "C24": {
+    "same_snapshot_algorithm_profile":"hier",
+    "observation_profiles":["off","metrics","detailed_trace"],
+    "expected_key":["5","1",1,[["c","C"]]],
+    "expected":"identical defined mathematical result for every observation profile",
+    "source": "tests/r0/test_remaining_contract_fixtures.py::test_c24_observation_profiles_do_not_change_solver_result"
+  }
+}
+

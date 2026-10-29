@@ -1,0 +1,10 @@
+{
+  "schema": "hiroute.solver_config.v1",
+  "method": "flat",
+  "reduction_profile": "none",
+  "charging_operator_profile": "bounded_time_cut_v2",
+  "coalescing_profile": "none",
+  "bound_profile": "none",
+  "seed_policy": "none",
+  "deterministic_tie_policy": "full_lexicographic_J_Q_H_Pi"
+}

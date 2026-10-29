@@ -1,0 +1,45 @@
+{
+  "schema": "hiroute.run_request.v1",
+  "raw_source": {
+    "path": "${RAW_PBF_PATH}",
+    "sha256": "${RAW_PBF_SHA256}"
+  },
+  "boundary": {
+    "path": "${BOUNDARY_PATH}",
+    "sha256": "${BOUNDARY_SHA256}"
+  },
+  "routing_config": {
+    "path": "${ROUTING_CONFIG_PATH}",
+    "sha256": "${ROUTING_CONFIG_SHA256}"
+  },
+  "model": {
+    "H_ref": "${H_REF}",
+    "capacity_kwh": "${CAPACITY_KWH}",
+    "initial_energy_kwh": "${INITIAL_ENERGY_KWH}",
+    "minimum_energy_kwh": "${MINIMUM_ENERGY_KWH}",
+    "consumption_kwh_per_m": "${CONSUMPTION_KWH_PER_M}",
+    "charging_segments": "${CHARGING_SEGMENTS}"
+  },
+  "queries": [
+    {
+      "id": "${CASE_ID}",
+      "origin": {
+        "osm_identity": "${ORIGIN_OSM_ID}",
+        "coordinates_lon_lat": [
+          "${ORIGIN_LON}",
+          "${ORIGIN_LAT}"
+        ]
+      },
+      "destination": {
+        "osm_identity": "${DESTINATION_OSM_ID}",
+        "coordinates_lon_lat": [
+          "${DESTINATION_LON}",
+          "${DESTINATION_LAT}"
+        ]
+      },
+      "candidate_site_ids": "${CANDIDATE_SITE_IDS}",
+      "initial_remaining_schedule": "${INITIAL_REMAINING_SCHEDULE}",
+      "schedule": null
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schema": "hiroute.problem_snapshot.v1",
+  "model_contract_id": "hiroute.time_cut_v2.bounded",
+  "numerical_contract_id": "exact_rational_inputs_v1",
+  "origin": "o",
+  "destination": "z",
+  "departure_time_s": "0",
+  "initial_energy_kwh": "10",
+  "capacity_kwh": "10",
+  "minimum_energy_kwh": "0",
+  "destination_reserve_kwh": "0",
+  "stop_overhead_s": "1",
+  "stop_penalty_s": "1",
+  "consumption_kwh_per_m": "1",
+  "schedule": null,
+  "initial_remaining_schedule": 0,
+  "candidate_order": [],
+  "site_capabilities": {},
+  "charging_curve": [],
+  "directed_edges": [
+    {"source": "o", "target": "z", "time_s": "1", "length_m": "1", "edge_id": "direct"}
+  ],
+  "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+  "graph_or_leg_identity": "R0-C01-directed-two-node-fixture-v1",
+  "depth_mode": "diagnostic_cap",
+  "depth_limit": 0,
+  "depth_certificate_reference": null
+}
