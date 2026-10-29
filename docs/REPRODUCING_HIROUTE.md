@@ -68,7 +68,10 @@ hiroute run --wall-limit-s 3600 --cpu-limit-s 7200 \
 ```
 
 For a PBF producer, put its Python invocation after the same `--`; this wraps
-the producer process group under identical monitoring and cleanup.
+the producer process group under identical monitoring and cleanup. The wrapper
+also terminates any descendants left in that group after the command leader
+exits successfully, so run only commands whose entire process group belongs to
+this supervised invocation.
 
 ## Shandong data API
 

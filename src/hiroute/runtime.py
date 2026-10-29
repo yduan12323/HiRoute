@@ -205,6 +205,30 @@ def _atomic_run_receipt(path: str | os.PathLike[str], record: Mapping[str, Any])
         raise
 
 
+def _terminate_remaining_process_group(pgid: int, term_grace_s: float) -> tuple[bool, bool]:
+    """Terminate descendants left after the supervised leader has exited."""
+    try:
+        os.killpg(pgid, 0)
+    except ProcessLookupError:
+        return False, False
+    try:
+        os.killpg(pgid, signal.SIGTERM)
+    except ProcessLookupError:
+        return False, False
+    deadline = time.monotonic() + term_grace_s
+    while time.monotonic() < deadline:
+        try:
+            os.killpg(pgid, 0)
+        except ProcessLookupError:
+            return True, False
+        time.sleep(min(0.01, max(0.0, deadline - time.monotonic())))
+    try:
+        os.killpg(pgid, signal.SIGKILL)
+        return True, True
+    except ProcessLookupError:
+        return True, False
+
+
 def run_supervised(argv: Sequence[str], *, timeout_s: float, term_grace_s: float = 1.0,
                    cwd: str | None = None,
                    env: Mapping[str, str] | None = None,
@@ -220,7 +244,9 @@ def run_supervised(argv: Sequence[str], *, timeout_s: float, term_grace_s: float
     Group RSS/CPU and host MemAvailable are sampled monitors, not aggregate
     kernel hard caps. The optional RLIMIT_AS and RLIMIT_CPU also apply per
     process. When receipt_path is supplied, the parent atomically records the
-    attempt and terminal enforcement state, not solver correctness.
+    attempt and terminal enforcement state, not solver correctness. On normal
+    leader exit, any remaining descendants in the owned process group are also
+    terminated so supervised commands cannot leave background workers behind.
     """
     if (not argv or isinstance(argv, (str, bytes))
             or not isinstance(timeout_s, (int, float)) or not math.isfinite(timeout_s) or timeout_s <= 0
@@ -370,6 +396,12 @@ def run_supervised(argv: Sequence[str], *, timeout_s: float, term_grace_s: float
             pass
         if child.poll() is None:
             child.wait()
+    else:
+        # Successful leader exit does not imply that its process group is empty.
+        # Reap any background descendants that deliberately closed the pipes.
+        extra_term, extra_kill = _terminate_remaining_process_group(child.pid, term_grace_s)
+        term_sent = term_sent or extra_term
+        kill_sent = kill_sent or extra_kill
     result = SupervisedRun(child.returncode, timed_out, term_sent, kill_sent,
                            child.pid, stdout, stderr, time.monotonic()-started,
                            memory_limited, rss_peak, cpu_limited, cpu_peak, vm_size_peak,

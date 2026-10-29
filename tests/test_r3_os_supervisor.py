@@ -315,6 +315,34 @@ time.sleep(60)
                 path, expected_semantic_problem_id="problem-a"), first)
             self.assertEqual([p.name for p in Path(tmp).iterdir()], ["incumbent.json"])
 
+    def test_successful_leader_exit_cleans_remaining_group_descendants(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            pid_file = Path(tmp) / "grandchild.pid"
+            worker = (
+                "import subprocess,sys; "
+                "p=subprocess.Popen([sys.executable,'-c','import time; time.sleep(60)'], "
+                "stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL); "
+                "open(sys.argv[1], 'w').write(str(p.pid))"
+            )
+            result = run_supervised([sys.executable, "-c", worker, str(pid_file)],
+                                    timeout_s=3, term_grace_s=.1, memory_poll_s=.01)
+            self.assertEqual(result.returncode, 0)
+            self.assertFalse(result.timed_out)
+            self.assertTrue(result.term_sent)
+            self.assertTrue(pid_file.exists())
+            pid = int(pid_file.read_text())
+            deadline = time.monotonic() + 2
+            while time.monotonic() < deadline:
+                try:
+                    state = Path(f"/proc/{pid}/stat").read_text().split()[2]
+                except FileNotFoundError:
+                    break
+                if state == "Z":
+                    break
+                time.sleep(.02)
+            else:
+                self.fail("background descendant remained live after successful leader exit")
+
     def test_supervisor_returns_normal_worker_output_without_timeout(self):
         result = run_supervised([sys.executable, "-c", "print('ok')"],
                                 timeout_s=2, term_grace_s=.1)
