@@ -3,7 +3,7 @@
 **Project:** dy-HiRoute  
 **Stage:** Milestone 4R-B1D — Deployable Region Bounds  
 **Status:** theory candidate after B1-O correctness and oracle-potential validation  
-**Normative predecessors:** `RESEARCH_SPEC_v0.2.md`, `MILESTONE_4R_B0_FORMAL_SPEC.md`, B1 action-domain amendment, accepted B1 H0–H5 results  
+**Normative predecessors:** `RESEARCH_SPEC_v0.2.md`, `docs/authority/milestone-4r/MILESTONE_4R_B0_FORMAL_SPEC.md`, B1 action-domain amendment, accepted B1 H0–H5 results
 **Implementation authorization:** none — this document freezes the deployable-bound theory before a Codex implementation prompt.
 
 ---

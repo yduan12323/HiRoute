@@ -467,7 +467,9 @@ filter saved flat plans with frozen membership and the documented deterministic
 kernels. `rebuild_microplan_subset.py` reconstructs any subset without routing.
 This avoids duplicating full microplan tables at every budget/scenario; sample
 independent subset verification is explicit. No road graph is duplicated.
-README gives exact commands and verifies previous data rather than rebuilding it.
+The top-level README links to `docs/REPRODUCING.md` for platform setup and
+stage order. This report records the measured outcome and its verification
+scope; it does not instruct readers to overwrite or rebuild the supplied data.
 
 ## Go-1 interpretation and next-stage boundary
 

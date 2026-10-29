@@ -3,7 +3,7 @@
 **Project:** dy-HiRoute  
 **Stage:** Milestone 4R-B1 — Exact One-Stop Hierarchical Validation  
 **Status:** pre-registered protocol candidate; freeze before B1 implementation/results  
-**Normative theory:** `MILESTONE_4R_B0_FORMAL_SPEC.md`  
+**Normative theory:** `docs/authority/milestone-4r/MILESTONE_4R_B0_FORMAL_SPEC.md`<br>
 **Development substrate:** accepted Milestone 4R-A Stop Sites and 30 development ODs  
 **Scientific role:** validate the theorem-guided hierarchy and measure its pruning potential; **not** final holdout validation and **not** yet the final multi-stop Revised Go-1 claim.
 
@@ -766,7 +766,7 @@ B1 should eventually produce:
 - correctness violation tables;
 - gap-decomposition outputs;
 - timing/memory logs;
-- `MILESTONE_4R_B1_REPORT.md`;
+- `docs/MILESTONE_4R_B1_REPORT.md`;
 - acceptance JSON recording all frozen gates and outcomes.
 
 No B1 report may state “Revised Go-1 established” unless the report explicitly distinguishes oracle-potential evidence from deployable computational evidence.

@@ -14,11 +14,11 @@ This document is a **theory reset**, not an amendment chain.
 
 For all future Milestone-5 implementation work, this document supersedes the normative multi-stop claims in:
 
-- `MILESTONE_4R_B2_FORMAL_SPEC.md`
-- `MILESTONE_4R_B2_THEORY_AUDIT.md`
-- `MILESTONE_4R_B2_T7_CHARGING_FRONTIER_SPEC.md`
-- `MILESTONE_4R_B2_T7_THEOREM_AUDIT.md`
-- the draft `MILESTONE_4R_B2_B21_THEORY_REVISION_R1.md`
+- `docs/authority/milestone-4r/MILESTONE_4R_B2_FORMAL_SPEC.md`
+- `docs/authority/milestone-4r/MILESTONE_4R_B2_THEORY_AUDIT.md`
+- `docs/authority/milestone-4r/MILESTONE_4R_B2_T7_CHARGING_FRONTIER_SPEC.md`
+- `docs/authority/milestone-4r/MILESTONE_4R_B2_T7_THEOREM_AUDIT.md`
+- the draft `docs/authority/milestone-4r/MILESTONE_4R_B2_B21_THEORY_REVISION_R1.md`
 
 Those documents remain historical development evidence.
 

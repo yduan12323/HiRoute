@@ -65,7 +65,7 @@ The arbitrary upper end of the analytic open seed does not alter its lower cut; 
 
 These are local operator probes. The caller supplies an already selected Site and must validate arrival anchor, capability and route identity externally. Changing the output anchor label in a local stop operator is not a substitute for a drive transition in a full physical planner.
 
-Physical destination semantics are carried forward: `MILESTONE_5_MULTISTOP_CORE_THEORY_V1.md`, Section 2, says “Destination arrival is terminal, not a semantic stop”; `MILESTONE_4R_B2_FORMAL_SPEC.md`, Section 2, likewise treats arrival as terminal unless explicitly modeled otherwise. The new cut authority does not explicitly change that rule. The bounded physical adapters therefore forbid semantic actions at the destination and departure from a current terminal anchor, including when origin equals destination. This does not introduce a stronger ban on a selected road leg merely transiting the destination internally.
+Physical destination semantics are carried forward: [the M5 multistop theory](authority/milestone-5/MILESTONE_5_MULTISTOP_CORE_THEORY_V1.md), Section 2, says “Destination arrival is terminal, not a semantic stop”; [the M4R-B2 formal specification](authority/milestone-4r/MILESTONE_4R_B2_FORMAL_SPEC.md), Section 2, likewise treats arrival as terminal unless explicitly modeled otherwise. The new cut authority does not explicitly change that rule. The bounded physical adapters therefore forbid semantic actions at the destination and departure from a current terminal anchor, including when origin equals destination. This does not introduce a stronger ban on a selected road leg merely transiting the destination internally.
 
 ### Drive
 

@@ -4,7 +4,7 @@
 **Stage:** Milestone 5 — deterministic exact multi-stop hierarchical planning  
 **Substage:** B21-v1 — exact small-domain validation after core-theory reset  
 **Status:** preregistered correctness protocol; no implementation authorized outside this protocol  
-**Normative authority:** `MILESTONE_5_MULTISTOP_CORE_THEORY_V1.md` + `MILESTONE_5_MULTISTOP_CORE_THEORY_AUDIT_V1.md`  
+**Normative authority:** `docs/authority/milestone-5/MILESTONE_5_MULTISTOP_CORE_THEORY_V1.md` + `docs/authority/milestone-5/MILESTONE_5_MULTISTOP_CORE_THEORY_AUDIT_V1.md`<br>
 **Historical predecessor:** failed B21-v0 attempt and its preserved correctness counterexample evidence
 
 ---
@@ -51,8 +51,8 @@ For B21-v1, read in this order:
 
 1. `RESEARCH_SPEC_v0.2.md`
 2. frozen one-stop / B1-D2 accepted artifacts
-3. `MILESTONE_5_MULTISTOP_CORE_THEORY_V1.md`
-4. `MILESTONE_5_MULTISTOP_CORE_THEORY_AUDIT_V1.md`
+3. `docs/authority/milestone-5/MILESTONE_5_MULTISTOP_CORE_THEORY_V1.md`
+4. `docs/authority/milestone-5/MILESTONE_5_MULTISTOP_CORE_THEORY_AUDIT_V1.md`
 5. this protocol
 6. future B21-v1 Codex prompt
 

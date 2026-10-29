@@ -13,9 +13,9 @@ This is a **theorem-validation and pruning-potential experiment**, not an open-e
 Read the following files in this order before changing code:
 
 1. `RESEARCH_SPEC_v0.2.md`
-2. `MILESTONE_4R_REPORT.md`
-3. `MILESTONE_4R_B0_FORMAL_SPEC.md`
-4. `MILESTONE_4R_B1_EXPERIMENT_PROTOCOL.md`
+2. `docs/MILESTONE_4R_REPORT.md`
+3. `docs/authority/milestone-4r/MILESTONE_4R_B0_FORMAL_SPEC.md`
+4. `docs/authority/milestone-4r/MILESTONE_4R_B1_EXPERIMENT_PROTOCOL.md`
 
 Treat items 3 and 4 as the normative B1 theory and preregistered experiment contract.
 
@@ -941,7 +941,7 @@ Produce at minimum:
 - optional B1-D deployable summaries/results if authorized by the conditions above;
 - timing and memory logs;
 - protected-file verification;
-- `MILESTONE_4R_B1_REPORT.md`;
+- `docs/MILESTONE_4R_B1_REPORT.md`;
 - `acceptance.json`.
 
 All empty violation tables should still be emitted explicitly.
@@ -950,7 +950,7 @@ All empty violation tables should still be emitted explicitly.
 
 # 25. Report structure
 
-`MILESTONE_4R_B1_REPORT.md` must clearly separate:
+`docs/MILESTONE_4R_B1_REPORT.md` must clearly separate:
 
 ## A. Scope and declared domain
 

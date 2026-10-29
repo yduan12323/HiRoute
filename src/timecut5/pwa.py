@@ -1,6 +1,6 @@
 """Finite rational PWA cut operators via exact strict budget projection.
 
-See docs/MILESTONE_5_TIME_CUT_PWA_DESIGN_V2.md. This is an operator prototype,
+See docs/authority/milestone-5/MILESTONE_5_TIME_CUT_PWA_DESIGN_V2.md. This is an operator prototype,
 not a route solver or independent REF. A projected time is a budget and is
 always lifted through a constrained predecessor before becoming a witness.
 """

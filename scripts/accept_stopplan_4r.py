@@ -20,8 +20,9 @@ def capture(out):
     files.extend(p for p in (ROOT / 'tests').glob('*.py') if 'stopplan4r' not in p.name)
     files.extend(p for p in (ROOT / 'configs').glob('*.yaml') if p.name != 'stopplan_4r.yaml')
     files.extend(p for p in (ROOT / 'docs').glob('*.md') if p.name != 'MILESTONE_4R_REPORT.md')
-    files.extend(ROOT / p for p in ['RESEARCH_SPEC.md', 'RESEARCH_SPEC_v0.2.md', 'MILESTONE_4R_CODEX_PROMPT.md',
-        'MILESTONE_4R_IMPLEMENTATION_PLAN.md', 'environment.yml', 'environment-resolved.yml',
+    files.extend(ROOT / p for p in ['RESEARCH_SPEC.md', 'RESEARCH_SPEC_v0.2.md',
+        'docs/authority/milestone-4r/MILESTONE_4R_CODEX_PROMPT.md',
+        'docs/authority/milestone-4r/MILESTONE_4R_IMPLEMENTATION_PLAN.md', 'environment.yml', 'environment-resolved.yml',
         'environment-linux-64.lock', 'environment-osmium-linux-64.lock', '.env.example'])
     record = {'git_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
         'git_status': subprocess.check_output(['git', 'status', '--porcelain'], text=True),

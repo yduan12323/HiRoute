@@ -3,7 +3,7 @@
 **Project:** dy-HiRoute  
 **Stage:** Milestone 4R-B0 — Hierarchical Search Model  
 **Status:** formal theory candidate after adversarial proof audit  
-**Normative predecessor:** `RESEARCH_SPEC_v0.2.md` and accepted `MILESTONE_4R_REPORT.md`  
+**Normative predecessor:** `RESEARCH_SPEC_v0.2.md` and accepted `docs/MILESTONE_4R_REPORT.md`<br>
 **Implementation authorization:** **none** — this freezes the mathematical contract for a later B1 experiment; it is not a Codex prompt.
 
 ---

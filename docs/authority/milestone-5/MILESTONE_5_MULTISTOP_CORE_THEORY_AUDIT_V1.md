@@ -1,7 +1,7 @@
 # Milestone 5 — Multi-Stop Core Theory Audit v1.0
 
 **Project:** dy-HiRoute  
-**Audited authority:** `MILESTONE_5_MULTISTOP_CORE_THEORY_V1.md`  
+**Audited authority:** `docs/authority/milestone-5/MILESTONE_5_MULTISTOP_CORE_THEORY_V1.md`<br>
 **Trigger:** B21 correctness counterexample to earliest-time-only compression and strict-cost dominance  
 **Audit mode:** adversarial theorem audit before any B21 protocol rewrite or implementation  
 **Decision target:** whether the reset theory is coherent enough to become the sole multi-stop implementation authority
