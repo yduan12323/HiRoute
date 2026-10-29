@@ -95,8 +95,8 @@ def test_documented_cli_flow_renders_request_and_runs_supervised_smoke(tmp_path,
     receipt=tmp_path/'cli-receipt.json'; stdout=tmp_path/'cli-stdout'; stderr=tmp_path/'cli-stderr'
     rc=run_tool.main(['--request',str(out/'request.json'),'--profile',str(out/'resource-profile.json'),
         '--admission',str(out/'admission.json'),'--receipt',str(receipt),'--stdout',str(stdout),
-        '--stderr',str(stderr),'--',sys.executable,'-c','print("documented-flow-ok")'])
-    assert rc==0 and stdout.read_text().strip()=='documented-flow-ok' and receipt.is_file()
+        '--stderr',str(stderr),'--',sys.executable,'-m','hiroute','--help'])
+    assert rc==0 and 'HiRoute explicit snapshot interface' in stdout.read_text() and receipt.is_file()
 
 
 def test_admitted_runner_rejects_source_changed_after_admission(tmp_path):

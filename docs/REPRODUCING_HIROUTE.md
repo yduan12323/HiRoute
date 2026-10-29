@@ -26,7 +26,7 @@ For tests that explicitly exercise the independent reference package, install it
 
 ```sh
 python tools/prepare_run.py --request-template configs/shandong-query.example.json --profile-template configs/resource-profile.example.json --parameters local-parameters.json --root . --output-dir local-admission
-python tools/run_admitted.py --request local-admission/request.json --profile local-admission/resource-profile.json --admission local-admission/admission.json --receipt local-run/receipt.json --stdout local-run/stdout.log --stderr local-run/stderr.log -- python -m hiroute validate --problem local-problem.json
+python tools/run_admitted.py --request local-admission/request.json --profile local-admission/resource-profile.json --admission local-admission/admission.json --receipt local-run/receipt.json --stdout local-run/stdout.log --stderr local-run/stderr.log -- python -m hiroute --help
 ```
 
 The preparation step checks caller-supplied input checksums, routing-config shape, exact numeric fields, endpoint/candidate structure, unresolved placeholders, and whether the requested memory cap plus growth margin and headroom fit the current Linux `MemAvailable` sample. The generated admission record is a snapshot, not a continuous host-memory guarantee. The runner rechecks input hashes and headroom immediately before launch and delegates wall, CPU, and address-space caps to the installed supervisor. Receipts and rendered local configs should remain outside the source distribution; they contain per-run provenance. The tools have no embedded run IDs, input paths, resource values, or default budget.
