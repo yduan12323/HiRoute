@@ -30,9 +30,12 @@ def check_origins():
     if not Path(hiroute.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()):
         raise RuntimeError('Production HiRoute imports must remain inside the installed wheel')
     for name, module in tuple(sys.modules.items()):
-        if name == 'timecut5' or name.startswith('timecut5.'):
+        if name == 'hiroute' or name.startswith('hiroute.'):
+            if not Path(module.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()):
+                raise RuntimeError('Production HiRoute imports must remain inside the installed wheel: ' + name)
+        elif name.split('.', 1)[0] in {'timecut5', 'microplan', 'graph', 'validation'}:
             if not Path(module.__file__).resolve().is_relative_to(legacy_root):
-                raise RuntimeError('Legacy recovery tests must use explicitly staged source: ' + name)
+                raise RuntimeError('Legacy recovery imports must use explicitly staged source: ' + name)
 
 check_origins()
 result = pytest.main(sys.argv[2:])
@@ -41,11 +44,18 @@ raise SystemExit(result)
 """
     # Keep source-audit fixtures at their established relative paths, but never
     # inherit the repository pytest configuration's pythonpath=src override.
-    # Pytest collects both unittest classes and free-function supervisor checks.
+    # Legacy packages are staged outside the wheel; hiroute remains wheel-only.
     with tempfile.TemporaryDirectory(prefix='hiroute-recovery-ci-') as temporary:
         work = Path(temporary)
         legacy_root = work / 'legacy-source'
-        shutil.copytree(ROOT / 'src' / 'timecut5', legacy_root / 'timecut5')
+        for source in (ROOT / 'src').rglob('*'):
+            if source.is_file() and source.suffix in ('.py', '.cpp'):
+                relative = source.relative_to(ROOT / 'src')
+                if relative.parts[0] == 'hiroute':
+                    continue
+                destination = legacy_root / relative
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(source, destination)
         env['PYTHONPATH'] = os.pathsep.join((str(legacy_root), str(ROOT)))
         config = work / 'pytest.ini'
         config.write_text('[pytest]\naddopts = -ra\n')
