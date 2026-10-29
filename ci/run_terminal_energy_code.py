@@ -46,6 +46,7 @@ print('Finite energy gate passed; screen remains opt-in')
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(source, destination)
         env['PYTHONPATH'] = os.pathsep.join((str(legacy_root), str(ROOT)))
+        env['HIROUTE_LEGACY_TEST_SOURCE_ROOT'] = str(legacy_root)
         script = script.replace('SUITE', repr(str(ROOT / 'tests/terminal_energy')))
         script = script.replace('TOP', repr(str(ROOT / 'tests')))
         for flags in ([], ['-OO']):
