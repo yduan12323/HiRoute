@@ -95,9 +95,12 @@ class EnergyTests(unittest.TestCase):
         return observation.EnergyObservation(self.directory(),run_identity={'run':'tiny','domain':digest('tiny')},interval=.01,**kwargs)
 
     def test_installed_resource_and_same_build_defaults(self):
-        # CI explicitly requires installed-wheel origin; ordinary pytest uses src.
-        expected = (Path(sys.prefix) if os.environ.get('HIROUTE_REQUIRE_INSTALLED_WHEEL') == '1'
-                    else Path(__file__).resolve().parents[2] / 'src')
+        # HiRoute stays installed from its wheel. The optional legacy package is
+        # staged outside the checkout by the CI runner; local source tests use src/.
+        if os.environ.get('HIROUTE_REQUIRE_INSTALLED_WHEEL') == '1':
+            expected = Path(os.environ.get('HIROUTE_LEGACY_TEST_SOURCE_ROOT', sys.prefix))
+        else:
+            expected = Path(__file__).resolve().parents[2] / 'src'
         self.assertTrue(Path(energy.__file__).resolve().is_relative_to(expected.resolve()))
         raw=resources.files('timecut5').joinpath('terminal_energy_native.cpp').read_bytes()
         self.assertEqual(hashlib.sha256(raw).hexdigest(),self.energy_artifact.receipt['source_sha256'])

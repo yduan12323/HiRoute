@@ -1,82 +1,86 @@
 # HiRoute
 
-HiRoute is a research codebase for directed road-network analysis and bounded
-electric-vehicle stop planning. It contains reusable packages, versioned
-experiment runners, frozen configuration and input metadata, regression tests,
-and reproduction guidance. Generated run outputs are excluded from version
-control.
+HiRoute is a Python package for exact bounded electric-vehicle stop-planning on
+explicit directed road graphs. The current runnable core is `hiroute`; it does
+not require the legacy experiment packages or the optional REF implementation.
 
-## Research status
+## Current capabilities
 
-The latest recorded research checkpoint is
-[`M5D_LIMITED_BY_DATA_OR_SCALE`](docs/CURRENT_RESEARCH_STATUS.md), dated
-2026-10-17. It reports completed known-DEV work alongside unresolved scale and
-historical accounting limits. These results are scoped to their recorded
-inputs, source versions, and environments; they do not certify real-world
-navigation safety. The [M5-D report](docs/MILESTONE_5D_REPORT.md) gives the
-outcomes and remaining limits. This status page is the entry point for later
-research updates.
-
-## Repository layout
-
-| Path | Purpose |
+| Area | Current support |
 | --- | --- |
-| `src/` | Reusable graph, envelope, opportunity, microplan, stop-planning, hierarchy, and time-cut packages |
-| `experiments/` | Versioned research runners and their scoped contracts |
-| `configs/` | Experiment settings and identities for external inputs |
-| `tests/` | Unit, contract, and synthetic regression coverage |
-| `ci/` | The explicit data-free installed-wheel test gate |
-| `docs/` | Current status, reports, protocols, and reproduction instructions |
-| `validation/` | Scoped validation records and supporting checks |
+| Problem input | Versioned JSON `ProblemSnapshot`; exact rational numeric values; directed edges and explicit ordered Sites |
+| Search domain | User-declared candidate order and depth bound; exact search is intended for bounded cases, with no broad-scale or unrestricted-optimality claim |
+| Methods | `flat` and `hier` through the `exact_core_search` backend |
+| Profiles | `reduction=none`, `charging_operator=bounded_time_cut_v2`, `coalescing=none`, `bound=none`; other profiles are rejected |
+| Real input | Shandong PBF producer API with the `geo` extra, routing policy, boundary and projection; it validates input structure and policy without historical admission receipts |
+| Independent REF | Separate package in `reference/`; optional, with a bounded snapshot interface |
 
-The original research formulations remain at the repository root in
-[`RESEARCH_SPEC_v0.2.md`](RESEARCH_SPEC_v0.2.md) and
-[`RESEARCH_SPEC.md`](RESEARCH_SPEC.md). Milestone specifications, protocols,
-and theory audits are grouped under [`docs/authority/`](docs/authority/README.md).
+The latest recorded project status remains limited: real-map REF confirmation and
+holdout work are incomplete. See [current research status](docs/CURRENT_RESEARCH_STATUS.md)
+for the historical scope. A synthetic CI pass is not research acceptance.
 
-## Install the validated environment
+## Install and try
 
-The validated full experiment environment is Linux x86-64 with Python 3.11.
-From a shell initialized for Conda/Mamba, create it from the checked-in package
-lock, then install the local project:
+Python 3.11 is required. Build and install a wheel from a checkout:
 
-```bash
-mamba create -n hiroute-repro --file environment-linux-64.lock -y
-conda activate hiroute-repro
-python -m pip install --no-deps --no-build-isolation -e .
+```sh
+python3.11 -m venv .venv
+. .venv/bin/activate
+python -m pip install build
+python -m build --wheel
+wheel=$(find dist -maxdepth 1 -type f -name 'hiroute-*.whl' -print -quit)
+test -n "$wheel"
+python -m pip install "$wheel"
 ```
 
-Some regional data preparation also uses the separate pinned `osmium` toolchain.
-Platform support, dependency details, and environment checks are in
-[`docs/REPRODUCING.md`](docs/REPRODUCING.md).
+Run the included tiny exact example. It writes to a fresh temporary directory:
 
-## Test
+```sh
+run_dir=$(mktemp -d)
+hiroute validate --problem tests/r0/c01_zero_stop_snapshot.json
+hiroute solve --problem tests/r0/c01_zero_stop_snapshot.json \
+  --config configs/rebuild/r1_flat.json --output "$run_dir/result.json"
+```
 
-For data-free development, run the isolated-wheel gate described in
-[`ci/README.md`](ci/README.md). It builds and installs a wheel in a disposable
-environment and runs the explicit synthetic regression set; it does not need
-OSM data or historical experiment outputs. The GitHub workflow is
-`.github/workflows/m5-code-only.yml`.
+For Shandong PBF ingestion, install the wheel with its optional geospatial
+requirements using `python -m pip install "$wheel[geo]"`. Supply the PBF,
+`.poly` boundary, routing policy, query, projection and attachment parameters to
+`hiroute.data.shandong.produce_shandong_snapshot`; no R0–R3 receipt or manually
+computed problem digest is required. Input format, routing policy, endpoint,
+Site and physical-model checks remain active.
 
-Legacy tests that require real graph data or prior milestone outputs are
-opt-in. Their inputs and acceptance commands are documented in
-[`docs/REPRODUCING.md`](docs/REPRODUCING.md); do not treat a data-free CI pass as
-a real-data reproduction.
+## Bounded execution
 
-## Reproduce an experiment
+Use `hiroute run` to supervise either the exact solver CLI or a data-preparation
+command. It requires explicit wall, CPU, sampled process-group RSS, and minimum
+host `MemAvailable` limits, and writes an atomic receipt. Sampled group RSS is
+a monitor and cleanup trigger, not a kernel-enforced aggregate cap; use the
+optional per-process address-space limit when an individual hard ceiling is
+needed. Unlike `hiroute solve --time-limit-s`, which only bounds exact-search
+work, this wrapper applies an OS process-group wall/CPU/RSS guard and samples
+host headroom. The command receives no provenance-hash or budget-ID gate.
 
-Start with [`docs/REPRODUCING.md`](docs/REPRODUCING.md), then use the specific
-versioned protocol and configuration linked from the relevant report. Each
-reproduction should use a clean checkout and environment, retain its own run
-directory, and record the exact command and runtime identity. Do not overwrite
-historical outputs or substitute newer data for a frozen input.
+```sh
+hiroute run --wall-limit-s 3600 --cpu-limit-s 7200 \
+  --memory-limit-bytes 42949672960 --host-headroom-bytes 17179869184 \
+  --receipt run-receipt.json -- \
+  hiroute solve --problem problem.json --config solver.json --output result.json
+```
 
-For example, a prepared Milestone 4B workspace uses
-`python scripts/run_microplan_benchmark.py`; the
-[M4B report](docs/MILESTONE_4B_REPORT.md) and reproduction guide describe its
-prior inputs and reproduction limits.
+For a PBF producer, put its Python invocation after the same `--`; this wraps
+the producer process group under identical monitoring and cleanup. The wrapper
+also terminates any descendants left in that group after the command leader
+exits successfully, so run only commands whose entire process group belongs to
+this supervised invocation.
 
-The repository preserves input, output, receipt, and historical evidence
-integrity checks. Per-run source identities record which code produced an
-outcome; they are provenance, not restrictions on future source changes. See
-[`AGENTS.md`](AGENTS.md) and [`docs/SOURCE_PROVENANCE.md`](docs/SOURCE_PROVENANCE.md).
+## Tests and reproduction
+
+The workflow builds and installs the core wheel, runs focused exact/search,
+contract, CLI and producer regressions from outside the source tree, and runs
+separate synthetic legacy differential and REF-interface checks. Run the same
+workflow locally with the commands in [`ci/README.md`](ci/README.md). For
+installation, input preparation and the scope of reproducible examples, see
+[the usage and reproduction guide](docs/REPRODUCING_HIROUTE.md).
+
+Historical reports and protocols remain under `docs/`; they describe their own
+recorded inputs and do not gate ordinary package use.

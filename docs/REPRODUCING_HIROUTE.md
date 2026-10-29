@@ -1,40 +1,102 @@
-# Reproducing HiRoute
+# HiRoute usage and reproduction
 
-This guide covers the package and its small deterministic tests. It does not include a particular experiment's inputs, identifiers, outputs, resource limits, or results.
+This guide covers the current installable core and its bounded examples. It does
+not certify large-scale routing, real-map REF equivalence or holdout performance.
 
-## Install and run focused tests
+## Build and install the core
 
-Use Python 3.11 in a fresh environment. Build and install a wheel from the checked-out source, then run the exact-core and synthetic producer tests from the repository root:
+Use Python 3.11 and a fresh environment. The default wheel contains `hiroute`
+only; it does not include legacy experiment packages or an REF solver.
 
 ```sh
-python -m venv .venv
+python3.11 -m venv .venv
 . .venv/bin/activate
-python -m pip install --upgrade pip build pytest
+python -m pip install build
 python -m build --wheel
-python -m pip install 'dist/hiroute-*.whl[geo,legacy]'
-python -m pytest -q tests/test_exact_search.py tests/test_exact_pipeline.py tests/test_exact_pwa_migrations.py tests/test_exact_pwa_partition.py tests/test_exact_terminal.py tests/test_time_cut_v2.py tests/r0 tests/r2
-python -m pytest -q tests/test_shandong_raw_policy.py tests/test_shandong_spatial.py tests/test_shandong_spatial_parallel.py tests/test_shandong_pbf.py tests/test_data_producer.py
+wheel=$(find dist -maxdepth 1 -type f -name 'hiroute-*.whl' -print -quit)
+test -n "$wheel"
+python -m pip install "$wheel"
 ```
 
-The `geo` extra pins the Python geospatial readers. Raw-PBF processing also requires the corresponding native geospatial libraries; use the versions supported by the target platform and record them with the run. Tiny PBF files under `tests/data/` are synthetic fixtures only.
+The core uses the Python standard library. For the Shandong PBF producer, install
+the optional reader stack with `python -m pip install "$wheel[geo]"`. Build and
+install the independent reference separately with `python -m pip install ./reference`
+when a REF comparison is needed.
 
-For tests that explicitly exercise the independent reference package, install it from `reference/` in the test environment and run the relevant reference CLI tests. The reference implementation is an audit path; it is not a production solver dependency.
+## Validate and solve a small snapshot
 
-## Parameterized request and resource admission
-
-`configs/shandong-query.example.json` and `configs/resource-profile.example.json` contain placeholders only. Supply a separate local JSON parameter file, then render and validate both before any expensive work:
+The repository includes a tiny zero-stop snapshot and exact flat configuration:
 
 ```sh
-python tools/prepare_run.py --request-template configs/shandong-query.example.json --profile-template configs/resource-profile.example.json --parameters local-parameters.json --root . --output-dir local-admission
-python tools/run_admitted.py --request local-admission/request.json --profile local-admission/resource-profile.json --admission local-admission/admission.json --receipt local-run/receipt.json --stdout local-run/stdout.log --stderr local-run/stderr.log -- python -m hiroute --help
+run_dir=$(mktemp -d)
+hiroute validate --problem tests/r0/c01_zero_stop_snapshot.json
+hiroute solve --problem tests/r0/c01_zero_stop_snapshot.json \
+  --config configs/rebuild/r1_flat.json --output "$run_dir/result.json"
 ```
 
-The preparation step checks caller-supplied input checksums, routing-config shape, exact numeric fields, endpoint/candidate structure, unresolved placeholders, and whether the requested memory cap plus growth margin and headroom fit the current Linux `MemAvailable` sample. The generated admission record is a snapshot, not a continuous host-memory guarantee. The runner rechecks input hashes and headroom immediately before launch and delegates wall, CPU, and address-space caps to the installed supervisor. Receipts and rendered local configs should remain outside the source distribution; they contain per-run provenance. The tools have no embedded run IDs, input paths, resource values, or default budget.
+`ProblemSnapshot` validates schema fields, exact rational numbers, energy
+bounds, directed-edge metrics, candidate identities, charging curves and depth
+contracts. Its semantic content identifier is computed by the package; callers
+do not need to provide or calculate it. Results include a run ID and the
+computed problem identifier. Output creation is atomic and refuses to overwrite
+an existing path.
 
-The smoke tests exercise template substitution and rejection using only the included tiny synthetic fixtures. They validate request shape and hashes, not whether a real OSM graph contains or attaches a given endpoint or candidate.
+The CLI accepts the installed package and explicit files; it does not need a
+repository `PYTHONPATH`, editable install, migration script or historical
+approval record. The smallest normal command for solving is:
 
-## Input and output discipline
+```sh
+hiroute solve --problem problem.json --config solver.json --output result.json
+```
 
-Pass source PBF, boundary, routing policy, and query configuration explicitly. A query configuration should bind the source and boundary checksums, units, endpoint identities and coordinates, candidate order, reference horizon, and any schedule fields. Resolve and validate every placeholder before processing. Store generated graphs, snapshots, receipts, and solver outputs outside the source checkout in a new run directory. Never treat a prior graph, output, seed, or witness as newly generated input.
+## Bounded execution
 
-Use a separate clean environment and new output directory for any independent rebuild. Compare the generated mathematical inputs and results under a comparison rule fixed before running; do not require byte identity of receipts that contain run metadata. Do not claim broad-domain validity from a finite synthetic test set.
+Use `hiroute run` to supervise either the exact solver CLI or a data-preparation
+command. It requires explicit wall, CPU, sampled process-group RSS, and minimum
+host `MemAvailable` limits, and writes an atomic receipt. Sampled group RSS is
+a monitor and cleanup trigger, not a kernel-enforced aggregate cap; use the
+optional per-process address-space limit when an individual hard ceiling is
+needed. Unlike `hiroute solve --time-limit-s`, which only bounds exact-search
+work, this wrapper applies an OS process-group wall/CPU/RSS guard and samples
+host headroom. The command receives no provenance-hash or budget-ID gate.
+
+```sh
+hiroute run --wall-limit-s 3600 --cpu-limit-s 7200 \
+  --memory-limit-bytes 42949672960 --host-headroom-bytes 17179869184 \
+  --receipt run-receipt.json -- \
+  hiroute solve --problem problem.json --config solver.json --output result.json
+```
+
+For a PBF producer, put its Python invocation after the same `--`; this wraps
+the producer process group under identical monitoring and cleanup. The wrapper
+also terminates any descendants left in that group after the command leader
+exits successfully, so run only commands whose entire process group belongs to
+this supervised invocation.
+
+## Shandong data API
+
+Install the wheel with `[geo]`. Call
+`hiroute.data.shandong.produce_shandong_snapshot(raw_pbf, boundary_path, routing,
+query, projection=..., max_distance_m=...)` with explicit routing/query data,
+projection and attachment radius. The producer calculates ordinary source
+fingerprints for its output records but does not require external SHA values,
+source-tree hashes, prior receipts or R0–R3/C01–C24 approvals. It still checks
+file availability, OSM tags, directed road policy, endpoint and candidate
+bindings, exact model fields and physical input constraints.
+
+The producer's PBF reader handles OSM roads and selected Sites; exact search
+consumes a validated snapshot. It does not regenerate missing historical run
+outputs or certify a new scientific experiment by itself.
+
+## Tests and research limits
+
+The GitHub workflow checks the installed core wheel and its focused exact,
+contract, CLI and synthetic producer paths. Its historical package regressions
+and tiny REF interface run separately. Reproduce those checks using
+[`ci/README.md`](../ci/README.md). No test gate here performs a real-map run.
+
+The recorded research state remains limited. Broad-scale performance, real-map
+independent REF confirmation and holdout evaluation are not established by the
+included fixture. Consult the dated reports under `docs/` for historical claims;
+use a new checkout, environment and output directory for any future research
+run, and record the actual input/configuration and software versions used.

@@ -1,5 +1,6 @@
-"""Cold installed-wheel imports must not need graph/acquisition dependencies."""
+"""Cold optional legacy routing imports do not pull in graph/acquisition dependencies."""
 from pathlib import Path
+import os
 import subprocess
 import sys
 import unittest
@@ -7,12 +8,17 @@ import unittest
 
 class ImportBoundaryTests(unittest.TestCase):
     def child(self, body):
-        # Isolated interpreter: no inherited source PYTHONPATH or warmed modules.
+        # Isolated interpreter: explicitly add only the optional legacy test source.
+        legacy_root = Path(os.environ.get(
+            'HIROUTE_LEGACY_TEST_SOURCE_ROOT',
+            Path(__file__).resolve().parents[2] / 'src')).resolve()
         script = """
 import resource
 resource.setrlimit(resource.RLIMIT_CPU, (10, 15))
 from pathlib import Path
 import importlib, importlib.abc, sys
+legacy_root = Path(%r)
+sys.path.insert(0, str(legacy_root))
 class NoGraphDependencies(importlib.abc.MetaPathFinder):
     def find_spec(self, fullname, path=None, target=None):
         if fullname.split('.')[0] in {'opportunity', 'envelope', 'graph', 'igraph',
@@ -20,19 +26,21 @@ class NoGraphDependencies(importlib.abc.MetaPathFinder):
             raise ModuleNotFoundError('Blocked unused graph dependency: ' + fullname,
                                       name=fullname)
 sys.meta_path.insert(0, NoGraphDependencies())
-""" + f"\nif sys.flags.optimize != {sys.flags.optimize}: raise RuntimeError('Child optimization differs')\n" + body
+""" % str(legacy_root)
+        script += "\nif sys.flags.optimize != %d: raise RuntimeError('Child optimization differs')\n" % sys.flags.optimize
+        script += body
         flags = ['-' + 'O' * sys.flags.optimize] if sys.flags.optimize else []
         result = subprocess.run([sys.executable, '-I', *flags, '-B', '-c', script],
                                 text=True, capture_output=True, timeout=20)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
-    def test_cold_installed_routing_and_primitives_without_graph_stack(self):
+    def test_cold_optional_routing_and_primitives_without_graph_stack(self):
         self.child("""
 import microplan, microplan.models, microplan.routing, timecut5.routing_config
 from microplan import Gateway, RegionGateways, Task, PlanBatch
 for module in (microplan, microplan.models, microplan.routing, timecut5.routing_config):
-    if not Path(module.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()):
-        raise RuntimeError('Installed wheel required')
+    if not Path(module.__file__).resolve().is_relative_to(legacy_root):
+        raise RuntimeError('Optional legacy source root differs')
 if Gateway(1, True, False, 2).node != 1 or Task('tiny', frozenset()).name != 'tiny':
     raise RuntimeError('Public primitive export differs')
 if timecut5.routing_config.RoutingConfig().search_mode != 'full':
@@ -70,3 +78,7 @@ for import_kind in ('public', 'submodule'):
     if 'generate_plans' in microplan.__dict__:
         raise RuntimeError('Failed lazy import must not cache a placeholder')
 """)
+
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)

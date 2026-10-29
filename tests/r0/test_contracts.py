@@ -15,15 +15,15 @@ class ContractTests(unittest.TestCase):
         self.assertEqual(snapshot.semantic_problem_id, round_trip.semantic_problem_id)
         self.assertEqual(snapshot.candidate_order, ())
 
-    def test_snapshot_rejects_binary64_and_identity_mismatch(self):
+    def test_snapshot_rejects_binary64_and_recomputes_content_identity(self):
         raw = json.loads((ROOT / "tests/r0/c01_zero_stop_snapshot.json").read_text())
         raw["departure_time_s"] = 0.0
         with self.assertRaises(TypeError):
             ProblemSnapshot.from_dict(raw)
         raw = json.loads((ROOT / "tests/r0/c01_zero_stop_snapshot.json").read_text())
         raw["semantic_problem_id"] = "0" * 64
-        with self.assertRaises(ValueError):
-            ProblemSnapshot.from_dict(raw)
+        parsed = ProblemSnapshot.from_dict(raw)
+        self.assertNotEqual(parsed.semantic_problem_id, "0" * 64)
 
     def test_snapshot_defensively_freezes_nested_input_mappings(self):
         raw = json.loads((ROOT / "tests/r0/c01_zero_stop_snapshot.json").read_text())

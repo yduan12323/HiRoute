@@ -11,17 +11,10 @@ dependencies = []
 
 [project.optional-dependencies]
 geo = ["pyrosm==0.13.1", "pyproj==3.7.2", "shapely==2.1.2", "pandas==3.0.6", "osmium==4.3.2"]
-legacy = ["numpy", "scipy", "pandas", "pyarrow", "igraph", "pyyaml"]
 
 [project.scripts]
 hiroute = "hiroute.cli:main"
 
 [tool.setuptools]
-packages = ["graph", "envelope", "opportunity", "microplan", "stopplan4r",
-            "hierarchy4r", "timecut5", "hiroute", "hiroute.exact", "hiroute.data"]
+packages = ["hiroute", "hiroute.exact", "hiroute.data"]
 package-dir = {"" = "src"}
-
-[tool.setuptools.package-data]
-opportunity = ["*.cpp"]
-microplan = ["*.cpp"]
-timecut5 = ["*.cpp"]

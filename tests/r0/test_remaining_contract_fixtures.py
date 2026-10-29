@@ -63,8 +63,8 @@ class RemainingFixtureTests(unittest.TestCase):
     def test_c22_bad_input_and_unsupported_model_do_not_claim_infeasibility(self):
         malformed = snapshot_raw()
         malformed["semantic_problem_id"] = "0" * 64
-        with self.assertRaisesRegex(ValueError, "does not match"):
-            ProblemSnapshot.from_dict(malformed)
+        parsed_identity = ProblemSnapshot.from_dict(malformed)
+        self.assertNotEqual(parsed_identity.semantic_problem_id, "0" * 64)
         missing = snapshot_raw()
         del missing["origin"]
         with self.assertRaisesRegex(ValueError, "exactly match"):

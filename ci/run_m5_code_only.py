@@ -70,6 +70,26 @@ TESTS = (
 
 # Only hand-built synthetic cases and mock legs are staged. No result directory
 # is copied recursively; missing fixtures fail instead of falling back to data.
+HIROUTE_TESTS = (
+    "tests/r0/test_contracts.py",
+    "tests/r0/test_cli_supported_matrix.py",
+    "tests/r0/test_shandong_input_contract.py",
+    "tests/test_r3_runtime.py",
+    "tests/test_r3_os_supervisor.py",
+    "tests/test_exact_search.py",
+    "tests/test_exact_pipeline.py",
+    "tests/test_exact_terminal.py",
+    "tests/test_data_producer.py",
+    "tests/r0/test_ref_supported_matrix.py",
+)
+
+HIROUTE_FIXTURES = (
+    "tests/r0/c01_zero_stop_snapshot.json",
+    "tests/r0/fixtures/c18_c20_c24_expected.json",
+    "configs/rebuild/r1_flat.json",
+    "tests/fixtures/synthetic_c07_c13_c04_c14_v1.json",
+)
+
 FIXTURES = (
     "tests/fixtures/invocation_trace_pilot_v1.json",
     "tests/fixtures/invocation_trace_A06_regression.json",
@@ -126,21 +146,45 @@ def main() -> None:
             raise RuntimeError("Expected exactly one freshly built wheel")
         with zipfile.ZipFile(wheels[0]) as archive:
             names = set(archive.namelist())
-            required = {"timecut5/provenance.py", "timecut5/invocation_trace.py",
-                        "timecut5/coalesce.py", "timecut5/real_adapter.py",
-                        "graph/raw_way_policy.py"}
-            if not required <= names or any(name.startswith(("validation/", "tests/", "experiments/")) for name in names):
-                raise RuntimeError("Unexpected production wheel contents")
+            required = {"hiroute/cli.py", "hiroute/contracts.py", "hiroute/exact/search.py",
+                        "hiroute/data/shandong.py"}
+            if (not required <= names or any(name.startswith(("validation/", "tests/", "experiments/",
+                                                                "timecut5/", "graph/", "microplan/"))
+                                             for name in names)):
+                raise RuntimeError("Unexpected HiRoute core wheel contents")
         run([sys.executable, "-m", "pip", "--isolated", "--disable-pip-version-check",
              "install", "--no-index", "--no-deps", "--no-cache-dir",
              "--force-reinstall", str(wheels[0])], work, env)
+        reference_source = work / "reference-source"
+        for source in (ROOT / "reference").rglob("*"):
+            if source.is_file() and (source.name == "pyproject.toml" or source.suffix == ".py"):
+                relative = source.relative_to(ROOT / "reference")
+                destination = reference_source / relative
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(source, destination)
+        reference_wheels = work / "reference-wheels"
+        run([sys.executable, "-m", "build", "--wheel", "--no-isolation",
+             "--outdir", str(reference_wheels), str(reference_source)], work, env)
+        reference_wheel, = reference_wheels.glob("*.whl")
+        run([sys.executable, "-m", "pip", "--isolated", "--disable-pip-version-check",
+             "install", "--no-index", "--no-deps", "--no-cache-dir", str(reference_wheel)], work, env)
+        # Legacy packages remain checkout-only for differential regressions; the
+        # installed distribution is deliberately the hiroute core package only.
+        for source in (ROOT / "src").rglob("*"):
+            if source.is_file() and source.suffix in (".py", ".cpp"):
+                relative = source.relative_to(ROOT / "src")
+                if relative.parts[0] != "hiroute":
+                    destination = tooling / relative
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copyfile(source, destination)
         # Source-only validators are a separate repository tool, not a wheel package.
         for directory in ("validation", "experiments/time_cut_v2/family_faithfulness",
                           "experiments/time_cut_v2/invocation_trace",
                           "experiments/time_cut_v2/restricted_suffix"):
             for source in (ROOT / directory).rglob("*.py"):
                 copy_file(source.relative_to(ROOT), tooling)
-        for relative in (*TESTS, *FIXTURES, "tests/conftest.py", "tests/code_only_manifest.py",
+        for relative in (*TESTS, *HIROUTE_TESTS, *FIXTURES, *HIROUTE_FIXTURES,
+                         "tests/conftest.py", "tests/code_only_manifest.py",
                          "tools/check_code_publication.py", "tools/verify_artifacts.py"):
             copy_file(relative, tooling)
         for script in ("m5d_aggregate_screen.py", "prepare_regional_data.py", "m5d_charge_gate.py", "m5d_build_main_queries.py",
@@ -157,30 +201,37 @@ def main() -> None:
         origin_check = """
 from pathlib import Path
 import sys
-import graph.raw_way_policy
+import hiroute, hiroute_ref, graph.raw_way_policy
 import timecut5.probe, timecut5.bounded, timecut5.hierarchy
 import timecut5.coalesced_solver, timecut5.real_adapter
 import timecut5.provenance, timecut5.invocation_trace
 import validation.family5, validation.trace5, validation.suffix5.checker
+core = Path(hiroute.__file__).resolve()
+if not core.is_relative_to(Path(sys.prefix).resolve()):
+    raise RuntimeError(f'HiRoute core import escaped installed wheel: {core}')
+ref = Path(hiroute_ref.__file__).resolve()
+if not ref.is_relative_to(Path(sys.prefix).resolve()):
+    raise RuntimeError(f'Independent REF import escaped its installed wheel: {ref}')
 for name, module in tuple(sys.modules.items()):
     if name == 'graph.raw_way_policy' or name == 'timecut5' or name.startswith('timecut5.'):
         origin = Path(module.__file__).resolve()
-        if not origin.is_relative_to(Path(sys.prefix).resolve()):
-            raise RuntimeError(f'Production import escaped installed wheel: {name}: {origin}')
+        if not origin.is_relative_to(Path.cwd().resolve()):
+            raise RuntimeError(f'Legacy regression import did not come from explicit test source: {name}: {origin}')
 if Path('src').exists():
     raise RuntimeError('Source tree leaked into isolated test directory')
-print('Production imports verified inside installed-wheel environment')
+print('HiRoute core and independent REF imported from separately built wheels; legacy regressions imported from staged source')
 """
         run([sys.executable, "-c", origin_check], tooling, env)
         for flags, label in (([], "normal"), (["-OO"], "optimized")):
-            report = work / f"{label}.xml"
-            run([sys.executable, *flags, "-m", "pytest", "-q", "-p", "no:cacheprovider",
-                 "-c", str(tooling / "pytest.ini"), f"--junitxml={report}", *TESTS], tooling, env)
-            suites = list(ET.parse(report).getroot().iter("testsuite"))
-            if not suites or sum(int(suite.get("tests", "0")) for suite in suites) == 0:
-                raise RuntimeError(f"{label}: no tests were recorded")
-            if any(int(suite.get(key, "0")) for suite in suites for key in ("skipped", "errors", "failures")):
-                raise RuntimeError(f"{label}: skipped or unsuccessful tests are not accepted")
+            for group, selected in (("hiroute", HIROUTE_TESTS), ("legacy", TESTS)):
+                report = work / f"{label}-{group}.xml"
+                run([sys.executable, *flags, "-m", "pytest", "-q", "-p", "no:cacheprovider",
+                     "-c", str(tooling / "pytest.ini"), f"--junitxml={report}", *selected], tooling, env)
+                suites = list(ET.parse(report).getroot().iter("testsuite"))
+                if not suites or sum(int(suite.get("tests", "0")) for suite in suites) == 0:
+                    raise RuntimeError(f"{label}/{group}: no tests were recorded")
+                if any(int(suite.get(key, "0")) for suite in suites for key in ("skipped", "errors", "failures")):
+                    raise RuntimeError(f"{label}/{group}: skipped or unsuccessful tests are not accepted")
     print(f"M5 code-only gate passed in {time.monotonic() - started:.1f}s; milestone acceptance remains separate.")
 
 

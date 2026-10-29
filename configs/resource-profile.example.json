@@ -1,8 +1,0 @@
-{
-  "schema": "hiroute.resource_profile.v1",
-  "wall_limit_seconds": "${WALL_LIMIT_SECONDS}",
-  "cpu_limit_seconds": "${CPU_LIMIT_SECONDS}",
-  "memory_limit_bytes": "${MEMORY_LIMIT_BYTES}",
-  "host_headroom_bytes": "${HOST_HEADROOM_BYTES}",
-  "growth_margin_bytes": "${GROWTH_MARGIN_BYTES}"
-}

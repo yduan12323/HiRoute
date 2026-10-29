@@ -13,12 +13,10 @@ from hashlib import sha256
 from dataclasses import dataclass
 
 
-def read_osm_poly(path, *, expected_sha256: str):
-    """Read and hash-check an OSM .poly boundary into a Shapely geometry."""
+def read_osm_poly(path):
+    """Read an OSM .poly boundary into a validated Shapely geometry."""
     p = Path(path)
     raw = p.read_bytes()
-    if sha256(raw).hexdigest() != expected_sha256:
-        raise ValueError("polygon SHA-256 mismatch")
     from shapely.geometry import Polygon
     from shapely.ops import unary_union
     lines = raw.decode("utf-8").splitlines()

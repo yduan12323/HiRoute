@@ -2,6 +2,7 @@
 from collections import Counter
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -13,38 +14,55 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     if sys.version_info[:2] != (3, 11) or sys.prefix == sys.base_prefix:
         raise RuntimeError('Use the existing isolated Python3.11 CI environment')
-    env = dict(os.environ, PYTHONPATH=str(ROOT), PYTHONDONTWRITEBYTECODE='1',
+    env = dict(os.environ, PYTHONDONTWRITEBYTECODE='1',
                PYTHONNOUSERSITE='1', PYTEST_DISABLE_PLUGIN_AUTOLOAD='1',
                OMP_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1', MKL_NUM_THREADS='1')
-    for key in ('PYTHONOPTIMIZE', 'PYTHONHOME', 'PYTEST_ADDOPTS'):
+    for key in ('PYTHONPATH', 'PYTHONHOME', 'PYTHONOPTIMIZE', 'PYTEST_ADDOPTS'):
         env.pop(key, None)
     script = """
 from pathlib import Path
 import sys
 import pytest
-import timecut5
+import hiroute, timecut5
 
+legacy_root = Path(sys.argv[1]).resolve()
 def check_origins():
+    if not Path(hiroute.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()):
+        raise RuntimeError('Production HiRoute imports must remain inside the installed wheel')
     for name, module in tuple(sys.modules.items()):
-        if name == 'timecut5' or name.startswith('timecut5.'):
+        if name == 'hiroute' or name.startswith('hiroute.'):
             if not Path(module.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()):
-                raise RuntimeError('Production imports must remain inside the installed wheel: ' + name)
+                raise RuntimeError('Production HiRoute imports must remain inside the installed wheel: ' + name)
+        elif name.split('.', 1)[0] in {'timecut5', 'microplan', 'graph'}:
+            if not Path(module.__file__).resolve().is_relative_to(legacy_root):
+                raise RuntimeError('Legacy recovery imports must use explicitly staged source: ' + name)
 
 check_origins()
-result = pytest.main(sys.argv[1:])
+result = pytest.main(sys.argv[2:])
 check_origins()
 raise SystemExit(result)
 """
     # Keep source-audit fixtures at their established relative paths, but never
     # inherit the repository pytest configuration's pythonpath=src override.
-    # Pytest collects both unittest classes and free-function supervisor checks.
+    # Legacy packages are staged outside the wheel; hiroute remains wheel-only.
     with tempfile.TemporaryDirectory(prefix='hiroute-recovery-ci-') as temporary:
         work = Path(temporary)
+        legacy_root = work / 'legacy-source'
+        for source in (ROOT / 'src').rglob('*'):
+            if source.is_file() and source.suffix in ('.py', '.cpp'):
+                relative = source.relative_to(ROOT / 'src')
+                if relative.parts[0] == 'hiroute':
+                    continue
+                destination = legacy_root / relative
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(source, destination)
+        env['PYTHONPATH'] = os.pathsep.join((str(legacy_root), str(ROOT)))
         config = work / 'pytest.ini'
         config.write_text('[pytest]\naddopts = -ra\n')
         for flags, label in (([], 'normal'), (['-OO'], 'optimized')):
             report = work / (label + '.xml')
             subprocess.run([sys.executable, *flags, '-B', '-c', script,
+                            str(legacy_root),
                             '-q', '-p', 'no:cacheprovider', '-c', str(config),
                             '--junitxml=' + str(report), str(ROOT / 'tests/m5d_recovery')],
                            cwd=ROOT, env=env, check=True, timeout=900)

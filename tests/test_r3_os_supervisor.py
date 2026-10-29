@@ -2,7 +2,7 @@ import json, os, signal, subprocess, sys, tempfile, time, unittest
 from pathlib import Path
 from hiroute.contracts import ProblemSnapshot
 from hiroute.runtime import (ReceiptError, load_incumbent_receipt,
-                             run_supervised, run_formal_supervised, save_incumbent_receipt)
+                             run_supervised, save_incumbent_receipt)
 ROOT = Path(__file__).resolve().parents[1]
 C01 = ROOT / "tests/r0/c01_zero_stop_snapshot.json"
 import importlib.util
@@ -80,33 +80,24 @@ Path(sys.argv[2]).write_text(json.dumps(result))
             self.assertEqual(record["mathematical_status"], "unknown")
             self.assertEqual(record["verification_status"], "not_run")
 
-    def test_formal_supervisor_fails_closed_without_provenance_and_caps(self):
+    def test_supervisor_uses_resource_caps_without_provenance_gates(self):
         with tempfile.TemporaryDirectory() as tmp:
-            receipt = Path(tmp) / "formal-run.json"
-            with self.assertRaisesRegex(ValueError, "identity requires"):
-                run_formal_supervised(
-                    [sys.executable, "-c", "raise SystemExit(0)"],
-                    wall_limit_s=10, cpu_limit_s=1,
-                    memory_limit_bytes=128 * 1024 * 1024,
-                    receipt_path=receipt, run_identity={})
-            self.assertFalse(receipt.exists())
-            identity = {"source_sha256": "a" * 64, "input_sha256": "b" * 64,
-                        "config_sha256": "c" * 64, "budget_id": "test-budget"}
-            result = run_formal_supervised(
+            receipt = Path(tmp) / "run.json"
+            result = run_supervised(
                 [sys.executable, "-c", "print('bounded')"],
-                wall_limit_s=10, cpu_limit_s=1,
+                timeout_s=10, cpu_limit_s=1,
                 memory_limit_bytes=128 * 1024 * 1024,
-                receipt_path=receipt, run_identity=identity)
+                receipt_path=receipt)
             record = json.loads(receipt.read_text())
             self.assertEqual(result.returncode, 0)
             self.assertEqual(result.stdout.strip(), b"bounded")
             self.assertEqual(record["status"], "completed")
             self.assertEqual(record["execution_status"], "completed")
             self.assertIsNone(record["mathematical_status"])
-            self.assertEqual(record["run_identity"], identity)
             self.assertEqual(record["cpu_limit_s"], 1)
             self.assertEqual(record["memory_limit_bytes"], 128 * 1024 * 1024)
-            self.assertEqual(record["process_address_space_limit_bytes"], 128 * 1024 * 1024)
+            self.assertNotIn("source_sha256", record)
+            self.assertNotIn("budget_id", record)
 
     def test_parent_audit_receipt_and_cpu_limit_kill_are_atomic(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -123,7 +114,7 @@ while True:
                 [sys.executable, str(worker)], timeout_s=5, term_grace_s=.05,
                 cwd=str(root), memory_limit_bytes=512 * 1024 * 1024,
                 cpu_limit_s=.15, memory_poll_s=.01, receipt_path=receipt,
-                run_identity={"source_sha256": "a" * 64, "budget_id": "fixture-test"})
+                run_identity={"purpose": "fixture-test"})
             record = json.loads(receipt.read_text())
             self.assertTrue(result.cpu_limited)
             self.assertTrue(result.term_sent)
@@ -134,7 +125,7 @@ while True:
             self.assertEqual(record["mathematical_status"], "unknown")
             self.assertEqual(record["verification_status"], "not_run")
             self.assertEqual(record["argv"], [sys.executable, str(worker)])
-            self.assertEqual(record["run_identity"]["budget_id"], "fixture-test")
+            self.assertEqual(record["run_identity"]["purpose"], "fixture-test")
             self.assertEqual(record["process_group_id"], record["pid"])
             self.assertIsNotNone(record["started_at"])
             self.assertIsNotNone(record["finished_at"])
@@ -171,9 +162,8 @@ while True:
             self.assertEqual(record["process_group_id"], record["pid"])
             self.assertIsNotNone(result.returncode)
 
-    def test_v2_poll_interval_preserves_formal_wall_cpu_and_rss_enforcement(self):
-        identity = {"source_sha256": "a" * 64, "input_sha256": "b" * 64,
-                    "config_sha256": "c" * 64, "budget_id": "public-supervision-fixture-v1"}
+    def test_poll_interval_preserves_wall_cpu_and_rss_enforcement(self):
+        identity = {"purpose": "bounded-resource-supervision-fixture"}
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             worker = root / "wall-worker.py"
@@ -184,9 +174,9 @@ subprocess.Popen([sys.executable, "-c", "import signal,time; signal.signal(signa
 signal.signal(signal.SIGTERM, signal.SIG_IGN)
 time.sleep(60)
 """)
-            result = run_formal_supervised(
-                [sys.executable, str(worker)], wall_limit_s=.4, cpu_limit_s=10,
-                memory_limit_bytes=512 * 1024 * 1024, term_grace_s=.05,
+            result = run_supervised(
+                [sys.executable, str(worker)], timeout_s=.4, cpu_limit_s=10,
+                memory_limit_bytes=512 * 1024 * 1024, process_address_space_limit_bytes=512 * 1024 * 1024, term_grace_s=.05,
                 memory_poll_s=.1, receipt_path=receipt, run_identity=identity,
                 cwd=str(root), env=os.environ.copy())
             self.assertTrue(result.timed_out)
@@ -198,9 +188,9 @@ time.sleep(60)
             worker = root / "cpu-worker.py"
             receipt = root / "cpu-receipt.json"
             worker.write_text("import signal\nsignal.signal(signal.SIGTERM, signal.SIG_IGN)\nwhile True: pass\n")
-            result = run_formal_supervised(
-                [sys.executable, str(worker)], wall_limit_s=5, cpu_limit_s=.15,
-                memory_limit_bytes=512 * 1024 * 1024, term_grace_s=.05,
+            result = run_supervised(
+                [sys.executable, str(worker)], timeout_s=5, cpu_limit_s=.15,
+                memory_limit_bytes=512 * 1024 * 1024, process_address_space_limit_bytes=512 * 1024 * 1024, term_grace_s=.05,
                 memory_poll_s=.1, receipt_path=receipt, run_identity=identity,
                 cwd=str(root), env=os.environ.copy())
             self.assertTrue(result.cpu_limited)
@@ -213,9 +203,9 @@ time.sleep(60)
             receipt = root / "rss-receipt.json"
             worker.write_text("import signal,subprocess,sys,time\nsignal.signal(signal.SIGTERM, signal.SIG_IGN)\nsubprocess.Popen([sys.executable, '-c', 'import time; x=bytearray(72*1024*1024); time.sleep(60)'])\nx=bytearray(72*1024*1024)\ntime.sleep(60)\n")
             cap = 128 * 1024 * 1024
-            result = run_formal_supervised(
-                [sys.executable, str(worker)], wall_limit_s=5, cpu_limit_s=10,
-                memory_limit_bytes=cap, term_grace_s=.05, memory_poll_s=.1,
+            result = run_supervised(
+                [sys.executable, str(worker)], timeout_s=5, cpu_limit_s=10,
+                memory_limit_bytes=cap, process_address_space_limit_bytes=cap, term_grace_s=.05, memory_poll_s=.1,
                 receipt_path=receipt, run_identity=identity, cwd=str(root), env=os.environ.copy())
             self.assertTrue(result.memory_limited)
             self.assertTrue(result.term_sent)
@@ -324,6 +314,34 @@ time.sleep(60)
             self.assertEqual(load_incumbent_receipt(
                 path, expected_semantic_problem_id="problem-a"), first)
             self.assertEqual([p.name for p in Path(tmp).iterdir()], ["incumbent.json"])
+
+    def test_successful_leader_exit_cleans_remaining_group_descendants(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            pid_file = Path(tmp) / "grandchild.pid"
+            worker = (
+                "import subprocess,sys; "
+                "p=subprocess.Popen([sys.executable,'-c','import time; time.sleep(60)'], "
+                "stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL); "
+                "open(sys.argv[1], 'w').write(str(p.pid))"
+            )
+            result = run_supervised([sys.executable, "-c", worker, str(pid_file)],
+                                    timeout_s=3, term_grace_s=.1, memory_poll_s=.01)
+            self.assertEqual(result.returncode, 0)
+            self.assertFalse(result.timed_out)
+            self.assertTrue(result.term_sent)
+            self.assertTrue(pid_file.exists())
+            pid = int(pid_file.read_text())
+            deadline = time.monotonic() + 2
+            while time.monotonic() < deadline:
+                try:
+                    state = Path(f"/proc/{pid}/stat").read_text().split()[2]
+                except FileNotFoundError:
+                    break
+                if state == "Z":
+                    break
+                time.sleep(.02)
+            else:
+                self.fail("background descendant remained live after successful leader exit")
 
     def test_supervisor_returns_normal_worker_output_without_timeout(self):
         result = run_supervised([sys.executable, "-c", "print('ok')"],

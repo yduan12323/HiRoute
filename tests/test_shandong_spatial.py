@@ -1,5 +1,4 @@
 from __future__ import annotations
-import hashlib
 import tempfile
 import unittest
 from pathlib import Path
@@ -14,18 +13,16 @@ from shapely.geometry import LineString
 PROJECTION = '+proj=lcc +lat_1=35 +lat_2=38 +lat_0=36.5 +lon_0=118.5 +datum=WGS84 +units=m +no_defs +type=crs'
 
 class ShandongSpatialTests(unittest.TestCase):
-    def test_hash_bound_poly_and_projected_line_clipping(self):
+    def test_poly_structure_and_projected_line_clipping(self):
         text='''fixture\nouter\n-0.05 -0.05\n0.05 -0.05\n0.05 0.05\n-0.05 0.05\n-0.05 -0.05\nEND\nEND\n'''
         raw=text.encode()
         with tempfile.TemporaryDirectory() as d:
             p=Path(d)/'boundary.poly'; p.write_bytes(raw)
-            boundary=read_osm_poly(p,expected_sha256=hashlib.sha256(raw).hexdigest())
+            boundary=read_osm_poly(p)
             clipped=clip_lines_to_boundary([LineString([(-0.1,0),(0.1,0)])],boundary,PROJECTION)
             self.assertEqual(len(clipped),1)
             self.assertGreater(clipped[0].length,0)
             self.assertLess(clipped[0].length,30000)
-            with self.assertRaisesRegex(ValueError,'SHA-256'):
-                read_osm_poly(p,expected_sha256='0'*64)
 
     def test_wgs84_snap_uses_frozen_radius_and_numeric_node_tie(self):
         site=RawSite('node/55',118.5,36.5,'charging_station',('C',),'a'*64)

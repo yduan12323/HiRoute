@@ -27,6 +27,16 @@ class IndependentRefAdmissionTests(unittest.TestCase):
         self.assertEqual(case["case_id"], semantic_id)
         self.assertEqual(case["H_ref"], self.snapshot["depth_limit"])
 
+    def test_ref_computes_case_identity_without_a_caller_supplied_digest(self):
+        snapshot = copy.deepcopy(self.snapshot)
+        expected = snapshot.pop("semantic_problem_id")
+        case, semantic_id = snapshot_case(snapshot)
+        self.assertEqual(semantic_id, expected)
+        self.assertEqual(case["case_id"], expected)
+        snapshot["semantic_problem_id"] = "0" * 64
+        _, recomputed = snapshot_case(snapshot)
+        self.assertEqual(recomputed, expected)
+
     def test_ref_rejects_unknown_model_numeric_leg_and_seed_depth(self):
         for field, value in (
             ("model_contract_id", "future_model"),

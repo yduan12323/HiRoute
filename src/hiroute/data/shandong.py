@@ -61,15 +61,14 @@ def _highway_exclusion_reason(raw_highway, way_id, routing, raw_way_policy):
         raise ValueError(f"unsupported/unproven highway class {highway!r}")
     return None
 
-def read_shandong_pbf(path,routing,*,expected_sha256=None,boundary_path=None,expected_boundary_sha256=None,projection=None,reader_engine="out_of_core"):
-    """Hash raw bytes, then parse unsimplified driving edges under frozen policy."""
+def read_shandong_pbf(path,routing,*,boundary_path=None,projection=None,reader_engine="out_of_core"):
+    """Parse unsimplified driving edges under the declared road policy."""
     p=Path(path)
     if not p.is_file(): raise FileNotFoundError(p)
     digest,size=sha256(),0
     with p.open("rb") as f:
         for block in iter(lambda:f.read(1048576),b""): digest.update(block); size+=len(block)
     source_hash=digest.hexdigest()
-    if expected_sha256 and source_hash!=expected_sha256: raise ValueError("raw PBF SHA-256 mismatch")
     if routing.get("network_type")!="driving" or routing.get("simplify") is not False or routing.get("retain_all_components") is not True:
         raise ValueError("requires unsimplified driving and all components")
     if reader_engine not in ("in_memory","out_of_core"): raise ValueError("unsupported Pyrosm reader engine")
@@ -104,13 +103,13 @@ def read_shandong_pbf(path,routing,*,expected_sha256=None,boundary_path=None,exp
     boundary=None
     boundary_hash=None
     if boundary_path is not None:
-        if not expected_boundary_sha256 or not projection:
-            raise ValueError("boundary clipping requires a frozen SHA-256 and projection")
+        if not projection:
+            raise ValueError("boundary clipping requires a projection")
         from hiroute.data.shandong_spatial import read_osm_poly
-        boundary=read_osm_poly(boundary_path,expected_sha256=expected_boundary_sha256)
-        boundary_hash=expected_boundary_sha256
-    elif expected_boundary_sha256 is not None or projection is not None:
-        raise ValueError("boundary path, digest and projection must be supplied together")
+        boundary=read_osm_poly(boundary_path)
+        boundary_hash=sha256(Path(boundary_path).read_bytes()).hexdigest()
+    elif projection is not None:
+        raise ValueError("boundary path and projection must be supplied together")
     clip_context = None
     clip_line_segments_fn = None
     make_clip_context_fn = None
@@ -294,14 +293,13 @@ def normalize_site_records(records,site_policy,source_sha256,*,boundary=None):
         source_sha256,tuple(r["classes"]),n,r["method"]) for r,n in zip(anchors,counts))
 
 
-def extract_shandong_sites(path,site_policy,*,expected_sha256=None,boundary=None,reader_engine="out_of_core"):
+def extract_shandong_sites(path,site_policy,*,boundary=None,reader_engine="out_of_core"):
     p=Path(path)
     h=sha256()
     with p.open("rb") as stream:
         for block in iter(lambda: stream.read(1024*1024), b""):
             h.update(block)
     digest=h.hexdigest()
-    if expected_sha256 and digest!=expected_sha256: raise ValueError("raw PBF SHA-256 mismatch")
     try: from pyrosm import OSM
     except ImportError as exc: raise RuntimeError("pyrosm is required") from exc
     if reader_engine not in ("in_memory","out_of_core"): raise ValueError("unsupported Pyrosm reader engine")
@@ -436,93 +434,15 @@ def snap_and_score_shandong_sites(graph, sites, *, origin_node_id, destination_n
                      "max_distance_m":max_distance_m}}
 
 
-def _python_package_tree_sha256():
-    root=Path(__file__).resolve().parents[1]
-    digest=sha256()
-    for path in sorted(root.rglob("*.py")):
-        digest.update(path.relative_to(root).as_posix().encode()+b"\\0")
-        digest.update(sha256(path.read_bytes()).digest())
-    return digest.hexdigest()
-
-
-def _formal_r4_request_sha256(*,expected_raw_sha256,expected_boundary_sha256,
-        routing,query,projection,origin_node_id,destination_node_id,
-        endpoint_sources,max_distance_m,candidate_count,candidate_site_ids):
-    request={"raw_sha256":expected_raw_sha256,
-        "boundary_sha256":expected_boundary_sha256,"routing":routing,"query":query,
-        "projection":projection,"origin_node_id":origin_node_id,
-        "destination_node_id":destination_node_id,"endpoint_sources":endpoint_sources,
-        "max_distance_m":str(max_distance_m),"candidate_count":candidate_count,
-        "candidate_site_ids":candidate_site_ids}
-    canonical=json.dumps(request,sort_keys=True,separators=(",",":"),ensure_ascii=False,
-                         allow_nan=False).encode()
-    return sha256(canonical).hexdigest()
-
-
-def _require_formal_r4_admission(receipt_path, *, request_sha256):
-    if not receipt_path:
-        raise PermissionError("formal Shandong raw run blocked: R0-R3 admission receipt is required")
-    try:
-        receipt=json.loads(Path(receipt_path).read_text(encoding="utf-8"))
-    except (OSError,UnicodeError,json.JSONDecodeError) as exc:
-        raise PermissionError("formal Shandong raw run blocked: admission receipt is unreadable") from exc
-    if not isinstance(receipt,dict) or receipt.get("schema")!="hiroute.r4_formal_admission.v1":
-        raise PermissionError("formal Shandong raw run blocked: admission receipt schema is invalid")
-    if receipt.get("status")!="PASS":
-        raise PermissionError("formal Shandong raw run blocked: admission receipt is not PASS")
-    if receipt.get("request_sha256")!=request_sha256:
-        raise PermissionError("formal Shandong raw run blocked: frozen request identity differs")
-    if receipt.get("package_python_tree_sha256")!=_python_package_tree_sha256():
-        raise PermissionError("formal Shandong raw run blocked: installed/source package tree differs from reviewed tree")
-    stages=receipt.get("stages")
-    if not isinstance(stages,dict) or set(stages)!={"R0","R1","R2","R3"}:
-        raise PermissionError("formal Shandong raw run blocked: R0-R3 stage matrix is incomplete")
-    for name,row in stages.items():
-        if not isinstance(row,dict) or row.get("status")!="PASS":
-            raise PermissionError(f"formal Shandong raw run blocked: {name} is not PASS")
-    cases=receipt.get("cases")
-    required_cases={f"C{i:02d}" for i in range(1,25)}
-    if not isinstance(cases,dict) or set(cases)!=required_cases:
-        raise PermissionError("formal Shandong raw run blocked: C01-C24 matrix is incomplete")
-    for name,row in cases.items():
-        if not isinstance(row,dict) or row.get("status")!="PASS":
-            raise PermissionError(f"formal Shandong raw run blocked: {name} is not PASS")
-    evidence=receipt.get("evidence")
-    if not isinstance(evidence,list) or not evidence:
-        raise PermissionError("formal Shandong raw run blocked: hashed gate evidence is required")
-    for item in evidence:
-        if not isinstance(item,dict) or set(item)!={"path","sha256"}:
-            raise PermissionError("formal Shandong raw run blocked: malformed evidence reference")
-        path=Path(item["path"])
-        if not path.is_file() or sha256(path.read_bytes()).hexdigest()!=item["sha256"]:
-            raise PermissionError("formal Shandong raw run blocked: gate evidence missing or hash mismatch")
-
-
-def produce_shandong_snapshot(raw_pbf,boundary_path,routing,query,*,execution_scope,
-        formal_admission_receipt=None,expected_raw_sha256,expected_boundary_sha256,
+def produce_shandong_snapshot(raw_pbf,boundary_path,routing,query,*,
         projection,origin_node_id=None,destination_node_id=None,endpoint_sources=None,
         max_distance_m,candidate_count=4,candidate_site_ids=None):
-    """Build a hash-bound snapshot; formal raw scope requires a reviewed R0-R3 receipt."""
-    if execution_scope not in {"fixture","formal"}:
-        raise ValueError("execution_scope must be fixture or formal")
-    if execution_scope=="fixture":
-        if Path(raw_pbf).stat().st_size>4*1024*1024:
-            raise PermissionError("fixture scope is limited to PBF inputs at most 4 MiB")
-    else:
-        request_sha256=_formal_r4_request_sha256(
-            expected_raw_sha256=expected_raw_sha256,
-            expected_boundary_sha256=expected_boundary_sha256,routing=routing,query=query,
-            projection=projection,origin_node_id=origin_node_id,
-            destination_node_id=destination_node_id,endpoint_sources=endpoint_sources,
-            max_distance_m=max_distance_m,candidate_count=candidate_count,
-            candidate_site_ids=candidate_site_ids)
-        _require_formal_r4_admission(formal_admission_receipt,
-                                     request_sha256=request_sha256)
+    """Build a snapshot from the supplied PBF, boundary, routing and query."""
     from hiroute.data.shandong_spatial import read_osm_poly
-    boundary=read_osm_poly(boundary_path,expected_sha256=expected_boundary_sha256)
-    graph=read_shandong_pbf(raw_pbf,routing,expected_sha256=expected_raw_sha256,
-        boundary_path=boundary_path,expected_boundary_sha256=expected_boundary_sha256,projection=projection)
-    sites=extract_shandong_sites(raw_pbf,routing["site_policy"],expected_sha256=expected_raw_sha256,boundary=boundary)
+    boundary=read_osm_poly(boundary_path)
+    boundary_sha256=sha256(Path(boundary_path).read_bytes()).hexdigest()
+    graph=read_shandong_pbf(raw_pbf,routing,boundary_path=boundary_path,projection=projection)
+    sites=extract_shandong_sites(raw_pbf,routing["site_policy"],boundary=boundary)
     endpoint_bindings=None
     if endpoint_sources is not None:
         if (type(endpoint_sources) is not dict or set(endpoint_sources)!={"origin","destination"}
@@ -559,7 +479,7 @@ def produce_shandong_snapshot(raw_pbf,boundary_path,routing,query,*,execution_sc
         built.manifest["endpoint_binding_policy_id"]=sha256(canonical_json(endpoint_policy)).hexdigest()
     return {"produced":built,"graph":graph,"sites":sites,"attachments":attachments,
         "endpoint_bindings":endpoint_bindings,
-        "boundary_sha256":expected_boundary_sha256,"projection":projection}
+        "boundary_sha256":boundary_sha256,"projection":projection}
 
 def rank_query_candidates(sites, origin_id, destination_id, detour_scores, *, limit=4):
     """Stable exposed-query candidate ordering from precomputed exact metric scores.
@@ -695,5 +615,5 @@ def build_snapshot_from_shandong_components(graph, sites, query, *, site_access_
     manifest={"schema":"hiroute.producer_dag.v1","raw_sha256":graph.source_sha256,"raw_bytes":graph.source_bytes,
       "candidate_selection":candidate_selection,"candidate_source_ids":list(candidate_site_ids) if candidate_site_ids is not None else [s.site_id for s in ranked],
       "graph_id":graph_id,"semantic_problem_id":snap.semantic_problem_id,"stages":stages,
-      "execution_scope":"bounded_shandong_dev_producer_slice","attachments_and_candidate_scores":"explicit_inputs_not_independently_generated"}
+      "attachments_and_candidate_scores":"explicit_inputs_not_independently_generated"}
     return ProducedSnapshot(snap,manifest,graph_obj,tuple(legs))

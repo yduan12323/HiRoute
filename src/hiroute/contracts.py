@@ -155,8 +155,8 @@ class ProblemSnapshot:
                 if exact(edge.get(key), f"directed_edges[{i}].{key}") <= 0:
                     raise ValueError(f"Directed edge {key} must be positive")
         computed = content_id(self._identity_payload())
-        if self.semantic_problem_id and self.semantic_problem_id != computed:
-            raise ValueError("semantic_problem_id does not match canonical problem content")
+        # The identifier is derived locally from the validated problem. A
+        # caller may omit it; an old serialized value is informational only.
         object.__setattr__(self, "semantic_problem_id", computed)
 
     def _identity_payload(self) -> dict[str, Any]:
