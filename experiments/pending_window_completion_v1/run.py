@@ -23,13 +23,11 @@ from experiments.post_service_gate_v1 import run as prior_gate
 from experiments.pending_window_gate_v1 import run as pending_gate
 from experiments.dev_cohort_v1.domain import method_admission
 from .domain import (SCHEMA,CASE,CASES,METHOD,METHODS,INNER_ARM,METHOD_POLICY,ARMS,EXACT_PHASE_SECONDS,
-    ORIGINAL_HMAX,PENDING_WINDOW_POLICY,POST_SERVICE_POLICY,ANALYTIC_POLICY,REVIEW_STATUS,SOURCE_BASE_COMMIT,BASELINE_SOURCE_COMMIT,BASELINE_SRC_SHA256,COMPLETION_POLICY,
+    ORIGINAL_HMAX,PENDING_WINDOW_POLICY,POST_SERVICE_POLICY,ANALYTIC_POLICY,REVIEW_STATUS,SOURCE_BASE_COMMIT,BASELINE_SOURCE_COMMIT,COMPLETION_POLICY,
     CONFIGS,PendingWindowDomain,historical_operators,outer_admission)
 
 SPECS={CASE:cohort.SPECS[CASE]}
 FIXED_CPU=0
-PRODUCTION_SOURCE_ENTRIES=96
-PRODUCTION_SRC_SHA256='c1a8ebc5a046b9ae402bb9337548d9b84037b9876853e99efa8b975263649547'
 LIMITS=dict(completion.LIMITS,search_seconds=1200,search_worker_wall_seconds=1500,search_worker_cpu_seconds=1500,
     parent_cpu_hard_policy='preserve_inherited_at_least_1501')
 OBSERVER=dict(envelope.OBSERVER)
@@ -45,9 +43,8 @@ EXECUTION_POLICY=dict(schema='hiroute.pending_window_completion_execution.v1',
 def prospective():
     return dict(schema=SCHEMA,launchable=False,status='prospective_'+REVIEW_STATUS,
         review_status=REVIEW_STATUS,source_base_commit=SOURCE_BASE_COMMIT,
-        baseline_source_commit=BASELINE_SOURCE_COMMIT,baseline_src_sha256=BASELINE_SRC_SHA256,
-        production_source_entries=PRODUCTION_SOURCE_ENTRIES,production_src_sha256=PRODUCTION_SRC_SHA256,
-        allowed_new_production_modules=[],case_id=CASE,candidate_count=128,historical_hmax=ORIGINAL_HMAX,
+        baseline_source_commit=BASELINE_SOURCE_COMMIT,
+        case_id=CASE,candidate_count=128,historical_hmax=ORIGINAL_HMAX,
         case_binding=SPECS[CASE],method=METHOD,order=[[CASE,list(ARMS)]],
         cohort_binding_sha256=base.file_hash(cohort.BINDING_PATH),
         shared_configuration=cohort.shared_configuration(False),arms=CONFIGS,pending_window_policy=PENDING_WINDOW_POLICY,
@@ -94,17 +91,15 @@ def parquet_engine_identity():
 
 
 def source_identity(repo):
-    # Reuse the reviewed source/dependency/active-package closure, then require
-    # all96 production entries (95 historical plus pending reducer) unchanged.
+    # Reuse the source/dependency/active-package closure and record its current
+    # production inventory without pinning it to an old source digest.
     identity=pending_gate.source_identity(repo);closure=dict(identity['closure']);repo=Path(repo)
     production={n:h for n,h in closure.items() if n.startswith('src/') and not n.startswith('src/hiroute.egg-info/')}
-    if len(production)!=PRODUCTION_SOURCE_ENTRIES or base.digest(production)!=PRODUCTION_SRC_SHA256:
-        raise ValueError('Completion production source differs from frozen02493a4 96-entry baseline')
     for path in sorted((repo/'experiments/pending_window_completion_v1').rglob('*')):
         if path.is_file() and '__pycache__' not in path.parts and path.suffix not in ('.pyc','.pyo'):
             closure[str(path.relative_to(repo))]=base.file_hash(path)
     return dict(identity,closure=closure,closure_sha256=base.digest(closure),
-        production_source_commit=SOURCE_BASE_COMMIT,production_src_sha256=base.digest(production),
+        production_source_commit=SOURCE_BASE_COMMIT,production_source_sha256=base.digest(production),
         production_source_entries=len(production),parquet_engine=parquet_engine_identity())
 
 

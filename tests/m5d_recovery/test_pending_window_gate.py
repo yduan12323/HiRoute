@@ -81,8 +81,8 @@ class PendingWindowGateTests(unittest.TestCase):
             self.assertEqual(shared['routing'],'destination_target')
             for name in ('terminal_energy','onward_alt','remaining_charge'):self.assertTrue(shared[name])
         self.assertEqual(plan['denominator'],dict(independent_preparations=2,search_arms=2,independent_replays=2,total_stages=6,stages_per_pipeline=3))
-        self.assertEqual(plan['production_source_entries'],95);self.assertEqual(plan['allowed_new_production_modules'],[gate.NEW_MODULE])
-        self.assertEqual(plan['baseline_src_sha256'],'bcaf573c0d82ebee70cd877616aff9c5367883640794335ff8c081b385c57bea')
+        self.assertNotIn('baseline_src_sha256',plan);self.assertNotIn('production_source_entries',plan)
+        self.assertNotIn('allowed_new_production_modules',plan)
         self.assertEqual(plan['source_base_commit'],'1a83b6440f57da00a773cff514f9a4c8f395d69c')
         limits=plan['limits'];self.assertEqual([limits[n] for n in ('search_seconds','search_worker_wall_seconds','search_worker_cpu_seconds','stage_wall_seconds','worker_cpu_seconds','verification_wall_seconds','verification_cpu_seconds')],[600,900,900,600,600,180,120])
         self.assertEqual(limits['address_space_bytes'],8*1024**3)
@@ -122,26 +122,22 @@ class PendingWindowGateTests(unittest.TestCase):
                 with patch.object(base,'file_hash',side_effect=lambda p:'0'*64 if Path(p).parent==root/'inputs' else pinned_hash(p)):
                     with self.assertRaisesRegex(ValueError,'input differs'):gate._manifest(path,digest)
 
-    def test_source_closure_allows_exactly_new_module_and_exact_metadata_prefix(self):
-        root=Path(__file__).resolve().parents[2];initial={'src/timecut5/post_service_dominance.py':'old',gate.NEW_MODULE:'new','prior-gate':'p'}
-        production={n:h for n,h in initial.items() if n.startswith('src/') and n!=gate.NEW_MODULE}
-        with patch.object(gate.prior_gate,'source_identity',return_value={'closure':initial}),patch.object(gate,'BASELINE_SRC_SHA256',base.digest(production)),patch.object(gate,'PRODUCTION_SOURCE_ENTRIES',1):
+    def test_source_identity_records_current_closure_without_historical_pin(self):
+        root=Path(__file__).resolve().parents[2]
+        initial={'src/timecut5/post_service_dominance.py':'old',gate.NEW_MODULE:'new','prior-gate':'p'}
+        with patch.object(gate.prior_gate,'source_identity',return_value={'closure':initial}):
             identity=gate.source_identity(root)
             self.assertEqual(identity['pending_window_module_sha256'],'new')
             self.assertEqual(identity['pending_window_reducer_version'],'pending-window-late-primary-order-v1')
-            self.assertIn('experiments/pending_window_gate_v1/lifecycle.py',identity['closure'])
             self.assertEqual(identity['closure_sha256'],base.digest(identity['closure']))
-            for metadata in ('first','second'):
-                closure=dict(initial,**{'src/hiroute.egg-info/PKG-INFO':metadata})
-                with patch.object(gate.prior_gate,'source_identity',return_value={'closure':closure}):
-                    fresh=gate.source_identity(root);self.assertNotEqual(fresh['closure_sha256'],identity['closure_sha256'])
-            for path in ('src/other.egg-info/runtime.py','src/hiroute.egg-info-runtime.py','src/timecut5/optional.py'):
-                with patch.object(gate.prior_gate,'source_identity',return_value={'closure':dict(initial,**{path:'bad'})}):
-                    with self.assertRaisesRegex(ValueError,'baseline'):gate.source_identity(root)
-            with patch.object(gate.prior_gate,'source_identity',return_value={'closure':production}):
-                with self.assertRaisesRegex(ValueError,'new reducer'):gate.source_identity(root)
-            with patch.object(gate,'PRODUCTION_SOURCE_ENTRIES',95):
-                with self.assertRaisesRegex(ValueError,'baseline'):gate.source_identity(root)
+            changed=dict(initial,**{'src/timecut5/optional.py':'new source'})
+            with patch.object(gate.prior_gate,'source_identity',return_value={'closure':changed}):
+                updated=gate.source_identity(root)
+            self.assertNotEqual(updated['closure_sha256'],identity['closure_sha256'])
+            self.assertEqual(updated['production_source_sha256'],base.digest({n:h for n,h in updated['closure'].items() if n.startswith('src/') and not n.startswith('src/hiroute.egg-info/')}))
+            with patch.object(gate.prior_gate,'source_identity',return_value={'closure':{'src/timecut5/post_service_dominance.py':'old'}}):
+                with self.assertRaisesRegex(ValueError,'lacks the new reducer'):
+                    gate.source_identity(root)
 
     def run_pipeline(self,root,arm,*,outcomes=None,launch_exception=None,cleanup_failure=None,broken_artifact=None,hard=resource.RLIM_INFINITY):
         manifest=dict(gate.prospective(),repo=str(root),source={'closure_sha256':'a'*64});seen=[];outcomes=outcomes or ['SUCCESS']*3

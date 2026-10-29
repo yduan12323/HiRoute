@@ -31,7 +31,6 @@ ORIGINAL_HMAX=39
 REVIEW_STATUS='approved_independent_completion_gate_review'
 SOURCE_BASE_COMMIT='02493a4d4248ffc0f96760efd40ed984c8f61a4e'
 BASELINE_SOURCE_COMMIT='d7a38c02f83058efe8e710989695407c5f2e9483'
-BASELINE_SRC_SHA256='bcaf573c0d82ebee70cd877616aff9c5367883640794335ff8c081b385c57bea'
 COMPLETION_POLICY=dict(schema='hiroute.pending_window_treatment_completion_policy.v1',
     purpose='treatment_only_completion_feasibility',exact_phase_seconds=EXACT_PHASE_SECONDS,
     search_worker_wall_seconds=1500,search_worker_cpu_seconds=1500,

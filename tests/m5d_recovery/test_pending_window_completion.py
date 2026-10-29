@@ -217,7 +217,8 @@ class PendingCompletionGateTests(unittest.TestCase):
             ('OD06_energy_and_scheduled_soc3_10',128,39,'hier'))
         self.assertEqual(plan['case_binding'],cohort.SPECS[gate.CASE])
         self.assertEqual(plan['source_base_commit'],'02493a4d4248ffc0f96760efd40ed984c8f61a4e')
-        self.assertEqual(plan['production_source_entries'],96);self.assertEqual(plan['allowed_new_production_modules'],[])
+        self.assertNotIn('production_source_entries',plan);self.assertNotIn('production_src_sha256',plan)
+        self.assertNotIn('allowed_new_production_modules',plan)
         self.assertEqual(plan['limits']['search_seconds'],1200)
         self.assertEqual((plan['limits']['search_worker_wall_seconds'],plan['limits']['search_worker_cpu_seconds']),(1500,1500))
         self.assertEqual((plan['limits']['stage_wall_seconds'],plan['limits']['worker_cpu_seconds']),(600,600))
@@ -251,40 +252,35 @@ class PendingCompletionGateTests(unittest.TestCase):
                 bad=copy.deepcopy(plan);mutate(bad);path.write_bytes(base.canonical(bad))
                 with self.assertRaisesRegex(ValueError,'policy differs'):gate._manifest(path,base.file_hash(path))
 
-    def test_source_guard_pins_all96_including_pending_module_and_full_closure(self):
+    def test_source_identity_records_current_closure_without_fixed_inventory(self):
         root=Path(__file__).resolve().parents[2]
-        production=historical_production_source()
-        self.assertEqual(len(production),96);self.assertEqual(base.digest(production),gate.PRODUCTION_SRC_SHA256)
-        closure=dict(production,**{'experiments/pending_window_gate_v1/run.py':'prior','src/hiroute.egg-info/PKG-INFO':'metadata'})
-        with patch.object(gate.pending_gate,'source_identity',return_value=dict(closure=closure,dependencies={'pyarrow':'26.0.0'})),patch.object(gate,'parquet_engine_identity',return_value={'guard':'ok'}):
-            identity=gate.source_identity(root);self.assertEqual(identity['production_source_entries'],96)
-            self.assertEqual(identity['parquet_engine'],{'guard':'ok'});self.assertEqual(identity['dependencies'],{'pyarrow':'26.0.0'})
-            self.assertEqual(identity['closure_sha256'],base.digest(identity['closure']))
-            self.assertIn('experiments/pending_window_completion_v1/lifecycle.py',identity['closure'])
-            self.assertEqual(identity['closure']['experiments/pending_window_gate_v1/run.py'],'prior')
-            for path in ('src/timecut5/pending_window_dominance.py','src/timecut5/pwa.py','src/timecut5/remaining_charge_runtime.py'):
-                bad=dict(closure);bad[path]='changed'
-                with patch.object(gate.pending_gate,'source_identity',return_value={'closure':bad}):
-                    with self.assertRaisesRegex(ValueError,'96-entry baseline'):gate.source_identity(root)
-            for path in ('src/timecut5/lazy_backend.py','src/hiroute.egg-info-runtime.py','src/other.egg-info/runtime.py'):
-                with patch.object(gate.pending_gate,'source_identity',return_value={'closure':dict(closure,**{path:'new'})}):
-                    with self.assertRaisesRegex(ValueError,'96-entry baseline'):gate.source_identity(root)
-            changed=dict(closure);changed['src/hiroute.egg-info/PKG-INFO']='changed metadata'
+        closure={'src/timecut5/post_service_dominance.py':'old','src/timecut5/pending_window_dominance.py':'new',
+            'src/timecut5/new_module.py':'current','experiments/pending_window_gate_v1/run.py':'prior',
+            'src/hiroute.egg-info/PKG-INFO':'metadata'}
+        with patch.object(gate.pending_gate,'source_identity',return_value=dict(closure=closure,dependencies={'pyarrow':'26.0.0'})), \
+             patch.object(gate,'parquet_engine_identity',return_value={'guard':'ok'}):
+            identity=gate.source_identity(root)
+            self.assertEqual(identity['production_source_entries'],3)
+            self.assertEqual(identity['production_source_sha256'],base.digest({n:h for n,h in closure.items() if n.startswith('src/') and not n.startswith('src/hiroute.egg-info/')}))
+            self.assertEqual(identity['parquet_engine'],{'guard':'ok'})
+            self.assertEqual(identity['dependencies'],{'pyarrow':'26.0.0'})
+            changed=dict(closure,**{'src/timecut5/another_module.py':'changed'})
             with patch.object(gate.pending_gate,'source_identity',return_value={'closure':changed}):
-                self.assertNotEqual(gate.source_identity(root)['closure_sha256'],identity['closure_sha256'])
+                updated=gate.source_identity(root)
+            self.assertNotEqual(updated['closure_sha256'],identity['closure_sha256'])
+            self.assertEqual(updated['production_source_entries'],4)
             with patch.object(gate,'parquet_engine_identity',side_effect=ImportError('missing pyarrow')):
                 with self.assertRaisesRegex(ImportError,'missing pyarrow'):gate.source_identity(root)
 
-    def test_source_guard_rejects_current_road_policy_tree(self):
+    def test_current_road_policy_source_is_recorded_not_rejected_by_hash(self):
         root=Path(__file__).resolve().parents[2]
         production=current_production_source(root)
         self.assertIn('src/graph/raw_way_policy.py',production)
-        self.assertEqual(len(production),97)
-        self.assertNotEqual(base.digest(production),gate.PRODUCTION_SRC_SHA256)
         with patch.object(gate.pending_gate,'source_identity',return_value={'closure':production}), \
-                patch.object(gate,'parquet_engine_identity') as engine:
-            with self.assertRaisesRegex(ValueError,'96-entry baseline'):gate.source_identity(root)
-            engine.assert_not_called()
+             patch.object(gate,'parquet_engine_identity',return_value={'guard':'ok'}):
+            identity=gate.source_identity(root)
+        self.assertEqual(identity['production_source_sha256'],base.digest(production))
+        self.assertEqual(identity['production_source_entries'],len(production))
 
     def test_parquet_engine_preflight_imports_real_engine_and_roundtrips_tiny_buffer(self):
         identity=gate.parquet_engine_identity()

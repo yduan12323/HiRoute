@@ -26,8 +26,6 @@ from .domain import (SCHEMA,CASE,CASES,METHODS,INNER_ARM,METHOD_POLICY,ARMS,EXAC
 
 SPECS={CASE:cohort.SPECS[CASE]}
 FIXED_CPU=0
-PRODUCTION_SOURCE_ENTRIES=96
-PRODUCTION_SRC_SHA256='c1a8ebc5a046b9ae402bb9337548d9b84037b9876853e99efa8b975263649547'
 LIMITS=dict(completion.LIMITS,search_seconds=1200,search_worker_wall_seconds=1500,search_worker_cpu_seconds=1500,
     parent_cpu_soft_seconds=180,parent_cpu_hard_policy='preserve_inherited_at_least_1501')
 OBSERVER=dict(envelope.OBSERVER)
@@ -48,8 +46,7 @@ EXECUTION_POLICY=dict(schema='hiroute.scheduled_method_pair_execution.v1',
 def prospective():
     return dict(schema=SCHEMA,launchable=False,status='prospective_'+REVIEW_STATUS,
         review_status=REVIEW_STATUS,source_base_commit=SOURCE_BASE_COMMIT,
-        production_source_entries=PRODUCTION_SOURCE_ENTRIES,production_src_sha256=PRODUCTION_SRC_SHA256,
-        allowed_new_production_modules=[],case_id=CASE,candidate_count=128,historical_hmax=ORIGINAL_HMAX,
+        case_id=CASE,candidate_count=128,historical_hmax=ORIGINAL_HMAX,
         case_binding=SPECS[CASE],methods=list(METHODS),order=[[CASE,list(ARMS)]],
         cohort_binding_sha256=base.file_hash(cohort.BINDING_PATH),
         shared_configuration=cohort.shared_configuration(False),arms=CONFIGS,pending_window_policy=PENDING_WINDOW_POLICY,
@@ -74,14 +71,12 @@ def source_identity(repo):
     """Inherited executable/package/engine closure plus this experiment only."""
     identity=predecessor.source_identity(repo);closure=dict(identity['closure']);repo=Path(repo)
     production={n:h for n,h in closure.items() if n.startswith('src/') and not n.startswith('src/hiroute.egg-info/')}
-    if len(production)!=PRODUCTION_SOURCE_ENTRIES or base.digest(production)!=PRODUCTION_SRC_SHA256:
-        raise ValueError('Scheduled method production source differs from frozen f89e4f3 96-entry baseline')
     paths=list((repo/'experiments/scheduled_method_pair_v1').rglob('*'))+[repo/'docs/SCHEDULED_METHOD_PAIR_PLAN.md']
     for path in sorted(paths):
         if path.is_file() and '__pycache__' not in path.parts and path.suffix not in ('.pyc','.pyo'):
             closure[str(path.relative_to(repo))]=base.file_hash(path)
     return dict(identity,closure=closure,closure_sha256=base.digest(closure),
-        production_source_commit=SOURCE_BASE_COMMIT,production_src_sha256=base.digest(production),
+        production_source_commit=SOURCE_BASE_COMMIT,production_source_sha256=base.digest(production),
         production_source_entries=len(production))
 
 

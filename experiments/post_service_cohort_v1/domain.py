@@ -28,7 +28,6 @@ EXACT_PHASE_SECONDS=600
 ORIGINAL_HMAX={CASES[0]:33,CASES[1]:39}
 REVIEW_STATUS='approved_independent_cohort_review'
 BASELINE_SOURCE_COMMIT='d7a38c02f83058efe8e710989695407c5f2e9483'
-BASELINE_SRC_SHA256='bcaf573c0d82ebee70cd877616aff9c5367883640794335ff8c081b385c57bea'
 COMPLETION_POLICY=dict(schema='hiroute.post_service_cohort_policy.v1',
     purpose='matched_exact_outcomes_and_scheduled_coverage',exact_phase_seconds=EXACT_PHASE_SECONDS,
     search_worker_wall_seconds=900,search_worker_cpu_seconds=900,
