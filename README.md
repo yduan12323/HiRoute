@@ -49,6 +49,27 @@ requirements using `python -m pip install "$wheel[geo]"`. Supply the PBF,
 computed problem digest is required. Input format, routing policy, endpoint,
 Site and physical-model checks remain active.
 
+## Bounded execution
+
+Use `hiroute run` to supervise either the exact solver CLI or a data-preparation
+command. It requires explicit wall, CPU, sampled process-group RSS, and minimum
+host `MemAvailable` limits, and writes an atomic receipt. Sampled group RSS is
+a monitor and cleanup trigger, not a kernel-enforced aggregate cap; use the
+optional per-process address-space limit when an individual hard ceiling is
+needed. Unlike `hiroute solve --time-limit-s`, which only bounds exact-search
+work, this wrapper applies an OS process-group wall/CPU/RSS guard and samples
+host headroom. The command receives no provenance-hash or budget-ID gate.
+
+```sh
+hiroute run --wall-limit-s 3600 --cpu-limit-s 7200 \
+  --memory-limit-bytes 42949672960 --host-headroom-bytes 17179869184 \
+  --receipt run-receipt.json -- \
+  hiroute solve --problem problem.json --config solver.json --output result.json
+```
+
+For a PBF producer, put its Python invocation after the same `--`; this wraps
+the producer process group under identical monitoring and cleanup.
+
 ## Tests and reproduction
 
 The workflow builds and installs the core wheel, runs focused exact/search,

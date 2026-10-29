@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import os
 import resource
 import signal
@@ -106,6 +107,20 @@ class SupervisedRun:
     cpu_limited: bool = False
     cpu_peak_s: float = 0.0
     vm_size_peak_bytes: int = 0
+    host_headroom_limited: bool = False
+    host_available_min_bytes: int | None = None
+    host_monitor_error: str | None = None
+
+
+def system_mem_available_bytes() -> int:
+    """Return Linux MemAvailable in bytes, failing closed if it cannot be read."""
+    for line in Path("/proc/meminfo").read_text(encoding="ascii").splitlines():
+        if line.startswith("MemAvailable:"):
+            fields = line.split()
+            if len(fields) >= 2 and fields[1].isdecimal():
+                return int(fields[1]) * 1024
+            break
+    raise OSError("MemAvailable is unavailable in /proc/meminfo")
 
 
 def _group_rss_bytes(pgid: int) -> int:
@@ -196,25 +211,34 @@ def run_supervised(argv: Sequence[str], *, timeout_s: float, term_grace_s: float
                    memory_limit_bytes: int | None = None,
                    process_address_space_limit_bytes: int | None = None,
                    cpu_limit_s: float | None = None,
+                   host_min_available_bytes: int | None = None,
                    memory_poll_s: float = 0.02,
                    receipt_path: str | os.PathLike[str] | None = None,
                    run_identity: Mapping[str, Any] | None = None) -> SupervisedRun:
     """Supervise one process group with wall, aggregate-RSS, and CPU limits.
 
-    When receipt_path is supplied, the parent atomically writes a running record
-    before spawn and a terminal record after group cleanup. This record contains
-    command identity and observed enforcement state, not solver correctness.
+    Group RSS/CPU and host MemAvailable are sampled monitors, not aggregate
+    kernel hard caps. The optional RLIMIT_AS and RLIMIT_CPU also apply per
+    process. When receipt_path is supplied, the parent atomically records the
+    attempt and terminal enforcement state, not solver correctness.
     """
-    if not argv or timeout_s <= 0 or term_grace_s < 0 or memory_poll_s <= 0:
+    if (not argv or isinstance(argv, (str, bytes))
+            or not isinstance(timeout_s, (int, float)) or not math.isfinite(timeout_s) or timeout_s <= 0
+            or not isinstance(term_grace_s, (int, float)) or not math.isfinite(term_grace_s) or term_grace_s < 0
+            or not isinstance(memory_poll_s, (int, float)) or not math.isfinite(memory_poll_s) or memory_poll_s <= 0):
         raise ValueError("argv and positive finite time limits required")
-    if cpu_limit_s is not None and cpu_limit_s <= 0:
-        raise ValueError("cpu_limit_s must be positive")
+    if cpu_limit_s is not None and (
+            not isinstance(cpu_limit_s, (int, float)) or not math.isfinite(cpu_limit_s) or cpu_limit_s <= 0):
+        raise ValueError("cpu_limit_s must be positive and finite")
     if run_identity is not None and not isinstance(run_identity, Mapping):
         raise TypeError("run_identity must be a mapping")
     if memory_limit_bytes is not None and (type(memory_limit_bytes) is not int or memory_limit_bytes < 1):
         raise ValueError("memory_limit_bytes must be a positive integer")
     if process_address_space_limit_bytes is not None and (type(process_address_space_limit_bytes) is not int or process_address_space_limit_bytes < 1):
         raise ValueError("process_address_space_limit_bytes must be a positive integer")
+    if host_min_available_bytes is not None and (type(host_min_available_bytes) is not int or host_min_available_bytes < 1):
+        raise ValueError("host_min_available_bytes must be a positive integer")
+    host_available_min = None
     started = time.monotonic()
     started_at = datetime.now(timezone.utc).isoformat()
     audit = None
@@ -231,12 +255,32 @@ def run_supervised(argv: Sequence[str], *, timeout_s: float, term_grace_s: float
             "memory_limit_bytes": memory_limit_bytes,
             "process_address_space_limit_bytes": process_address_space_limit_bytes,
             "cpu_limit_s": cpu_limit_s,
+            "host_min_available_bytes": host_min_available_bytes,
+            "host_available_min_bytes": host_available_min,
+            "host_monitor_error": None,
             "memory_poll_s": memory_poll_s,
             "run_identity": dict(run_identity or {}),
             "pid": None,
             "process_group_id": None,
         }
         _atomic_run_receipt(receipt_path, audit)
+    if host_min_available_bytes is not None:
+        try:
+            host_available_min = system_mem_available_bytes()
+        except OSError as exc:
+            if audit is not None:
+                audit.update({"status": "host_monitor_error",
+                              "finished_at": datetime.now(timezone.utc).isoformat(),
+                              "host_monitor_error": f"{type(exc).__name__}: {exc}"})
+                _atomic_run_receipt(receipt_path, audit)
+            raise RuntimeError("cannot read host MemAvailable before launch") from exc
+        if host_available_min < host_min_available_bytes:
+            if audit is not None:
+                audit.update({"status": "host_headroom_blocked",
+                              "finished_at": datetime.now(timezone.utc).isoformat(),
+                              "host_available_min_bytes": host_available_min})
+                _atomic_run_receipt(receipt_path, audit)
+            raise RuntimeError("host MemAvailable is below the configured minimum")
     try:
         def apply_process_limits():
             # Per-process ceilings complement, but do not replace, sampled
@@ -264,7 +308,8 @@ def run_supervised(argv: Sequence[str], *, timeout_s: float, term_grace_s: float
         audit.update({"status": "running", "pid": child.pid,
                       "process_group_id": child.pid})
         _atomic_run_receipt(receipt_path, audit)
-    timed_out = memory_limited = cpu_limited = term_sent = kill_sent = False
+    timed_out = memory_limited = cpu_limited = host_headroom_limited = term_sent = kill_sent = False
+    host_monitor_error = None
     rss_peak = 0
     cpu_peak = 0.0
     vm_size_peak = 0
@@ -276,6 +321,17 @@ def run_supervised(argv: Sequence[str], *, timeout_s: float, term_grace_s: float
         rss_peak = max(rss_peak, rss)
         vm_size_peak = max(vm_size_peak, vm_size)
         cpu_peak = max(cpu_peak, cpu)
+        if host_min_available_bytes is not None:
+            try:
+                host_available = system_mem_available_bytes()
+            except OSError as exc:
+                host_monitor_error = f"{type(exc).__name__}: {exc}"
+                host_headroom_limited = True
+                break
+            host_available_min = min(host_available_min, host_available)
+            if host_available < host_min_available_bytes:
+                host_headroom_limited = True
+                break
         if memory_limit_bytes is not None and rss > memory_limit_bytes:
             memory_limited = True
             break
@@ -291,7 +347,7 @@ def run_supervised(argv: Sequence[str], *, timeout_s: float, term_grace_s: float
             break
         except subprocess.TimeoutExpired:
             continue
-    if timed_out or memory_limited or cpu_limited:
+    if timed_out or memory_limited or cpu_limited or host_headroom_limited:
         term_sent = True
         try:
             os.killpg(child.pid, signal.SIGTERM)
@@ -316,18 +372,21 @@ def run_supervised(argv: Sequence[str], *, timeout_s: float, term_grace_s: float
             child.wait()
     result = SupervisedRun(child.returncode, timed_out, term_sent, kill_sent,
                            child.pid, stdout, stderr, time.monotonic()-started,
-                           memory_limited, rss_peak, cpu_limited, cpu_peak, vm_size_peak)
+                           memory_limited, rss_peak, cpu_limited, cpu_peak, vm_size_peak,
+                           host_headroom_limited, host_available_min, host_monitor_error)
     if audit is not None:
-        status = ("memory_limit" if memory_limited else
+        status = ("host_headroom_limit" if host_headroom_limited else
+                  "memory_limit" if memory_limited else
                   "cpu_limit" if cpu_limited else
                   "time_limit" if timed_out else "completed")
         audit.update({
             "status": status,
-            "execution_status": ("time_limit" if timed_out else
+            "execution_status": ("host_headroom_limit" if host_headroom_limited else
+                                 "time_limit" if timed_out else
                                  "memory_limit" if memory_limited else
                                  "cpu_limit" if cpu_limited else "completed"),
-            "mathematical_status": "unknown" if (timed_out or memory_limited or cpu_limited) else None,
-            "verification_status": "not_run" if (timed_out or memory_limited or cpu_limited) else None,
+            "mathematical_status": "unknown" if (timed_out or memory_limited or cpu_limited or host_headroom_limited) else None,
+            "verification_status": "not_run" if (timed_out or memory_limited or cpu_limited or host_headroom_limited) else None,
             "finished_at": datetime.now(timezone.utc).isoformat(),
             "returncode": child.returncode,
             "term_sent": term_sent,
@@ -335,51 +394,12 @@ def run_supervised(argv: Sequence[str], *, timeout_s: float, term_grace_s: float
             "rss_peak_bytes": rss_peak,
             "vm_size_peak_bytes": vm_size_peak,
             "cpu_peak_s": cpu_peak,
+            "host_min_available_bytes": host_min_available_bytes,
+            "host_available_min_bytes": host_available_min,
+            "host_monitor_error": host_monitor_error,
             "elapsed_wall_s": result.elapsed_s,
             "stdout_bytes": len(stdout),
             "stderr_bytes": len(stderr),
         })
         _atomic_run_receipt(receipt_path, audit)
     return result
-
-
-def run_formal_supervised(argv: Sequence[str], *,
-                          wall_limit_s: float,
-                          cpu_limit_s: float,
-                          memory_limit_bytes: int,
-                          receipt_path: str | os.PathLike[str],
-                          run_identity: Mapping[str, Any],
-                          term_grace_s: float = 1.0,
-                          memory_poll_s: float = 0.02,
-                          cwd: str | None = None,
-                          env: Mapping[str, str] | None = None) -> SupervisedRun:
-    """Fail-closed formal entry point requiring all caps and provenance fields."""
-    required = {"source_sha256", "input_sha256", "config_sha256", "budget_id"}
-    if not argv:
-        raise ValueError("formal supervised run requires argv")
-    if (not isinstance(run_identity, Mapping)
-            or not required.issubset(run_identity)
-            or any(not isinstance(run_identity[key], str) or not run_identity[key]
-                   for key in required)):
-        raise ValueError("formal run identity requires source, input, config hashes and budget_id")
-    for key in ("source_sha256", "input_sha256", "config_sha256"):
-        value = run_identity[key]
-        if len(value) != 64 or any(char not in "0123456789abcdef" for char in value.lower()):
-            raise ValueError(f"{key} must be a SHA-256 hex digest")
-    if not receipt_path:
-        raise ValueError("formal supervised run requires a durable receipt path")
-    if memory_limit_bytes is None or cpu_limit_s is None or wall_limit_s is None:
-        raise ValueError("formal supervised run requires wall, CPU and memory caps")
-    return run_supervised(
-        argv,
-        timeout_s=wall_limit_s,
-        term_grace_s=term_grace_s,
-        cwd=cwd,
-        env=env,
-        memory_limit_bytes=memory_limit_bytes,
-        process_address_space_limit_bytes=memory_limit_bytes,
-        cpu_limit_s=cpu_limit_s,
-        memory_poll_s=memory_poll_s,
-        receipt_path=receipt_path,
-        run_identity=run_identity,
-    )

@@ -45,6 +45,98 @@ class TestR3Runtime(unittest.TestCase):
             record = json.loads(receipt.read_text())
             self.assertEqual(record["vm_size_peak_bytes"], result.vm_size_peak_bytes)
             self.assertEqual(record["run_identity"]["purpose"], "bounded-vmsize-sampler-test")
+    def test_supervisor_refuses_launch_below_host_headroom_floor(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            marker = Path(tmp) / "launched"
+            receipt = Path(tmp) / "blocked.json"
+            with patch("hiroute.runtime.system_mem_available_bytes", return_value=10):
+                with self.assertRaisesRegex(RuntimeError, "MemAvailable"):
+                    run_supervised(
+                        [sys.executable, "-c", f"from pathlib import Path; Path({str(marker)!r}).touch()"],
+                        timeout_s=2, host_min_available_bytes=11, receipt_path=receipt)
+            self.assertFalse(marker.exists())
+            record = json.loads(receipt.read_text())
+            self.assertEqual(record["status"], "host_headroom_blocked")
+            self.assertEqual(record["host_available_min_bytes"], 10)
+            self.assertIsNone(record["pid"])
+
+    def test_hiroute_run_reports_prelaunch_host_headroom_block(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            receipt = Path(tmp) / "blocked.json"
+            with patch("hiroute.runtime.system_mem_available_bytes", return_value=0):
+                status = cli_main([
+                    "run", "--wall-limit-s", "5", "--cpu-limit-s", "2",
+                    "--memory-limit-bytes", str(512 * 1024 * 1024),
+                    "--host-headroom-bytes", "1", "--receipt", str(receipt), "--",
+                    sys.executable, "-c", "raise SystemExit('must not launch')"])
+            record = json.loads(receipt.read_text())
+            self.assertEqual(status, 127)
+            self.assertEqual(record["status"], "host_headroom_blocked")
+            self.assertIsNone(record["pid"])
+
+    def test_supervisor_rejects_nonfinite_resource_deadlines(self):
+        for value in (float("nan"), float("inf")):
+            with self.assertRaisesRegex(ValueError, "finite time limits"):
+                run_supervised([sys.executable, "-c", "pass"], timeout_s=value)
+            with self.assertRaisesRegex(ValueError, "cpu_limit_s"):
+                run_supervised([sys.executable, "-c", "pass"], timeout_s=1, cpu_limit_s=value)
+
+    def test_supervisor_stops_on_host_headroom_drop_and_records_it(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            receipt = Path(tmp) / "run.json"
+            values = iter((2_000_000_000, 0, 0))
+            with patch("hiroute.runtime.system_mem_available_bytes", side_effect=lambda: next(values)):
+                result = run_supervised(
+                    [sys.executable, "-c", "import time; time.sleep(20)"],
+                    timeout_s=5, term_grace_s=0.05, host_min_available_bytes=1_000_000_000,
+                    memory_poll_s=0.01, receipt_path=receipt)
+            record = json.loads(receipt.read_text())
+            self.assertTrue(result.host_headroom_limited)
+            self.assertTrue(result.term_sent)
+            self.assertEqual(record["execution_status"], "host_headroom_limit")
+            self.assertEqual(record["host_min_available_bytes"], 1_000_000_000)
+            self.assertEqual(record["host_available_min_bytes"], 0)
+            self.assertEqual(record["mathematical_status"], "unknown")
+
+    def test_supervisor_fails_closed_if_host_memory_monitor_becomes_unavailable(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            receipt = Path(tmp) / "run.json"
+            readings = iter((2_000_000_000, OSError("meminfo read failed")))
+            def sample():
+                value = next(readings)
+                if isinstance(value, Exception):
+                    raise value
+                return value
+            with patch("hiroute.runtime.system_mem_available_bytes", side_effect=sample):
+                result = run_supervised(
+                    [sys.executable, "-c", "import time; time.sleep(20)"],
+                    timeout_s=5, term_grace_s=0.05,
+                    host_min_available_bytes=1_000_000_000,
+                    memory_poll_s=0.01, receipt_path=receipt)
+            record = json.loads(receipt.read_text())
+            self.assertTrue(result.host_headroom_limited)
+            self.assertEqual(record["execution_status"], "host_headroom_limit")
+            self.assertEqual(record["host_monitor_error"], "OSError: meminfo read failed")
+            self.assertTrue(result.term_sent)
+
+    def test_hiroute_run_wraps_a_command_with_resources_without_identity_hashes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            receipt = Path(tmp) / "run.json"
+            output = StringIO()
+            with redirect_stdout(output):
+                status = cli_main([
+                    "run", "--wall-limit-s", "5", "--cpu-limit-s", "2",
+                    "--memory-limit-bytes", str(512 * 1024 * 1024),
+                    "--host-headroom-bytes", "1", "--receipt", str(receipt), "--",
+                    sys.executable, "-c", "print('guarded')"])
+            record = json.loads(receipt.read_text())
+            self.assertEqual(status, 0)
+            self.assertEqual(output.getvalue().strip(), "guarded")
+            self.assertEqual(record["execution_status"], "completed")
+            self.assertEqual(record["host_min_available_bytes"], 1)
+            self.assertNotIn("source_sha256", record)
+            self.assertNotIn("budget_id", record)
+
     def test_deadline_retains_verified_incumbent_without_claiming_optimality(self):
         snapshot = base_snapshot()
         ticks = iter((0.0, 0.0, 0.0, 2.0, 3.0))

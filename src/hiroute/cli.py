@@ -210,6 +210,52 @@ def solve_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def run_command(args: argparse.Namespace) -> int:
+    from .runtime import run_supervised
+
+    command = list(args.argv)
+    if command and command[0] == "--":
+        command.pop(0)
+    if not command:
+        raise ValueError("run requires a command after --")
+    try:
+        result = run_supervised(
+            command,
+            timeout_s=args.wall_limit_s,
+            cpu_limit_s=args.cpu_limit_s,
+            memory_limit_bytes=args.memory_limit_bytes,
+            process_address_space_limit_bytes=args.process_address_space_limit_bytes,
+            host_min_available_bytes=args.host_headroom_bytes,
+            memory_poll_s=args.poll_s,
+            receipt_path=args.receipt,
+            cwd=args.cwd,
+        )
+    except RuntimeError as exc:
+        try:
+            record = _read_object(Path(args.receipt))
+        except ValueError:
+            raise
+        if record.get("status") in {"host_headroom_blocked", "host_monitor_error"}:
+            print(f"hiroute: {exc}", file=sys.stderr)
+            return 127
+        raise
+    if result.stdout:
+        sys.stdout.write(result.stdout.decode("utf-8", errors="replace"))
+    if result.stderr:
+        sys.stderr.write(result.stderr.decode("utf-8", errors="replace"))
+    if result.host_headroom_limited:
+        return 127
+    if result.timed_out:
+        return 124
+    if result.memory_limited:
+        return 125
+    if result.cpu_limited:
+        return 126
+    if result.returncode is None:
+        return 125
+    return result.returncode if result.returncode >= 0 else 128 - result.returncode
+
+
 def parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="hiroute", description="HiRoute explicit snapshot interface")
     p.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
@@ -226,6 +272,20 @@ def parser() -> argparse.ArgumentParser:
     solve.add_argument("--observer", choices=["off", "metrics", "detailed_trace"], default="off")
     solve.add_argument("--depth-certificate", help="independently constructed, replayable D2 seed certificate JSON")
     solve.set_defaults(run=solve_command)
+    run = sub.add_parser("run", help="run any command under OS resource and host-headroom supervision")
+    run.add_argument("--wall-limit-s", type=float, required=True)
+    run.add_argument("--cpu-limit-s", type=float, required=True)
+    run.add_argument("--memory-limit-bytes", type=int, required=True,
+                     help="sampled process-group RSS ceiling; not a kernel hard cap")
+    run.add_argument("--host-headroom-bytes", type=int, required=True,
+                     help="minimum host MemAvailable checked before launch and while running")
+    run.add_argument("--process-address-space-limit-bytes", type=int,
+                     help="optional per-process RLIMIT_AS ceiling")
+    run.add_argument("--poll-s", type=float, default=0.1)
+    run.add_argument("--receipt", required=True, help="atomic supervision receipt path")
+    run.add_argument("--cwd")
+    run.add_argument("argv", nargs=argparse.REMAINDER)
+    run.set_defaults(run=run_command)
     return p
 
 

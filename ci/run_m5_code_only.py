@@ -75,6 +75,7 @@ HIROUTE_TESTS = (
     "tests/r0/test_cli_supported_matrix.py",
     "tests/r0/test_shandong_input_contract.py",
     "tests/test_r3_runtime.py",
+    "tests/test_r3_os_supervisor.py",
     "tests/test_exact_search.py",
     "tests/test_exact_pipeline.py",
     "tests/test_exact_terminal.py",

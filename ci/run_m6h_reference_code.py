@@ -1,5 +1,6 @@
 """Isolated tiny REF interface checks, not real-map reference acceptance."""
 import os
+import shutil
 from pathlib import Path
 import subprocess
 import sys
@@ -19,6 +20,7 @@ def main():
         env.pop(key, None)
     script = """
 import resource
+import os
 import sys
 from pathlib import Path
 resource.setrlimit(resource.RLIMIT_CPU, (90, 100))
@@ -34,6 +36,10 @@ import hiroute
 def check_origins():
     if not Path(hiroute.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()):
         raise RuntimeError('HiRoute imports must remain in the installed core wheel')
+    legacy = sys.modules.get('timecut5')
+    if legacy is not None and not Path(legacy.__file__).resolve().is_relative_to(
+            Path(os.environ['HIROUTE_TEST_LEGACY_ROOT']).resolve()):
+        raise RuntimeError('legacy REF dependency must come from the isolated test staging tree')
 check_origins()
 result = pytest.main(sys.argv[1:])
 check_origins()
@@ -41,6 +47,10 @@ raise SystemExit(result)
 """
     with tempfile.TemporaryDirectory(prefix='hiroute-ref-ci-') as temporary:
         work = Path(temporary)
+        legacy_root = work / 'legacy-source'
+        shutil.copytree(ROOT / 'src/timecut5', legacy_root / 'timecut5')
+        env['PYTHONPATH'] = os.pathsep.join((str(ROOT), str(legacy_root)))
+        env['HIROUTE_TEST_LEGACY_ROOT'] = str(legacy_root)
         config = work / 'pytest.ini'
         config.write_text('[pytest]\naddopts = -ra\n')
         for flags, label in (([], 'normal'), (['-OO'], 'optimized')):
