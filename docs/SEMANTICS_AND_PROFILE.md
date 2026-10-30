@@ -358,7 +358,10 @@ and all retained terminal/projection/witness data, not just the cache.
 The prior measurements used the P0/P1 implementation committed as
 `4d9c8efbfde6a2ecc62a2c825a999237c553a053` (subsequently merged at `63e238b`);
 new measurements use this P2 implementation. Both used the same device, Python
-3.11.15 and dependency versions, but different source revisions and execution times. This is an old baseline
+3.11.15 and dependency versions, but different source revisions and execution times.
+The OS also differs: the earlier report records macOS 27.0.1; this run reports
+macOS 27.2 arm64. This is an additional timing/memory comparison confounder.
+This is an old baseline
 versus one new observation, not a randomized/paired timing study. Even P01's
 tiny solve time can increase. Actual expensive operator-call reductions support
 the reuse mechanism; the descriptive ~40% P07 solve-time decrease is not evidence
