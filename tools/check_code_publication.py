@@ -29,8 +29,9 @@ def main():
         if path.startswith(('artifacts/', 'results/', 'data/processed/', 'data/cache/', 'data/raw/osm/')):
             errors.append(f'Generated path in Git index: {path}')
         fixture_or_input = path.startswith(('tests/fixtures/', 'configs/inputs/'))
-        # One task-scoped, small diagnostic table; existing 1 MiB cap still applies.
-        small_diagnostic_table = path == 'docs/SEMANTICS_AND_PROFILE.jsonl'
+        # Task-scoped small diagnostic tables; existing 1 MiB cap still applies.
+        small_diagnostic_table = path in {
+            'docs/SEMANTICS_AND_PROFILE.jsonl', 'docs/PREFIX_REUSE_PROFILE.jsonl'}
         if not fixture_or_input and not small_diagnostic_table and path.endswith(('.log', '.parquet', '.npz', '.npy', '.bin', '.tar.gz', '.jsonl', '.xml', '.csv')):
             errors.append(f'Generated/binary output extension outside small input fixtures: {path}')
         oid = metadata.split()[1].decode()

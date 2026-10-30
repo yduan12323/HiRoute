@@ -144,6 +144,41 @@ def _plan_steps(snapshot, plan, cache):
     return tuple(steps), tuple(legs)
 
 
+class _PlanPrefixCache:
+    """Exact post-stop families owned by ONE solve with fixed snapshot/config.
+
+    A key is the entire ordered (site, effect) history, not an anchor or energy
+    approximation. Starting from the same root, deterministic exact transitions
+    give the same remaining schedule, continuous domain/attainment/rho and
+    witness ancestry by induction. Families, pieces, intervals and captured
+    projection rows are immutable; continuation and replay do not mutate them.
+    Final destination drives are deliberately excluded from cached prefixes.
+    """
+    def __init__(self, initial):
+        self.families = {(): tuple(initial)}
+        self.hits = self.misses = 0
+        self.stored_pieces = len(self.families[()])
+
+    def propagate(self, plan, steps):
+        pieces = self.families[()]
+        for depth in range(1, len(plan) + 1):
+            prefix = plan[:depth]
+            if prefix in self.families:
+                self.hits += 1
+                pieces = self.families[prefix]
+            else:
+                self.misses += 1
+                # Each stop has exactly one inbound drive and one stop step.
+                pieces = execute_exact_plan(pieces, steps[2*(depth-1):2*depth])
+                self.families[prefix] = pieces  # Cache empty exact families too.
+                self.stored_pieces += len(pieces)
+        return execute_exact_plan(pieces, steps[-1:])
+
+    def metrics(self):
+        return {"entries": len(self.families), "stored_pieces": self.stored_pieces,
+                "hits": self.hits, "misses": self.misses}
+
+
 def _leg_dict(leg):
     return {"source": leg.source, "target": leg.target,
             "time_s": str(leg.time_s), "actual_length_m": str(leg.length_m),
@@ -389,6 +424,14 @@ def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
     observer_trace = []
     domains = 0
     plans_seen = 0
+    start = exact(snapshot.departure_time_s)
+    # A solve-local root binds all snapshot/config inputs, including departure,
+    # E0, curve, schedule and routing policy. Q=E+rho starts with rho=-E0.
+    prefixes = _PlanPrefixCache((initial_piece(
+        Interval(exact(snapshot.initial_energy_kwh), exact(snapshot.initial_energy_kwh)),
+        start_time=start, anchor=snapshot.origin,
+        remaining_schedule=snapshot.initial_remaining_schedule,
+        rho=-exact(snapshot.initial_energy_kwh)),))
     def evaluate(plan):
         nonlocal domains, plans_seen, incumbent, observed_plans
         if deadline is not None and _clock() >= deadline:
@@ -399,15 +442,7 @@ def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
         if compiled is None: return None
         steps, legs = compiled; domains += 1
         if domains > 100_000: raise NotImplementedError("native diagnostic plan domain exceeds 100000")
-        start = exact(snapshot.departure_time_s)
-        # Q is total charged energy: terminal Q=E+rho. Seeding rho=-E0
-        # makes drives add consumption and charge stops add delivered charge.
-        initial = initial_piece(
-            Interval(exact(snapshot.initial_energy_kwh), exact(snapshot.initial_energy_kwh)),
-            start_time=start, anchor=snapshot.origin,
-            remaining_schedule=snapshot.initial_remaining_schedule,
-            rho=-exact(snapshot.initial_energy_kwh))
-        pieces = execute_exact_plan((initial,), steps)
+        pieces = prefixes.propagate(plan, steps)
         terminal = terminal_optimize(pieces, snapshot.destination, snapshot.destination_reserve_kwh, start, snapshot.stop_penalty_s)
         terminals.append((terminal, plan, legs))
         observed_plans += 1
@@ -438,6 +473,7 @@ def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
         timed_out = True
     observer_record = None if observer == "off" else {
         "profile": observer, "plans_evaluated": observed_plans, "terminal_domains": domains,
+        "prefix_cache": prefixes.metrics(),
         "trace": observer_trace if observer == "detailed_trace" else None}
     if timed_out:
         return {"status": "time_limit", "domains": domains, "incumbent": incumbent,
@@ -463,7 +499,7 @@ def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
     attained_primary = [(t, p, l) for t, p, l in jface if t.status in {"attained_optimum", "secondary_unattained"}]
     if not attained_primary:
         return {"status": "primary_unattained", "primary_infimum": best_j,
-                "domains": domains}
+                "domains": domains, "observer": observer_record}
     q_values = [(t.key[1], t, p, l) for t, p, l in attained_primary
                 if t.status == "attained_optimum"]
     q_values += [(t.secondary_infimum, t, p, l) for t, p, l in jface
@@ -474,7 +510,7 @@ def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
     if not attained_q:
         return {"status": "secondary_unattained", "primary_value": best_j,
                 "primary_infimum": best_j, "secondary_infimum": best_q,
-                "domains": domains}
+                "domains": domains, "observer": observer_record}
     terminal, plan, legs = min(attained_q, key=lambda x: (x[0].key[2], x[0].key[3]))
     replay = replay_terminal(terminal, snapshot.destination,
                              snapshot.destination_reserve_kwh,

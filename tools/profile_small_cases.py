@@ -221,6 +221,12 @@ def worker(args):
             row['positive_charge_count']=sum(q>0 for q in charges)
             row['schedule_completed']=replay['remaining_schedule']==0
     row['independent_witness_check_s']=time.perf_counter()-verify
+    observation=result.get('observer') or {}
+    row['prefix_cache']=observation.get('prefix_cache')
+    if args.method!='ref' and not args.no_counts:
+        # P2 chunks the pipeline; distinguish calls from completed plan evaluations.
+        row['propagation_pipeline_calls']=row['complete_propagations']
+        row['complete_propagations']=observation.get('plans_evaluated')
     hm=result.get('hierarchy_metrics') or {}
     row.update(region_visits=hm.get('region_nodes'),pruned_regions=hm.get('pruned_regions'),
                equality_retained=hm.get('equality_nodes_retained'),leaf_actions=hm.get('leaf_actions'))
@@ -272,7 +278,16 @@ def mac_monitors(stack):
 def main(args):
     from hiroute.runtime import run_supervised
     config=json.loads(Path(args.config).read_text())
-    budget=config['budget']; total_cpu=0.;rows=[]
+    baseline=[] if not args.baseline else [json.loads(line) for line in Path(args.baseline).read_text().splitlines()]
+    budget=config['budget']
+    prior_cpu=sum(max(r.get('cpu_s') or 0,r.get('sampled_group_cpu_peak_s') or 0) for r in baseline)
+    total_cpu=prior_cpu;rows=[]
+    print(f'Previous accounted CPU seconds: {prior_cpu:.6f}; remaining: {budget["total_cpu_s"]-prior_cpu:.6f}',flush=True)
+    def baseline_row(case_id, method):
+        return next((r for r in baseline if r['case_id']==case_id and r['method']==method
+                     and r['run_kind']=='normal'),None)
+    def signature(row):
+        return tuple(row.get(k) for k in ('status','key','primary_infimum','secondary_infimum'))
     env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',
              VECLIB_MAXIMUM_THREADS='1',NUMEXPR_NUM_THREADS='1',PYTHONNOUSERSITE='1')
     env.pop('PYTHONPATH',None)
@@ -300,7 +315,8 @@ def main(args):
         if sys.platform=='darwin': mac_monitors(stack)
         def run(case,method,profile=False):
             nonlocal total_cpu
-            if total_cpu>=budget['total_cpu_s']:
+            limit=budget['ref_s'] if method=='ref' else budget['wall_s']
+            if total_cpu+limit>budget['total_cpu_s']:
                 return dict(case_id=case['case_id'],method=method,status='NOT_RUN_CPU_BUDGET')
             result=Path(tmp)/'row.json'
             result.unlink(missing_ok=True)
@@ -339,7 +355,20 @@ def main(args):
             pair=[]
             for method in (('flat','hier') if i%2==0 else ('hier','flat')):
                 pair.append(run(case,method))
-            ref=run(case,'ref') if i<3 else None
+            ref=baseline_row(case['case_id'],'ref') if baseline else (run(case,'ref') if i<3 else None)
+            for row in pair:
+                old=baseline_row(case['case_id'],row['method'])
+                if old:
+                    if row.get('counters_complete') and signature(row)!=signature(old):
+                        raise ValueError('Baseline mathematical disagreement: '+case['case_id'])
+                    row['baseline_comparison']='MATCH' if row.get('counters_complete') else 'UNRESOLVED'
+                    row['baseline_source']=args.baseline
+                    row['baseline_measurements']={k:old.get(k) for k in (
+                        'solve_total_s','wall_total_s','cpu_s','sampled_group_rss_peak_bytes',
+                        'worker_maxrss_bytes','stop_transition_calls','drive_transition_calls',
+                        'selected_leg_calls','plans_attempted','complete_propagations','peak_pieces')}
+            if pair[0].get('counters_complete') and pair[1].get('counters_complete') and signature(pair[0])!=signature(pair[1]):
+                raise ValueError('FLAT/HIER mathematical disagreement: '+case['case_id'])
             if all(r.get('key') is not None for r in pair) and pair[0]['key']!=pair[1]['key']:
                 raise ValueError('FLAT/HIER full-key disagreement: '+case['case_id'])
             if ref and ref.get('status') in ('attained_optimum','primary_unattained','secondary_unattained','infeasible'):
@@ -348,16 +377,16 @@ def main(args):
                         if (row['status'],row.get('key'))!=(ref['status'],ref.get('key')):
                             raise ValueError('REF disagreement: '+case['case_id'])
             for row in pair:
-                row['reference_status']=ref['status'] if ref else 'REF_NOT_RUN'
+                row['reference_status']=('REF_REUSED_'+ref['status'].upper() if baseline else ref['status']) if ref else 'REF_NOT_RUN'
                 save(row)
-            if ref: save(ref)
+            if ref and not baseline: save(ref)
         completed={r['case_id'] for r in rows if r['method']=='flat' and r['status']=='attained_optimum'} & {
                    r['case_id'] for r in rows if r['method']=='hier' and r['status']=='attained_optimum'}
-        if completed:
+        if completed and not args.skip_profiles:
             selected=max(completed,key=lambda c:max(r.get('solve_total_s',0) for r in rows if r['case_id']==c))
             case=next(c for c in config['cases'] if c['case_id']==selected)
             for method in ('flat','hier'): save(run(case,method,True))
-    print(f'Total charged CPU seconds: {total_cpu:.3f}',flush=True)
+    print(f'Total charged CPU seconds including baseline: {total_cpu:.6f}; new: {total_cpu-prior_cpu:.6f}',flush=True)
 
 
 if __name__=='__main__':
@@ -365,6 +394,8 @@ if __name__=='__main__':
     parser.add_argument('--config',default='configs/diagnostics/small_profile.json')
     parser.add_argument('--output',required=True)
     parser.add_argument('--profiles',default='results/small-profile-local')
+    parser.add_argument('--baseline',help='Reuse verified tiny REF and account all prior numerical CPU')
+    parser.add_argument('--skip-profiles',action='store_true',help='Do not consume more detailed profiler slots')
     parser.add_argument('--worker',action='store_true')
     parser.add_argument('--case')
     parser.add_argument('--method',choices=('flat','hier','ref'))
