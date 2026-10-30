@@ -144,13 +144,17 @@ class ProblemSnapshot:
                 raise ValueError(f"Charging segment {i} must have four rational values")
             for j, value in enumerate(segment):
                 rational_text(value, f"charging_curve[{i}][{j}]")
+        edge_ids = set()
         for i, edge in enumerate(self.directed_edges):
             if set(edge) - {"source", "target", "time_s", "length_m", "edge_id"}:
                 raise ValueError(f"Unknown directed edge field at index {i}")
             for key in ("source", "target"):
                 _identifier(edge.get(key), f"directed_edges[{i}].{key}")
-            if "edge_id" in edge:
-                _identifier(edge["edge_id"], f"directed_edges[{i}].edge_id")
+            identity = edge.get("edge_id", f"input:{i:08d}")
+            _identifier(identity, f"directed_edges[{i}].edge_id")
+            if identity in edge_ids:
+                raise ValueError("Directed edge IDs must be unique")
+            edge_ids.add(identity)
             for key in ("time_s", "length_m"):
                 if exact(edge.get(key), f"directed_edges[{i}].{key}") <= 0:
                     raise ValueError(f"Directed edge {key} must be positive")

@@ -8,6 +8,13 @@ from hiroute.exact.search import selected_leg
 
 @dataclass(frozen=True)
 class ProducedSnapshot:
+    """Snapshot plus producer diagnostics.
+
+    selected_legs covers ONLY consecutive pairs in [origin, *candidate_order,
+    destination], including explicit unreachable rows. It is neither an itinerary
+    nor a complete routing table: unlisted pairs have not been queried. The
+    snapshot's directed graph remains authoritative for every solver transfer.
+    """
     snapshot: ProblemSnapshot
     manifest: dict
     graph: dict
@@ -92,15 +99,24 @@ def build_snapshot_from_osm_xml(raw: bytes, query: dict) -> ProducedSnapshot:
       "directed_edges":edges,"selected_leg_contract":"positive_time_node_path_edge_path_tie_v1",
       "graph_or_leg_identity":"synthetic-osm-v1:"+gid,"depth_mode":"diagnostic_cap",
       "depth_limit":min(5,len(candidates)),"depth_certificate_reference":None}
-    snap=ProblemSnapshot.from_dict(obj); legs=[]
-    for a,b in zip([snap.origin,*candidates],[*candidates,snap.destination]):
-        leg=selected_leg(snap,a,b)
-        if leg is None: raise ValueError(f"unreachable selected leg {a}->{b}")
-        legs.append({"source":a,"target":b,"time_s":str(leg.time_s),"length_m":str(leg.length_m),
-          "edge_ids":[e["edge_id"] for e in leg.edges]})
+    snap=ProblemSnapshot.from_dict(obj)
+    legs=diagnostic_selected_legs(snap)
     stages.append(_stage("selected_legs",{"semantic_problem_id":snap.semantic_problem_id},parent,legs)); parent=[stages[-1]["output_id"]]
     stages.append(_stage("snapshot",{"semantic_problem_id":snap.semantic_problem_id,"graph_id":gid},parent,snap.to_dict()))
     manifest={"schema":"hiroute.producer_dag.v1","raw_sha256":raw_sha,"raw_bytes":len(raw),
       "graph_id":gid,"query_id":qid,"semantic_problem_id":snap.semantic_problem_id,
       "stages":stages,"execution_scope":"synthetic_osm_xml_contract_test"}
     return ProducedSnapshot(snap,manifest,graph,tuple(legs))
+
+
+def diagnostic_selected_legs(snapshot):
+    """O(N) diagnostic pairs only; absence of a route is valid problem data."""
+    legs = []
+    for source, target in zip((snapshot.origin, *snapshot.candidate_order),
+                              (*snapshot.candidate_order, snapshot.destination)):
+        leg = selected_leg(snapshot, source, target)
+        legs.append({"source": source, "target": target, "reachable": leg is not None,
+                     "time_s": None if leg is None else str(leg.time_s),
+                     "length_m": None if leg is None else str(leg.length_m),
+                     "edge_ids": None if leg is None else [e["edge_id"] for e in leg.edges]})
+    return legs

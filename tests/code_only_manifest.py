@@ -93,6 +93,7 @@ CODE_GATE_MODULES = CODE_GATE_MODULES + (
     "tests/test_exact_pwa_migrations.py",
     "tests/test_exact_pwa_partition.py",
     "tests/test_exact_search.py",
+    "tests/test_semantic_fixes.py",
     "tests/test_exact_terminal.py",
     "tests/test_r3_memory_limit.py",
     "tests/test_r3_os_supervisor.py",
