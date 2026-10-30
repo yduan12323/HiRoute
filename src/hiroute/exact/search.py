@@ -39,7 +39,7 @@ def _adjacency(snapshot):
     graph = {}
     for index, raw in enumerate(snapshot.directed_edges):
         row = dict(raw)
-        row.setdefault("edge_id", f"edge-{index:06d}")
+        row.setdefault("edge_id", f"input:{index:08d}")
         row["time_s"] = exact(row["time_s"])
         row["length_m"] = exact(row["length_m"])
         graph.setdefault(row["source"], []).append(row)
@@ -47,7 +47,15 @@ def _adjacency(snapshot):
 
 
 def selected_leg(snapshot: ProblemSnapshot, source: str, target: str, cache=None):
-    """Minimize (time, actual length), retaining first discovered exact tie."""
+    """Minimize (time, node tuple, edge-ID tuple); length is an attribute.
+
+    Positive edge times imply every predecessor of a shortest path is settled
+    before its endpoint. Equal-time paths to the same node cannot be proper
+    prefixes of one another (that would require a zero-time cycle), so extending
+    the smaller node tuple preserves its order. With equal nodes, equal-length
+    edge tuples preserve their order too. Thus one full-key label per vertex
+    suffices; this is Dijkstra, not enumeration of simple paths.
+    """
     if cache is None:
         cache = {}
     key = (source, target)
@@ -59,11 +67,12 @@ def selected_leg(snapshot: ProblemSnapshot, source: str, target: str, cache=None
         return result
     graph = _adjacency(snapshot)
     serial = itertools.count()
-    heap = [(Fraction(0), Fraction(0), next(serial), source, ())]
-    best = {source: (Fraction(0), Fraction(0))}
+    start = (Fraction(0), (source,), ())
+    heap = [(*start, next(serial), source, Fraction(0), ())]
+    best = {source: start}
     while heap:
-        time, length, _, node, path = heapq.heappop(heap)
-        if best.get(node) != (time, length):
+        time, nodes, identities, _, node, length, path = heapq.heappop(heap)
+        if best.get(node) != (time, nodes, identities):
             continue
         if node == target:
             result = SelectedLeg(source, target, time, length, path)
@@ -71,10 +80,11 @@ def selected_leg(snapshot: ProblemSnapshot, source: str, target: str, cache=None
             return result
         for edge in graph.get(node, ()):
             nxt = edge["target"]
-            value = (time + edge["time_s"], length + edge["length_m"])
+            value = (time + edge["time_s"], nodes + (nxt,), identities + (edge["edge_id"],))
             if nxt not in best or value < best[nxt]:
                 best[nxt] = value
-                heapq.heappush(heap, (*value, next(serial), nxt, path + (edge,)))
+                heapq.heappush(heap, (*value, next(serial), nxt,
+                                      length + edge["length_m"], path + (edge,)))
     cache[key] = None
     return None
 
@@ -165,6 +175,12 @@ def _primary(item):
     return None
 
 
+def _next_stop_bound(snapshot, prefix_time, inbound, onward, prefix_stops):
+    """Relative driving duration plus unavoidable nonnegative stop penalties."""
+    return (prefix_time + inbound.time_s + onward.time_s
+            + exact(snapshot.stop_penalty_s) * (prefix_stops + 1))
+
+
 def _hierarchical_plans(snapshot, cache, evaluate):
     """Disjoint Region refinement with an admissible strict-primary bound."""
     root = _build_regions(snapshot.candidate_order)
@@ -208,7 +224,7 @@ def _hierarchical_plans(snapshot, cache, evaluate):
             for site, _ in sorted(action_set):
                 inbound = selected_leg(snapshot, anchor, site, cache); onward = selected_leg(snapshot, site, snapshot.destination, cache)
                 if inbound is None or onward is None: continue
-                bounds.append(elapsed + inbound.time_s + onward.time_s - exact(snapshot.departure_time_s) + exact(snapshot.stop_penalty_s) * (len(plan) + 1))
+                bounds.append(_next_stop_bound(snapshot, elapsed, inbound, onward, len(plan)))
             if not bounds: metrics["unreachable_regions"] += 1; return
             heapq.heappush(queue, (min(bounds), len(plan), effect, region.identifier, next(serial), plan, region, action_set))
         for effect in ("C", "S", "CS"): enqueue(root, effect)

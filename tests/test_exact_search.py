@@ -215,7 +215,7 @@ class NativeSearchTests(unittest.TestCase):
         self.assertEqual(hier["hierarchy_metrics"]["missing_actions"], 0)
         self.assertEqual(hier["hierarchy_metrics"]["duplicate_actions"], 0)
 
-    def test_selected_leg_min_time_then_actual_length_then_first_discovery(self):
+    def test_selected_leg_time_then_node_path_length_is_attribute(self):
         raw = load_c01().to_dict()
         raw.pop("semantic_problem_id")
         raw.update({
@@ -229,8 +229,8 @@ class NativeSearchTests(unittest.TestCase):
         snapshot = ProblemSnapshot.from_dict(raw)
         leg = selected_leg(snapshot, "o", "z")
         self.assertEqual(leg.time_s, 2)
-        self.assertEqual(leg.length_m, 2)
-        self.assertEqual([e["edge_id"] for e in leg.edges], ["short-a", "short-z"])
+        self.assertEqual(leg.length_m, 4)
+        self.assertEqual([e["edge_id"] for e in leg.edges], ["first-a", "first-z"])
 
 
     def test_m5_c10_c15_full_search_tuple_tie_and_primary_unattained(self):

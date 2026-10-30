@@ -551,8 +551,7 @@ def build_snapshot_from_shandong_components(graph, sites, query, *, site_access_
     DAG from this PBF-derived graph.
     """
     from hiroute.contracts import ProblemSnapshot, canonical_json
-    from hiroute.exact.search import selected_leg
-    from hiroute.data.producer import ProducedSnapshot
+    from hiroute.data.producer import ProducedSnapshot, diagnostic_selected_legs
     required={"origin","destination","departure_time_s","initial_energy_kwh","capacity_kwh","minimum_energy_kwh",
       "destination_reserve_kwh","stop_overhead_s","stop_penalty_s","consumption_kwh_per_m",
       "charging_curve","schedule","initial_remaining_schedule","H_ref","diagnostic_depth_limit"}
@@ -574,6 +573,11 @@ def build_snapshot_from_shandong_components(graph, sites, query, *, site_access_
         site_index={site.site_id:site for site in sites}
         ranked=tuple(site_index[sid] for sid in resolved_ids)
         candidate_selection="frozen-source-identities-order-v1"
+    node_ids = [n["node_id"] for n in graph.nodes]
+    if len(set(node_ids)) != len(node_ids) or any(not isinstance(n, str) or not n for n in node_ids):
+        raise ValueError("road node identities must be unique nonempty strings")
+    if len({s.site_id for s in sites}) != len(sites):
+        raise ValueError("duplicate Site identity")
     candidates=[]; capabilities={}; access_seen=set()
     site_by_id={s.site_id:s for s in sites}
     for site in ranked:
@@ -599,12 +603,10 @@ def build_snapshot_from_shandong_components(graph, sites, query, *, site_access_
       "selected_leg_contract":"positive_time_node_path_edge_path_tie_v1","graph_or_leg_identity":"shandong-pbf-v1:"+graph_id,
       "depth_mode":"diagnostic_cap","depth_limit":depth_limit,"depth_certificate_reference":None}
     snap=ProblemSnapshot.from_dict(obj)
-    legs=[]
-    for a,b in zip([snap.origin,*snap.candidate_order],[*snap.candidate_order,snap.destination]):
-        leg=selected_leg(snap,a,b)
-        if leg is None: raise ValueError(f"unreachable selected leg {a}->{b}")
-        legs.append({"source":a,"target":b,"time_s":str(leg.time_s),"length_m":str(leg.length_m),
-          "edge_ids":[e["edge_id"] for e in leg.edges],"site_source_id":next((sid for sid,node in site_access_nodes.items() if node==a),None)})
+    legs=diagnostic_selected_legs(snap)
+    for row in legs:
+        row["site_source_id"] = next((sid for sid,node in site_access_nodes.items()
+                                     if node==row["source"]), None)
     raw_stage={"sha256":graph.source_sha256,"bytes":graph.source_bytes}
     site_output=[{"site_id":s.site_id,"amenity":s.amenity,"capabilities":list(s.capabilities),"transport_classes":list(s.transport_classes),"meal_count_500m":s.meal_count_500m,"geometry_method":s.geometry_method,"access_node":site_access_nodes.get(s.site_id)} for s in sorted(sites,key=lambda x:x.site_id)]
     stages=[]; parent=[]
