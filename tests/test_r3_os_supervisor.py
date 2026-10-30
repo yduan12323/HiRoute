@@ -1,4 +1,4 @@
-import json, os, signal, subprocess, sys, tempfile, time, unittest
+import json, os, signal, subprocess, sys, tempfile, threading, time, unittest
 from pathlib import Path
 from hiroute.contracts import ProblemSnapshot
 from hiroute.runtime import (ReceiptError, load_incumbent_receipt,
@@ -41,6 +41,7 @@ time.sleep(60)
             snapshot = ProblemSnapshot.from_dict(raw)
             problem = root / "no-seed.json"
             output = root / "result.json"
+            ready = root / "search-entered"
             problem.write_text(json.dumps(snapshot.to_dict()))
             worker = root / "no-seed-worker.py"
             worker.write_text(r"""
@@ -56,6 +57,7 @@ config = SolverConfig("flat", "none", "bounded_time_cut_v2", "none", "none", "no
                       "full_lexicographic_J_Q_H_Pi")
 real = search.terminal_optimize
 def delayed(*args, **kwargs):
+    Path(sys.argv[3]).write_text("entered")
     time.sleep(60)
     return real(*args, **kwargs)
 with patch("hiroute.exact.search.terminal_optimize", side_effect=delayed):
@@ -65,11 +67,22 @@ Path(sys.argv[2]).write_text(json.dumps(result))
             env = os.environ.copy()
             env["PYTHONPATH"] = os.environ.get(
                 "HIR_ROUTE_TEST_PYTHONPATH", str(ROOT / "src"))
-            result = run_supervised(
-                [sys.executable, str(worker), str(problem), str(output)],
-                timeout_s=.5, term_grace_s=.05, cwd=str(ROOT), env=env,
-                receipt_path=root / "run-receipt.json",
-                run_identity={"case": "C21-no-seed-os-interruption"})
+            outcome = {}
+            def supervise():
+                outcome["result"] = run_supervised(
+                    [sys.executable, str(worker), str(problem), str(output), str(ready)],
+                    timeout_s=10, term_grace_s=.05, cwd=str(ROOT), env=env,
+                    receipt_path=root / "run-receipt.json",
+                    run_identity={"case": "C21-no-seed-os-interruption"})
+            supervisor = threading.Thread(target=supervise, daemon=True)
+            supervisor.start()
+            deadline = time.monotonic() + 15
+            while supervisor.is_alive() and not ready.exists() and time.monotonic() < deadline:
+                time.sleep(.01)
+            supervisor.join(timeout=15)
+            self.assertFalse(supervisor.is_alive(), "supervisor did not finish its bounded cleanup")
+            self.assertTrue(ready.exists(), "worker never entered the blocked search hook")
+            result = outcome["result"]
             self.assertTrue(result.timed_out)
             self.assertTrue(result.term_sent)
             self.assertTrue(result.kill_sent)
