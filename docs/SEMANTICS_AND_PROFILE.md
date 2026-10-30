@@ -241,3 +241,142 @@ at scale, universal speedup, unbounded/global-domain optimality, real-world
 transferability and holdout performance. All mathematical optimum claims here
 are within each explicit candidate/depth domain. Deliver this draft PR and
 stop; P2 and holdout require the next user-reviewed task.
+
+## 6. P2 continuation: exact prefix reuse
+
+P2 was authorized after PR #20 merged and main CI passed. Implementation starts
+from fresh `origin/main` at `63e238b4df5002f808ebdca9bc339d27a5604847`, on a
+separate `dot/exact-prefix-reuse` branch. Sections 1–5 above remain the original
+P0/P1 record; P2 has not repeated that work or expanded its fixed workload.
+
+### Safe reuse conditions and implementation
+
+`search._PlanPrefixCache` belongs to **one `solve_snapshot` invocation** with its
+fixed snapshot/config and one exact initial family. Keys are complete ordered
+tuples of `(site,effect)`, including repeated visits and all prior actions.
+Values are the immutable exact PWA family immediately after that prefix's stop:
+energy intervals and open boundaries, slope/intercept, attainment, rho, full
+prefix, `(anchor,remaining_schedule,stop_count)`, and witness lifters/ancestors.
+Equal anchors, similar energy, equal stop counts or equal last actions are never
+used to merge histories. Another snapshot, config, method or solver call creates
+a new cache; fixed inputs must not be mutated during a solve, as already required
+by the routing cache.
+
+Sufficient-condition argument: the root is identical; for identical complete
+prefixes every inbound selected leg, exact D/S/C/CS step and predecessor family
+is identical. Induction on prefix depth gives identical post-stop families and
+witness ancestry. Splitting `execute_exact_plan` at a stop boundary introduces no
+new union/reduction: the existing pipeline already unions after each step.
+Families are tuples; pieces, intervals, projection rows/history and witness
+records are frozen. Continuation and replay read ancestors and allocate their
+own outputs/fiber coordinates. They do not mutate cached states. Empty exact
+families are cached as well. Final drives to the destination are applied afresh
+and never replace a post-stop prefix, avoiding contamination of later extension.
+
+Each plan is still compiled through `_plan_steps` and evaluated in the original
+order. Terminal optimization, witnesses, strict q>0, attainment, complete
+K=(J,Q,H,Pi), selected-leg ties, Region bound/pruning, seed verification and
+routing caches are unchanged. No C/projection, reducer, grouping or seed
+optimization was combined with P2. Observer metrics add cache hits/misses,
+entries and stored-family-piece counts, including unattained result branches.
+Cache lifetime ends with the solve; returned witnesses keep their immutable
+ancestors alive as needed.
+
+Five new regressions compare cached execution against **test-only cold full-plan
+propagation** for every observed plan in FLAT/HIER. They cover shared/repeated
+site prefixes, C/S/CS and distinct histories, service state, changed initial
+energy/curve/departure/windows across solves, empty families, and primary and
+secondary unattainment. They compare final mathematical components, per-plan
+status/full-key traces, hierarchy behavior, selected legs and complete physical
+replay. A direct check also compares cached post-stop PWA families with cold
+families, exercises sibling continuation and ancestor replay, and verifies that
+cached pieces stay immutable. Independent REF physical replay verifies attained
+witnesses. The installed, non-editable-wheel relevant cohort passed **67 tests**;
+new tests are registered in the existing normal/-OO isolated-wheel CI cohort.
+A P02 counter off/on control preserves full key and replay in both methods.
+
+### Unchanged workload, budget and comparisons
+
+New rows: [PREFIX_REUSE_PROFILE.jsonl](PREFIX_REUSE_PROFILE.jsonl). The original
+configuration file and P01–P08 parameters are unchanged. Each P01–P07 method ran
+once in a fresh process, serially, alternating order as before. P08 remains
+`NOT_RUN_INPUT_UNAVAILABLE`; no input download/rebuild or holdout was started.
+The existing supervisor and macOS sampling adapter, 120 s wall/CPU, 4 GiB group
+RSS and 2 GiB host headroom were retained, with thread environment controls set
+to 1. There were no retries, timeouts, memory cutoffs or mathematical mismatches.
+
+Prior formal accounted CPU, including its three REF and two profiles, is
+9.166937 s. This run adds **3.528033 s**, bringing the same original 7200 s budget
+to **12.694970 s**. Before execution, even 14 full 120 s runs would fit the
+remaining budget. The diagnostic entry now charges prior rows and checks that
+the entire next row's CPU allowance fits before launching it. It reuses the
+three existing valid full REF outcomes; there are **zero new full REF calls and
+zero new profiler runs**. All new attained witnesses still receive independent
+physical replay. P01–P03 mark `REF_REUSED_ATTAINED_OPTIMUM`; P04–P07 do not claim
+an independent full optimization comparison.
+
+All 14 completed mathematical signatures (status, full key and defined infima)
+match the old table; both methods agree within every fixed domain. P03 still
+requires/uses two positive charges; P04 still completes service with a-CS.
+P0/P1's raw table is retained, not overwritten. The new table embeds baseline
+measurements and explicitly records the reused reference status.
+
+| Case | FLAT solve s, old → P2 | HIER solve s, old → P2 | Stop calls, either method, old → P2 |
+|---|---:|---:|---:|
+| P01 | 0.000180 → 0.000212 | 0.000215 → 0.000182 | 0 → 0 |
+| P02 | 0.001104 → 0.001029 | 0.001084 → 0.001045 | 1 → 1 |
+| P03 | 0.010598 → 0.005323 | 0.010585 → 0.005542 | 14 → 6 |
+| P04 | 0.007985 → 0.005916 | 0.008137 → 0.005883 | 11 → 8 |
+| P05 | 0.021046 → 0.012564 | 0.021281 → 0.012769 | 20 → 9 |
+| P06 | 0.092654 → 0.056618 | 0.093368 → 0.057518 | 78 → 31 |
+| P07 | 0.429272 → 0.255798 | 0.427241 → 0.256112 | 300 → 109 |
+| P08 | null | null | null |
+
+P07, both methods: stop calls fall by 191 (63.7%); per-piece drive calls fall
+1185→859 (27.5%). Plan attempts remain 585 FLAT / 165 HIER, completed plan
+evaluations remain 165 each, and routing calls remain 1613 / 2981. Each cache
+has 165 entries (including root and empty families), 164 misses, 276 hits and
+511 stored PWA pieces. The cache is monotone within this solve, so these entry
+and stored-piece totals are also their peaks, **not total projection/witness
+memory**. Peak observed post-union propagated family size stays 7. A cache
+miss need not execute a stop: an empty parent/inbound family exits early.
+
+P2 splits plan propagation into chunks. `propagation_pipeline_calls` therefore
+counts 329 returning chunks on P07; `complete_propagations` now explicitly reads
+the observer's completed plan count (165), preserving its old comparison meaning.
+Chunk counts must not be compared with the old full-plan pipeline call count.
+Other operator counters retain their original actual-call definitions.
+
+P07 propagation time changes 0.37395→0.20387 s FLAT and
+0.37059→0.20340 s HIER. Terminal work remains about 0.044 s; Region/routing
+costs remain small. Supervised wall changes 0.6860→0.4780 s and
+0.6844→0.4803 s. Sampled group RSS changes 74.828→76.203 MiB FLAT and
+74.625→76.125 MiB HIER, increases of 1.375/1.500 MiB in these single runs.
+The retained cache is a real memory tradeoff; RSS includes interpreter/imports
+and all retained terminal/projection/witness data, not just the cache.
+
+The prior measurements used the P0/P1 implementation committed as
+`4d9c8efbfde6a2ecc62a2c825a999237c553a053` (subsequently merged at `63e238b`);
+new measurements use this P2 implementation. Both used the same device, Python
+3.11.15 and dependency versions, but different source revisions and execution times. This is an old baseline
+versus one new observation, not a randomized/paired timing study. Even P01's
+tiny solve time can increase. Actual expensive operator-call reductions support
+the reuse mechanism; the descriptive ~40% P07 solve-time decrease is not evidence
+of a universal speedup or a bound on future scaling. No new detailed profiler
+was run, so the internal distribution of the remaining projection cost is not
+quantified anew. Large-domain/cache-memory growth and real-road costs remain
+unmeasured.
+
+Reproduce after installing this PR's non-editable wheel:
+
+```sh
+.venv/bin/python -m pip install --no-build-isolation --no-deps .
+.venv/bin/python -m unittest discover -s tests -p test_prefix_reuse.py
+.venv/bin/python tools/profile_small_cases.py \
+  --baseline docs/SEMANTICS_AND_PROFILE.jsonl --skip-profiles \
+  --output /tmp/hiroute-prefix-reuse.jsonl
+```
+
+This completes the authorized prefix-reuse P2 step. Deliver a draft PR and CI
+outcome, then stop. No automatic PR merge, additional optimization, expanded
+matrix, real-data recovery, larger-domain claim or holdout is authorized here.

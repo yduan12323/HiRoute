@@ -78,6 +78,7 @@ HIROUTE_TESTS = (
     "tests/test_r3_os_supervisor.py",
     "tests/test_exact_search.py",
     "tests/test_semantic_fixes.py",
+    "tests/test_prefix_reuse.py",
     "tests/test_exact_pipeline.py",
     "tests/test_exact_terminal.py",
     "tests/test_data_producer.py",
