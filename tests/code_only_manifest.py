@@ -95,6 +95,7 @@ CODE_GATE_MODULES = CODE_GATE_MODULES + (
     "tests/test_exact_search.py",
     "tests/test_semantic_fixes.py",
     "tests/test_prefix_reuse.py",
+    "tests/test_flat_bb.py",
     "tests/test_c_operator.py",
     "tests/test_exact_terminal.py",
     "tests/test_r3_memory_limit.py",

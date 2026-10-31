@@ -1,0 +1,247 @@
+{
+  "base_snapshot": {
+    "schema": "hiroute.problem_snapshot.v1",
+    "model_contract_id": "hiroute.time_cut_v2.bounded",
+    "numerical_contract_id": "exact_rational_inputs_v1",
+    "origin": "o",
+    "destination": "z",
+    "departure_time_s": "0",
+    "initial_energy_kwh": "1",
+    "capacity_kwh": "10",
+    "minimum_energy_kwh": "0",
+    "destination_reserve_kwh": "0",
+    "stop_overhead_s": "1",
+    "stop_penalty_s": "1",
+    "consumption_kwh_per_m": "1",
+    "schedule": null,
+    "initial_remaining_schedule": 0,
+    "candidate_order": [],
+    "site_capabilities": {},
+    "charging_curve": [
+      [
+        "0",
+        "10",
+        "1",
+        "0"
+      ]
+    ],
+    "directed_edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": "1",
+        "length_m": "1",
+        "edge_id": "direct"
+      }
+    ],
+    "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+    "graph_or_leg_identity": "R0-C01-directed-two-node-fixture-v1",
+    "depth_mode": "diagnostic_cap",
+    "depth_limit": 0,
+    "depth_certificate_reference": null
+  },
+  "budget": {
+    "wall_s": 120,
+    "ref_s": 60,
+    "memory_bytes": 4294967296,
+    "host_headroom_bytes": 2147483648,
+    "total_cpu_s": 7200
+  },
+  "cases": [
+    {
+      "case_id": "M01",
+      "source_kind": "synthetic",
+      "purpose": "Correct original P07 control; only correction is explicit stop penalty 0",
+      "overrides": {
+        "initial_energy_kwh": "3",
+        "capacity_kwh": "10",
+        "candidate_order": [
+          "c1",
+          "c2",
+          "c3",
+          "c4",
+          "c5",
+          "c6",
+          "c7",
+          "c8"
+        ],
+        "site_capabilities": {
+          "c1": [
+            "C"
+          ],
+          "c2": [
+            "C"
+          ],
+          "c3": [
+            "C"
+          ],
+          "c4": [
+            "C"
+          ],
+          "c5": [
+            "C"
+          ],
+          "c6": [
+            "C"
+          ],
+          "c7": [
+            "C"
+          ],
+          "c8": [
+            "C"
+          ]
+        },
+        "charging_curve": [
+          [
+            "0",
+            "10",
+            "1",
+            "0"
+          ]
+        ],
+        "depth_limit": 3,
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "c1",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>c1"
+          },
+          {
+            "source": "c1",
+            "target": "c2",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c1>c2"
+          },
+          {
+            "source": "c2",
+            "target": "c3",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c2>c3"
+          },
+          {
+            "source": "c3",
+            "target": "c4",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c3>c4"
+          },
+          {
+            "source": "c4",
+            "target": "c5",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c4>c5"
+          },
+          {
+            "source": "c5",
+            "target": "c6",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c5>c6"
+          },
+          {
+            "source": "c6",
+            "target": "c7",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c6>c7"
+          },
+          {
+            "source": "c7",
+            "target": "c8",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c7>c8"
+          },
+          {
+            "source": "c8",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c8>z"
+          }
+        ],
+        "stop_penalty_s": "0"
+      }
+    },
+    {
+      "case_id": "M07",
+      "source_kind": "synthetic",
+      "purpose": "Correct M07 battery-domain contract; only correction is explicit capacity 5",
+      "overrides": {
+        "initial_energy_kwh": "1",
+        "candidate_order": [
+          "a",
+          "b"
+        ],
+        "site_capabilities": {
+          "a": [
+            "S",
+            "CS"
+          ],
+          "b": [
+            "C"
+          ]
+        },
+        "charging_curve": [
+          [
+            "0",
+            "5",
+            "1",
+            "0"
+          ]
+        ],
+        "depth_limit": 3,
+        "schedule": {
+          "a": "10",
+          "b": "20",
+          "D": "3"
+        },
+        "initial_remaining_schedule": 1,
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "a",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>a"
+          },
+          {
+            "source": "a",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "a>z"
+          },
+          {
+            "source": "o",
+            "target": "b",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>b"
+          },
+          {
+            "source": "b",
+            "target": "a",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "b>a"
+          }
+        ],
+        "capacity_kwh": "5"
+      }
+    }
+  ],
+  "ref_cases": [],
+  "design_notes": [
+    "Authorized completion: exactly two cases x three methods x three rotated repetitions = 18 new normal attempts.",
+    "Original hierarchy_mechanism.json and its 74 terminal records remain unchanged.",
+    "Only M01 penalty=0 and M07 capacity=5 are corrected. No Core, N/H, schedule, graph, curve or sample changes.",
+    "No full REF optimization: M02 remains unknown; M05 prior full REF is unchanged. These two corrected cases use parity and physical replay only.",
+    "Cumulative CPU budget=7200 seconds; prior round charged 89.188204 seconds; add a separate conservative 10-second development reserve before this run."
+  ]
+}

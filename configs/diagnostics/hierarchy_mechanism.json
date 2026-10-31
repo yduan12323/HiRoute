@@ -1,0 +1,1079 @@
+{
+  "base_snapshot": {
+    "schema": "hiroute.problem_snapshot.v1",
+    "model_contract_id": "hiroute.time_cut_v2.bounded",
+    "numerical_contract_id": "exact_rational_inputs_v1",
+    "origin": "o",
+    "destination": "z",
+    "departure_time_s": "0",
+    "initial_energy_kwh": "1",
+    "capacity_kwh": "10",
+    "minimum_energy_kwh": "0",
+    "destination_reserve_kwh": "0",
+    "stop_overhead_s": "1",
+    "stop_penalty_s": "1",
+    "consumption_kwh_per_m": "1",
+    "schedule": null,
+    "initial_remaining_schedule": 0,
+    "candidate_order": [],
+    "site_capabilities": {},
+    "charging_curve": [
+      [
+        "0",
+        "10",
+        "1",
+        "0"
+      ]
+    ],
+    "directed_edges": [
+      {
+        "source": "o",
+        "target": "z",
+        "time_s": "1",
+        "length_m": "1",
+        "edge_id": "direct"
+      }
+    ],
+    "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+    "graph_or_leg_identity": "R0-C01-directed-two-node-fixture-v1",
+    "depth_mode": "diagnostic_cap",
+    "depth_limit": 0,
+    "depth_certificate_reference": null
+  },
+  "budget": {
+    "wall_s": 120,
+    "ref_s": 60,
+    "memory_bytes": 4294967296,
+    "host_headroom_bytes": 2147483648,
+    "total_cpu_s": 7200
+  },
+  "cases": [
+    {
+      "case_id": "M01",
+      "source_kind": "synthetic",
+      "purpose": "P07 ladder topology control variant, N8 H3; measured penalty=1 (original P07=0); not an exact P07 reuse",
+      "overrides": {
+        "initial_energy_kwh": "3",
+        "capacity_kwh": "10",
+        "candidate_order": [
+          "c1",
+          "c2",
+          "c3",
+          "c4",
+          "c5",
+          "c6",
+          "c7",
+          "c8"
+        ],
+        "site_capabilities": {
+          "c1": [
+            "C"
+          ],
+          "c2": [
+            "C"
+          ],
+          "c3": [
+            "C"
+          ],
+          "c4": [
+            "C"
+          ],
+          "c5": [
+            "C"
+          ],
+          "c6": [
+            "C"
+          ],
+          "c7": [
+            "C"
+          ],
+          "c8": [
+            "C"
+          ]
+        },
+        "charging_curve": [
+          [
+            "0",
+            "10",
+            "1",
+            "0"
+          ]
+        ],
+        "depth_limit": 3,
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "c1",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>c1"
+          },
+          {
+            "source": "c1",
+            "target": "c2",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c1>c2"
+          },
+          {
+            "source": "c2",
+            "target": "c3",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c2>c3"
+          },
+          {
+            "source": "c3",
+            "target": "c4",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c3>c4"
+          },
+          {
+            "source": "c4",
+            "target": "c5",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c4>c5"
+          },
+          {
+            "source": "c5",
+            "target": "c6",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c5>c6"
+          },
+          {
+            "source": "c6",
+            "target": "c7",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c6>c7"
+          },
+          {
+            "source": "c7",
+            "target": "c8",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c7>c8"
+          },
+          {
+            "source": "c8",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c8>z"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "M02",
+      "source_kind": "synthetic",
+      "purpose": "Short feasible branch plus three fixed long detours, N4 H2",
+      "overrides": {
+        "candidate_order": [
+          "s0",
+          "s1",
+          "s2",
+          "s3"
+        ],
+        "site_capabilities": {
+          "s0": [
+            "C"
+          ],
+          "s1": [
+            "C"
+          ],
+          "s2": [
+            "C"
+          ],
+          "s3": [
+            "C"
+          ]
+        },
+        "depth_limit": 2,
+        "stop_penalty_s": "1",
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "s0",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>s0"
+          },
+          {
+            "source": "s0",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "s0>z"
+          },
+          {
+            "source": "o",
+            "target": "s1",
+            "time_s": "6",
+            "length_m": "1",
+            "edge_id": "o>s1"
+          },
+          {
+            "source": "s1",
+            "target": "z",
+            "time_s": "6",
+            "length_m": "1",
+            "edge_id": "s1>z"
+          },
+          {
+            "source": "o",
+            "target": "s2",
+            "time_s": "7",
+            "length_m": "1",
+            "edge_id": "o>s2"
+          },
+          {
+            "source": "s2",
+            "target": "z",
+            "time_s": "7",
+            "length_m": "1",
+            "edge_id": "s2>z"
+          },
+          {
+            "source": "o",
+            "target": "s3",
+            "time_s": "8",
+            "length_m": "1",
+            "edge_id": "o>s3"
+          },
+          {
+            "source": "s3",
+            "target": "z",
+            "time_s": "8",
+            "length_m": "1",
+            "edge_id": "s3>z"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "M03",
+      "source_kind": "synthetic",
+      "purpose": "M02 extended by four further long detours, N8 H2",
+      "overrides": {
+        "candidate_order": [
+          "s0",
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ],
+        "site_capabilities": {
+          "s0": [
+            "C"
+          ],
+          "s1": [
+            "C"
+          ],
+          "s2": [
+            "C"
+          ],
+          "s3": [
+            "C"
+          ],
+          "s4": [
+            "C"
+          ],
+          "s5": [
+            "C"
+          ],
+          "s6": [
+            "C"
+          ],
+          "s7": [
+            "C"
+          ]
+        },
+        "depth_limit": 2,
+        "stop_penalty_s": "1",
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "s0",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>s0"
+          },
+          {
+            "source": "s0",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "s0>z"
+          },
+          {
+            "source": "o",
+            "target": "s1",
+            "time_s": "6",
+            "length_m": "1",
+            "edge_id": "o>s1"
+          },
+          {
+            "source": "s1",
+            "target": "z",
+            "time_s": "6",
+            "length_m": "1",
+            "edge_id": "s1>z"
+          },
+          {
+            "source": "o",
+            "target": "s2",
+            "time_s": "7",
+            "length_m": "1",
+            "edge_id": "o>s2"
+          },
+          {
+            "source": "s2",
+            "target": "z",
+            "time_s": "7",
+            "length_m": "1",
+            "edge_id": "s2>z"
+          },
+          {
+            "source": "o",
+            "target": "s3",
+            "time_s": "8",
+            "length_m": "1",
+            "edge_id": "o>s3"
+          },
+          {
+            "source": "s3",
+            "target": "z",
+            "time_s": "8",
+            "length_m": "1",
+            "edge_id": "s3>z"
+          },
+          {
+            "source": "o",
+            "target": "s4",
+            "time_s": "9",
+            "length_m": "1",
+            "edge_id": "o>s4"
+          },
+          {
+            "source": "s4",
+            "target": "z",
+            "time_s": "9",
+            "length_m": "1",
+            "edge_id": "s4>z"
+          },
+          {
+            "source": "o",
+            "target": "s5",
+            "time_s": "10",
+            "length_m": "1",
+            "edge_id": "o>s5"
+          },
+          {
+            "source": "s5",
+            "target": "z",
+            "time_s": "10",
+            "length_m": "1",
+            "edge_id": "s5>z"
+          },
+          {
+            "source": "o",
+            "target": "s6",
+            "time_s": "11",
+            "length_m": "1",
+            "edge_id": "o>s6"
+          },
+          {
+            "source": "s6",
+            "target": "z",
+            "time_s": "11",
+            "length_m": "1",
+            "edge_id": "s6>z"
+          },
+          {
+            "source": "o",
+            "target": "s7",
+            "time_s": "12",
+            "length_m": "1",
+            "edge_id": "o>s7"
+          },
+          {
+            "source": "s7",
+            "target": "z",
+            "time_s": "12",
+            "length_m": "1",
+            "edge_id": "s7>z"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "M04",
+      "source_kind": "synthetic",
+      "purpose": "Eight equal branches; second-stop bound equals first optimum, N8 H2",
+      "overrides": {
+        "candidate_order": [
+          "s0",
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ],
+        "site_capabilities": {
+          "s0": [
+            "C"
+          ],
+          "s1": [
+            "C"
+          ],
+          "s2": [
+            "C"
+          ],
+          "s3": [
+            "C"
+          ],
+          "s4": [
+            "C"
+          ],
+          "s5": [
+            "C"
+          ],
+          "s6": [
+            "C"
+          ],
+          "s7": [
+            "C"
+          ]
+        },
+        "depth_limit": 2,
+        "stop_penalty_s": "2",
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "s0",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>s0"
+          },
+          {
+            "source": "s0",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "s0>z"
+          },
+          {
+            "source": "o",
+            "target": "s1",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>s1"
+          },
+          {
+            "source": "s1",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "s1>z"
+          },
+          {
+            "source": "o",
+            "target": "s2",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>s2"
+          },
+          {
+            "source": "s2",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "s2>z"
+          },
+          {
+            "source": "o",
+            "target": "s3",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>s3"
+          },
+          {
+            "source": "s3",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "s3>z"
+          },
+          {
+            "source": "o",
+            "target": "s4",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>s4"
+          },
+          {
+            "source": "s4",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "s4>z"
+          },
+          {
+            "source": "o",
+            "target": "s5",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>s5"
+          },
+          {
+            "source": "s5",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "s5>z"
+          },
+          {
+            "source": "o",
+            "target": "s6",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>s6"
+          },
+          {
+            "source": "s6",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "s6>z"
+          },
+          {
+            "source": "o",
+            "target": "s7",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>s7"
+          },
+          {
+            "source": "s7",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "s7>z"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "M05",
+      "source_kind": "synthetic",
+      "purpose": "Two mandatory charging layers with alternatives, N4 H3",
+      "overrides": {
+        "initial_energy_kwh": "2",
+        "capacity_kwh": "2",
+        "charging_curve": [
+          [
+            "0",
+            "2",
+            "1",
+            "0"
+          ]
+        ],
+        "candidate_order": [
+          "a",
+          "a2",
+          "b",
+          "b2"
+        ],
+        "site_capabilities": {
+          "a": [
+            "C"
+          ],
+          "a2": [
+            "C"
+          ],
+          "b": [
+            "C"
+          ],
+          "b2": [
+            "C"
+          ]
+        },
+        "depth_limit": 3,
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "a",
+            "time_s": "1",
+            "length_m": "2",
+            "edge_id": "o>a"
+          },
+          {
+            "source": "o",
+            "target": "a2",
+            "time_s": "2",
+            "length_m": "2",
+            "edge_id": "o>a2"
+          },
+          {
+            "source": "a",
+            "target": "b",
+            "time_s": "1",
+            "length_m": "2",
+            "edge_id": "a>b"
+          },
+          {
+            "source": "a",
+            "target": "b2",
+            "time_s": "2",
+            "length_m": "2",
+            "edge_id": "a>b2"
+          },
+          {
+            "source": "a2",
+            "target": "b",
+            "time_s": "2",
+            "length_m": "2",
+            "edge_id": "a2>b"
+          },
+          {
+            "source": "a2",
+            "target": "b2",
+            "time_s": "3",
+            "length_m": "2",
+            "edge_id": "a2>b2"
+          },
+          {
+            "source": "b",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "2",
+            "edge_id": "b>z"
+          },
+          {
+            "source": "b2",
+            "target": "z",
+            "time_s": "2",
+            "length_m": "2",
+            "edge_id": "b2>z"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "M06",
+      "source_kind": "synthetic",
+      "purpose": "M05 with four fixed first-layer detours, N8 H3",
+      "overrides": {
+        "initial_energy_kwh": "2",
+        "capacity_kwh": "2",
+        "charging_curve": [
+          [
+            "0",
+            "2",
+            "1",
+            "0"
+          ]
+        ],
+        "candidate_order": [
+          "a",
+          "a2",
+          "b",
+          "b2",
+          "x0",
+          "x1",
+          "x2",
+          "x3"
+        ],
+        "site_capabilities": {
+          "a": [
+            "C"
+          ],
+          "a2": [
+            "C"
+          ],
+          "b": [
+            "C"
+          ],
+          "b2": [
+            "C"
+          ],
+          "x0": [
+            "C"
+          ],
+          "x1": [
+            "C"
+          ],
+          "x2": [
+            "C"
+          ],
+          "x3": [
+            "C"
+          ]
+        },
+        "depth_limit": 3,
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "a",
+            "time_s": "1",
+            "length_m": "2",
+            "edge_id": "o>a"
+          },
+          {
+            "source": "o",
+            "target": "a2",
+            "time_s": "2",
+            "length_m": "2",
+            "edge_id": "o>a2"
+          },
+          {
+            "source": "a",
+            "target": "b",
+            "time_s": "1",
+            "length_m": "2",
+            "edge_id": "a>b"
+          },
+          {
+            "source": "a",
+            "target": "b2",
+            "time_s": "2",
+            "length_m": "2",
+            "edge_id": "a>b2"
+          },
+          {
+            "source": "a2",
+            "target": "b",
+            "time_s": "2",
+            "length_m": "2",
+            "edge_id": "a2>b"
+          },
+          {
+            "source": "a2",
+            "target": "b2",
+            "time_s": "3",
+            "length_m": "2",
+            "edge_id": "a2>b2"
+          },
+          {
+            "source": "b",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "2",
+            "edge_id": "b>z"
+          },
+          {
+            "source": "b2",
+            "target": "z",
+            "time_s": "2",
+            "length_m": "2",
+            "edge_id": "b2>z"
+          },
+          {
+            "source": "o",
+            "target": "x0",
+            "time_s": "10",
+            "length_m": "2",
+            "edge_id": "o>x0"
+          },
+          {
+            "source": "x0",
+            "target": "b",
+            "time_s": "10",
+            "length_m": "2",
+            "edge_id": "x0>b"
+          },
+          {
+            "source": "o",
+            "target": "x1",
+            "time_s": "11",
+            "length_m": "2",
+            "edge_id": "o>x1"
+          },
+          {
+            "source": "x1",
+            "target": "b",
+            "time_s": "11",
+            "length_m": "2",
+            "edge_id": "x1>b"
+          },
+          {
+            "source": "o",
+            "target": "x2",
+            "time_s": "12",
+            "length_m": "2",
+            "edge_id": "o>x2"
+          },
+          {
+            "source": "x2",
+            "target": "b",
+            "time_s": "12",
+            "length_m": "2",
+            "edge_id": "x2>b"
+          },
+          {
+            "source": "o",
+            "target": "x3",
+            "time_s": "13",
+            "length_m": "2",
+            "edge_id": "o>x3"
+          },
+          {
+            "source": "x3",
+            "target": "b",
+            "time_s": "13",
+            "length_m": "2",
+            "edge_id": "x3>b"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "M07",
+      "source_kind": "synthetic",
+      "purpose": "Service [10,20] D3; a S/CS vs b C then a S, N2 H3",
+      "overrides": {
+        "initial_energy_kwh": "1",
+        "candidate_order": [
+          "a",
+          "b"
+        ],
+        "site_capabilities": {
+          "a": [
+            "S",
+            "CS"
+          ],
+          "b": [
+            "C"
+          ]
+        },
+        "charging_curve": [
+          [
+            "0",
+            "5",
+            "1",
+            "0"
+          ]
+        ],
+        "depth_limit": 3,
+        "schedule": {
+          "a": "10",
+          "b": "20",
+          "D": "3"
+        },
+        "initial_remaining_schedule": 1,
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "a",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>a"
+          },
+          {
+            "source": "a",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "a>z"
+          },
+          {
+            "source": "o",
+            "target": "b",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>b"
+          },
+          {
+            "source": "b",
+            "target": "a",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "b>a"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "M08",
+      "source_kind": "synthetic",
+      "purpose": "Fixed permutation of M03 IDs [5,2,7,0,6,1,4,3]; unique fastest routes",
+      "overrides": {
+        "candidate_order": [
+          "s5",
+          "s2",
+          "s7",
+          "s0",
+          "s6",
+          "s1",
+          "s4",
+          "s3"
+        ],
+        "site_capabilities": {
+          "s5": [
+            "C"
+          ],
+          "s2": [
+            "C"
+          ],
+          "s7": [
+            "C"
+          ],
+          "s0": [
+            "C"
+          ],
+          "s6": [
+            "C"
+          ],
+          "s1": [
+            "C"
+          ],
+          "s4": [
+            "C"
+          ],
+          "s3": [
+            "C"
+          ]
+        },
+        "depth_limit": 2,
+        "stop_penalty_s": "1",
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "s5",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>s5"
+          },
+          {
+            "source": "s5",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "s5>z"
+          },
+          {
+            "source": "o",
+            "target": "s2",
+            "time_s": "6",
+            "length_m": "1",
+            "edge_id": "o>s2"
+          },
+          {
+            "source": "s2",
+            "target": "z",
+            "time_s": "6",
+            "length_m": "1",
+            "edge_id": "s2>z"
+          },
+          {
+            "source": "o",
+            "target": "s7",
+            "time_s": "7",
+            "length_m": "1",
+            "edge_id": "o>s7"
+          },
+          {
+            "source": "s7",
+            "target": "z",
+            "time_s": "7",
+            "length_m": "1",
+            "edge_id": "s7>z"
+          },
+          {
+            "source": "o",
+            "target": "s0",
+            "time_s": "8",
+            "length_m": "1",
+            "edge_id": "o>s0"
+          },
+          {
+            "source": "s0",
+            "target": "z",
+            "time_s": "8",
+            "length_m": "1",
+            "edge_id": "s0>z"
+          },
+          {
+            "source": "o",
+            "target": "s6",
+            "time_s": "9",
+            "length_m": "1",
+            "edge_id": "o>s6"
+          },
+          {
+            "source": "s6",
+            "target": "z",
+            "time_s": "9",
+            "length_m": "1",
+            "edge_id": "s6>z"
+          },
+          {
+            "source": "o",
+            "target": "s1",
+            "time_s": "10",
+            "length_m": "1",
+            "edge_id": "o>s1"
+          },
+          {
+            "source": "s1",
+            "target": "z",
+            "time_s": "10",
+            "length_m": "1",
+            "edge_id": "s1>z"
+          },
+          {
+            "source": "o",
+            "target": "s4",
+            "time_s": "11",
+            "length_m": "1",
+            "edge_id": "o>s4"
+          },
+          {
+            "source": "s4",
+            "target": "z",
+            "time_s": "11",
+            "length_m": "1",
+            "edge_id": "s4>z"
+          },
+          {
+            "source": "o",
+            "target": "s3",
+            "time_s": "12",
+            "length_m": "1",
+            "edge_id": "o>s3"
+          },
+          {
+            "source": "s3",
+            "target": "z",
+            "time_s": "12",
+            "length_m": "1",
+            "edge_id": "s3>z"
+          }
+        ]
+      }
+    }
+  ],
+  "ref_cases": [
+    "M02",
+    "M05"
+  ],
+  "design_notes": [
+    "Physical parameters were fixed before numerical solves; descriptive labels corrected after the run to disclose M01/M07 configuration mistakes.",
+    "M02/M03 branch times: fastest 1+1, detours (5+i)+(5+i), all lengths 1+1. M08 is fixed permutation, no timing-based selection.",
+    "M05/M06: three length-2 legs, initial=capacity=2. First recharge cannot cover two remaining legs; second layer is unreachable before a first recharge. At least two positive charges necessary.",
+    "No REF optimum initializes any method. All seed_policy=none, analytic C, exact prefix cache."
+  ],
+  "post_run_findings": [
+    "M01 inherited stop_penalty_s=1 instead of original P07=0. Physical parameters retained; no replacement measurement.",
+    "M07 inherited capacity_kwh=10 while charging curve covers [0,5]. All nine attempts failed independent replay input validation. Physical parameters retained; no retries after 72 attempts."
+  ]
+}
