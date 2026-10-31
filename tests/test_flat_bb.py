@@ -2,6 +2,8 @@
 from fractions import Fraction as F
 import json
 from pathlib import Path
+import runpy
+import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -137,6 +139,33 @@ class FlatBBTests(unittest.TestCase):
                 _clock=lambda:next(ticks,2),observer='metrics')
             self.assertEqual(result['status'],'time_limit')
             self.assertEqual(_native_result(snapshot,config(method),result)['mathematical_status'],'unknown')
+
+
+class MechanismPreflightTests(unittest.TestCase):
+    def preflight(self, source):
+        preflight=runpy.run_path(str(ROOT/'tools/profile_small_cases.py'))['preflight_cases']
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/'cases.json'
+            path.write_text(json.dumps(dict(base_snapshot=source,
+                cases=[dict(case_id='tiny',source_kind='synthetic',overrides={})])))
+            # Input preflight must never invoke an optimizer.
+            with patch.object(search,'solve_snapshot',side_effect=AssertionError('preflight solved')):
+                return preflight(path)
+
+    def test_complete_input_contract_accepts_zero_stop(self):
+        self.assertEqual(self.preflight(raw()),['tiny'])
+
+    def test_m07_partial_curve_is_rejected_before_numerical_work(self):
+        with self.assertRaisesRegex(ValueError,'cover the full battery domain'):
+            self.preflight(raw(candidate_order=['a'],site_capabilities={'a':['C']},
+                charging_curve=[['0','5','1','0']],capacity_kwh='10',depth_limit=3))
+
+    def test_numeric_structure_and_diagnostic_domain_are_checked(self):
+        for source,error in ((raw(initial_energy_kwh=10.0),TypeError),
+                (raw(candidate_order=['a'],site_capabilities={'a':['X']}),ValueError),
+                (raw(depth_limit=4),ValueError)):
+            with self.subTest(source=source),self.assertRaises(error):
+                self.preflight(source)
 
 
 if __name__ == '__main__':

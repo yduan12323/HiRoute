@@ -1,5 +1,100 @@
 # Hierarchy mechanism comparison — bounded development result
 
+## Authorized completion: all eight intended slots now covered
+
+2026-10-31. The user authorized exactly 18 additional normal rows, followed by
+normal PR merge after checks. That authorization supersedes the initial-round
+pending/stop recommendations preserved below. No next research phase is started.
+
+The [separate corrected configuration](../configs/diagnostics/hierarchy_mechanism_completion.json)
+changes only M01 `stop_penalty_s: 1 -> 0` and M07 `capacity_kwh: 10 -> 5`.
+The reconstructed M01 snapshot was checked equal, field for field, to original P07.
+M07 retains its original graph, curve, schedule, effects, N/H and other numbers.
+The original eight-case config and all 74 original records remain byte-for-byte
+unchanged; their variant and failures are historical evidence, not removed rows.
+
+Before timing, every corrected input passed production structure/exact-number,
+energy/schedule/edge and supported-profile checks, plus independent REF
+`normalize_case` validation of the physical replay input, including full battery
+curve coverage, continuity and positive slopes. New preflight regressions reject
+the old M07 error, floats, bad effects and diagnostic depth >3 before numerical
+work. All 15 related development tests passed; validation finished before the
+first new worker. The timing entry now preflights the entire supplied cohort
+before launching any worker. It performs no REF optimization during preflight.
+
+[Completion table](HIERARCHY_MECHANISM_COMPLETION.jsonl): exactly 18 new normal
+rows, two cases x three methods x three rotated repetitions, one fresh process
+and one numerical worker at a time. All 18 attained witnesses passed independent
+physical replay. No retry, new full REF, extra trace, profiler, or other six-case
+rerun occurred. The same 120 s / 4 GiB sampled RSS / 2 GiB host headroom limits
+and single-thread environment were retained. Completion workers consumed
+4.649618 observed CPU seconds; with the prior charged 89.188204 s and a fresh
+conservative 10 s development reserve, cumulative charge is **103.837822 / 7200 s**.
+Completion peak sampled RSS was 79,216,640 bytes, minimum host available memory
+3,969,368,064 bytes. All timing residuals are nonnegative. This is a second batch:
+compare methods within each case; do not interpret a time difference between the
+old M01 variant and corrected M01 as a speedup from changing penalty.
+
+The effective eight-slot view uses the original M02–M06/M08 records and only the
+completion M01/M07 records: 72 accepted rows, with nine rows per intended input.
+All eight slots agree across methods/repetitions in mathematical status and the
+defined complete K/infima. All accepted statuses are attained optimum; all 72
+accepted witnesses were independently physically replayed. Reconstructing this
+view also passed full input preflight without solving any case again.
+
+Median solve wall ms; terminal triples are FLAT / Flat-BB / HIER:
+
+| Case | K=(J,Q,H,Pi) | FLAT ms | Flat-BB ms | HIER ms | terminal evaluations |
+|---|---|---:|---:|---:|---:|
+| M01 | (16,6,1,c1-C) | 80.452 | 78.835 | 82.087 | 165/165/165 |
+| M02 | (5,1,1,s0-C) | 4.192 | 1.522 | 1.806 | 9/3/3 |
+| M03 | (5,1,1,s0-C) | 8.904 | 3.430 | 2.298 | 17/3/3 |
+| M04 | (6,1,1,s0-C) | 9.100 | 8.694 | 9.401 | 17/17/17 |
+| M05 | (11,4,2,a-C;b-C) | 6.346 | 6.001 | 6.541 | 25/25/25 |
+| M06 | (11,4,2,a-C;b-C) | 17.985 | 7.643 | 8.414 | 49/25/25 |
+| M07 | (15,1,1,a-CS) | 8.276 | 8.276 | 8.311 | 10/10/10 |
+| M08 | (5,1,1,s5-C) | 8.980 | 2.159 | 2.404 | 17/3/3 |
+
+M01 recovers original P07's K=(16,6,1,c1-C); its original variant remains J=17
+in the historical table. Corrected M07 gives K=(15,1,1,a-CS), completes service,
+and uses three actual C and three generic CS calls in **each** method. Its prefix
+cache has nine misses in each method. It makes no objective-bound prunes: Flat-BB
+reduces attempted plans 16 -> 10 by reachability, while completed terminals stay
+10 and C/CS work is unchanged. Both BB methods first find attained a-CS at attempt
+2 (FLAT attempt 3), with one infimal threshold update. HIER adds 22 bound-member
+visits (four unreachable), 104 coverage scans and 18 singleton-bound calls versus
+Flat-BB's nine. Its management median is 0.198 ms versus 0.086 ms; the total
+8.311 vs 8.276 ms difference is too small for a causal performance claim.
+
+Across all eight intended cases, HIER and Flat-BB still have identical terminal,
+prefix-cache and C/CS work and the same first attained incumbent position.
+Corrected M01 retains the original work pattern (165 terminals, 109 C calls and
+164 prefix misses in both BB methods); it supplies no objective pruning. The
+ordinary BB detour reductions and HIER's extra repeated scans described below
+remain valid. Current hierarchy provides no demonstrated additional exclusion or
+exact-work reduction, and small timing noise does not establish a runtime benefit.
+
+**REF scope remains unchanged:** M05 alone has completed new full independent REF
+optimization. M02's lost REF result remains unknown and was not retried. Other
+mechanism cases, including corrected M01/M07, have parity and physical replay
+only. No old P04/REF result was relabeled as certification of corrected M07.
+The frozen primary/secondary-unattained regressions now directly compare all
+three math results and assert the frozen status/defined infima per method.
+
+**Sole next research direction, not executed:** evaluate a summary-based Region
+bound in the same small domain to test whether it can provide additional exclusion
+without repeated member scans. Ordinary B&B is effective on the designed detour
+controls; the extra value of current hierarchy is not established. This task ends
+after its authorized correction and normal merge/main-CI verification; no C/CS,
+union, routing, tree tuning, domain expansion, real-data batch or holdout follows.
+
+## Initial-round record (retained historical state)
+
+The following findings, limits and pending recommendations describe the initial
+72-attempt round before the authorized completion above; they do not supersede
+that completion or the user's subsequent authorization to merge after checks.
+
+
 2026-10-31, fresh `dot/hierarchy-mechanism-comparison` checkout from main
 `423c7b4dc8b161f62bef55d6e7d8679b0c1fd800`. This is a controlled development
 comparison, not holdout, external SOTA, real-road or deployment evidence.

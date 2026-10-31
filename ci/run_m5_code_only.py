@@ -189,7 +189,8 @@ def main() -> None:
                 copy_file(source.relative_to(ROOT), tooling)
         for relative in (*TESTS, *HIROUTE_TESTS, *FIXTURES, *HIROUTE_FIXTURES,
                          "tests/conftest.py", "tests/code_only_manifest.py",
-                         "tools/check_code_publication.py", "tools/verify_artifacts.py"):
+                         "tools/check_code_publication.py", "tools/verify_artifacts.py",
+                         "tools/profile_small_cases.py"):
             copy_file(relative, tooling)
         for script in ("m5d_aggregate_screen.py", "prepare_regional_data.py", "m5d_charge_gate.py", "m5d_build_main_queries.py",
                        "m5d_freeze_main_phase.py", "m5d_main_batch.py",

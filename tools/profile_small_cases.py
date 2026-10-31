@@ -38,6 +38,35 @@ def solver_config(method):
                         'none', 'full_lexicographic_J_Q_H_Pi')
 
 
+def preflight_cases(config_path):
+    """Validate every diagnostic input before any REF or numerical worker.
+
+    REF normalization is the independent physical replay input contract, not a
+    reference optimization. In particular it checks full battery-domain curve
+    coverage, continuity, positive slopes and road primitives.
+    """
+    from hiroute.contracts import ProblemSnapshot
+    from hiroute.cli import validate_native_support
+    from hiroute_ref.cli import snapshot_case
+    from hiroute_ref.model import normalize_case
+    config=json.loads(Path(config_path).read_text())
+    seen=set()
+    for case in config['cases']:
+        case_id=case['case_id']
+        if case_id in seen: raise ValueError('Duplicate diagnostic case: '+case_id)
+        seen.add(case_id)
+        _,_,raw=load_case(config_path,case_id)
+        if raw is None: raise ValueError('Diagnostic input unavailable: '+case_id)
+        snapshot=ProblemSnapshot.from_dict(raw)
+        if snapshot.depth_mode!='diagnostic_cap' or snapshot.depth_limit>3 or len(snapshot.candidate_order)>8:
+            raise ValueError('Mechanism diagnostics require diagnostic cap, N<=8 and H<=3')
+        for method in ('flat','flat_bb','hier'):
+            validate_native_support(snapshot,solver_config(method))
+        independent,_=snapshot_case(raw)
+        normalize_case(independent)
+    return sorted(seen)
+
+
 class Measurements:
     """Only counts real calls. Timers below are exclusive across categories."""
     def __init__(self):
@@ -322,6 +351,10 @@ def mac_monitors(stack):
 def main(args):
     from hiroute.runtime import run_supervised
     config=json.loads(Path(args.config).read_text())
+    if args.mechanism or args.preflight_only:
+        validated=preflight_cases(args.config)
+        print('Input preflight passed: '+', '.join(validated),flush=True)
+        if args.preflight_only: return
     baseline=[] if not args.baseline else [json.loads(line) for line in Path(args.baseline).read_text().splitlines()]
     budget=config['budget']
     prior_cpu=args.development_cpu_s if args.mechanism else 0 if args.compare_c else sum(max(r.get('cpu_s') or 0,r.get('sampled_group_cpu_peak_s') or 0) for r in baseline)
@@ -523,5 +556,6 @@ if __name__=='__main__':
     parser.add_argument('--mechanism',action='store_true',help='Fixed 8 x 3 x 3 matrix; two tiny REF checks first; no profiles')
     parser.add_argument('--development-cpu-s',type=float,default=0.,help='This task only: already consumed development numerical CPU')
     parser.add_argument('--unavailable-ref-case',action='append',default=[],help='Retain an earlier lost REF attempt as unknown; do not repeat its optimization')
+    parser.add_argument('--preflight-only',action='store_true',help='Validate all mechanism inputs and independent replay contracts without solving')
     args=parser.parse_args()
     worker(args) if args.worker else main(args)
