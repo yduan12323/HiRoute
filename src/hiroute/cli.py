@@ -52,6 +52,17 @@ def validate_command(args: argparse.Namespace) -> int:
 
 def validate_native_support(snapshot: ProblemSnapshot, config: SolverConfig) -> None:
     """Fail closed on model fields and profiles outside the exact core search."""
+    if config.method in {"scale", "flat_bb_strong"}:
+        from .exact.scale import validate_scale_input
+        validate_scale_input(snapshot)
+        expected = dict(reduction_profile="none", charging_operator_profile="bounded_time_cut_v2",
+            coalescing_profile="none", bound_profile="state_aware_completion",
+            seed_policy="deterministic_exact_feasibility_beam",
+            deterministic_tie_policy="full_lexicographic_J_Q_H_Pi")
+        for field, value in expected.items():
+            if getattr(config, field) != value:
+                raise NotImplementedError("unsupported scale profile: "+field)
+        return
     supported_snapshot = {
         "model_contract_id": "hiroute.time_cut_v2.bounded",
         "numerical_contract_id": "exact_rational_inputs_v1",
@@ -81,7 +92,7 @@ def validate_native_support(snapshot: ProblemSnapshot, config: SolverConfig) -> 
 
 def _native_result(snapshot: ProblemSnapshot, config: SolverConfig, solved: dict, observer: str = "off") -> dict:
     status = solved["status"]
-    if status == "time_limit":
+    if status in {"time_limit", "memory_limit"}:
         incumbent = solved.get("incumbent")
         witness = None
         incumbent_record = None
@@ -109,7 +120,7 @@ def _native_result(snapshot: ProblemSnapshot, config: SolverConfig, solved: dict
             }
             verification = "witness_verified"
         return SolveResult(
-            execution_status="time_limit", mathematical_status="unknown",
+            execution_status=status, mathematical_status="unknown",
             verification_status=verification, semantic_problem_id=snapshot.semantic_problem_id,
             representation_id=content_id({"method": config.method, "config": config.to_dict(),
                                           "backend": "exact_core_search",
@@ -119,11 +130,13 @@ def _native_result(snapshot: ProblemSnapshot, config: SolverConfig, solved: dict
             backend_evidence={"enumerated_route_domains": solved["domains"],
                              "incumbent": incumbent_record,
                              "elapsed_s": solved["elapsed_s"],
-                             "depth_contract": solved.get("depth_certificate") or {
+                             "depth_contract": solved.get("depth_contract") or solved.get("depth_certificate") or {
                                  "mode": snapshot.depth_mode, "limit": snapshot.depth_limit,
                                  "certificate_reference": snapshot.depth_certificate_reference},
                              "observer": solved.get("observer"),
-                             "hierarchy_metrics": solved.get("hierarchy_metrics")},
+                             "hierarchy_metrics": solved.get("hierarchy_metrics"),
+                             "scale_metrics": solved.get("metrics"),
+                             "scale_seconds": solved.get("seconds")},
         ).to_dict()
     mathematical = {
         "attained_optimum": "attained_optimum",
@@ -171,13 +184,16 @@ def _native_result(snapshot: ProblemSnapshot, config: SolverConfig, solved: dict
                           "enumeration_backend": solved.get("enumeration_backend", "exact_enumeration_backend"),
                           "hierarchical_search": solved.get("hierarchical_search", "not_requested"),
                           "enumerated_route_domains": solved["domains"],
-                          "depth_contract": solved.get("depth_certificate") or {
+                          "depth_contract": solved.get("depth_contract") or solved.get("depth_certificate") or {
                               "mode": snapshot.depth_mode, "limit": snapshot.depth_limit,
                               "certificate_reference": snapshot.depth_certificate_reference},
                           "selected_leg_identity": solved.get("selected_leg_identity", snapshot.graph_or_leg_identity),
                           "routing_cache_entries": solved.get("routing_cache_entries", 0),
                           "witness_replay": "exact_transition_chain",
-                          "observer": solved.get("observer")},
+                          "observer": solved.get("observer"),
+                          "scale_metrics": solved.get("metrics"),
+                          "scale_seconds": solved.get("seconds"),
+                          "elapsed_s": solved.get("elapsed_s")},
     ).to_dict()
 
 

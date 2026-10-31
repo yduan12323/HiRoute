@@ -80,6 +80,11 @@ HIROUTE_TESTS = (
     "tests/test_semantic_fixes.py",
     "tests/test_prefix_reuse.py",
     "tests/test_flat_bb.py",
+    "tests/test_scale_bounds.py",
+    "tests/test_scale_road_index.py",
+    "tests/test_scale_search.py",
+    "tests/test_real_scale_inputs.py",
+    "tests/test_scale_pilot_control.py",
     "tests/test_c_operator.py",
     "tests/test_exact_pipeline.py",
     "tests/test_exact_terminal.py",
@@ -190,7 +195,8 @@ def main() -> None:
         for relative in (*TESTS, *HIROUTE_TESTS, *FIXTURES, *HIROUTE_FIXTURES,
                          "tests/conftest.py", "tests/code_only_manifest.py",
                          "tools/check_code_publication.py", "tools/verify_artifacts.py",
-                         "tools/profile_small_cases.py"):
+                         "tools/profile_small_cases.py", "tools/real_scale_inputs.py",
+                         "configs/real_scale_dev.json", "tools/run_real_scale_pilot.py"):
             copy_file(relative, tooling)
         for script in ("m5d_aggregate_screen.py", "prepare_regional_data.py", "m5d_charge_gate.py", "m5d_build_main_queries.py",
                        "m5d_freeze_main_phase.py", "m5d_main_batch.py",

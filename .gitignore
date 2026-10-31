@@ -125,3 +125,5 @@ dist/
 
 # Historical output inventories are retained with external archives.
 /artifacts/
+
+/data/real-scale-dev/

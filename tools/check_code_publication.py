@@ -33,7 +33,8 @@ def main():
         small_diagnostic_table = path in {
             'docs/SEMANTICS_AND_PROFILE.jsonl', 'docs/PREFIX_REUSE_PROFILE.jsonl',
             'docs/C_OPERATOR_PROFILE.jsonl',
-            'docs/HIERARCHY_MECHANISM.jsonl', 'docs/HIERARCHY_MECHANISM_COMPLETION.jsonl'}
+            'docs/HIERARCHY_MECHANISM.jsonl', 'docs/HIERARCHY_MECHANISM_COMPLETION.jsonl',
+            'docs/real_scale_results.jsonl'}
         if not fixture_or_input and not small_diagnostic_table and path.endswith(('.log', '.parquet', '.npz', '.npy', '.bin', '.tar.gz', '.jsonl', '.xml', '.csv')):
             errors.append(f'Generated/binary output extension outside small input fixtures: {path}')
         oid = metadata.split()[1].decode()

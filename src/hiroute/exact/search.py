@@ -504,6 +504,13 @@ def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
     greater than an evaluated nonempty terminal family's primary infimum.
     This comparison threshold need not be an attained incumbent. Equality stays.
     """
+    if config.method in {"scale", "flat_bb_strong"}:
+        if depth_certificate is not None:
+            raise ValueError("scale derives depth from its executable seed")
+        from .scale import solve_scale
+        return solve_scale(snapshot, method=config.method,
+            time_limit_s=60 if time_limit_s is None else time_limit_s,
+            on_incumbent=on_incumbent, c_backend=c_backend, _clock=_clock)
     if c_backend not in ("projection", "analytic"):
         raise ValueError("C backend must be projection or analytic")
     started = _clock()
