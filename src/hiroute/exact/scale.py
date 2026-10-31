@@ -10,6 +10,8 @@ from dataclasses import dataclass
 from fractions import Fraction
 import heapq
 import itertools
+import math
+from numbers import Real
 import os
 import resource
 import sys
@@ -251,8 +253,16 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
                                region_travel_lower_bounds, singleton_region)
     if method not in ('scale', 'flat_bb_strong'):
         raise ValueError('method must be scale or flat_bb_strong')
-    if time_limit_s is None or time_limit_s <= 0 or memory_limit_bytes <= 0:
-        raise ValueError('positive time and memory limits are required')
+    try:
+        valid_time = (not isinstance(time_limit_s, bool)
+                      and isinstance(time_limit_s, Real)
+                      and math.isfinite(time_limit_s) and time_limit_s > 0)
+    except (TypeError, OverflowError):
+        valid_time = False
+    if not valid_time:
+        raise ValueError('time_limit_s must be a positive finite real number')
+    if type(memory_limit_bytes) is not int or memory_limit_bytes <= 0:
+        raise ValueError('memory_limit_bytes must be a positive integer')
     if c_backend not in ('analytic', 'projection'):
         raise ValueError('unknown C backend')
     if memory_baseline_bytes is not None and (type(memory_baseline_bytes) is not int
@@ -307,6 +317,16 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
     features = {}
     try:
         provider = RoadIndex(snapshot.directed_edges, check=check) if provider is None else provider
+        # Missing entries in a restricted scalar projection do not prove
+        # graph unreachability. All query anchors must first be exposed.
+        # Full-graph and closed-world providers omit this restriction.
+        exposed = getattr(provider, 'exposed_nodes', None)
+        if exposed is not None:
+            required_anchors = {snapshot.origin, snapshot.destination, *snapshot.candidate_order}
+            missing = required_anchors-set(exposed)
+            if missing:
+                raise ValueError('provider does not expose every query anchor: '
+                                 + ', '.join(sorted(missing)))
         # Providers reused between queries must use this query's deadline.
         if hasattr(provider, 'check'):
             provider.check = check

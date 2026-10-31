@@ -239,7 +239,7 @@ def worker(args):
     finally:
         # If an alarm interrupted atomic checkpoint I/O, persist only the already
         # independently verified payload during final output; never re-solve it.
-        if checkpoint_pending and last_verified_payload is not None:
+        if last_verified_payload is not None:
             atomic(checkpoint,last_verified_payload)
         if last_verified_payload is not None and not row.get('witness'):
             row['feasible_key'] = last_verified_payload['key']

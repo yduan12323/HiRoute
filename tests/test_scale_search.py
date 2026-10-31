@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import random
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from hiroute.contracts import ProblemSnapshot, SolverConfig
 from hiroute.exact import scale
@@ -64,6 +64,46 @@ def semantics(result):
 
 
 class ScaleSearchTests(unittest.TestCase):
+    def test_invalid_resource_limits_are_rejected_before_index_construction(self):
+        snapshot = ProblemSnapshot.from_dict(raw())
+        invalid_times = (None, True, False, 0, -1, float('nan'), float('inf'),
+                         -float('inf'), '120', object(), 10**1000)
+        invalid_memory = (None, True, False, 0, -1, 1.5, 1024.0, float('nan'),
+                          float('inf'), '1024')
+        with patch('hiroute.exact.road_index.RoadIndex',
+                   side_effect=AssertionError('invalid limits constructed an index')) as index:
+            for value in invalid_times:
+                with self.subTest(time=value), self.assertRaisesRegex(ValueError, 'time_limit_s'):
+                    scale.solve_scale(snapshot,time_limit_s=value)
+            for value in invalid_memory:
+                with self.subTest(memory=value), self.assertRaisesRegex(ValueError, 'memory_limit_bytes'):
+                    scale.solve_scale(snapshot,memory_limit_bytes=value)
+            index.assert_not_called()
+
+    def test_missing_scalar_exposure_is_invalid_input_not_proven_unreachable(self):
+        snapshot = ProblemSnapshot.from_dict(raw(candidate_order=['u'],
+            site_capabilities={'u':['C']},charging_curve=[['0','10','1','0']],depth_limit=1))
+        provider = Mock(spec=('exposed_nodes','distances_from','distances_to','metrics'))
+        provider.exposed_nodes = ('o','z')
+        for method in METHODS:
+            with self.subTest(method=method), self.assertRaisesRegex(ValueError, 'expose every query anchor: u'):
+                scale.solve_scale(snapshot,method=method,provider=provider)
+        provider.distances_from.assert_not_called()
+        provider.distances_to.assert_not_called()
+
+        class CompleteRestrictedProvider(RoadIndex):
+            def __init__(self):
+                super().__init__(snapshot.directed_edges)
+                # u was explicitly requested from the full graph, whose
+                # absent scalar entry now genuinely proves unreachability.
+                self.exposed_nodes = ('o','z','u')
+
+        for method in METHODS:
+            result = scale.solve_scale(snapshot,method=method,provider=CompleteRestrictedProvider())
+            self.assertEqual(result['status'], 'attained_optimum')
+            self.assertEqual(result['key'], (1,0,0,()))
+            self.assertEqual(result['metrics']['safe_unreachable_sites'], 1)
+
     def parity(self, source, *, compare_old=True, replay=True):
         snapshot = ProblemSnapshot.from_dict(source)
         old = solve_snapshot(snapshot, old_config()) if compare_old else None

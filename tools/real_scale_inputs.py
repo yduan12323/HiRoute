@@ -226,6 +226,13 @@ class SiteAliasedProvider:
         self.provider = provider
         self.aliases = dict(aliases)
         self.nodes = tuple(self.aliases)
+        restricted = getattr(provider, 'exposed_nodes', None)
+        if restricted is not None:
+            missing = set(self.aliases.values())-set(restricted)
+            if missing:
+                raise ValueError('underlying provider does not expose every alias anchor: '
+                                 + ', '.join(sorted(missing)))
+        self.exposed_nodes = self.nodes
 
     @property
     def check(self):

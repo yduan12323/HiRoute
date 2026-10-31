@@ -389,6 +389,7 @@ class NativeRoadIndex:
         if type(leg_cache_size) is not int or leg_cache_size < 0:
             raise ValueError('leg_cache_size must be a nonnegative integer')
         self.nodes = tuple(sorted(set(_identifier(n, 'exposed node') for n in exposed_nodes)))
+        self.exposed_nodes = self.nodes
         if any('\n' in node or '\r' in node for node in self.nodes):
             raise ValueError('Exposed road identifiers cannot contain line breaks')
         self._node_set = frozenset(self.nodes)

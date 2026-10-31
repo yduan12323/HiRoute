@@ -149,6 +149,7 @@ class NativeRoadIndexTests(unittest.TestCase):
             tsv.write_text(''.join('\t'.join(str(e[k]) for k in
                 ('source', 'target', 'edge_id', 'time_s', 'length_m')) + '\n' for e in edges))
             with NativeRoadIndex(tsv, nodes, cache_directory=work, distance_cache_size=2, leg_cache_size=3) as native:
+                self.assertEqual(native.exposed_nodes, tuple(sorted(set(nodes))))
                 for a, b in itertools.product(nodes, repeat=2):
                     expected, actual = reference.selected_leg(a, b), native.selected_leg(a, b)
                     if expected is None:

@@ -11,6 +11,19 @@ from tools.real_scale_inputs import (InputDomainUnavailable, SiteAliasedProvider
 
 
 class RealScaleInputTests(unittest.TestCase):
+    def test_alias_wrapper_requires_explicit_underlying_anchor_exposure(self):
+        class RestrictedProvider:
+            exposed_nodes = ('road-o','road-z')
+        with self.assertRaisesRegex(ValueError, 'expose every alias anchor: road-u'):
+            SiteAliasedProvider(RestrictedProvider(),
+                                {'site-o':'road-o','site-z':'road-z','site-u':'road-u'})
+        # An explicitly exposed ID may genuinely be absent from the road
+        # graph. Exposure is a request contract, not a reachability claim.
+        RestrictedProvider.exposed_nodes += ('road-u',)
+        wrapper = SiteAliasedProvider(RestrictedProvider(),
+                                      {'site-o':'road-o','site-z':'road-z','site-u':'road-u'})
+        self.assertEqual(wrapper.exposed_nodes, ('site-o','site-z','site-u'))
+
     def test_streaming_export_preserves_exact_metrics(self):
         graph = {"audit": {}, "directed_edges": [{
             "source": "a", "target": "b", "edge_id": "ab",
