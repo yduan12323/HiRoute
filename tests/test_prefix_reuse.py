@@ -41,13 +41,15 @@ def math_result(result):
 
 
 class PrefixReuseTests(unittest.TestCase):
-    def compare(self, raw):
+    def compare(self, raw, frozen_expected=None):
         snapshot=ProblemSnapshot.from_dict(raw)
+        results={}
         for method in ('flat','flat_bb','hier'):
             with self.subTest(method=method):
                 with patch.object(search._PlanPrefixCache,'propagate',cold):
                     expected=search.solve_snapshot(snapshot,config(method),observer='detailed_trace')
                 actual=search.solve_snapshot(snapshot,config(method),observer='detailed_trace')
+                results[method]=actual
                 self.assertEqual(math_result(actual),math_result(expected))
                 self.assertEqual(actual['observer']['trace'],expected['observer']['trace'])
                 self.assertEqual(actual.get('hierarchy_metrics'),expected.get('hierarchy_metrics'))
@@ -59,6 +61,18 @@ class PrefixReuseTests(unittest.TestCase):
                     physical=replay_witness(normalize_case(source),actual['plan'],charges)
                     self.assertEqual(physical['lex_key'],actual['key'])
                     self.assertTrue(all(q>0 for q in charges))
+                if frozen_expected is not None:
+                    self.assertEqual(actual['status'],frozen_expected['status'])
+                    self.assertIsNone(actual.get('key'))
+                    for field in ('primary_infimum','secondary_infimum'):
+                        if field in frozen_expected:
+                            self.assertEqual(actual[field],F(frozen_expected[field]))
+                    if 'J' in frozen_expected:
+                        self.assertEqual(actual['primary_value'],F(frozen_expected['J']))
+                        self.assertEqual(actual['primary_infimum'],F(frozen_expected['J']))
+        for method,result in results.items():
+            with self.subTest(parity_method=method):
+                self.assertEqual(math_result(result),math_result(results['flat']))
         return actual
 
     def test_shared_and_repeated_site_prefixes_match_every_cold_plan(self):
@@ -123,7 +137,7 @@ class PrefixReuseTests(unittest.TestCase):
                        consumption_kwh_per_m=c['consumption_kwh_per_m'],charging_curve=c['charging_segments'],
                        candidate_order=list(c['sites']),site_capabilities=c['sites'],depth_limit=c['H_ref'],
                        initial_remaining_schedule=1,schedule=c['schedule'],directed_edges=c['edges'])
-            self.assertEqual(self.compare(raw)['status'],c['independent_expected']['status'])
+            self.compare(raw,frozen_expected=c['independent_expected'])
 
 
 if __name__=='__main__':
