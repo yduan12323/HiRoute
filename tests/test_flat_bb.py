@@ -38,6 +38,8 @@ class FlatBBTests(unittest.TestCase):
             with self.subTest(method=method):
                 result = search.solve_snapshot(snap, config(method), observer='metrics')
                 results.append(result)
+                # Observer evidence is embedded directly in the public JSON.
+                json.dumps(_native_result(snap, config(method), result, observer='metrics'))
                 if result['status'] == 'attained_optimum':
                     charges = [oe-ie for effect, _, ie, _, oe, _ in result['replay']['trace']
                                if effect in ('C', 'CS')]

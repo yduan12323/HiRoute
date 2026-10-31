@@ -612,7 +612,7 @@ def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
         "first_attained_incumbent": first_attained,
         "infimal_threshold_updates": threshold_updates,
         "unattained_threshold_updates": unattained_threshold_updates,
-        "comparison_threshold": comparison_threshold,
+        "comparison_threshold": None if comparison_threshold is None else str(comparison_threshold),
         "trace": observer_trace if observer == "detailed_trace" else None}
     if timed_out:
         return {"status": "time_limit", "domains": domains, "incumbent": incumbent,

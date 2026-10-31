@@ -71,6 +71,11 @@ publication as unknown. Attained regression witnesses were physically replayed.
 A timing-wrapper metrics forwarding defect was caught and fixed during development.
 The new test is included in the existing isolated-wheel CI cohort and collection
 manifest. No local numerical verification ran concurrently with timing.
+The first PR CI caught a Fraction in the new observer threshold's public JSON;
+it was serialized as an exact string after the matrix. This changes diagnostic
+serialization only, not the measured kernel, order, counters or result values;
+the matrix was not repeated. Public JSON serialization is now checked in the
+new parity regressions as well as the existing installed-CLI observer regression.
 
 MacOS 27.2 arm64, Python 3.11.15, NumPy 2.4.6, SciPy 1.17.1, psutil 7.2.2;
 one fresh process per row and one numerical worker, thread environment fixed to 1.
