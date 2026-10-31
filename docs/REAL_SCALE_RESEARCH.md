@@ -121,10 +121,68 @@ supervisor lost its control connection; the completed solver output, CPU/RSS
 and replay survive, while aggregate host samples are unavailable. It was not
 rerun. Subsequent supervisors are durable across control-connection resets.
 
-The corrected scenario-qualified pilot and ablations are pending. There is
-currently no N64/N128 completion or hierarchy-benefit claim.
+After scenario correction,the true32-charger SD01 energy domain reaches120s
+with the same3-charge feasible seed in both methods. The N64 pilot has its
+first exact pair: SD03 schedule completes in106.09s (Strong Flat-BB) and108.94s
+(Scale),with identical full key and two positive charges on a627.620km route.
+One of the64 declared eligible Sites is safely excluded as road-unreachable.
+Both methods cover the entire declared64-Site domain through this proven
+exclusion and incumbent-derived relevant depth; neither uses an arbitrary H.
+
+In that completed N64 pair,both methods perform314 exact transitions,147
+terminal attempts and716 leaf-route requests. Strong Flat-BB evaluates9905
+singleton bounds,versus6110 summary queries for Scale; OPEN peaks are9210 and
+2259 respectively. This is a batching/OPEN benefit,not additional exact
+pruning or an observed wall-time gain. Routing settles about322/324 million
+vertices and dominates total time. N64 SD01 schedule and SD02 energy/schedule
+are UNKNOWN at120s in both methods,with physically verified2–3-charge routes.
+The remaining declared pilot rows and small ablations are still running;
+there is no final cohort completion-rate or N128 conclusion yet.
+
+N denotes declared scenario-qualified Sites before proven topology exclusion,
+not final visited leaves. Reachable counts are separate table columns.
+Corridor,N truncation and unique-anchor preference are experimental domain
+restrictions,not proven full-province reductions.
 
 ## Attribution
+
+The numerical workstation is Apple M3,8 physical/logical cores,16 GiB RAM,
+macOS27.2 arm64,Python3.11.15. Each numerical query is one process and one
+numerical thread; there is no CPU-affinity pinning. Native compilation is cold
+preparation and its completed child CPU is included in the corrected runner.
+The existing OS supervisor enforces process RSS/CPU and2 GiB host headroom.
+A loaded-query signal watchdog covers preparation,routing,kernels and witness
+validation,including operations without a cooperative routing checkpoint.
+
+C++17 and Boost.Multiprecision headers are required for the optional compact
+backend. With those headers discoverable by the compiler,prepare inputs from
+existing processed outputs and use a fresh output path:
+
+```sh
+PYTHONPATH=src python tools/real_scale_inputs.py preflight \
+  --config configs/real_scale_dev.json --sites <shared-sites.json> \
+  --bindings <query-candidates.json> --output <preflight-scenario.json>
+PYTHONPATH=src python tools/real_scale_inputs.py export-edges \
+  --graph <shared-graph.json> --output <real-scale-road.tsv> --record <map-export.json>
+PYTHONPATH=src python tools/run_real_scale_pilot.py \
+  --config configs/real_scale_dev.json --preflight <preflight-scenario.json> \
+  --graph-tsv <real-scale-road.tsv> --native-cache <native-cache-directory> \
+  --output <fresh-results.jsonl> --domains 64
+```
+
+The example is a reproduction command,not an instruction to repeat existing
+valid rows. Default workload selection follows `pilot_matrix`; `--ablation` and
+`--diagnostic` select only their separately declared small subsets. Input-domain
+shortages are written before graph loading. Branch `fde8205` is the initial
+read-only code checkpoint. The corrected qualified pilot uses that code.
+Phase timers (preparation,seed,search) are exclusive; routing/operator timers
+are nested and must not be added to phase totals. Resource-limited counters
+are partial observations. Historical query-memory deltas excluded early
+preparation caches,so their table values use a conservative process-high-water
+minus loaded-RSS bound instead. The corrected runner measures from completion
+of cold index loading. Process peak,index residency and query-extra memory
+remain separate columns.
+
 
 A controlled pair shares the same model, candidate domain, index implementation,
 feasibility seed policy and resource limits. Loaded query time includes candidate
