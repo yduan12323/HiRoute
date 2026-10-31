@@ -1,0 +1,202 @@
+{
+  "schema": "hiroute.real_scale_dev.v1",
+  "scope": "DEV only; frozen geometry selection before solver comparison; no holdout",
+  "source": {
+    "processed_root": "r4rv7-A-raw-v2/outputs (existing authorized processed archive)",
+    "graph_file": "shared-graph.json",
+    "sites_file": "shared-sites.json",
+    "bindings_file": "E01/query-candidates.json",
+    "license": "ODbL-1.0",
+    "attribution": "OpenStreetMap contributors; extracts by Geofabrik",
+    "snapshot_date": "2026-10-16",
+    "representation": "Shandong directed driving roads, unsimplified, province polygon clipped; exact existing rational metrics",
+    "raw_availability": "old raw-cache path absent; reuse existing processed artifacts without province rebuild"
+  },
+  "selection": {
+    "endpoint_rule": "nearest already attached real Site to declared municipal coordinate; great-circle distance, then source Site ID",
+    "candidate_rule": "attached nonempty-capability Site within 50 km of the straight OD segment in a local equirectangular projection; unique access anchor, prefer CS then C then S then Site ID; eight OD progress strata; round-robin charge and service pools, detour then Site ID; nested prefixes",
+    "corridor_km": 50,
+    "progress_strata": 8,
+    "domain_claim": "Explicit truncated geographic candidate domains only; neither safe filtering nor province/full-domain optimality",
+    "candidate_counts": [
+      16,
+      32,
+      64,
+      128
+    ],
+    "scenarios": [
+      "energy_only",
+      "schedule"
+    ],
+    "schedule_recipe": {
+      "a_fraction_direct_time": "2/5",
+      "b_fraction_direct_time": "7/10",
+      "duration_s": "2700"
+    },
+    "ods": [
+      {
+        "query_id": "SD01",
+        "origin": {
+          "name": "Heze",
+          "lon": 115.48,
+          "lat": 35.23
+        },
+        "destination": {
+          "name": "Rongcheng",
+          "lon": 122.48,
+          "lat": 37.16
+        }
+      },
+      {
+        "query_id": "SD02",
+        "origin": {
+          "name": "Liaocheng",
+          "lon": 115.98,
+          "lat": 36.46
+        },
+        "destination": {
+          "name": "Weihai",
+          "lon": 122.12,
+          "lat": 37.51
+        }
+      },
+      {
+        "query_id": "SD03",
+        "origin": {
+          "name": "Dezhou",
+          "lon": 116.36,
+          "lat": 37.45
+        },
+        "destination": {
+          "name": "Rongcheng",
+          "lon": 122.48,
+          "lat": 37.16
+        }
+      },
+      {
+        "query_id": "SD04",
+        "origin": {
+          "name": "Heze",
+          "lon": 115.48,
+          "lat": 35.23
+        },
+        "destination": {
+          "name": "Yantai",
+          "lon": 121.45,
+          "lat": 37.46
+        }
+      }
+    ],
+    "eligibility_by_scenario": {
+      "energy_only": "C-capable attached unique anchors only; filter the full frozen order before N truncation",
+      "schedule": "attached unique anchors with any of C/S/CS; all initially legal for the pending activity"
+    }
+  },
+  "model": {
+    "departure_time_s": "0",
+    "initial_energy_kwh": "18",
+    "capacity_kwh": "60",
+    "minimum_energy_kwh": "0",
+    "destination_reserve_kwh": "6",
+    "stop_overhead_s": "300",
+    "stop_penalty_s": "600",
+    "consumption_kwh_per_m": "1/6250",
+    "charging_curve": [
+      [
+        "0",
+        "30",
+        "36",
+        "0"
+      ],
+      [
+        "30",
+        "48",
+        "60",
+        "-720"
+      ],
+      [
+        "48",
+        "60",
+        "120",
+        "-3600"
+      ]
+    ],
+    "provenance": "Existing Shandong DEV physical model retained; no battery/consumption change to induce multiple charging"
+  },
+  "resources": {
+    "numeric_workers": 1,
+    "numeric_threads": 1,
+    "pilot_method_query_wall_s": 120,
+    "main_threshold_s": 60,
+    "new_solve_and_finite_ref_cpu_budget_s": 28800,
+    "query_extra_memory_bytes": 8589934592,
+    "host_headroom_bytes": 2147483648,
+    "map_preparation_accounting": "Separate wall/CPU/RSS; no free N-squared selected-leg table; selected legs refined on demand"
+  },
+  "pilot_matrix": [
+    {
+      "N": 16,
+      "query_ids": [
+        "SD01"
+      ],
+      "scenarios": [
+        "energy_only"
+      ]
+    },
+    {
+      "N": 32,
+      "query_ids": [
+        "SD01"
+      ],
+      "scenarios": [
+        "energy_only",
+        "schedule"
+      ]
+    },
+    {
+      "N": 64,
+      "query_ids": [
+        "SD01",
+        "SD02",
+        "SD03",
+        "SD04"
+      ],
+      "scenarios": [
+        "energy_only",
+        "schedule"
+      ]
+    },
+    {
+      "N": 128,
+      "query_ids": [
+        "SD01"
+      ],
+      "scenarios": [
+        "energy_only",
+        "schedule"
+      ]
+    }
+  ],
+  "diagnostics": {
+    "legacy_common_domain": {
+      "query_id": "SD01",
+      "scenario": "energy_only",
+      "N": 4,
+      "depth_limit": 2,
+      "wall_s": 60,
+      "domain_rule": "first four energy-qualified Sites of the frozen scenario-specific N16 order; diagnostic depth only"
+    },
+    "bound_ablation": {
+      "query_id": "SD02",
+      "scenario": "energy_only",
+      "N": 16,
+      "method": "scale",
+      "use_bound_values": [
+        true,
+        false
+      ],
+      "wall_s": 60
+    },
+    "batching_ablation": "flat_bb_strong vs scale with the same completion relaxation; order difference reported"
+  }
+}

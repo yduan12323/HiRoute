@@ -129,8 +129,8 @@ class ProblemSnapshot:
             _identifier(site, "site id")
             if not effects or len(set(effects)) != len(effects) or not set(effects) <= {"C", "S", "CS"}:
                 raise ValueError(f"Invalid effect set for Site {site}")
-        if self.depth_mode not in {"diagnostic_cap", "seed_derived"}:
-            raise ValueError("depth_mode must explicitly declare diagnostic_cap or seed_derived")
+        if self.depth_mode not in {"diagnostic_cap", "seed_derived", "unrestricted"}:
+            raise ValueError("depth_mode must declare diagnostic_cap, seed_derived or unrestricted")
         if type(self.depth_limit) is not int or self.depth_limit < 0:
             raise ValueError("depth_limit must be a nonnegative integer")
         if self.depth_certificate_reference is not None and not isinstance(self.depth_certificate_reference, str):
@@ -139,6 +139,8 @@ class ProblemSnapshot:
             raise ValueError("seed_derived depth requires a certificate reference")
         if self.depth_mode == "diagnostic_cap" and self.depth_certificate_reference is not None:
             raise ValueError("diagnostic cap cannot carry a seed certificate")
+        if self.depth_mode == "unrestricted" and (self.depth_limit != 0 or self.depth_certificate_reference is not None):
+            raise ValueError("unrestricted uses no input depth limit or certificate")
         for i, segment in enumerate(self.charging_curve):
             if len(segment) != 4:
                 raise ValueError(f"Charging segment {i} must have four rational values")
@@ -253,8 +255,8 @@ class SolverConfig:
     deterministic_tie_policy: str
 
     def __post_init__(self) -> None:
-        if self.method not in {"flat", "flat_bb", "hier"}:
-            raise ValueError("method must be flat, flat_bb or hier")
+        if self.method not in {"flat", "flat_bb", "hier", "flat_bb_strong", "scale"}:
+            raise ValueError("unknown exact search method")
         for key in ("reduction_profile", "charging_operator_profile", "coalescing_profile",
                     "bound_profile", "seed_policy", "deterministic_tie_policy"):
             _identifier(getattr(self, key), key)
