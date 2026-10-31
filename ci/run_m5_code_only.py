@@ -79,6 +79,7 @@ HIROUTE_TESTS = (
     "tests/test_exact_search.py",
     "tests/test_semantic_fixes.py",
     "tests/test_prefix_reuse.py",
+    "tests/test_flat_bb.py",
     "tests/test_c_operator.py",
     "tests/test_exact_pipeline.py",
     "tests/test_exact_terminal.py",

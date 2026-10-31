@@ -31,7 +31,9 @@ def main():
         fixture_or_input = path.startswith(('tests/fixtures/', 'configs/inputs/'))
         # Task-scoped small diagnostic tables; existing 1 MiB cap still applies.
         small_diagnostic_table = path in {
-            'docs/SEMANTICS_AND_PROFILE.jsonl', 'docs/PREFIX_REUSE_PROFILE.jsonl'}
+            'docs/SEMANTICS_AND_PROFILE.jsonl', 'docs/PREFIX_REUSE_PROFILE.jsonl',
+            'docs/C_OPERATOR_PROFILE.jsonl',
+            'docs/HIERARCHY_MECHANISM.jsonl'}
         if not fixture_or_input and not small_diagnostic_table and path.endswith(('.log', '.parquet', '.npz', '.npy', '.bin', '.tar.gz', '.jsonl', '.xml', '.csv')):
             errors.append(f'Generated/binary output extension outside small input fixtures: {path}')
         oid = metadata.split()[1].decode()

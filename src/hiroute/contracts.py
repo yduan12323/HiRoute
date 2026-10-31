@@ -253,8 +253,8 @@ class SolverConfig:
     deterministic_tie_policy: str
 
     def __post_init__(self) -> None:
-        if self.method not in {"flat", "hier"}:
-            raise ValueError("method must be flat or hier")
+        if self.method not in {"flat", "flat_bb", "hier"}:
+            raise ValueError("method must be flat, flat_bb or hier")
         for key in ("reduction_profile", "charging_operator_profile", "coalescing_profile",
                     "bound_profile", "seed_policy", "deterministic_tie_policy"):
             _identifier(getattr(self, key), key)

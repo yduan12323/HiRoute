@@ -89,7 +89,32 @@ def selected_leg(snapshot: ProblemSnapshot, source: str, target: str, cache=None
     return None
 
 
-def _action_sequences(snapshot, limit):
+def _search_metrics():
+    return dict.fromkeys(("region_nodes", "regions_built", "regions_refined",
+        "leaf_actions", "pruned_regions", "equality_nodes_retained", "coverage_groups",
+        "missing_actions", "duplicate_actions", "empty_regions", "unreachable_regions",
+        "max_depth", "action_construction_scans", "coverage_member_scans",
+        "region_member_visits", "internal_member_visits", "unreachable_member_visits",
+        "singleton_bound_evaluations", "unreachable_actions", "bound_pruned_actions",
+        "depth_limit_prefixes", "schedule_actions_skipped"), 0)
+
+
+def _legal_actions(snapshot, prefix, metrics):
+    actions = set()
+    done = any(a in {"S", "CS"} for _, a in prefix)
+    for site in snapshot.candidate_order:
+        for effect in snapshot.site_capabilities[site]:
+            metrics["action_construction_scans"] += 1
+            if effect in {"S", "CS"} and (snapshot.schedule is None or
+                    snapshot.initial_remaining_schedule != 1 or done):
+                metrics["schedule_actions_skipped"] += 1
+                continue
+            actions.add((site, effect))
+    return actions
+
+
+def _action_sequences(snapshot, limit, metrics=None):
+    metrics = _search_metrics() if metrics is None else metrics
     capabilities = snapshot.site_capabilities
     sites = snapshot.candidate_order
     yield ()
@@ -97,12 +122,10 @@ def _action_sequences(snapshot, limit):
     for _depth in range(1, limit + 1):
         following = []
         for prefix in frontier:
+            legal = _legal_actions(snapshot, prefix, metrics)
             for site in sites:
                 for effect in capabilities[site]:
-                    if effect in {"S", "CS"} and (snapshot.schedule is None or snapshot.initial_remaining_schedule != 1):
-                        continue
-                    if effect in {"S", "CS"} and any(a in {"S", "CS"} for _, a in prefix):
-                        continue
+                    if (site, effect) not in legal: continue
                     plan = prefix + ((site, effect),)
                     following.append(plan)
                     yield plan
@@ -218,11 +241,70 @@ def _next_stop_bound(snapshot, prefix_time, inbound, onward, prefix_stops):
             + exact(snapshot.stop_penalty_s) * (prefix_stops + 1))
 
 
+def _leaf_priorities(sites):
+    """Arithmetic HIER leaf IDs, without building or visiting any Region.
+
+    All ancestors have smaller IDs and bounds <= their descendant leaf. Thus
+    the existing heap emits leaves by (bound, effect, leaf ID), including ties.
+    Uneven trees need these IDs rather than simply lexicographic site order.
+    """
+    ordered = sorted(set(sites))
+    result = {}
+    for index, site in enumerate(ordered):
+        lo, hi, identifier = 0, len(ordered), 0
+        while hi-lo > 1:
+            mid = lo+(hi-lo)//2
+            if index < mid:
+                hi = mid; identifier = identifier*2+1
+            else:
+                lo = mid; identifier = identifier*2+2
+        result[site] = identifier
+    return result
+
+
+def _flat_bb_plans(snapshot, cache, evaluate):
+    """Recursive singleton B&B; same leaf priority/infimal threshold as HIER."""
+    metrics = getattr(evaluate, "search_metrics", None)
+    if metrics is None: metrics = _search_metrics()
+    priorities = _leaf_priorities(snapshot.candidate_order)
+    best_j = None
+    def visit(plan, elapsed, anchor):
+        nonlocal best_j
+        value = evaluate(plan)
+        if value is not None and (best_j is None or value < best_j): best_j = value
+        metrics["max_depth"] = max(metrics["max_depth"], len(plan))
+        if len(plan) >= snapshot.depth_limit:
+            metrics["depth_limit_prefixes"] += 1
+            return
+        queue = []
+        for site, effect in sorted(_legal_actions(snapshot, plan, metrics)):
+            inbound = selected_leg(snapshot, anchor, site, cache)
+            onward = selected_leg(snapshot, site, snapshot.destination, cache)
+            if inbound is None or onward is None:
+                metrics["unreachable_actions"] += 1
+                continue
+            metrics["singleton_bound_evaluations"] += 1
+            bound = _next_stop_bound(snapshot, elapsed, inbound, onward, len(plan))
+            queue.append((bound, effect, priorities[site], site, inbound.time_s))
+        for bound, effect, _, site, duration in sorted(queue):
+            if best_j is not None and bound > best_j:
+                metrics["bound_pruned_actions"] += 1
+                continue
+            if best_j is not None and bound == best_j: metrics["equality_nodes_retained"] += 1
+            metrics["leaf_actions"] += 1
+            # Terminal infeasibility says nothing about continuation feasibility.
+            visit(plan+((site, effect),), elapsed+duration, site)
+    visit((), Fraction(0), snapshot.origin)
+    return metrics
+
+
 def _hierarchical_plans(snapshot, cache, evaluate):
     """Disjoint Region refinement with an admissible strict-primary bound."""
     root = _build_regions(snapshot.candidate_order)
     serial = itertools.count()
-    metrics = {"region_nodes": 0, "leaf_actions": 0, "pruned_regions": 0, "equality_nodes_retained": 0, "coverage_groups": 0, "missing_actions": 0, "duplicate_actions": 0, "empty_regions": 0, "unreachable_regions": 0, "max_depth": 0}
+    metrics = getattr(evaluate, "search_metrics", None)
+    if metrics is None: metrics = _search_metrics()
+    metrics["regions_built"] = 2*len(root.members)-1 if root.members else 1
     best_j = None
     seen_plans = set()
     def prefix_route_time(plan):
@@ -239,46 +321,73 @@ def _hierarchical_plans(snapshot, cache, evaluate):
         value = evaluate(plan)
         if value is not None: best_j = min((x for x in (best_j, value) if x is not None), default=None)
         metrics["max_depth"] = max(metrics["max_depth"], len(plan))
-        if len(plan) >= snapshot.depth_limit: return
+        if len(plan) >= snapshot.depth_limit:
+            metrics["depth_limit_prefixes"] += 1
+            return
         elapsed, anchor = prefix_route_time(plan)
         if elapsed is None: return
         queue = []
-        expected = {(site, effect) for site in snapshot.candidate_order for effect in snapshot.site_capabilities[site]
-                    if not (effect in {"S", "CS"} and (snapshot.schedule is None or snapshot.initial_remaining_schedule != 1))
-                    and not (effect in {"S", "CS"} and any(a in {"S", "CS"} for _, a in plan))}
+        expected = _legal_actions(snapshot, plan, metrics)
         covered = set()
         if not expected:
             metrics["empty_regions"] += 1; metrics["coverage_groups"] += 1; return
         def enqueue(region, effect, members=None):
+            if members is None: metrics["coverage_member_scans"] += len(region.members)
             action_set = ({(site, effect) for site in region.members if (site, effect) in expected} if members is None else members)
             if not action_set: metrics["empty_regions"] += 1; return
             if members is None:
-                overlap = covered.intersection(action_set)
+                overlap = set()
+                for action in action_set:
+                    metrics["coverage_member_scans"] += 1
+                    if action in covered: overlap.add(action)
+                    covered.add(action)
                 if overlap:
                     metrics["duplicate_actions"] += len(overlap); raise AssertionError("Region action partition overlaps")
-                covered.update(action_set)
             bounds = []
             for site, _ in sorted(action_set):
+                metrics["region_member_visits"] += 1
+                if region.children: metrics["internal_member_visits"] += 1
                 inbound = selected_leg(snapshot, anchor, site, cache); onward = selected_leg(snapshot, site, snapshot.destination, cache)
-                if inbound is None or onward is None: continue
+                if inbound is None or onward is None:
+                    metrics["unreachable_member_visits"] += 1
+                    continue
+                metrics["singleton_bound_evaluations"] += 1
                 bounds.append(_next_stop_bound(snapshot, elapsed, inbound, onward, len(plan)))
-            if not bounds: metrics["unreachable_regions"] += 1; return
+            if not bounds:
+                metrics["unreachable_regions"] += 1
+                metrics["unreachable_actions"] += len(action_set)
+                return
             heapq.heappush(queue, (min(bounds), len(plan), effect, region.identifier, next(serial), plan, region, action_set))
         for effect in ("C", "S", "CS"): enqueue(root, effect)
         metrics["coverage_groups"] += 1
-        if covered != expected:
-            metrics["missing_actions"] += len(expected - covered); raise AssertionError("Region refinement lost a statically legal action")
+        missing = 0
+        for action in expected:
+            metrics["coverage_member_scans"] += 1
+            missing += action not in covered
+        if missing or len(covered) != len(expected):
+            metrics["missing_actions"] += missing; raise AssertionError("Region refinement lost a statically legal action")
         while queue:
             bound, _, effect, _, _, prefix, region, action_set = heapq.heappop(queue); metrics["region_nodes"] += 1
-            if best_j is not None and bound > best_j: metrics["pruned_regions"] += 1; continue
+            if best_j is not None and bound > best_j:
+                metrics["pruned_regions"] += 1
+                metrics["bound_pruned_actions"] += len(action_set)
+                continue
             if best_j is not None and bound == best_j: metrics["equality_nodes_retained"] += 1
             if region.children:
+                metrics["regions_refined"] += 1
                 child_covered = set()
                 for child in region.children:
+                    metrics["coverage_member_scans"] += len(child.members)
                     child_actions = {(site, effect) for site in child.members if (site, effect) in action_set}
-                    if child_covered.intersection(child_actions): raise AssertionError("Region children overlap")
-                    child_covered.update(child_actions); enqueue(child, effect, child_actions)
-                if child_covered != action_set: raise AssertionError("Region children do not exactly cover parent")
+                    for action in child_actions:
+                        metrics["coverage_member_scans"] += 1
+                        if action in child_covered: raise AssertionError("Region children overlap")
+                        child_covered.add(action)
+                    enqueue(child, effect, child_actions)
+                for action in action_set:
+                    metrics["coverage_member_scans"] += 1
+                    if action not in child_covered: raise AssertionError("Region children do not exactly cover parent")
+                if len(child_covered) != len(action_set): raise AssertionError("Region children do not exactly cover parent")
                 continue
             for site, action in sorted(action_set):
                 metrics["leaf_actions"] += 1; add_prefix(prefix + ((site, action),))
@@ -388,11 +497,12 @@ def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
                    time_limit_s: float | None = None, observer: str = "off",
                    on_incumbent=None, depth_certificate: dict | None = None,
                    c_backend="analytic", _clock=time.monotonic):
-    """Search the declared diagnostic cap through native FLAT or Region HIER.
+    """Search the declared diagnostic cap through FLAT, Flat-BB or Region HIER.
 
     HIER splits the statically legal next-action set into disjoint binary
     Regions and prunes only when an admissible primary lower bound is strictly
-    greater than an attained incumbent. Equal-primary Regions remain active.
+    greater than an evaluated nonempty terminal family's primary infimum.
+    This comparison threshold need not be an attained incumbent. Equality stays.
     """
     if c_backend not in ("projection", "analytic"):
         raise ValueError("C backend must be projection or analytic")
@@ -411,7 +521,7 @@ def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
         raise NotImplementedError("native exact search currently caps diagnostic depth at 5")
     if len(snapshot.candidate_order) > 8:
         raise NotImplementedError("native exact search currently caps candidates at 8")
-    if config.method not in {"flat", "hier"}:
+    if config.method not in {"flat", "flat_bb", "hier"}:
         raise NotImplementedError("unsupported native search method")
     if time_limit_s is not None and time_limit_s <= 0:
         raise ValueError("time_limit_s must be positive")
@@ -428,6 +538,11 @@ def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
     observer_trace = []
     domains = 0
     plans_seen = 0
+    search_metrics = _search_metrics()
+    comparison_threshold = None
+    threshold_updates = 0
+    unattained_threshold_updates = 0
+    first_attained = None
     start = exact(snapshot.departure_time_s)
     # A solve-local root binds all snapshot/config inputs, including departure,
     # E0, curve, schedule and routing policy. Q=E+rho starts with rho=-E0.
@@ -438,6 +553,7 @@ def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
         rho=-exact(snapshot.initial_energy_kwh)),), c_backend=c_backend)
     def evaluate(plan):
         nonlocal domains, plans_seen, incumbent, observed_plans
+        nonlocal comparison_threshold, threshold_updates, unattained_threshold_updates, first_attained
         if deadline is not None and _clock() >= deadline:
             raise _DeadlineReached
         plans_seen += 1
@@ -450,6 +566,11 @@ def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
         terminal = terminal_optimize(pieces, snapshot.destination, snapshot.destination_reserve_kwh, start, snapshot.stop_penalty_s)
         terminals.append((terminal, plan, legs))
         observed_plans += 1
+        value = _primary(terminals[-1])
+        if value is not None and (comparison_threshold is None or value < comparison_threshold):
+            comparison_threshold = value
+            threshold_updates += 1
+            unattained_threshold_updates += terminal.status != "attained_optimum"
         if observer == "detailed_trace":
             trace_key = None if terminal.key is None else [
                 rational_text(terminal.key[0], "trace.J"),
@@ -457,20 +578,29 @@ def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
                 [list(action) for action in terminal.key[3]],
             ]
             observer_trace.append({"plan": [list(action) for action in plan],
-                                   "terminal_status": terminal.status, "key": trace_key})
+                                   "terminal_status": terminal.status, "key": trace_key,
+                                   "comparison_threshold": None if comparison_threshold is None else str(comparison_threshold)})
         if terminal.status == "attained_optimum" and (incumbent is None or terminal.key < incumbent["key"]):
+            if first_attained is None:
+                first_attained = {"attempt": plans_seen, "terminal_evaluation": observed_plans,
+                                  "plan": [list(action) for action in plan]}
             incumbent = {"key": terminal.key, "plan": plan, "legs": legs,
                 "replay": replay_terminal(terminal, snapshot.destination, snapshot.destination_reserve_kwh,
                     exact(snapshot.departure_time_s), exact(snapshot.stop_penalty_s))}
             if on_incumbent is not None:
                 on_incumbent(incumbent)
-        return _primary(terminals[-1])
+        return value
+    evaluate.search_metrics = search_metrics
     hierarchy_metrics = None
     timed_out = False
     try:
         if config.method == "hier": hierarchy_metrics = _hierarchical_plans(snapshot, cache, evaluate)
+        elif config.method == "flat_bb": _flat_bb_plans(snapshot, cache, evaluate)
         else:
-            for plan in _action_sequences(snapshot, snapshot.depth_limit): evaluate(plan)
+            for plan in _action_sequences(snapshot, snapshot.depth_limit, search_metrics):
+                search_metrics["max_depth"] = max(search_metrics["max_depth"], len(plan))
+                if len(plan) == snapshot.depth_limit: search_metrics["depth_limit_prefixes"] += 1
+                evaluate(plan)
         if deadline is not None and _clock() >= deadline:
             timed_out = True
     except _DeadlineReached:
@@ -478,17 +608,22 @@ def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
     observer_record = None if observer == "off" else {
         "profile": observer, "plans_evaluated": observed_plans, "terminal_domains": domains,
         "prefix_cache": prefixes.metrics(),
+        "search_metrics": search_metrics,
+        "first_attained_incumbent": first_attained,
+        "infimal_threshold_updates": threshold_updates,
+        "unattained_threshold_updates": unattained_threshold_updates,
+        "comparison_threshold": comparison_threshold,
         "trace": observer_trace if observer == "detailed_trace" else None}
     if timed_out:
         return {"status": "time_limit", "domains": domains, "incumbent": incumbent,
             "elapsed_s": _clock() - started,
             "hierarchical_search": "region_refinement_strict_primary_bound" if config.method == "hier" else "not_requested",
-            "enumeration_backend": "exact_region_search" if config.method == "hier" else "exact_enumeration_backend",
+            "enumeration_backend": "exact_region_search" if config.method == "hier" else "exact_singleton_branch_and_bound" if config.method == "flat_bb" else "exact_enumeration_backend",
             "hierarchy_metrics": hierarchy_metrics, "observer": observer_record, "depth_certificate": depth_evidence}
     if not terminals:
         return {"status": "infeasible", "domains": 0,
                 "hierarchical_search": "region_refinement_strict_primary_bound" if config.method == "hier" else "not_requested",
-                "enumeration_backend": "exact_region_search" if config.method == "hier" else "exact_enumeration_backend",
+                "enumeration_backend": "exact_region_search" if config.method == "hier" else "exact_singleton_branch_and_bound" if config.method == "flat_bb" else "exact_enumeration_backend",
                 "hierarchy_metrics": hierarchy_metrics, "observer": observer_record, "depth_certificate": depth_evidence}
     primary = [(t.primary_infimum if t.status == "primary_unattained"
                 else t.primary_value if t.status in {"attained_optimum", "secondary_unattained"}
@@ -530,5 +665,5 @@ def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
             },
             "routing_cache_entries": len(cache), "selected_leg_identity": snapshot.graph_or_leg_identity,
             "hierarchical_search": "region_refinement_strict_primary_bound" if config.method == "hier" else "not_requested",
-            "enumeration_backend": "exact_region_search" if config.method == "hier" else "exact_enumeration_backend",
+            "enumeration_backend": "exact_region_search" if config.method == "hier" else "exact_singleton_branch_and_bound" if config.method == "flat_bb" else "exact_enumeration_backend",
             "hierarchy_metrics": hierarchy_metrics, "observer": observer_record, "depth_certificate": depth_evidence}

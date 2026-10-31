@@ -44,7 +44,8 @@ class Measurements:
         self.counts = dict(selected_leg_calls=0, routing_cache_misses=0, adjacency_builds=0,
                            plans_attempted=0, complete_propagations=0, drive_transition_calls=0,
                            stop_transition_calls=0, max_transition_input_pieces=0,
-                           max_transition_output_pieces=0, peak_pieces=0, region_reachable_bound_evaluations=0)
+                           max_transition_output_pieces=0, propagated_pwa_pieces=0,
+                           peak_pieces=0, region_reachable_bound_evaluations=0)
         self.seconds = dict(routing_s=0., transition_propagation_s=0., terminal_s=0.,
                             hierarchy_bound_and_traversal_s=0., result_and_witness_s=0.)
         self.c_seconds = 0.
@@ -110,6 +111,8 @@ class Measurements:
                     finally:
                         evaluation_s+=time.perf_counter()-t
                         route_in_evaluation+=self.seconds['routing_s']-r
+                if hasattr(evaluate, 'search_metrics'):
+                    observed.search_metrics = evaluate.search_metrics
                 t=time.perf_counter()
                 try:
                     return fn(snapshot,cache,observed)
@@ -121,6 +124,7 @@ class Measurements:
                         -(self.seconds['routing_s']-route_before-route_in_evaluation))
             return call
         wrap(search,'_hierarchical_plans',hierarchy)
+        wrap(search,'_flat_bb_plans',hierarchy)
         def bound(fn):
             def call(*a,**kw):
                 self.counts['region_reachable_bound_evaluations']+=1
@@ -145,6 +149,7 @@ class Measurements:
                     self.discrete_operator_visits += len({p.prefix for p in pieces})
                     out=fn(*a,**kw)
                     n=len(out) if isinstance(out,(tuple,list)) else int(out is not None)
+                    self.counts['propagated_pwa_pieces'] += n
                     self.counts['max_transition_output_pieces']=max(self.counts['max_transition_output_pieces'],n)
                     return out
                 return call
@@ -224,6 +229,7 @@ def worker(args):
     with ExitStack() as stack:
         if args.method!='ref' and not args.no_counts: measured.install(stack)
         started=time.perf_counter()
+        cpu_started=time.process_time()
         if profiler: profiler.enable()
         if args.method=='ref':
             source,_=snapshot_case(raw)
@@ -232,6 +238,7 @@ def worker(args):
             result=solve_snapshot(snapshot,solver_config(args.method),time_limit_s=config['budget']['wall_s'],observer='metrics',c_backend=args.c_backend)
         if profiler: profiler.disable()
         row['solve_total_s']=time.perf_counter()-started
+        row['solve_cpu_s']=time.process_time()-cpu_started
     row.update(outcome(result,args.method=='ref'))
     row.update(measured.report() if args.method!='ref' and not args.no_counts else {})
     row['witness_check']=None
@@ -255,6 +262,11 @@ def worker(args):
     row['independent_witness_check_s']=time.perf_counter()-verify
     observation=result.get('observer') or {}
     row['prefix_cache']=observation.get('prefix_cache')
+    row['search_metrics']=observation.get('search_metrics')
+    row['first_attained_incumbent']=observation.get('first_attained_incumbent')
+    row['infimal_threshold_updates']=observation.get('infimal_threshold_updates')
+    row['unattained_threshold_updates']=observation.get('unattained_threshold_updates')
+    row['comparison_threshold']=observation.get('comparison_threshold')
     if args.method!='ref' and not args.no_counts:
         # P2 chunks the pipeline; distinguish calls from completed plan evaluations.
         row['propagation_pipeline_calls']=row['complete_propagations']
@@ -262,7 +274,7 @@ def worker(args):
     hm=result.get('hierarchy_metrics') or {}
     row.update(region_visits=hm.get('region_nodes'),pruned_regions=hm.get('pruned_regions'),
                equality_retained=hm.get('equality_nodes_retained'),leaf_actions=hm.get('leaf_actions'))
-    row['region_member_visits']=None  # unreachable member scans are not instrumented
+    row['region_member_visits']=(observation.get('search_metrics') or {}).get('region_member_visits')
     if args.method!='ref' and not args.no_counts:
         row['solve_other_s']=row['solve_total_s']-sum(measured.seconds.values())
     row['cpu_s']=time.process_time()
@@ -312,7 +324,7 @@ def main(args):
     config=json.loads(Path(args.config).read_text())
     baseline=[] if not args.baseline else [json.loads(line) for line in Path(args.baseline).read_text().splitlines()]
     budget=config['budget']
-    prior_cpu=0 if args.compare_c else sum(max(r.get('cpu_s') or 0,r.get('sampled_group_cpu_peak_s') or 0) for r in baseline)
+    prior_cpu=args.development_cpu_s if args.mechanism else 0 if args.compare_c else sum(max(r.get('cpu_s') or 0,r.get('sampled_group_cpu_peak_s') or 0) for r in baseline)
     total_cpu=prior_cpu;rows=[]
     print(f'Previous accounted CPU seconds: {prior_cpu:.6f}; remaining: {budget["total_cpu_s"]-prior_cpu:.6f}',flush=True)
     def baseline_row(case_id, method):
@@ -326,6 +338,8 @@ def main(args):
     output=Path(args.output)
     if output.exists(): raise FileExistsError(output)
     def save(row):
+        row.setdefault('execution_status', 'completed' if row.get('counters_complete') else row['status'])
+        row.setdefault('mathematical_status', row['status'] if row.get('counters_complete') else 'unknown')
         required = ('N','H','key','primary_infimum','secondary_infimum','positive_charge_count',
                     'schedule_completed','witness_check','reference_status','load_and_parse_s',
                     'routing_s','transition_propagation_s','terminal_s','hierarchy_bound_and_traversal_s',
@@ -344,7 +358,11 @@ def main(args):
         with output.open('a') as stream: stream.write(json.dumps(row,sort_keys=True)+'\n')
         print(row['case_id'],row['method'],row.get('run_kind'),row['status'],flush=True)
     with tempfile.TemporaryDirectory(prefix='hiroute-small-profile-') as tmp, ExitStack() as stack:
-        if sys.platform=='darwin': mac_monitors(stack)
+        if sys.platform=='darwin':
+            # Check observation permission BEFORE launching numerical work.
+            import psutil
+            psutil.pids()
+            mac_monitors(stack)
         def run(case,method,profile=False,c_backend="projection", repetition=0):
             nonlocal total_cpu
             limit=budget['ref_s'] if method=='ref' else budget['wall_s']
@@ -379,6 +397,43 @@ def main(args):
                 # Never promote partial counters to final measurements.
                 for key in Measurements().report(): row[key]=None
             return row
+        if args.mechanism:
+            # Correctness work (including the only two new REF solves) finishes
+            # before launching any timed production row. No baseline ledger.
+            if baseline or args.compare_c: raise ValueError('mechanism has its own budget and matrix')
+            refs = {}
+            for case in config['cases']:
+                if case['case_id'] not in config['ref_cases']: continue
+                if case['case_id'] in args.unavailable_ref_case:
+                    ref = dict(case_id=case['case_id'],method='ref',status='REF_RESULT_UNAVAILABLE',
+                        counters_complete=False,notes='Earlier REF worker exited after resource monitor permission failure; output unavailable. Not retried; its full CPU limit is charged in development-cpu-s.')
+                else:
+                    ref = run(case, 'ref', c_backend='analytic')
+                ref['run_kind'] = 'correctness_ref'
+                refs[case['case_id']] = ref
+                save(ref)
+            for case in config['cases']:
+                expected = None
+                for repetition in range(3):
+                    methods = ('flat', 'flat_bb', 'hier')
+                    order = methods[repetition:]+methods[:repetition]
+                    for position, method in enumerate(order):
+                        row = run(case, method, c_backend='analytic', repetition=repetition)
+                        row['execution_order'] = position
+                        row['execution_status'] = 'completed' if row.get('counters_complete') else row['status']
+                        row['mathematical_status'] = row['status'] if row.get('counters_complete') else 'unknown'
+                        ref = refs.get(case['case_id'])
+                        row['reference_status'] = ref['status'] if ref else 'REF_NOT_RUN_PARITY_REPLAY_ONLY'
+                        save(row)  # Preserve the terminal record even on disagreement/cutoff.
+                        if not row.get('counters_complete'): continue
+                        current = signature(row)
+                        if expected is not None and current != expected:
+                            raise ValueError('Mechanism mathematical disagreement: '+case['case_id'])
+                        expected = current
+                        if ref and ref.get('counters_complete') and current != signature(ref):
+                            raise ValueError('Mechanism REF disagreement: '+case['case_id'])
+            print(f'Mechanism measured CPU seconds (new budget only): {total_cpu:.6f}',flush=True)
+            return
         if args.compare_c:
             # One new C-only budget; baseline REF outcomes are read-only references.
             for i,case in enumerate(config['cases']):
@@ -460,10 +515,13 @@ if __name__=='__main__':
     parser.add_argument('--skip-profiles',action='store_true',help='Do not consume more detailed profiler slots')
     parser.add_argument('--worker',action='store_true')
     parser.add_argument('--case')
-    parser.add_argument('--method',choices=('flat','hier','ref'))
+    parser.add_argument('--method',choices=('flat','flat_bb','hier','ref'))
     parser.add_argument('--profile')
     parser.add_argument('--no-counts',action='store_true')
     parser.add_argument('--c-backend',choices=('projection','analytic'),default='projection')
     parser.add_argument('--compare-c',action='store_true',help='Fixed P01-P07 C backend comparison, independent new CPU budget; no profiles')
+    parser.add_argument('--mechanism',action='store_true',help='Fixed 8 x 3 x 3 matrix; two tiny REF checks first; no profiles')
+    parser.add_argument('--development-cpu-s',type=float,default=0.,help='This task only: already consumed development numerical CPU')
+    parser.add_argument('--unavailable-ref-case',action='append',default=[],help='Retain an earlier lost REF attempt as unknown; do not repeat its optimization')
     args=parser.parse_args()
     worker(args) if args.worker else main(args)

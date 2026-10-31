@@ -43,7 +43,7 @@ def math_result(result):
 class PrefixReuseTests(unittest.TestCase):
     def compare(self, raw):
         snapshot=ProblemSnapshot.from_dict(raw)
-        for method in ('flat','hier'):
+        for method in ('flat','flat_bb','hier'):
             with self.subTest(method=method):
                 with patch.object(search._PlanPrefixCache,'propagate',cold):
                     expected=search.solve_snapshot(snapshot,config(method),observer='detailed_trace')
