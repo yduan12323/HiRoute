@@ -47,13 +47,15 @@ class Measurements:
                            max_transition_output_pieces=0, peak_pieces=0, region_reachable_bound_evaluations=0)
         self.seconds = dict(routing_s=0., transition_propagation_s=0., terminal_s=0.,
                             hierarchy_bound_and_traversal_s=0., result_and_witness_s=0.)
+        self.c_seconds = 0.
+        self.effect_stack = []
         self.prefixes = set()
         self.operator_keys = set()
         self.operator_calls = 0
         self.discrete_operator_visits = 0
 
     def install(self, stack):
-        from hiroute.exact import search, pipeline
+        from hiroute.exact import search, pipeline, pwa_partition, analytic_charge
         def wrap(module, name, make):
             stack.enter_context(patch.object(module, name, make(getattr(module, name))))
         def timer(category):
@@ -149,7 +151,37 @@ class Measurements:
             return make
         wrap(pipeline,'drive_piece',transition('drive'))
         wrap(pipeline,'schedule_piece',transition('stop'))
-        wrap(pipeline,'stop_partition',transition('stop',True))
+        def stop(fn):
+            observed = transition('stop',True)(fn)
+            def call(pieces, effect, site, curve, overhead, **kw):
+                pieces=tuple(pieces)
+                self.counts[effect+'_calls'] += 1
+                self.counts[effect+'_segment_pairs'] += len(pieces)*len(curve)**2
+                self.effect_stack.append(effect)
+                started=time.perf_counter()
+                try:
+                    return observed(pieces,effect,site,curve,overhead,**kw)
+                finally:
+                    if effect=='C': self.c_seconds+=time.perf_counter()-started
+                    self.effect_stack.pop()
+            return call
+        for key in ('C_calls','C_segment_pairs','CS_calls','CS_segment_pairs',
+                    'C_projection_builds','CS_projection_builds','analytic_pair_attempts','analytic_builds'):
+            self.counts[key]=0
+        wrap(pipeline,'stop_partition',stop)
+        original=pwa_partition.Projection.build
+        def build(*args,**kwargs):
+            self.counts[self.effect_stack[-1]+'_projection_builds']+=1
+            return original(*args,**kwargs)
+        stack.enter_context(patch.object(pwa_partition.Projection,'build',staticmethod(build)))
+        def analytic(fn):
+            def call(*args,**kwargs):
+                self.counts['analytic_pair_attempts']+=1
+                out=fn(*args,**kwargs)
+                self.counts['analytic_builds']+=bool(out)
+                return out
+            return call
+        wrap(analytic_charge,'charge_pair',analytic)
         def union(fn):
             def call(*a,**kw):
                 out=fn(*a,**kw)
@@ -159,7 +191,7 @@ class Measurements:
         wrap(pipeline,'family_union',union)
 
     def report(self):
-        return dict(self.counts, **self.seconds, distinct_prefixes=len(self.prefixes),
+        return dict(self.counts, **self.seconds, C_operator_s=self.c_seconds, distinct_prefixes=len(self.prefixes),
                     distinct_operator_prefix_keys=len(self.operator_keys),
                     discrete_operator_visits=self.discrete_operator_visits,
                     repeated_prefix_operator_calls=self.discrete_operator_visits-len(self.operator_keys),
@@ -185,7 +217,7 @@ def worker(args):
     config,case,raw=load_case(args.config,args.case)
     snapshot=ProblemSnapshot.from_dict(raw)
     row=dict(case_id=args.case,source_kind=case['source_kind'],N=len(snapshot.candidate_order),
-             H=snapshot.depth_limit,method=args.method,run_kind='profiling' if args.profile else 'normal',
+             H=snapshot.depth_limit,method=args.method,c_backend=args.c_backend,run_kind='profiling' if args.profile else 'normal',
              load_and_parse_s=time.perf_counter()-entered)
     measured=Measurements()
     profiler=cProfile.Profile() if args.profile else None
@@ -197,7 +229,7 @@ def worker(args):
             source,_=snapshot_case(raw)
             result=solve_case(source,keep_evidence=False)['result']
         else:
-            result=solve_snapshot(snapshot,solver_config(args.method),time_limit_s=config['budget']['wall_s'],observer='metrics')
+            result=solve_snapshot(snapshot,solver_config(args.method),time_limit_s=config['budget']['wall_s'],observer='metrics',c_backend=args.c_backend)
         if profiler: profiler.disable()
         row['solve_total_s']=time.perf_counter()-started
     row.update(outcome(result,args.method=='ref'))
@@ -280,7 +312,7 @@ def main(args):
     config=json.loads(Path(args.config).read_text())
     baseline=[] if not args.baseline else [json.loads(line) for line in Path(args.baseline).read_text().splitlines()]
     budget=config['budget']
-    prior_cpu=sum(max(r.get('cpu_s') or 0,r.get('sampled_group_cpu_peak_s') or 0) for r in baseline)
+    prior_cpu=0 if args.compare_c else sum(max(r.get('cpu_s') or 0,r.get('sampled_group_cpu_peak_s') or 0) for r in baseline)
     total_cpu=prior_cpu;rows=[]
     print(f'Previous accounted CPU seconds: {prior_cpu:.6f}; remaining: {budget["total_cpu_s"]-prior_cpu:.6f}',flush=True)
     def baseline_row(case_id, method):
@@ -313,7 +345,7 @@ def main(args):
         print(row['case_id'],row['method'],row.get('run_kind'),row['status'],flush=True)
     with tempfile.TemporaryDirectory(prefix='hiroute-small-profile-') as tmp, ExitStack() as stack:
         if sys.platform=='darwin': mac_monitors(stack)
-        def run(case,method,profile=False):
+        def run(case,method,profile=False,c_backend="projection", repetition=0):
             nonlocal total_cpu
             limit=budget['ref_s'] if method=='ref' else budget['wall_s']
             if total_cpu+limit>budget['total_cpu_s']:
@@ -321,7 +353,8 @@ def main(args):
             result=Path(tmp)/'row.json'
             result.unlink(missing_ok=True)
             argv=[sys.executable,str(Path(__file__).resolve()),'--worker','--config',str(Path(args.config).resolve()),
-                  '--case',case['case_id'],'--method',method,'--output',str(result)]
+                  '--case',case['case_id'],'--method',method,'--output',str(result),
+                  '--c-backend',c_backend]
             if profile:
                 profile_path=Path(args.profiles)/f"{case['case_id']}-{method}.pstats"
                 profile_path.parent.mkdir(parents=True,exist_ok=True)
@@ -332,7 +365,7 @@ def main(args):
                 memory_poll_s=.05,cwd=str(Path.cwd()),env=env)
             row=json.loads(result.read_text()) if result.exists() else dict(case_id=case['case_id'],
                 source_kind=case['source_kind'],method=method,run_kind='profiling' if profile else 'normal')
-            row.update(wall_total_s=supervised.elapsed_s,sampled_group_rss_peak_bytes=supervised.rss_peak_bytes,
+            row.update(c_backend=c_backend,repetition=repetition,wall_total_s=supervised.elapsed_s,sampled_group_rss_peak_bytes=supervised.rss_peak_bytes,
                        sampled_group_cpu_peak_s=supervised.cpu_peak_s,host_available_min_bytes=supervised.host_available_min_bytes)
             total_cpu+=max(row.get('cpu_s',0),supervised.cpu_peak_s)
             if supervised.timed_out: row['status']='REF_TIMEOUT' if method=='ref' else 'time_limit'
@@ -346,6 +379,35 @@ def main(args):
                 # Never promote partial counters to final measurements.
                 for key in Measurements().report(): row[key]=None
             return row
+        if args.compare_c:
+            # One new C-only budget; baseline REF outcomes are read-only references.
+            for i,case in enumerate(config['cases']):
+                if case['source_kind']=='real_dev' and not case.get('snapshot_path'):
+                    save(dict(case_id=case['case_id'],source_kind='real_dev',method='both',
+                        c_backend='both',run_kind='normal',status='NOT_RUN_INPUT_UNAVAILABLE',
+                        reference_status='REF_NOT_RUN'))
+                    continue
+                for repetition in range(3 if case['case_id']=='P07' else 1):
+                    pair=[]
+                    order=('projection','analytic') if (i+repetition)%2==0 else ('analytic','projection')
+                    for method in ('flat','hier'):
+                        for backend in order:
+                            row=run(case,method,c_backend=backend,repetition=repetition)
+                            old=baseline_row(case['case_id'],method)
+                            ref=baseline_row(case['case_id'],'ref')
+                            if not row.get('counters_complete'):
+                                save(row)
+                                raise RuntimeError('C comparison incomplete: '+str(row))
+                            if old and signature(row)!=signature(old):
+                                raise ValueError('Existing mathematical outcome changed: '+case['case_id'])
+                            row['baseline_comparison']='MATCH' if old else 'NOT_SUPPLIED'
+                            row['reference_status']='REF_REUSED_'+ref['status'].upper() if ref else 'REF_NOT_RUN'
+                            pair.append(row)
+                    if len({json.dumps(signature(r),sort_keys=True) for r in pair})!=1:
+                        raise ValueError('C backend/method mathematical disagreement: '+case['case_id'])
+                    for row in pair: save(row)
+            print(f'New C-only CPU seconds: {total_cpu:.6f}',flush=True)
+            return
         for i,case in enumerate(config['cases']):
             if case['source_kind']=='real_dev' and not case.get('snapshot_path'):
                 for method in ('flat','hier'):
@@ -401,5 +463,7 @@ if __name__=='__main__':
     parser.add_argument('--method',choices=('flat','hier','ref'))
     parser.add_argument('--profile')
     parser.add_argument('--no-counts',action='store_true')
+    parser.add_argument('--c-backend',choices=('projection','analytic'),default='projection')
+    parser.add_argument('--compare-c',action='store_true',help='Fixed P01-P07 C backend comparison, independent new CPU budget; no profiles')
     args=parser.parse_args()
     worker(args) if args.worker else main(args)
