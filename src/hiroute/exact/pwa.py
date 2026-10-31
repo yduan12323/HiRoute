@@ -89,7 +89,8 @@ def drive_piece(piece: AffineCutPiece, anchor: str, duration, consumption, floor
         if input_time < piece.cut_time_at(input_energy):
             raise ValueError("Drive budget is below predecessor cut")
         predecessor = piece.witness_lifter(input_energy, input_time) if piece.witness_lifter else None
-        return PwaStepWitness("D", anchor, input_energy, input_time, output_energy, output_budget,
+        input_time = _actual_time(predecessor, input_time)
+        return PwaStepWitness("D", anchor, input_energy, input_time, output_energy, input_time + duration,
                               (duration, consumption, floor), predecessor)
     return AffineCutPiece(
         domain=domain, slope=piece.slope,
@@ -98,6 +99,11 @@ def drive_piece(piece: AffineCutPiece, anchor: str, duration, consumption, floor
         prefix=piece.prefix, state_key=(anchor, remaining_schedule, stop_count),
         witness_lifter=lift,
     )
+
+
+def _actual_time(witness, budget):
+    """A predecessor callback realizes an upper budget, possibly earlier."""
+    return exact(getattr(witness, "output_time", getattr(witness, "time", budget)))
 
 
 @dataclass(frozen=True)
@@ -201,11 +207,13 @@ def schedule_piece(piece: AffineCutPiece, site: str, a, b, duration, overhead):
         def plateau_lift(energy, budget, piece=piece, site=site, a=a, b=b,
                          duration=duration, overhead=overhead):
             energy, budget = exact(energy), exact(budget)
-            input_time = piece.cut_time_at(energy)
+            input_time = (piece.cut_time_at(energy) if piece.attained else a - overhead)
             if input_time > a - overhead or input_time > b - overhead:
                 raise ValueError("Schedule plateau has no predecessor witness")
             predecessor = piece.witness_lifter(energy, input_time) if piece.witness_lifter else None
-            return PwaStepWitness("S", site, energy, input_time, energy, budget,
+            input_time = _actual_time(predecessor, input_time)
+            output_time = max(a + duration, input_time + overhead + duration)
+            return PwaStepWitness("S", site, energy, input_time, energy, output_time,
                                   (a, b, duration, overhead), predecessor)
         result.append(AffineCutPiece(
             plateau, Fraction(0), a + duration, True, piece.rho,
@@ -218,7 +226,9 @@ def schedule_piece(piece: AffineCutPiece, site: str, a, b, duration, overhead):
             if input_time < piece.cut_time_at(energy) or input_time > b - overhead:
                 raise ValueError("Schedule active witness is infeasible")
             predecessor = piece.witness_lifter(energy, input_time) if piece.witness_lifter else None
-            return PwaStepWitness("S", site, energy, input_time, energy, budget,
+            input_time = _actual_time(predecessor, input_time)
+            output_time = max(a + duration, input_time + overhead + duration)
+            return PwaStepWitness("S", site, energy, input_time, energy, output_time,
                                   (a, b, duration, overhead), predecessor)
         result.append(AffineCutPiece(
             active, piece.slope, piece.intercept + overhead + duration,

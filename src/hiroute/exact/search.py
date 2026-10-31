@@ -154,7 +154,8 @@ class _PlanPrefixCache:
     projection rows are immutable; continuation and replay do not mutate them.
     Final destination drives are deliberately excluded from cached prefixes.
     """
-    def __init__(self, initial):
+    def __init__(self, initial, *, c_backend="analytic"):
+        self.c_backend = c_backend
         self.families = {(): tuple(initial)}
         self.hits = self.misses = 0
         self.stored_pieces = len(self.families[()])
@@ -169,10 +170,11 @@ class _PlanPrefixCache:
             else:
                 self.misses += 1
                 # Each stop has exactly one inbound drive and one stop step.
-                pieces = execute_exact_plan(pieces, steps[2*(depth-1):2*depth])
+                pieces = execute_exact_plan(pieces, steps[2*(depth-1):2*depth],
+                                            c_backend=self.c_backend)
                 self.families[prefix] = pieces  # Cache empty exact families too.
                 self.stored_pieces += len(pieces)
-        return execute_exact_plan(pieces, steps[-1:])
+        return execute_exact_plan(pieces, steps[-1:], c_backend=self.c_backend)
 
     def metrics(self):
         return {"entries": len(self.families), "stored_pieces": self.stored_pieces,
@@ -344,7 +346,7 @@ def _verify_seed_depth_certificate(snapshot, config, certificate):
         start_time=exact(snapshot.departure_time_s), anchor=snapshot.origin,
         remaining_schedule=snapshot.initial_remaining_schedule,
         rho=-exact(snapshot.initial_energy_kwh))
-    pieces = execute_exact_plan((initial,), steps)
+    pieces = execute_exact_plan((initial,), steps, c_backend="projection")
     terminal = terminal_optimize(pieces, snapshot.destination, snapshot.destination_reserve_kwh,
                                  exact(snapshot.departure_time_s), expected_lambda)
     if terminal.status != "attained_optimum":
@@ -385,13 +387,15 @@ def _verify_seed_depth_certificate(snapshot, config, certificate):
 def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
                    time_limit_s: float | None = None, observer: str = "off",
                    on_incumbent=None, depth_certificate: dict | None = None,
-                   _clock=time.monotonic):
+                   c_backend="analytic", _clock=time.monotonic):
     """Search the declared diagnostic cap through native FLAT or Region HIER.
 
     HIER splits the statically legal next-action set into disjoint binary
     Regions and prunes only when an admissible primary lower bound is strictly
     greater than an attained incumbent. Equal-primary Regions remain active.
     """
+    if c_backend not in ("projection", "analytic"):
+        raise ValueError("C backend must be projection or analytic")
     started = _clock()
     depth_evidence = None
     if snapshot.depth_mode == "seed_derived":
@@ -431,7 +435,7 @@ def solve_snapshot(snapshot: ProblemSnapshot, config: SolverConfig, *,
         Interval(exact(snapshot.initial_energy_kwh), exact(snapshot.initial_energy_kwh)),
         start_time=start, anchor=snapshot.origin,
         remaining_schedule=snapshot.initial_remaining_schedule,
-        rho=-exact(snapshot.initial_energy_kwh)),))
+        rho=-exact(snapshot.initial_energy_kwh)),), c_backend=c_backend)
     def evaluate(plan):
         nonlocal domains, plans_seen, incumbent, observed_plans
         if deadline is not None and _clock() >= deadline:

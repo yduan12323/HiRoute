@@ -383,3 +383,160 @@ Reproduce after installing this PR's non-editable wheel:
 This completes the authorized prefix-reuse P2 step. Deliver a draft PR and CI
 outcome, then stop. No automatic PR merge, additional optimization, expanded
 matrix, real-data recovery, larger-domain claim or holdout is authorized here.
+
+## Pure C affine specialization (2026-10-31)
+
+Pure C now defaults to `analytic`; `stop_partition`, `execute_exact_plan` and
+`solve_snapshot` accept the explicit keyword `c_backend="projection"` for
+comparison. The diagnostic worker also accepts `--c-backend`. The backend is
+bound to a solve-local prefix cache; its complete-history keys and reuse policy
+are unchanged. Seed-certificate replay explicitly retains its previous
+projection implementation. CS still builds the same generic projections.
+There is no silent fallback, global switch, approximation, SOC grid or minimum
+positive charge. Routing, Region bounds/order, objectives, reducers, inputs and
+independent REF optimization are unchanged.
+
+### Cut and witness construction
+
+For each input piece and primitive segment pair, intersect the source interval
+with the incoming segment to obtain support. The output domain is the outgoing
+segment intersected with `y > support.lo`. Minimize
+`delta*x`, where `delta=source.slope-incoming.slope`, over support with `x<y`:
+positive delta uses the lower endpoint; negative delta uses `min(support.hi,y)`;
+zero delta needs only a nonempty fiber. Negative delta splits at `support.hi`;
+when the upper endpoint is y, the strict inequality makes the cut unattained.
+Endpoint closure and the source cut determine attainment elsewhere. Zero delta
+preserves source attainment even when both support endpoints are open. The
+existing family_union takes the envelope across all source pieces and pairs,
+including an attained candidate at a tied minimum. rho, ordered prefix and
+schedule/anchor/stop-count updates retain their previous meanings.
+
+For a requested `(y,budget)`, intersect support with `x<y` and the exact affine
+budget halfspace (`<=` for an attained source cut, `<` for an open one). The
+midpoint of the resulting rational fiber is legal, including a singleton.
+Invoke that restricted source's callback with its derived upper budget; use
+the callback's **actual time** to compute the physical C event and verify that
+it meets the output budget. No artificial waiting is inserted. Full curve
+segments are unnecessary in the callback: the selected input/output pair
+covers the two energies. Existing typed predecessor nodes expose `time` or
+`output_time`; opaque mathematical-only callbacks retain the existing
+budget-time convention.
+
+Composition tests exposed a pre-existing callback bug, rather than a change to
+the mathematical model: start from energy [0,1], time 0, F(e)=e and h=1. At
+output y=1, C has open time cut 1; an S window [10,20], D=0 gives attained
+output time 10. The previous S plateau callback asked C for its impossible
+boundary time 1. It now requests a feasible predecessor budget of a-h and
+uses the actual returned time. Drive, S and generic stop callbacks likewise
+carry earlier actual predecessor times through their unchanged physical
+equations. These are witness-only corrections; no S or CS cut, domain,
+attainment rule or projection constraint changed.
+
+### Verification
+
+The new operator cohort checks 60 deterministic inputs (10 interval forms,
+three source slopes, two attainment flags), with same/cross-segment transitions,
+knots, singletons, empty/disjoint support, all endpoint closures and delta signs.
+Comparison uses the union of endpoints and affine intersections: complete
+slope/intercept/attainment/metadata on open cells, exact values and membership
+on singleton boundaries. It is not a grid or sampled-value equivalence claim.
+Focused cases cover multiple pieces, duplicate/tied open/closed candidates,
+restricted ancestors, exact minimum rejection, and rational slack 1/10^40.
+Every generated analytic witness is physically replayed. A guard test proves
+analytic C never calls Projection.build, while CS continues to do so.
+
+Composition checks cover C→C, C→S, S→C, C→CS and a subsequent Drive; the
+open-C→S example above is replayed at its attained minimum. Search checks
+include attained, primary_unattained and secondary_unattained outcomes,
+per-plan full-key traces, cold versus reused prefixes, and independent REF
+physical witness replay. Existing ancestry/immutability regressions now run
+with the analytic default. **62 relevant tests pass from separately installed,
+non-editable core/REF wheels, in both normal and -OO modes.** The new cohort is
+registered in the existing normal/-OO core CI selection and code-only list.
+The complete Linux CI remains the check for the wider repository suite.
+Locally, the pinned pyarrow hash did not match the macOS wheel; that package
+was not installed and its hash requirement was not changed. The pure-core
+wheel cohort uses the remaining hash-verified test dependencies.
+
+### Fixed, same-environment observations
+
+The complete normal table is [C_OPERATOR_PROFILE.jsonl](C_OPERATOR_PROFILE.jsonl):
+28 prescribed observations plus eight extra P07 observations, and one explicit
+P08 unavailable record. Each numeric row is a new process, with one numerical
+worker and thread settings of 1; prefix reuse is enabled for both backends.
+P07 backend order alternates across its three repetitions. All 36 mathematical
+signatures/full keys match the unchanged P0/P1 outcomes and each other; all
+attained witnesses pass fresh independent physical replay. P01–P03 reuse only
+their already verified, identical-problem full REF results; no independent full
+optimization claim is made for P04–P07. No new full REF or profiler run was
+needed. P08 still lacks a ready real DEV snapshot.
+
+Both backends use the same installed wheel, macOS 27.2 arm64, Python 3.11.15,
+NumPy 2.4.6, SciPy 1.17.1 and psutil 7.2.2. The existing supervisor enforces
+120 s per solver row, 4 GiB RSS and 2 GiB host headroom. This is a fresh
+7200 CPU-second ceiling, with no historical budget inheritance. The final
+matrix charges 9.987293 CPU seconds (max of worker/sample readings). An earlier
+10.273960-second preliminary matrix was excluded from timing conclusions
+because verification briefly overlapped it; its cost is still part of this
+round (20.261253 seconds for both matrices). Final measurement ran after all
+verification finished. There were no timeouts, cutoffs or failed final rows.
+
+Times below are milliseconds, projection→analytic. P01–P06 have one observation
+per method/backend; P07 reports medians of three paired observations. Tiny
+startup-bound cases are descriptive observations, not stable speed estimates.
+
+| Case | FLAT solve ms | HIER solve ms | FLAT C operator ms | HIER C operator ms | C calls / segment pairs, either method | C generic builds, either method |
+|---|---:|---:|---:|---:|---:|---:|
+| P01 | 0.224→0.180 | 0.186→0.186 | 0→0 | 0→0 | 0 / 0 | 0→0 |
+| P02 | 1.073→0.513 | 1.117→0.530 | 0.519→0.081 | 0.530→0.081 | 1 / 1 | 1→0 |
+| P03 | 5.817→1.994 | 5.900→2.192 | 3.484→0.431 | 3.419→0.473 | 6 / 9 | 9→0 |
+| P04 | 6.365→5.027 | 6.384→5.217 | 1.215→0.142 | 1.201→0.145 | 2 / 3 | 3→0 |
+| P05 | 13.124→4.215 | 13.542→4.331 | 7.618→0.853 | 7.781→0.884 | 9 / 18 | 18→0 |
+| P06 | 58.157→17.785 | 59.164→18.276 | 36.537→4.579 | 37.015→4.647 | 31 / 88 | 88→0 |
+| P07 | 263.906→80.866 | 264.600→81.636 | 175.356→24.526 | 175.136→24.461 | 109 / 418 | 418→0 |
+
+The prescribed first observation of each case eliminates 1074 C generic builds
+across the two methods; including P07 repetitions, 2746→0. P07 still considers
+418 segment pairs in 109 C family calls; 394 pairs construct nonempty analytic
+outputs and 24 have empty support. These counts are distinct from piece counts.
+P04 retains **4 CS Projection.build calls per method/backend**; all other cases
+have zero CS calls. There is no claim that all projections have disappeared.
+
+On P07 the paired median solve reductions are 69.36% FLAT and 69.09% HIER;
+C operator time falls about 86%. Propagation medians are 208.982→57.726 ms and
+208.823→57.590 ms. Terminal medians are 46.885→15.343 ms and 46.820→15.190 ms;
+terminal work includes witness lifting, which also benefits from analytic
+ancestors. Supervised total wall, including startup, loading, verification and
+monitoring, is 501.865→322.661 ms and 505.182→322.147 ms. Imports/startup now
+account for much of these small workloads. Operator timers include their
+existing diagnostic counters and family envelope work; no profiler time is
+mixed into normal rows.
+
+P07 retains 165 cached family entries (including root/empty families), 511
+stored pieces, 164 misses and 276 hits in both backends. The peak propagated
+family is 7 pieces; the largest stop output is 6 pieces and largest transition
+input is 5, unchanged. The table includes these peaks for every row.
+Median sampled group RSS changes 76.078→75.391 MiB FLAT and
+76.266→75.312 MiB HIER. Worker getrusage maximum RSS changes
+76.234→75.375 MiB and 76.391→75.312 MiB. Sampling every 50 ms can miss short
+peaks (especially in tiny cases); RSS includes Python, numerical imports and
+all cached/terminal data, not a direct allocation measurement. There is no
+observed important memory penalty, nor a universal memory-saving claim.
+
+The correctness checks and this fixed domain show no important regression,
+so analytic is the pure-C default; projection remains explicit and supported.
+These N≤8, H≤3 synthetic observations do not establish large-domain or real-road
+performance, deployment latency, or HIER superiority. Multi-segment behavior
+is covered by exact operator/composition regressions, not a broad performance
+study. Real P08 input, larger domains and holdout remain unmeasured.
+
+Reproduce with separately installed core and REF wheels:
+
+```sh
+python tools/profile_small_cases.py --compare-c \
+  --baseline docs/SEMANTICS_AND_PROFILE.jsonl --skip-profiles \
+  --output /tmp/hiroute-c-operator.jsonl
+```
+
+Delivery stops at the draft PR and its CI outcome. No automatic merge,
+CS/union/Region/seed optimization, expanded workload or holdout follows here.

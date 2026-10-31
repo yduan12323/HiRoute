@@ -1,8 +1,8 @@
 """Exact piecewise C/CS transitions, family envelopes and witness lifting.
 
-This module ports the legacy four-variable projection semantics. It is an
-exact rational transform; it does not call an optimizer or certify global
-route optimality.
+Pure C uses an affine-segment specialization by default; CS and explicit C
+comparisons retain four-variable projection. Both are exact rational transforms,
+not optimizers or global route optimality certificates.
 """
 from __future__ import annotations
 from dataclasses import dataclass
@@ -12,7 +12,7 @@ from typing import Iterable
 
 from .interval import Interval
 from .linear import Projection, Row
-from .pwa import AffineCutPiece, _interval, _curve_value
+from .pwa import AffineCutPiece, _interval, _curve_value, _actual_time
 from .scalar import exact
 
 @dataclass(frozen=True)
@@ -99,6 +99,12 @@ def _partition_projection(projection, source, effect, site, overhead, curve,
             predecessor = None
             if source.witness_lifter is not None:
                 predecessor = source.witness_lifter(ea, tau)
+                tau = _actual_time(predecessor, tau)
+                delta = _curve_value(curve, ed) - _curve_value(curve, ea)
+                tout = (tau + overhead + delta if effect == "C" else
+                        max(a + duration, tau + overhead + max(delta, duration)))
+                if tout > output_budget:
+                    raise ValueError("Source realization exceeds stop budget")
             parameters = (tuple(curve), overhead, a, b, duration)
             return TransitionWitness(effect, site, ea, tau, ed, tout, predecessor, parameters)
         pieces.append(AffineCutPiece(cell, slope, intercept, attained, rho, pi,
@@ -107,10 +113,13 @@ def _partition_projection(projection, source, effect, site, overhead, curve,
 
 
 def stop_partition(pieces: Iterable[AffineCutPiece], effect: str, site: str,
-                   curve_segments, overhead, *, a=0, b=0, duration=0):
+                   curve_segments, overhead, *, a=0, b=0, duration=0,
+                   c_backend="analytic"):
     """Full exact C or CS output-energy partition for supplied source pieces."""
     if effect not in ("C", "CS"): raise ValueError("effect must be C or CS")
     if not isinstance(site, str) or not site: raise ValueError("site must be non-empty")
+    if c_backend not in ("projection", "analytic"):
+        raise ValueError("C backend must be projection or analytic")
     sources = tuple(pieces)
     overhead, a, b, duration = map(exact, (overhead, a, b, duration))
     if overhead <= 0 or duration < 0: raise ValueError("Invalid overhead or duration")
@@ -122,6 +131,12 @@ def stop_partition(pieces: Iterable[AffineCutPiece], effect: str, site: str,
         if type(stops) is not int or stops < 0 or len(source.prefix) != stops:
             raise ValueError("Source prefix/state mismatch")
         if effect == "CS" and remaining != 1: raise ValueError("CS requires one remaining schedule")
+        if effect == "C" and c_backend == "analytic":
+            from .analytic_charge import charge_pair
+            for incoming in segments:
+                for outgoing in segments:
+                    result.extend(charge_pair(source, incoming, outgoing, overhead, site))
+            continue
         seed = [*_interval_rows(source.domain, 0),
                 Row((source.slope, -1, 0, 0), -source.intercept, not source.attained)]
         if effect == "CS":

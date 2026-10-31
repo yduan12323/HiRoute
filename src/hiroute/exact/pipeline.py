@@ -53,8 +53,10 @@ def initial_piece(domain: Interval, start_time=0, anchor="origin", remaining_sch
     return AffineCutPiece(domain,Fraction(0),start_time,True,rho,prefix,
                           (anchor,remaining_schedule,len(prefix)),lift)
 
-def execute_exact_plan(initial: Iterable[AffineCutPiece], steps):
+def execute_exact_plan(initial: Iterable[AffineCutPiece], steps, *, c_backend="analytic"):
     """Apply D/S/C/CS in order, merging only a single inherited family."""
+    if c_backend not in ("projection", "analytic"):
+        raise ValueError("C backend must be projection or analytic")
     pieces=tuple(initial)
     if not pieces: return ()
     for step in steps:
@@ -73,7 +75,8 @@ def execute_exact_plan(initial: Iterable[AffineCutPiece], steps):
                 curve=tuple(tuple(map(exact,row)) for row in step.curve_segments)
                 out.extend(stop_partition(pieces,step.effect,step.site,curve,h,
                     a=0 if step.a is None else step.a,
-                    b=0 if step.b is None else step.b,duration=step.duration))
+                    b=0 if step.b is None else step.b,duration=step.duration,
+                    c_backend=c_backend))
             else: raise ValueError("unsupported stop effect")
         else: raise TypeError("unknown transition step")
         pieces=family_union(out)
