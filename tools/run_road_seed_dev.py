@@ -54,6 +54,11 @@ def prepare(config_path,input_root,output_root):
         c['implementation']=config['profiles'][profile]
         c['pilot_matrix']=[dict(N=d['N'],query_ids=[d['query_id']],scenarios=[d['scenario']])]
         manifest=select_domains(c,sites,bindings)
+        if d.get('candidate_domain_sha256'):
+            from d04_cost_diagnostic import domain_digest
+            query=next(q for q in manifest['queries'] if q['query_id']==d['query_id'])
+            if domain_digest(query,d['N'],d['scenario'])!=d['candidate_domain_sha256']:
+                raise ValueError('frozen DEV candidate domain changed')
         cp,mp=output_root/(identity+'.config.json'),output_root/(identity+'.preflight.json')
         pilot.atomic(cp,c);pilot.atomic(mp,manifest)
         prepared.append(dict(identity=identity,domain=d,profile=profile,method=method,

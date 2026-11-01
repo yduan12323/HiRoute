@@ -122,7 +122,8 @@ def worker(args):
     try:
         native = NativeRoadIndex(args.graph_tsv, origin_aliases.values(),
             cache_directory=args.native_cache, check=host_guard,
-            pair_query_mode=implementation.get('pair_query_mode', 'reverse_tree'))
+            pair_query_mode=implementation.get('pair_query_mode', 'reverse_tree'),
+            source_tree_reuse=implementation.get('source_tree_reuse', False))
     except (ResourceLimit, MemoryError) as exc:
         row.update(status=exc.status if isinstance(exc, ResourceLimit) else 'memory_limit',
             failed_phase='cold_graph_index', cold_index_wall_s=time.monotonic()-entered,
