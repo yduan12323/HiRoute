@@ -66,6 +66,18 @@ def test_authorized_single_pair_keeps_exact_domain_and_only_one_profile_override
         with pytest.raises(ValueError):stage.validate_spec({**s,field:value},m)
 
 
+def test_partial_diagnostic_merge_does_not_invent_completion_or_zero_counters():
+    row={'status':'time_limit','mathematical_status':'unknown'}
+    stage.pilot.preserve_live_diagnostics(row,{})
+    assert 'metrics' not in row
+    counters={'transitions':7};diag={'metrics':counters,'seconds':{'transitions':1}}
+    stage.pilot.preserve_live_diagnostics(row,diag)
+    assert row['metrics'] is counters and row['seconds_are_partial']
+    assert row['status']=='time_limit' and 'key' not in row and 'depth_contract' not in row
+    stage.pilot.preserve_live_diagnostics(row,{'metrics':{'transitions':999}})
+    assert row['metrics']['transitions']==7
+
+
 def test_single_pair_live_guard_two_rows_and_resume_never_duplicates(tmp_path):
     s=stage.load(ROOT/'configs/pending_activity_dev_check.json');m=matrix()
     prepared=dict(spec=s,source={},matrix_sha256='matrix',configs={})

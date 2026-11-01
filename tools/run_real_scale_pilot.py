@@ -41,6 +41,15 @@ def worker_cpu():
     return time.process_time()+children.ru_utime+children.ru_stime
 
 
+def preserve_live_diagnostics(row, diagnostics):
+    """Keep partial counters after an outer limit; never synthesize a result."""
+    if row.get('metrics') is None and diagnostics:
+        row['metrics'] = diagnostics.get('metrics')
+        row['seconds'] = diagnostics.get('seconds')
+        row['diagnostic_capture'] = 'live_partial_after_resource_exception'
+        row['seconds_are_partial'] = True
+
+
 def atomic(path, value):
     path = Path(path)
     tmp = path.with_suffix(path.suffix+'.tmp')
@@ -156,6 +165,7 @@ def worker(args):
     snapshot = None
     last_verified_payload = None
     checkpoint_pending = False
+    diagnostics = {}
     def keep(record):
         nonlocal first_feasible, last_verified_payload, checkpoint_pending
         preparing_check()
@@ -221,6 +231,7 @@ def worker(args):
                     inbound_energy_bound=implementation.get('inbound_energy_bound', False),
                     eager_incumbent_pruning=implementation.get('eager_incumbent_pruning', False),
                     pending_activity_screen=implementation.get('pending_activity_screen', False),
+                    diagnostics=diagnostics,
                     memory_baseline_bytes=query_memory_baseline)
             row.update(status=result['status'], mathematical_status=result.get('mathematical_status', result['status']),
                 key=result.get('key'), primary_infimum=result.get('primary_infimum'),
@@ -249,6 +260,7 @@ def worker(args):
             row.pop(key,None)
         raise
     finally:
+        preserve_live_diagnostics(row, diagnostics)
         row['routing_metrics'] = native.metrics()
         # If an alarm interrupted atomic checkpoint I/O, persist only the already
         # independently verified payload during final output; never re-solve it.
