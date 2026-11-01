@@ -1,0 +1,40 @@
+name: Independent tiny comparator
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'comparison/**'
+      - 'docs/INDEPENDENT_COMPARATOR_GATE.md'
+      - 'docs/independent_comparator_gate_results.json'
+      - '.github/workflows/independent-comparator.yml'
+permissions:
+  contents: read
+concurrency:
+  group: independent-tiny-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  exact-tiny-gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.11.16'
+      - name: Exact rational model, parity and replay under bounded CPU
+        run: python comparison/ci_budget.py
+      - name: Retain bounded audit records and exact SMT inputs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: independent-tiny-comparator-audit
+          path: |
+            ${{ runner.temp }}/independent-comparator-gate/accounting.json
+            ${{ runner.temp }}/independent-comparator-gate/started.json
+            ${{ runner.temp }}/independent-comparator-gate/normal/
+            ${{ runner.temp }}/independent-comparator-gate/optimized/
+          compression-level: 0
+          retention-days: 30
+          if-no-files-found: error

@@ -1,0 +1,654 @@
+{
+  "schema": "hiroute.independent_tiny_gate.v1",
+  "passed": true,
+  "new_real_solver_rows": 0,
+  "case_sha256": "924fdb5eb974955da65d5eac18b8f40fbde652cbf94858139bda869263b94cd9",
+  "rows": [
+    {
+      "id": "empty_prefix",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "1",
+          "0",
+          0,
+          []
+        ]
+      },
+      "analytic_match": true,
+      "solver": "Z3 4.13.4",
+      "linear_branches": 1,
+      "strict_empty_branches": 0,
+      "exact_solver_checks": 9,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "1",
+              "0",
+              0,
+              []
+            ]
+          },
+          "match": true,
+          "independent_replay_match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "1",
+              "0",
+              0,
+              []
+            ]
+          },
+          "match": true,
+          "independent_replay_match": true
+        }
+      ]
+    },
+    {
+      "id": "one_charge",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "16",
+          "3",
+          1,
+          [
+            [
+              "c",
+              "C"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "solver": "Z3 4.13.4",
+      "linear_branches": 2,
+      "strict_empty_branches": 1,
+      "exact_solver_checks": 10,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "16",
+              "3",
+              1,
+              [
+                [
+                  "c",
+                  "C"
+                ]
+              ]
+            ]
+          },
+          "match": true,
+          "independent_replay_match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "16",
+              "3",
+              1,
+              [
+                [
+                  "c",
+                  "C"
+                ]
+              ]
+            ]
+          },
+          "match": true,
+          "independent_replay_match": true
+        }
+      ]
+    },
+    {
+      "id": "primary_unattained",
+      "semantic": {
+        "status": "primary_unattained",
+        "primary_infimum": "13"
+      },
+      "analytic_match": true,
+      "solver": "Z3 4.13.4",
+      "linear_branches": 2,
+      "strict_empty_branches": 1,
+      "exact_solver_checks": 6,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "primary_unattained",
+            "primary_infimum": "13"
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "primary_unattained",
+            "primary_infimum": "13"
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "id": "secondary_unattained",
+      "semantic": {
+        "status": "secondary_unattained",
+        "primary_value": "17",
+        "primary_infimum": "17",
+        "secondary_infimum": "0"
+      },
+      "analytic_match": true,
+      "solver": "Z3 4.13.4",
+      "linear_branches": 3,
+      "strict_empty_branches": 2,
+      "exact_solver_checks": 11,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "secondary_unattained",
+            "primary_value": "17",
+            "primary_infimum": "17",
+            "secondary_infimum": "0"
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "secondary_unattained",
+            "primary_value": "17",
+            "primary_infimum": "17",
+            "secondary_infimum": "0"
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "id": "equal_primary_service",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "17",
+          "0",
+          1,
+          [
+            [
+              "c",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "solver": "Z3 4.13.4",
+      "linear_branches": 5,
+      "strict_empty_branches": 3,
+      "exact_solver_checks": 21,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "17",
+              "0",
+              1,
+              [
+                [
+                  "c",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true,
+          "independent_replay_match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "17",
+              "0",
+              1,
+              [
+                [
+                  "c",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true,
+          "independent_replay_match": true
+        }
+      ]
+    },
+    {
+      "id": "lexicographic_sites",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "14",
+          "0",
+          1,
+          [
+            [
+              "a",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "solver": "Z3 4.13.4",
+      "linear_branches": 4,
+      "strict_empty_branches": 2,
+      "exact_solver_checks": 20,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "14",
+              "0",
+              1,
+              [
+                [
+                  "a",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true,
+          "independent_replay_match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "14",
+              "0",
+              1,
+              [
+                [
+                  "a",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true,
+          "independent_replay_match": true
+        }
+      ]
+    },
+    {
+      "id": "temporal_energy_equality",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "29",
+          "3",
+          2,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "solver": "Z3 4.13.4",
+      "linear_branches": 4,
+      "strict_empty_branches": 3,
+      "exact_solver_checks": 12,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "29",
+              "3",
+              2,
+              [
+                [
+                  "c",
+                  "C"
+                ],
+                [
+                  "s",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true,
+          "independent_replay_match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "29",
+              "3",
+              2,
+              [
+                [
+                  "c",
+                  "C"
+                ],
+                [
+                  "s",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true,
+          "independent_replay_match": true
+        }
+      ]
+    },
+    {
+      "id": "temporal_energy_late",
+      "semantic": {
+        "status": "infeasible"
+      },
+      "analytic_match": true,
+      "solver": "Z3 4.13.4",
+      "linear_branches": 4,
+      "strict_empty_branches": 4,
+      "exact_solver_checks": 4,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "infeasible"
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "infeasible"
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "id": "shift_plus100",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "29",
+          "3",
+          2,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "solver": "Z3 4.13.4",
+      "linear_branches": 4,
+      "strict_empty_branches": 3,
+      "exact_solver_checks": 12,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "29",
+              "3",
+              2,
+              [
+                [
+                  "c",
+                  "C"
+                ],
+                [
+                  "s",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true,
+          "independent_replay_match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "29",
+              "3",
+              2,
+              [
+                [
+                  "c",
+                  "C"
+                ],
+                [
+                  "s",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true,
+          "independent_replay_match": true
+        }
+      ]
+    },
+    {
+      "id": "shift_minus100",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "29",
+          "3",
+          2,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "solver": "Z3 4.13.4",
+      "linear_branches": 4,
+      "strict_empty_branches": 3,
+      "exact_solver_checks": 12,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "29",
+              "3",
+              2,
+              [
+                [
+                  "c",
+                  "C"
+                ],
+                [
+                  "s",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true,
+          "independent_replay_match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "29",
+              "3",
+              2,
+              [
+                [
+                  "c",
+                  "C"
+                ],
+                [
+                  "s",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true,
+          "independent_replay_match": true
+        }
+      ]
+    },
+    {
+      "id": "piecewise_charge",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "18",
+          "3",
+          1,
+          [
+            [
+              "c",
+              "C"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "solver": "Z3 4.13.4",
+      "linear_branches": 5,
+      "strict_empty_branches": 4,
+      "exact_solver_checks": 13,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "18",
+              "3",
+              1,
+              [
+                [
+                  "c",
+                  "C"
+                ]
+              ]
+            ]
+          },
+          "match": true,
+          "independent_replay_match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "18",
+              "3",
+              1,
+              [
+                [
+                  "c",
+                  "C"
+                ]
+              ]
+            ]
+          },
+          "match": true,
+          "independent_replay_match": true
+        }
+      ]
+    },
+    {
+      "id": "strict_empty_full_battery_branch",
+      "semantic": {
+        "status": "infeasible"
+      },
+      "analytic_match": true,
+      "solver": "Z3 4.13.4",
+      "linear_branches": 3,
+      "strict_empty_branches": 3,
+      "exact_solver_checks": 3,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "infeasible"
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "infeasible"
+          },
+          "match": true
+        }
+      ]
+    }
+  ],
+  "first_run_failure": {
+    "kind": "integer-vs-rational Z3 numeral adapter error",
+    "error_cases": 10,
+    "infeasible_cases_already_correct": 2,
+    "expected_values_changed": false
+  },
+  "conservative_gate_cpu_s": 600,
+  "original_conservative_cpu_s": 11905.649970329,
+  "preprocessing_cpu_s": 652.040677976
+}

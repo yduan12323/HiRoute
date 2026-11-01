@@ -1,5 +1,15 @@
 # Real-scale DEV research
 
+The [independent comparator tiny gate](INDEPENDENT_COMPARATOR_GATE.md) now
+passes exact-solver availability and12 frozen common-model semantic cases,
+including both unattainment kinds and strict-empty CS branches. Independent
+Z3 constraints and Fraction replay match Strong/Scale on those tiny domains;
+this is not a real external benchmark, formal certificate or scalability claim.
+Production code and all historical rows are unchanged. Conservative accounting
+is **11905.649970329 /28800 CPU seconds**, including the whole600-second gate;
+preprocessing remains **652.040677976 /900**. The original taskbook remains
+incomplete; main experiments and holdout have not started.
+
 The [research-route reassessment](RESEARCH_ROUTE_REASSESSMENT.md) preserves the
 exact system and the full negative evidence. Hierarchy has a measured batching
 tradeoff, not established stronger exclusion or general end-to-end superiority:
