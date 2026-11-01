@@ -1,0 +1,1724 @@
+{
+  "alternatives": [
+    {
+      "available_od_counts": {
+        "energy_only": {
+          "128": 0,
+          "256": 0,
+          "64": 10
+        },
+        "schedule": {
+          "128": 12,
+          "256": 11,
+          "64": 12
+        }
+      },
+      "candidate_available_method_rows": 180,
+      "candidate_available_query_N_cells": 90,
+      "candidate_unavailable_query_N_cells": 54,
+      "corridor_km": 60,
+      "full_qualified_counts": {
+        "energy_only": [
+          83,
+          91,
+          84,
+          105,
+          101,
+          94,
+          64,
+          45,
+          39,
+          89,
+          86,
+          80
+        ],
+        "schedule": [
+          649,
+          619,
+          515,
+          963,
+          959,
+          904,
+          368,
+          260,
+          207,
+          638,
+          573,
+          546
+        ]
+      },
+      "proposed_method_rows": 288,
+      "proposed_query_N_cells": 144,
+      "query_slot_upper_s_at_current120s": 21600
+    },
+    {
+      "available_od_counts": {
+        "energy_only": {
+          "128": 10,
+          "256": 0,
+          "64": 12
+        },
+        "schedule": {
+          "128": 12,
+          "256": 12,
+          "64": 12
+        }
+      },
+      "candidate_available_method_rows": 232,
+      "candidate_available_query_N_cells": 116,
+      "candidate_unavailable_query_N_cells": 28,
+      "corridor_km": 126,
+      "full_qualified_counts": {
+        "energy_only": [
+          154,
+          159,
+          156,
+          144,
+          143,
+          139,
+          128,
+          112,
+          112,
+          156,
+          153,
+          152
+        ],
+        "schedule": [
+          1453,
+          1477,
+          1469,
+          1335,
+          1311,
+          1187,
+          1064,
+          962,
+          963,
+          1463,
+          1411,
+          1405
+        ]
+      },
+      "proposed_method_rows": 288,
+      "proposed_query_N_cells": 144,
+      "query_slot_upper_s_at_current120s": 27840
+    }
+  ],
+  "assessment_cpu_s": 0.344281,
+  "assessment_wall_s": 0.34758833301020786,
+  "capacity_only_four_charge_shortest_road_threshold_m": {
+    "18": "1200000",
+    "48": "1387500"
+  },
+  "cautions": [
+    "Counts precede directed reachability/energy/schedule/seed checks; availability is not feasibility.",
+    "Geodesic separation is a proxy, not a certified shortest-road metric or charge-count proof.",
+    "Full qualified corridor sets remain geographic workload restrictions, not province-optimal safe filters.",
+    "New12-OD recipes are DEV design candidates, not an independent holdout or performance sample."
+  ],
+  "energy_N256_global_shortfall": 88,
+  "historical_max_replayed_positive_charges": 3,
+  "historical_record_inventory": [
+    {
+      "charge_status_counts": {
+        "attained_optimum:2": 2,
+        "attained_optimum:3": 5,
+        "time_limit:2": 7,
+        "time_limit:3": 10
+      },
+      "file": "docs/real_scale_results.jsonl",
+      "records": 33,
+      "replayed_records": 24
+    },
+    {
+      "charge_status_counts": {
+        "attained_optimum:2": 4,
+        "attained_optimum:3": 3,
+        "time_limit:2": 3
+      },
+      "file": "docs/road_seed_dev_results.jsonl",
+      "records": 10,
+      "replayed_records": 10
+    },
+    {
+      "charge_status_counts": {
+        "time_limit:2": 2
+      },
+      "file": "docs/source_time_reuse_results.json",
+      "records": 2,
+      "replayed_records": 2
+    },
+    {
+      "charge_status_counts": {
+        "attained_optimum:2": 2
+      },
+      "file": "docs/inbound_energy_results.json",
+      "records": 2,
+      "replayed_records": 2
+    },
+    {
+      "charge_status_counts": {
+        "attained_optimum:2": 2
+      },
+      "file": "docs/enqueue_pruning_results.json",
+      "records": 2,
+      "replayed_records": 2
+    }
+  ],
+  "historical_replayed_four_plus_records": 0,
+  "inventory_is_not_an_independent_query_denominator": true,
+  "peak_rss_platform_units": 46874624,
+  "proposed_full_domain_subset_rule": "Minimum and maximum qualified counts per scenario, query ID tie, initial18 only, both methods; after domain-policy decision. At most8 supplemental method rows, deduplicate exact input/profile matches.",
+  "proposed_ods": 12,
+  "proposed_queries": 48,
+  "road_index_built": false,
+  "road_queries_called": false,
+  "rows": [
+    {
+      "corridor_km": 60,
+      "endpoints": {
+        "destination": {
+          "access_node": "11898170996",
+          "displacement_m": 932.5326809875336,
+          "lat": 37.152089502530266,
+          "lon": 122.48349448456314,
+          "site_id": "way/1387473213",
+          "target": {
+            "lat": 37.16,
+            "lon": 122.48,
+            "name": "Rongcheng"
+          }
+        },
+        "origin": {
+          "access_node": "3797700636",
+          "displacement_m": 671.9531070743877,
+          "lat": 35.224032743853456,
+          "lon": 115.47883231046995,
+          "site_id": "way/639260140",
+          "target": {
+            "lat": 35.23,
+            "lon": 115.48,
+            "name": "Heze"
+          }
+        }
+      },
+      "geographic_distance_m": 663975.0405656813,
+      "query_id": "WD01",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": false,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "64": "40fa518268b851f14fa61ed6a987c9d4e9c9fe0c7fb373af636fa7a9c8589b7a"
+          },
+          "full_qualified_fingerprint": "d88231ac600ef0ca7bba82756c9da875ee5fbed34fb60d26ee8a139606804049",
+          "qualified_count": 83,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "59b919127ec927d4ae4046ba9ffe5ec04147a204c1227cf2b0ed8d8bbef6e58b",
+            "256": "8e9aaeaa9f7ffc9140c3345daef2b9795a05585958146477f85d1a80f57aeb06",
+            "64": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64"
+          },
+          "full_qualified_fingerprint": "c05fe6b5b39c23dd378543e3ab721f2f539f5afa2b703a86306dee3fd8fe0d9f",
+          "qualified_count": 649,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 60,
+      "endpoints": {
+        "destination": {
+          "access_node": "2927438174",
+          "displacement_m": 281.59460173902374,
+          "lat": 37.50747216975817,
+          "lon": 122.11980751506557,
+          "site_id": "way/155366305",
+          "target": {
+            "lat": 37.51,
+            "lon": 122.12,
+            "name": "Weihai"
+          }
+        },
+        "origin": {
+          "access_node": "3797700636",
+          "displacement_m": 671.9531070743877,
+          "lat": 35.224032743853456,
+          "lon": 115.47883231046995,
+          "site_id": "way/639260140",
+          "target": {
+            "lat": 35.23,
+            "lon": 115.48,
+            "name": "Heze"
+          }
+        }
+      },
+      "geographic_distance_m": 646368.5114759866,
+      "query_id": "WD02",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": false,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "64": "63df07dacb0a7bd68af85cbaa35b36fe161c664a77fbd85c560f86527c99e1a7"
+          },
+          "full_qualified_fingerprint": "6440c59b2d16ce8597f5a9491ea9c08fc50139e948a05f4cf88c05db5b0d6c6d",
+          "qualified_count": 91,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "0e46ddda7c674d164731bcdd7328edab006980c2757be43d715cf0ac9245e1bc",
+            "256": "ebc4a47df406893fefc337e835b1788a7315058af711a7bc47ef8d346f29c6f1",
+            "64": "c66c18c765b9c6d29bb4ca6ab54f3b11b7313f0301ab7f4367de22a903044594"
+          },
+          "full_qualified_fingerprint": "99aa9fb4bb3d0fc40ba68bf0847449019c869b2bfd77b77b8422ba9dd3eafdce",
+          "qualified_count": 619,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 60,
+      "endpoints": {
+        "destination": {
+          "access_node": "9494508458",
+          "displacement_m": 122.15287732335908,
+          "lat": 37.46009776280146,
+          "lon": 121.44862154472273,
+          "site_id": "way/1029943582",
+          "target": {
+            "lat": 37.46,
+            "lon": 121.45,
+            "name": "Yantai"
+          }
+        },
+        "origin": {
+          "access_node": "3797700636",
+          "displacement_m": 671.9531070743877,
+          "lat": 35.224032743853456,
+          "lon": 115.47883231046995,
+          "site_id": "way/639260140",
+          "target": {
+            "lat": 35.23,
+            "lon": 115.48,
+            "name": "Heze"
+          }
+        }
+      },
+      "geographic_distance_m": 589520.8103900008,
+      "query_id": "WD03",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": false,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "64": "226de67b11495e552b5357cc3607e83590e143b4efb7d809794518f1747f21da"
+          },
+          "full_qualified_fingerprint": "68ec4fe385f2d860c1034ce3d91599a3af9f17c809648619fbdb8986e4f792da",
+          "qualified_count": 84,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "6d292c99cbc23847c9f50517311052e6e1db055846025d981935207c9f2ceae8",
+            "256": "5bdf27135b82e6ba8216154d0c565dcb5a650010859ce5a2ff806f26cde0fea0",
+            "64": "7f8a1939dfc60547145eb307f2c19cf018068b8b014d5d3ce4d5bf28499c180f"
+          },
+          "full_qualified_fingerprint": "bbd60f109bdf81b7ae924c893780d339983e402496515524574f8567869199aa",
+          "qualified_count": 515,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 60,
+      "endpoints": {
+        "destination": {
+          "access_node": "11898170996",
+          "displacement_m": 932.5326809875336,
+          "lat": 37.152089502530266,
+          "lon": 122.48349448456314,
+          "site_id": "way/1387473213",
+          "target": {
+            "lat": 37.16,
+            "lon": 122.48,
+            "name": "Rongcheng"
+          }
+        },
+        "origin": {
+          "access_node": "5732949145",
+          "displacement_m": 577.3840209250077,
+          "lat": 36.4557423,
+          "lon": 115.9836955,
+          "site_id": "node/5732949150",
+          "target": {
+            "lat": 36.46,
+            "lon": 115.98,
+            "name": "Liaocheng"
+          }
+        }
+      },
+      "geographic_distance_m": 583732.7839376801,
+      "query_id": "WD04",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": false,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "64": "54825789a8629743dfd804fbb5d1344fd05214c918f71b5d3bde05bfd7d30fc9"
+          },
+          "full_qualified_fingerprint": "260d0b2fb90d8e0c655cd12f10808269cb4ddab89b83b52f67848ca77c396387",
+          "qualified_count": 105,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "f8f5edabc3c07f3c8e31ba4b7980f4d03438b00d972929d836bd87d8ab25602a",
+            "256": "d64fc08be7d547fdbcfa359fb9d0945e8fe10722785f975c001dcc37d850efc8",
+            "64": "9675cb30605877321579b18183c40ad083221a9172ce273c409717be7ec403d3"
+          },
+          "full_qualified_fingerprint": "08bb471531eb30c1db4394a0dd851adde93cdfff0b32cfedb68cbcd5ea3080f8",
+          "qualified_count": 963,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 60,
+      "endpoints": {
+        "destination": {
+          "access_node": "2927438174",
+          "displacement_m": 281.59460173902374,
+          "lat": 37.50747216975817,
+          "lon": 122.11980751506557,
+          "site_id": "way/155366305",
+          "target": {
+            "lat": 37.51,
+            "lon": 122.12,
+            "name": "Weihai"
+          }
+        },
+        "origin": {
+          "access_node": "5732949145",
+          "displacement_m": 577.3840209250077,
+          "lat": 36.4557423,
+          "lon": 115.9836955,
+          "site_id": "node/5732949150",
+          "target": {
+            "lat": 36.46,
+            "lon": 115.98,
+            "name": "Liaocheng"
+          }
+        }
+      },
+      "geographic_distance_m": 557337.8940678393,
+      "query_id": "WD05",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": false,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "64": "42bf14a1bb75cf7866ed8972c9d1a6b8a342c2294004648a85f62b8a694c2491"
+          },
+          "full_qualified_fingerprint": "22f8a79a5001c48b6f721d507f20ac4f38624356affc02a3dccf24ed166aeb52",
+          "qualified_count": 101,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "f3488a2dcd720025552c823bc136b9c52a5365f198185a1b83d37b474fc80d42",
+            "256": "2f686d49a2fb49e9a5f614f4be0b9db5c8a73a07aae13809b7ca3186fc71d3c4",
+            "64": "7cc885a89772567e6f52d39701ce2732fe597582c2b5527786421ed4428aea57"
+          },
+          "full_qualified_fingerprint": "6a41f7965fe19e891cdc9246d3d9877107c983976cb078cbc2af3c6865eed61d",
+          "qualified_count": 959,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 60,
+      "endpoints": {
+        "destination": {
+          "access_node": "9494508458",
+          "displacement_m": 122.15287732335908,
+          "lat": 37.46009776280146,
+          "lon": 121.44862154472273,
+          "site_id": "way/1029943582",
+          "target": {
+            "lat": 37.46,
+            "lon": 121.45,
+            "name": "Yantai"
+          }
+        },
+        "origin": {
+          "access_node": "5732949145",
+          "displacement_m": 577.3840209250077,
+          "lat": 36.4557423,
+          "lon": 115.9836955,
+          "site_id": "node/5732949150",
+          "target": {
+            "lat": 36.46,
+            "lon": 115.98,
+            "name": "Liaocheng"
+          }
+        }
+      },
+      "geographic_distance_m": 498173.6210405699,
+      "query_id": "WD06",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": false,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "64": "64a32a75a3ad6bda92594b52f6ae7bfdc70eed7883f8769711ff48da174286f7"
+          },
+          "full_qualified_fingerprint": "e32e93521ae6189643784701b52d9a1474303b6a1c5e48b3f3325aae3c52ad97",
+          "qualified_count": 94,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "5118f220b2d61cb03a962af08463c7b1733c0197a31b302813002230f7434cdd",
+            "256": "74ae8d78d62a0ce33237bb497a1ea802f6fa99a48ff98da85a4b21e492934a59",
+            "64": "6e1b6a3c3d638b9101091b8aa4b1e633e753166c7805bce70e7c31355731c83e"
+          },
+          "full_qualified_fingerprint": "1bdefe268304ee5f1e6fb974a91347f925771392901d0b2b00e909d05a6d3c23",
+          "qualified_count": 904,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 60,
+      "endpoints": {
+        "destination": {
+          "access_node": "11898170996",
+          "displacement_m": 932.5326809875336,
+          "lat": 37.152089502530266,
+          "lon": 122.48349448456314,
+          "site_id": "way/1387473213",
+          "target": {
+            "lat": 37.16,
+            "lon": 122.48,
+            "name": "Rongcheng"
+          }
+        },
+        "origin": {
+          "access_node": "12387784940",
+          "displacement_m": 1014.5719932717428,
+          "lat": 37.44147,
+          "lon": 116.3559203,
+          "site_id": "node/12387784901",
+          "target": {
+            "lat": 37.45,
+            "lon": 116.36,
+            "name": "Dezhou"
+          }
+        }
+      },
+      "geographic_distance_m": 542881.887581954,
+      "query_id": "WD07",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": false,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "64": "3019cc243fc13b089c0b5b501776f9812a01377063dc5048a24ff783c3b23bd2"
+          },
+          "full_qualified_fingerprint": "3019cc243fc13b089c0b5b501776f9812a01377063dc5048a24ff783c3b23bd2",
+          "qualified_count": 64,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "710d2e1c4f8a456ca8bf7a5777defcd164221c64aff7b914e406d7ac4daa4c14",
+            "256": "e40440eb8747a891c803eab8934ec55fd21bf56c9a98f6049e1bbebbeb0299da",
+            "64": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496"
+          },
+          "full_qualified_fingerprint": "fea8b9f915f27a0869e53106ace8870df1b34af47547c1a16ea347a38408e9dd",
+          "qualified_count": 368,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 60,
+      "endpoints": {
+        "destination": {
+          "access_node": "2927438174",
+          "displacement_m": 281.59460173902374,
+          "lat": 37.50747216975817,
+          "lon": 122.11980751506557,
+          "site_id": "way/155366305",
+          "target": {
+            "lat": 37.51,
+            "lon": 122.12,
+            "name": "Weihai"
+          }
+        },
+        "origin": {
+          "access_node": "12387784940",
+          "displacement_m": 1014.5719932717428,
+          "lat": 37.44147,
+          "lon": 116.3559203,
+          "site_id": "node/12387784901",
+          "target": {
+            "lat": 37.45,
+            "lon": 116.36,
+            "name": "Dezhou"
+          }
+        }
+      },
+      "geographic_distance_m": 508619.9992343337,
+      "query_id": "WD08",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": false,
+            "256": false,
+            "64": false
+          },
+          "fingerprints": {},
+          "full_qualified_fingerprint": "9ada64c60c7cf6e2d2d61a4fee20554e2058815e6fb33faeaaa77c6e09cf0a61",
+          "qualified_count": 45,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "0417c748b7f390d5b9d598aa8600833480bab2e34d9b5e7634360c714b871fca",
+            "256": "9dbc9100090c8d53e71b3982eeaae7de43ad9415a347c2083509b7984c22a1b2",
+            "64": "fda0e2c0df396c7a49f0cda9bb2803d36d219e422df21216ebb598c593e83fc2"
+          },
+          "full_qualified_fingerprint": "56ef8b7c741c7ee10c4d7c614e0720e936f7d59f26fbc2b6cb1a2dc25c6abecd",
+          "qualified_count": 260,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 60,
+      "endpoints": {
+        "destination": {
+          "access_node": "9494508458",
+          "displacement_m": 122.15287732335908,
+          "lat": 37.46009776280146,
+          "lon": 121.44862154472273,
+          "site_id": "way/1029943582",
+          "target": {
+            "lat": 37.46,
+            "lon": 121.45,
+            "name": "Yantai"
+          }
+        },
+        "origin": {
+          "access_node": "12387784940",
+          "displacement_m": 1014.5719932717428,
+          "lat": 37.44147,
+          "lon": 116.3559203,
+          "site_id": "node/12387784901",
+          "target": {
+            "lat": 37.45,
+            "lon": 116.36,
+            "name": "Dezhou"
+          }
+        }
+      },
+      "geographic_distance_m": 449508.7404434454,
+      "query_id": "WD09",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": false,
+            "256": false,
+            "64": false
+          },
+          "fingerprints": {},
+          "full_qualified_fingerprint": "bd07cf33903fb8575c7bdc241cd5dc910d21f93deb70442cd56e3650d1aa6b92",
+          "qualified_count": 39,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "f9fede0e531aa702bd67db895c70b76d8c1d0e26249954643869749cc7da199e",
+            "64": "5a970e663dbece66a8dbad5ccd921b4f32a4cc2a415771e6c8424a00239af98a"
+          },
+          "full_qualified_fingerprint": "5bc826c40e3eedcba8b650338e2b678c5fd2e0fe0948ec12c9c03c57651157f6",
+          "qualified_count": 207,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 60,
+      "endpoints": {
+        "destination": {
+          "access_node": "11898170996",
+          "displacement_m": 932.5326809875336,
+          "lat": 37.152089502530266,
+          "lon": 122.48349448456314,
+          "site_id": "way/1387473213",
+          "target": {
+            "lat": 37.16,
+            "lon": 122.48,
+            "name": "Rongcheng"
+          }
+        },
+        "origin": {
+          "access_node": "13062996120",
+          "displacement_m": 0.0,
+          "lat": 35.724189453270334,
+          "lon": 116.45310613340384,
+          "site_id": "way/1421474585",
+          "target": {
+            "lat": 35.724189453270334,
+            "lon": 116.45310613340384,
+            "name": "Western_maximin_attached_C_Site",
+            "site_id": "way/1421474585"
+          }
+        }
+      },
+      "geographic_distance_m": 562217.0931981239,
+      "query_id": "WD10",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": false,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "64": "cb7f714b73b44a1683445cf8bd57e4422aa392f0a64212f184737e5c162f9b12"
+          },
+          "full_qualified_fingerprint": "06587bc2ed4a5d86f4028e0a40022154c3e207a1006c274fbf234a0db576c1ee",
+          "qualified_count": 89,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "138ec61d93bf5151214fd6f0aea61926c36ab8e3e3e338bfdcfa75fa3abb12f5",
+            "256": "5433baf018557875f85fde330f90f02ab80c5ba137863193c20500ee92a6dd15",
+            "64": "cd23a9c700f138d79add20ade0e35d78e3d25f3c2609f552c71a3879d9c1428c"
+          },
+          "full_qualified_fingerprint": "736fb1209c00b03153188d596c015a6c999641b809238d2790bd0eb8b8f6aee5",
+          "qualified_count": 638,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 60,
+      "endpoints": {
+        "destination": {
+          "access_node": "2927438174",
+          "displacement_m": 281.59460173902374,
+          "lat": 37.50747216975817,
+          "lon": 122.11980751506557,
+          "site_id": "way/155366305",
+          "target": {
+            "lat": 37.51,
+            "lon": 122.12,
+            "name": "Weihai"
+          }
+        },
+        "origin": {
+          "access_node": "13062996120",
+          "displacement_m": 0.0,
+          "lat": 35.724189453270334,
+          "lon": 116.45310613340384,
+          "site_id": "way/1421474585",
+          "target": {
+            "lat": 35.724189453270334,
+            "lon": 116.45310613340384,
+            "name": "Western_maximin_attached_C_Site",
+            "site_id": "way/1421474585"
+          }
+        }
+      },
+      "geographic_distance_m": 543123.2438920491,
+      "query_id": "WD11",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": false,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "64": "e137397dca1a18082accd4cc0af3dfa66915431ae4e8f25fe544a2fd70751957"
+          },
+          "full_qualified_fingerprint": "f575a739ac934f4cea7313b82a6cb398e0647f7d1e113a8e3a97cda99c05ba99",
+          "qualified_count": 86,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "d0a8ddd53f8978c9c308bebbe398a170add0e10fcbab7ff0ef7470d1c221f70e",
+            "256": "7c9c5351e35cae7ac086bad504ff118d10a7ebd00a11b35fb5c58bab13616de7",
+            "64": "8df814214bcb5c4aae73efe7a3bbc8a8e8f9d06c5e5cb25f656de26cf4b06d3d"
+          },
+          "full_qualified_fingerprint": "4b53cce87a9a3b8f0f61a3977798f9be685c5b3aad89341b0de815c3c659f4e3",
+          "qualified_count": 573,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 60,
+      "endpoints": {
+        "destination": {
+          "access_node": "9494508458",
+          "displacement_m": 122.15287732335908,
+          "lat": 37.46009776280146,
+          "lon": 121.44862154472273,
+          "site_id": "way/1029943582",
+          "target": {
+            "lat": 37.46,
+            "lon": 121.45,
+            "name": "Yantai"
+          }
+        },
+        "origin": {
+          "access_node": "13062996120",
+          "displacement_m": 0.0,
+          "lat": 35.724189453270334,
+          "lon": 116.45310613340384,
+          "site_id": "way/1421474585",
+          "target": {
+            "lat": 35.724189453270334,
+            "lon": 116.45310613340384,
+            "name": "Western_maximin_attached_C_Site",
+            "site_id": "way/1421474585"
+          }
+        }
+      },
+      "geographic_distance_m": 485882.69071135623,
+      "query_id": "WD12",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": false,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "64": "ccd92f828532660158c6e7c12f42b2ba4a3759f9d18c2869ea75e9ee1f3a5bf1"
+          },
+          "full_qualified_fingerprint": "69c8304c19e7ecca3386764268c94cdd41c71f8ab8bba8452e0a928b5acc2f0e",
+          "qualified_count": 80,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "eacd58dd5d76df9d3eeb2f653d534424796d856d7d98433adbd859d1b997cb09",
+            "256": "5966ffa7eab77330d4daa22cc6b8705dd1deaf5a7e1f9189a6fc3be1da1907e3",
+            "64": "d7fe03d9cc983c17f884bf947fff6de5615bcd998cba1bc635089d3b9c043833"
+          },
+          "full_qualified_fingerprint": "9dd407f9734067f20d778e99c7a6266da1a5b13cc29f5b0c1ee1092d2a1b7d3c",
+          "qualified_count": 546,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 126,
+      "endpoints": {
+        "destination": {
+          "access_node": "11898170996",
+          "displacement_m": 932.5326809875336,
+          "lat": 37.152089502530266,
+          "lon": 122.48349448456314,
+          "site_id": "way/1387473213",
+          "target": {
+            "lat": 37.16,
+            "lon": 122.48,
+            "name": "Rongcheng"
+          }
+        },
+        "origin": {
+          "access_node": "3797700636",
+          "displacement_m": 671.9531070743877,
+          "lat": 35.224032743853456,
+          "lon": 115.47883231046995,
+          "site_id": "way/639260140",
+          "target": {
+            "lat": 35.23,
+            "lon": 115.48,
+            "name": "Heze"
+          }
+        }
+      },
+      "geographic_distance_m": 663975.0405656813,
+      "query_id": "WD01",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": true,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "779c5c8ff5f4c5051980e46217ffebb98c97ee274108f5885b2ce7dcb0979a36",
+            "64": "216434784dbc01eb5eeffaa100209e5858e8a5c38444545f2a3caa101058b3db"
+          },
+          "full_qualified_fingerprint": "3f0848c58fbf4ba76c4d4b3c68395541b7b2fafa8c2312f95f78740cb0c8ac85",
+          "qualified_count": 154,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "b855496bbb66d52cf517303a614684b1c11b61ecaa22683cab1603fec48c59e7",
+            "256": "dc6c3035b0d327e15888b16b6f9286185b53d51991f9f3a086c3fbc1421177a7",
+            "64": "555ab89b6c71017f5dfcef95ecdc97d73eb6f4a322832ca9b749c8d6f227f503"
+          },
+          "full_qualified_fingerprint": "b215a061d704332d7559955513f28dada185d6ae35c1f6e64c3bd40239584f77",
+          "qualified_count": 1453,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 126,
+      "endpoints": {
+        "destination": {
+          "access_node": "2927438174",
+          "displacement_m": 281.59460173902374,
+          "lat": 37.50747216975817,
+          "lon": 122.11980751506557,
+          "site_id": "way/155366305",
+          "target": {
+            "lat": 37.51,
+            "lon": 122.12,
+            "name": "Weihai"
+          }
+        },
+        "origin": {
+          "access_node": "3797700636",
+          "displacement_m": 671.9531070743877,
+          "lat": 35.224032743853456,
+          "lon": 115.47883231046995,
+          "site_id": "way/639260140",
+          "target": {
+            "lat": 35.23,
+            "lon": 115.48,
+            "name": "Heze"
+          }
+        }
+      },
+      "geographic_distance_m": 646368.5114759866,
+      "query_id": "WD02",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": true,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "5fd61eb90fb768edf6a766be6d5356d779075db7d09648c853a69df2e9ae573e",
+            "64": "33cc1e657078efc89edd2b0400008e74900c0d353caab13ea441a7957c4ed858"
+          },
+          "full_qualified_fingerprint": "2d612a9500f1de6cfa8a40f7dd22c0b12423185bf9c2fde93a5c89694f1253fe",
+          "qualified_count": 159,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "a477480ac77ea501354f3606d244adf5ac26e2441fcdddc9ef8975ed19cbd33b",
+            "256": "1e053b60c10d6f7f85296a71463323809a4fb611f52057e04e502cb1c510bc4b",
+            "64": "3f9930fad131c38e1a8bc7a4f589b05beaad8cda00ccb4c37f2068dfaa71aeae"
+          },
+          "full_qualified_fingerprint": "fb62766ec4ed7f95c6fd89b09a6c6019b6667669c2a5fb4700ac382940500366",
+          "qualified_count": 1477,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 126,
+      "endpoints": {
+        "destination": {
+          "access_node": "9494508458",
+          "displacement_m": 122.15287732335908,
+          "lat": 37.46009776280146,
+          "lon": 121.44862154472273,
+          "site_id": "way/1029943582",
+          "target": {
+            "lat": 37.46,
+            "lon": 121.45,
+            "name": "Yantai"
+          }
+        },
+        "origin": {
+          "access_node": "3797700636",
+          "displacement_m": 671.9531070743877,
+          "lat": 35.224032743853456,
+          "lon": 115.47883231046995,
+          "site_id": "way/639260140",
+          "target": {
+            "lat": 35.23,
+            "lon": 115.48,
+            "name": "Heze"
+          }
+        }
+      },
+      "geographic_distance_m": 589520.8103900008,
+      "query_id": "WD03",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": true,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "85352322d47137da18a775de026eef83ae9d6dd9035e8f28926b616799fc1206",
+            "64": "bfb1021f348afacd22bd9a3034479e0d36a4d532e301edf1d2b218817d418d22"
+          },
+          "full_qualified_fingerprint": "ea6389cb43112c2df4ca58b3223a80b82fa662cfacaa8ca1f9e65f709f8533de",
+          "qualified_count": 156,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "09ec8838d441d03d817a249689b25288239fa1dd5e5de0a0b844ebafe011bc80",
+            "256": "249439e5678462457f5dade0a76850f7da8a06dc8cf36a55f63a6169c989d222",
+            "64": "ef4f6298f4be359912189dde4bbcaa2d87b73fac095da5402f09ee4c6c55c90d"
+          },
+          "full_qualified_fingerprint": "920a0be560ad5225b595c59e666bd0c348fd7f73024ca2cad8194b47c4d31f75",
+          "qualified_count": 1469,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 126,
+      "endpoints": {
+        "destination": {
+          "access_node": "11898170996",
+          "displacement_m": 932.5326809875336,
+          "lat": 37.152089502530266,
+          "lon": 122.48349448456314,
+          "site_id": "way/1387473213",
+          "target": {
+            "lat": 37.16,
+            "lon": 122.48,
+            "name": "Rongcheng"
+          }
+        },
+        "origin": {
+          "access_node": "5732949145",
+          "displacement_m": 577.3840209250077,
+          "lat": 36.4557423,
+          "lon": 115.9836955,
+          "site_id": "node/5732949150",
+          "target": {
+            "lat": 36.46,
+            "lon": 115.98,
+            "name": "Liaocheng"
+          }
+        }
+      },
+      "geographic_distance_m": 583732.7839376801,
+      "query_id": "WD04",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": true,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "d712091cea724e7f89617afa0c1fced5494646748e72b6518d6cf67e4f40b242",
+            "64": "7ef906d41b9562538a143e225c93ed1fcdce4051bb28d50525d12400661d1fc6"
+          },
+          "full_qualified_fingerprint": "18c3826123f656b2df88b5f5d6fd96d968dfbd756b3e48dd6880f09d10d2c504",
+          "qualified_count": 144,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "a4e68a72e2982e81b51ee94407aa48aa2fcadf5ccc31e14c3c83e128d1c93f5b",
+            "256": "b578d2619136c93e24cd3a8225c2240e4c070fdae1749a085967584ecc70077b",
+            "64": "de5efb5cfda19273453cd970bf9553de19bacc6acec325a26f7db10b37af9b45"
+          },
+          "full_qualified_fingerprint": "3c7f45372579707755cf026b92060bfe5add92042ec3d096af7ccae241acf1f9",
+          "qualified_count": 1335,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 126,
+      "endpoints": {
+        "destination": {
+          "access_node": "2927438174",
+          "displacement_m": 281.59460173902374,
+          "lat": 37.50747216975817,
+          "lon": 122.11980751506557,
+          "site_id": "way/155366305",
+          "target": {
+            "lat": 37.51,
+            "lon": 122.12,
+            "name": "Weihai"
+          }
+        },
+        "origin": {
+          "access_node": "5732949145",
+          "displacement_m": 577.3840209250077,
+          "lat": 36.4557423,
+          "lon": 115.9836955,
+          "site_id": "node/5732949150",
+          "target": {
+            "lat": 36.46,
+            "lon": 115.98,
+            "name": "Liaocheng"
+          }
+        }
+      },
+      "geographic_distance_m": 557337.8940678393,
+      "query_id": "WD05",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": true,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "2196503277068b59652e84ab54729c25e8aa8f1705b329e09df451a5e2b0e4e0",
+            "64": "9658bbd348cb5459e4815025b6853d41b4cc4c8afda69fa96c2d753fd30752e6"
+          },
+          "full_qualified_fingerprint": "8ca260e0d36bc185aee37c8a7dc55ec5580b1405f7069eca5c5aeb24869d0a38",
+          "qualified_count": 143,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "50c4a918f1334e20792c80ec2755f51dd442fdf068daf90d80c6662f4c923be5",
+            "256": "a956d5149ce715e25bedcdb31f390d1042cd5238a5b6e5f002368aedf315a06f",
+            "64": "6e5c5fb3ff61ccda32726d62c54fb46a9d969ed5327a0d07975c101bb79d567e"
+          },
+          "full_qualified_fingerprint": "262537aaeb5ee6e3cd04e5517f018b2bbea769f00463b4f0a6cba338c5239ccc",
+          "qualified_count": 1311,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 126,
+      "endpoints": {
+        "destination": {
+          "access_node": "9494508458",
+          "displacement_m": 122.15287732335908,
+          "lat": 37.46009776280146,
+          "lon": 121.44862154472273,
+          "site_id": "way/1029943582",
+          "target": {
+            "lat": 37.46,
+            "lon": 121.45,
+            "name": "Yantai"
+          }
+        },
+        "origin": {
+          "access_node": "5732949145",
+          "displacement_m": 577.3840209250077,
+          "lat": 36.4557423,
+          "lon": 115.9836955,
+          "site_id": "node/5732949150",
+          "target": {
+            "lat": 36.46,
+            "lon": 115.98,
+            "name": "Liaocheng"
+          }
+        }
+      },
+      "geographic_distance_m": 498173.6210405699,
+      "query_id": "WD06",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": true,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "b0c0e006afbe3d1e151d7540d5a6b1b4d557d8a1309ca5710ee2683e4215441d",
+            "64": "bd805e811790ff8fd09485b26a6efeedc8476da831abafc2bd44e47a24c6092d"
+          },
+          "full_qualified_fingerprint": "ce142afa8d2f8844bb5d39f5ba5b0dfd8fa8ef4c7f8692564be67e74d1a37d22",
+          "qualified_count": 139,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "bb937850d31e1d3afdb09e56da8701c7805710d2b30ea679726e60ba2dc79f1f",
+            "256": "8747185b69960ad3030119f1d9d9a5f844c31fa46eeb9b3753a8b78b5ffb7ca1",
+            "64": "30eeafacc581719d3081f9bb5918d398a452e75e6c4e10bde809e1618623c95f"
+          },
+          "full_qualified_fingerprint": "ddc2352b41b5368c24a0094440a9dba526d3b94af8b0588d08e5092483a0b6a5",
+          "qualified_count": 1187,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 126,
+      "endpoints": {
+        "destination": {
+          "access_node": "11898170996",
+          "displacement_m": 932.5326809875336,
+          "lat": 37.152089502530266,
+          "lon": 122.48349448456314,
+          "site_id": "way/1387473213",
+          "target": {
+            "lat": 37.16,
+            "lon": 122.48,
+            "name": "Rongcheng"
+          }
+        },
+        "origin": {
+          "access_node": "12387784940",
+          "displacement_m": 1014.5719932717428,
+          "lat": 37.44147,
+          "lon": 116.3559203,
+          "site_id": "node/12387784901",
+          "target": {
+            "lat": 37.45,
+            "lon": 116.36,
+            "name": "Dezhou"
+          }
+        }
+      },
+      "geographic_distance_m": 542881.887581954,
+      "query_id": "WD07",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": true,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "73a48b9766b7d90b4c084bf650d60f40e5087b2c18852601e217929f9ac4911c",
+            "64": "99d4eea171d106d37f8839bad43f0a1617d30e7328a3222bc1bc04da1e76119e"
+          },
+          "full_qualified_fingerprint": "73a48b9766b7d90b4c084bf650d60f40e5087b2c18852601e217929f9ac4911c",
+          "qualified_count": 128,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "20cd42608a69e4a1fb787dcac5539671f71ba76daeee4dbe8e26728350d68d3b",
+            "256": "b51fbd20652af1e8664e7001aa1a4a90f8d60e6932f42d80e0ff3f706e5bf121",
+            "64": "1300ae0b238418efcf81aec2e00b5747781c631b25b5e3c818dafc174ce45c63"
+          },
+          "full_qualified_fingerprint": "281a47aa77ff6edbc1b9cf862511402664437e6746296cef2e526e53ed0a5034",
+          "qualified_count": 1064,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 126,
+      "endpoints": {
+        "destination": {
+          "access_node": "2927438174",
+          "displacement_m": 281.59460173902374,
+          "lat": 37.50747216975817,
+          "lon": 122.11980751506557,
+          "site_id": "way/155366305",
+          "target": {
+            "lat": 37.51,
+            "lon": 122.12,
+            "name": "Weihai"
+          }
+        },
+        "origin": {
+          "access_node": "12387784940",
+          "displacement_m": 1014.5719932717428,
+          "lat": 37.44147,
+          "lon": 116.3559203,
+          "site_id": "node/12387784901",
+          "target": {
+            "lat": 37.45,
+            "lon": 116.36,
+            "name": "Dezhou"
+          }
+        }
+      },
+      "geographic_distance_m": 508619.9992343337,
+      "query_id": "WD08",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": false,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "64": "16b5c1d82558b11f921924ad8210104612b6ab561960d0980718e3b13e297fe9"
+          },
+          "full_qualified_fingerprint": "3cd8a39d7f523a3ff9aec6ea4acb035c8329fcf06ff96185e6f1daa226444b0b",
+          "qualified_count": 112,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "83ac63242e0c2791c5c0ea95729a0715f80fd3a9b384f8c33ce97822a54e64e6",
+            "256": "dfad1b195d73694a3de74540f59b3153d702b8a2b80338f6456978afb25b0df7",
+            "64": "d8c4cd2b8096fc0743def61c71b274bcf7e31d2ec0ea4c9c7946bd58f429fc0f"
+          },
+          "full_qualified_fingerprint": "07677ac9bdfe8e961991d77cee70d675fff454db1ccaa141efcf33f722698d36",
+          "qualified_count": 962,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 126,
+      "endpoints": {
+        "destination": {
+          "access_node": "9494508458",
+          "displacement_m": 122.15287732335908,
+          "lat": 37.46009776280146,
+          "lon": 121.44862154472273,
+          "site_id": "way/1029943582",
+          "target": {
+            "lat": 37.46,
+            "lon": 121.45,
+            "name": "Yantai"
+          }
+        },
+        "origin": {
+          "access_node": "12387784940",
+          "displacement_m": 1014.5719932717428,
+          "lat": 37.44147,
+          "lon": 116.3559203,
+          "site_id": "node/12387784901",
+          "target": {
+            "lat": 37.45,
+            "lon": 116.36,
+            "name": "Dezhou"
+          }
+        }
+      },
+      "geographic_distance_m": 449508.7404434454,
+      "query_id": "WD09",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": false,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "64": "af59dcff2196fd5e97431d8468122852e5ff2f985fe702bdd18d919e8b712130"
+          },
+          "full_qualified_fingerprint": "eac04bbfac7ee53327b6d725bf2c95d5ea8001acf7393c59ef23fbfb06f3bca1",
+          "qualified_count": 112,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "ff4af19f8ea4beb9e488a910e44103bcb3f6114f750765f48bc3f843258b9c0a",
+            "256": "c4f4a5b5fca91b6ffe42fe56df2b69a68c1fd5d3a096df8e53450c2625d9c21c",
+            "64": "e9eb7f01bf99bb2aef763347b27f3e59a6251a4fc9f63f39f7156164c4b03c08"
+          },
+          "full_qualified_fingerprint": "fd1369ad5c8bdc90044b7490aa6ec4c2df42793858166756feecb3aa278582ac",
+          "qualified_count": 963,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 126,
+      "endpoints": {
+        "destination": {
+          "access_node": "11898170996",
+          "displacement_m": 932.5326809875336,
+          "lat": 37.152089502530266,
+          "lon": 122.48349448456314,
+          "site_id": "way/1387473213",
+          "target": {
+            "lat": 37.16,
+            "lon": 122.48,
+            "name": "Rongcheng"
+          }
+        },
+        "origin": {
+          "access_node": "13062996120",
+          "displacement_m": 0.0,
+          "lat": 35.724189453270334,
+          "lon": 116.45310613340384,
+          "site_id": "way/1421474585",
+          "target": {
+            "lat": 35.724189453270334,
+            "lon": 116.45310613340384,
+            "name": "Western_maximin_attached_C_Site",
+            "site_id": "way/1421474585"
+          }
+        }
+      },
+      "geographic_distance_m": 562217.0931981239,
+      "query_id": "WD10",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": true,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "fd380b13fd345db054f4e9e84771954418674d8de4fe64f88c968c8ea9cb1097",
+            "64": "72108511fcaf858a50c0c635c9e284a65f2f996aae2c5a49e0070e7866010b2e"
+          },
+          "full_qualified_fingerprint": "d4d02cd0da45396deab12bf3ce4b64df32860d3de441988180cc6cc8b97f6316",
+          "qualified_count": 156,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "b19910657c85cd19d3e8528d680d6663a2b69bd27a02b8c987669b44a74af361",
+            "256": "9aa0c2b3b6c1305de15d9f9011de4b17f2a79558ef6d9b7a250eb121d5519fcc",
+            "64": "1038f71e8278e46addb052ec18048241db5e78a35b86be5e3e9ad8425d3cef62"
+          },
+          "full_qualified_fingerprint": "fe6e4f4eb14e6442839454f900858ce17fe58d607ff779a128ca1c1acd9bc624",
+          "qualified_count": 1463,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 126,
+      "endpoints": {
+        "destination": {
+          "access_node": "2927438174",
+          "displacement_m": 281.59460173902374,
+          "lat": 37.50747216975817,
+          "lon": 122.11980751506557,
+          "site_id": "way/155366305",
+          "target": {
+            "lat": 37.51,
+            "lon": 122.12,
+            "name": "Weihai"
+          }
+        },
+        "origin": {
+          "access_node": "13062996120",
+          "displacement_m": 0.0,
+          "lat": 35.724189453270334,
+          "lon": 116.45310613340384,
+          "site_id": "way/1421474585",
+          "target": {
+            "lat": 35.724189453270334,
+            "lon": 116.45310613340384,
+            "name": "Western_maximin_attached_C_Site",
+            "site_id": "way/1421474585"
+          }
+        }
+      },
+      "geographic_distance_m": 543123.2438920491,
+      "query_id": "WD11",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": true,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "eb2af18fa31b2d7f54b9a46acec5fc318aecdff07c4ed2947711695cdfec2b9d",
+            "64": "eb4f83ed95db71960e4f5dbb85e2ae645515fc9e1b3b7442e88872a671cb55e7"
+          },
+          "full_qualified_fingerprint": "4b2bdc6e0928da43349005180f86e244041e986fb52143a2e58f54cd39dc6104",
+          "qualified_count": 153,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "6ff5997cd66cf6337370916d7c7def45eb19186f42585ccf46b20b96226daf19",
+            "256": "43bf5196acaaf1b0b3eb92fe13393fdfec7028e4ccc032fa4ca83f81261c6ab4",
+            "64": "807883d6346ae1804cac8de6c8a24d2861124c6d38ed688ea1dd84dcdb151996"
+          },
+          "full_qualified_fingerprint": "3693b21ba9cf282898e992e13e6001c1f9b11d855c885108995bafa2441f53a2",
+          "qualified_count": 1411,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    },
+    {
+      "corridor_km": 126,
+      "endpoints": {
+        "destination": {
+          "access_node": "9494508458",
+          "displacement_m": 122.15287732335908,
+          "lat": 37.46009776280146,
+          "lon": 121.44862154472273,
+          "site_id": "way/1029943582",
+          "target": {
+            "lat": 37.46,
+            "lon": 121.45,
+            "name": "Yantai"
+          }
+        },
+        "origin": {
+          "access_node": "13062996120",
+          "displacement_m": 0.0,
+          "lat": 35.724189453270334,
+          "lon": 116.45310613340384,
+          "site_id": "way/1421474585",
+          "target": {
+            "lat": 35.724189453270334,
+            "lon": 116.45310613340384,
+            "name": "Western_maximin_attached_C_Site",
+            "site_id": "way/1421474585"
+          }
+        }
+      },
+      "geographic_distance_m": 485882.69071135623,
+      "query_id": "WD12",
+      "scenarios": {
+        "energy_only": {
+          "available": {
+            "128": true,
+            "256": false,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "73c4d17911e1f0bff47e21ed4f8ad72490f84a1dcaed3747ef363fcbb4653f23",
+            "64": "a46285ae65cf6fa4e439725b82c1256f572606e864785570836b48ed2b28285d"
+          },
+          "full_qualified_fingerprint": "b6ea8756dc43db5a18e6fc3e9c78f54873fcf9549fed09637256e35c426e9a4e",
+          "qualified_count": 152,
+          "routing_assessed": false,
+          "seed_assessed": false
+        },
+        "schedule": {
+          "available": {
+            "128": true,
+            "256": true,
+            "64": true
+          },
+          "fingerprints": {
+            "128": "0ca01b4966ec29db7b25e0201467ef3c07c5339172f6792a4e6f9d8677e2485a",
+            "256": "f34dcd2aa361751cd22a04af28ddcf0cbe16dd5b36d195ca4c9700de1401ed12",
+            "64": "71edd0cb5996947b8e6b502b3789e1e50007bb9eba321293093d13e4314918e5"
+          },
+          "full_qualified_fingerprint": "49ce17e4d1ff60813410fba767bc7326bc757dd178ab8a3eecce93b2f1180cc8",
+          "qualified_count": 1405,
+          "routing_assessed": false,
+          "seed_assessed": false
+        }
+      }
+    }
+  ],
+  "schema": "hiroute.wider_validation_readonly.v1",
+  "selection_rule": "Existing Heze/Liaocheng/Dezhou targets plus one attached C Site at lon<=116.5, maximizing minimum geographic separation from those three bound origins; all eastern destinations >=400km geodesic, existing anchor excluded, Site ID tie. Cross with the existing Rongcheng/Weihai/Yantai targets. Geography/data only; no solver outcomes or road searches.",
+  "selection_uses_solver_results": false,
+  "solver_called": false,
+  "source": {
+    "attached_C_sites": 171,
+    "attached_sites": 4198,
+    "attachment_rules": 250,
+    "bindings_sha256": "ef92f82bc99489a4e4806e68b474982192c7221e6234fed06b4e0a81c3f007fd",
+    "graph_tsv_bytes": 530374281,
+    "raw_C_sites": 223,
+    "raw_capabilities": {
+      "": 3037,
+      "C": 146,
+      "C,S,CS": 77,
+      "S": 1465
+    },
+    "raw_sites": 4725,
+    "sites_sha256": "2812b463293d4cfb65d4ed7b89ce5b9148f2c030bbead15dff92b9a244631b59",
+    "unattached_C_sites": 52,
+    "unique_attached_C_anchors": 168,
+    "unique_attached_any_capability_anchors": 1490
+  },
+  "threshold_rule": "A capacity-only lower bound >=4 requires exact shortest-road length strictly greater than this threshold; it does not predict optimal charge count."
+}
