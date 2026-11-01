@@ -11,6 +11,7 @@ def main(a):
     cfg=json.loads(Path(a.config).read_text());limits=cfg['resources']
     root=Path(a.inputs).resolve().parent
     if not (root/'acquisition.json').exists():raise ValueError('completed acquisition receipt required')
+    acquired=json.loads((root/'acquisition.json').read_text())
     output=Path(a.output).resolve()
     if output.exists():raise FileExistsError(output)
     receipt=root/(output.name+'.guard.json')
@@ -23,7 +24,9 @@ def main(a):
         consumed+=row['conservative_processing_cpu_charge_s']
     remaining=limits['processing_worker_cpu_cap_s']-consumed
     if remaining<=1:raise ValueError('original preparation CPU reservation exhausted')
-    elapsed=time.time()-root.stat().st_birthtime if hasattr(root.stat(),'st_birthtime') else 0
+    origin=acquired.get('preparation_started_unix_s')
+    if not isinstance(origin,(int,float)):raise ValueError('recorded preparation start required; no wall-budget reset')
+    elapsed=time.time()-origin
     wall=limits['preprocessing_wall_cap_s']-elapsed
     if wall<=0:raise ValueError('original preparation wall cap exhausted')
     import shutil

@@ -1,0 +1,2263 @@
+{
+  "accounting": {
+    "carried_solve_cpu_s": 5166.078454329,
+    "preparation": "separately charged within predeclared900CPU cap; no new compute purchase/commitment",
+    "proposed_first_DEV_stage_cap_cpu_s": 12000,
+    "remaining_after_verification_cpu_s": 23573.921545671,
+    "residual_unallocated_cpu_s": 11573.921545671,
+    "stage_allocation_authorized": false,
+    "total_after_verification_cpu_s": 5226.078454329,
+    "total_solve_budget_cpu_s": 28800,
+    "verification_precharge_cpu_s": 60
+  },
+  "availability": {
+    "128": {
+      "available_query_cells": 24,
+      "unavailable_query_cells": 24
+    },
+    "256": {
+      "available_query_cells": 22,
+      "unavailable_query_cells": 26
+    },
+    "64": {
+      "available_query_cells": 44,
+      "unavailable_query_cells": 4
+    }
+  },
+  "bindings_sha256": "c981bbf5d529f61e0385b4424b5145c44b6afd7dbb35b90fd625792b1e28bf42",
+  "catalog_sha256": "a71e0a645fd21a2f415b4b079033cfe631dfb2292a1a41ce43b439304805a1a9",
+  "catalog_storage": "External versioned charging-coverage-artifacts-v1/audit-v1; raw/generated catalogs not in Git",
+  "cells": [
+    {
+      "N": 64,
+      "candidate_domain_sha256": "40fa518268b851f14fa61ed6a987c9d4e9c9fe0c7fb373af636fa7a9c8589b7a",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 84,
+      "query_id": "WD01",
+      "reusable_current_profile_rows": [
+        {
+          "domain_id": "D01",
+          "file": "docs/existing_domain_transfer_results.json",
+          "method": "flat_bb_strong"
+        },
+        {
+          "domain_id": "D01",
+          "file": "docs/existing_domain_transfer_results.json",
+          "method": "scale"
+        }
+      ],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 650,
+      "query_id": "WD01",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "40fa518268b851f14fa61ed6a987c9d4e9c9fe0c7fb373af636fa7a9c8589b7a",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 84,
+      "query_id": "WD01",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 650,
+      "query_id": "WD01",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "63df07dacb0a7bd68af85cbaa35b36fe161c664a77fbd85c560f86527c99e1a7",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 94,
+      "query_id": "WD02",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "c66c18c765b9c6d29bb4ca6ab54f3b11b7313f0301ab7f4367de22a903044594",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 622,
+      "query_id": "WD02",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "63df07dacb0a7bd68af85cbaa35b36fe161c664a77fbd85c560f86527c99e1a7",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 94,
+      "query_id": "WD02",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "c66c18c765b9c6d29bb4ca6ab54f3b11b7313f0301ab7f4367de22a903044594",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 622,
+      "query_id": "WD02",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "af4f5d3827cb2b0b3c56f624f85d0723f13d2cd3fce41446a357a8fa8460eca1",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 87,
+      "query_id": "WD03",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "7f8a1939dfc60547145eb307f2c19cf018068b8b014d5d3ce4d5bf28499c180f",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 518,
+      "query_id": "WD03",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "af4f5d3827cb2b0b3c56f624f85d0723f13d2cd3fce41446a357a8fa8460eca1",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 87,
+      "query_id": "WD03",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "7f8a1939dfc60547145eb307f2c19cf018068b8b014d5d3ce4d5bf28499c180f",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 518,
+      "query_id": "WD03",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "c7828e05dc5f4e4525cbd588b996c83a73754a66cfd57f6de14818c97d377a72",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 108,
+      "query_id": "WD04",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "25934e768894736946392c8e1dc0d95fce112db0006d042d6bff5c605a7e8a36",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 966,
+      "query_id": "WD04",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "c7828e05dc5f4e4525cbd588b996c83a73754a66cfd57f6de14818c97d377a72",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 108,
+      "query_id": "WD04",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "25934e768894736946392c8e1dc0d95fce112db0006d042d6bff5c605a7e8a36",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 966,
+      "query_id": "WD04",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "64844c0a1542c67a16f9e5eb01a79b668f43f26834ff65ff6075b583cb30b69a",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 104,
+      "query_id": "WD05",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "7cc885a89772567e6f52d39701ce2732fe597582c2b5527786421ed4428aea57",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 962,
+      "query_id": "WD05",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "64844c0a1542c67a16f9e5eb01a79b668f43f26834ff65ff6075b583cb30b69a",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 104,
+      "query_id": "WD05",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "7cc885a89772567e6f52d39701ce2732fe597582c2b5527786421ed4428aea57",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 962,
+      "query_id": "WD05",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "b92bc6e044d34be04b3e5cf0d511d68569e8db1e55e45617313dc7a250235ac7",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 97,
+      "query_id": "WD06",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "6e1b6a3c3d638b9101091b8aa4b1e633e753166c7805bce70e7c31355731c83e",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 907,
+      "query_id": "WD06",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "b92bc6e044d34be04b3e5cf0d511d68569e8db1e55e45617313dc7a250235ac7",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 97,
+      "query_id": "WD06",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "6e1b6a3c3d638b9101091b8aa4b1e633e753166c7805bce70e7c31355731c83e",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 907,
+      "query_id": "WD06",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "5e961c6c3352f7d1d2f8515c714b709f99c173e558cbd8492a3eb7a96eb53d4e",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 67,
+      "query_id": "WD07",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 371,
+      "query_id": "WD07",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "5e961c6c3352f7d1d2f8515c714b709f99c173e558cbd8492a3eb7a96eb53d4e",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 67,
+      "query_id": "WD07",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 371,
+      "query_id": "WD07",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 45,
+      "query_id": "WD08",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "fda0e2c0df396c7a49f0cda9bb2803d36d219e422df21216ebb598c593e83fc2",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 260,
+      "query_id": "WD08",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 45,
+      "query_id": "WD08",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "fda0e2c0df396c7a49f0cda9bb2803d36d219e422df21216ebb598c593e83fc2",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 260,
+      "query_id": "WD08",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 39,
+      "query_id": "WD09",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "5a970e663dbece66a8dbad5ccd921b4f32a4cc2a415771e6c8424a00239af98a",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 207,
+      "query_id": "WD09",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 39,
+      "query_id": "WD09",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "5a970e663dbece66a8dbad5ccd921b4f32a4cc2a415771e6c8424a00239af98a",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 207,
+      "query_id": "WD09",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "cb7f714b73b44a1683445cf8bd57e4422aa392f0a64212f184737e5c162f9b12",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 92,
+      "query_id": "WD10",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "cd23a9c700f138d79add20ade0e35d78e3d25f3c2609f552c71a3879d9c1428c",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 641,
+      "query_id": "WD10",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "cb7f714b73b44a1683445cf8bd57e4422aa392f0a64212f184737e5c162f9b12",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 92,
+      "query_id": "WD10",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "cd23a9c700f138d79add20ade0e35d78e3d25f3c2609f552c71a3879d9c1428c",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 641,
+      "query_id": "WD10",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "df5082f5daee19b05ea755ddab8c55f75239030df3a236df52b893aca8217da3",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 89,
+      "query_id": "WD11",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "8df814214bcb5c4aae73efe7a3bbc8a8e8f9d06c5e5cb25f656de26cf4b06d3d",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 576,
+      "query_id": "WD11",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "df5082f5daee19b05ea755ddab8c55f75239030df3a236df52b893aca8217da3",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 89,
+      "query_id": "WD11",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "8df814214bcb5c4aae73efe7a3bbc8a8e8f9d06c5e5cb25f656de26cf4b06d3d",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 576,
+      "query_id": "WD11",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "ccd92f828532660158c6e7c12f42b2ba4a3759f9d18c2869ea75e9ee1f3a5bf1",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 83,
+      "query_id": "WD12",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "d7fe03d9cc983c17f884bf947fff6de5615bcd998cba1bc635089d3b9c043833",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 549,
+      "query_id": "WD12",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "ccd92f828532660158c6e7c12f42b2ba4a3759f9d18c2869ea75e9ee1f3a5bf1",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 83,
+      "query_id": "WD12",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 64,
+      "candidate_domain_sha256": "d7fe03d9cc983c17f884bf947fff6de5615bcd998cba1bc635089d3b9c043833",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 549,
+      "query_id": "WD12",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 84,
+      "query_id": "WD01",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "59b919127ec927d4ae4046ba9ffe5ec04147a204c1227cf2b0ed8d8bbef6e58b",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 650,
+      "query_id": "WD01",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 84,
+      "query_id": "WD01",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "59b919127ec927d4ae4046ba9ffe5ec04147a204c1227cf2b0ed8d8bbef6e58b",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 650,
+      "query_id": "WD01",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 94,
+      "query_id": "WD02",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "0e46ddda7c674d164731bcdd7328edab006980c2757be43d715cf0ac9245e1bc",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 622,
+      "query_id": "WD02",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 94,
+      "query_id": "WD02",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "0e46ddda7c674d164731bcdd7328edab006980c2757be43d715cf0ac9245e1bc",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 622,
+      "query_id": "WD02",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 87,
+      "query_id": "WD03",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "6d292c99cbc23847c9f50517311052e6e1db055846025d981935207c9f2ceae8",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 518,
+      "query_id": "WD03",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 87,
+      "query_id": "WD03",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "6d292c99cbc23847c9f50517311052e6e1db055846025d981935207c9f2ceae8",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 518,
+      "query_id": "WD03",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 108,
+      "query_id": "WD04",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "701953c120fb48c3330188654b0f8ec5309c32c0913c46c6e8f37bd00ff82cd3",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 966,
+      "query_id": "WD04",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 108,
+      "query_id": "WD04",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "701953c120fb48c3330188654b0f8ec5309c32c0913c46c6e8f37bd00ff82cd3",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 966,
+      "query_id": "WD04",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 104,
+      "query_id": "WD05",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "50ddd7ad5eeec16d24c0c05b41c8d2bfe34c49645f1815818791e620af4d2ea5",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 962,
+      "query_id": "WD05",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 104,
+      "query_id": "WD05",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "50ddd7ad5eeec16d24c0c05b41c8d2bfe34c49645f1815818791e620af4d2ea5",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 962,
+      "query_id": "WD05",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 97,
+      "query_id": "WD06",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "f8009d5441f0c701a5fb24c1191a1f0dbab45da6425847f04fdceca8f765b00c",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 907,
+      "query_id": "WD06",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 97,
+      "query_id": "WD06",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "f8009d5441f0c701a5fb24c1191a1f0dbab45da6425847f04fdceca8f765b00c",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 907,
+      "query_id": "WD06",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 67,
+      "query_id": "WD07",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "15a7fdbd13d1045580a2164737c20ddbb993546b54dcccb54a1aa22fea22969b",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 371,
+      "query_id": "WD07",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 67,
+      "query_id": "WD07",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "15a7fdbd13d1045580a2164737c20ddbb993546b54dcccb54a1aa22fea22969b",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 371,
+      "query_id": "WD07",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 45,
+      "query_id": "WD08",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "0417c748b7f390d5b9d598aa8600833480bab2e34d9b5e7634360c714b871fca",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 260,
+      "query_id": "WD08",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 45,
+      "query_id": "WD08",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "0417c748b7f390d5b9d598aa8600833480bab2e34d9b5e7634360c714b871fca",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 260,
+      "query_id": "WD08",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 39,
+      "query_id": "WD09",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "f9fede0e531aa702bd67db895c70b76d8c1d0e26249954643869749cc7da199e",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 207,
+      "query_id": "WD09",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 39,
+      "query_id": "WD09",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "f9fede0e531aa702bd67db895c70b76d8c1d0e26249954643869749cc7da199e",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 207,
+      "query_id": "WD09",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 92,
+      "query_id": "WD10",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "138ec61d93bf5151214fd6f0aea61926c36ab8e3e3e338bfdcfa75fa3abb12f5",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 641,
+      "query_id": "WD10",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 92,
+      "query_id": "WD10",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "138ec61d93bf5151214fd6f0aea61926c36ab8e3e3e338bfdcfa75fa3abb12f5",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 641,
+      "query_id": "WD10",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 89,
+      "query_id": "WD11",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "d0a8ddd53f8978c9c308bebbe398a170add0e10fcbab7ff0ef7470d1c221f70e",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 576,
+      "query_id": "WD11",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 89,
+      "query_id": "WD11",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "d0a8ddd53f8978c9c308bebbe398a170add0e10fcbab7ff0ef7470d1c221f70e",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 576,
+      "query_id": "WD11",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 83,
+      "query_id": "WD12",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "eacd58dd5d76df9d3eeb2f653d534424796d856d7d98433adbd859d1b997cb09",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 549,
+      "query_id": "WD12",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 83,
+      "query_id": "WD12",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 128,
+      "candidate_domain_sha256": "eacd58dd5d76df9d3eeb2f653d534424796d856d7d98433adbd859d1b997cb09",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 549,
+      "query_id": "WD12",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 84,
+      "query_id": "WD01",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "8e9aaeaa9f7ffc9140c3345daef2b9795a05585958146477f85d1a80f57aeb06",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 650,
+      "query_id": "WD01",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 84,
+      "query_id": "WD01",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "8e9aaeaa9f7ffc9140c3345daef2b9795a05585958146477f85d1a80f57aeb06",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 650,
+      "query_id": "WD01",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 94,
+      "query_id": "WD02",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "45300171c4ad93623d3c7c8f6ffbc3afdf1325a2e8b202f82b25e6c68bf1ea11",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 622,
+      "query_id": "WD02",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 94,
+      "query_id": "WD02",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "45300171c4ad93623d3c7c8f6ffbc3afdf1325a2e8b202f82b25e6c68bf1ea11",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 622,
+      "query_id": "WD02",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 87,
+      "query_id": "WD03",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "b1469c05c0e12a545130572b3436f78d788701b7ac57d758469a5f3ce529449d",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 518,
+      "query_id": "WD03",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 87,
+      "query_id": "WD03",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "b1469c05c0e12a545130572b3436f78d788701b7ac57d758469a5f3ce529449d",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 518,
+      "query_id": "WD03",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 108,
+      "query_id": "WD04",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "335580fe05eacffebf0a10cd013aca68a9984a44c6798f6aad99e66bf85afbcc",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 966,
+      "query_id": "WD04",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 108,
+      "query_id": "WD04",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "335580fe05eacffebf0a10cd013aca68a9984a44c6798f6aad99e66bf85afbcc",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 966,
+      "query_id": "WD04",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 104,
+      "query_id": "WD05",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "fa829c671dd4543843bc43a3b6d1a38e36ea2c13be7081d20415fcdd1d2dfa42",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 962,
+      "query_id": "WD05",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 104,
+      "query_id": "WD05",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "fa829c671dd4543843bc43a3b6d1a38e36ea2c13be7081d20415fcdd1d2dfa42",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 962,
+      "query_id": "WD05",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 97,
+      "query_id": "WD06",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "61d9a0199acce7c567ae5178046e9c3aa912d6de43c4ce050a7a4e335ca0e256",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 907,
+      "query_id": "WD06",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 97,
+      "query_id": "WD06",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "61d9a0199acce7c567ae5178046e9c3aa912d6de43c4ce050a7a4e335ca0e256",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 907,
+      "query_id": "WD06",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 67,
+      "query_id": "WD07",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "943a71a52b562c316d047ed727a7ff304c07c7f2364334c99e5ffcedaf2cf997",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 371,
+      "query_id": "WD07",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 67,
+      "query_id": "WD07",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "943a71a52b562c316d047ed727a7ff304c07c7f2364334c99e5ffcedaf2cf997",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 371,
+      "query_id": "WD07",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 45,
+      "query_id": "WD08",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "9dbc9100090c8d53e71b3982eeaae7de43ad9415a347c2083509b7984c22a1b2",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 260,
+      "query_id": "WD08",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 45,
+      "query_id": "WD08",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "9dbc9100090c8d53e71b3982eeaae7de43ad9415a347c2083509b7984c22a1b2",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 260,
+      "query_id": "WD08",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 39,
+      "query_id": "WD09",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 207,
+      "query_id": "WD09",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 39,
+      "query_id": "WD09",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 207,
+      "query_id": "WD09",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 92,
+      "query_id": "WD10",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "60ebd6d5556ad82fee4e6794d3d6531859b9cec59052c089f1cf78b5987a9018",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 641,
+      "query_id": "WD10",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 92,
+      "query_id": "WD10",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "60ebd6d5556ad82fee4e6794d3d6531859b9cec59052c089f1cf78b5987a9018",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 641,
+      "query_id": "WD10",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 89,
+      "query_id": "WD11",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "17d4da210a2d604bb05300b175f81e56390f09772ecf10487dd10567311697ea",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 576,
+      "query_id": "WD11",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 89,
+      "query_id": "WD11",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "17d4da210a2d604bb05300b175f81e56390f09772ecf10487dd10567311697ea",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 576,
+      "query_id": "WD11",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 83,
+      "query_id": "WD12",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "b87a99fba676f1ea03076ec6f994813705945648622e06ae4eef113e3ee18fa6",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "input_status": "available",
+      "qualified_count": 549,
+      "query_id": "WD12",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": null,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "input_domain_unavailable",
+      "qualified_count": 83,
+      "query_id": "WD12",
+      "reusable_current_profile_rows": [],
+      "scenario": "energy_only"
+    },
+    {
+      "N": 256,
+      "candidate_domain_sha256": "b87a99fba676f1ea03076ec6f994813705945648622e06ae4eef113e3ee18fa6",
+      "execution_status": "not_started",
+      "initial_energy_kwh": "48",
+      "input_status": "available",
+      "qualified_count": 549,
+      "query_id": "WD12",
+      "reusable_current_profile_rows": [],
+      "scenario": "schedule"
+    }
+  ],
+  "complete_domain_supplement": [
+    {
+      "N": 39,
+      "candidate_domain_sha256": "bd07cf33903fb8575c7bdc241cd5dc910d21f93deb70442cd56e3650d1aa6b92",
+      "complete_declared_corridor_domain": true,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "province_safe_filter": false,
+      "query_id": "WD09",
+      "scenario": "energy_only"
+    },
+    {
+      "N": 108,
+      "candidate_domain_sha256": "d8ad8dce8c5825ed9d52aa292c038c9c9121b9ce4567f25e569c3662af75d93c",
+      "complete_declared_corridor_domain": true,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "province_safe_filter": false,
+      "query_id": "WD04",
+      "scenario": "energy_only"
+    },
+    {
+      "N": 207,
+      "candidate_domain_sha256": "5bc826c40e3eedcba8b650338e2b678c5fd2e0fe0948ec12c9c03c57651157f6",
+      "complete_declared_corridor_domain": true,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "province_safe_filter": false,
+      "query_id": "WD09",
+      "scenario": "schedule"
+    },
+    {
+      "N": 966,
+      "candidate_domain_sha256": "7491711b7e6ef3ed00d06df211d8974eb458aa82fc5f6c27f7b22d93eaae0e2e",
+      "complete_declared_corridor_domain": true,
+      "execution_status": "not_started",
+      "initial_energy_kwh": "18",
+      "province_safe_filter": false,
+      "query_id": "WD04",
+      "scenario": "schedule"
+    }
+  ],
+  "deterministic_order": "N64 stage, then scheduleN128, then scheduleN256; query ID, initial18 then48, energy then schedule; Strong then Scale. Explicit unavailable cells retained.",
+  "endpoint_and_selection_policy": {
+    "candidate_counts": [
+      64,
+      128,
+      256
+    ],
+    "candidate_rule": "Frozen60km corridor, existing capability/unique-anchor/progress ordering; complete-domain supplements separately declared. Geographic restrictions are not safe province-wide reductions.",
+    "corridor_km": 60,
+    "domain_claim": "Explicit truncated geographic candidate domains only; neither safe filtering nor province/full-domain optimality",
+    "eligibility_by_scenario": {
+      "energy_only": "C-capable attached unique anchors only; filter the full frozen order before N truncation",
+      "schedule": "attached unique anchors with any of C/S/CS; all initially legal for the pending activity"
+    },
+    "endpoint_rule": "Existing Heze/Liaocheng/Dezhou targets plus one attached C Site at lon<=116.5, maximizing minimum geographic separation from those three bound origins; all eastern destinations >=400km geodesic, existing anchor excluded, Site ID tie. Cross with the existing Rongcheng/Weihai/Yantai targets. Geography/data only; no solver outcomes or road searches.",
+    "ods": [
+      {
+        "destination": {
+          "lat": 37.16,
+          "lon": 122.48,
+          "name": "Rongcheng"
+        },
+        "origin": {
+          "lat": 35.23,
+          "lon": 115.48,
+          "name": "Heze"
+        },
+        "query_id": "WD01"
+      },
+      {
+        "destination": {
+          "lat": 37.51,
+          "lon": 122.12,
+          "name": "Weihai"
+        },
+        "origin": {
+          "lat": 35.23,
+          "lon": 115.48,
+          "name": "Heze"
+        },
+        "query_id": "WD02"
+      },
+      {
+        "destination": {
+          "lat": 37.46,
+          "lon": 121.45,
+          "name": "Yantai"
+        },
+        "origin": {
+          "lat": 35.23,
+          "lon": 115.48,
+          "name": "Heze"
+        },
+        "query_id": "WD03"
+      },
+      {
+        "destination": {
+          "lat": 37.16,
+          "lon": 122.48,
+          "name": "Rongcheng"
+        },
+        "origin": {
+          "lat": 36.46,
+          "lon": 115.98,
+          "name": "Liaocheng"
+        },
+        "query_id": "WD04"
+      },
+      {
+        "destination": {
+          "lat": 37.51,
+          "lon": 122.12,
+          "name": "Weihai"
+        },
+        "origin": {
+          "lat": 36.46,
+          "lon": 115.98,
+          "name": "Liaocheng"
+        },
+        "query_id": "WD05"
+      },
+      {
+        "destination": {
+          "lat": 37.46,
+          "lon": 121.45,
+          "name": "Yantai"
+        },
+        "origin": {
+          "lat": 36.46,
+          "lon": 115.98,
+          "name": "Liaocheng"
+        },
+        "query_id": "WD06"
+      },
+      {
+        "destination": {
+          "lat": 37.16,
+          "lon": 122.48,
+          "name": "Rongcheng"
+        },
+        "origin": {
+          "lat": 37.45,
+          "lon": 116.36,
+          "name": "Dezhou"
+        },
+        "query_id": "WD07"
+      },
+      {
+        "destination": {
+          "lat": 37.51,
+          "lon": 122.12,
+          "name": "Weihai"
+        },
+        "origin": {
+          "lat": 37.45,
+          "lon": 116.36,
+          "name": "Dezhou"
+        },
+        "query_id": "WD08"
+      },
+      {
+        "destination": {
+          "lat": 37.46,
+          "lon": 121.45,
+          "name": "Yantai"
+        },
+        "origin": {
+          "lat": 37.45,
+          "lon": 116.36,
+          "name": "Dezhou"
+        },
+        "query_id": "WD09"
+      },
+      {
+        "destination": {
+          "lat": 37.16,
+          "lon": 122.48,
+          "name": "Rongcheng"
+        },
+        "origin": {
+          "lat": 35.724189453270334,
+          "lon": 116.45310613340384,
+          "name": "Western_maximin_attached_C_Site",
+          "site_id": "way/1421474585"
+        },
+        "query_id": "WD10"
+      },
+      {
+        "destination": {
+          "lat": 37.51,
+          "lon": 122.12,
+          "name": "Weihai"
+        },
+        "origin": {
+          "lat": 35.724189453270334,
+          "lon": 116.45310613340384,
+          "name": "Western_maximin_attached_C_Site",
+          "site_id": "way/1421474585"
+        },
+        "query_id": "WD11"
+      },
+      {
+        "destination": {
+          "lat": 37.46,
+          "lon": 121.45,
+          "name": "Yantai"
+        },
+        "origin": {
+          "lat": 35.724189453270334,
+          "lon": 116.45310613340384,
+          "name": "Western_maximin_attached_C_Site",
+          "site_id": "way/1421474585"
+        },
+        "query_id": "WD12"
+      }
+    ],
+    "progress_strata": 8,
+    "scenarios": [
+      "energy_only",
+      "schedule"
+    ],
+    "schedule_recipe": {
+      "a_fraction_direct_time": "2/5",
+      "b_fraction_direct_time": "7/10",
+      "duration_s": "2700"
+    }
+  },
+  "endpoints": {
+    "WD01": {
+      "destination": {
+        "access_node": "11898170996",
+        "displacement_m": 932.5326809875336,
+        "lat": 37.152089502530266,
+        "lon": 122.48349448456314,
+        "site_id": "way/1387473213",
+        "target": {
+          "lat": 37.16,
+          "lon": 122.48,
+          "name": "Rongcheng"
+        }
+      },
+      "origin": {
+        "access_node": "3797700636",
+        "displacement_m": 671.9531070743877,
+        "lat": 35.224032743853456,
+        "lon": 115.47883231046995,
+        "site_id": "way/639260140",
+        "target": {
+          "lat": 35.23,
+          "lon": 115.48,
+          "name": "Heze"
+        }
+      }
+    },
+    "WD02": {
+      "destination": {
+        "access_node": "2927438174",
+        "displacement_m": 281.59460173902374,
+        "lat": 37.50747216975817,
+        "lon": 122.11980751506557,
+        "site_id": "way/155366305",
+        "target": {
+          "lat": 37.51,
+          "lon": 122.12,
+          "name": "Weihai"
+        }
+      },
+      "origin": {
+        "access_node": "3797700636",
+        "displacement_m": 671.9531070743877,
+        "lat": 35.224032743853456,
+        "lon": 115.47883231046995,
+        "site_id": "way/639260140",
+        "target": {
+          "lat": 35.23,
+          "lon": 115.48,
+          "name": "Heze"
+        }
+      }
+    },
+    "WD03": {
+      "destination": {
+        "access_node": "9494508458",
+        "displacement_m": 122.15287732335908,
+        "lat": 37.46009776280146,
+        "lon": 121.44862154472273,
+        "site_id": "way/1029943582",
+        "target": {
+          "lat": 37.46,
+          "lon": 121.45,
+          "name": "Yantai"
+        }
+      },
+      "origin": {
+        "access_node": "3797700636",
+        "displacement_m": 671.9531070743877,
+        "lat": 35.224032743853456,
+        "lon": 115.47883231046995,
+        "site_id": "way/639260140",
+        "target": {
+          "lat": 35.23,
+          "lon": 115.48,
+          "name": "Heze"
+        }
+      }
+    },
+    "WD04": {
+      "destination": {
+        "access_node": "11898170996",
+        "displacement_m": 932.5326809875336,
+        "lat": 37.152089502530266,
+        "lon": 122.48349448456314,
+        "site_id": "way/1387473213",
+        "target": {
+          "lat": 37.16,
+          "lon": 122.48,
+          "name": "Rongcheng"
+        }
+      },
+      "origin": {
+        "access_node": "5732949145",
+        "displacement_m": 577.3840209250077,
+        "lat": 36.4557423,
+        "lon": 115.9836955,
+        "site_id": "node/5732949150",
+        "target": {
+          "lat": 36.46,
+          "lon": 115.98,
+          "name": "Liaocheng"
+        }
+      }
+    },
+    "WD05": {
+      "destination": {
+        "access_node": "2927438174",
+        "displacement_m": 281.59460173902374,
+        "lat": 37.50747216975817,
+        "lon": 122.11980751506557,
+        "site_id": "way/155366305",
+        "target": {
+          "lat": 37.51,
+          "lon": 122.12,
+          "name": "Weihai"
+        }
+      },
+      "origin": {
+        "access_node": "5732949145",
+        "displacement_m": 577.3840209250077,
+        "lat": 36.4557423,
+        "lon": 115.9836955,
+        "site_id": "node/5732949150",
+        "target": {
+          "lat": 36.46,
+          "lon": 115.98,
+          "name": "Liaocheng"
+        }
+      }
+    },
+    "WD06": {
+      "destination": {
+        "access_node": "9494508458",
+        "displacement_m": 122.15287732335908,
+        "lat": 37.46009776280146,
+        "lon": 121.44862154472273,
+        "site_id": "way/1029943582",
+        "target": {
+          "lat": 37.46,
+          "lon": 121.45,
+          "name": "Yantai"
+        }
+      },
+      "origin": {
+        "access_node": "5732949145",
+        "displacement_m": 577.3840209250077,
+        "lat": 36.4557423,
+        "lon": 115.9836955,
+        "site_id": "node/5732949150",
+        "target": {
+          "lat": 36.46,
+          "lon": 115.98,
+          "name": "Liaocheng"
+        }
+      }
+    },
+    "WD07": {
+      "destination": {
+        "access_node": "11898170996",
+        "displacement_m": 932.5326809875336,
+        "lat": 37.152089502530266,
+        "lon": 122.48349448456314,
+        "site_id": "way/1387473213",
+        "target": {
+          "lat": 37.16,
+          "lon": 122.48,
+          "name": "Rongcheng"
+        }
+      },
+      "origin": {
+        "access_node": "12387784940",
+        "displacement_m": 1014.5719932717428,
+        "lat": 37.44147,
+        "lon": 116.3559203,
+        "site_id": "node/12387784901",
+        "target": {
+          "lat": 37.45,
+          "lon": 116.36,
+          "name": "Dezhou"
+        }
+      }
+    },
+    "WD08": {
+      "destination": {
+        "access_node": "2927438174",
+        "displacement_m": 281.59460173902374,
+        "lat": 37.50747216975817,
+        "lon": 122.11980751506557,
+        "site_id": "way/155366305",
+        "target": {
+          "lat": 37.51,
+          "lon": 122.12,
+          "name": "Weihai"
+        }
+      },
+      "origin": {
+        "access_node": "12387784940",
+        "displacement_m": 1014.5719932717428,
+        "lat": 37.44147,
+        "lon": 116.3559203,
+        "site_id": "node/12387784901",
+        "target": {
+          "lat": 37.45,
+          "lon": 116.36,
+          "name": "Dezhou"
+        }
+      }
+    },
+    "WD09": {
+      "destination": {
+        "access_node": "9494508458",
+        "displacement_m": 122.15287732335908,
+        "lat": 37.46009776280146,
+        "lon": 121.44862154472273,
+        "site_id": "way/1029943582",
+        "target": {
+          "lat": 37.46,
+          "lon": 121.45,
+          "name": "Yantai"
+        }
+      },
+      "origin": {
+        "access_node": "12387784940",
+        "displacement_m": 1014.5719932717428,
+        "lat": 37.44147,
+        "lon": 116.3559203,
+        "site_id": "node/12387784901",
+        "target": {
+          "lat": 37.45,
+          "lon": 116.36,
+          "name": "Dezhou"
+        }
+      }
+    },
+    "WD10": {
+      "destination": {
+        "access_node": "11898170996",
+        "displacement_m": 932.5326809875336,
+        "lat": 37.152089502530266,
+        "lon": 122.48349448456314,
+        "site_id": "way/1387473213",
+        "target": {
+          "lat": 37.16,
+          "lon": 122.48,
+          "name": "Rongcheng"
+        }
+      },
+      "origin": {
+        "access_node": "13062996120",
+        "displacement_m": 0.0,
+        "lat": 35.724189453270334,
+        "lon": 116.45310613340384,
+        "site_id": "way/1421474585",
+        "target": {
+          "lat": 35.724189453270334,
+          "lon": 116.45310613340384,
+          "name": "Western_maximin_attached_C_Site",
+          "site_id": "way/1421474585"
+        }
+      }
+    },
+    "WD11": {
+      "destination": {
+        "access_node": "2927438174",
+        "displacement_m": 281.59460173902374,
+        "lat": 37.50747216975817,
+        "lon": 122.11980751506557,
+        "site_id": "way/155366305",
+        "target": {
+          "lat": 37.51,
+          "lon": 122.12,
+          "name": "Weihai"
+        }
+      },
+      "origin": {
+        "access_node": "13062996120",
+        "displacement_m": 0.0,
+        "lat": 35.724189453270334,
+        "lon": 116.45310613340384,
+        "site_id": "way/1421474585",
+        "target": {
+          "lat": 35.724189453270334,
+          "lon": 116.45310613340384,
+          "name": "Western_maximin_attached_C_Site",
+          "site_id": "way/1421474585"
+        }
+      }
+    },
+    "WD12": {
+      "destination": {
+        "access_node": "9494508458",
+        "displacement_m": 122.15287732335908,
+        "lat": 37.46009776280146,
+        "lon": 121.44862154472273,
+        "site_id": "way/1029943582",
+        "target": {
+          "lat": 37.46,
+          "lon": 121.45,
+          "name": "Yantai"
+        }
+      },
+      "origin": {
+        "access_node": "13062996120",
+        "displacement_m": 0.0,
+        "lat": 35.724189453270334,
+        "lon": 116.45310613340384,
+        "site_id": "way/1421474585",
+        "target": {
+          "lat": 35.724189453270334,
+          "lon": 116.45310613340384,
+          "name": "Western_maximin_attached_C_Site",
+          "site_id": "way/1421474585"
+        }
+      }
+    }
+  },
+  "implementation_profile": {
+    "eager_incumbent_pruning": true,
+    "inbound_energy_bound": true,
+    "pair_query_mode": "landmark_astar",
+    "seed_beam_pruning": true,
+    "source_tree_reuse": true
+  },
+  "initial_energies_kwh": [
+    "18",
+    "48"
+  ],
+  "launched": false,
+  "methods": [
+    "flat_bb_strong",
+    "scale"
+  ],
+  "model": {
+    "capacity_kwh": "60",
+    "charging_curve": [
+      [
+        "0",
+        "30",
+        "36",
+        "0"
+      ],
+      [
+        "30",
+        "48",
+        "60",
+        "-720"
+      ],
+      [
+        "48",
+        "60",
+        "120",
+        "-3600"
+      ]
+    ],
+    "consumption_kwh_per_m": "1/6250",
+    "departure_time_s": "0",
+    "destination_reserve_kwh": "6",
+    "initial_energy_kwh": "18",
+    "minimum_energy_kwh": "0",
+    "provenance": "Existing Shandong DEV physical model retained; no battery/consumption change to induce multiple charging",
+    "stop_overhead_s": "300",
+    "stop_penalty_s": "600"
+  },
+  "planned_method_cells": 288,
+  "planned_query_N_cells": 144,
+  "preparation_cpu_s": 0.13190799999999997,
+  "preparation_wall_s": 0.1326533749816008,
+  "resources": {
+    "cold_allowance_s": 180,
+    "host_headroom_bytes": 2147483648,
+    "numeric_workers": 1,
+    "pair_reservation_cpu_s": 600,
+    "process_query_memory_bytes": 8589934592,
+    "query_loaded_limit_s": 120,
+    "target_loaded_s": 60,
+    "worker_reservation_cpu_s": 300,
+    "worker_threads": 1
+  },
+  "reusable_rows": [
+    {
+      "domain_id": "D01",
+      "file": "docs/existing_domain_transfer_results.json",
+      "method": "flat_bb_strong"
+    },
+    {
+      "domain_id": "D01",
+      "file": "docs/existing_domain_transfer_results.json",
+      "method": "scale"
+    }
+  ],
+  "road_queries_called": false,
+  "schedule_recipe": {
+    "a_fraction_direct_time": "2/5",
+    "b_fraction_direct_time": "7/10",
+    "duration_s": "2700"
+  },
+  "schema": "hiroute.charging_coverage_dev_matrix.frozen.v1",
+  "scope": "Frozen data/model/profile/denominator; execution and proposed stage allocation still require the next scope decision. No main experiment or holdout.",
+  "solver_called": false,
+  "stop_policy": "Before each fresh pair reserve600CPU seconds from the approved stage and original ledger. If insufficient, mark both not_run_cpu_budget; preserve every denominator cell. No extension/rerun/physics change. Identical valid rows may be reused; changed-domain timing must not be relabeled.",
+  "unresolved": [
+    "EnergyN128/N256 unavailable on this60km policy; energyN256 globally unavailable at172qualified anchors.",
+    "No new route/seed/four-charge feasibility or performance evidence; more raw Sites does not prove any.",
+    "Main95%/median10s, external comparison, trip value and frozen>=8newOD holdout remain unmet.",
+    "The proposed12000CPU first stage is not a guarantee all44availableN64cells finish within budget."
+  ]
+}

@@ -1,0 +1,51 @@
+name: Shandong charging data regressions
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/hiroute/data/charging_coverage.py'
+      - 'tools/*charging*coverage*.py'
+      - 'tools/audit_shandong_charging.py'
+      - 'tests/test_charging_coverage*.py'
+      - 'ci/charging-coverage-requirements.txt'
+      - '.github/workflows/shandong-charging-coverage.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/hiroute/data/charging_coverage.py'
+      - 'tools/*charging*coverage*.py'
+      - 'tools/audit_shandong_charging.py'
+      - 'tests/test_charging_coverage*.py'
+      - 'ci/charging-coverage-requirements.txt'
+      - '.github/workflows/shandong-charging-coverage.yml'
+permissions:
+  contents: read
+jobs:
+  native-data-fixture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      OSMIUM_POOL_THREADS: '1'
+      PYTHONNOUSERSITE: '1'
+      PYTHONPATH: 'src:tools'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.11.16'
+      - name: Install pinned binary data dependencies in a fresh environment
+        run: |
+          python -m venv "$RUNNER_TEMP/charging-data-env"
+          "$RUNNER_TEMP/charging-data-env/bin/python" -m pip --isolated --disable-pip-version-check install --require-hashes --only-binary=:all: --no-cache-dir --index-url https://pypi.org/simple -r ci/charging-coverage-requirements.txt
+      - name: Require the native parser and geometry libraries
+        run: '"$RUNNER_TEMP/charging-data-env/bin/python" -c "import osmium, pyproj, shapely, scipy"'
+      - name: Test classification, prefix parity, boundaries and native source geometry
+        run: |
+          for flags in "" "-OO"; do
+            "$RUNNER_TEMP/charging-data-env/bin/python" $flags -m unittest discover -s tests -p 'test_charging_coverage*.py'
+          done

@@ -2,6 +2,13 @@
   "schema": "hiroute.shandong_charging_coverage.v1",
   "scope": "Authorized provincial charging-coverage audit/supplement only. No solver, main experiment or holdout. Preserve historical inputs and the existing road graph/model. Raw/generated datasets stay outside Git.",
   "base_main": "9f53054ac14b6156831ff200b304b50c4460d3e4",
+  "solve_and_finite_ref_accounting": {
+    "carried_cpu_s": 5166.078454329,
+    "verification_cpu_precharge_s": 60,
+    "total_after_verification_cpu_s": 5226.078454329,
+    "original_budget_cpu_s": 28800,
+    "policy": "Conservatively charge mandatory clean CI tiny-REF/regression verification before delivery. No new research solve/DEV/REF experiment is launched by this data task. Preprocessing ledger remains separate."
+  },
   "historical": {
     "raw_url": "https://download.geofabrik.de/asia/china/shandong-261016.osm.pbf",
     "raw_sha256": "844f1de519e56f341b62e3d8f4c2db6984e32f1a8a5ca2a851e9ccdd35fc7464",
