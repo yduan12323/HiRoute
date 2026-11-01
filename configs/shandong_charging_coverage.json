@@ -15,6 +15,7 @@
     "url": "https://download.geofabrik.de/asia/china/shandong-261031.osm.pbf",
     "source_page": "https://download.geofabrik.de/asia/china/shandong.html",
     "head_content_length": 71913523,
+    "acquired_sha256": "408677f47a78230fb14678a716c1dee999f3acff39589b922d847f12026e5c95",
     "license": "ODbL-1.0",
     "license_url": "https://www.openstreetmap.org/copyright",
     "attribution": "OpenStreetMap contributors; extracts by Geofabrik",

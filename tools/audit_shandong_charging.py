@@ -141,6 +141,7 @@ def main(args):
         if digest(path)!=expected:raise ValueError('historical scientific input identity differs: '+str(path))
     if raw.stat().st_size!=cfg['fallback_source']['head_content_length']:raise ValueError('incomplete provincial PBF')
     raw_hash=digest(raw)
+    if raw_hash!=cfg['fallback_source']['acquired_sha256']:raise ValueError('provincial input differs from completed acquisition')
     source=Path(args.historical_inputs)
     old_sites=json.loads((source/'shared-sites.json').read_text())
     bindings=json.loads((source/'site-bindings.json').read_text())
