@@ -204,6 +204,14 @@ reservations, not separate kernel hardlimits. Binary-only installation prevents
 unbounded source builds. Started/final records are retained; an unexpected
 failure stops subsequent commands. No resource-limited result counts as optimal.
 
+The first dedicated CI passed with73.584512 inclusive reserved CPU seconds.
+An audit-retention correction adds a pinned official artifact action so the
+per-command accounting, partial started record (on failure), results and exact
+SMT queries survive runner teardown. Only synthetic audit files are uploaded,
+not the temporary environment or dependency binaries. The final CI invocation
+has a106CPU-second cap:73.584512+106<180, preserving the original aggregate CI
+allocation. This is a delivery correction, not a new method/query experiment.
+
 Because production source is unchanged, main35's full installed-wheel CI supplies
 the production regression evidence. This PR's automatic broad legacy M5 run is
 cancelled promptly to preserve the600 gate cap; it is **not called successful**.

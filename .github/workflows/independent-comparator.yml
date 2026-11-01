@@ -25,3 +25,16 @@ jobs:
           python-version: '3.11.16'
       - name: Exact rational model, parity and replay under bounded CPU
         run: python comparison/ci_budget.py
+      - name: Retain bounded audit records and exact SMT inputs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: independent-tiny-comparator-audit
+          path: |
+            ${{ runner.temp }}/independent-comparator-gate/accounting.json
+            ${{ runner.temp }}/independent-comparator-gate/started.json
+            ${{ runner.temp }}/independent-comparator-gate/normal/
+            ${{ runner.temp }}/independent-comparator-gate/optimized/
+          compression-level: 0
+          retention-days: 30
+          if-no-files-found: error
