@@ -913,3 +913,87 @@ compiler/index loading. Keep the original **28800s** envelope. Selection/manifes
 preparation is separate. No expected route reduction or exact-completion result
 is inferred before measurements. No additional profiling, grid, cache expansion,
 main experiment, holdout, geographic acquisition or denied server upload occurs.
+
+### Measured outcome: exact D04 completion, 60s target still missed
+
+Numerical source: `5e9f4ddc3afcd5da68a595ae8fcaea420ed04a90`.
+[`inbound_energy_results.json`](inbound_energy_results.json) preserves both complete
+rows and accounting. The desktop transport temporarily disconnected after the
+original detached runner PID64953 started. On reconnect its existing records and
+PID were checked first; no worker was restarted and no row was duplicated. Both
+original rows subsequently completed normally with OPEN=0. The final ledger was
+recovered from the original runner, not estimated from disconnection duration.
+
+| D04 energy N128 | Strong Flat-BB | Scale |
+| --- | ---: | ---: |
+| Loaded seconds / status | 80.269 / attained optimum | 67.541 / attained optimum |
+| First feasible seconds | 4.182 | 4.190 |
+| OPEN at termination / deepest visited | 0 / 4 | 0 / 4 |
+| Pre-route energy-excluded Regions / represented actions | 9,488 / 9,488 | 760 / 9,279 |
+| Late energy-empty actions (route already queried) | 6 | 6 |
+| Leaf routes / nonempty child transitions | 2,816 / 989 | 2,816 / 989 |
+| Terminal attempts / infeasible terminals | 990 / 624 | 990 / 624 |
+| Singleton / Region bound queries | 123,750 / 0 | 0 / 50,664 |
+| Peak OPEN / incumbent-pruned queued Regions | 111,449 / 111,446 | 22,251 / 22,251 |
+| Native scalar + A* settled vertices | 110,589,342 | 110,589,342 |
+| Native selected-leg seconds | 41.822 | 42.861 |
+| Dynamic source builds / seconds (nested) | 10 / 8.214 | 10 / 8.547 |
+| Worker CPU seconds, including cold load | 88.931380 | 76.226223 |
+| Peak worker RSS / sampled extra GiB | 2.388 / 1.192 | 2.227 / 1.022 |
+| Minimum sampled host available GiB | 3.419 | 3.175 |
+
+Both report the same attained full `(J,Q,H,Pi)` key and the same unchanged seed
+key. Independent physical replay verifies the common witness: two positive
+charges, 640.818861 km, 6 kWh terminal energy and the same key as the optimizer.
+The necessary positive-charge lower bound remains two. This certifies optimality
+only for the explicit frozen D04 candidate domain (128 qualified Sites, 125
+safely reachable); it is not province-wide/full-candidate optimality. The
+unrestricted relevant-depth contract is unchanged, with incumbent-derived depth
+31; visiting depth four does not impose a new depth cap.
+
+The previous source-reuse rows remain 120s UNKNOWN. Their best known key now
+matches the new proved value, but their historical termination and performance
+status are not rewritten. This new profile has exactly one paired real domain:
+it has 2/2 exact completions within 120s and **0/2 within 60s**. Do not combine
+historical different-profile rows into a claimed new-profile acceptance matrix.
+Taskbook completion and overall research success remain unestablished.
+
+This completed pair has identical road query/cache counts, A* edge/vertex counts,
+scalar work, source builds, transition counts/pieces and terminal counts. Scale
+made 59.1% fewer bound queries and used a smaller OPEN, while taking 12.729 fewer
+loaded seconds (15.9%) in this single observed pair. Native selected-leg time was
+actually 1.039s higher for Scale. These observations support a batching/queue and
+bound-evaluation contribution rather than stronger Region lower bounds; they do
+not isolate those CPU components or establish a general speedup. No extra
+profiling, lower-bound ablation, parameter grid or replicate was run.
+
+The energy constraint excludes 9,488/9,279 represented next actions before a
+selected-leg query and catches six additional empty actions after routing.
+These are action occurrences, not unique road pairs or measured avoided seconds.
+No physical prefix family was mutated; zero post-transition empty families here
+reflect early detection, not proof that physical infeasibility disappeared.
+
+Final charged solve/limited-REF accounting is
+`4521.901424329 + 60 + 88.931380 + 76.226223 = 4747.059027329 CPU seconds`.
+**24052.940972671** of 28800s remain. Selection/manifest preparation was separately
+0.131019 wall / 0.131005 CPU seconds. Both workers stayed inside process/query and
+host headroom guards. Cold compiler/index cost is in worker CPU; dynamic source
+construction is inside the loaded query and its nested native timers. No data
+conversion/download, lost solver record, memory stop, retry, expanded limit,
+main experiment, holdout or denied server upload occurred.
+
+### Next bounded engineering decision
+
+The current queue inserts a Region even when its just-computed admissible bound
+already exceeds the attained incumbent, then rejects it on pop. The completed
+runs record 111,446/22,251 such popped Regions and corresponding large OPEN peaks.
+The next scoped change to assess is rejecting those already certified strict
+losers at enqueue, using the same incumbent and unchanged bound for both methods.
+An attained incumbent only improves, so a bound strictly above the current U_J
+cannot later become competitive; equality must remain queued for full-key and
+unattainment behavior. This is queue management of the existing search, not a
+new architecture, extra bound, domain reduction or cache policy. Preserve
+accounting separately for enqueue versus pop pruning and test complete full-key,
+open-infimum and resource semantics before any further paired check. The counts
+suggest avoidable queue work, but do not measure its time or predict a 60s solve.
+This next change is proposed only; it was not included in these timed rows.
