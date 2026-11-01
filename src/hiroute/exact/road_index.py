@@ -398,8 +398,8 @@ class NativeRoadIndex:
             raise ValueError('leg_cache_size must be a nonnegative integer')
         self.nodes = tuple(sorted(set(_identifier(n, 'exposed node') for n in exposed_nodes)))
         self.exposed_nodes = self.nodes
-        if any('\n' in node or '\r' in node for node in self.nodes):
-            raise ValueError('Exposed road identifiers cannot contain line breaks')
+        if any(any(ord(c) < 32 for c in node) for node in self.nodes):
+            raise ValueError('Exposed road identifiers cannot contain control characters')
         self._node_set = frozenset(self.nodes)
         self._exposed = '\n'.join(self.nodes)
         self.check = check
@@ -442,6 +442,9 @@ class NativeRoadIndex:
         import json
         if self._handle is None:
             raise ValueError('Closed exact road index')
+        if any('\0' in value for value in (kind, anchor, target, weight,
+                                           self._exposed if exposed is None else exposed)):
+            raise ValueError('Native road arguments cannot contain NUL characters')
         self._pending = None
         raw = self._lib.hiroute_road_query(self._handle, kind.encode(), anchor.encode(),
             target.encode(), weight.encode(), (self._exposed if exposed is None else exposed).encode(),

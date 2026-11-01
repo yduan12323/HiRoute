@@ -152,6 +152,11 @@ class NativeRoadIndexTests(unittest.TestCase):
                 ('source', 'target', 'edge_id', 'time_s', 'length_m')) + '\n' for e in edges))
             with NativeRoadIndex(tsv, nodes, cache_directory=work, distance_cache_size=2, leg_cache_size=3) as native:
                 self.assertEqual(native.exposed_nodes, tuple(sorted(set(nodes))))
+                for operation in (lambda:native.selected_leg('a\0truncated','z'),
+                                  lambda:native.prepare_landmarks('o','z\0truncated'),
+                                  lambda:native.distances_to('z\0truncated')):
+                    with self.assertRaisesRegex(ValueError,'NUL'):
+                        operation()
                 for a, b in itertools.product(nodes, repeat=2):
                     expected, actual = reference.selected_leg(a, b), native.selected_leg(a, b)
                     if expected is None:
@@ -214,6 +219,13 @@ class NativeRoadIndexTests(unittest.TestCase):
                                              tuple(e['edge_id'] for e in expected),(trial,a,b))
                             self.assertEqual(actual.length_m,sum(Fraction(e['length_m']) for e in expected))
             duplicate = Path(work) / 'duplicate.tsv'
+            with self.assertRaisesRegex(ValueError,'control characters'):
+                NativeRoadIndex(tsv,('a\0truncated','z'),cache_directory=work)
+            for field in range(3):
+                values=['a','b','x','1','2'];values[field]+='\0truncated'
+                duplicate.write_text('\t'.join(values)+'\n')
+                with self.assertRaisesRegex(RuntimeError,'Control characters'):
+                    NativeRoadIndex(duplicate,('a','b'),cache_directory=work)
             duplicate.write_text('a\tb\tx\t1\t2\nb\tc\tx\t2\t3\n')
             with self.assertRaisesRegex(RuntimeError, 'edge IDs must be unique'):
                 NativeRoadIndex(duplicate, ('a', 'b', 'c'), cache_directory=work)

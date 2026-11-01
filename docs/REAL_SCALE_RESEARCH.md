@@ -315,6 +315,12 @@ endpoints. All seed keys agree within their domain. Every attained Strong/Scale
 pair has the same full optimum key. There were **7 attained rows and 3 time-limit
 UNKNOWN rows**; all ten have independently physically replayed feasible witnesses.
 No timed-out result is labelled optimal, and no valid segment-one row was repeated.
+Final native input guards also reject NUL-containing C-interface arguments and
+control characters in TSV identifiers, avoiding silent C-string truncation.
+A post-run streaming audit found none in all 530374281 input bytes (2.706 wall /
+2.673 CPU seconds, separate input QA, no solver). The valid measured query
+inputs and numerical routing/seed behavior are unchanged; cold-load timings
+remain explicitly those of checkpoint `b912391`.
 
 | Domain/profile | Strong status / loaded seconds | Scale status / loaded seconds | First feasible Strong / Scale | Qualified / road-reachable N |
 |---|---|---|---|---|

@@ -61,7 +61,7 @@ struct Graph {
   // A size hint only: reallocation remains legal for every graph shape.
   nodes.reserve(size_t(count/2+count/10+1));node_ids.reserve(size_t(count/2+count/10+1));
   input.clear();input.seekg(0);count=0;
-  while(std::getline(input,line)){if(count%1024==0)checkpoint(check);auto f=fields(line);if(edges.size()>=UINT32_MAX)throw std::runtime_error("Road edge count exceeds index representation");uint32_t source=intern(f[0]),target=intern(f[1]);auto t=rational(f[3]),l=rational(f[4]);time_scale=lcm(time_scale,t.d);length_scale=lcm(length_scale,l.d);edges.push_back({source,target,std::move(f[2]),0,0});count++;}
+  while(std::getline(input,line)){if(count%1024==0)checkpoint(check);auto f=fields(line);for(size_t k=0;k<3;k++)for(unsigned char c:f[k])if(c<32)throw std::runtime_error("Control characters in road identifiers");if(edges.size()>=UINT32_MAX)throw std::runtime_error("Road edge count exceeds index representation");uint32_t source=intern(f[0]),target=intern(f[1]);auto t=rational(f[3]),l=rational(f[4]);time_scale=lcm(time_scale,t.d);length_scale=lcm(length_scale,l.d);edges.push_back({source,target,std::move(f[2]),0,0});count++;}
   // Validate unique IDs by sorting pointers into the already-reserved edge
   // storage; do not duplicate millions of ID strings in an unordered_set.
   std::vector<const std::string*> identities;identities.reserve(edges.size());
