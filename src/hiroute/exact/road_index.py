@@ -383,12 +383,22 @@ class NativeRoadIndex:
     ``prepare_landmarks(O,D)`` before nontrivial pairs. It additionally pins two
     complete directed time trees and reuses a separate pair workspace. Its
     consistent reverse potential and equality contour preserve every path tie.
+    ``source_tree_reuse=True`` additionally requires the two-slot scalar LRU.
+    After observed noncached A* edge work reaches one graph edge count, the
+    next needed pair builds a full forward time tree for that source inside
+    the same LRU. Construction is charged query work, not preprocessing free
+    of the query limit. Reverse A* still resolves the complete canonical path.
     """
 
     def __init__(self, graph_tsv, exposed_nodes, *, cache_directory,
                  distance_cache_size=2, leg_cache_size=4096, check=None,
-                 pair_query_mode='reverse_tree'):
+                 pair_query_mode='reverse_tree', source_tree_reuse=False):
         import ctypes
+        if type(source_tree_reuse) is not bool:
+            raise ValueError('source_tree_reuse must be boolean')
+        if source_tree_reuse and (pair_query_mode != 'landmark_astar' or distance_cache_size != 2):
+            raise ValueError('source_tree_reuse requires landmark_astar and a two-slot scalar LRU')
+        self.source_tree_reuse = source_tree_reuse
         if pair_query_mode not in ('reverse_tree', 'landmark_astar'):
             raise ValueError('unknown exact pair query mode')
         self.pair_query_mode = pair_query_mode
@@ -464,7 +474,9 @@ class NativeRoadIndex:
             self._python_hits += 1
             self._leg_cache.move_to_end(pair)
             return self._leg_cache[pair]
-        raw = self._query('leg_astar' if self.pair_query_mode == 'landmark_astar' else 'leg', source, target)
+        kind = ('leg_astar_reuse' if self.source_tree_reuse else
+                'leg_astar' if self.pair_query_mode == 'landmark_astar' else 'leg')
+        raw = self._query(kind, source, target)
         leg = None if raw is None else IndexedLeg(source, target, exact(raw['time_s']),
             exact(raw['length_m']), tuple(MappingProxyType({**row,
                 'time_s': exact(row['time_s']), 'length_m': exact(row['length_m'])}) for row in raw['edges']))
@@ -520,6 +532,7 @@ class NativeRoadIndex:
         native = self._query('metrics')
         return {**native, 'backend': 'exact_integer_scaled_cpp',
                 'pair_query_mode': self.pair_query_mode,
+                'source_tree_reuse_enabled': self.source_tree_reuse,
                 'constructor_time_s': self._constructor_seconds,
                 'compile_load_time_s': self._compile_load_seconds,
                 'index_rss_increment_bytes': self._index_rss_increment,

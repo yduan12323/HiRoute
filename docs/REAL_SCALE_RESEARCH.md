@@ -645,3 +645,181 @@ the guarded worker result, measured profile and raw request records; summarizing
 persisted records never launches another query. The default pilot path is
 unchanged when `cost_diagnostic` is absent. The previous server upload denial
 remains in force and was not retried or bypassed.
+
+## Adaptive source-time reuse: authorized bounded implementation
+
+This continuation starts from merged main
+`968a9e729dce43dc87ae6c92f5e6c4730c6ee984` (PR #26). Main and its push CI are
+verified/monitored independently from the new branch. The user authorized this
+single exact-index change and ordinary development/verification follow-through;
+no holdout, new architecture, physics change, wider geography or server upload
+is included.
+
+`NativeRoadIndex(..., source_tree_reuse=True)` is opt-in and requires the existing
+`landmark_astar` mode and **two-slot scalar LRU**. For a non-origin physical
+source without a complete forward time tree in those slots, count already
+performed uncached old-potential A* edge relaxations, saturating at the graph's
+edge count. Once that work reaches one graph edge count, build a complete forward
+time tree **on the next needed pair miss**, not speculatively after the last
+request. Existing paid forward trees may be reused. O already has its exact
+pinned forward tree and does not trigger a redundant build; requests to pinned
+D and cached/self legs retain their existing shortcuts.
+
+The same `Graph::tree` exact Dijkstra constructs the tree. It replaces the scalar
+LRU entry before allocating the new workspace; no additional persistent source
+cache or source pin is created. A shared reference protects the selected tree
+for the current pair only. Eviction can cause later recomputation, counted in
+the same way. Construction and partial interrupted work are charged inside the
+loaded query and selected-leg timer. Any native query failure clears distance
+workspaces, pinned landmarks and observed-source work so partial trees cannot
+silently survive. Scalar/A* vertices and edge scans, source build attempts,
+completions, hits, evictions and time are reported. Dynamic build time overlaps
+the native selected-leg/scalar timers: **do not add those nested timers**.
+Total native settled work is `scalar_settled_vertices + astar_settled_vertices`;
+source-build vertices are a subset of the scalar count, not an extra addend.
+
+For a paid exact source tree, reverse A* uses `h_s(u)=d(s,u)`. For original edge
+v->u with weight w, `d(s,u)<=d(s,v)+w`, so the potential is consistent in reverse
+and lower-bounds every reverse continuation toward s. Vertices unreachable from
+s cannot belong to an s->t path. Full equality-contour processing remains strict
+`>` at the cutoff, followed by the unchanged greedy tight-DAG node/edge rule.
+Forward scalar distances do **not** pick an arbitrary parent path or replace
+actual selected length by shortest-distance length. Thus selected time, complete
+node/edge ties, actual length and replay witness remain the same. Prefix families,
+attainment/full `(J,Q,H,Pi)`, relevant depth, bounds and C/CS kernels are untouched.
+This is road-work sharing across physical pairs, not cross-history state merging.
+
+### Predeclared correctness and DEV validation
+
+Before numerical validation, 120 related local tests passed with actual native
+execution. New checks cover the lazy work threshold, exactly two scalar slots,
+LRU eviction/rebuild and ordinary scalar interference; an independent tiny path
+oracle covers 12 random directed graphs with Unicode/parallel ties and disjoint
+components over repeated promotions. An adversarial source-first numeric queue
+tie must still select the canonical 300m path instead of the 1m time-tied direct
+edge. Interrupted full-tree construction and interrupted cached-source A* discard
+partial state and retry correctly. Finite common-domain Strong/Scale results,
+seed keys, primary/secondary unattainment and depth contracts match the reference
+provider. Invalid flag/mode/cache contracts fail before loading an index. These
+are correctness checks only, not real-graph REF enumeration or timing evidence.
+
+`configs/source_time_reuse_dev.json` predeclares exactly **two new unprofiled
+D04 / SD02 energy N128 rows**, Strong Flat-BB then Scale, with the same routing,
+seed, kernels, information, model and resource policy. The existing 126 km domain
+digest remains
+`2196503277068b59652e84ab54729c25e8aa8f1705b329e09df451a5e2b0e4e0`.
+The runner checks this input identity before launching workers. Both use the
+existing 120s loaded hard limit and 60s target, one numerical worker/thread,
+8 GiB process/query-extra caps and 2 GiB host headroom, with cold loading reported
+separately. Source-tree construction is **not** moved outside the query deadline.
+Carry **4206.233448329 CPU seconds**, precharge a conservative **60 seconds** for
+this development/microverification, and add all fresh worker CPU including
+compiler/cold load. The total envelope stays **28800 seconds**. Selection/manifest
+preparation is reported separately.
+
+There is no unchanged-baseline rerun, new domain, extra method/profile grid,
+profiling run, automatic extension or data/model change. Old 120s D04 UNKNOWN
+rows remain the baseline evidence; the prior 60s profiled row remains diagnostic
+only. No runtime or exact-completion result is inferred from the offline sketch.
+If this bounded change misses the target, preserve its termination and identify
+the next bottleneck from observed work, rather than relabel success or adjust
+battery, candidates, depth or time limits.
+
+### Observed bounded DEV results: target still unmet
+
+Numerical source commit: `7e895f402c684520f14d44289f90b12129bfc7b4`.
+The two frozen rows are preserved in
+[`source_time_reuse_results.json`](source_time_reuse_results.json). No baseline
+was rerun. Both workers reached their declared 120s limit; neither row is an
+optimum, an infeasibility proof, or a 60s success. The 0.05–0.11s excess is
+termination/checkpoint overhead, not an increased limit. The unchanged best
+known full key and seed key match the prior D04 rows. Both independent physical
+replays verify two positive charges, 640.818861 km and 6 kWh terminal reserve.
+The necessary-charge lower bound remains two under the unchanged physical model.
+
+| D04 energy N128 | Strong Flat-BB | Scale |
+| --- | ---: | ---: |
+| Loaded wall seconds / mathematical status | 120.113 / UNKNOWN | 120.052 / UNKNOWN |
+| First feasible seconds | 4.219 | 4.433 |
+| Native selected-leg seconds | 78.892 | 87.126 |
+| Reverse A* seconds | 36.506 | 41.339 |
+| Source build seconds (nested in leg/scalar time) | 20.540 | 22.754 |
+| Source builds / cache hits / evictions | 23 / 416 / 21 | 26 / 515 / 24 |
+| Scalar + A* settled vertices | 183,203,313 | 205,211,942 |
+| Leaf routes / nonempty children | 3,267 / 1,135 | 4,182 / 1,180 |
+| Empty / late bound-pruned leaf actions | 498 / 1,633 | 503 / 2,498 |
+| Peak OPEN / deepest visited prefix | 94,248 / 3 | 25,347 / 4 |
+| Worker CPU seconds (cold load included) | 127.820781 | 127.847195 |
+| Peak worker RSS / sampled extra GiB | 2.141 / 0.843 | 2.602 / 1.396 |
+| Sampled minimum host available GiB | 2.685 | 2.944 |
+
+Compared with the preserved old 120s UNKNOWN rows, total native settled vertices
+fell from 212,292,931 to 183,203,313 (13.7%) for Strong and from 221,696,381 to
+205,211,942 (7.4%) for Scale. Native selected-leg time fell by 11.0% and 6.6%.
+These are **censored, different-length search traces**, not matched-work runtime
+speedups: new nonempty children increased from 1,019 to 1,135 and 1,078 to 1,180.
+Scale visits depth four but has not exhausted the relevant domain; its smaller
+OPEN is not evidence of exact completion. Keep the opt-in implementation as an
+engineering improvement with limited evidence; no claim of hierarchy superiority
+or overall research success follows.
+
+The intended reuse occurred, but 21/24 source-tree evictions caused recomputation.
+A* time roughly halved while charged full-tree construction used 20.5/22.8s.
+The remaining native selected-leg time after subtracting A* and dynamic builds
+is 21.846/23.033s (reconstruction/output and other native work); Python interop,
+bounds and family work also remain. Python leg caches held 1,727/1,906 entries,
+below the existing 4,096 cap, so this evidence does not support a leg-cache-size
+increase. End-of-run native cache counts differ because Strong's interruption
+cleared native state whereas Scale retained completed state; the cumulative
+counters record the work in both cases.
+
+Even setting A* and dynamic source construction to zero on Strong's observed,
+unfinished trace leaves about 63.07s of loaded work (Scale: 55.96s). This is an
+attribution of these prefixes only, **not** a prediction of any modified complete
+solve. It argues against treating more road-cache tuning as sufficient evidence
+for the 60s exact goal. Seed computation itself is already below 0.85s.
+
+Accounting is `4206.233448329 + 60 + 127.820781 + 127.847195 =
+4521.901424329 CPU seconds`, leaving **24278.098575671** of the original 28800s.
+The conservative 60s development allowance covers the local native regressions;
+its measured 120-test suite CPU was 4.972605s. Selection preparation was separately
+0.151867 wall / 0.134202 CPU seconds. No graph conversion/download, memory stop,
+extra numerical diagnostic, limit extension or holdout occurred. Source-tree
+construction was inside the query; compiler and cold load were charged via
+worker CPU. Both peak RSS and host headroom stayed within the existing guards.
+
+### Bounded next algorithm decision (proposed, not implemented here)
+
+Empty plus late-pruned actions account for 65.2%/71.8% of new leaf routes. The
+next coherent change is a safe **inbound-energy restriction before selected-leg
+routing**, shared by Strong singleton and Scale region queries, using existing
+static directed length landmarks and the actual post-stop family. It requires
+no new graph maps, geographic selection, physical parameters or depth cap.
+For current anchor a and region R, a conservative next-leg length bound is
+
+```
+L_in = max(0,
+    R.min_from_origin_distance - a.from_origin_distance,
+    a.to_destination_distance - R.max_to_destination_distance)
+E_need = minimum_energy + consumption * L_in
+```
+
+Each term follows the directed shortest-distance triangle inequality; actual
+selected-path length is at least shortest length. Every feasible continuation
+must have enough energy to reach its next stop before it can charge there.
+Thus a region/action can be discarded if every family's upper energy endpoint
+is strictly below E_need. Keep equality, including unattained limiting values
+when used as lower bounds. A stronger coherent version restricts each piece's
+relaxation domain to energies at least E_need before minimizing the existing
+completion relaxation, with exact open-endpoint/infimum handling. It must not
+merge different histories or use an open infimum as an incumbent. Region extrema
+are already static summaries; this need not scan all members. The seed already
+uses an inbound energy screen, whereas exact search currently computes the
+selected leg before checking its actual inbound energy feasibility.
+
+This proposal needs an admissibility proof and focused equality, temporal-energy,
+coverage and full-key regressions before another predeclared paired D04 check.
+The present counters do not establish how many routes that relaxation can reject
+or whether it will meet the target. No such new check was run in this segment.
+The main-experiment decision and holdout remain outstanding. The present delivery
+is an exact-index change plus honest limited DEV evidence, not taskbook completion.

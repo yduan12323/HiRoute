@@ -22,6 +22,7 @@ static thread_local std::string failure;
 static void checkpoint(Check check) { if (check && !check()) throw std::runtime_error("resource_check"); }
 static double seconds(Clock::time_point start) { return std::chrono::duration<double>(Clock::now()-start).count(); }
 struct AccumulateSeconds { double& total; Clock::time_point start=Clock::now(); explicit AccumulateSeconds(double&v):total(v){} ~AccumulateSeconds(){total+=seconds(start);} };
+struct AccumulateWork { uint64_t& total;const uint64_t& counter;uint64_t before;AccumulateWork(uint64_t&t,const uint64_t&c):total(t),counter(c),before(c){}~AccumulateWork(){total+=counter-before;} };
 static cpp_int gcd(cpp_int a, cpp_int b) { while(b != 0) { cpp_int r=a%b; a=std::move(b); b=std::move(r); } return a; }
 static cpp_int lcm(const cpp_int&a,const cpp_int&b) { return (a/gcd(a,b))*b; }
 struct Rational { cpp_int n,d; };
@@ -38,7 +39,7 @@ static std::vector<std::string> fields(const std::string& line) { std::vector<st
 struct Edge { uint32_t source,target;std::string id;cpp_int time,length; };
 struct Item { cpp_int distance;uint32_t node; };
 struct Greater { bool operator()(const Item&a,const Item&b)const{return a.distance>b.distance||(a.distance==b.distance&&a.node>b.node);} };
-struct Tree { bool reverse,length;uint32_t root;std::vector<cpp_int> distance;std::vector<uint8_t> known,settled;std::priority_queue<Item,std::vector<Item>,Greater> queue;Tree(bool r,bool l,uint32_t rt,size_t n):reverse(r),length(l),root(rt),distance(n),known(n,0),settled(n,0){distance[root]=0;known[root]=1;queue.push({0,root});} };
+struct Tree { bool reverse,length,promoted_source=false;uint32_t root;std::vector<cpp_int> distance;std::vector<uint8_t> known,settled;std::priority_queue<Item,std::vector<Item>,Greater> queue;Tree(bool r,bool l,uint32_t rt,size_t n):reverse(r),length(l),root(rt),distance(n),known(n,0),settled(n,0){distance[root]=0;known[root]=1;queue.push({0,root});} };
 struct Graph {
  std::vector<std::string> nodes;std::unordered_map<std::string,uint32_t> node_ids;
  std::vector<Edge> edges;cpp_int time_scale=1,length_scale=1;
@@ -50,6 +51,10 @@ struct Graph {
  std::unique_ptr<Tree> pair_tree;
  uint64_t astar_queries=0,astar_settled=0,astar_relaxed=0;double landmark_seconds=0,astar_seconds=0;
  uint64_t scalar_queries=0,cache_hits=0,settled_vertices=0,leg_queries=0;double build_seconds=0,scalar_seconds=0,leg_seconds=0;
+ uint64_t scalar_relaxed=0,source_attempts=0,source_builds=0,source_hits=0,source_uses=0,source_evictions=0;
+ uint64_t source_build_vertices=0,source_build_edges=0;double source_build_seconds=0;
+ std::unordered_map<uint32_t,uint64_t> source_work;
+ void evict_back(){if(trees.back()->promoted_source)source_evictions++;trees.pop_back();}
  uint32_t intern(const std::string& s){auto it=node_ids.find(s);if(it!=node_ids.end())return it->second;if(nodes.size()>=UINT32_MAX)throw std::runtime_error("Road vertex count exceeds index representation");uint32_t id=uint32_t(nodes.size());nodes.push_back(s);node_ids.emplace(s,id);return id;}
  Graph(const std::string&path,size_t caches,Check check):cache_size(caches){
   auto start=Clock::now();std::ifstream input(path);if(!input)throw std::runtime_error("Cannot read road TSV");std::string line;uint64_t count=0;
@@ -82,13 +87,13 @@ struct Graph {
   checkpoint(check);scalar_queries++;Tree* active=nullptr;
   for(auto it=trees.begin();it!=trees.end();++it)if((*it)->root==root&&(*it)->reverse==reverse&&(*it)->length==length){cache_hits++;active=it->get();trees.splice(trees.begin(),trees,it);break;}
   for(auto&pin:{origin_time,destination_time})if(!active&&pin&&pin->root==root&&pin->reverse==reverse&&pin->length==length){cache_hits++;active=pin.get();}
-  if(!active){auto made=std::make_shared<Tree>(reverse,length,root,nodes.size());active=made.get();if(cache_size){trees.push_front(made);while(trees.size()>cache_size)trees.pop_back();}else ephemeral=made;}
+  if(!active){auto made=std::make_shared<Tree>(reverse,length,root,nodes.size());active=made.get();if(cache_size){trees.push_front(made);while(trees.size()>cache_size)evict_back();}else ephemeral=made;}
   if(stop!=UINT32_MAX&&active->settled[stop])return *active;
   AccumulateSeconds elapsed(scalar_seconds);auto&offset=reverse?reverse_offset:forward_offset;auto&adj=reverse?reverse_edges:forward_edges;uint64_t work=0;
   while(!active->queue.empty()){
    Item item=active->queue.top();active->queue.pop();uint32_t u=item.node;if(active->settled[u]||item.distance!=active->distance[u])continue;active->settled[u]=1;settled_vertices++;
    if(settled_vertices%256==0)checkpoint(check);
-   for(uint64_t k=offset[u];k<offset[u+1];k++){if(++work%1024==0)checkpoint(check);auto&e=edges[adj[k]];uint32_t v=reverse?e.source:e.target;cpp_int nd=item.distance+(length?e.length:e.time);if(!active->known[v]||nd<active->distance[v]){active->known[v]=1;active->distance[v]=nd;active->queue.push({std::move(nd),v});}}
+   for(uint64_t k=offset[u];k<offset[u+1];k++){if(++work%1024==0)checkpoint(check);scalar_relaxed++;auto&e=edges[adj[k]];uint32_t v=reverse?e.source:e.target;cpp_int nd=item.distance+(length?e.length:e.time);if(!active->known[v]||nd<active->distance[v]){active->known[v]=1;active->distance[v]=nd;active->queue.push({std::move(nd),v});}}
    if(u==stop)break;
   }
   checkpoint(check);return *active;
@@ -99,15 +104,37 @@ struct Graph {
   auto pin=[&](uint32_t root,bool reverse){Tree&v=tree(root,reverse,false,check);for(auto&p:trees)if(p.get()==&v)return p;for(auto&p:{origin_time,destination_time})if(p.get()==&v)return p;return ephemeral;};
   origin_time=pin(s->second,false);destination_time=pin(t->second,true);
  }
- Tree& astar(uint32_t source,uint32_t target,Check check){
+ std::shared_ptr<Tree> source_time(uint32_t source,Check check){
+  // O is already an exact source landmark. No new build or policy hit.
+  if(origin_time&&origin_time->root==source)return origin_time;
+  for(auto it=trees.begin();it!=trees.end();++it){
+   auto p=*it;
+   if(p->root==source&&!p->reverse&&!p->length&&p->queue.empty()){
+    source_hits++;source_uses++;p->promoted_source=true;trees.splice(trees.begin(),trees,it);return p;
+   }
+  }
+  auto observed=source_work.find(source);
+  if(observed==source_work.end()||observed->second<edges.size()||edges.empty())return {};
+  checkpoint(check);source_attempts++;
+  AccumulateSeconds elapsed(source_build_seconds);
+  AccumulateWork vertices(source_build_vertices,settled_vertices),relaxations(source_build_edges,scalar_relaxed);
+  // Reuse the existing two slots, releasing the LRU entry before allocation.
+  // Pinned O/D landmarks remain separately reported; no source pin is retained.
+  while(trees.size()>=cache_size)evict_back();
+  Tree&t=tree(source,false,false,check);
+  source_builds++;source_uses++;source_work[source]=0;t.promoted_source=true;
+  for(auto&p:trees)if(p.get()==&t)return p;
+  throw std::runtime_error("Completed source tree missing from scalar LRU");
+ }
+ Tree& astar(uint32_t source,uint32_t target,Check check,const Tree*exact_source=nullptr){
   if(!origin_time||!destination_time)throw std::runtime_error("Prepare complete time landmarks before pair A*");
   AccumulateSeconds elapsed(astar_seconds);astar_queries++;
   if(!pair_tree)pair_tree=std::make_unique<Tree>(true,false,target,nodes.size());
   Tree&t=*pair_tree;t.root=target;std::fill(t.known.begin(),t.known.end(),0);std::fill(t.settled.begin(),t.settled.end(),0);
   const bool use_o=origin_time->known[source],use_d=destination_time->known[source]&&destination_time->known[target];
-  auto potential=[&](uint32_t u){cpp_int h=0,d;if(use_o&&origin_time->known[u]){d=origin_time->distance[u]-origin_time->distance[source];if(d>h)h=d;}if(use_d){d=destination_time->distance[source]-destination_time->distance[u];if(d>h)h=d;}return h;};
+  auto potential=[&](uint32_t u){if(exact_source)return cpp_int(exact_source->distance[u]);cpp_int h=0,d;if(use_o&&origin_time->known[u]){d=origin_time->distance[u]-origin_time->distance[source];if(d>h)h=d;}if(use_d){d=destination_time->distance[source]-destination_time->distance[u];if(d>h)h=d;}return h;};
   std::priority_queue<Item,std::vector<Item>,Greater> queue;
-  if(!use_o||origin_time->known[target]){t.known[target]=1;t.distance[target]=0;queue.push({potential(target),target});}
+  if((!exact_source||exact_source->known[target])&&(!use_o||origin_time->known[target])){t.known[target]=1;t.distance[target]=0;queue.push({potential(target),target});}
   uint64_t work=0,pops=0;checkpoint(check);
   while(!queue.empty()){
    if(++pops%256==0)checkpoint(check);auto item=queue.top();queue.pop();uint32_t u=item.node;
@@ -121,17 +148,27 @@ struct Graph {
     if(++work%1024==0)checkpoint(check);astar_relaxed++;auto&e=edges[reverse_edges[k]];uint32_t v=e.source;
     // If O reaches source, O-unreachable vertices cannot occur on its paths.
     if(use_o&&!origin_time->known[v])continue;
+    if(exact_source&&!exact_source->known[v])continue;
     cpp_int nd=t.distance[u]+e.time;
     if(!t.known[v]||nd<t.distance[v]){t.known[v]=1;t.distance[v]=nd;queue.push({nd+potential(v),v});}
    }
   }
   checkpoint(check);return t;
  }
- std::string leg(const std::string&source,const std::string&target,Check check,bool guided=false){
+ std::string leg(const std::string&source,const std::string&target,Check check,bool guided=false,bool reuse=false){
+  if(reuse&&cache_size!=2)throw std::runtime_error("Source reuse requires a two-slot scalar LRU");
   AccumulateSeconds elapsed(leg_seconds);leg_queries++;if(source==target)return "{\"source\":"+quote(source)+",\"target\":"+quote(target)+",\"time_s\":\"0\",\"length_m\":\"0\",\"edges\":[]}";
   auto si=node_ids.find(source),ti=node_ids.find(target);if(si==node_ids.end()||ti==node_ids.end())return "null";uint32_t u=si->second,z=ti->second;
   Tree*cached=nullptr;if(guided)for(auto&p:{origin_time,destination_time})if(p&&p->root==z&&p->reverse&&!p->length)cached=p.get();
-  Tree&t=cached?*cached:(guided?astar(u,z,check):tree(z,true,false,check,u));if(!t.settled[u]){return "null";}
+  std::shared_ptr<Tree> exact_source;
+  if(guided&&!cached&&reuse)exact_source=source_time(u,check);
+  auto before_edges=astar_relaxed;
+  Tree&t=cached?*cached:(guided?astar(u,z,check,exact_source.get()):tree(z,true,false,check,u));
+  if(reuse&&!cached&&!exact_source){
+   auto&work=source_work[u];uint64_t limit=uint64_t(edges.size()),delta=astar_relaxed-before_edges;
+   work=delta>=limit-work?limit:work+delta;
+  }
+  if(!t.settled[u]){return "null";}
   cpp_int total_length=0;std::string out="{\"source\":"+quote(source)+",\"target\":"+quote(target)+",\"time_s\":"+quote(number(t.distance[u],time_scale))+",\"edges\":[";bool first=true;
   while(u!=z){checkpoint(check);uint32_t best=UINT32_MAX;for(uint64_t k=forward_offset[u];k<forward_offset[u+1];k++){uint32_t eid=forward_edges[k];auto&e=edges[eid];if(!t.settled[e.target]||e.time+t.distance[e.target]!=t.distance[u])continue;if(best==UINT32_MAX||nodes[e.target]<nodes[edges[best].target]||(e.target==edges[best].target&&e.id<edges[best].id))best=eid;}
    if(best==UINT32_MAX)throw std::runtime_error("Missing exact shortest-path DAG successor");auto&e=edges[best];if(!first)out+=',';first=false;out+="{\"source\":"+quote(nodes[e.source])+",\"target\":"+quote(nodes[e.target])+",\"edge_id\":"+quote(e.id)+",\"time_s\":"+quote(number(e.time,time_scale))+",\"length_m\":"+quote(number(e.length,length_scale))+"}";total_length+=e.length;u=e.target;
@@ -141,11 +178,11 @@ struct Graph {
  std::string distances(const std::string&anchor,bool reverse,bool length,const std::string& exposed,Check check){
   auto ai=node_ids.find(anchor);Tree*t=ai==node_ids.end()?nullptr:&tree(ai->second,reverse,length,check);std::istringstream names(exposed);std::string name,out="{";bool first=true;while(std::getline(names,name)){checkpoint(check);auto it=node_ids.find(name);if(name==anchor||(t&&it!=node_ids.end()&&t->settled[it->second])){if(!first)out+=',';first=false;out+=quote(name)+":"+quote(name==anchor?"0":number(t->distance[it->second],length?length_scale:time_scale));}}return out+"}";
  }
- std::string metrics(){size_t values=0,queued=0;for(auto&t:trees){values+=t->distance.size();queued+=t->queue.size();}std::ostringstream out;out<<"{\"astar_queries\":"<<astar_queries<<",\"astar_settled_vertices\":"<<astar_settled<<",\"astar_relaxed_edges\":"<<astar_relaxed<<",\"astar_time_s\":"<<astar_seconds<<",\"landmark_preparation_s\":"<<landmark_seconds<<",\"pinned_landmark_count\":"<<(bool(origin_time)+bool(destination_time))<<",\"pair_workspace_values\":"<<(pair_tree?pair_tree->distance.size():0)<<",\"index_builds\":1,\"nodes\":"<<nodes.size()<<",\"edges\":"<<edges.size()<<",\"build_time_s\":"<<build_seconds<<",\"scalar_queries\":"<<scalar_queries<<",\"scalar_cache_hits\":"<<cache_hits<<",\"scalar_settled_vertices\":"<<settled_vertices<<",\"selected_leg_queries\":"<<leg_queries<<",\"scalar_time_s\":"<<scalar_seconds<<",\"selected_leg_time_s\":"<<leg_seconds<<",\"distance_cache_entries\":"<<trees.size()<<",\"distance_cache_values\":"<<values<<",\"queued_labels\":"<<queued<<",\"time_scale\":"<<quote(time_scale.str())<<",\"length_scale\":"<<quote(length_scale.str())<<"}";return out.str();}
+ std::string metrics(){size_t values=0,queued=0,sources=0;for(auto&t:trees){values+=t->distance.size();queued+=t->queue.size();sources+=t->promoted_source;}std::ostringstream out;out<<"{\"source_tree_build_attempts\":"<<source_attempts<<",\"source_tree_builds\":"<<source_builds<<",\"source_tree_cache_hits\":"<<source_hits<<",\"source_tree_uses\":"<<source_uses<<",\"source_tree_evictions\":"<<source_evictions<<",\"source_tree_cache_entries\":"<<sources<<",\"source_tree_work_sources\":"<<source_work.size()<<",\"source_tree_build_time_s\":"<<source_build_seconds<<",\"source_tree_build_settled_vertices\":"<<source_build_vertices<<",\"source_tree_build_relaxed_edges\":"<<source_build_edges<<",\"scalar_relaxed_edges\":"<<scalar_relaxed<<",\"astar_queries\":"<<astar_queries<<",\"astar_settled_vertices\":"<<astar_settled<<",\"astar_relaxed_edges\":"<<astar_relaxed<<",\"astar_time_s\":"<<astar_seconds<<",\"landmark_preparation_s\":"<<landmark_seconds<<",\"pinned_landmark_count\":"<<(bool(origin_time)+bool(destination_time))<<",\"pair_workspace_values\":"<<(pair_tree?pair_tree->distance.size():0)<<",\"index_builds\":1,\"nodes\":"<<nodes.size()<<",\"edges\":"<<edges.size()<<",\"build_time_s\":"<<build_seconds<<",\"scalar_queries\":"<<scalar_queries<<",\"scalar_cache_hits\":"<<cache_hits<<",\"scalar_settled_vertices\":"<<settled_vertices<<",\"selected_leg_queries\":"<<leg_queries<<",\"scalar_time_s\":"<<scalar_seconds<<",\"selected_leg_time_s\":"<<leg_seconds<<",\"distance_cache_entries\":"<<trees.size()<<",\"distance_cache_values\":"<<values<<",\"queued_labels\":"<<queued<<",\"time_scale\":"<<quote(time_scale.str())<<",\"length_scale\":"<<quote(length_scale.str())<<"}";return out.str();}
 };
 extern "C" {
  void* hiroute_road_create(const char*path,int cache_count,Check check){try{if(cache_count<0)throw std::runtime_error("Negative cache count");failure.clear();return new Graph(path,size_t(cache_count),check);}catch(const std::exception&e){failure=e.what();return nullptr;}}
  void hiroute_road_free(void*ptr){delete static_cast<Graph*>(ptr);}
  const char* hiroute_road_error(){return failure.c_str();}
- const char* hiroute_road_query(void*ptr,const char*kind,const char*anchor,const char*target,const char*weight,const char*exposed,Check check){try{failure.clear();if(!ptr)throw std::runtime_error("Closed road index");Graph&g=*static_cast<Graph*>(ptr);std::string k(kind),w(weight);if(k=="metrics")g.result=g.metrics();else if(k=="landmarks"){g.landmarks(anchor,target,check);g.result="{}";}else if(k=="leg"||k=="leg_astar")g.result=g.leg(anchor,target,check,k=="leg_astar");else if(k=="from"||k=="to"){if(w!="time_s"&&w!="length_m")throw std::runtime_error("Unknown road metric");g.result=g.distances(anchor,k=="to",w=="length_m",exposed,check);}else throw std::runtime_error("Unknown road query");return g.result.c_str();}catch(const std::exception&e){if(ptr){auto&g=*static_cast<Graph*>(ptr);g.trees.clear();g.ephemeral.reset();g.origin_time.reset();g.destination_time.reset();g.pair_tree.reset();}failure=e.what();return nullptr;}}
+ const char* hiroute_road_query(void*ptr,const char*kind,const char*anchor,const char*target,const char*weight,const char*exposed,Check check){try{failure.clear();if(!ptr)throw std::runtime_error("Closed road index");Graph&g=*static_cast<Graph*>(ptr);std::string k(kind),w(weight);if(k=="metrics")g.result=g.metrics();else if(k=="landmarks"){g.landmarks(anchor,target,check);g.result="{}";}else if(k=="leg"||k=="leg_astar"||k=="leg_astar_reuse")g.result=g.leg(anchor,target,check,k!="leg",k=="leg_astar_reuse");else if(k=="from"||k=="to"){if(w!="time_s"&&w!="length_m")throw std::runtime_error("Unknown road metric");g.result=g.distances(anchor,k=="to",w=="length_m",exposed,check);}else throw std::runtime_error("Unknown road query");return g.result.c_str();}catch(const std::exception&e){if(ptr){auto&g=*static_cast<Graph*>(ptr);g.trees.clear();g.ephemeral.reset();g.origin_time.reset();g.destination_time.reset();g.pair_tree.reset();g.source_work.clear();}failure=e.what();return nullptr;}}
 }
