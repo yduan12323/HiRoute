@@ -1,0 +1,672 @@
+{
+  "base_main": "2495ba5f41768747973f92571b8eb2011d319535",
+  "candidate_domain_sha256": "2196503277068b59652e84ab54729c25e8aa8f1705b329e09df451a5e2b0e4e0",
+  "diagnostic_only": true,
+  "fresh_performance_evidence": false,
+  "preparation": {
+    "cpu_s": 0.045998000000000004,
+    "domain_sha256": "2196503277068b59652e84ab54729c25e8aa8f1705b329e09df451a5e2b0e4e0",
+    "solver_called": false,
+    "wall_s": 0.047360458003822714
+  },
+  "profile": {
+    "by_kind": {
+      "input_preparation": {
+        "astar_s": 0,
+        "misses": 1,
+        "native_s": 0.0383939,
+        "path_edges": 3003,
+        "relaxed_edges": 0,
+        "requests": 1,
+        "settled_vertices": 0,
+        "wall_s": 0.04689133298234083
+      },
+      "search_leaf": {
+        "astar_s": 35.813182,
+        "misses": 747,
+        "native_s": 46.076437000000006,
+        "path_edges": 1121528,
+        "relaxed_edges": 192106130,
+        "requests": 823,
+        "settled_vertices": 103309813,
+        "wall_s": 50.48928310011979
+      },
+      "seed_extension": {
+        "astar_s": 0.339518,
+        "misses": 19,
+        "native_s": 0.5468971,
+        "path_edges": 20763,
+        "relaxed_edges": 1681628,
+        "requests": 19,
+        "settled_vertices": 949237,
+        "wall_s": 0.6222684159583878
+      },
+      "seed_terminal": {
+        "astar_s": 0.0,
+        "misses": 5,
+        "native_s": 0.11406199999999994,
+        "path_edges": 14846,
+        "relaxed_edges": 0,
+        "requests": 6,
+        "settled_vertices": 0,
+        "wall_s": 0.14852104103192687
+      },
+      "terminal": {
+        "astar_s": 0.0,
+        "misses": 29,
+        "native_s": 0.6556099999999949,
+        "path_edges": 291230,
+        "relaxed_edges": 0,
+        "requests": 129,
+        "settled_vertices": 0,
+        "wall_s": 0.8483924549655057
+      }
+    },
+    "calls": {
+      "landmark_preparation_s": 1,
+      "leaf_completion_bound_s": 822,
+      "prefix_transition_s": 728,
+      "region_completion_bound_s": 16125,
+      "region_travel_relaxation_s": 16125,
+      "scalar_relaxation_s": 5
+    },
+    "diagnostic_only": true,
+    "exclusive_seconds": {
+      "incumbent_callback_s": 0.056731373973889276,
+      "landmark_preparation_s": 1.7869211669894867,
+      "leaf_completion_bound_s": 0.06362145597813651,
+      "prefix_transition_s": 1.572038605751004,
+      "region_completion_bound_s": 1.985736586357234,
+      "region_travel_relaxation_s": 0.09156622303999029,
+      "route_counter_and_adapter_overhead_s": 0.032860862032976,
+      "scalar_relaxation_s": 1.6413152919558343,
+      "selected_leg_python_and_native_s": 52.15535634505795,
+      "terminal_excluding_selected_leg_s": 0.016293875145493075
+    },
+    "hottest_targets": [
+      {
+        "astar_s": 1.3950990000000036,
+        "distinct_sources": 10,
+        "misses": 10,
+        "native_s": 1.6411899999999977,
+        "path_edges": 30084,
+        "relaxed_edges": 7704069,
+        "requests": 12,
+        "settled_vertices": 3917427,
+        "site_id": "node/12518356935",
+        "target": "11252755016",
+        "wall_s": 1.715271541965194
+      },
+      {
+        "astar_s": 1.3774800000000003,
+        "distinct_sources": 10,
+        "misses": 10,
+        "native_s": 1.6319219999999917,
+        "path_edges": 30036,
+        "relaxed_edges": 7541495,
+        "requests": 12,
+        "settled_vertices": 3838547,
+        "site_id": "node/12518356933",
+        "target": "9488841068",
+        "wall_s": 1.7058437910163775
+      },
+      {
+        "astar_s": 1.3620089999999931,
+        "distinct_sources": 10,
+        "misses": 10,
+        "native_s": 1.615880000000006,
+        "path_edges": 30120,
+        "relaxed_edges": 7505408,
+        "requests": 12,
+        "settled_vertices": 3821232,
+        "site_id": "node/12518356921",
+        "target": "9488841073",
+        "wall_s": 1.689343041041866
+      },
+      {
+        "astar_s": 1.3600460000000019,
+        "distinct_sources": 10,
+        "misses": 10,
+        "native_s": 1.6096929999999965,
+        "path_edges": 30084,
+        "relaxed_edges": 7541503,
+        "requests": 12,
+        "settled_vertices": 3838551,
+        "site_id": "node/12518356926",
+        "target": "9488841045",
+        "wall_s": 1.6965237909462303
+      },
+      {
+        "astar_s": 1.3426510000000036,
+        "distinct_sources": 10,
+        "misses": 10,
+        "native_s": 1.598191000000009,
+        "path_edges": 30036,
+        "relaxed_edges": 7472550,
+        "requests": 12,
+        "settled_vertices": 3805608,
+        "site_id": "node/12518356932",
+        "target": "9587233108",
+        "wall_s": 1.7297570010705385
+      },
+      {
+        "astar_s": 1.2599200000000013,
+        "distinct_sources": 10,
+        "misses": 10,
+        "native_s": 1.5108620000000061,
+        "path_edges": 30504,
+        "relaxed_edges": 7120016,
+        "requests": 12,
+        "settled_vertices": 3636851,
+        "site_id": "node/11049425890",
+        "target": "4269504347",
+        "wall_s": 1.5859335830900818
+      },
+      {
+        "astar_s": 1.2260389999999974,
+        "distinct_sources": 10,
+        "misses": 10,
+        "native_s": 1.456259999999993,
+        "path_edges": 28752,
+        "relaxed_edges": 6614389,
+        "requests": 12,
+        "settled_vertices": 3389651,
+        "site_id": "node/12518356934",
+        "target": "9770183291",
+        "wall_s": 1.544357249920722
+      },
+      {
+        "astar_s": 1.2156569999999995,
+        "distinct_sources": 10,
+        "misses": 10,
+        "native_s": 1.449157000000004,
+        "path_edges": 28320,
+        "relaxed_edges": 6449982,
+        "requests": 12,
+        "settled_vertices": 3309851,
+        "site_id": "node/12518356929",
+        "target": "9491734336",
+        "wall_s": 1.518380251043709
+      },
+      {
+        "astar_s": 1.209264000000001,
+        "distinct_sources": 10,
+        "misses": 10,
+        "native_s": 1.4389699999999999,
+        "path_edges": 28536,
+        "relaxed_edges": 6523315,
+        "requests": 12,
+        "settled_vertices": 3344606,
+        "site_id": "node/12518356927",
+        "target": "9531799403",
+        "wall_s": 1.5083891249960288
+      },
+      {
+        "astar_s": 1.207389,
+        "distinct_sources": 10,
+        "misses": 10,
+        "native_s": 1.4478829999999971,
+        "path_edges": 28332,
+        "relaxed_edges": 6452787,
+        "requests": 12,
+        "settled_vertices": 3311220,
+        "site_id": "node/12518356928",
+        "target": "9491734337",
+        "wall_s": 1.5166672930354252
+      }
+    ],
+    "leaf_geometry": {
+      "backward_inner": {
+        "astar_s": 0.20266500000000132,
+        "misses": 20,
+        "native_s": 0.23609999999999776,
+        "path_edges": 3495,
+        "relaxed_edges": 1152055,
+        "requests": 20,
+        "settled_vertices": 679910,
+        "wall_s": 0.24656770908040926
+      },
+      "forward_or_equal_inner": {
+        "astar_s": 34.773192,
+        "misses": 708,
+        "native_s": 44.565577000000005,
+        "path_edges": 1071097,
+        "relaxed_edges": 186480523,
+        "requests": 782,
+        "settled_vertices": 100347696,
+        "wall_s": 48.60823659700691
+      },
+      "forward_or_equal_wide": {
+        "astar_s": 0.8373249999999975,
+        "misses": 19,
+        "native_s": 1.274760000000001,
+        "path_edges": 46936,
+        "relaxed_edges": 4473552,
+        "requests": 21,
+        "settled_vertices": 2282207,
+        "wall_s": 1.634478794032475
+      }
+    },
+    "leaf_miss_work_bins": {
+      "0": {
+        "astar_s": 0.0,
+        "misses": 10,
+        "native_s": 0.0,
+        "path_edges": 0,
+        "relaxed_edges": 0,
+        "requests": 10,
+        "settled_vertices": 0,
+        "wall_s": 0.0001924180833157152
+      },
+      "<100k": {
+        "astar_s": 4.4075199999999874,
+        "misses": 252,
+        "native_s": 6.817510000000028,
+        "path_edges": 237025,
+        "relaxed_edges": 23077660,
+        "requests": 252,
+        "settled_vertices": 13674003,
+        "wall_s": 7.814590297057293
+      },
+      "<10k": {
+        "astar_s": 0.10337900000001393,
+        "misses": 130,
+        "native_s": 1.5374569999999947,
+        "path_edges": 144796,
+        "relaxed_edges": 484468,
+        "requests": 130,
+        "settled_vertices": 333089,
+        "wall_s": 2.1347789239080157
+      },
+      "<1m": {
+        "astar_s": 31.302283000000003,
+        "misses": 355,
+        "native_s": 37.72146999999998,
+        "path_edges": 631551,
+        "relaxed_edges": 168544002,
+        "requests": 355,
+        "settled_vertices": 89302721,
+        "wall_s": 40.53887900416157
+      }
+    },
+    "leaf_outcomes": {
+      "empty_family": {
+        "astar_s": 19.73056200000001,
+        "misses": 242,
+        "native_s": 25.163437000000016,
+        "path_edges": 598511,
+        "relaxed_edges": 107337854,
+        "requests": 274,
+        "settled_vertices": 55022797,
+        "wall_s": 27.479517795029096
+      },
+      "interrupted": {
+        "astar_s": 0.002200000000001978,
+        "misses": 1,
+        "native_s": 0.0021999999999948727,
+        "path_edges": 0,
+        "relaxed_edges": 11454,
+        "requests": 1,
+        "settled_vertices": 6423,
+        "wall_s": 0.04884483400383033
+      },
+      "late_bound_prune": {
+        "astar_s": 7.475199999999994,
+        "misses": 111,
+        "native_s": 8.948299999999975,
+        "path_edges": 151503,
+        "relaxed_edges": 39618628,
+        "requests": 113,
+        "settled_vertices": 21846937,
+        "wall_s": 9.386209752061404
+      },
+      "nonempty_child": {
+        "astar_s": 8.605219999999996,
+        "misses": 393,
+        "native_s": 11.962500000000016,
+        "path_edges": 371514,
+        "relaxed_edges": 45138194,
+        "requests": 435,
+        "settled_vertices": 26433656,
+        "wall_s": 13.574710719025461
+      }
+    },
+    "measurement_window_s": 60.060241875005886,
+    "performance_comparison": false,
+    "residual_other_s": 0.6578000887238886,
+    "routing": {
+      "astar_s": 36.1527,
+      "misses": 801,
+      "native_s": 47.4314,
+      "path_edges": 1451370,
+      "relaxed_edges": 193787758,
+      "requests": 978,
+      "settled_vertices": 104259050,
+      "wall_s": 52.15535634505795
+    },
+    "scope": {
+      "N": 128,
+      "candidate_domain_sha256": "2196503277068b59652e84ab54729c25e8aa8f1705b329e09df451a5e2b0e4e0",
+      "carried_cpu_s": 4107.513206329,
+      "cold_load_allowance_s": 180,
+      "corridor_km": 126,
+      "development_cpu_allowance_s": 30,
+      "id": "D04",
+      "method": "flat_bb_strong",
+      "numeric_threads": 1,
+      "numeric_workers": 1,
+      "process_memory_gib": 8,
+      "purpose": "Measure disjoint Python cost buckets and per-selected-leg work/outcomes to choose routing-cost vs pre-route-bound work. Existing full 120s Strong/Scale rows remain the performance evidence.",
+      "query_id": "SD02",
+      "restrictions": "Exactly one profiled worker; no automatic retries, method expansion, time-limit extension or solver-informed domain changes.",
+      "scenario": "energy_only",
+      "solve_limit_s": 60
+    },
+    "source_kind": "instrumented_real_shandong_dev"
+  },
+  "profile_available": true,
+  "profile_source_commit": "4851ce292a283c5e2dc78cc71c416ffaaa18e5b3",
+  "row": {
+    "N": 128,
+    "bound_enabled": true,
+    "candidate_and_input_preparation_s": 2.6805837500141934,
+    "candidate_domain_claim": "Explicit truncated geographic candidate domains only; neither safe filtering nor province/full-domain optimality",
+    "cold_index_cpu_s": 9.047412000000001,
+    "cold_index_wall_s": 9.755436333012767,
+    "depth_contract": {
+      "declared_limit": null,
+      "incumbent_derived_limit": 31,
+      "mode": "unrestricted",
+      "rule": "floor(U_J/(h_min+lambda_stop))"
+    },
+    "direct_selected_length_m": "626302659/1000",
+    "direct_selected_time_s": "204021970377/9625000",
+    "eligible_unique_anchors": 1311,
+    "feasible_key": [
+      "6900462194303/240625000",
+      "565818861/6250000",
+      2,
+      [
+        [
+          "node/13002015294",
+          "C"
+        ],
+        [
+          "node/13257411937",
+          "C"
+        ]
+      ]
+    ],
+    "graph_index_resident_bytes": 1273397248,
+    "great_circle_m": 557337.8940678393,
+    "host_available_min_bytes": 3128246272,
+    "implementation": {
+      "pair_query_mode": "landmark_astar",
+      "seed_beam_pruning": true
+    },
+    "mathematical_status": "unknown",
+    "method": "flat_bb_strong",
+    "metrics": {
+      "empty_prefixes": 274,
+      "equality_retained": 0,
+      "leaf_routes": 823,
+      "max_depth": 3,
+      "peak_open": 15625,
+      "pruned_actions": 113,
+      "pruned_regions": 0,
+      "safe_unreachable_sites": 3,
+      "seed_attempts": 25,
+      "seed_rank_pruned_effects": 401,
+      "seed_rank_pruned_routes": 401,
+      "singleton_queries": 16125,
+      "summary_queries": 0,
+      "terminal_attempts": 129,
+      "terminal_infeasible_prefixes": 89,
+      "terminal_records_peak": 1,
+      "transition_input_pieces": 3794,
+      "transition_output_pieces": 4560,
+      "transitions": 709
+    },
+    "necessary_charge_count_lower_bound": 2,
+    "new_total_cpu_s": 4206.233448329001,
+    "open_remaining": 15609,
+    "process_group_peak_rss_bytes": 2022195200,
+    "query_cpu_s": 59.672795,
+    "query_extra_peak_bytes": 749715456,
+    "query_id": "SD02",
+    "query_loaded_total_s": 60.0598058750038,
+    "query_memory_baseline_bytes": 1273397248,
+    "routing_metrics": {
+      "astar_queries": 756,
+      "astar_relaxed_edges": 193787758,
+      "astar_settled_vertices": 104259050,
+      "astar_time_s": 36.1527,
+      "backend": "exact_integer_scaled_cpp",
+      "build_time_s": 7.88598,
+      "cached_path_edges": 1114695,
+      "compile_load_time_s": 1.8634520420164336,
+      "constructor_time_s": 9.749867792008445,
+      "distance_cache_entries": 0,
+      "distance_cache_values": 0,
+      "edges": 5900232,
+      "index_builds": 1,
+      "index_rss_increment_bytes": 1233977344,
+      "landmark_preparation_s": 1.78678,
+      "leg_cache_entries": 800,
+      "length_scale": "100000000000000000000000",
+      "nodes": 2986695,
+      "pair_query_mode": "landmark_astar",
+      "pair_workspace_values": 0,
+      "pinned_landmark_count": 0,
+      "process_current_rss_bytes": 1737015296,
+      "queued_labels": 0,
+      "scalar_cache_hits": 3,
+      "scalar_queries": 7,
+      "scalar_settled_vertices": 11761830,
+      "scalar_time_s": 3.35333,
+      "selected_leg_cache_hits": 177,
+      "selected_leg_queries": 978,
+      "selected_leg_time_s": 47.4314,
+      "time_scale": "770000000000000000000000000"
+    },
+    "scenario": "energy_only",
+    "scenario_eligible_sites": 143,
+    "seconds": {
+      "preparation": 0.7986324999947101,
+      "search": 55.74614733399358,
+      "seed": 0.821360415982781,
+      "terminals": 0.8655213701713365,
+      "transitions": 1.5574840019980911
+    },
+    "seed_key": [
+      "3608984430839/120312500",
+      "59382811/625000",
+      2,
+      [
+        [
+          "node/13002015294",
+          "C"
+        ],
+        [
+          "node/10063875433",
+          "C"
+        ]
+      ]
+    ],
+    "shortest_road_distance_m": "150667233/250",
+    "solve_limit_s": 60,
+    "source_kind": "real_shandong_dev",
+    "status": "time_limit",
+    "supervisor_cpu_s": 67.795895296,
+    "supervisor_total_s": 70.27329791698139,
+    "time_to_first_feasible_s": 4.292548416997306,
+    "witness": {
+      "charges_kwh": [
+        "50979299/1562500",
+        "72380333/1250000"
+      ],
+      "driving_time_s": "214427978903/9625000",
+      "elapsed_time_s": "6611712194303/240625000",
+      "independent_key": [
+        "6900462194303/240625000",
+        "565818861/6250000",
+        2,
+        [
+          [
+            "node/13002015294",
+            "C"
+          ],
+          [
+            "node/13257411937",
+            "C"
+          ]
+        ]
+      ],
+      "initial_wait_s": "0",
+      "physical_verified": true,
+      "positive_charge_count": 2,
+      "terminal_energy_kwh": "6",
+      "total_distance_m": "640818861/1000"
+    },
+    "worker_cpu_s": 68.720242,
+    "worker_peak_rss_bytes": 2023702528,
+    "worker_total_s": 69.81529316600063,
+    "workload_mode": "pilot"
+  },
+  "source_reuse": {
+    "algorithm_executed": false,
+    "caveat": "Fixed interrupted trace only. Full-tree costs, equality-DAG work, queue costs, memory and future search remain unmeasured; no net runtime or optimality claim.",
+    "completed_leaf_pairs": 736,
+    "distinct_sources": 11,
+    "distinct_targets": 92,
+    "incomplete_queries_excluded": true,
+    "offline_only": true,
+    "runtime_saving_estimate": null,
+    "sketches": [
+      {
+        "canonical_path_vertices_lower_work": 331835,
+        "capacity": 1,
+        "covered_later_pairs": 192,
+        "forward_tree_builds": 10,
+        "full_tree_edges_upper_work": 59002320,
+        "full_tree_vertices_upper_work": 29866950,
+        "observed_covered_astar_s": 19.775640000000003,
+        "observed_covered_relaxed_edges": 107330331,
+        "observed_covered_vertices": 56035909
+      },
+      {
+        "canonical_path_vertices_lower_work": 399735,
+        "capacity": 2,
+        "covered_later_pairs": 245,
+        "forward_tree_builds": 9,
+        "full_tree_edges_upper_work": 53102088,
+        "full_tree_vertices_upper_work": 26880255,
+        "observed_covered_astar_s": 21.92494,
+        "observed_covered_relaxed_edges": 118850829,
+        "observed_covered_vertices": 62252592
+      }
+    ],
+    "sources": [
+      {
+        "astar_s": 6.119200000000003,
+        "distinct_targets": 72,
+        "misses": 72,
+        "relaxed_edges": 32828925,
+        "settled_vertices": 17464354,
+        "site_id": "node/13059777314",
+        "source": "4288443682"
+      },
+      {
+        "astar_s": 5.52830000000001,
+        "distinct_targets": 74,
+        "misses": 74,
+        "relaxed_edges": 29698278,
+        "settled_vertices": 15812980,
+        "site_id": "node/13461988447",
+        "source": "6136747265"
+      },
+      {
+        "astar_s": 5.4361,
+        "distinct_targets": 67,
+        "misses": 67,
+        "relaxed_edges": 29403150,
+        "settled_vertices": 15753725,
+        "site_id": "node/9334077619",
+        "source": "5165087755"
+      },
+      {
+        "astar_s": 5.311699999999995,
+        "distinct_targets": 62,
+        "misses": 62,
+        "relaxed_edges": 28761479,
+        "settled_vertices": 15354478,
+        "site_id": "node/13471188358",
+        "source": "7305348944"
+      },
+      {
+        "astar_s": 4.273030000000008,
+        "distinct_targets": 70,
+        "misses": 70,
+        "relaxed_edges": 23288690,
+        "settled_vertices": 12391353,
+        "site_id": "node/11192147787",
+        "source": "10015581556"
+      },
+      {
+        "astar_s": 2.494099999999997,
+        "distinct_targets": 69,
+        "misses": 69,
+        "relaxed_edges": 13036913,
+        "settled_vertices": 7043427,
+        "site_id": "way/1289021119",
+        "source": "2690680888"
+      },
+      {
+        "astar_s": 2.346879999999996,
+        "distinct_targets": 73,
+        "misses": 73,
+        "relaxed_edges": 12437304,
+        "settled_vertices": 6796086,
+        "site_id": "node/13461988464",
+        "source": "2265979289"
+      },
+      {
+        "astar_s": 2.2054199999999913,
+        "distinct_targets": 79,
+        "misses": 79,
+        "relaxed_edges": 11682620,
+        "settled_vertices": 6530553,
+        "site_id": "node/14109780536",
+        "source": "7205143467"
+      },
+      {
+        "astar_s": 1.606222999999999,
+        "distinct_targets": 68,
+        "misses": 68,
+        "relaxed_edges": 8338109,
+        "settled_vertices": 4567827,
+        "site_id": "node/13002015294",
+        "source": "5228133949"
+      },
+      {
+        "astar_s": 0.44899999999999807,
+        "distinct_targets": 20,
+        "misses": 20,
+        "relaxed_edges": 2468700,
+        "settled_vertices": 1450359,
+        "site_id": "node/9203668905",
+        "source": "5102307904"
+      },
+      {
+        "astar_s": 0.04102900000000359,
+        "distinct_targets": 82,
+        "misses": 82,
+        "relaxed_edges": 150508,
+        "settled_vertices": 138248,
+        "site_id": "node/5732949150",
+        "source": "5732949145"
+      }
+    ],
+    "trigger": "cumulative noncached A* edge relaxations for a source >= whole-graph edge count"
+  }
+}

@@ -447,3 +447,201 @@ limits justify a fixed, explicitly scoped main experiment and what novelty or
 additional algorithmic evidence it must test. The current branch stops at a
 draft PR with CI; no main experiment, holdout, further architecture, automatic
 merge or resource purchase is started.
+
+## D04 limited cost diagnosis (after PR #25)
+
+PR #25 was squash merged at `2495ba5f41768747973f92571b8eb2011d319535`.
+This continuation diagnoses the existing D04 / SD02 energy N128 timeout only;
+it does not authorize an architecture, optimization campaign, main experiment,
+holdout, new geography, changed physics or server source upload. Main merge CI
+is monitored separately. Historical rows and their `b912391` provenance remain
+unchanged.
+
+### Existing evidence, before any new diagnostic
+
+| Existing D04 120s row | Strong | Scale |
+|---|---:|---:|
+| Native A* seconds (inside native selected-leg seconds) | 69.454 | 72.568 |
+| Native selected-leg seconds | 88.677 | 93.274 |
+| Scalar-tree preparation seconds, disjoint in this profile | 3.368 | 3.427 |
+| Remaining loaded time outside those native categories | 28.023 | 23.362 |
+| A* pair requests / settled vertices | 1417 / 200531101 | 1539 / 209934551 |
+| Selected-leg requests / Python cache hits / entries | 3096 / 1598 / 1497 | 3531 / 1902 / 1628 |
+| Leaf requests / transitions / nonempty children | 2492 / 1514 / 1019 | 2852 / 1575 / 1078 |
+| Late exact-leg bound rejections / empty children | 977 / 495 | 1276 / 497 |
+
+The selected-leg timer includes A*, road witness reconstruction/JSON and native
+resource callbacks; these nested timers cannot be added. Cached legs never reach
+the 4096-entry capacity, and that cache is not cleared on timeout: there is no
+leg-cache thrashing evidence. Mean A* settled work is about 141518/136410 vertices
+per pair, compared with 150305 on completed D01 and 89744 on completed D03.
+The D04 aggregate cost comes from many costly pairs, not just the seed (0.79s)
+or C/CS propagation (5.64/6.15s). A* alone already exceeds 60s on the unfinished
+120s trace, so eliminating Python overhead alone cannot meet the target on that
+same work. This does not measure how much work remains for an exact proof.
+
+About 59.1%/62.2% of requested leaves do not create a nonempty child, through late
+bound rejection or an empty exact family. Counts alone do not reveal whether
+those leaves consume most routing time. The logs also lack per-target reuse,
+route-work tails, geometry association and the Python decode/bound split. These
+are the specific remaining attribution questions; no algorithm change is made
+from aggregate timings alone.
+
+### Predeclared minimal diagnostic
+
+`configs/d04_cost_diagnostic.json` freezes exactly **one** instrumented Strong
+Flat-BB run on the identical D04 candidate-domain digest
+`2196503277068b59652e84ab54729c25e8aa8f1705b329e09df451a5e2b0e4e0`, with the same
+optimized routing/seed profile and unchanged model. The loaded hard limit is
+**60s**, cold allowance 180s, one numerical worker/thread, 8 GiB process/query
+extra caps and the existing 2 GiB host-headroom guard. Carry 4107.513206329 CPU
+seconds and precharge a conservative **30 CPU seconds** for diagnostic development
+and microchecks; add the actual fresh worker CPU including compiler/cold load.
+There is no retry, second method/query, extra time or new performance-matrix row.
+
+The optional worker hook observes existing calls only. It measures selected-leg
+wall time plus native counter deltas, pre/late completion-bound work, region
+travel relaxation, prefix propagation, terminal work excluding selected legs,
+scalar/landmark preparation and incumbent callback. Per-request records associate
+cost with cache hit, late rejection, empty/nonempty child, target reuse and static
+geometry. Counter-poll/adapter overhead is separately measured. The profile does
+not alter keys, bounds, cache policy, provider checks, search order or physical
+transitions. A strict `>` late-cutoff classification preserves equality. Tiny
+end-to-end regressions check complete keys, seeds, metrics, leaf-flow accounting,
+patch restoration and native callback propagation.
+
+The profiled, interrupted trace is diagnostic evidence only. Its wall time and
+throughput cannot be compared with an uninstrumented method as performance
+results. The unprofiled 120s Strong/Scale rows remain the paired evidence; any
+proposal derived from the sampled prefix must state that limitation.
+
+### Observed diagnostic result
+
+The one profiled worker ran at checkpoint `4851ce292a283c5e2dc78cc71c416ffaaa18e5b3`.
+It stopped at 60.060 loaded seconds as **UNKNOWN**, keeping an independently
+verified two-positive-charge plan with the same best-known full key as the
+original D04 rows. There was no retry or extra numerical query. The replayed
+plan is 640.819 km; first feasibility was observed at 4.293s, a diagnostic
+observation rather than a new performance comparison.
+
+[The small diagnostic record](d04_cost_diagnostic.json) preserves the worker row,
+measured buckets, leaf outcomes and the offline work sketch. Raw per-call records
+remain in the ignored local run directory. Profile accounting closes exactly:
+823 leaf requests = 113 late cuts + 274 empty families + 435 nonempty children
++ one interrupted request; 709 transitions = 274 + 435. Native event sums match
+final native counters, and there are no source/target association mismatches.
+
+| Disjoint measured loaded-window category | Seconds | Share |
+|---|---:|---:|
+| Native A* including its resource callbacks | 36.153 | 60.2% |
+| Other native selected-leg work | 11.279 | 18.8% |
+| Python/interop selected-leg remainder | 4.724 | 7.9% |
+| Landmark and scalar preparation | 3.428 | 5.7% |
+| Pre/late completion bounds and region travel relaxation | 2.141 | 3.6% |
+| Exact prefix transitions, including seed transitions | 1.572 | 2.6% |
+| Terminal remainder, incumbent callback, measured route-adapter overhead and other | 0.765 | 1.3% |
+
+The first three rows total **52.155s / 86.8%** of the 60.060s observation window.
+Other native leg work combines tight-DAG reconstruction, native JSON construction
+and resource callbacks; Python/interop combines decoding, Fraction/path object
+materialization, cache/check and call overhead. This instrumentation does not
+isolate those subcomponents. Measured route-counter/adapter overhead was 0.033s;
+other observer overhead is not independently isolated. The window begins just
+after index construction, 0.0004s before the runner's loaded timer. The final
+interrupted call includes cleanup. No nested native timer is counted twice.
+
+Of 50.489s of search-leaf selected-leg time, **27.480s** ended in an empty exact
+family and **9.386s** in a late bound cut: together **73.0%**. Nonempty children
+account for 13.575s. Thus bound *evaluation cost* is small, while pre-route bound
+*quality* still leaves costly requests that prove unproductive only after exact
+routing. This does not by itself construct or validate a stronger admissible
+bound.
+
+Geometry does not support a corridor-cut shortcut: forward/equal-progress pairs
+with both endpoints inside the original 50 km corridor consumed **96.3%** of leaf
+routing time. Backward-inner pairs used 0.247s; pairs involving a wider-corridor
+endpoint used 1.634s. Those are descriptive labels, not safe reductions. Excluding
+wide/backward candidates would change the workload and does not address the
+observed dominant work.
+
+Completed leaf A* requests involved only **11 sources and 92 targets**. The five
+hottest sources account for **74.5%** of leaf A* time, with 62–74 distinct targets
+each (one other group has 82). Individual hot sources repeat 12.4–17.5 million
+settled vertices over different pairs, versus 2.987 million vertices in the whole
+graph. The origin already has its exact forward time tree: its 82 leaf pairs
+settle 138248 vertices in total, while non-origin source groups are much more
+costly. This comparison is mechanistic, not a controlled speed ratio: the pairs
+differ. The pair cache correctly avoids repeated identical pairs, but does not
+share the work of different targets from the same source.
+
+A purely offline sketch examined an online trigger: after cumulative uncached
+A* edge relaxations for a source reach the graph's 5900232 edges, charge a full
+forward-tree build and keep one/two sources by LRU. This executes **no routing
+algorithm** and predicts **no runtime or optimality**. With two entries, the
+observed trace would request nine builds and subsequently revisit 245 pairs
+whose old A* work totals 62.253 million settled vertices / 118.851 million edge
+relaxations / 21.925 measured seconds. Nine whole-graph trees have an upper work
+charge of 26.880 million vertices / 53.102 million edges. The canonical paths of
+those later pairs contain 399735 vertices in total, but the full equality DAG
+can be larger. One entry gives ten builds and addresses 192 later pairs. These
+figures expose reuse, **not net saved work/time**: actual tree costs, remaining
+reverse equality-DAG work, priority queues, eviction and memory effects are
+unmeasured. They cover only the profiled prefix of an unfinished search.
+
+The diagnostic worker consumed **68.720242 CPU seconds**, including compiler and
+cold loading. Add the predeclared 30-second development allowance to the carried
+4107.513206329: charged solve/limited-REF accounting is now
+**4206.233448329 / 28800 CPU seconds**, leaving **24593.766551671**. Selection
+preparation was separately 0.0474 wall / 0.0460 CPU seconds. Observed peak process
+RSS was **1.885 GiB**, query-extra RSS **0.698 GiB**, and minimum host available
+memory **2.913 GiB**. All original guards remained active. The main merge at
+`2495ba5` passed [CI 41275042365](https://github.com/yduan12323/HiRoute/actions/runs/41275042365).
+Focused local checks passed 31 tests, including actual native observation,
+callback/resource forwarding, complete-result/seed/metric parity, equality,
+leaf-flow closure, patch restoration, early-stop summaries and offline LRU work
+accounting. The new draft PR tracks its own clean installed-wheel CI.
+
+### Bounded next algorithm decision
+
+The next change worth testing is **sharing a complete forward time tree for a
+reused active road source**, using the existing exact Dijkstra index and the
+existing two-entry scalar LRU after feature preparation. Use the fixed online
+edge-work trigger above, not a hardcoded list of profiled Sites or an optimal
+answer. On a cache hit, supply `h_s(u)=d(s,u)` to the current reverse A*. For an
+original edge v->u, `d(s,u)<=d(s,v)+w(v,u)`, so this is a consistent reverse
+potential; vertices unreachable from s cannot lie on an s->t path. Continue the
+full equality contour and retain the existing greedy tight-DAG node/edge tie
+reconstruction. The tree is road-query reuse only: histories and post-stop
+families remain separate, and actual selected length/witnesses still come from
+the same canonical road path.
+
+This is a bounded modification to the current exact index, not another routing
+architecture. Count dynamic tree construction inside the query, preserve both
+resource guards, cap at two scalar workspaces, and give Strong/Scale the same
+policy. A future implementation must first prove/test exact directed/tie parity,
+interruption and cache eviction, then use only a predeclared D04 Strong/Scale
+comparison at the existing limits. It must not assume zero reconstruction work,
+feed the recorded optimum into a seed, or claim a 60s proof from this trace.
+
+Do **not** spend the next step on changing the seed, C/CS kernel, geographic
+selection or stop/depth semantics. Stronger pre-route bounds remain a later
+possibility; this diagnosis has not validated one. No source-tree promotion,
+algorithm optimization, wider experiment or holdout was executed here. The
+current task stops at the diagnostic draft PR and this concrete proposed step;
+D04 remains UNKNOWN and overall taskbook success remains unestablished.
+
+Reproduce the single diagnostic, with a new output directory and the existing
+input archive, using:
+
+```sh
+PYTHONPATH=src:tools python tools/d04_cost_diagnostic.py \
+  --config configs/d04_cost_diagnostic.json \
+  --input-root /path/to/existing/real-scale-dev \
+  --output-root data/d04-cost-fresh
+```
+
+`--preflight-only` never launches a solver. A normal run writes `summary.json`,
+the guarded worker result, measured profile and raw request records; summarizing
+persisted records never launches another query. The default pilot path is
+unchanged when `cost_diagnostic` is absent. The previous server upload denial
+remains in force and was not retried or bypassed.
