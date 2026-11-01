@@ -1,74 +1,28 @@
-name: M5 code-only regression
-
+name: M5 drift diagnostic ONLY
+run-name: One original optimized drift diagnostic — not full M5
 on:
   workflow_dispatch:
-  pull_request:
-    branches: [main, codex/milestone-4r-b1, dot/m5d-continuation]
-  push:
-    branches: [main, "codex/**", "dot/**"]
-
 permissions:
   contents: read
-
-concurrency:
-  group: m5-code-only-${{ github.event_name }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  wheel-regressions:
-    name: Python 3.11 isolated wheel and synthetic regressions
+  bounded-single-fixture:
     runs-on: ubuntu-24.04
-    timeout-minutes: 35
-    env:
-      OPENBLAS_NUM_THREADS: "1"
-      OMP_NUM_THREADS: "1"
-      MKL_NUM_THREADS: "1"
-      PYTHONDONTWRITEBYTECODE: "1"
-      PYTHONNOUSERSITE: "1"
-      PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
-      PIP_DISABLE_PIP_VERSION_CHECK: "1"
-      PIP_NO_CACHE_DIR: "1"
+    timeout-minutes: 5
     steps:
-      - name: Check out event commit
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
+          fetch-depth: 10
           persist-credentials: false
-      - name: Set up Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
-          python-version: "3.11.16"
-          architecture: x64
-      - name: Install pinned test dependencies in a fresh environment
-        run: |
-          python -m venv "$RUNNER_TEMP/m5-ci-venv"
-          "$RUNNER_TEMP/m5-ci-venv/bin/python" -m pip --isolated --disable-pip-version-check install --index-url https://pypi.org/simple --require-hashes --only-binary=:all: --no-cache-dir -r ci/m5-requirements.txt
-      - name: Install native exact road compiler and Boost headers
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y g++ libboost1.83-dev
-      - name: Build and test installed wheel
-        run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_m5_code_only.py'
-      - name: Test independent REF interface on tiny synthetic cases
-        run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_m6h_reference_code.py'
-      - name: Test D0 bootstrap and one-block protocol boundaries
-        run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_m5_bootstrap_code.py'
-      - name: Test opt-in recovery and bounded diagnostics
-        run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_m5_recovery_code.py'
-      - name: Test opt-in portable reachable candidates
-        run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_portable_candidate_code.py'
-      - name: Test opt-in target routing and independent full replay
-        run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_target_routing_code.py'
-      - name: Test opt-in energy screening and independent full replay
-        run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_terminal_energy_code.py'
-      - name: Reproduce historical hierarchy evidence without numerical workers
-        run: |
-          for flags in "" "-OO"; do
-            "$RUNNER_TEMP/m5-ci-venv/bin/python" $flags -m unittest discover -s tests -p test_research_reassessment.py
-          done
-      - name: Test held preprocessing recovery and nested cleanup
-        run: |
-          for flags in "" "-OO"; do
-            "$RUNNER_TEMP/m5-ci-venv/bin/python" $flags -m unittest discover -s tests -p test_bounded_preprocessing_recovery.py
-            "$RUNNER_TEMP/m5-ci-venv/bin/python" $flags -m unittest discover -s experiments/shandong_preprocessing_v1 -p test_driver.py
-            "$RUNNER_TEMP/m5-ci-venv/bin/python" $flags -m unittest discover -s experiments/shandong_preprocessing_v1 -p test_stage_identity.py
-          done
+          python-version: '3.11.16'
+      - name: Deterministic admission and one unchanged original process test
+        run: python ci/run_m5_drift_diagnostic.py
+      - name: Retain all original receipts even if the original assertion fails
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: m5-drift-single-diagnostic
+          path: ${{ runner.temp }}/m5-drift-diagnostic/
+          retention-days: 30
+          if-no-files-found: error
