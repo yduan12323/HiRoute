@@ -1,0 +1,54 @@
+name: Planning-value policy contracts
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/planning_value_policy.py'
+      - 'tools/run_planning_value_dev.py'
+      - 'tools/report_planning_value_dev.py'
+      - 'tools/run_real_scale_pilot.py'
+      - 'tests/test_planning_value_dev.py'
+      - 'configs/planning_value_dev_gate.json'
+      - 'docs/PLANNING_VALUE_DEV.md'
+      - 'docs/planning_value_dev_results.json'
+      - 'ci/run_planning_value_code.py'
+      - '.github/workflows/planning-value-dev.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/planning_value_policy.py'
+      - 'tools/run_planning_value_dev.py'
+      - 'tools/report_planning_value_dev.py'
+      - 'tools/run_real_scale_pilot.py'
+      - 'tests/test_planning_value_dev.py'
+      - 'configs/planning_value_dev_gate.json'
+      - 'docs/PLANNING_VALUE_DEV.md'
+      - 'docs/planning_value_dev_results.json'
+      - 'ci/run_planning_value_code.py'
+      - '.github/workflows/planning-value-dev.yml'
+permissions:
+  contents: read
+concurrency:
+  group: planning-value-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  policy-contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.11.16'
+      - name: Tiny physical policy replay and mocked stage safeguards
+        run: python ci/run_planning_value_code.py
+      - name: Retain admission and failure receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: planning-value-policy-audit
+          path: ${{ runner.temp }}/planning-value-code/
+          retention-days: 30
+          if-no-files-found: error
