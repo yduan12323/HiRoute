@@ -42,6 +42,10 @@ jobs:
         run: |
           python -m venv "$RUNNER_TEMP/m5-ci-venv"
           "$RUNNER_TEMP/m5-ci-venv/bin/python" -m pip --isolated --disable-pip-version-check install --index-url https://pypi.org/simple --require-hashes --only-binary=:all: --no-cache-dir -r ci/m5-requirements.txt
+      - name: Install native exact road compiler and Boost headers
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y g++ libboost1.83-dev
       - name: Build and test installed wheel
         run: '"$RUNNER_TEMP/m5-ci-venv/bin/python" ci/run_m5_code_only.py'
       - name: Test independent REF interface on tiny synthetic cases

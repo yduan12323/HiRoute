@@ -394,6 +394,10 @@ components, interrupted A* recovery, unchanged seed/full-key parity, equality,
 unattainment, relevant depth, bound admissibility, and workload/resource guards.
 The isolated wheel CI now requires native roads rather than allowing that test
 to silently omit execution on a machine without C++17/Boost. This verification
+requires the workflow's explicit Ubuntu C++/Boost 1.83 header installation; the
+first isolated attempt correctly failed when those headers were absent. No
+numerical solver or experimental row changed to address that environment issue.
+Code verification
 is separate from a main research experiment; the real graph never enters REF
 simple-path enumeration. Final CI status is tracked on the draft PR.
 
