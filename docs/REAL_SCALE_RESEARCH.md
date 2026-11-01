@@ -724,3 +724,102 @@ only. No runtime or exact-completion result is inferred from the offline sketch.
 If this bounded change misses the target, preserve its termination and identify
 the next bottleneck from observed work, rather than relabel success or adjust
 battery, candidates, depth or time limits.
+
+### Observed bounded DEV results: target still unmet
+
+Numerical source commit: `7e895f402c684520f14d44289f90b12129bfc7b4`.
+The two frozen rows are preserved in
+[`source_time_reuse_results.json`](source_time_reuse_results.json). No baseline
+was rerun. Both workers reached their declared 120s limit; neither row is an
+optimum, an infeasibility proof, or a 60s success. The 0.05–0.11s excess is
+termination/checkpoint overhead, not an increased limit. The unchanged best
+known full key and seed key match the prior D04 rows. Both independent physical
+replays verify two positive charges, 640.818861 km and 6 kWh terminal reserve.
+The necessary-charge lower bound remains two under the unchanged physical model.
+
+| D04 energy N128 | Strong Flat-BB | Scale |
+| --- | ---: | ---: |
+| Loaded wall seconds / mathematical status | 120.113 / UNKNOWN | 120.052 / UNKNOWN |
+| First feasible seconds | 4.219 | 4.433 |
+| Native selected-leg seconds | 78.892 | 87.126 |
+| Reverse A* seconds | 36.506 | 41.339 |
+| Source build seconds (nested in leg/scalar time) | 20.540 | 22.754 |
+| Source builds / cache hits / evictions | 23 / 416 / 21 | 26 / 515 / 24 |
+| Scalar + A* settled vertices | 183,203,313 | 205,211,942 |
+| Leaf routes / nonempty children | 3,267 / 1,135 | 4,182 / 1,180 |
+| Empty / late bound-pruned leaf actions | 498 / 1,633 | 503 / 2,498 |
+| Peak OPEN / deepest visited prefix | 94,248 / 3 | 25,347 / 4 |
+| Worker CPU seconds (cold load included) | 127.820781 | 127.847195 |
+| Peak worker RSS / sampled extra GiB | 2.141 / 0.843 | 2.602 / 1.396 |
+| Sampled minimum host available GiB | 2.685 | 2.944 |
+
+Compared with the preserved old 120s UNKNOWN rows, total native settled vertices
+fell from 212,292,931 to 183,203,313 (13.7%) for Strong and from 221,696,381 to
+205,211,942 (7.4%) for Scale. Native selected-leg time fell by 11.0% and 6.6%.
+These are **censored, different-length search traces**, not matched-work runtime
+speedups: new nonempty children increased from 1,019 to 1,135 and 1,078 to 1,180.
+Scale visits depth four but has not exhausted the relevant domain; its smaller
+OPEN is not evidence of exact completion. Keep the opt-in implementation as an
+engineering improvement with limited evidence; no claim of hierarchy superiority
+or overall research success follows.
+
+The intended reuse occurred, but 21/24 source-tree evictions caused recomputation.
+A* time roughly halved while charged full-tree construction used 20.5/22.8s.
+The remaining native selected-leg time after subtracting A* and dynamic builds
+is 21.846/23.033s (reconstruction/output and other native work); Python interop,
+bounds and family work also remain. Python leg caches held 1,727/1,906 entries,
+below the existing 4,096 cap, so this evidence does not support a leg-cache-size
+increase. End-of-run native cache counts differ because Strong's interruption
+cleared native state whereas Scale retained completed state; the cumulative
+counters record the work in both cases.
+
+Even setting A* and dynamic source construction to zero on Strong's observed,
+unfinished trace leaves about 63.07s of loaded work (Scale: 55.96s). This is an
+attribution of these prefixes only, **not** a prediction of any modified complete
+solve. It argues against treating more road-cache tuning as sufficient evidence
+for the 60s exact goal. Seed computation itself is already below 0.85s.
+
+Accounting is `4206.233448329 + 60 + 127.820781 + 127.847195 =
+4521.901424329 CPU seconds`, leaving **24278.098575671** of the original 28800s.
+The conservative 60s development allowance covers the local native regressions;
+its measured 120-test suite CPU was 4.972605s. Selection preparation was separately
+0.151867 wall / 0.134202 CPU seconds. No graph conversion/download, memory stop,
+extra numerical diagnostic, limit extension or holdout occurred. Source-tree
+construction was inside the query; compiler and cold load were charged via
+worker CPU. Both peak RSS and host headroom stayed within the existing guards.
+
+### Bounded next algorithm decision (proposed, not implemented here)
+
+Empty plus late-pruned actions account for 65.2%/71.8% of new leaf routes. The
+next coherent change is a safe **inbound-energy restriction before selected-leg
+routing**, shared by Strong singleton and Scale region queries, using existing
+static directed length landmarks and the actual post-stop family. It requires
+no new graph maps, geographic selection, physical parameters or depth cap.
+For current anchor a and region R, a conservative next-leg length bound is
+
+```
+L_in = max(0,
+    R.min_from_origin_distance - a.from_origin_distance,
+    a.to_destination_distance - R.max_to_destination_distance)
+E_need = minimum_energy + consumption * L_in
+```
+
+Each term follows the directed shortest-distance triangle inequality; actual
+selected-path length is at least shortest length. Every feasible continuation
+must have enough energy to reach its next stop before it can charge there.
+Thus a region/action can be discarded if every family's upper energy endpoint
+is strictly below E_need. Keep equality, including unattained limiting values
+when used as lower bounds. A stronger coherent version restricts each piece's
+relaxation domain to energies at least E_need before minimizing the existing
+completion relaxation, with exact open-endpoint/infimum handling. It must not
+merge different histories or use an open infimum as an incumbent. Region extrema
+are already static summaries; this need not scan all members. The seed already
+uses an inbound energy screen, whereas exact search currently computes the
+selected leg before checking its actual inbound energy feasibility.
+
+This proposal needs an admissibility proof and focused equality, temporal-energy,
+coverage and full-key regressions before another predeclared paired D04 check.
+The present counters do not establish how many routes that relaxation can reject
+or whether it will meet the target. No such new check was run in this segment.
+The main-experiment decision and holdout remain outstanding. The present delivery
+is an exact-index change plus honest limited DEV evidence, not taskbook completion.

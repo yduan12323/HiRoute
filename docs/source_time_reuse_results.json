@@ -1,0 +1,422 @@
+{
+  "schema": "hiroute.source_time_reuse_dev_results.v1",
+  "scope": "Two fair D04-only DEV rows for the approved adaptive exact source-time-tree reuse. No unchanged baseline rerun, new domain, main experiment or holdout.",
+  "numerical_source_commit": "7e895f402c684520f14d44289f90b12129bfc7b4",
+  "base_main_commit": "968a9e729dce43dc87ae6c92f5e6c4730c6ee984",
+  "carried_cpu_s": 4206.233448329,
+  "development_validation_cpu_s": 60,
+  "worker_cpu_s": 255.667976,
+  "charged_cpu_s": 4521.901424329,
+  "budget_cpu_s": 28800,
+  "preparation": {
+    "assessment": {
+      "126": {
+        "SD01": {
+          "energy_only": 154,
+          "schedule": 1453
+        },
+        "SD02": {
+          "energy_only": 143,
+          "schedule": 1311
+        },
+        "SD03": {
+          "energy_only": 128,
+          "schedule": 1064
+        },
+        "SD04": {
+          "energy_only": 156,
+          "schedule": 1469
+        }
+      }
+    },
+    "carried_cpu_s": 4206.233448329,
+    "development_validation_cpu_s": 60,
+    "graph_preparation": "Reuse existing exact Shandong TSV; no conversion or download",
+    "preparation_cpu_s": 0.134202,
+    "preparation_wall_s": 0.15186687500681728,
+    "scope": "Two fair D04-only DEV rows for the approved adaptive exact source-time-tree reuse. No unchanged baseline rerun, new domain, main experiment or holdout.",
+    "solver_called": false
+  },
+  "rows": [
+    {
+      "N": 128,
+      "bound_enabled": true,
+      "candidate_and_input_preparation_s": 2.6468189999868628,
+      "candidate_domain_claim": "Explicit truncated geographic candidate domains only; neither safe filtering nor province/full-domain optimality",
+      "cold_index_cpu_s": 8.985064999999999,
+      "cold_index_wall_s": 9.89037699997425,
+      "corridor_km": 126,
+      "depth_contract": {
+        "declared_limit": null,
+        "incumbent_derived_limit": 31,
+        "mode": "unrestricted",
+        "rule": "floor(U_J/(h_min+lambda_stop))"
+      },
+      "direct_selected_length_m": "626302659/1000",
+      "direct_selected_time_s": "204021970377/9625000",
+      "domain_id": "D04",
+      "domain_note": null,
+      "eligible_unique_anchors": 1311,
+      "feasible_key": [
+        "6900462194303/240625000",
+        "565818861/6250000",
+        2,
+        [
+          [
+            "node/13002015294",
+            "C"
+          ],
+          [
+            "node/13257411937",
+            "C"
+          ]
+        ]
+      ],
+      "graph_index_resident_bytes": 1281818624,
+      "great_circle_m": 557337.8940678393,
+      "host_available_min_bytes": 2882486272,
+      "implementation": {
+        "pair_query_mode": "landmark_astar",
+        "seed_beam_pruning": true,
+        "source_tree_reuse": true
+      },
+      "mathematical_status": "unknown",
+      "method": "flat_bb_strong",
+      "metrics": {
+        "empty_prefixes": 498,
+        "equality_retained": 0,
+        "leaf_routes": 3267,
+        "max_depth": 3,
+        "peak_open": 94248,
+        "pruned_actions": 1633,
+        "pruned_regions": 0,
+        "safe_unreachable_sites": 3,
+        "seed_attempts": 25,
+        "seed_rank_pruned_effects": 401,
+        "seed_rank_pruned_routes": 401,
+        "singleton_queries": 97125,
+        "summary_queries": 0,
+        "terminal_attempts": 777,
+        "terminal_infeasible_prefixes": 470,
+        "terminal_records_peak": 1,
+        "transition_input_pieces": 13485,
+        "transition_output_pieces": 14216,
+        "transitions": 1633
+      },
+      "necessary_charge_count_lower_bound": 2,
+      "new_total_cpu_s": 4394.054229329,
+      "open_remaining": 94217,
+      "process_group_peak_rss_bytes": 2284716032,
+      "profile": "source_reuse",
+      "query_cpu_s": 118.835684,
+      "query_extra_peak_bytes": 904855552,
+      "query_id": "SD02",
+      "query_loaded_total_s": 120.11279066599673,
+      "query_memory_baseline_bytes": 1281818624,
+      "routing_metrics": {
+        "astar_queries": 1632,
+        "astar_relaxed_edges": 189958885,
+        "astar_settled_vertices": 103810834,
+        "astar_time_s": 36.506,
+        "backend": "exact_integer_scaled_cpp",
+        "build_time_s": 7.8692,
+        "cached_path_edges": 2266310,
+        "compile_load_time_s": 2.013369167019846,
+        "constructor_time_s": 9.883423916995525,
+        "distance_cache_entries": 0,
+        "distance_cache_values": 0,
+        "edges": 5900232,
+        "index_builds": 1,
+        "index_rss_increment_bytes": 1249116160,
+        "landmark_preparation_s": 1.77083,
+        "leg_cache_entries": 1727,
+        "length_scale": "100000000000000000000000",
+        "nodes": 2986695,
+        "pair_query_mode": "landmark_astar",
+        "pair_workspace_values": 0,
+        "pinned_landmark_count": 0,
+        "process_current_rss_bytes": 1874100224,
+        "queued_labels": 0,
+        "scalar_cache_hits": 3,
+        "scalar_queries": 30,
+        "scalar_relaxed_edges": 156988407,
+        "scalar_settled_vertices": 79392479,
+        "scalar_time_s": 23.6158,
+        "selected_leg_cache_hits": 2342,
+        "selected_leg_queries": 4070,
+        "selected_leg_time_s": 78.8918,
+        "source_tree_build_attempts": 23,
+        "source_tree_build_relaxed_edges": 133730947,
+        "source_tree_build_settled_vertices": 67630649,
+        "source_tree_build_time_s": 20.5402,
+        "source_tree_builds": 23,
+        "source_tree_cache_entries": 0,
+        "source_tree_cache_hits": 416,
+        "source_tree_evictions": 21,
+        "source_tree_reuse_enabled": true,
+        "source_tree_uses": 439,
+        "source_tree_work_sources": 0,
+        "time_scale": "770000000000000000000000000"
+      },
+      "scenario": "energy_only",
+      "scenario_eligible_sites": 143,
+      "seconds": {
+        "preparation": 0.7693144170043524,
+        "search": 115.83905929201865,
+        "seed": 0.8086279999988619,
+        "terminals": 1.5657370730186813,
+        "transitions": 7.561207653256133
+      },
+      "seed_key": [
+        "3608984430839/120312500",
+        "59382811/625000",
+        2,
+        [
+          [
+            "node/13002015294",
+            "C"
+          ],
+          [
+            "node/10063875433",
+            "C"
+          ]
+        ]
+      ],
+      "shortest_road_distance_m": "150667233/250",
+      "solve_limit_s": 120,
+      "source_kind": "real_shandong_dev",
+      "status": "time_limit",
+      "supervisor_cpu_s": 127.242262528,
+      "supervisor_total_s": 130.91469812500873,
+      "time_to_first_feasible_s": 4.219267290987773,
+      "witness": {
+        "charges_kwh": [
+          "50979299/1562500",
+          "72380333/1250000"
+        ],
+        "driving_time_s": "214427978903/9625000",
+        "elapsed_time_s": "6611712194303/240625000",
+        "independent_key": [
+          "6900462194303/240625000",
+          "565818861/6250000",
+          2,
+          [
+            [
+              "node/13002015294",
+              "C"
+            ],
+            [
+              "node/13257411937",
+              "C"
+            ]
+          ]
+        ],
+        "initial_wait_s": "0",
+        "physical_verified": true,
+        "positive_charge_count": 2,
+        "terminal_energy_kwh": "6",
+        "total_distance_m": "640818861/1000"
+      },
+      "worker_cpu_s": 127.820781,
+      "worker_peak_rss_bytes": 2299101184,
+      "worker_total_s": 130.00321549997898,
+      "workload_mode": "pilot",
+      "run_version": "7e895f402c684520f14d44289f90b12129bfc7b4",
+      "candidate_domain_sha256": "2196503277068b59652e84ab54729c25e8aa8f1705b329e09df451a5e2b0e4e0",
+      "actual_qualified_N": 128,
+      "active_reachable_N": 125,
+      "counters_complete": true,
+      "total_native_settled_vertices": 183203313
+    },
+    {
+      "N": 128,
+      "bound_enabled": true,
+      "candidate_and_input_preparation_s": 2.6978903749841265,
+      "candidate_domain_claim": "Explicit truncated geographic candidate domains only; neither safe filtering nor province/full-domain optimality",
+      "cold_index_cpu_s": 9.107289,
+      "cold_index_wall_s": 9.79094229202019,
+      "corridor_km": 126,
+      "depth_contract": {
+        "declared_limit": null,
+        "incumbent_derived_limit": 31,
+        "mode": "unrestricted",
+        "rule": "floor(U_J/(h_min+lambda_stop))"
+      },
+      "direct_selected_length_m": "626302659/1000",
+      "direct_selected_time_s": "204021970377/9625000",
+      "domain_id": "D04",
+      "domain_note": null,
+      "eligible_unique_anchors": 1311,
+      "feasible_key": [
+        "6900462194303/240625000",
+        "565818861/6250000",
+        2,
+        [
+          [
+            "node/13002015294",
+            "C"
+          ],
+          [
+            "node/13257411937",
+            "C"
+          ]
+        ]
+      ],
+      "graph_index_resident_bytes": 1294237696,
+      "great_circle_m": 557337.8940678393,
+      "host_available_min_bytes": 3160604672,
+      "implementation": {
+        "pair_query_mode": "landmark_astar",
+        "seed_beam_pruning": true,
+        "source_tree_reuse": true
+      },
+      "mathematical_status": "unknown",
+      "method": "scale",
+      "metrics": {
+        "empty_prefixes": 503,
+        "equality_retained": 0,
+        "leaf_routes": 4182,
+        "max_depth": 4,
+        "peak_open": 25347,
+        "pruned_actions": 2498,
+        "pruned_regions": 0,
+        "safe_unreachable_sites": 3,
+        "seed_attempts": 25,
+        "seed_rank_pruned_effects": 401,
+        "seed_rank_pruned_routes": 401,
+        "singleton_queries": 0,
+        "summary_queries": 57738,
+        "terminal_attempts": 1044,
+        "terminal_infeasible_prefixes": 562,
+        "terminal_records_peak": 1,
+        "transition_input_pieces": 13966,
+        "transition_output_pieces": 14796,
+        "transitions": 1683
+      },
+      "necessary_charge_count_lower_bound": 2,
+      "new_total_cpu_s": 4521.901424329,
+      "open_remaining": 25346,
+      "process_group_peak_rss_bytes": 2793013248,
+      "profile": "source_reuse",
+      "query_cpu_s": 118.739876,
+      "query_extra_peak_bytes": 1499299840,
+      "query_id": "SD02",
+      "query_loaded_total_s": 120.0523021669942,
+      "query_memory_baseline_bytes": 1294237696,
+      "routing_metrics": {
+        "astar_queries": 1802,
+        "astar_relaxed_edges": 216874619,
+        "astar_settled_vertices": 116998074,
+        "astar_time_s": 41.3391,
+        "backend": "exact_integer_scaled_cpp",
+        "build_time_s": 7.66438,
+        "cached_path_edges": 2455431,
+        "compile_load_time_s": 2.1152914170234,
+        "constructor_time_s": 9.779798584000673,
+        "distance_cache_entries": 2,
+        "distance_cache_values": 5973390,
+        "edges": 5900232,
+        "index_builds": 1,
+        "index_rss_increment_bytes": 1262092288,
+        "landmark_preparation_s": 1.80618,
+        "leg_cache_entries": 1906,
+        "length_scale": "100000000000000000000000",
+        "nodes": 2986695,
+        "pair_query_mode": "landmark_astar",
+        "pair_workspace_values": 2986695,
+        "pinned_landmark_count": 2,
+        "process_current_rss_bytes": 2032877568,
+        "queued_labels": 0,
+        "scalar_cache_hits": 3,
+        "scalar_queries": 33,
+        "scalar_relaxed_edges": 174431574,
+        "scalar_settled_vertices": 88213868,
+        "scalar_time_s": 26.0563,
+        "selected_leg_cache_hits": 3345,
+        "selected_leg_queries": 5252,
+        "selected_leg_time_s": 87.1255,
+        "source_tree_build_attempts": 26,
+        "source_tree_build_relaxed_edges": 151174114,
+        "source_tree_build_settled_vertices": 76452038,
+        "source_tree_build_time_s": 22.7539,
+        "source_tree_builds": 26,
+        "source_tree_cache_entries": 2,
+        "source_tree_cache_hits": 515,
+        "source_tree_evictions": 24,
+        "source_tree_reuse_enabled": true,
+        "source_tree_uses": 541,
+        "source_tree_work_sources": 32,
+        "time_scale": "770000000000000000000000000"
+      },
+      "scenario": "energy_only",
+      "scenario_eligible_sites": 143,
+      "seconds": {
+        "preparation": 0.8918177919986192,
+        "search": 115.56226008298108,
+        "seed": 0.8483867079776246,
+        "terminals": 1.6281552698055748,
+        "transitions": 7.049916041578399
+      },
+      "seed_key": [
+        "3608984430839/120312500",
+        "59382811/625000",
+        2,
+        [
+          [
+            "node/13002015294",
+            "C"
+          ],
+          [
+            "node/10063875433",
+            "C"
+          ]
+        ]
+      ],
+      "shortest_road_distance_m": "150667233/250",
+      "solve_limit_s": 120,
+      "source_kind": "real_shandong_dev",
+      "status": "time_limit",
+      "supervisor_cpu_s": 127.064735744,
+      "supervisor_total_s": 130.61514375000843,
+      "time_to_first_feasible_s": 4.4328384999826085,
+      "witness": {
+        "charges_kwh": [
+          "50979299/1562500",
+          "72380333/1250000"
+        ],
+        "driving_time_s": "214427978903/9625000",
+        "elapsed_time_s": "6611712194303/240625000",
+        "independent_key": [
+          "6900462194303/240625000",
+          "565818861/6250000",
+          2,
+          [
+            [
+              "node/13002015294",
+              "C"
+            ],
+            [
+              "node/13257411937",
+              "C"
+            ]
+          ]
+        ],
+        "initial_wait_s": "0",
+        "physical_verified": true,
+        "positive_charge_count": 2,
+        "terminal_energy_kwh": "6",
+        "total_distance_m": "640818861/1000"
+      },
+      "worker_cpu_s": 127.847195,
+      "worker_peak_rss_bytes": 2793537536,
+      "worker_total_s": 129.84328470900073,
+      "workload_mode": "pilot",
+      "run_version": "7e895f402c684520f14d44289f90b12129bfc7b4",
+      "candidate_domain_sha256": "2196503277068b59652e84ab54729c25e8aa8f1705b329e09df451a5e2b0e4e0",
+      "actual_qualified_N": 128,
+      "active_reachable_N": 125,
+      "counters_complete": true,
+      "total_native_settled_vertices": 205211942
+    }
+  ]
+}
