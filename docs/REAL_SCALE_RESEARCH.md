@@ -1,5 +1,18 @@
 # Real-scale DEV research
 
+The [research-route reassessment](RESEARCH_ROUTE_REASSESSMENT.md) preserves the
+exact system and the full negative evidence. Hierarchy has a measured batching
+tradeoff, not established stronger exclusion or general end-to-end superiority:
+on36 common-exact N64 pairs it makes fewer bound queries but more heap pushes,
+with no consistent query-RSS reduction. Main/holdout readiness and overall
+taskbook completion remain **NO-GO / incomplete**. The report reconciles every
+acceptance category, audits primary external methods and specifies an
+independent comparator's strict-attainment contract plus a staged completion
+proposal. No real solver row or algorithm change ran in this reassessment.
+Latest conservative accounting is **11305.649970329 /28800 CPU seconds**;
+preprocessing remains **652.040677976 /900**. Earlier accounting below is
+historical and is preserved.
+
 The subsequent [single pending-activity DEV check](PENDING_ACTIVITY_DEV_CHECK.md)
 is terminal: two fresh WD01/E18/schedule/N64 screen-on rows both timed out at120s,
 preserving the same physically verified three-charge feasible full K as reused

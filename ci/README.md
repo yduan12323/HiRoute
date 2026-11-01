@@ -31,3 +31,8 @@ external artifact is used.
 
 This CI is a code regression check. It does not certify broad-scale performance,
 real-map independent REF equivalence, historical R0–R4 results or holdout work.
+
+The separate `test_research_reassessment.py` unittest step reads committed
+historical JSON and validates its read-only statistical reduction. It is
+registered as a research-artifact test, outside the data-free wheel cohort.
+It launches no solver or road provider and does not reproduce timed experiments.

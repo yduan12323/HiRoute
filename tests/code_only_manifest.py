@@ -122,6 +122,8 @@ CODE_GATE_MODULES = CODE_GATE_MODULES + (
 
 # Explicit historical/research modules; register new modules instead of hiding them.
 LEGACY_MODULES = (
+    # Committed research JSON only; separate read-only unittest CI step.
+    'tests/test_research_reassessment.py',
     'tests/test_active_face_diagnostic.py',
     'tests/test_cached_query_finalization.py',
     'tests/test_candidate_memory.py',
