@@ -1,0 +1,112 @@
+{
+  "schema": "hiroute.enqueue_pruning_dev.v1",
+  "scope": "Exactly two fair D04-only DEV rows for strict attained-incumbent pruning at enqueue. No unchanged baseline rerun, new bound, extra profiling/grid, new domain, main experiment or holdout.",
+  "base_config": "configs/real_scale_dev.json",
+  "model": {
+    "departure_time_s": "0",
+    "initial_energy_kwh": "18",
+    "capacity_kwh": "60",
+    "minimum_energy_kwh": "0",
+    "destination_reserve_kwh": "6",
+    "stop_overhead_s": "300",
+    "stop_penalty_s": "600",
+    "consumption_kwh_per_m": "1/6250",
+    "charging_curve": [
+      [
+        "0",
+        "30",
+        "36",
+        "0"
+      ],
+      [
+        "30",
+        "48",
+        "60",
+        "-720"
+      ],
+      [
+        "48",
+        "60",
+        "120",
+        "-3600"
+      ]
+    ],
+    "provenance": "Existing Shandong DEV physical model retained; no battery/consumption change to induce multiple charging"
+  },
+  "resources": {
+    "numeric_workers": 1,
+    "numeric_threads": 1,
+    "pilot_method_query_wall_s": 120,
+    "main_threshold_s": 60,
+    "new_solve_and_finite_ref_cpu_budget_s": 28800,
+    "query_extra_memory_bytes": 8589934592,
+    "host_headroom_bytes": 2147483648,
+    "map_preparation_accounting": "Separate wall/CPU/RSS; no free N-squared selected-leg table; selected legs refined on demand"
+  },
+  "accounting": {
+    "carried_cpu_s": 4747.059027329,
+    "development_validation_cpu_s": 60,
+    "policy": "Carry prior charged use; conservatively precharge 60s for development/native correctness and finite tiny REF checks, then all observed fresh worker CPU including compiler/cold load. Preparation separate. No retries or budget extension."
+  },
+  "selection_assessment": {
+    "corridor_halfwidths_km": [
+      126
+    ],
+    "rule": "Existing D04 domain only; exact prior input digest required. No geographic expansion."
+  },
+  "profiles": {
+    "enqueue_pruning": {
+      "pair_query_mode": "landmark_astar",
+      "seed_beam_pruning": true,
+      "source_tree_reuse": true,
+      "inbound_energy_bound": true,
+      "eager_incumbent_pruning": true
+    }
+  },
+  "domains": [
+    {
+      "id": "D04",
+      "query_id": "SD02",
+      "scenario": "energy_only",
+      "N": 128,
+      "corridor_km": 126,
+      "profiles": {
+        "enqueue_pruning": [
+          "flat_bb_strong",
+          "scale"
+        ]
+      },
+      "candidate_domain_sha256": "2196503277068b59652e84ab54729c25e8aa8f1705b329e09df451a5e2b0e4e0"
+    }
+  ],
+  "routing_policy": {
+    "scalar_lru_slots": 2,
+    "trigger": "For a non-origin source, cumulative uncached old-potential A* edge relaxations reach the full graph edge count; build its full forward time tree on the next pair miss that needs it.",
+    "construction_accounting": "Dynamic query work, included in loaded query limit and native leg/scalar timers; no new persistent cache outside the existing scalar LRU.",
+    "ties": "Use the exact source distances as a consistent reverse A* potential, retain strict-greater cutoff and the complete equality contour; reconstruct the existing canonical node/edge path and actual length."
+  },
+  "correctness_before_dev": [
+    "Strict > versus equality giving a better secondary value than an actual valid seed",
+    "Primary/secondary unattainment and full-key parity; actual open primary face cannot become U",
+    "An improving valid incumbent leaves necessary pop pruning; retained push/pop tie order matches control",
+    "None inbound actions, no-seed continuation and unrestricted six-charge depth remain correct",
+    "Final rejected node crossing a deadline remains UNKNOWN even with empty OPEN",
+    "Strict boolean input contract before index construction; exact heap/enqueue counter accounting",
+    "Inherited native routing, inbound admissibility/coverage, physical replay and independent tiny REF regressions"
+  ],
+  "interpretation": "Only two new unprofiled 120s D04 energy N128 rows, 60s target. Preserved PR28 completed rows are the historical control; do not repeat them. No predicted count/time/OPEN reduction or general success claim.",
+  "completion_refinement": {
+    "inbound_length": "Existing Region remaining-length lower bound minus its static minimum onward length; directed triangle inequalities, no member scan.",
+    "inbound_requirement": "minimum_energy + consumption * inbound_length_lower_bound; after selected routing use the actual selected inbound length in the same relaxation.",
+    "domain": "For each affine post-stop piece minimize the existing bound on [max(lo,requirement),hi]. Exclude only lo>hi; retain equality and open-endpoint limits as lower bounds, never incumbents.",
+    "fairness": "Same seed, road index, two-slot source reuse, kernels, information, resource guards and refinement for Strong singleton and Scale Region.",
+    "attribution": "Pre-route region/action exclusions separately counted from late energy-empty actions after a selected-leg query."
+  },
+  "queue_policy": {
+    "prune": "Only when an existing admissible bound is strictly greater than the current valid attained incumbent primary value at enqueue. Never use an open infimum as U.",
+    "retention": "Keep equality. Preserve relative serial order of retained entries. Pop pruning remains for later incumbent improvements. No heap scan/rebuild.",
+    "fairness": "Same predicate, prior inbound relaxation, road/seed/kernel/information and resources for Strong and Scale.",
+    "counters": "Non-None enqueue_attempts = heap_pushes + enqueue_pruned_nodes; nodes split into Region/state. Region action counts use static summary count. heap_pushes - heap_pops = open_remaining. Keep old pop pruned_regions/actions separate.",
+    "attribution": "Measure actual enqueue decisions, remaining pop pruning and OPEN. Prior pop counts do not identify the early-rejection subset or predict runtime savings."
+  }
+}

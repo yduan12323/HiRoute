@@ -104,6 +104,7 @@ CODE_GATE_MODULES = CODE_GATE_MODULES + (
     "tests/test_d04_cost_diagnostic.py",
     "tests/test_source_tree_reuse.py",
     "tests/test_inbound_energy_bound.py",
+    "tests/test_enqueue_pruning.py",
     "tests/test_c_operator.py",
     "tests/test_exact_terminal.py",
     "tests/test_r3_memory_limit.py",

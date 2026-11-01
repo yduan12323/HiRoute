@@ -1002,3 +1002,64 @@ open-infimum and resource semantics before any further paired check. The
 avoidable subset, runtime benefit and OPEN reduction are all unknown from the
 present data; no 60s prediction follows. This next change is proposed only and
 was not included in these timed rows.
+
+## Strict incumbent pruning before queue insertion
+
+This continuation starts from verified merged main
+`41b920949cb37137eed0c5ca881719bdd92e7eee` (PR #28); its push CI is monitored
+separately. The prior pop-versus-enqueue attribution correction stays in force.
+No historical row, optimality state or numerical source is changed.
+
+### Safety and measured counters
+
+`solve_scale(..., eager_incumbent_pruning=True)` adds one opt-in check after an
+existing nonempty bound is computed and before heap insertion: reject only
+`L > incumbent.key[0]`. The incumbent is the same valid attained seed/terminal
+record used by the existing pop check; `OptimalFace`'s open infimum is not U.
+For every represented continuation `J >= L`. If `L > U_now`, that node cannot
+improve the current feasible solution. Since attained incumbent primary U never
+increases, it cannot become competitive later. Equality stays queued for Q/H/Pi,
+attainment and open-face behavior. Bounds, prefix families, selected legs, seeds,
+road caches and relevant depth are unchanged. No existing queue is scanned or
+rebuilt. Removing serial gaps preserves the relative order of retained entries.
+The same policy applies to Strong and Scale, and the disabled control retains
+the historical policy.
+
+Later incumbent improvements can still make an already inserted entry a strict
+loser. Existing pop pruning remains and its counters keep their old meaning.
+New `enqueue_pruned_nodes/regions/states/actions` record actual rejection at
+insertion time. Region action counts use the existing static count, with no
+member/mask scan. Nonempty `enqueue_attempts = heap_pushes + enqueue_pruned_nodes`,
+`enqueue_pruned_nodes = enqueue_pruned_regions + enqueue_pruned_states`, and
+`heap_pushes - heap_pops = open_remaining`. These are queue operations/action
+occurrences, not unique road pairs or avoided exact queries. No counter from a
+prior run determines the new early-rejection subset or its runtime benefit.
+
+### Correctness and predeclared paired check
+
+Before any fresh D04 numerical row, **140 relevant local tests passed** with
+actual native roads required (measured suite CPU **4.884833s**). All **eight**
+new tests also passed under `-OO`. They cover strict exclusion after a valid
+zero-stop incumbent, equality that improves Q over an independently replayed
+feasible seed, frozen full-key/primary/secondary-unattainment parity, an actual
+open-primary CS face followed by a larger attained feasible route, a valid U
+improvement requiring later pop pruning, and identical relative push/pop and
+physical call order among retained entries. They also cover inbound-empty None
+actions, unrestricted six-charge depth, strict flag validation, and exact
+queue-counter identities. Crossing the deadline at the final rejected node
+still returns UNKNOWN even when OPEN becomes empty. Draft fixtures were corrected
+to exercise the intended existing depth bound and positive-edge input contract;
+no solver semantics or input requirements were relaxed.
+
+`configs/enqueue_pruning_dev.json` freezes exactly two unprofiled D04 / SD02
+energy N128 rows, Strong then Scale, with the same prior road/seed/kernel/bound
+profile plus this shared queue policy. Domain digest remains
+`2196503277068b59652e84ab54729c25e8aa8f1705b329e09df451a5e2b0e4e0`.
+Both keep the existing 120s loaded limit / 60s target, single numerical worker
+and thread, process/query memory guards and host headroom. Carry
+**4747.059027329 CPU seconds**, precharge a conservative **60s** for development,
+correctness and tiny finite reference checks, then add every fresh worker's CPU
+including compiler/cold load. The total remains **28800s**; preparation is separate.
+No unchanged baseline is rerun and no profiling/grid, new bound, seed/road/cache,
+physical/domain/depth/limit change, main experiment, holdout or denied server
+upload is included. No target result or performance gain is presumed.

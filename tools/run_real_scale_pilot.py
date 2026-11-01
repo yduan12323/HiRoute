@@ -219,6 +219,7 @@ def worker(args):
                     on_incumbent=keep, use_bound=not args.no_bound,
                     seed_beam_pruning=implementation.get('seed_beam_pruning', False),
                     inbound_energy_bound=implementation.get('inbound_energy_bound', False),
+                    eager_incumbent_pruning=implementation.get('eager_incumbent_pruning', False),
                     memory_baseline_bytes=query_memory_baseline)
             row.update(status=result['status'], mathematical_status=result.get('mathematical_status', result['status']),
                 key=result.get('key'), primary_infimum=result.get('primary_infimum'),

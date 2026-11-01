@@ -263,7 +263,7 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
                 memory_limit_bytes=8*1024**3, on_incumbent=None, use_bound=True,
                 seed_beam_width=4, _clock=time.monotonic, c_backend='analytic',
                 memory_baseline_bytes=None, seed_beam_pruning=False,
-                inbound_energy_bound=False):
+                inbound_energy_bound=False, eager_incumbent_pruning=False):
     """Solve the full declared candidate domain, with resource-limited UNKNOWN.
 
     flat_bb_strong and scale share the exact kernel, singleton relaxation,
@@ -273,6 +273,10 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
     next-leg energy requirement, using static directed summaries before routing
     and exact selected inbound length afterward. It never modifies a family or
     supplies an incumbent; use_bound=False also disables this refinement.
+    eager_incumbent_pruning=True rejects an already computed bound strictly
+    above the attained incumbent before insertion. Existing pop pruning remains
+    for entries whose incumbent improves later. Equality and the relative serial
+    order of retained entries are preserved; open infima never supply this U.
     seed_beam_width must be a strictly positive integer; zero does not disable
     the seed. Invalid widths are rejected before constructing a road index.
     """
@@ -281,6 +285,8 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
                                region_travel_lower_bounds, singleton_region)
     if method not in ('scale', 'flat_bb_strong'):
         raise ValueError('method must be scale or flat_bb_strong')
+    if type(eager_incumbent_pruning) is not bool:
+        raise ValueError('eager_incumbent_pruning must be boolean')
     if type(inbound_energy_bound) is not bool:
         raise ValueError('inbound_energy_bound must be boolean')
     if type(seed_beam_pruning) is not bool:
@@ -316,7 +322,10 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
         pruned_regions=0, pruned_actions=0, equality_retained=0, max_depth=0,
         peak_open=0, safe_unreachable_sites=0, seed_attempts=0, terminal_records_peak=1,
         inbound_energy_pruned_regions=0, inbound_energy_pruned_actions=0,
-        inbound_energy_late_empty_actions=0)
+        inbound_energy_late_empty_actions=0, enqueue_attempts=0,
+        enqueue_pruned_nodes=0, enqueue_pruned_regions=0,
+        enqueue_pruned_states=0, enqueue_pruned_actions=0,
+        heap_pushes=0, heap_pops=0)
     seconds = dict(preparation=0., seed=0., search=0., transitions=0., terminals=0.)
     incumbent = None
     seed = None
@@ -340,7 +349,20 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
     def push(bound, kind, state, region=None, effect=None):
         if bound is None:
             return
+        metrics['enqueue_attempts'] += 1
+        # The same attained upper bound used at pop, evaluated now. Its primary
+        # value only decreases; a strict loser cannot later become competitive.
+        # Do not compare with OptimalFace's possibly unattained infimum.
+        if eager_incumbent_pruning and incumbent is not None and bound > incumbent['key'][0]:
+            metrics['enqueue_pruned_nodes'] += 1
+            if region is None:
+                metrics['enqueue_pruned_states'] += 1
+            else:
+                metrics['enqueue_pruned_regions'] += 1
+                metrics['enqueue_pruned_actions'] += region.summaries[effect].count
+            return
         heapq.heappush(queue, (bound, next(serial), kind, state, region, effect))
+        metrics['heap_pushes'] += 1
         metrics['peak_open'] = max(metrics['peak_open'], len(queue))
     root = PrefixState((initial_piece(Interval(exact(snapshot.initial_energy_kwh),
         exact(snapshot.initial_energy_kwh)), start_time=exact(snapshot.departure_time_s),
@@ -433,6 +455,7 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
         while queue:
             check()
             lower, _, kind, state, region, effect = heapq.heappop(queue)
+            metrics['heap_pops'] += 1
             if incumbent is not None and lower > incumbent['key'][0]:
                 metrics['pruned_regions'] += 1
                 if region is not None:
