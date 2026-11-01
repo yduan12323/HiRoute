@@ -1,0 +1,329 @@
+{
+  "decision_boundary": {
+    "algorithm_and_statistics_freeze": "required before independent holdout",
+    "budget": "pending",
+    "domain_policy": "pending",
+    "holdout": ">=8 genuinely new OD groups later; no holdout selected or run here",
+    "launch": false,
+    "main_solver_cap_s": "pending; current gate120s not automatically a wider budget",
+    "methods": [
+      "flat_bb_strong",
+      "scale"
+    ],
+    "schedule": "existing2/5..7/10 direct selected-time recipe,2700s duration; actual times uncomputed"
+  },
+  "diagnostics": {
+    "batching_ablation": "flat_bb_strong vs scale with the same completion relaxation; order difference reported",
+    "bound_ablation": {
+      "N": 16,
+      "method": "scale",
+      "query_id": "SD02",
+      "scenario": "energy_only",
+      "use_bound_values": [
+        true,
+        false
+      ],
+      "wall_s": 60
+    },
+    "legacy_common_domain": {
+      "N": 4,
+      "depth_limit": 2,
+      "domain_rule": "first four energy-qualified Sites of the frozen scenario-specific N16 order; diagnostic depth only",
+      "query_id": "SD01",
+      "scenario": "energy_only",
+      "wall_s": 60
+    }
+  },
+  "model": {
+    "capacity_kwh": "60",
+    "charging_curve": [
+      [
+        "0",
+        "30",
+        "36",
+        "0"
+      ],
+      [
+        "30",
+        "48",
+        "60",
+        "-720"
+      ],
+      [
+        "48",
+        "60",
+        "120",
+        "-3600"
+      ]
+    ],
+    "consumption_kwh_per_m": "1/6250",
+    "departure_time_s": "0",
+    "destination_reserve_kwh": "6",
+    "initial_energy_kwh": "18",
+    "minimum_energy_kwh": "0",
+    "provenance": "Existing Shandong DEV physical model retained; no battery/consumption change to induce multiple charging",
+    "stop_overhead_s": "300",
+    "stop_penalty_s": "600"
+  },
+  "pilot_matrix": [
+    {
+      "N": 16,
+      "query_ids": [
+        "SD01"
+      ],
+      "scenarios": [
+        "energy_only"
+      ]
+    },
+    {
+      "N": 32,
+      "query_ids": [
+        "SD01"
+      ],
+      "scenarios": [
+        "energy_only",
+        "schedule"
+      ]
+    },
+    {
+      "N": 64,
+      "query_ids": [
+        "SD01",
+        "SD02",
+        "SD03",
+        "SD04"
+      ],
+      "scenarios": [
+        "energy_only",
+        "schedule"
+      ]
+    },
+    {
+      "N": 128,
+      "query_ids": [
+        "SD01"
+      ],
+      "scenarios": [
+        "energy_only",
+        "schedule"
+      ]
+    }
+  ],
+  "proposed_initial_energy_kwh": [
+    "18",
+    "48"
+  ],
+  "proposed_soc_fractions": [
+    "3/10",
+    "4/5"
+  ],
+  "resources": {
+    "host_headroom_bytes": 2147483648,
+    "main_threshold_s": 60,
+    "map_preparation_accounting": "Separate wall/CPU/RSS; no free N-squared selected-leg table; selected legs refined on demand",
+    "new_solve_and_finite_ref_cpu_budget_s": 28800,
+    "numeric_threads": 1,
+    "numeric_workers": 1,
+    "pilot_method_query_wall_s": 120,
+    "query_extra_memory_bytes": 8589934592
+  },
+  "schema": "hiroute.wider_validation_design.draft.v1",
+  "scope": "UNAPPROVED DRAFT: 12 OD x two proposed initial SOC x energy/schedule =48 query recipes. Data geometry only, not launched, not a holdout. Domain policy/budget/solver eligibility must be decided before wider solves. No permission or resources are created by this file.",
+  "selection": {
+    "candidate_counts": [
+      64,
+      128,
+      256
+    ],
+    "candidate_rule": "Existing capability/attachment/unique-anchor/progress policy; declared corridor restriction, not a safe full-province filter. Proposed60km policy pending decision;126km is assessed only as an existing-policy alternative, not selected to fill N.",
+    "corridor_km": 60,
+    "domain_claim": "Explicit truncated geographic candidate domains only; neither safe filtering nor province/full-domain optimality",
+    "eligibility_by_scenario": {
+      "energy_only": "C-capable attached unique anchors only; filter the full frozen order before N truncation",
+      "schedule": "attached unique anchors with any of C/S/CS; all initially legal for the pending activity"
+    },
+    "endpoint_rule": "Existing Heze/Liaocheng/Dezhou targets plus one attached C Site at lon<=116.5, maximizing minimum geographic separation from those three bound origins; all eastern destinations >=400km geodesic, existing anchor excluded, Site ID tie. Cross with the existing Rongcheng/Weihai/Yantai targets. Geography/data only; no solver outcomes or road searches.",
+    "ods": [
+      {
+        "destination": {
+          "lat": 37.16,
+          "lon": 122.48,
+          "name": "Rongcheng"
+        },
+        "origin": {
+          "lat": 35.23,
+          "lon": 115.48,
+          "name": "Heze"
+        },
+        "query_id": "WD01"
+      },
+      {
+        "destination": {
+          "lat": 37.51,
+          "lon": 122.12,
+          "name": "Weihai"
+        },
+        "origin": {
+          "lat": 35.23,
+          "lon": 115.48,
+          "name": "Heze"
+        },
+        "query_id": "WD02"
+      },
+      {
+        "destination": {
+          "lat": 37.46,
+          "lon": 121.45,
+          "name": "Yantai"
+        },
+        "origin": {
+          "lat": 35.23,
+          "lon": 115.48,
+          "name": "Heze"
+        },
+        "query_id": "WD03"
+      },
+      {
+        "destination": {
+          "lat": 37.16,
+          "lon": 122.48,
+          "name": "Rongcheng"
+        },
+        "origin": {
+          "lat": 36.46,
+          "lon": 115.98,
+          "name": "Liaocheng"
+        },
+        "query_id": "WD04"
+      },
+      {
+        "destination": {
+          "lat": 37.51,
+          "lon": 122.12,
+          "name": "Weihai"
+        },
+        "origin": {
+          "lat": 36.46,
+          "lon": 115.98,
+          "name": "Liaocheng"
+        },
+        "query_id": "WD05"
+      },
+      {
+        "destination": {
+          "lat": 37.46,
+          "lon": 121.45,
+          "name": "Yantai"
+        },
+        "origin": {
+          "lat": 36.46,
+          "lon": 115.98,
+          "name": "Liaocheng"
+        },
+        "query_id": "WD06"
+      },
+      {
+        "destination": {
+          "lat": 37.16,
+          "lon": 122.48,
+          "name": "Rongcheng"
+        },
+        "origin": {
+          "lat": 37.45,
+          "lon": 116.36,
+          "name": "Dezhou"
+        },
+        "query_id": "WD07"
+      },
+      {
+        "destination": {
+          "lat": 37.51,
+          "lon": 122.12,
+          "name": "Weihai"
+        },
+        "origin": {
+          "lat": 37.45,
+          "lon": 116.36,
+          "name": "Dezhou"
+        },
+        "query_id": "WD08"
+      },
+      {
+        "destination": {
+          "lat": 37.46,
+          "lon": 121.45,
+          "name": "Yantai"
+        },
+        "origin": {
+          "lat": 37.45,
+          "lon": 116.36,
+          "name": "Dezhou"
+        },
+        "query_id": "WD09"
+      },
+      {
+        "destination": {
+          "lat": 37.16,
+          "lon": 122.48,
+          "name": "Rongcheng"
+        },
+        "origin": {
+          "lat": 35.724189453270334,
+          "lon": 116.45310613340384,
+          "name": "Western_maximin_attached_C_Site",
+          "site_id": "way/1421474585"
+        },
+        "query_id": "WD10"
+      },
+      {
+        "destination": {
+          "lat": 37.51,
+          "lon": 122.12,
+          "name": "Weihai"
+        },
+        "origin": {
+          "lat": 35.724189453270334,
+          "lon": 116.45310613340384,
+          "name": "Western_maximin_attached_C_Site",
+          "site_id": "way/1421474585"
+        },
+        "query_id": "WD11"
+      },
+      {
+        "destination": {
+          "lat": 37.46,
+          "lon": 121.45,
+          "name": "Yantai"
+        },
+        "origin": {
+          "lat": 35.724189453270334,
+          "lon": 116.45310613340384,
+          "name": "Western_maximin_attached_C_Site",
+          "site_id": "way/1421474585"
+        },
+        "query_id": "WD12"
+      }
+    ],
+    "progress_strata": 8,
+    "scenarios": [
+      "energy_only",
+      "schedule"
+    ],
+    "schedule_recipe": {
+      "a_fraction_direct_time": "2/5",
+      "b_fraction_direct_time": "7/10",
+      "duration_s": "2700"
+    }
+  },
+  "source": {
+    "attribution": "OpenStreetMap contributors; extracts by Geofabrik",
+    "bindings_file": "E01/query-candidates.json",
+    "graph_file": "shared-graph.json",
+    "license": "ODbL-1.0",
+    "processed_root": "r4rv7-A-raw-v2/outputs (existing authorized processed archive)",
+    "raw_availability": "old raw-cache path absent; reuse existing processed artifacts without province rebuild",
+    "representation": "Shandong directed driving roads, unsimplified, province polygon clipped; exact existing rational metrics",
+    "sites_file": "shared-sites.json",
+    "snapshot_date": "2026-10-16"
+  }
+}

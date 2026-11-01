@@ -1214,3 +1214,285 @@ and repeatedly used Shandong cases are DEV. Neither main experiments nor holdout
 were run here. Preserve the best actual method if broader evidence favors Strong;
 queue engineering and one positive Scale pair do not by themselves complete the
 research project or establish the paper's main claim.
+
+## Existing-domain transfer gate: frozen declaration
+
+Verified merged base is `1473eab6e1b169fb130d9fe183e5c33bdf5e26ff` (PR #29);
+push CI is monitored separately. This segment changes no solver, bounds,
+queue/seed/road/cache policy, physics or depth semantics. The current complete
+profile is frozen in `configs/existing_domain_transfer_dev.json`:
+
+| Domain | Frozen query | Scenario | Qualified N | Corridor | Methods |
+| --- | --- | --- | ---: | ---: | --- |
+| D01 | SD01 Heze–Rongcheng | energy-only | 64 | 60 km | Strong, then Scale |
+| D03 | SD03 Dezhou–Rongcheng | schedule | 128 | 60 km | Strong, then Scale |
+
+The input fingerprints are respectively
+`40fa518268b851f14fa61ed6a987c9d4e9c9fe0c7fb373af636fa7a9c8589b7a` and
+`710d2e1c4f8a456ca8bf7a5777defcd164221c64aff7b914e406d7ac4daa4c14`.
+Both methods enable the same landmark A*, two-slot adaptive source reuse,
+rank-lazy deterministic seed, inbound-energy bound and strict enqueue policy.
+D01's historical optimized witness charges three times (independent necessity
+lower bound two); D03's historical schedule witness charges twice. These are
+comparisons to be verified, not initial incumbents supplied to the new workers.
+Old valid rows and the D04 rows are not rerun or relabeled.
+
+Exactly four new method-rows are authorized: one run per domain/method. Preflight
+must pass for all four before solving. Keep the original 120s loaded query cap,
+60s target, single numerical worker/thread, 8 GiB process/query guards and 2 GiB
+host headroom. Carry **4965.164126329 / 28800 CPU seconds**, conservatively
+precharge **60s** for configuration/verification/documentation and read-only data
+assessment, then charge all actual fresh worker CPU including compiler/cold
+loads. Selection/manifest preparation remains separately reported. No algorithm
+tuning, grid, baseline or D04 repeat, wider solver run, main experiment, holdout
+or denied server upload is included. A wider-design assessment may read the
+existing data and historical records, but cannot claim a new route, seed,
+charging count or optimum without a solve. Broader scope and budget remain a
+separate decision after this bounded delivery.
+
+### Transfer results and verification
+
+Exactly the four frozen rows ran, sequentially with one numerical worker/thread;
+no solver or implementation profile was changed. Numerical source was
+`c0eac96240f1f73f2a5a086b1be3e07f29071dd5`, also recorded in
+`docs/existing_domain_transfer_results.json`. The declaration was committed
+before solving. All four selected
+preflights passed, and post-run fingerprints match the frozen inputs. The
+preflight's global metadata also lists unrelated energy N128 shortages; these
+were not selected jobs and do not make D03 schedule N128 unavailable.
+
+| Domain / scenario / N | Method | Loaded query seconds | First feasible seconds | Status | Actual positive charges |
+| --- | --- | ---: | ---: | --- | ---: |
+| D01 / energy / 64 | Strong | 40.422 | 3.954 | attained optimum | 3 |
+| D01 / energy / 64 | Scale | 38.329 | 4.092 | attained optimum | 3 |
+| D03 / schedule / 128 | Strong | 14.292 | 4.686 | attained optimum | 2 |
+| D03 / schedule / 128 | Scale | 12.432 | 4.617 | attained optimum | 2 |
+
+Loaded query time includes query preparation, seed and search; cold graph/index
+load is separately 9.298–9.915s and is charged in full worker CPU. Both methods
+agree on each full key and deterministic seed key, and each full key/seed key
+also matches its historical optimized-profile record. D01 retains the same
+three C-stop plan; D03 retains the same C/CS plan. Witnesses independently pass
+physical replay; OPEN is empty. Depth remains unrestricted with attained-U
+derived limits 38/32 and observed depths 5/4 respectively, not an imposed H.
+The result artifact retains exact rational keys, replay summaries, scientific
+fingerprints, resource measurements and verification checks.
+
+Both current methods complete the two transfer cases below 60s. The older
+optimized D01 Strong/Scale times were 95.347/91.786s and D03 times
+49.128/46.049s; those valid rows are unchanged. This transfer tests the combined
+current source-reuse/inbound/queue profile, not the isolated effect of any one
+change. No concurrent baseline was rerun. Scale is modestly faster than Strong
+on these paired observations, but a repeated two-OD gate supplies neither
+population coverage nor a stable causal speedup estimate. The earlier current
+D04 pair still takes 76.573/64.075s and misses the target; these failures remain
+part of the evidence. The typical <=10s population target is also unproved.
+
+The two methods perform identical selected-leg and family work within each
+domain: D01 has 396 distinct selected legs, 342 A* queries, 2,577 leaf-route
+attempts and 1,176 transitions; D03 has 276 legs, 210 A* queries, 423 leaf-route
+attempts and 190 transitions. D01 uses four dynamic source-tree builds and D03
+one, charged inside the queries. Strong makes 67,328 / 20,201 singleton-bound
+queries; Scale makes 36,160 / 6,278 summary queries. Bound and heap counts differ,
+but this is not evidence of a stronger summary bound: D01 heap pushes are
+6,991 / 22,635, D03 606 / 3,734. Peak OPEN is 5,374 / 3,883 and 369 / 344.
+Enqueue decisions remain distinct from later pop pruning, with verified
+`enqueue_attempts = heap_pushes + enqueue_pruned_nodes` and
+`heap_pushes - heap_pops = open_remaining` in every row. No internal Region
+member-scan policy or new instrumentation was introduced by this delivery.
+
+The highest worker RSS was 1.981 GiB, highest query increment 0.783 GiB, and
+minimum observed host available memory 3.280 GiB: all current guards passed.
+Measured four-worker CPU, including every cold load/compiler, was
+**140.914328s**. With the carried 4965.164126329s and conservative 60s development
+charge, total is **5166.078454329 / 28800 CPU seconds**, leaving
+**23633.921545671s**. Selection/manifest preparation was separately
+0.192419 wall / 0.175 CPU seconds; the read-only Site assessment was
+0.344281 CPU seconds, covered by the development charge. No fresh REF or local
+solver-test run was added for this configuration/results-only segment. Required
+clean-environment CI is recorded with delivery. No numerical experiment is
+pending, and no extra run is needed to produce this report.
+
+Reproduction uses the existing processed input directory, never a new download:
+
+```sh
+CPLUS_INCLUDE_PATH=/path/to/boost/include PYTHONPATH=src:tools \
+  python tools/run_road_seed_dev.py \
+  --config configs/existing_domain_transfer_dev.json \
+  --input-root /path/to/real-scale-dev --output-root /new/empty/transfer-output
+```
+
+Use `--preflight-only` with a separate new output directory first. The script
+refuses an existing output directory; completed rows here are preserved and are
+not rerun by documentation or CI. The data-only wider assessment is reproducible
+with `tools/assess_wider_dev_inputs.py --input-root ... --draft /new/draft.json
+--summary /new/summary.json` under `PYTHONPATH=src:tools`; its outputs likewise
+must be new paths.
+
+### Read-only wider-input assessment and acceptance gaps
+
+`tools/assess_wider_dev_inputs.py` reads only the existing Site/binding JSON,
+historical result files and road-file size. It does not load the road graph,
+construct an index, query a road path or invoke a solver. Its generated
+`docs/wider_validation_readonly.json` retains counts and candidate fingerprints;
+`configs/wider_validation_design_draft.json` is explicitly an **unapproved design
+draft**, not a runnable experiment authorization. Scientific data identities are
+recorded there; no source-code hash lock is introduced.
+
+The processed province has 4,725 raw Sites, 4,198 attached Sites, 223 raw C Sites,
+171 attached C Sites, and **168 distinct attached C access nodes**. There are
+1,490 distinct attached nodes with any nonempty capability. Thus even the
+full-province energy candidate pool cannot supply N256: it is short by at least
+88 qualified distinct C nodes, before endpoint exclusion or directed feasibility.
+Fifty-two raw C Sites lack an attachment, but even all 223 raw C Sites being
+uniquely attached would remain below 256. Widening a corridor, repairing only
+attachments, or counting service-only POIs cannot close that global gap.
+These are input-coverage limitations, distinct from a solver timeout. Existing
+processed roads are usable; the missing old raw cache does not require a road
+rebuild for this assessment. New legal Site coverage would need a separate
+in-province data decision, not automatic national acquisition.
+
+The draft selects 12 distinct OD pairs without solver outcomes: existing
+Heze/Liaocheng/Dezhou origins and one western attached C Site selected by a
+geographic maximin rule, crossed with the existing Rongcheng/Weihai/Yantai
+targets. All bound endpoints are distinct per pair and geodesic distances exceed
+400 km. The exact fourth Site, coordinates, binding rule and tie rule are in the
+draft. This is a purposive DEV design, not a representative population sample.
+Proposed initial energies are 18 and 48 kWh (30% and 80% of the unchanged 60 kWh
+capacity); this proposed SOC choice has not been run. The schedule uses the
+existing 2/5-to-7/10 direct selected-time window with 2,700s duration; actual
+road times/windows for the new ODs are uncomputed. The 60 km and already-used
+126 km policies are assessed separately; neither is selected after solver
+outcomes, and neither is a proved safe reduction of the province.
+
+| Corridor policy | Energy available ODs at N64 / N128 / N256 | Schedule available ODs at N64 / N128 / N256 | Available query-N cells / proposed 144 | Two-method rows | 120s query slots, before cold costs |
+| --- | --- | --- | ---: | ---: | ---: |
+| 60 km draft default, pending decision | 10 / 0 / 0 | 12 / 12 / 11 | 90 | 180 | 21,600s |
+| 126 km assessed alternative | 12 / 10 / 0 | 12 / 12 / 12 | 116 | 232 | 27,840s |
+
+Each available OD count expands over both proposed SOC values. Unsupported cells
+remain explicitly input-unavailable; these counts do not certify directed
+reachability, feasible seeds or completion. Full qualified corridor energy sets
+range from 39–105 nodes at 60 km and 112–159 at 126 km; schedule sets range from
+207–963 and 962–1,477 respectively. A concrete supplemental design is the minimum
+and maximum qualified domain per scenario, query-ID tie, initial 18 only, both
+methods: at most eight additional method-rows after deduplicating identical
+current-profile inputs. These are complete **declared corridor** sets, not
+province-optimal claims. No such full-domain solve was run here.
+
+Historical physical replays demonstrate at most three positive charges and no
+four-or-more record. Repeated optimization rows are not independent queries.
+This is missing four-charge evidence, not proof that four is impossible. With
+the unchanged model, a capacity-only necessity lower bound of four would require
+an exact shortest-road distance strictly greater than 1,200 km at initial 18,
+or 1,387.5 km at initial 48. No new road distances have been measured. Four
+partial charges could also be optimal with a smaller necessity lower bound;
+geodesic distance and candidate counts cannot establish either property.
+
+The original taskbook remains only partially satisfied:
+
+| Acceptance item | Existing evidence | Outstanding requirement |
+| --- | --- | --- |
+| Coherent exact Scale, physical incremental families, attainable full K, unrestricted relevant depth | Implemented shared kernels/bounds and focused native/REF regressions; old diagnostics preserved | Wider correctness/performance transfer; preserve explicit infimum/UNKNOWN statuses |
+| Real road/Site pilot and fair Strong comparison | Existing Shandong DEV, identical routing/seed/information/resources; repeated D04 evidence | Predeclared population-level validation, not a repeated-case success claim |
+| At least 95% exact within 60s, typical median <=10s | D04 current loaded times 76.573/64.075s miss 60s; historical valid failures remain | Fixed denominator, all statuses, first-feasible and completion distributions on wider supported workload |
+| N64/128/256 and complete qualified domains | Small/medium DEV; historical D02 energy64 covers its declared corridor pool | Energy256 unavailable in current global data; schedule256 and larger full domains unsolved |
+| Real 2/3/4-positive-charge strata | Two- and three-charge physical replays | Genuine four-charge cases or explicit data limitation; no artificial battery/consumption changes |
+| Attribution and representative ablations | Limited bound/batching/routing/queue diagnostics, counter limitations documented | Outcome-independent representative controls; no full-factorial expansion by default |
+| External comparison and trip value | Internal Strong/Flat/finite REF only | Common-model independent comparator and separately defined planning heuristic |
+| Frozen independent validation | All existing cases are DEV | Algorithm/design/statistics freeze, then >=8 genuinely new OD groups; no holdout started |
+
+For a concrete external candidate, Baum et al.'s
+[CHArge paper](https://arxiv.org/abs/1910.09812) studies exact EV routing with
+charging stops and variable charging power. It is a relevant method to assess,
+not an implemented baseline here. Before any benchmark, an adapter audit must
+establish the common road-path choice, charging curve, initial/reserve energy,
+stop overhead/penalty and objective semantics. HiRoute's canonical selected-leg
+contract, lexicographic full K, strict-positive charging/open endpoints and
+activity/CS constraints cannot silently be dropped to claim a comparable win.
+Report unsupported features explicitly. If a faithful external implementation
+cannot be obtained, the taskbook permits an independently auditable optimization
+model on a declared common energy-only attained subset: independently specified
+variables/constraints, selected-leg inputs (including all preparation costs),
+solver certificates and exact witness replay, not the existing Core hidden
+behind another name. That model remains to be designed and implemented; no
+external runtime or optimality result exists in this delivery.
+
+Trip-value comparison is a separate question: freeze a sequential baseline that
+first fixes an activity stop/schedule by a stated deterministic rule and then
+plans charging, plus a separated charging/activity plan where supported. Label
+both as heuristics and replay them under the identical physical constraints.
+Compare feasibility, elapsed time, penalized J, charged energy, stop count,
+detour and activity/charging overlap. Exact methods should agree on optimal trip
+value; their runtime comparison does not itself show user value from joint
+planning. No trip-value experiment was run here.
+
+### Precise wider-validation decision boundary
+
+First choose whether the current data limitation is accepted explicitly
+(energy domains below 256, schedule256 where qualified), or whether a separate
+legal in-province C-Site coverage study is authorized. Choose the corridor/domain
+policy for its intended workload, not to fill N or favor a method, then freeze
+unsupported cells, directed feasibility handling and the 12-OD/SOC/window design
+before method outcomes. A failure and an unavailable input have different
+causes, and neither may disappear from the originally proposed workload report.
+
+The full 288-row product reserves 34,560 query CPU seconds at the current 120s
+cap before cold costs, exceeding the original remaining envelope. Even the
+60 km available subset reserves 21,600s plus approximately 1,620–1,800s if cold
+workers resemble the observed 9–10s each; this is an illustrative estimate, not
+a guaranteed cap, and excludes the supplemental full domains, preprocessing,
+external work and future independent validation. The 126 km subset's query
+slots alone are 27,840s. An eight-row complete-domain supplement adds up to
+960 query seconds plus cold costs. Therefore the next stage needs a declared
+staged/capped subset and stop rule within the actual remaining budget, or an
+explicit new research-budget decision. Do not assume a budget or timeout
+extension. Reuse exact matching current-profile/domain/model/protocol rows where
+valid; older-profile times cannot be reused as current-profile measurements.
+
+A concrete **proposed, unlaunched** staged option on the draft 60 km policy is:
+first the 48 recipes at N64 (44 candidate-available cells / 88 method rows; four
+energy cells explicitly unavailable), then schedule N128 and N256 as separate
+stages (24 / 23 available cells, 48 / 46 method rows). Energy N128/N256 stays
+unavailable under this policy. The 88-row first stage reserves 10,560 query
+seconds plus cold loads before reusing exact matching current-profile records;
+it tests OD/SOC/scenario transfer without first consuming all larger-domain
+slots. A budget ledger and a hard stop before starting a worker must reserve
+its full allowed query/cold charge. Larger-N stages, complete-domain controls,
+external comparison and holdout must each have an explicit reservation; passing
+N64 does not waive those acceptance gaps. Running all 180 available rows would
+leave only about 234–414s of the current remaining budget under the illustrative
+cold estimate, before those other needs. This staged option is a design for
+the next scope/budget decision, not an added authorization in this segment.
+The current supervisor reserves 180s cold allowance plus 120s query, or 300s
+per fresh worker, before launch. At that worst-case reservation even 88 fresh
+rows would require 26,400s, exceeding the remaining budget. Thus the first stage
+also needs a deterministic row order, explicit budget-stop records and reserved
+space for later deliverables; observed 9–10s cold loads do not guarantee that the
+whole proposed stage fits. Existing identical rows can be reused, but no
+optimistic cold estimate or reduced allowance is silently adopted here.
+
+Freeze a primary method and report both fair methods by N/scenario/SOC, including
+all declared failures, resource stops, infeasibility and unattainment. Report
+input coverage against the original proposed cells separately from exact-runtime
+acceptance on the predeclared supported population; do not quietly remove
+unsupported inputs after timing outcomes. Count success at the **loaded 60s**
+threshold even when the measurement cap is 120s, and keep late exact completion
+visible. A median or p95 from successful rows alone is not a population result;
+show the completion fraction and censored time distribution. Paired solved-only
+runtime ratios may be descriptive but must retain the full-status table. Multiple
+Ns, SOCs and scenarios from one OD are related workloads, not new independent OD
+groups. Charge strata must record actual positive-charge counts and separate
+necessity bounds, without selecting only favorable resulting strata. Freeze a
+small representative energy/schedule and small/large-domain control subset for
+lower-bound versus singleton/batching attribution before runs, rather than a
+full-factorial grid. No such wider statistics or control runs exist yet.
+
+The draft's 12 ODs, including eight newly proposed pairs, are DEV if used for
+development; they cannot later become the independent eight-group holdout.
+Freeze algorithms, domain sampling, resource policy, metrics and all-failure
+denominator before selecting genuinely new holdout groups. Same-graph OD
+validation supports an OD transfer claim; a geographic transfer claim would
+require separate geographic validation. No broader solver, main experiment,
+holdout selection/run, additional data acquisition or new budget is authorized
+or performed by this bounded transfer delivery.
