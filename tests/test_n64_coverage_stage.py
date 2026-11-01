@@ -81,7 +81,9 @@ def test_pilot_preflight_uses_exact_declared_OD_order_instead_of_fixed_four(tmp_
         stage.pilot.atomic(mp,dict(selection_uses_solver_results=False,config=cfg,
                                   queries=[{'query_id':q} for q in ids]))
     args=SimpleNamespace(config=cp,preflight=mp,graph_tsv=graph)
-    with patch('psutil.virtual_memory',return_value=SimpleNamespace(available=2*1024**3)),\
+    # Linux code-only CI has no Darwin monitor dependency. Supply that adapter
+    # explicitly rather than requiring psutil merely to mock it.
+    with patch.dict(sys.modules,{'psutil':SimpleNamespace(virtual_memory=lambda:SimpleNamespace(available=2*1024**3))}),\
          patch('hiroute.runtime.system_mem_available_bytes',return_value=2*1024**3):
         manifest(['a','b','c']);stage.pilot.preflight(args)
         for bad in (['a','b'],['a','a','c'],['b','a','c']):

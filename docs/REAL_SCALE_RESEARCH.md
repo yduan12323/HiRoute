@@ -1553,3 +1553,11 @@ This predeclaration contains no new numerical results. The original frozen
 matrix's `stage_allocation_authorized:false` records its earlier proposal state;
 the separate stage config records the subsequently authorized12000CPU scope.
 The original matrix and all earlier numerical rows remain unchanged.
+
+Pre-run CI integration record: run41301703579 at c5b7388 failed one new
+controller test (201 others passed) because it unconditionally patched optional
+Darwin `psutil` in the Linux code-only environment, where that package is absent.
+The fixture now supplies its own fake monitor module; the declared-OD assertions
+and production guard remain unchanged. No numerical row had started. Both
+data-only preflights (0.478035+0.460177CPU seconds) are retained and charged;
+the next final-source preflight carries651.161762976/900CPU seconds.
