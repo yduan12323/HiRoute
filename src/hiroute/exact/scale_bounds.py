@@ -17,7 +17,8 @@ from .scalar import exact
 
 
 def completion_bound(pieces, *, start_time, travel_time, drive_energy, reserve,
-                     overhead, stop_penalty, charge_slope, service_duration=0):
+                     overhead, stop_penalty, charge_slope, service_duration=0,
+                     inbound_energy=None):
     """Infimal primary cost of a relaxation requiring at least one next stop.
 
     For each represented physical post-stop piece, minimize
@@ -31,13 +32,20 @@ def completion_bound(pieces, *, start_time, travel_time, drive_energy, reserve,
     On an affine piece this function is piecewise affine, so its infimum occurs
     at an endpoint or the charge/service kink. Open endpoints are deliberately
     evaluated as limits: this function never supplies an executable incumbent.
-    ``None`` means the physical prefix family is empty, not a finite bound.
+    ``inbound_energy`` optionally restricts each piece to energies at least a
+    proved next-leg requirement. Only the closed relaxation is clipped: an open
+    upper endpoint equal to the requirement is retained as a limit. No physical
+    piece, witness or attainment flag is changed. ``None`` means this next-action
+    relaxation is empty, not that the whole query is infeasible.
     """
     start_time, travel_time, drive_energy, reserve, overhead, stop_penalty, mu, duration = (
         exact(v) for v in (start_time, travel_time, drive_energy, reserve,
                           overhead, stop_penalty, charge_slope, service_duration))
     if min(travel_time, drive_energy, reserve, overhead, stop_penalty, mu, duration) < 0:
         raise ValueError("completion relaxation costs must be nonnegative")
+    inbound_energy = None if inbound_energy is None else exact(inbound_energy)
+    if inbound_energy is not None and inbound_energy < 0:
+        raise ValueError("inbound_energy must be nonnegative")
     best = None
     needed = reserve + drive_energy
     for piece in pieces:
@@ -46,11 +54,15 @@ def completion_bound(pieces, *, start_time, travel_time, drive_energy, reserve,
         _, remaining, stops = piece.state_key
         if remaining not in (0, 1) or type(stops) is not int or stops < 0:
             raise ValueError("invalid physical state in completion bound")
+        lo = piece.domain.lo if inbound_energy is None else max(piece.domain.lo, inbound_energy)
+        hi = piece.domain.hi
+        if lo > hi:
+            continue
         service = duration if remaining else Fraction(0)
-        points = [piece.domain.lo, piece.domain.hi]
+        points = [lo, hi]
         if mu:
             kink = needed - service / mu
-            if piece.domain.lo <= kink <= piece.domain.hi:
+            if lo <= kink <= hi:
                 points.append(kink)
         fixed = travel_time + overhead + stop_penalty * (stops + 1) - start_time
         for energy in points:

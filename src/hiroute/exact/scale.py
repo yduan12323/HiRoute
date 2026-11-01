@@ -262,12 +262,17 @@ def deterministic_seed(snapshot, root, provider, features, check, *, beam_width=
 def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
                 memory_limit_bytes=8*1024**3, on_incumbent=None, use_bound=True,
                 seed_beam_width=4, _clock=time.monotonic, c_backend='analytic',
-                memory_baseline_bytes=None, seed_beam_pruning=False):
+                memory_baseline_bytes=None, seed_beam_pruning=False,
+                inbound_energy_bound=False):
     """Solve the full declared candidate domain, with resource-limited UNKNOWN.
 
     flat_bb_strong and scale share the exact kernel, singleton relaxation,
     preprocessing, feasible seed and limits. Their difference is Region batching
     and associated leaf order. use_bound=False is the declared bound ablation.
+    inbound_energy_bound=True restricts the shared completion relaxation by the
+    next-leg energy requirement, using static directed summaries before routing
+    and exact selected inbound length afterward. It never modifies a family or
+    supplies an incumbent; use_bound=False also disables this refinement.
     seed_beam_width must be a strictly positive integer; zero does not disable
     the seed. Invalid widths are rejected before constructing a road index.
     """
@@ -276,6 +281,8 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
                                region_travel_lower_bounds, singleton_region)
     if method not in ('scale', 'flat_bb_strong'):
         raise ValueError('method must be scale or flat_bb_strong')
+    if type(inbound_energy_bound) is not bool:
+        raise ValueError('inbound_energy_bound must be boolean')
     if type(seed_beam_pruning) is not bool:
         raise ValueError('seed_beam_pruning must be boolean')
     if type(seed_beam_width) is not int or seed_beam_width <= 0:
@@ -307,7 +314,9 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
         transitions=0, transition_input_pieces=0, transition_output_pieces=0,
         terminal_attempts=0, empty_prefixes=0, terminal_infeasible_prefixes=0,
         pruned_regions=0, pruned_actions=0, equality_retained=0, max_depth=0,
-        peak_open=0, safe_unreachable_sites=0, seed_attempts=0, terminal_records_peak=1)
+        peak_open=0, safe_unreachable_sites=0, seed_attempts=0, terminal_records_peak=1,
+        inbound_energy_pruned_regions=0, inbound_energy_pruned_actions=0,
+        inbound_energy_late_empty_actions=0)
     seconds = dict(preparation=0., seed=0., search=0., transitions=0., terminals=0.)
     incumbent = None
     seed = None
@@ -402,13 +411,24 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
                 metrics['singleton_queries'] += 1
             anchor = origin_features if not state.plan else features[state.anchor]
             travel, distance = region_travel_lower_bounds(region, effect, anchor)
-            return completion_bound(state.family, start_time=exact(snapshot.departure_time_s),
+            # Remaining length is L_in + the static minimum onward length.
+            # Recover L_in in constant time, with no Region member/mask scan.
+            inbound = (exact(snapshot.minimum_energy_kwh)
+                +exact(snapshot.consumption_kwh_per_m)*(
+                    distance-region.summaries[effect].min_to_destination_distance)
+                if use_bound and inbound_energy_bound else None)
+            value = completion_bound(state.family, start_time=exact(snapshot.departure_time_s),
                 travel_time=travel if use_bound else 0,
                 drive_energy=exact(snapshot.consumption_kwh_per_m)*distance if use_bound else 0,
                 reserve=exact(snapshot.destination_reserve_kwh) if use_bound else 0,
                 overhead=exact(snapshot.stop_overhead_s), stop_penalty=exact(snapshot.stop_penalty_s),
                 charge_slope=mu if use_bound else 0,
-                service_duration=exact(snapshot.schedule['D']) if use_bound and snapshot.schedule else 0)
+                service_duration=exact(snapshot.schedule['D']) if use_bound and snapshot.schedule else 0,
+                inbound_energy=inbound)
+            if value is None and state.family and inbound is not None:
+                metrics['inbound_energy_pruned_regions'] += 1
+                metrics['inbound_energy_pruned_actions'] += region.summaries[effect].count
+            return value
         push(Fraction(0), 'state', root)
         while queue:
             check()
@@ -467,7 +487,15 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
                         reserve=exact(snapshot.destination_reserve_kwh),
                         overhead=exact(snapshot.stop_overhead_s),
                         stop_penalty=exact(snapshot.stop_penalty_s), charge_slope=mu,
-                        service_duration=exact(snapshot.schedule['D']) if snapshot.schedule else 0)
+                        service_duration=exact(snapshot.schedule['D']) if snapshot.schedule else 0,
+                        inbound_energy=(exact(snapshot.minimum_energy_kwh)
+                            +exact(snapshot.consumption_kwh_per_m)*leg.length_m
+                            if inbound_energy_bound else None))
+                    if exact_lower is None:
+                        # This route was already queried; do not count it as a
+                        # pre-route energy rejection or as a physical family.
+                        metrics['inbound_energy_late_empty_actions'] += 1
+                        continue
                     lower = max(lower, exact_lower)
                     if incumbent is not None and lower > incumbent['key'][0]:
                         metrics['pruned_actions'] += 1
