@@ -984,16 +984,21 @@ main experiment, holdout or denied server upload occurred.
 
 ### Next bounded engineering decision
 
-The current queue inserts a Region even when its just-computed admissible bound
-already exceeds the attained incumbent, then rejects it on pop. The completed
-runs record 111,446/22,251 such popped Regions and corresponding large OPEN peaks.
-The next scoped change to assess is rejecting those already certified strict
-losers at enqueue, using the same incumbent and unchanged bound for both methods.
-An attained incumbent only improves, so a bound strictly above the current U_J
-cannot later become competitive; equality must remain queued for full-key and
-unattainment behavior. This is queue management of the existing search, not a
-new architecture, extra bound, domain reduction or cache policy. Preserve
-accounting separately for enqueue versus pop pruning and test complete full-key,
-open-infimum and resource semantics before any further paired check. The counts
-suggest avoidable queue work, but do not measure its time or predict a 60s solve.
-This next change is proposed only; it was not included in these timed rows.
+The current push path has no eager incumbent check. The completed runs rejected
+111,446/22,251 queued Regions **at pop**, using the incumbent available then.
+No enqueue-time incumbent was recorded. A node competitive when inserted may
+become a strict loser only after the incumbent improves. Consequently these
+counters do not identify how many nodes could have been rejected at enqueue,
+and the recorded OPEN peaks do not measure the memory saving of that change.
+
+A future safe check could reject a node whose unchanged admissible bound is
+already strictly above the attained incumbent **when it is about to be inserted**.
+An attained incumbent only improves, so that particular node cannot later become
+competitive; equality must remain queued for full-key and unattainment behavior.
+Both methods must use the same rule. This is queue management of the existing
+search, not a new architecture, extra bound, domain reduction or cache policy.
+Record enqueue versus pop pruning separately and test complete full-key,
+open-infimum and resource semantics before any further paired check. The
+avoidable subset, runtime benefit and OPEN reduction are all unknown from the
+present data; no 60s prediction follows. This next change is proposed only and
+was not included in these timed rows.
