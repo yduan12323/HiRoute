@@ -29,6 +29,8 @@
     "host_headroom_bytes": 2147483648,
     "disk_headroom_bytes": 8589934592,
     "incoming_bytes_cap": 4294967296,
+    "setup_acquisition_cpu_precharge_s": 600,
+    "processing_worker_cpu_cap_s": 300,
     "accounting": "Measure preparation separately, including failures/cold loads/dependencies. This bounded reservation adds no solve authorization or compute purchase; stop at caps, do not reset them on retries. Solve/limited-REF carry remains5166.078454329/28800CPU seconds."
   },
   "audit": {
