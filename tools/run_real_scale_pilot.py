@@ -275,8 +275,10 @@ def preflight(args):
     manifest = json.loads(Path(args.preflight).read_text())
     if manifest['selection_uses_solver_results'] or manifest['config'] != config:
         raise ValueError('preflight/config mismatch')
-    if len(manifest['queries']) != 4:
-        raise ValueError('pilot requires its four declared OD')
+    declared = [od['query_id'] for od in config['selection']['ods']]
+    actual = [query['query_id'] for query in manifest['queries']]
+    if not declared or len(set(declared)) != len(declared) or actual != declared:
+        raise ValueError('pilot requires exactly its declared OD in order')
     if config['resources']['numeric_workers'] != 1 or config['resources']['numeric_threads'] != 1:
         raise ValueError('pilot is single numerical worker/thread')
     if not Path(args.graph_tsv).is_file():
@@ -305,7 +307,7 @@ def preflight(args):
         available = system_mem_available_bytes()
     if available < config['resources']['host_headroom_bytes']+512*1024**2:
         raise ValueError('insufficient host memory before pilot')
-    print(json.dumps(dict(preflight='passed', queries=8, domain_counts=config['selection']['candidate_counts'],
+    print(json.dumps(dict(preflight='passed', queries=len(actual), domain_counts=config['selection']['candidate_counts'],
         host_available_bytes=available, graph_tsv_bytes=Path(args.graph_tsv).stat().st_size,
         input_domain_unavailable=unavailable,solver_called=False), sort_keys=True), flush=True)
 
@@ -477,10 +479,20 @@ def supervised_main(args):
                 argv.append('--diagnostic')
             elif job['mode']=='ablation':
                 argv.append('--ablation')
+            receipt_dir = getattr(args,'receipt_directory',None)
+            receipt = Path(receipt_dir)/identity if receipt_dir else None
             supervised = run_supervised(argv,timeout_s=reserve_cpu,cpu_limit_s=reserve_cpu,
                 memory_limit_bytes=args.process_memory_gib*1024**3,
                 host_min_available_bytes=resources['host_headroom_bytes'],
-                memory_poll_s=.1,cwd=str(ROOT),env=env)
+                memory_poll_s=.1,cwd=str(ROOT),env=env,
+                receipt_path=None if receipt is None else str(receipt)+'.supervisor.json',
+                run_identity=getattr(args,'run_identity',None))
+            if receipt is not None:
+                # Keep terminal evidence before merging/serializing the row.
+                value = asdict(supervised)
+                for name in ('stdout','stderr'):
+                    value[name] = value[name].decode(errors='replace')
+                atomic(str(receipt)+'.outcome.json',value)
             if result_path.exists():
                 row.update(json.loads(result_path.read_text()))
             else:
@@ -492,6 +504,8 @@ def supervised_main(args):
             # cold index load; the separate map TSV export is not charged here.
             total_cpu += max(row.get('worker_cpu_s',0),supervised.cpu_peak_s)
         row['new_total_cpu_s'] = total_cpu
+        if getattr(args,'receipt_directory',None):
+            atomic(Path(args.receipt_directory)/(identity+'.row.json'),row)
         with out.open('a') as stream:
             stream.write(json.dumps(jsonable(row),sort_keys=True)+'\n')
         print(identity,row['status'],row.get('query_loaded_total_s'),flush=True)

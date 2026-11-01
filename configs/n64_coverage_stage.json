@@ -1,0 +1,23 @@
+{
+  "schema": "hiroute.n64_coverage_stage.v1",
+  "scope": "Authorized limited N64 DEV only; not main experiments or holdout",
+  "matrix": "configs/charging_coverage_dev_matrix.json",
+  "base_config": "configs/real_scale_dev.json",
+  "methods": ["flat_bb_strong", "scale"],
+  "carried_cpu_s": 5226.078454329,
+  "stage_cap_cpu_s": 12000,
+  "original_cap_cpu_s": 28800,
+  "development_and_reporting_precharge_cpu_s": 180,
+  "worker_reservation_cpu_s": 310,
+  "pair_reservation_cpu_s": 620,
+  "worker_enforced_cpu_s": 300,
+  "cold_allowance_s": 180,
+  "loaded_limit_s": 120,
+  "target_loaded_s": 60,
+  "process_memory_gib": 8,
+  "preparation_carried_cpu_s": 650.223550976,
+  "preparation_cap_cpu_s": 900,
+  "order": "Frozen matrix N64 cell order, Strong then Scale; exact WD01 energy18 pair reuse only",
+  "stop_policy": "Reserve620 before each fresh pair, including10 seconds enforcement/accounting margin per worker. Charge actual worker CPU plus supervisor overhead conservatively. Budget stop marks all remaining fresh cells; unexpected failure pauses without rerun.180 seconds is charged before rows for development/report verification; preprocessing is separate.",
+  "reuse": {"query_id": "WD01", "initial_energy_kwh": "18", "scenario": "energy_only", "N": 64, "domain_id": "D01", "file": "docs/existing_domain_transfer_results.json"}
+}

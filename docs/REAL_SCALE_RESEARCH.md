@@ -1499,3 +1499,57 @@ validation supports an OD transfer claim; a geographic transfer claim would
 require separate geographic validation. No broader solver, main experiment,
 holdout selection/run, additional data acquisition or new budget is authorized
 or performed by this bounded transfer delivery.
+
+## Authorized frozen N64 DEV stage: execution predeclaration
+
+The next approved scope is only the N64 slice of
+`configs/charging_coverage_dev_matrix.json`, driven by
+`configs/n64_coverage_stage.json`. It retains all48 query cells (96 method
+slots), in WD01–WD12 order, initial18 then48, energy then schedule, Strong then
+Scale. Four energy query cells (WD08/WD09 at both initial energies) have fewer
+than64 qualified anchors and remain `input_domain_unavailable`. Only the two
+previously verified WD01 energy18/D01 rows are reused, with original provenance;
+the energy48 rows share candidates but require fresh solves. There are43 fresh
+pairs/86 new method slots. No N128/N256, main experiment or holdout is included.
+
+The stage starts from charged5226.078454329/28800CPU seconds and has a hard
+additional12000CPU allocation within that original total. It precharges180CPU
+seconds for controller development and reporting/verification. Before each
+fresh pair it reserves620CPU seconds: the unchanged two300-second guarded
+worker allowances (180cold+120loaded each), plus10 seconds per worker for
+enforcement/accounting margin. Actual fresh CPU is conservatively charged as
+`max(worker_cpu_s, supervisor_cpu_s)+1` per worker. The extra1 second accounts
+for sampling/startup/serialization tails; the10-second reservation is not an
+increase in worker limits. If the next pair cannot be reserved, all remaining
+fresh cells keep `not_run_cpu_budget`. The preprocessing ledger starts at
+650.223550976/900CPU seconds and charges input hashing/domain-manifest
+preparation separately. No graph conversion, acquisition or hidden all-pairs
+routing table is planned.
+
+Both methods retain exactly the frozen complete profile, physical model,
+selected-leg semantics, input domains, seed, kernels, unrestricted relevant
+depth,120-second loaded limit,60-second target and original memory guards. Each
+method is a fresh cold numerical worker using the same external graph TSV and
+supplemented catalog; a native compiler cache may be shared exactly as in prior
+DEV, and cold work is charged. No old optimal key is fed into a fresh worker.
+
+`tools/run_n64_coverage_stage.py prepare` verifies supplemented input hashes,
+candidate hashes,12 frozen endpoints, explicit availability, disk/host headroom
+and the single-thread policy without routing/solving. Per-energy configs
+change only the predeclared initial energy. `execute` uses the existing OS
+supervisor and loaded-query watchdog. An exclusive controller lock, immutable
+attempt-start records, supervisor receipts, merged terminal rows before
+aggregate append, and reconstruction from per-method receipts prevent a
+transport disconnect from silently duplicating work. An attempt with uncertain
+outcome pauses for receipt/PID inspection; it is never automatically retried.
+Unexpected worker/input/memory failures or completed-pair full-key/attainment
+or seed disagreement pause the stage. An ordinary loaded timeout remains
+UNKNOWN and is retained. Results will distinguish fresh attempts, reuse,
+mathematical completion, attained optimum, physical feasible replay, timeout,
+input unavailability and budget stop. Completed-pair agreement is an internal
+fairness/correctness check, not an independent full-real-graph REF certificate.
+
+This predeclaration contains no new numerical results. The original frozen
+matrix's `stage_allocation_authorized:false` records its earlier proposal state;
+the separate stage config records the subsequently authorized12000CPU scope.
+The original matrix and all earlier numerical rows remain unchanged.
