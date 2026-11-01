@@ -54,11 +54,14 @@
   "diagnostic_budget": {
     "cap_CPU_s": 240,
     "full_conservative_precharge_CPU_s": 240,
-    "CI_inclusive_reserved_CPU_s": 63.990695,
+    "CI_inclusive_reserved_CPU_s": 129.414868,
     "local_measured_child_CPU_s": 1.8341229999999997,
     "local_cap_CPU_s": 8,
     "report_control_reserve_CPU_s": 12,
-    "final_PR_startup_cancellation_reserve_CPU_s": 40
+    "final_PR_startup_cancellation_reserve_CPU_s": 40,
+    "CI_first_failed_inclusive_reserved_CPU_s": 63.990695,
+    "CI_second_fix_only_inclusive_reserved_CPU_s": 65.424173,
+    "shared_CI_cap_CPU_s": 180
   },
   "policy_row_ledger_unchanged": {
     "policy_gate_CPU_s": "1662.630577412",
@@ -88,5 +91,19 @@
   "preprocessing_CPU_s": "652.040677976",
   "new_real_rows": 0,
   "new_data": false,
-  "holdout": false
+  "holdout": false,
+  "fix_only_verification": {
+    "run_id": 41336930449,
+    "job_id": 124938642347,
+    "source": "74a0330caeff9504936cc97e56445a5394d76a3b",
+    "conclusion": "success",
+    "original_process_retries": 0,
+    "logical_checks_each_mode": 3,
+    "parser_checks_each_mode": 3,
+    "inclusive_reserved_CPU_s": 65.424173,
+    "cap_CPU_s": 116,
+    "artifact_id": 13094749401,
+    "artifact_GitHub_digest": "sha256:3356ce62f294048bbd751c18120ad7526d59f162d753a4acb07953fea0e48969",
+    "pending_start": false
+  }
 }

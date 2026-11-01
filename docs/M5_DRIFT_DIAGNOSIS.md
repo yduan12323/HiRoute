@@ -60,7 +60,9 @@ unchanged.
 This diagnostic has its own **240CPU-second inclusive cap**, inside the original
 28800 ceiling:180 for one bounded Linux CI invocation,20 local/logical/control/
 reporting,40 for final-PR unrelated M5 startup cancellation if needed. No future
-main diagnostic run or second original retry is admitted. Local mocked checks
+main diagnostic run or second original retry is admitted. The shared180 CI
+allocation now contains the original diagnostic plus a separately admitted
+fix-only verification after the collector bug; it is not180 per invocation. Local mocked checks
 have an8s cumulative child allowance, leaving12s in the20s control allowance.
 The entire240 is conservatively precharged; no actual CI cost is invented.
 
@@ -123,7 +125,8 @@ without executing the test or workers again. The artifact13095202832 and failed
 CI state are preserved. A focused parser fix now reads only the queue's known
 root/run/ledger.json and saves the unittest result before collection. Three
 parser-only regressions pass locally in both modes, including an auxiliary-ledger
-fixture and missing-main-ledger rejection. No second CI/process retry ran.
+fixture and missing-main-ledger rejection. No second original-process retry ran. A subsequent CI verifies only the specific
+collector correction and deterministic fixture, with original retry disabled.
 
 The proposed resolution is the deterministic admission fixture correction:
 keep the original queue-stop assertions, separately verify correct pre-delivery
@@ -135,8 +138,15 @@ Full M5 has not been rerun or declared green. The default full workflow definiti
 is restored unchanged in the delivery branch; the diagnostic-only workflow at
 ff07b4f is a historical one-off invocation, not a replacement for main CI.
 
-CI conservatively charged **63.990695 /180CPU seconds**, including60 setup/
-controller allowance. The whole diagnostic's **240** remains precharged, including
+The first, failed diagnostic CI conservatively charged63.990695 CPU seconds.
+After the specific collector defect, a fix-only CI41336930449 at source
+74a0330caeff9504936cc97e56445a5394d76a3b passed all3 deterministic admission and
+3 parser checks per Python mode, with **zero original-process retries**. It was
+predeclared at116s using the remaining shared CI allocation and charged65.424173.
+Together the two CI invocations charge **129.414868 /180CPU seconds**, including
+each invocation's setup/controller allowance. The first failure is not relabeled
+as passing by this later verification. The whole diagnostic's **240** remains
+precharged, including
 all failed collection, local checks, report/control and any final-PR startup
 cancellation. The unmetered full-main exposure reserve5000 is separate and is
 not measured CPU. The policy ledger and its already included future merge-CI180
