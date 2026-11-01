@@ -1,5 +1,17 @@
 # Real-scale DEV research
 
+The [compact comparator design gate](COMPACT_COMPARATOR_GATE.md) implements a
+shared-selector strict-support lift, rather than globally closing a disjunction.
+Thirteen tiny unrestricted-domain cases match analytic answers and both fair
+Core methods, including two disjunctive attainment traps and an incumbent-
+derived H3 case. [Planning-value policy contracts](PLANNING_VALUE_BASELINES.md)
+and an eight-slot DEV proposal are frozen as definitions only; no real baseline
+or external N64 solve ran. Production algorithms/data/physics are unchanged.
+Conservative carry is **12805.649970329 /28800 CPU seconds**, including this
+whole900-second gate; preprocessing stays **652.040677976 /900**. Original
+performance, real external comparison, application and holdout goals remain
+unmet. Earlier figures below are chronological historical evidence.
+
 The [independent comparator tiny gate](INDEPENDENT_COMPARATOR_GATE.md) now
 passes exact-solver availability and12 frozen common-model semantic cases,
 including both unattainment kinds and strict-empty CS branches. Independent

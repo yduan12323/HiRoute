@@ -1,0 +1,922 @@
+{
+  "schema": "hiroute.compact_gate.v1",
+  "passed": true,
+  "new_real_rows": 0,
+  "case_sha256": "06287f3366d691dab30d64b49abc21d88bb17a44ac06f4276bc8045197039f13",
+  "rows": [
+    {
+      "id": "empty_prefix",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "1",
+          "0",
+          0,
+          []
+        ]
+      },
+      "analytic_match": true,
+      "derived_depth": 0,
+      "upper_key": [
+        "1",
+        "0",
+        0,
+        []
+      ],
+      "selector_count": 0,
+      "explicit_plan_enumerations": 0,
+      "constraints": 7,
+      "checks": 13,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "1",
+              "0",
+              0,
+              []
+            ]
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "1",
+              "0",
+              0,
+              []
+            ]
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "id": "one_charge",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "16",
+          "3",
+          1,
+          [
+            [
+              "c",
+              "C"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "derived_depth": 1,
+      "upper_key": [
+        "16",
+        "3",
+        1,
+        [
+          [
+            "c",
+            "C"
+          ]
+        ]
+      ],
+      "selector_count": 4,
+      "explicit_plan_enumerations": 0,
+      "constraints": 32,
+      "checks": 16,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "16",
+              "3",
+              1,
+              [
+                [
+                  "c",
+                  "C"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "16",
+              "3",
+              1,
+              [
+                [
+                  "c",
+                  "C"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "id": "primary_unattained",
+      "semantic": {
+        "status": "primary_unattained",
+        "primary_infimum": "13"
+      },
+      "analytic_match": true,
+      "derived_depth": 1,
+      "upper_key": [
+        "27/2",
+        "1/2",
+        1,
+        [
+          [
+            "c",
+            "C"
+          ]
+        ]
+      ],
+      "selector_count": 4,
+      "explicit_plan_enumerations": 0,
+      "constraints": 32,
+      "checks": 5,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "primary_unattained",
+            "primary_infimum": "13"
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "primary_unattained",
+            "primary_infimum": "13"
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "id": "secondary_unattained",
+      "semantic": {
+        "status": "secondary_unattained",
+        "primary_value": "17",
+        "primary_infimum": "17",
+        "secondary_infimum": "0"
+      },
+      "analytic_match": true,
+      "derived_depth": 1,
+      "upper_key": [
+        "17",
+        "1/2",
+        1,
+        [
+          [
+            "c",
+            "CS"
+          ]
+        ]
+      ],
+      "selector_count": 4,
+      "explicit_plan_enumerations": 0,
+      "constraints": 38,
+      "checks": 9,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "secondary_unattained",
+            "primary_value": "17",
+            "primary_infimum": "17",
+            "secondary_infimum": "0"
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "secondary_unattained",
+            "primary_value": "17",
+            "primary_infimum": "17",
+            "secondary_infimum": "0"
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "id": "equal_primary_service",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "17",
+          "0",
+          1,
+          [
+            [
+              "c",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "derived_depth": 1,
+      "upper_key": [
+        "17",
+        "0",
+        1,
+        [
+          [
+            "c",
+            "S"
+          ]
+        ]
+      ],
+      "selector_count": 4,
+      "explicit_plan_enumerations": 0,
+      "constraints": 47,
+      "checks": 16,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "17",
+              "0",
+              1,
+              [
+                [
+                  "c",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "17",
+              "0",
+              1,
+              [
+                [
+                  "c",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "id": "lexicographic_sites",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "14",
+          "0",
+          1,
+          [
+            [
+              "a",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "derived_depth": 1,
+      "upper_key": [
+        "14",
+        "0",
+        1,
+        [
+          [
+            "a",
+            "S"
+          ]
+        ]
+      ],
+      "selector_count": 4,
+      "explicit_plan_enumerations": 0,
+      "constraints": 43,
+      "checks": 16,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "14",
+              "0",
+              1,
+              [
+                [
+                  "a",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "14",
+              "0",
+              1,
+              [
+                [
+                  "a",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "id": "temporal_energy_equality",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "29",
+          "3",
+          2,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "derived_depth": 2,
+      "upper_key": [
+        "29",
+        "3",
+        2,
+        [
+          [
+            "c",
+            "C"
+          ],
+          [
+            "s",
+            "S"
+          ]
+        ]
+      ],
+      "selector_count": 8,
+      "explicit_plan_enumerations": 0,
+      "constraints": 78,
+      "checks": 19,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "29",
+              "3",
+              2,
+              [
+                [
+                  "c",
+                  "C"
+                ],
+                [
+                  "s",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "29",
+              "3",
+              2,
+              [
+                [
+                  "c",
+                  "C"
+                ],
+                [
+                  "s",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "id": "shift_plus100",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "29",
+          "3",
+          2,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "derived_depth": 2,
+      "upper_key": [
+        "29",
+        "3",
+        2,
+        [
+          [
+            "c",
+            "C"
+          ],
+          [
+            "s",
+            "S"
+          ]
+        ]
+      ],
+      "selector_count": 8,
+      "explicit_plan_enumerations": 0,
+      "constraints": 78,
+      "checks": 19,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "29",
+              "3",
+              2,
+              [
+                [
+                  "c",
+                  "C"
+                ],
+                [
+                  "s",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "29",
+              "3",
+              2,
+              [
+                [
+                  "c",
+                  "C"
+                ],
+                [
+                  "s",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "id": "shift_minus100",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "29",
+          "3",
+          2,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "derived_depth": 2,
+      "upper_key": [
+        "29",
+        "3",
+        2,
+        [
+          [
+            "c",
+            "C"
+          ],
+          [
+            "s",
+            "S"
+          ]
+        ]
+      ],
+      "selector_count": 8,
+      "explicit_plan_enumerations": 0,
+      "constraints": 78,
+      "checks": 19,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "29",
+              "3",
+              2,
+              [
+                [
+                  "c",
+                  "C"
+                ],
+                [
+                  "s",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "29",
+              "3",
+              2,
+              [
+                [
+                  "c",
+                  "C"
+                ],
+                [
+                  "s",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "id": "piecewise_charge",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "18",
+          "3",
+          1,
+          [
+            [
+              "c",
+              "C"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "derived_depth": 1,
+      "upper_key": [
+        "18",
+        "3",
+        1,
+        [
+          [
+            "c",
+            "C"
+          ]
+        ]
+      ],
+      "selector_count": 4,
+      "explicit_plan_enumerations": 0,
+      "constraints": 36,
+      "checks": 16,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "18",
+              "3",
+              1,
+              [
+                [
+                  "c",
+                  "C"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "18",
+              "3",
+              1,
+              [
+                [
+                  "c",
+                  "C"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "id": "strict_empty_disjunct",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "20",
+          "0",
+          1,
+          [
+            [
+              "b",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "derived_depth": 1,
+      "upper_key": [
+        "20",
+        "0",
+        1,
+        [
+          [
+            "b",
+            "S"
+          ]
+        ]
+      ],
+      "selector_count": 4,
+      "explicit_plan_enumerations": 0,
+      "constraints": 49,
+      "checks": 16,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "20",
+              "0",
+              1,
+              [
+                [
+                  "b",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "20",
+              "0",
+              1,
+              [
+                [
+                  "b",
+                  "S"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "id": "primary_face_support_trap",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "13",
+          "1",
+          1,
+          [
+            [
+              "b",
+              "CS"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "derived_depth": 1,
+      "upper_key": [
+        "14",
+        "1",
+        1,
+        [
+          [
+            "b",
+            "CS"
+          ]
+        ]
+      ],
+      "selector_count": 4,
+      "explicit_plan_enumerations": 0,
+      "constraints": 51,
+      "checks": 16,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "13",
+              "1",
+              1,
+              [
+                [
+                  "b",
+                  "CS"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "13",
+              "1",
+              1,
+              [
+                [
+                  "b",
+                  "CS"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "id": "loose_valid_bound_H3",
+      "semantic": {
+        "status": "attained_optimum",
+        "key": [
+          "16",
+          "3",
+          1,
+          [
+            [
+              "c",
+              "C"
+            ]
+          ]
+        ]
+      },
+      "analytic_match": true,
+      "derived_depth": 3,
+      "upper_key": [
+        "36",
+        "3",
+        1,
+        [
+          [
+            "c",
+            "C"
+          ]
+        ]
+      ],
+      "selector_count": 12,
+      "explicit_plan_enumerations": 0,
+      "constraints": 84,
+      "checks": 16,
+      "core": [
+        {
+          "method": "flat_bb_strong",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "16",
+              "3",
+              1,
+              [
+                [
+                  "c",
+                  "C"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        },
+        {
+          "method": "scale",
+          "semantic": {
+            "status": "attained_optimum",
+            "key": [
+              "16",
+              "3",
+              1,
+              [
+                [
+                  "c",
+                  "C"
+                ]
+              ]
+            ]
+          },
+          "match": true
+        }
+      ]
+    }
+  ],
+  "gate_conservative_cpu_s": 900,
+  "original_conservative_cpu_s": 12805.649970329,
+  "preprocessing_cpu_s": 652.040677976,
+  "baseline_definition_only": true
+}

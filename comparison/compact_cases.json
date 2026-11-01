@@ -1,0 +1,1213 @@
+{
+  "schema": "hiroute.compact_cases.v1",
+  "cases": [
+    {
+      "id": "empty_prefix",
+      "snapshot": {
+        "schema": "hiroute.problem_snapshot.v1",
+        "model_contract_id": "hiroute.time_cut_v2.bounded",
+        "numerical_contract_id": "exact_rational_inputs_v1",
+        "origin": "o",
+        "destination": "z",
+        "departure_time_s": "0",
+        "initial_energy_kwh": "10",
+        "capacity_kwh": "10",
+        "minimum_energy_kwh": "0",
+        "destination_reserve_kwh": "0",
+        "stop_overhead_s": "1",
+        "stop_penalty_s": "10",
+        "consumption_kwh_per_m": "1",
+        "schedule": null,
+        "initial_remaining_schedule": 0,
+        "candidate_order": [],
+        "site_capabilities": {},
+        "charging_curve": [],
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "direct"
+          }
+        ],
+        "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+        "graph_or_leg_identity": "compact-empty_prefix-v1",
+        "depth_mode": "unrestricted",
+        "depth_limit": 0,
+        "depth_certificate_reference": null
+      },
+      "expected": {
+        "status": "attained_optimum",
+        "key": [
+          "1",
+          "0",
+          0,
+          []
+        ]
+      },
+      "upper_witness": {
+        "plan": [],
+        "charges": [],
+        "initial_wait": "0"
+      }
+    },
+    {
+      "id": "one_charge",
+      "snapshot": {
+        "schema": "hiroute.problem_snapshot.v1",
+        "model_contract_id": "hiroute.time_cut_v2.bounded",
+        "numerical_contract_id": "exact_rational_inputs_v1",
+        "origin": "o",
+        "destination": "z",
+        "departure_time_s": "0",
+        "initial_energy_kwh": "1",
+        "capacity_kwh": "3",
+        "minimum_energy_kwh": "0",
+        "destination_reserve_kwh": "1",
+        "stop_overhead_s": "1",
+        "stop_penalty_s": "10",
+        "consumption_kwh_per_m": "1",
+        "schedule": null,
+        "initial_remaining_schedule": 0,
+        "candidate_order": [
+          "c"
+        ],
+        "site_capabilities": {
+          "c": [
+            "C"
+          ]
+        },
+        "charging_curve": [
+          [
+            "0",
+            "3",
+            "1",
+            "0"
+          ]
+        ],
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "4",
+            "edge_id": "o>z"
+          },
+          {
+            "source": "o",
+            "target": "c",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>c"
+          },
+          {
+            "source": "c",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "2",
+            "edge_id": "c>z"
+          }
+        ],
+        "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+        "graph_or_leg_identity": "compact-one_charge-v1",
+        "depth_mode": "unrestricted",
+        "depth_limit": 0,
+        "depth_certificate_reference": null
+      },
+      "expected": {
+        "status": "attained_optimum",
+        "key": [
+          "16",
+          "3",
+          1,
+          [
+            [
+              "c",
+              "C"
+            ]
+          ]
+        ]
+      },
+      "upper_witness": {
+        "plan": [
+          [
+            "c",
+            "C"
+          ]
+        ],
+        "charges": [
+          "3"
+        ],
+        "initial_wait": "0"
+      }
+    },
+    {
+      "id": "primary_unattained",
+      "snapshot": {
+        "schema": "hiroute.problem_snapshot.v1",
+        "model_contract_id": "hiroute.time_cut_v2.bounded",
+        "numerical_contract_id": "exact_rational_inputs_v1",
+        "origin": "o",
+        "destination": "z",
+        "departure_time_s": "0",
+        "initial_energy_kwh": "3",
+        "capacity_kwh": "3",
+        "minimum_energy_kwh": "0",
+        "destination_reserve_kwh": "1",
+        "stop_overhead_s": "1",
+        "stop_penalty_s": "10",
+        "consumption_kwh_per_m": "1",
+        "schedule": null,
+        "initial_remaining_schedule": 0,
+        "candidate_order": [
+          "c"
+        ],
+        "site_capabilities": {
+          "c": [
+            "C"
+          ]
+        },
+        "charging_curve": [
+          [
+            "0",
+            "3",
+            "1",
+            "0"
+          ]
+        ],
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "4",
+            "edge_id": "o>z"
+          },
+          {
+            "source": "o",
+            "target": "c",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>c"
+          },
+          {
+            "source": "c",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c>z"
+          }
+        ],
+        "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+        "graph_or_leg_identity": "compact-primary_unattained-v1",
+        "depth_mode": "unrestricted",
+        "depth_limit": 0,
+        "depth_certificate_reference": null
+      },
+      "expected": {
+        "status": "primary_unattained",
+        "primary_infimum": "13"
+      },
+      "upper_witness": {
+        "plan": [
+          [
+            "c",
+            "C"
+          ]
+        ],
+        "charges": [
+          "1/2"
+        ],
+        "initial_wait": "0"
+      }
+    },
+    {
+      "id": "secondary_unattained",
+      "snapshot": {
+        "schema": "hiroute.problem_snapshot.v1",
+        "model_contract_id": "hiroute.time_cut_v2.bounded",
+        "numerical_contract_id": "exact_rational_inputs_v1",
+        "origin": "o",
+        "destination": "z",
+        "departure_time_s": "0",
+        "initial_energy_kwh": "3",
+        "capacity_kwh": "3",
+        "minimum_energy_kwh": "0",
+        "destination_reserve_kwh": "1",
+        "stop_overhead_s": "1",
+        "stop_penalty_s": "10",
+        "consumption_kwh_per_m": "1",
+        "schedule": {
+          "a": "0",
+          "b": "10",
+          "D": "4"
+        },
+        "initial_remaining_schedule": 1,
+        "candidate_order": [
+          "c"
+        ],
+        "site_capabilities": {
+          "c": [
+            "CS"
+          ]
+        },
+        "charging_curve": [
+          [
+            "0",
+            "3",
+            "1",
+            "0"
+          ]
+        ],
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "4",
+            "edge_id": "o>z"
+          },
+          {
+            "source": "o",
+            "target": "c",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>c"
+          },
+          {
+            "source": "c",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c>z"
+          }
+        ],
+        "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+        "graph_or_leg_identity": "compact-secondary_unattained-v1",
+        "depth_mode": "unrestricted",
+        "depth_limit": 0,
+        "depth_certificate_reference": null
+      },
+      "expected": {
+        "status": "secondary_unattained",
+        "primary_value": "17",
+        "primary_infimum": "17",
+        "secondary_infimum": "0"
+      },
+      "upper_witness": {
+        "plan": [
+          [
+            "c",
+            "CS"
+          ]
+        ],
+        "charges": [
+          "1/2"
+        ],
+        "initial_wait": "0"
+      }
+    },
+    {
+      "id": "equal_primary_service",
+      "snapshot": {
+        "schema": "hiroute.problem_snapshot.v1",
+        "model_contract_id": "hiroute.time_cut_v2.bounded",
+        "numerical_contract_id": "exact_rational_inputs_v1",
+        "origin": "o",
+        "destination": "z",
+        "departure_time_s": "0",
+        "initial_energy_kwh": "3",
+        "capacity_kwh": "3",
+        "minimum_energy_kwh": "0",
+        "destination_reserve_kwh": "1",
+        "stop_overhead_s": "1",
+        "stop_penalty_s": "10",
+        "consumption_kwh_per_m": "1",
+        "schedule": {
+          "a": "0",
+          "b": "10",
+          "D": "4"
+        },
+        "initial_remaining_schedule": 1,
+        "candidate_order": [
+          "c"
+        ],
+        "site_capabilities": {
+          "c": [
+            "S",
+            "CS"
+          ]
+        },
+        "charging_curve": [
+          [
+            "0",
+            "3",
+            "1",
+            "0"
+          ]
+        ],
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "4",
+            "edge_id": "o>z"
+          },
+          {
+            "source": "o",
+            "target": "c",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>c"
+          },
+          {
+            "source": "c",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "c>z"
+          }
+        ],
+        "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+        "graph_or_leg_identity": "compact-equal_primary_service-v1",
+        "depth_mode": "unrestricted",
+        "depth_limit": 0,
+        "depth_certificate_reference": null
+      },
+      "expected": {
+        "status": "attained_optimum",
+        "key": [
+          "17",
+          "0",
+          1,
+          [
+            [
+              "c",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "upper_witness": {
+        "plan": [
+          [
+            "c",
+            "S"
+          ]
+        ],
+        "charges": [],
+        "initial_wait": "0"
+      }
+    },
+    {
+      "id": "lexicographic_sites",
+      "snapshot": {
+        "schema": "hiroute.problem_snapshot.v1",
+        "model_contract_id": "hiroute.time_cut_v2.bounded",
+        "numerical_contract_id": "exact_rational_inputs_v1",
+        "origin": "o",
+        "destination": "z",
+        "departure_time_s": "0",
+        "initial_energy_kwh": "2",
+        "capacity_kwh": "2",
+        "minimum_energy_kwh": "0",
+        "destination_reserve_kwh": "0",
+        "stop_overhead_s": "1",
+        "stop_penalty_s": "10",
+        "consumption_kwh_per_m": "1",
+        "schedule": {
+          "a": "0",
+          "b": "10",
+          "D": "1"
+        },
+        "initial_remaining_schedule": 1,
+        "candidate_order": [
+          "b",
+          "a"
+        ],
+        "site_capabilities": {
+          "a": [
+            "S"
+          ],
+          "b": [
+            "S"
+          ]
+        },
+        "charging_curve": [],
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "a",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>a"
+          },
+          {
+            "source": "a",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "a>z"
+          },
+          {
+            "source": "o",
+            "target": "b",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>b"
+          },
+          {
+            "source": "b",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "b>z"
+          }
+        ],
+        "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+        "graph_or_leg_identity": "compact-lexicographic_sites-v1",
+        "depth_mode": "unrestricted",
+        "depth_limit": 0,
+        "depth_certificate_reference": null
+      },
+      "expected": {
+        "status": "attained_optimum",
+        "key": [
+          "14",
+          "0",
+          1,
+          [
+            [
+              "a",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "upper_witness": {
+        "plan": [
+          [
+            "a",
+            "S"
+          ]
+        ],
+        "charges": [],
+        "initial_wait": "0"
+      }
+    },
+    {
+      "id": "temporal_energy_equality",
+      "snapshot": {
+        "schema": "hiroute.problem_snapshot.v1",
+        "model_contract_id": "hiroute.time_cut_v2.bounded",
+        "numerical_contract_id": "exact_rational_inputs_v1",
+        "origin": "o",
+        "destination": "z",
+        "departure_time_s": "0",
+        "initial_energy_kwh": "1",
+        "capacity_kwh": "3",
+        "minimum_energy_kwh": "0",
+        "destination_reserve_kwh": "0",
+        "stop_overhead_s": "1",
+        "stop_penalty_s": "10",
+        "consumption_kwh_per_m": "1",
+        "schedule": {
+          "a": "0",
+          "b": "7",
+          "D": "1"
+        },
+        "initial_remaining_schedule": 1,
+        "candidate_order": [
+          "c",
+          "s"
+        ],
+        "site_capabilities": {
+          "c": [
+            "C"
+          ],
+          "s": [
+            "S"
+          ]
+        },
+        "charging_curve": [
+          [
+            "0",
+            "3",
+            "1",
+            "0"
+          ]
+        ],
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "c",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>c"
+          },
+          {
+            "source": "c",
+            "target": "s",
+            "time_s": "1",
+            "length_m": "2",
+            "edge_id": "c>s"
+          },
+          {
+            "source": "s",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "s>z"
+          }
+        ],
+        "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+        "graph_or_leg_identity": "compact-temporal_energy_equality-v1",
+        "depth_mode": "unrestricted",
+        "depth_limit": 0,
+        "depth_certificate_reference": null
+      },
+      "expected": {
+        "status": "attained_optimum",
+        "key": [
+          "29",
+          "3",
+          2,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "upper_witness": {
+        "plan": [
+          [
+            "c",
+            "C"
+          ],
+          [
+            "s",
+            "S"
+          ]
+        ],
+        "charges": [
+          "3"
+        ],
+        "initial_wait": "0"
+      }
+    },
+    {
+      "id": "shift_plus100",
+      "snapshot": {
+        "schema": "hiroute.problem_snapshot.v1",
+        "model_contract_id": "hiroute.time_cut_v2.bounded",
+        "numerical_contract_id": "exact_rational_inputs_v1",
+        "origin": "o",
+        "destination": "z",
+        "departure_time_s": "100",
+        "initial_energy_kwh": "1",
+        "capacity_kwh": "3",
+        "minimum_energy_kwh": "0",
+        "destination_reserve_kwh": "0",
+        "stop_overhead_s": "1",
+        "stop_penalty_s": "10",
+        "consumption_kwh_per_m": "1",
+        "schedule": {
+          "a": "100",
+          "b": "107",
+          "D": "1"
+        },
+        "initial_remaining_schedule": 1,
+        "candidate_order": [
+          "c",
+          "s"
+        ],
+        "site_capabilities": {
+          "c": [
+            "C"
+          ],
+          "s": [
+            "S"
+          ]
+        },
+        "charging_curve": [
+          [
+            "0",
+            "3",
+            "1",
+            "0"
+          ]
+        ],
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "c",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>c"
+          },
+          {
+            "source": "c",
+            "target": "s",
+            "time_s": "1",
+            "length_m": "2",
+            "edge_id": "c>s"
+          },
+          {
+            "source": "s",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "s>z"
+          }
+        ],
+        "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+        "graph_or_leg_identity": "compact-shift_plus100-v1",
+        "depth_mode": "unrestricted",
+        "depth_limit": 0,
+        "depth_certificate_reference": null
+      },
+      "expected": {
+        "status": "attained_optimum",
+        "key": [
+          "29",
+          "3",
+          2,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "upper_witness": {
+        "plan": [
+          [
+            "c",
+            "C"
+          ],
+          [
+            "s",
+            "S"
+          ]
+        ],
+        "charges": [
+          "3"
+        ],
+        "initial_wait": "0"
+      }
+    },
+    {
+      "id": "shift_minus100",
+      "snapshot": {
+        "schema": "hiroute.problem_snapshot.v1",
+        "model_contract_id": "hiroute.time_cut_v2.bounded",
+        "numerical_contract_id": "exact_rational_inputs_v1",
+        "origin": "o",
+        "destination": "z",
+        "departure_time_s": "-100",
+        "initial_energy_kwh": "1",
+        "capacity_kwh": "3",
+        "minimum_energy_kwh": "0",
+        "destination_reserve_kwh": "0",
+        "stop_overhead_s": "1",
+        "stop_penalty_s": "10",
+        "consumption_kwh_per_m": "1",
+        "schedule": {
+          "a": "-100",
+          "b": "-93",
+          "D": "1"
+        },
+        "initial_remaining_schedule": 1,
+        "candidate_order": [
+          "c",
+          "s"
+        ],
+        "site_capabilities": {
+          "c": [
+            "C"
+          ],
+          "s": [
+            "S"
+          ]
+        },
+        "charging_curve": [
+          [
+            "0",
+            "3",
+            "1",
+            "0"
+          ]
+        ],
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "c",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>c"
+          },
+          {
+            "source": "c",
+            "target": "s",
+            "time_s": "1",
+            "length_m": "2",
+            "edge_id": "c>s"
+          },
+          {
+            "source": "s",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "s>z"
+          }
+        ],
+        "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+        "graph_or_leg_identity": "compact-shift_minus100-v1",
+        "depth_mode": "unrestricted",
+        "depth_limit": 0,
+        "depth_certificate_reference": null
+      },
+      "expected": {
+        "status": "attained_optimum",
+        "key": [
+          "29",
+          "3",
+          2,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "upper_witness": {
+        "plan": [
+          [
+            "c",
+            "C"
+          ],
+          [
+            "s",
+            "S"
+          ]
+        ],
+        "charges": [
+          "3"
+        ],
+        "initial_wait": "0"
+      }
+    },
+    {
+      "id": "piecewise_charge",
+      "snapshot": {
+        "schema": "hiroute.problem_snapshot.v1",
+        "model_contract_id": "hiroute.time_cut_v2.bounded",
+        "numerical_contract_id": "exact_rational_inputs_v1",
+        "origin": "o",
+        "destination": "z",
+        "departure_time_s": "0",
+        "initial_energy_kwh": "1",
+        "capacity_kwh": "3",
+        "minimum_energy_kwh": "0",
+        "destination_reserve_kwh": "1",
+        "stop_overhead_s": "1",
+        "stop_penalty_s": "10",
+        "consumption_kwh_per_m": "1",
+        "schedule": null,
+        "initial_remaining_schedule": 0,
+        "candidate_order": [
+          "c"
+        ],
+        "site_capabilities": {
+          "c": [
+            "C"
+          ]
+        },
+        "charging_curve": [
+          [
+            "0",
+            "1",
+            "1",
+            "0"
+          ],
+          [
+            "1",
+            "3",
+            "2",
+            "-1"
+          ]
+        ],
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "4",
+            "edge_id": "o>z"
+          },
+          {
+            "source": "o",
+            "target": "c",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>c"
+          },
+          {
+            "source": "c",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "2",
+            "edge_id": "c>z"
+          }
+        ],
+        "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+        "graph_or_leg_identity": "compact-piecewise_charge-v1",
+        "depth_mode": "unrestricted",
+        "depth_limit": 0,
+        "depth_certificate_reference": null
+      },
+      "expected": {
+        "status": "attained_optimum",
+        "key": [
+          "18",
+          "3",
+          1,
+          [
+            [
+              "c",
+              "C"
+            ]
+          ]
+        ]
+      },
+      "upper_witness": {
+        "plan": [
+          [
+            "c",
+            "C"
+          ]
+        ],
+        "charges": [
+          "3"
+        ],
+        "initial_wait": "0"
+      }
+    },
+    {
+      "id": "strict_empty_disjunct",
+      "snapshot": {
+        "schema": "hiroute.problem_snapshot.v1",
+        "model_contract_id": "hiroute.time_cut_v2.bounded",
+        "numerical_contract_id": "exact_rational_inputs_v1",
+        "origin": "o",
+        "destination": "z",
+        "departure_time_s": "0",
+        "initial_energy_kwh": "1",
+        "capacity_kwh": "1",
+        "minimum_energy_kwh": "0",
+        "destination_reserve_kwh": "0",
+        "stop_overhead_s": "1",
+        "stop_penalty_s": "10",
+        "consumption_kwh_per_m": "0",
+        "schedule": {
+          "a": "0",
+          "b": "100",
+          "D": "1"
+        },
+        "initial_remaining_schedule": 1,
+        "candidate_order": [
+          "a",
+          "b"
+        ],
+        "site_capabilities": {
+          "a": [
+            "CS"
+          ],
+          "b": [
+            "S"
+          ]
+        },
+        "charging_curve": [
+          [
+            "0",
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "a",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>a"
+          },
+          {
+            "source": "a",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "a>z"
+          },
+          {
+            "source": "o",
+            "target": "b",
+            "time_s": "4",
+            "length_m": "1",
+            "edge_id": "o>b"
+          },
+          {
+            "source": "b",
+            "target": "z",
+            "time_s": "4",
+            "length_m": "1",
+            "edge_id": "b>z"
+          }
+        ],
+        "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+        "graph_or_leg_identity": "compact-strict-empty-disjunct-v1",
+        "depth_mode": "unrestricted",
+        "depth_limit": 0,
+        "depth_certificate_reference": null
+      },
+      "upper_witness": {
+        "plan": [
+          [
+            "b",
+            "S"
+          ]
+        ],
+        "charges": [],
+        "initial_wait": "0"
+      },
+      "expected": {
+        "status": "attained_optimum",
+        "key": [
+          "20",
+          "0",
+          1,
+          [
+            [
+              "b",
+              "S"
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "id": "primary_face_support_trap",
+      "snapshot": {
+        "schema": "hiroute.problem_snapshot.v1",
+        "model_contract_id": "hiroute.time_cut_v2.bounded",
+        "numerical_contract_id": "exact_rational_inputs_v1",
+        "origin": "o",
+        "destination": "z",
+        "departure_time_s": "0",
+        "initial_energy_kwh": "1",
+        "capacity_kwh": "2",
+        "minimum_energy_kwh": "0",
+        "destination_reserve_kwh": "0",
+        "stop_overhead_s": "1",
+        "stop_penalty_s": "10",
+        "consumption_kwh_per_m": "1",
+        "schedule": {
+          "a": "0",
+          "b": "10",
+          "D": "0"
+        },
+        "initial_remaining_schedule": 1,
+        "candidate_order": [
+          "a",
+          "b"
+        ],
+        "site_capabilities": {
+          "a": [
+            "CS"
+          ],
+          "b": [
+            "CS"
+          ]
+        },
+        "charging_curve": [
+          [
+            "0",
+            "2",
+            "1",
+            "0"
+          ]
+        ],
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "a",
+            "time_s": "1",
+            "length_m": "1/2",
+            "edge_id": "o>a"
+          },
+          {
+            "source": "a",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "1/2",
+            "edge_id": "a>z"
+          },
+          {
+            "source": "o",
+            "target": "b",
+            "time_s": "1/2",
+            "length_m": "1/2",
+            "edge_id": "o>b"
+          },
+          {
+            "source": "b",
+            "target": "z",
+            "time_s": "1/2",
+            "length_m": "3/2",
+            "edge_id": "b>z"
+          }
+        ],
+        "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+        "graph_or_leg_identity": "compact-primary-face-support-v1",
+        "depth_mode": "unrestricted",
+        "depth_limit": 0,
+        "depth_certificate_reference": null
+      },
+      "upper_witness": {
+        "plan": [
+          [
+            "b",
+            "CS"
+          ]
+        ],
+        "charges": [
+          "1"
+        ],
+        "initial_wait": "1"
+      },
+      "expected": {
+        "status": "attained_optimum",
+        "key": [
+          "13",
+          "1",
+          1,
+          [
+            [
+              "b",
+              "CS"
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "id": "loose_valid_bound_H3",
+      "snapshot": {
+        "schema": "hiroute.problem_snapshot.v1",
+        "model_contract_id": "hiroute.time_cut_v2.bounded",
+        "numerical_contract_id": "exact_rational_inputs_v1",
+        "origin": "o",
+        "destination": "z",
+        "departure_time_s": "0",
+        "initial_energy_kwh": "1",
+        "capacity_kwh": "3",
+        "minimum_energy_kwh": "0",
+        "destination_reserve_kwh": "1",
+        "stop_overhead_s": "1",
+        "stop_penalty_s": "10",
+        "consumption_kwh_per_m": "1",
+        "schedule": null,
+        "initial_remaining_schedule": 0,
+        "candidate_order": [
+          "c"
+        ],
+        "site_capabilities": {
+          "c": [
+            "C"
+          ]
+        },
+        "charging_curve": [
+          [
+            "0",
+            "3",
+            "1",
+            "0"
+          ]
+        ],
+        "directed_edges": [
+          {
+            "source": "o",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "4",
+            "edge_id": "o>z"
+          },
+          {
+            "source": "o",
+            "target": "c",
+            "time_s": "1",
+            "length_m": "1",
+            "edge_id": "o>c"
+          },
+          {
+            "source": "c",
+            "target": "z",
+            "time_s": "1",
+            "length_m": "2",
+            "edge_id": "c>z"
+          }
+        ],
+        "selected_leg_contract": "positive_time_node_path_edge_path_tie_v1",
+        "graph_or_leg_identity": "compact-H3-v1",
+        "depth_mode": "unrestricted",
+        "depth_limit": 0,
+        "depth_certificate_reference": null
+      },
+      "expected": {
+        "status": "attained_optimum",
+        "key": [
+          "16",
+          "3",
+          1,
+          [
+            [
+              "c",
+              "C"
+            ]
+          ]
+        ]
+      },
+      "upper_witness": {
+        "plan": [
+          [
+            "c",
+            "C"
+          ]
+        ],
+        "charges": [
+          "3"
+        ],
+        "initial_wait": "20"
+      }
+    }
+  ]
+}

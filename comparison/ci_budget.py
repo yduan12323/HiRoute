@@ -14,9 +14,11 @@ import time
 
 out=Path(os.environ['RUNNER_TEMP'])/'independent-comparator-gate'
 out.mkdir(parents=True,exist_ok=True)
-# First CI consumed73.584512 inclusive reserved CPU seconds. This revision's
-#106 cap keeps both invocations inside the original180-second CI allocation.
-CAP=106
+# Current900-second design gate reserves452 total: original PR charged91.791824,
+# audit-correction PR reserved180, and subsequent merged-main reserved180.
+# Any further invocation needs admission against the
+# remaining shared allocation; this per-invocation cap is not a fresh budget.
+CAP=180
 budget,charged,FIXED=CAP-60,0,60
 resource.setrlimit(resource.RLIMIT_CPU,(20,20))
 records=[]
@@ -26,10 +28,12 @@ commands=[
     [str(python),'-m','pip','--isolated','--disable-pip-version-check','install',
      '--index-url','https://pypi.org/simple','--require-hashes','--only-binary=:all:',
      '--no-deps','--no-cache-dir','-r','comparison/requirements.txt'],
-    [str(python),'-m','unittest','discover','-s','comparison','-p','test_gate.py'],
+    [str(python),'-m','unittest','discover','-s','comparison','-p','test_*.py'],
     [str(python),'comparison/run_gate.py','--output',str(out/'normal')],
-    [str(python),'-OO','-m','unittest','discover','-s','comparison','-p','test_gate.py'],
+    [str(python),'comparison/run_compact_gate.py','--output',str(out/'compact-normal')],
+    [str(python),'-OO','-m','unittest','discover','-s','comparison','-p','test_*.py'],
     [str(python),'-OO','comparison/run_gate.py','--output',str(out/'optimized')],
+    [str(python),'-OO','comparison/run_compact_gate.py','--output',str(out/'compact-optimized')],
 ]
 env={k:v for k,v in os.environ.items() if k in ('PATH','TMPDIR','LANG','LC_ALL')}
 env.update(PYTHONPATH='src',PYTHONNOUSERSITE='1',PYTHONDONTWRITEBYTECODE='1',
