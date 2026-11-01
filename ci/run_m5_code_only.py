@@ -135,6 +135,7 @@ def main() -> None:
     if sys.version_info[:2] != (3, 11) or sys.prefix == sys.base_prefix:
         raise RuntimeError("Use a fresh Python 3.11 virtual environment")
     env = dict(os.environ, OPENBLAS_NUM_THREADS="1", OMP_NUM_THREADS="1",
+               HIROUTE_REQUIRE_NATIVE_ROADS="1",
                MKL_NUM_THREADS="1", PYTHONDONTWRITEBYTECODE="1",
                PYTHONNOUSERSITE="1", PYTEST_DISABLE_PLUGIN_AUTOLOAD="1",
                PIP_DISABLE_PIP_VERSION_CHECK="1", PIP_NO_CACHE_DIR="1")
@@ -196,7 +197,8 @@ def main() -> None:
                          "tests/conftest.py", "tests/code_only_manifest.py",
                          "tools/check_code_publication.py", "tools/verify_artifacts.py",
                          "tools/profile_small_cases.py", "tools/real_scale_inputs.py",
-                         "configs/real_scale_dev.json", "tools/run_real_scale_pilot.py"):
+                         "configs/real_scale_dev.json", "tools/run_real_scale_pilot.py",
+                         "configs/real_scale_road_seed_dev.json", "tools/run_road_seed_dev.py"):
             copy_file(relative, tooling)
         for script in ("m5d_aggregate_screen.py", "prepare_regional_data.py", "m5d_charge_gate.py", "m5d_build_main_queries.py",
                        "m5d_freeze_main_phase.py", "m5d_main_batch.py",

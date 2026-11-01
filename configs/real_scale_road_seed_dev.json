@@ -1,0 +1,134 @@
+{
+  "schema": "hiroute.road_seed_dev.v1",
+  "scope": "Second segment limited DEV only; frozen before numerical validation; no main experiment or holdout",
+  "base_config": "configs/real_scale_dev.json",
+  "model": {
+    "departure_time_s": "0",
+    "initial_energy_kwh": "18",
+    "capacity_kwh": "60",
+    "minimum_energy_kwh": "0",
+    "destination_reserve_kwh": "6",
+    "stop_overhead_s": "300",
+    "stop_penalty_s": "600",
+    "consumption_kwh_per_m": "1/6250",
+    "charging_curve": [
+      [
+        "0",
+        "30",
+        "36",
+        "0"
+      ],
+      [
+        "30",
+        "48",
+        "60",
+        "-720"
+      ],
+      [
+        "48",
+        "60",
+        "120",
+        "-3600"
+      ]
+    ],
+    "provenance": "Existing Shandong DEV physical model retained; no battery/consumption change to induce multiple charging"
+  },
+  "resources": {
+    "numeric_workers": 1,
+    "numeric_threads": 1,
+    "pilot_method_query_wall_s": 120,
+    "main_threshold_s": 60,
+    "new_solve_and_finite_ref_cpu_budget_s": 28800,
+    "query_extra_memory_bytes": 8589934592,
+    "host_headroom_bytes": 2147483648,
+    "map_preparation_accounting": "Separate wall/CPU/RSS; no free N-squared selected-leg table; selected legs refined on demand"
+  },
+  "accounting": {
+    "carried_cpu_s": 3200.991448329,
+    "development_validation_cpu_s": 60,
+    "policy": "Add measured local solve/test CPU and all fresh worker CPU, including cold loads; preprocessing separately reported; never repeat valid segment-one rows. Development microchecks are conservatively charged 60 CPU seconds, above observed local checks."
+  },
+  "selection_assessment": {
+    "corridor_halfwidths_km": [
+      60,
+      126
+    ],
+    "rule": "Same unique anchor, capability, eight strata and endpoint rules; geometry only. Wider corridor and N truncation define workload, not safe province-wide reduction."
+  },
+  "profiles": {
+    "legacy": {
+      "pair_query_mode": "reverse_tree",
+      "seed_beam_pruning": false
+    },
+    "route_only": {
+      "pair_query_mode": "landmark_astar",
+      "seed_beam_pruning": false
+    },
+    "optimized": {
+      "pair_query_mode": "landmark_astar",
+      "seed_beam_pruning": true
+    }
+  },
+  "domains": [
+    {
+      "id": "D01",
+      "query_id": "SD01",
+      "scenario": "energy_only",
+      "N": 64,
+      "corridor_km": 60,
+      "profiles": {
+        "legacy": [
+          "flat_bb_strong"
+        ],
+        "route_only": [
+          "flat_bb_strong"
+        ],
+        "optimized": [
+          "flat_bb_strong",
+          "scale"
+        ]
+      }
+    },
+    {
+      "id": "D02",
+      "query_id": "SD03",
+      "scenario": "energy_only",
+      "N": 64,
+      "corridor_km": 60,
+      "domain_note": "All 64 eligible C-capable unique anchors in this corridor; no N truncation within that corridor. Still a geographic workload restriction.",
+      "profiles": {
+        "optimized": [
+          "flat_bb_strong",
+          "scale"
+        ]
+      }
+    },
+    {
+      "id": "D03",
+      "query_id": "SD03",
+      "scenario": "schedule",
+      "N": 128,
+      "corridor_km": 60,
+      "profiles": {
+        "optimized": [
+          "flat_bb_strong",
+          "scale"
+        ]
+      }
+    },
+    {
+      "id": "D04",
+      "query_id": "SD02",
+      "scenario": "energy_only",
+      "N": 128,
+      "corridor_km": 126,
+      "profiles": {
+        "optimized": [
+          "flat_bb_strong",
+          "scale"
+        ]
+      }
+    }
+  ],
+  "interpretation": "10 fresh rows, 120s loaded query hard limit each, 60s main threshold; retain failures; no solver-informed domain selection, battery/consumption changes, extra diagnostic extensions or hierarchy win requirement. Same profile, input and seed for Strong/Scale. Route and seed ablation restricted to D01; phase timers inclusive and not additive with routing counters."
+}

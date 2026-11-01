@@ -64,6 +64,23 @@ def semantics(result):
 
 
 class ScaleSearchTests(unittest.TestCase):
+    def test_seed_width_contract_rejects_zero_before_routing_in_both_modes(self):
+        snapshot=ProblemSnapshot.from_dict(raw())
+        with patch('hiroute.exact.road_index.RoadIndex',
+                   side_effect=AssertionError('invalid width constructed an index')) as index:
+            for width in (0,-1,True,False,1.5,None,'4'):
+                for pruning in (False,True):
+                    with self.subTest(width=width,pruning=pruning):
+                        with self.assertRaisesRegex(ValueError,'beam_width'):
+                            scale.solve_scale(snapshot,seed_beam_width=width,
+                                              seed_beam_pruning=pruning)
+                        with self.assertRaisesRegex(ValueError,'beam_width'):
+                            scale.deterministic_seed(snapshot,None,None,None,lambda:None,
+                                                     beam_width=width,prune_beam=pruning)
+            index.assert_not_called()
+        result=scale.solve_scale(snapshot,seed_beam_width=1,seed_beam_pruning=True)
+        self.assertEqual(result['status'],'attained_optimum')
+
     def test_invalid_resource_limits_are_rejected_before_index_construction(self):
         snapshot = ProblemSnapshot.from_dict(raw())
         invalid_times = (None, True, False, 0, -1, float('nan'), float('inf'),
@@ -111,6 +128,11 @@ class ScaleSearchTests(unittest.TestCase):
         for method in METHODS:
             with self.subTest(method=method):
                 result = scale.solve_scale(snapshot, method=method, time_limit_s=10)
+                optimized = scale.solve_scale(snapshot,method=method,time_limit_s=10,
+                                               seed_beam_pruning=True)
+                self.assertEqual(semantics(result),semantics(optimized))
+                self.assertEqual(None if result['seed'] is None else result['seed']['key'],
+                                 None if optimized['seed'] is None else optimized['seed']['key'])
                 self.assertNotIn(result["status"], ("time_limit", "memory_limit"), result)
                 if old is not None:
                     self.assertEqual(semantics(result), semantics(old))
@@ -126,6 +148,21 @@ class ScaleSearchTests(unittest.TestCase):
                 results.append(result)
         self.assertEqual(semantics(results[0]), semantics(results[1]))
         return results
+
+    def test_rank_lazy_seed_preserves_full_rank_and_skips_strict_losers(self):
+        sites=[f'c{i:02}' for i in range(16)]
+        source=raw(initial_energy_kwh='2',capacity_kwh='2',depth_limit=2,
+            candidate_order=sites,site_capabilities={s:['C'] for s in sites},
+            charging_curve=[['0','2','1','0']],
+            directed_edges=[edge('o',s,length=2) for s in sites]+
+                           [edge(s,'z',time=i//2+1,length=2) for i,s in enumerate(sites)])
+        snapshot=ProblemSnapshot.from_dict(source)
+        full=scale.solve_scale(snapshot,seed_beam_pruning=False)
+        lazy=scale.solve_scale(snapshot,seed_beam_pruning=True)
+        self.assertEqual(full['seed']['key'],lazy['seed']['key'])
+        self.assertEqual(semantics(full),semantics(lazy))
+        self.assertGreater(lazy['metrics']['seed_rank_pruned_routes'],0)
+        self.assertLess(lazy['metrics']['seed_attempts'],full['metrics']['seed_attempts'])
 
     def test_zero_stop_and_proven_unreachable_site(self):
         rows = self.parity(raw(candidate_order=["unreachable"],

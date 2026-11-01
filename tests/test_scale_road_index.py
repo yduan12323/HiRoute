@@ -121,8 +121,8 @@ class RoadIndexTests(unittest.TestCase):
 class NativeRoadIndexTests(unittest.TestCase):
     """Run when the optional native compiler/header dependency is available.
 
-    This is a normal passing test on minimal installations, while native-capable
-    CI and the real pilot execute the exact same assertions below.
+    Minimal installations may omit it; the isolated wheel CI explicitly requires
+    native execution so this change cannot pass CI without exercising A*.
     """
     def test_native_contract_when_dependency_available(self):
         import os
@@ -133,6 +133,8 @@ class NativeRoadIndexTests(unittest.TestCase):
         header_roots = [Path('/usr/include'), Path('/usr/local/include'), Path('/opt/homebrew/include')]
         header_roots += [Path(p) for p in os.environ.get('CPLUS_INCLUDE_PATH', '').split(os.pathsep) if p]
         if compiler is None or not any((p / 'boost/multiprecision/cpp_int.hpp').exists() for p in header_roots):
+            if os.environ.get('HIROUTE_REQUIRE_NATIVE_ROADS') == '1':
+                self.fail('Native road CI requires C++17 and Boost.Multiprecision headers')
             return
         rng = random.Random(421)
         nodes = ('a', 'b', 'c', 'd', 'e', 'f', 'g')
@@ -150,6 +152,11 @@ class NativeRoadIndexTests(unittest.TestCase):
                 ('source', 'target', 'edge_id', 'time_s', 'length_m')) + '\n' for e in edges))
             with NativeRoadIndex(tsv, nodes, cache_directory=work, distance_cache_size=2, leg_cache_size=3) as native:
                 self.assertEqual(native.exposed_nodes, tuple(sorted(set(nodes))))
+                for operation in (lambda:native.selected_leg('a\0truncated','z'),
+                                  lambda:native.prepare_landmarks('o','z\0truncated'),
+                                  lambda:native.distances_to('z\0truncated')):
+                    with self.assertRaisesRegex(ValueError,'NUL'):
+                        operation()
                 for a, b in itertools.product(nodes, repeat=2):
                     expected, actual = reference.selected_leg(a, b), native.selected_leg(a, b)
                     if expected is None:
@@ -178,7 +185,47 @@ class NativeRoadIndexTests(unittest.TestCase):
                 native.check = None
             with self.assertRaises(ValueError):
                 native.selected_leg('a', 'z')
+            # All directed pairs, including anchors outside the O->D component,
+            # must retain the exact canonical node/edge tie and actual length.
+            for origin, destination in (('o','z'), ('d','e')):
+                with NativeRoadIndex(tsv,nodes,cache_directory=work,leg_cache_size=0,
+                                     pair_query_mode='landmark_astar') as guided:
+                    guided.prepare_landmarks(origin,destination)
+                    guided.prepare_landmarks(origin,destination)  # pins survive LRU eviction
+                    for a,b in itertools.product(nodes,repeat=2):
+                        expected,actual=reference.selected_leg(a,b),guided.selected_leg(a,b)
+                        self.assertEqual(actual,expected,(origin,destination,a,b))
+                    self.assertGreater(guided.metrics()['astar_queries'],0)
+                    self.assertEqual(guided.metrics()['pinned_landmark_count'],2)
+            # Many tiny graphs exercise incomplete landmark components and
+            # equality contours; the oracle enumerates only these tiny inputs.
+            for trial in range(20):
+                names=('z','a','b','0','é','中')
+                tiny=[row(a,b,Fraction(rng.randint(1,4),3),rng.randint(1,20),f'{i}')
+                      for i,(a,b) in enumerate(itertools.permutations(names,2)) if rng.random()<.45]
+                tiny+=[row('z','a',1,9,'parallel-a'),row('z','a',1,1,'parallel-z')]
+                tsv.write_text(''.join('\t'.join(str(e[k]) for k in
+                    ('source','target','edge_id','time_s','length_m'))+'\n' for e in tiny))
+                with NativeRoadIndex(tsv,names,cache_directory=work,pair_query_mode='landmark_astar',
+                                     leg_cache_size=0,distance_cache_size=0) as guided:
+                    guided.prepare_landmarks('z','a')
+                    for a,b in itertools.product(names,repeat=2):
+                        expected=independent_paths(tiny,a,b)
+                        actual=guided.selected_leg(a,b)
+                        if expected is None:
+                            self.assertIsNone(actual)
+                        else:
+                            self.assertEqual(tuple(e['edge_id'] for e in actual.edges),
+                                             tuple(e['edge_id'] for e in expected),(trial,a,b))
+                            self.assertEqual(actual.length_m,sum(Fraction(e['length_m']) for e in expected))
             duplicate = Path(work) / 'duplicate.tsv'
+            with self.assertRaisesRegex(ValueError,'control characters'):
+                NativeRoadIndex(tsv,('a\0truncated','z'),cache_directory=work)
+            for field in range(3):
+                values=['a','b','x','1','2'];values[field]+='\0truncated'
+                duplicate.write_text('\t'.join(values)+'\n')
+                with self.assertRaisesRegex(RuntimeError,'Control characters'):
+                    NativeRoadIndex(duplicate,('a','b'),cache_directory=work)
             duplicate.write_text('a\tb\tx\t1\t2\nb\tc\tx\t2\t3\n')
             with self.assertRaisesRegex(RuntimeError, 'edge IDs must be unique'):
                 NativeRoadIndex(duplicate, ('a', 'b', 'c'), cache_directory=work)
@@ -210,6 +257,17 @@ class NativeRoadIndexTests(unittest.TestCase):
                 self.assertEqual(actual.length_m, expected.length_m)
                 self.assertEqual(tuple(e['edge_id'] for e in actual.edges),
                                  tuple(e['edge_id'] for e in expected.edges))
+            with NativeRoadIndex(long_tsv,('0','500','999','1000'),cache_directory=work,
+                                 pair_query_mode='landmark_astar',leg_cache_size=0) as guided:
+                guided.prepare_landmarks('0','1000')
+                calls=0
+                guided.check=interrupt
+                with self.assertRaises(Stop):
+                    guided.selected_leg('0','999')
+                guided.check=None
+                guided.prepare_landmarks('0','1000')
+                self.assertEqual(guided.selected_leg('0','999'),
+                                 RoadIndex(long_edges).selected_leg('0','999'))
 
 
 if __name__ == "__main__":
