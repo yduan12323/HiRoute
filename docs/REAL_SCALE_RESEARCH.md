@@ -1,9 +1,14 @@
-# Real-scale DEV research: two limited segments
+# Real-scale DEV research
 
-Latest status: the authorized second-segment limited DEV is complete; overall
-research success and the 60s/95% target remain unestablished. The segment-one
-sections below are retained as historical evidence. The later second-segment
-section records the new domains, results and current decision boundary.
+Latest bounded continuation: strict incumbent pruning at enqueue completed the
+same explicit D04 energy N128 domain in **76.573s Strong / 64.075s Scale**, with
+attained identical full keys and physical replay. The **60s target is still
+unmet**. The current profile has only this paired real-domain measurement;
+population 95%/median goals and overall research success remain unestablished.
+Charged solve/limited-REF accounting is **4965.164126329 / 28800 CPU seconds**.
+See [current queue results and next decision](#strict-incumbent-pruning-before-queue-insertion)
+and [the complete small table](enqueue_pruning_results.json). Earlier sections
+and their original states are retained as chronological historical evidence.
 
 ## Existing facts (segment one, historical)
 
@@ -1063,3 +1068,145 @@ including compiler/cold load. The total remains **28800s**; preparation is separ
 No unchanged baseline is rerun and no profiling/grid, new bound, seed/road/cache,
 physical/domain/depth/limit change, main experiment, holdout or denied server
 upload is included. No target result or performance gain is presumed.
+
+### Observed queue work and complete paired result
+
+Numerical source is `82a0753bdf32afc2ac3e595cdaa3584d0436b724`; full rows are in
+[`enqueue_pruning_results.json`](enqueue_pruning_results.json). Both original
+workers completed with OPEN=0 and the same attained full key, unchanged seed and
+independently replayed two-positive-charge witness as PR #28. This remains exact
+only for the declared D04 domain (128 qualified Sites, 125 safely reachable),
+with unrestricted relevant depth and incumbent-derived limit 31. No baseline
+was rerun and no old result was relabeled.
+
+| D04 energy N128 | Strong Flat-BB | Scale |
+| --- | ---: | ---: |
+| Loaded seconds / mathematical status | 76.573 / attained optimum | 64.075 / attained optimum |
+| First feasible seconds | 4.068 | 4.086 |
+| Nonempty enqueue attempts | 115,252 | 50,894 |
+| Actual enqueue-rejected nodes / represented actions | 110,799 / 110,799 | 22,109 / 111,164 |
+| Later pop-pruned nodes | 647 | 142 |
+| Actual heap pushes / pops | 4,453 / 4,453 | 28,785 / 28,785 |
+| Peak OPEN (prior profile -> current) | 111,449 -> 3,306 | 22,251 -> 3,110 |
+| Bound queries (singleton / Region) | 123,750 / 0 | 0 / 50,664 |
+| Leaf routes / child transitions / terminals | 2,816 / 989 / 990 | 2,816 / 989 / 990 |
+| Native selected-leg seconds | 40.346 | 40.192 |
+| Scalar + A* settled vertices | 110,589,342 | 110,589,342 |
+| Worker CPU seconds, cold load included | 85.258899 | 72.846200 |
+| Peak worker RSS / query-extra GiB | 2.386 / 1.190 | 2.456 / 1.251 |
+| Minimum sampled host available GiB | 3.298 | 3.384 |
+
+All enqueue rejections in these rows are Regions; no physical state was rejected
+at enqueue. Fresh counters directly establish early rejection in this run.
+Adding early and later node rejections gives 111,446/22,251, numerically matching
+the old pop totals. This does not reconstruct the old per-node enqueue incumbent
+or its timing. The remaining 647/142 pop rejections illustrate why pop pruning
+still matters after later incumbent improvements. Counter identities close
+exactly and OPEN=0 follows complete processing, not a resource stop.
+
+OPEN entry peaks decreased by 97.0%/86.0% relative to the preserved completed
+control. Total resident memory did not show a corresponding general decrease:
+Strong's peak RSS is essentially unchanged, while Scale's observed peak is
+2.456 GiB versus 2.227 GiB previously. Index, path cache and allocator residency
+remain in total RSS; no component memory attribution was measured. Both runs
+satisfied the existing guards. In the current paired comparison Scale actually
+performs more heap operations than Strong, despite fewer bound queries; a blanket
+claim that hierarchy reduces heap work would be incorrect.
+
+Loaded time is 3.697s/3.466s lower than the preserved PR #28 observations
+(4.6%/5.1%). This is a modest single-run timing change alongside a large, directly
+observed change in heap operations. Native selected-leg time also decreased by
+1.476s/2.669s although road work counts are identical. These data do not isolate
+how much of the wall-time change is caused by the queue policy; indirect effects
+and ordinary timing variation have not been separated. There was no replicate,
+additional profiling or parameter tuning. Actual queue-count savings are better
+established here than any isolated runtime gain.
+
+Road requests/cache hits, A* vertices/edges, scalar queries/work, source builds,
+bound query counts, family-piece work and physical transition/terminal counts
+all match the completed control. Seed time is below 0.76s. Native selected-leg
+work remains about 40s, while the complement of loaded time after that nested
+native timer is 36.227s/23.883s. That complement includes other preparation,
+interop, bounds, queue and family work; it is not a measured isolated function
+profile. Queue pruning does not reduce the measured road/physical work in these
+rows. Further queue tuning alone is not justified as a route to the overall
+research target by these observations.
+
+The loaded acceptance clock remains 76.573s/64.075s: **0/2 meet 60s**. Scale's
+search-only subphase is 59.963s, a component timer rather than the loaded-query
+acceptance clock. The observed paired Scale advantage (same full key and physical
+work, fewer bound queries) remains a limited DEV observation; it does not prove
+95% completion, a population median, or a general hierarchy claim.
+
+Accounting is `4747.059027329 + 60 + 85.258899 + 72.846200 =
+4965.164126329 CPU seconds`, leaving **23834.835873671** of 28800s. Selection and
+manifest preparation was separately 0.129273 wall / 0.129272 CPU seconds. Cold
+compiler/index CPU is charged, dynamic source builds remain inside the query,
+and no extra numerical rows, profiling, limit extension or data acquisition were
+performed.
+
+### Next decision against the original taskbook
+
+The original `HIROUTE_REAL_SCALE_DECISION_AND_PLAN.md` (§§3,7,8) asks for a
+population-level result: at least 95% of a predeclared main workload exact within
+60s, typical median <=10s, real 2/3/4-positive-charge strata, N=64/128/256 and some
+complete declared candidate domains, followed by external comparison, trip-value
+analysis and frozen independent validation. One repeatedly tuned D04 pair cannot
+establish those claims. A difficult query may legitimately be in a declared tail;
+it must remain in the denominator rather than be tuned or removed until a local
+threshold is crossed.
+
+The next useful step is to close this queue micro-optimization and transfer the
+unchanged current profile to a **predeclared limited DEV gate on existing D01 and
+D03**, both methods (four new method-rows). This is proposed only, not executed
+here. D01 is the existing real three-positive-charge energy N64 case, whose older
+profile took 95.347/91.786s; D03 is the existing schedule N128 case, previously
+49.128/46.049s. Those older valid rows stay historical controls. The new profile
+has not been validated on them. This gate covers the other known difficult
+long-trip case and activity/CS behavior without a new OD, corridor, battery,
+consumption rule, grid or unchanged-profile rerun. Preserve keys/replay, loaded
+clock, seed cost, road/family work and separate enqueue/pop counters. There is no
+basis to assert a transfer speedup before measuring it. Do not start another
+D04-only tuning campaign to force 60s.
+
+After that limited gate and the research decision, a wider DEV design must be
+frozen before method outcomes are seen. The taskbook proposes 12 real OD x two
+initial SOC x energy-only/schedule = 48 queries, with N=64/128/256 where actual
+qualified inputs support them. This scope is **not launched or authorized by this
+queue delivery**. Include input-unavailable, timeout, infeasible and unattained
+states in the predeclared overall reporting; distinguish mathematical completion
+from an executable attained optimum. Keep route, seed, kernel, information and
+resources fair, and retain representative lower-bound/batching controls rather
+than a full ablation grid. Historical D02 energy N64 already covers all 64
+qualified chargers in its declared 60 km corridor; that is corridor-domain
+coverage, not province-wide optimality.
+
+Data feasibility must govern the larger domains. Current D04's 126 km corridor
+has 143 qualified energy Sites, so N256 is unavailable under that rule. The
+existing D03 schedule corridor has 368 qualified Sites, supporting a possible
+future N256 or complete-368 declared domain without changing geography; these
+new domains need their own predeclaration and were not solved here. Do not fill
+energy-only N with service-only POIs or widen corridors just to fill a table.
+Any claimed safe filtering needs an inclusion argument, and N truncation retains
+only a restricted-domain claim. Real two-charge evidence and historical D01
+three-charge evidence exist; D01's recorded necessity lower bound is two, while
+its optimized witness actually charges three times. A real four-positive-charge
+stratum is still not demonstrated. Its availability and necessity must be investigated honestly using
+the unchanged physical model, not manufactured battery/consumption settings.
+
+The wider plan also needs an explicit budget/timeout design. A full 48-query x
+three-N x two-method product is 288 method-rows; at the current 120s cap its query
+slots alone could consume 34,560 one-core seconds before cold costs, beyond the
+remaining original envelope. Do not automatically start that product or extend
+the budget. Use data-feasibility preflight and a declared staged design, or obtain
+a separate research-budget decision before the wider phase.
+
+Finally, self FLAT/REF comparisons do not supply the taskbook's external baseline.
+A comparable existing exact method or independently auditable optimization model
+on common supported assumptions remains needed, as does a separate sequential/
+separated-planning comparison for actual trip value. Freeze algorithms, sampling
+and statistics before the proposed >=8 new holdout OD groups; all existing M01–M08
+and repeatedly used Shandong cases are DEV. Neither main experiments nor holdout
+were run here. Preserve the best actual method if broader evidence favors Strong;
+queue engineering and one positive Scale pair do not by themselves complete the
+research project or establish the paper's main claim.
