@@ -112,7 +112,7 @@ nearest ellipsoidal distance beyond the legacy prefix.
 
 All **4,725 historical Sites**, including all unattached cases, reproduce their
 recorded road anchors/statuses exactly. The eligible graph-node count is the
-same2,710,931. Six fresh-data-environment tests pass: evidence/unknown semantics,
+same2,710,931. Eight fresh-data-environment tests now pass: evidence/unknown semantics,
 restrictions, independent random/tied prefix parity, geodesic threshold equality,
 input legality, and actual native XML node/way/relation/missing-geometry handling.
 The additional clean data CI requires Pyosmium/Shapely/Pyproj and runs those
@@ -134,6 +134,32 @@ now creates its own registered-path files under a temporary root, so collection
 semantics do not depend on the cohort's staging layout. The second native-data
 CI41296733380 passed. Both failures and their distinct diagnosed causes remain
 recorded; neither is attributed to solver mathematics or hidden by a data rerun.
+
+### Relation linework correction after review
+
+Review of head`ee8aaa5f` identified a real parser defect: `polygonize` can discard
+incomplete outer/inner linework and silently accept the remaining polygon.
+The relation branch now calls `polygonize_full` separately on **original** outer
+and inner lines, before any union/noding that could repair or hide invalid
+rings. Nonempty cut edges, dangles or invalid rings are reported and rejected;
+inner polygons outside the outer area are rejected as well. Complete fragmented
+rings still work and retain their hole. Native source fixtures cover a closed
+outer plus open inner, closed outer plus dangling outer, outer cut edges,
+invalid inner/outer rings, outside inner rings, and a valid fragmented
+outer/inner control. The original incomplete-inner fixture is demonstrably
+accepted by the pre-fix implementation and rejected by the corrected branch.
+
+Impact was assessed from the already saved source evidence, whose SHA-256 still
+matches the original result artifact: all266 source objects contain **zero
+relation IDs**, both among geometry records and geometry errors; all four
+additions are nodes. Therefore the corrected relation-only branch was unused
+by the completed real audit. Node/way processing is unchanged. Saved catalog,
+binding and matrix identities remain unchanged. The small
+`shandong_relation_geometry_review.json` records this evidence. No raw data was
+downloaded again, no real-data extraction/attachment recount was necessary, and
+no solver ran. Existing preparation and solve/verification ledgers are retained;
+the wider matrix remains unlaunched. This correction does not retroactively
+attribute any measured coverage increase to a historical extraction fix.
 
 Preparation guard: one worker/thread,1.5GiB RSS,2GiB host headroom,8GiB disk
 headroom,900 CPU/1,800 wall seconds overall, no reset after failures. Setup,

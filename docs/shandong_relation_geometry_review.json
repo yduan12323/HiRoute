@@ -1,0 +1,27 @@
+{
+  "schema": "hiroute.relation_geometry_review_impact.v1",
+  "reviewed_head": "ee8aaa5f746b01c8ed223bc8149af6737e737408",
+  "source_evidence_sha256": "73870bba310066106a2615bdc4fa23e7c472444601d472ade3cd0a4fcea010fa",
+  "source_evidence_records": 266,
+  "relation_records": 0,
+  "relation_geometry_errors": 0,
+  "additional_source_station_ids": [
+    "node/14309830319",
+    "node/14309830325",
+    "node/14320814764",
+    "node/14330420259"
+  ],
+  "all_additions_are_nodes": true,
+  "data_recount_performed": false,
+  "raw_reacquired": false,
+  "solver_called": false,
+  "reason": "All retained source objects are recorded either as geometry records or errors; neither contains a relation. The corrected relation-only branch was unused by the completed audit; node/way paths and saved catalogs are unchanged.",
+  "expected_catalog_change": false,
+  "expected_matrix_change": false,
+  "solve_cpu_ledger_unchanged": 5226.078454329,
+  "preparation_cpu_ledger_unchanged": 650.223550976,
+  "saved_catalog_hashes_unchanged": true,
+  "frozen_matrix_sha256": "963adb1615c1460710b261b698a65a13030b6253c501518037a3c5fd85f00adb",
+  "native_tests_normal_and_OO": 8,
+  "legacy_mutation_sensitivity_confirmed": true
+}

@@ -20,11 +20,33 @@ def digest(path):
     return h.hexdigest()
 
 
+def relation_geometry(outer,inner):
+    """Reject unused relation linework before constructing an area.
+
+    Do not node/union lines before polygonize_full: that could repair an invalid
+    source ring or hide its unused edges. Complete fragmented rings are valid.
+    """
+    from shapely.ops import polygonize_full,unary_union
+    def complete(lines,role):
+        polygons,cuts,dangles,invalid=polygonize_full(lines)
+        leftovers=[name for name,geom in (
+            ('cut_edges',cuts),('dangles',dangles),('invalid_rings',invalid))
+            if not geom.is_empty]
+        if leftovers:raise ValueError('incomplete '+role+' relation linework: '+','.join(leftovers))
+        if polygons.is_empty:raise ValueError('no complete '+role+' relation rings')
+        return unary_union(polygons)
+    geom=complete(outer,'outer')
+    if inner:
+        holes=complete(inner,'inner')
+        if not geom.covers(holes):raise ValueError('inner relation rings outside outer area')
+        geom=geom.difference(holes)
+    return geom
+
+
 def extract(path,boundary,historical_C):
     """Three streaming passes; cache only tagged objects/member node positions."""
     import osmium
     from shapely.geometry import Point,LineString,Polygon
-    from shapely.ops import polygonize,unary_union
     from hiroute.data.shandong import _representative_wgs84
     objects={};ways={};coordinates={}
     class Tagged(osmium.SimpleHandler):
@@ -72,8 +94,7 @@ def extract(path,boundary,historical_C):
             elif 'members' in row:
                 outer=[line(ref) for typ,ref,role in row['members'] if typ=='w' and role in ('','outer')]
                 inner=[line(ref) for typ,ref,role in row['members'] if typ=='w' and role=='inner']
-                geom=unary_union(list(polygonize(unary_union(outer))))
-                if inner:geom=geom.difference(unary_union(list(polygonize(unary_union(inner)))))
+                geom=relation_geometry(outer,inner)
             else:raise ValueError('source geometry unavailable')
             if geom.is_empty or not geom.is_valid:raise ValueError('empty/invalid source geometry')
             lon,lat,method=_representative_wgs84(geom)
