@@ -84,7 +84,7 @@ def extract(path,boundary,historical_C):
                 evidence=row['evidence'],source_tags=row['tags'],geometry=geom.__geo_interface__)
             records.append(out);geometries[ident]=geom
         except (KeyError,ValueError,RuntimeError) as exc:
-            errors.append(dict(site_id=ident,error=str(exc)))
+            errors.append(dict(site_id=ident,error=str(exc),evidence=row['evidence']))
     # An individual point is never promoted to a station. Record containment
     # aliases among station nodes/areas, preferring a historical identity. This
     # is an explicit workload deduplication rule, not a safe optimization theorem.
@@ -190,8 +190,10 @@ def main(args):
         raw_sha256=raw_hash,raw_bytes=raw.stat().st_size,source_header=header,
         old_raw_station_count=len(old_C),old_attached_C_sites=sum(i in bindings['site_access_nodes'] for i in old_C),
         old_unique_C_anchors=len({bindings['site_access_nodes'][i] for i in old_C if i in bindings['site_access_nodes']}),
-        raw_signal_records=len(records),raw_current_station_tags=sum(r['evidence']['station_tag'] for r in records),
-        raw_charge_points=sum(r['evidence']['charge_point_tag'] for r in records),
+        source_object_records=len(records)+len(errors),
+        raw_signal_records=sum(r['evidence']['charging_signal'] for r in records+errors),
+        raw_current_station_tags=sum(r['evidence']['station_tag'] for r in records+errors),
+        raw_charge_points=sum(r['evidence']['charge_point_tag'] for r in records+errors),
         modeled_eligible_station_records=len(stations),station_aliases=aliases,geometry_errors=errors,
         old_C_currently_contradicted=negative,old_C_absent_from_current_records=sorted(old_C-set(current)),
         additional_raw_station_sites=len(added),additional_unattached_sites=unattached,
