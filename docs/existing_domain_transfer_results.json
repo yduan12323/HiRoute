@@ -1,0 +1,975 @@
+{
+  "schema": "hiroute.existing_domain_transfer_results.v1",
+  "scope": "Four authorized limited DEV method-rows: existing D01 energy N64 and D03 schedule N128, Strong then Scale on each. Current complete profile, unchanged physics/domains/seed/road/cache/depth/limits. No baseline or D04 rerun, algorithm tuning, main experiment or holdout.",
+  "numerical_source_commit": "c0eac96240f1f73f2a5a086b1be3e07f29071dd5",
+  "base_main_commit": "1473eab6e1b169fb130d9fe183e5c33bdf5e26ff",
+  "carried_cpu_s": 4965.164126329,
+  "development_validation_cpu_s": 60,
+  "worker_cpu_s": 140.914328,
+  "charged_cpu_s": 5166.078454329001,
+  "remaining_cpu_s": 23633.921545671,
+  "budget_cpu_s": 28800,
+  "preparation": {
+    "assessment": {
+      "60": {
+        "SD01": {
+          "energy_only": 83,
+          "schedule": 649
+        },
+        "SD02": {
+          "energy_only": 101,
+          "schedule": 959
+        },
+        "SD03": {
+          "energy_only": 64,
+          "schedule": 368
+        },
+        "SD04": {
+          "energy_only": 84,
+          "schedule": 515
+        }
+      }
+    },
+    "carried_cpu_s": 4965.164126329,
+    "development_validation_cpu_s": 60,
+    "graph_preparation": "Reuse existing exact Shandong TSV; no conversion or download",
+    "preparation_cpu_s": 0.175,
+    "preparation_wall_s": 0.19241866600350477,
+    "scope": "Four authorized limited DEV method-rows: existing D01 energy N64 and D03 schedule N128, Strong then Scale on each. Current complete profile, unchanged physics/domains/seed/road/cache/depth/limits. No baseline or D04 rerun, algorithm tuning, main experiment or holdout.",
+    "solver_called": false
+  },
+  "verification": [
+    {
+      "domain": "D01",
+      "method": "flat_bb_strong",
+      "candidate_fingerprint_unchanged": true,
+      "full_key_matches_historical_optimized": true,
+      "seed_key_matches_historical_optimized": true,
+      "physical_replay": true,
+      "open_empty": true,
+      "unrestricted_depth": true,
+      "guards_passed": true,
+      "enqueue_accounting": true
+    },
+    {
+      "domain": "D01",
+      "method": "scale",
+      "candidate_fingerprint_unchanged": true,
+      "full_key_matches_historical_optimized": true,
+      "seed_key_matches_historical_optimized": true,
+      "physical_replay": true,
+      "open_empty": true,
+      "unrestricted_depth": true,
+      "guards_passed": true,
+      "enqueue_accounting": true
+    },
+    {
+      "domain": "D03",
+      "method": "flat_bb_strong",
+      "candidate_fingerprint_unchanged": true,
+      "full_key_matches_historical_optimized": true,
+      "seed_key_matches_historical_optimized": true,
+      "physical_replay": true,
+      "open_empty": true,
+      "unrestricted_depth": true,
+      "guards_passed": true,
+      "enqueue_accounting": true
+    },
+    {
+      "domain": "D03",
+      "method": "scale",
+      "candidate_fingerprint_unchanged": true,
+      "full_key_matches_historical_optimized": true,
+      "seed_key_matches_historical_optimized": true,
+      "physical_replay": true,
+      "open_empty": true,
+      "unrestricted_depth": true,
+      "guards_passed": true,
+      "enqueue_accounting": true
+    }
+  ],
+  "rows": [
+    {
+      "N": 64,
+      "bound_enabled": true,
+      "candidate_and_input_preparation_s": 2.565690250019543,
+      "candidate_domain_claim": "Explicit truncated geographic candidate domains only; neither safe filtering nor province/full-domain optimality",
+      "cold_index_cpu_s": 8.932526000000001,
+      "cold_index_wall_s": 9.915330417017685,
+      "corridor_km": 60,
+      "depth_contract": {
+        "declared_limit": null,
+        "incumbent_derived_limit": 38,
+        "mode": "unrestricted",
+        "rule": "floor(U_J/(h_min+lambda_stop))"
+      },
+      "direct_selected_length_m": "96283519/125",
+      "direct_selected_time_s": "495771923331/19250000",
+      "domain_id": "D01",
+      "domain_note": null,
+      "eligible_unique_anchors": 649,
+      "feasible_key": [
+        "3333435571227/96250000",
+        "709871169/6250000",
+        3,
+        [
+          [
+            "node/13096654176",
+            "C"
+          ],
+          [
+            "node/13096643014",
+            "C"
+          ],
+          [
+            "node/13556114262",
+            "C"
+          ]
+        ]
+      ],
+      "graph_index_resident_bytes": 1285963776,
+      "great_circle_m": 663975.0405656813,
+      "host_available_min_bytes": 3647389696,
+      "implementation": {
+        "eager_incumbent_pruning": true,
+        "inbound_energy_bound": true,
+        "pair_query_mode": "landmark_astar",
+        "seed_beam_pruning": true,
+        "source_tree_reuse": true
+      },
+      "key": [
+        "3333435571227/96250000",
+        "709871169/6250000",
+        3,
+        [
+          [
+            "node/13096654176",
+            "C"
+          ],
+          [
+            "node/13096643014",
+            "C"
+          ],
+          [
+            "node/13556114262",
+            "C"
+          ]
+        ]
+      ],
+      "mathematical_status": "attained_optimum",
+      "method": "flat_bb_strong",
+      "metrics": {
+        "empty_prefixes": 0,
+        "enqueue_attempts": 42625,
+        "enqueue_pruned_actions": 35634,
+        "enqueue_pruned_nodes": 35634,
+        "enqueue_pruned_regions": 35634,
+        "enqueue_pruned_states": 0,
+        "equality_retained": 0,
+        "heap_pops": 6991,
+        "heap_pushes": 6991,
+        "inbound_energy_late_empty_actions": 40,
+        "inbound_energy_pruned_actions": 25880,
+        "inbound_energy_pruned_regions": 25880,
+        "leaf_routes": 2577,
+        "max_depth": 5,
+        "peak_open": 5374,
+        "pruned_actions": 4598,
+        "pruned_regions": 3362,
+        "safe_unreachable_sites": 0,
+        "seed_attempts": 20,
+        "seed_rank_pruned_effects": 64,
+        "seed_rank_pruned_routes": 64,
+        "singleton_queries": 67328,
+        "summary_queries": 0,
+        "terminal_attempts": 1052,
+        "terminal_infeasible_prefixes": 863,
+        "terminal_records_peak": 1,
+        "transition_input_pieces": 13927,
+        "transition_output_pieces": 16718,
+        "transitions": 1176
+      },
+      "necessary_charge_count_lower_bound": 2,
+      "new_total_cpu_s": 5074.330300329,
+      "open_remaining": 0,
+      "primary_infimum": null,
+      "process_group_peak_rss_bytes": 2125824000,
+      "profile": "current_queue_profile",
+      "query_cpu_s": 40.233625,
+      "query_extra_peak_bytes": 840794112,
+      "query_id": "SD01",
+      "query_loaded_total_s": 40.42157958302414,
+      "query_memory_baseline_bytes": 1285963776,
+      "routing_metrics": {
+        "astar_queries": 342,
+        "astar_relaxed_edges": 49281379,
+        "astar_settled_vertices": 27966783,
+        "astar_time_s": 9.15481,
+        "backend": "exact_integer_scaled_cpp",
+        "build_time_s": 7.48695,
+        "cached_path_edges": 507727,
+        "compile_load_time_s": 2.4205444999970496,
+        "constructor_time_s": 9.907991457992466,
+        "distance_cache_entries": 2,
+        "distance_cache_values": 5973390,
+        "edges": 5900232,
+        "index_builds": 1,
+        "index_rss_increment_bytes": 1253851136,
+        "landmark_preparation_s": 1.70224,
+        "leg_cache_entries": 396,
+        "length_scale": "100000000000000000000000",
+        "nodes": 2986695,
+        "pair_query_mode": "landmark_astar",
+        "pair_workspace_values": 2986695,
+        "pinned_landmark_count": 2,
+        "process_current_rss_bytes": 2125905920,
+        "queued_labels": 0,
+        "scalar_cache_hits": 3,
+        "scalar_queries": 11,
+        "scalar_relaxed_edges": 46515016,
+        "scalar_settled_vertices": 23523682,
+        "scalar_time_s": 6.46865,
+        "selected_leg_cache_hits": 3254,
+        "selected_leg_queries": 3650,
+        "selected_leg_time_s": 17.0582,
+        "source_tree_build_attempts": 4,
+        "source_tree_build_relaxed_edges": 23257556,
+        "source_tree_build_settled_vertices": 11761852,
+        "source_tree_build_time_s": 3.3199,
+        "source_tree_builds": 4,
+        "source_tree_cache_entries": 2,
+        "source_tree_cache_hits": 32,
+        "source_tree_evictions": 2,
+        "source_tree_reuse_enabled": true,
+        "source_tree_uses": 36,
+        "source_tree_work_sources": 13,
+        "time_scale": "770000000000000000000000000"
+      },
+      "scenario": "energy_only",
+      "scenario_eligible_sites": 83,
+      "secondary_infimum": null,
+      "seconds": {
+        "preparation": 0.7258070840034634,
+        "search": 36.43654083297588,
+        "seed": 0.6678840419917833,
+        "terminals": 1.1806365185184404,
+        "transitions": 9.359929261670914
+      },
+      "seed_key": [
+        "8479243833253/240625000",
+        "349383483/3125000",
+        2,
+        [
+          [
+            "node/13277805448",
+            "C"
+          ],
+          [
+            "node/13257411937",
+            "C"
+          ]
+        ]
+      ],
+      "shortest_road_distance_m": "741402097/1000",
+      "solve_limit_s": 120,
+      "source_kind": "real_shandong_dev",
+      "status": "attained_optimum",
+      "supervisor_cpu_s": 47.869669376,
+      "supervisor_total_s": 50.62784400000237,
+      "time_to_first_feasible_s": 3.9536641250015236,
+      "witness": {
+        "charges_kwh": [
+          "149901833/6250000",
+          "272223517/6250000",
+          "287745819/6250000"
+        ],
+        "driving_time_s": "103997102991/3850000",
+        "elapsed_time_s": "3160185571227/96250000",
+        "independent_key": [
+          "3333435571227/96250000",
+          "709871169/6250000",
+          3,
+          [
+            [
+              "node/13096654176",
+              "C"
+            ],
+            [
+              "node/13096643014",
+              "C"
+            ],
+            [
+              "node/13556114262",
+              "C"
+            ]
+          ]
+        ],
+        "initial_wait_s": "0",
+        "physical_verified": true,
+        "positive_charge_count": 3,
+        "terminal_energy_kwh": "6",
+        "total_distance_m": "784871169/1000"
+      },
+      "worker_cpu_s": 49.166174000000005,
+      "worker_peak_rss_bytes": 2126757888,
+      "worker_total_s": 50.33694479201222,
+      "workload_mode": "pilot",
+      "candidate_domain_sha256": "40fa518268b851f14fa61ed6a987c9d4e9c9fe0c7fb373af636fa7a9c8589b7a"
+    },
+    {
+      "N": 64,
+      "bound_enabled": true,
+      "candidate_and_input_preparation_s": 2.6059944999869913,
+      "candidate_domain_claim": "Explicit truncated geographic candidate domains only; neither safe filtering nor province/full-domain optimality",
+      "cold_index_cpu_s": 8.864885999999998,
+      "cold_index_wall_s": 9.298238292016322,
+      "corridor_km": 60,
+      "depth_contract": {
+        "declared_limit": null,
+        "incumbent_derived_limit": 38,
+        "mode": "unrestricted",
+        "rule": "floor(U_J/(h_min+lambda_stop))"
+      },
+      "direct_selected_length_m": "96283519/125",
+      "direct_selected_time_s": "495771923331/19250000",
+      "domain_id": "D01",
+      "domain_note": null,
+      "eligible_unique_anchors": 649,
+      "feasible_key": [
+        "3333435571227/96250000",
+        "709871169/6250000",
+        3,
+        [
+          [
+            "node/13096654176",
+            "C"
+          ],
+          [
+            "node/13096643014",
+            "C"
+          ],
+          [
+            "node/13556114262",
+            "C"
+          ]
+        ]
+      ],
+      "graph_index_resident_bytes": 1292533760,
+      "great_circle_m": 663975.0405656813,
+      "host_available_min_bytes": 3572826112,
+      "implementation": {
+        "eager_incumbent_pruning": true,
+        "inbound_energy_bound": true,
+        "pair_query_mode": "landmark_astar",
+        "seed_beam_pruning": true,
+        "source_tree_reuse": true
+      },
+      "key": [
+        "3333435571227/96250000",
+        "709871169/6250000",
+        3,
+        [
+          [
+            "node/13096654176",
+            "C"
+          ],
+          [
+            "node/13096643014",
+            "C"
+          ],
+          [
+            "node/13556114262",
+            "C"
+          ]
+        ]
+      ],
+      "mathematical_status": "attained_optimum",
+      "method": "scale",
+      "metrics": {
+        "empty_prefixes": 0,
+        "enqueue_attempts": 35520,
+        "enqueue_pruned_actions": 38167,
+        "enqueue_pruned_nodes": 12885,
+        "enqueue_pruned_regions": 12885,
+        "enqueue_pruned_states": 0,
+        "equality_retained": 0,
+        "heap_pops": 22635,
+        "heap_pushes": 22635,
+        "inbound_energy_late_empty_actions": 40,
+        "inbound_energy_pruned_actions": 24280,
+        "inbound_energy_pruned_regions": 1817,
+        "leaf_routes": 2577,
+        "max_depth": 5,
+        "peak_open": 3883,
+        "pruned_actions": 3665,
+        "pruned_regions": 1452,
+        "safe_unreachable_sites": 0,
+        "seed_attempts": 20,
+        "seed_rank_pruned_effects": 64,
+        "seed_rank_pruned_routes": 64,
+        "singleton_queries": 0,
+        "summary_queries": 36160,
+        "terminal_attempts": 1052,
+        "terminal_infeasible_prefixes": 863,
+        "terminal_records_peak": 1,
+        "transition_input_pieces": 13927,
+        "transition_output_pieces": 16718,
+        "transitions": 1176
+      },
+      "necessary_charge_count_lower_bound": 2,
+      "new_total_cpu_s": 5121.484257329001,
+      "open_remaining": 0,
+      "primary_infimum": null,
+      "process_group_peak_rss_bytes": 2118287360,
+      "profile": "current_queue_profile",
+      "query_cpu_s": 38.289048,
+      "query_extra_peak_bytes": 827080704,
+      "query_id": "SD01",
+      "query_loaded_total_s": 38.328900749998866,
+      "query_memory_baseline_bytes": 1292533760,
+      "routing_metrics": {
+        "astar_queries": 342,
+        "astar_relaxed_edges": 49281379,
+        "astar_settled_vertices": 27966783,
+        "astar_time_s": 9.27661,
+        "backend": "exact_integer_scaled_cpp",
+        "build_time_s": 7.5144,
+        "cached_path_edges": 507727,
+        "compile_load_time_s": 1.7759965829900466,
+        "constructor_time_s": 9.290466416015988,
+        "distance_cache_entries": 2,
+        "distance_cache_values": 5973390,
+        "edges": 5900232,
+        "index_builds": 1,
+        "index_rss_increment_bytes": 1262174208,
+        "landmark_preparation_s": 1.7301,
+        "leg_cache_entries": 396,
+        "length_scale": "100000000000000000000000",
+        "nodes": 2986695,
+        "pair_query_mode": "landmark_astar",
+        "pair_workspace_values": 2986695,
+        "pinned_landmark_count": 2,
+        "process_current_rss_bytes": 1817280512,
+        "queued_labels": 0,
+        "scalar_cache_hits": 3,
+        "scalar_queries": 11,
+        "scalar_relaxed_edges": 46515016,
+        "scalar_settled_vertices": 23523682,
+        "scalar_time_s": 6.61291,
+        "selected_leg_cache_hits": 3254,
+        "selected_leg_queries": 3650,
+        "selected_leg_time_s": 17.2825,
+        "source_tree_build_attempts": 4,
+        "source_tree_build_relaxed_edges": 23257556,
+        "source_tree_build_settled_vertices": 11761852,
+        "source_tree_build_time_s": 3.36519,
+        "source_tree_builds": 4,
+        "source_tree_cache_entries": 2,
+        "source_tree_cache_hits": 32,
+        "source_tree_evictions": 2,
+        "source_tree_reuse_enabled": true,
+        "source_tree_uses": 36,
+        "source_tree_work_sources": 13,
+        "time_scale": "770000000000000000000000000"
+      },
+      "scenario": "energy_only",
+      "scenario_eligible_sites": 83,
+      "secondary_infimum": null,
+      "seconds": {
+        "preparation": 0.7674545830232091,
+        "search": 34.204807417001575,
+        "seed": 0.7249554159934632,
+        "terminals": 1.0841873586468864,
+        "transitions": 9.30545429085032
+      },
+      "seed_key": [
+        "8479243833253/240625000",
+        "349383483/3125000",
+        2,
+        [
+          [
+            "node/13277805448",
+            "C"
+          ],
+          [
+            "node/13257411937",
+            "C"
+          ]
+        ]
+      ],
+      "shortest_road_distance_m": "741402097/1000",
+      "solve_limit_s": 120,
+      "source_kind": "real_shandong_dev",
+      "status": "attained_optimum",
+      "supervisor_cpu_s": 46.052785152,
+      "supervisor_total_s": 47.980136541998945,
+      "time_to_first_feasible_s": 4.091729707986815,
+      "witness": {
+        "charges_kwh": [
+          "149901833/6250000",
+          "272223517/6250000",
+          "287745819/6250000"
+        ],
+        "driving_time_s": "103997102991/3850000",
+        "elapsed_time_s": "3160185571227/96250000",
+        "independent_key": [
+          "3333435571227/96250000",
+          "709871169/6250000",
+          3,
+          [
+            [
+              "node/13096654176",
+              "C"
+            ],
+            [
+              "node/13096643014",
+              "C"
+            ],
+            [
+              "node/13556114262",
+              "C"
+            ]
+          ]
+        ],
+        "initial_wait_s": "0",
+        "physical_verified": true,
+        "positive_charge_count": 3,
+        "terminal_energy_kwh": "6",
+        "total_distance_m": "784871169/1000"
+      },
+      "worker_cpu_s": 47.153957000000005,
+      "worker_peak_rss_bytes": 2119614464,
+      "worker_total_s": 47.627174125023885,
+      "workload_mode": "pilot",
+      "candidate_domain_sha256": "40fa518268b851f14fa61ed6a987c9d4e9c9fe0c7fb373af636fa7a9c8589b7a"
+    },
+    {
+      "N": 128,
+      "bound_enabled": true,
+      "candidate_and_input_preparation_s": 2.712623708997853,
+      "candidate_domain_claim": "Explicit truncated geographic candidate domains only; neither safe filtering nor province/full-domain optimality",
+      "cold_index_cpu_s": 8.964345,
+      "cold_index_wall_s": 9.579147290991386,
+      "corridor_km": 60,
+      "depth_contract": {
+        "declared_limit": null,
+        "incumbent_derived_limit": 32,
+        "mode": "unrestricted",
+        "rule": "floor(U_J/(h_min+lambda_stop))"
+      },
+      "direct_selected_length_m": "302897387/500",
+      "direct_selected_time_s": "9735857609/481250",
+      "domain_id": "D03",
+      "domain_note": null,
+      "eligible_unique_anchors": 368,
+      "feasible_key": [
+        "1989615465443/68750000",
+        "69077459/781250",
+        2,
+        [
+          [
+            "node/11192805305",
+            "C"
+          ],
+          [
+            "node/13784956865",
+            "CS"
+          ]
+        ]
+      ],
+      "graph_index_resident_bytes": 1293762560,
+      "great_circle_m": 542881.887581954,
+      "host_available_min_bytes": 3697541120,
+      "implementation": {
+        "eager_incumbent_pruning": true,
+        "inbound_energy_bound": true,
+        "pair_query_mode": "landmark_astar",
+        "seed_beam_pruning": true,
+        "source_tree_reuse": true
+      },
+      "key": [
+        "1989615465443/68750000",
+        "69077459/781250",
+        2,
+        [
+          [
+            "node/11192805305",
+            "C"
+          ],
+          [
+            "node/13784956865",
+            "CS"
+          ]
+        ]
+      ],
+      "mathematical_status": "attained_optimum",
+      "method": "flat_bb_strong",
+      "metrics": {
+        "empty_prefixes": 10,
+        "enqueue_attempts": 17906,
+        "enqueue_pruned_actions": 17300,
+        "enqueue_pruned_nodes": 17300,
+        "enqueue_pruned_regions": 17300,
+        "enqueue_pruned_states": 0,
+        "equality_retained": 0,
+        "heap_pops": 606,
+        "heap_pushes": 606,
+        "inbound_energy_late_empty_actions": 0,
+        "inbound_energy_pruned_actions": 2476,
+        "inbound_energy_pruned_regions": 2476,
+        "leaf_routes": 423,
+        "max_depth": 4,
+        "peak_open": 369,
+        "pruned_actions": 235,
+        "pruned_regions": 2,
+        "safe_unreachable_sites": 1,
+        "seed_attempts": 31,
+        "seed_rank_pruned_effects": 90,
+        "seed_rank_pruned_routes": 57,
+        "singleton_queries": 20201,
+        "summary_queries": 0,
+        "terminal_attempts": 181,
+        "terminal_infeasible_prefixes": 174,
+        "terminal_records_peak": 1,
+        "transition_input_pieces": 1582,
+        "transition_output_pieces": 2236,
+        "transitions": 190
+      },
+      "necessary_charge_count_lower_bound": 2,
+      "new_total_cpu_s": 5144.719635329001,
+      "open_remaining": 0,
+      "primary_infimum": null,
+      "process_group_peak_rss_bytes": 1828585472,
+      "profile": "current_queue_profile",
+      "query_cpu_s": 14.271011999999999,
+      "query_extra_peak_bytes": 537870336,
+      "query_id": "SD03",
+      "query_loaded_total_s": 14.291741499997443,
+      "query_memory_baseline_bytes": 1293762560,
+      "routing_metrics": {
+        "astar_queries": 210,
+        "astar_relaxed_edges": 10147406,
+        "astar_settled_vertices": 5778453,
+        "astar_time_s": 1.82576,
+        "backend": "exact_integer_scaled_cpp",
+        "build_time_s": 7.69462,
+        "cached_path_edges": 209429,
+        "compile_load_time_s": 1.8744390420033596,
+        "constructor_time_s": 9.569181958999252,
+        "distance_cache_entries": 2,
+        "distance_cache_values": 5973390,
+        "edges": 5900232,
+        "index_builds": 1,
+        "index_rss_increment_bytes": 1262141440,
+        "landmark_preparation_s": 1.82469,
+        "leg_cache_entries": 276,
+        "length_scale": "100000000000000000000000",
+        "nodes": 2986695,
+        "pair_query_mode": "landmark_astar",
+        "pair_workspace_values": 2986695,
+        "pinned_landmark_count": 2,
+        "process_current_rss_bytes": 1830305792,
+        "queued_labels": 0,
+        "scalar_cache_hits": 3,
+        "scalar_queries": 8,
+        "scalar_relaxed_edges": 29071849,
+        "scalar_settled_vertices": 14702293,
+        "scalar_time_s": 4.26034,
+        "selected_leg_cache_hits": 356,
+        "selected_leg_queries": 632,
+        "selected_leg_time_s": 4.61872,
+        "source_tree_build_attempts": 1,
+        "source_tree_build_relaxed_edges": 5814389,
+        "source_tree_build_settled_vertices": 2940463,
+        "source_tree_build_time_s": 0.860242,
+        "source_tree_builds": 1,
+        "source_tree_cache_entries": 1,
+        "source_tree_cache_hits": 36,
+        "source_tree_evictions": 0,
+        "source_tree_reuse_enabled": true,
+        "source_tree_uses": 37,
+        "source_tree_work_sources": 11,
+        "time_scale": "770000000000000000000000000"
+      },
+      "scenario": "schedule",
+      "scenario_eligible_sites": 368,
+      "secondary_infimum": null,
+      "seconds": {
+        "preparation": 0.783003375021508,
+        "search": 9.581576458993368,
+        "seed": 1.1954355829802807,
+        "terminals": 1.2924905479885638,
+        "transitions": 2.1824188719619997
+      },
+      "seed_key": [
+        "27875620625317/962500000",
+        "110538361/1250000",
+        2,
+        [
+          [
+            "node/11192805305",
+            "C"
+          ],
+          [
+            "node/8308544508",
+            "CS"
+          ]
+        ]
+      ],
+      "shortest_road_distance_m": "596678063/1000",
+      "solve_limit_s": 120,
+      "source_kind": "real_shandong_dev",
+      "status": "attained_optimum",
+      "supervisor_cpu_s": 22.053799424,
+      "supervisor_total_s": 24.17119916601223,
+      "time_to_first_feasible_s": 4.6861323750054,
+      "witness": {
+        "charges_kwh": [
+          "8297833/250000",
+          "345173847/6250000"
+        ],
+        "driving_time_s": "2498191151/110000",
+        "elapsed_time_s": "1907115465443/68750000",
+        "independent_key": [
+          "1989615465443/68750000",
+          "69077459/781250",
+          2,
+          [
+            [
+              "node/11192805305",
+              "C"
+            ],
+            [
+              "node/13784956865",
+              "CS"
+            ]
+          ]
+        ],
+        "initial_wait_s": "0",
+        "physical_verified": true,
+        "positive_charge_count": 2,
+        "terminal_energy_kwh": "6",
+        "total_distance_m": "78452459/125"
+      },
+      "worker_cpu_s": 23.235378,
+      "worker_peak_rss_bytes": 1832681472,
+      "worker_total_s": 23.870920874993317,
+      "workload_mode": "pilot",
+      "candidate_domain_sha256": "710d2e1c4f8a456ca8bf7a5777defcd164221c64aff7b914e406d7ac4daa4c14"
+    },
+    {
+      "N": 128,
+      "bound_enabled": true,
+      "candidate_and_input_preparation_s": 2.6396753749868367,
+      "candidate_domain_claim": "Explicit truncated geographic candidate domains only; neither safe filtering nor province/full-domain optimality",
+      "cold_index_cpu_s": 8.940861,
+      "cold_index_wall_s": 9.371765749994665,
+      "corridor_km": 60,
+      "depth_contract": {
+        "declared_limit": null,
+        "incumbent_derived_limit": 32,
+        "mode": "unrestricted",
+        "rule": "floor(U_J/(h_min+lambda_stop))"
+      },
+      "direct_selected_length_m": "302897387/500",
+      "direct_selected_time_s": "9735857609/481250",
+      "domain_id": "D03",
+      "domain_note": null,
+      "eligible_unique_anchors": 368,
+      "feasible_key": [
+        "1989615465443/68750000",
+        "69077459/781250",
+        2,
+        [
+          [
+            "node/11192805305",
+            "C"
+          ],
+          [
+            "node/13784956865",
+            "CS"
+          ]
+        ]
+      ],
+      "graph_index_resident_bytes": 1294090240,
+      "great_circle_m": 542881.887581954,
+      "host_available_min_bytes": 3521871872,
+      "implementation": {
+        "eager_incumbent_pruning": true,
+        "inbound_energy_bound": true,
+        "pair_query_mode": "landmark_astar",
+        "seed_beam_pruning": true,
+        "source_tree_reuse": true
+      },
+      "key": [
+        "1989615465443/68750000",
+        "69077459/781250",
+        2,
+        [
+          [
+            "node/11192805305",
+            "C"
+          ],
+          [
+            "node/13784956865",
+            "CS"
+          ]
+        ]
+      ],
+      "mathematical_status": "attained_optimum",
+      "method": "scale",
+      "metrics": {
+        "empty_prefixes": 10,
+        "enqueue_attempts": 6293,
+        "enqueue_pruned_actions": 18082,
+        "enqueue_pruned_nodes": 2559,
+        "enqueue_pruned_regions": 2559,
+        "enqueue_pruned_states": 0,
+        "equality_retained": 0,
+        "heap_pops": 3734,
+        "heap_pushes": 3734,
+        "inbound_energy_late_empty_actions": 0,
+        "inbound_energy_pruned_actions": 1672,
+        "inbound_energy_pruned_regions": 166,
+        "leaf_routes": 423,
+        "max_depth": 4,
+        "peak_open": 344,
+        "pruned_actions": 257,
+        "pruned_regions": 6,
+        "safe_unreachable_sites": 1,
+        "seed_attempts": 31,
+        "seed_rank_pruned_effects": 90,
+        "seed_rank_pruned_routes": 57,
+        "singleton_queries": 0,
+        "summary_queries": 6278,
+        "terminal_attempts": 181,
+        "terminal_infeasible_prefixes": 174,
+        "terminal_records_peak": 1,
+        "transition_input_pieces": 1582,
+        "transition_output_pieces": 2236,
+        "transitions": 190
+      },
+      "necessary_charge_count_lower_bound": 2,
+      "new_total_cpu_s": 5166.078454329001,
+      "open_remaining": 0,
+      "primary_infimum": null,
+      "process_group_peak_rss_bytes": 1842429952,
+      "profile": "current_queue_profile",
+      "query_cpu_s": 12.417936000000001,
+      "query_extra_peak_bytes": 549634048,
+      "query_id": "SD03",
+      "query_loaded_total_s": 12.431600957992487,
+      "query_memory_baseline_bytes": 1294090240,
+      "routing_metrics": {
+        "astar_queries": 210,
+        "astar_relaxed_edges": 10147406,
+        "astar_settled_vertices": 5778453,
+        "astar_time_s": 1.84115,
+        "backend": "exact_integer_scaled_cpp",
+        "build_time_s": 7.57147,
+        "cached_path_edges": 209429,
+        "compile_load_time_s": 1.7911992919980548,
+        "constructor_time_s": 9.362777750007808,
+        "distance_cache_entries": 2,
+        "distance_cache_values": 5973390,
+        "edges": 5900232,
+        "index_builds": 1,
+        "index_rss_increment_bytes": 1262125056,
+        "landmark_preparation_s": 1.77303,
+        "leg_cache_entries": 276,
+        "length_scale": "100000000000000000000000",
+        "nodes": 2986695,
+        "pair_query_mode": "landmark_astar",
+        "pair_workspace_values": 2986695,
+        "pinned_landmark_count": 2,
+        "process_current_rss_bytes": 1538211840,
+        "queued_labels": 0,
+        "scalar_cache_hits": 3,
+        "scalar_queries": 8,
+        "scalar_relaxed_edges": 29071849,
+        "scalar_settled_vertices": 14702293,
+        "scalar_time_s": 4.18716,
+        "selected_leg_cache_hits": 356,
+        "selected_leg_queries": 632,
+        "selected_leg_time_s": 4.68387,
+        "source_tree_build_attempts": 1,
+        "source_tree_build_relaxed_edges": 5814389,
+        "source_tree_build_settled_vertices": 2940463,
+        "source_tree_build_time_s": 0.858502,
+        "source_tree_builds": 1,
+        "source_tree_cache_entries": 1,
+        "source_tree_cache_hits": 36,
+        "source_tree_evictions": 0,
+        "source_tree_reuse_enabled": true,
+        "source_tree_uses": 37,
+        "source_tree_work_sources": 11,
+        "time_scale": "770000000000000000000000000"
+      },
+      "scenario": "schedule",
+      "scenario_eligible_sites": 368,
+      "secondary_infimum": null,
+      "seconds": {
+        "preparation": 0.7832886659889482,
+        "search": 7.7905152500025,
+        "seed": 1.1996336670126766,
+        "terminals": 1.2777657439582981,
+        "transitions": 2.193400165066123
+      },
+      "seed_key": [
+        "27875620625317/962500000",
+        "110538361/1250000",
+        2,
+        [
+          [
+            "node/11192805305",
+            "C"
+          ],
+          [
+            "node/8308544508",
+            "CS"
+          ]
+        ]
+      ],
+      "shortest_road_distance_m": "596678063/1000",
+      "solve_limit_s": 120,
+      "source_kind": "real_shandong_dev",
+      "status": "attained_optimum",
+      "supervisor_cpu_s": 20.226313983999997,
+      "supervisor_total_s": 22.12061891600024,
+      "time_to_first_feasible_s": 4.617255707998993,
+      "witness": {
+        "charges_kwh": [
+          "8297833/250000",
+          "345173847/6250000"
+        ],
+        "driving_time_s": "2498191151/110000",
+        "elapsed_time_s": "1907115465443/68750000",
+        "independent_key": [
+          "1989615465443/68750000",
+          "69077459/781250",
+          2,
+          [
+            [
+              "node/11192805305",
+              "C"
+            ],
+            [
+              "node/13784956865",
+              "CS"
+            ]
+          ]
+        ],
+        "initial_wait_s": "0",
+        "physical_verified": true,
+        "positive_charge_count": 2,
+        "terminal_energy_kwh": "6",
+        "total_distance_m": "78452459/125"
+      },
+      "worker_cpu_s": 21.358819,
+      "worker_peak_rss_bytes": 1843724288,
+      "worker_total_s": 21.803397958981805,
+      "workload_mode": "pilot",
+      "candidate_domain_sha256": "710d2e1c4f8a456ca8bf7a5777defcd164221c64aff7b914e406d7ac4daa4c14"
+    }
+  ]
+}
