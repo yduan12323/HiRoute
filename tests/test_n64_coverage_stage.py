@@ -294,6 +294,32 @@ def test_accounting_compatibility_does_not_allow_numerical_change_or_lost_CPU():
     with pytest.raises(ValueError):stage.closed_controller_cost({'controller_cpu_s':float('nan')})
 
 
+def test_report_keeps_full_denominator_and_resource_censoring_separate_from_attainment():
+    from report_n64_coverage_stage import subgroup_summary,completion_interval_quantile
+    rows=[dict(status=status,query_loaded_total_s=t) for status,t in (
+        ('attained_optimum',1),('primary_unattained',2),('secondary_unattained',3),
+        ('time_limit',120.1),('input_domain_unavailable',None))]
+    summary=subgroup_summary(rows)
+    assert summary['full_query_cells']==5 and summary['supported_query_cells']==4
+    assert summary['exact_completions']==3 and summary['attained_optima']==1
+    assert summary['exact_CDF_full']['60']==3/5
+    assert summary['exact_CDF_supported']['60']==3/4
+    assert summary['supported_median_completion_s']['value_s']==2.5
+    assert summary['supported_p95_completion_s']==dict(identified=False,value_s=None,lower_bound_s=120,upper_bound_s=None)
+    assert not completion_interval_quantile(rows[:3]+[dict(status='not_run_cpu_budget')],.5)['identified']
+
+
+@pytest.mark.parametrize('state,error,match',[
+    ('running',RuntimeError,'still running'),('complete',ValueError,'lost method slots')])
+def test_report_refuses_live_or_truncated_terminal_cohort(tmp_path,state,error,match):
+    from report_n64_coverage_stage import generate_report
+    stage.pilot.atomic(tmp_path/'preparation.json',{})
+    stage.pilot.atomic(tmp_path/'status.json',{'state':state})
+    stage.pilot.atomic(tmp_path/'results.json',{'rows':[]})
+    with pytest.raises(error,match=match):generate_report(tmp_path,tmp_path/'derived')
+    assert not (tmp_path/'derived'/'cohort-results.json').exists()
+
+
 @pytest.mark.parametrize('defect',[None,'numerical_source','uncertain_receipt','partial_pair'])
 def test_reconcile_inspects_closed_pair_and_preserves_original_records(tmp_path,defect):
     s=spec();old=copy.deepcopy(s)

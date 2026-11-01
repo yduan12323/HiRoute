@@ -1,6 +1,25 @@
 # Real-scale DEV research
 
-Latest continuation audits provincial charging coverage: the versioned static
+The frozen **N64 DEV stage is terminal**, with all48 query cells /96 method
+slots retained:86 fresh workers,2 authorized historical rows and8 input-unavailable
+slots. Strong /Scale attained36 /37 optima and timed out8 /7 times. Within60s,
+the counts are35 /48 and36 /48 on the full declared population, or35 /44 and
+36 /44 on the prospectively input-supported population. Supported-population
+medians are26.340 /25.020s; population p95 remains right-censored at120s.
+Both methods produced physically replayed feasible routes for all44 supported
+cells. The95%/60s and median10s goals failed; no four-positive-charge case was
+observed. Overall taskbook completion and research success remain unestablished.
+
+Inclusive conservative solve/development/controller accounting is now
+**10299.235906329 /28800 CPU seconds**, of which this stage charged
+**5073.157452 /12000**. Preprocessing is separately651.638454976 /900CPU seconds.
+See [final N64 results, all96 slots](n64_coverage_stage_results.json) and
+[the complete48-cell table and analysis](#final-frozen-n64-dev-results).
+No N128/N256 expansion, new acquisition, main experiment or holdout ran here.
+
+### Previous provincial-data continuation (historical)
+
+That continuation audited provincial charging coverage: the versioned static
 catalog grows from **168 to172 distinct qualified C road anchors**, so energy
 N256 remains input-unavailable. The previous four-row D01/D03 transfer gate
 attained historical full keys within60s; D04 remains **76.573s Strong /64.075s
@@ -1611,3 +1630,248 @@ an active worker. Focused regressions cover live CPU admission, cumulative CPU
 over repeated resumes, immutable raw rows, pause hooks, numerical-source changes,
 partial pairs and uncertain receipts. The gate's source-file edit was not
 assumed to hot-patch PID77006; only the subsequent new controller uses this fix.
+
+## Final frozen N64 DEV results
+
+### Facts and scope
+
+The approved N64 slice is complete as an execution cohort, with all48 recipes
+(12 OD groups, initial18/48kWh, energy-only/schedule) and96 method slots retained.
+There are44 input-supported recipes:43 fresh pairs and exactly the verified
+WD01 energy18 historical pair. WD08 energy18/48 has45 qualified C anchors;
+WD09 energy18/48 has39. Their four query cells remain input-unavailable; no
+candidate padding, replacement query, smaller-N solve or mathematical-infeasible
+label was used. All86 fresh attempts have unique start, terminal and supervisor
+receipts; no worker was repeated. Both controller PIDs77006/78092 and all
+worker PIDs were absent at terminal verification. No budget-unrun row exists.
+
+Roads, catalog, bindings, endpoint choices, candidate fingerprints, model,
+implementation profile and order are exactly those frozen before method outcomes.
+The data remain versioned externally under
+`charging-coverage-artifacts-v1/audit-v1`; stage receipts and the one accounting
+revision are under `n64-dev-stage-artifacts-v3`. The result JSON retains the
+original preparation, analysis plan, numerical-source identity, accounting
+revision, raw terminal ledger and terminal verification.
+
+### Algorithm and execution changes
+
+No numerical search, bound, road, seed, cache, physics or domain change was made
+inside this matrix. Both methods used the complete shared profile from the
+frozen config and120s loaded /60s target limits, one numerical worker/thread,
+8GiB total-process guard,8GiB query-extra target and2GiB host headroom guard.
+The pilot now checks the exact configured OD order instead of a fixed four-OD
+count, and serializes attained primary values for secondary-unattained comparison.
+Those interface changes preceded the first new numerical row.
+
+Fresh numerical source is `fb6989f34c34f1c2c23cacba0dd96ae79d38f63f`.
+The inspected accounting-only continuation is
+`cbe4950bb1d5fd5f034fe6a62fab8e1de13afc30`, invocation001/PID78092.
+The earlier safe gate, old ledger and controller carry are described above.
+All26 pre-correction raw final records are byte-identical after continuation.
+The final reporting reducer reads existing JSON only; it invokes neither the
+solver nor a road query. None of this bookkeeping is claimed as a new search
+method or hierarchy contribution.
+
+### Real-domain results
+
+Scale was the predeclared primary method; both fair methods are shown in full.
+The full48 denominator measures the declared pipeline, including unsupported
+inputs. The44 denominator is the input-supported population frozen before
+timing, including every timeout; it is not the solved-only subset.
+
+| Measure | Strong Flat-BB | HiRoute-Scale |
+| --- | ---: | ---: |
+| Full / input-supported query cells | 48 /44 | 48 /44 |
+| Attained optima within120s measurement cap | 36 | 37 |
+| Timeouts, retained UNKNOWN | 8 | 7 |
+| Input-unavailable / budget-unrun | 4 /0 | 4 /0 |
+| Exact within60s, full population | 35/48 (72.92%) | 36/48 (75.00%) |
+| Exact within60s, supported population | 35/44 (79.55%) | 36/44 (81.82%) |
+| Supported-population loaded median | 26.340s | 25.020s |
+| Supported-population p95 | >=120s, right-censored | >=120s, right-censored |
+| Physically replayed feasible routes | 44/44 | 44/44 |
+| First physical feasible median / maximum | 4.706 /26.223s | 4.730 /24.872s |
+
+There were no infeasible or primary/secondary-unattained terminal results.
+Full-K agreement uses shared exact kernels; it is not an independent
+full-real-graph REF certificate. No whole-real-graph simple-path REF was run.
+All88 supported method outcomes have a physically verified feasible witness;
+UNKNOWN witnesses do not become optimal results.43/44 per method obtained their
+first verified feasible plan within10s; all44 did so within30s.
+
+The20 supported energy-only recipes all attained optima within60s in both
+methods; their nominal denominator is24, including four unavailable inputs.
+Their supported medians are21.485 /21.463s, so the10s goal still fails.
+For24 schedule recipes, Strong /Scale attained16 /17 optima, with15 /16 within60s.
+Scale completed WD03 energy48/schedule in112.669s while Strong timed out.
+Strong completed WD06 energy18/schedule in61.404s versus Scale55.118s.
+These late exact observations remain visible and do not count as60s successes.
+
+Medians and p95 use order-statistic interval bounds over all supported cells,
+with timeout lower bound120s and no invented completion time. The central
+observations are completed events, so the reported medians are identifiable.
+The p95 upper bounds remain unknown. Successful-subset medians/p95 are not
+substituted for population statistics. SOC/scenario recipes from the same OD
+are related observations, not independent new OD groups. Timings are single
+observations, including the two explicitly reused historical rows.
+
+The primary method's physically replayed routes span549.793–832.347km and
+5.347–8.050 driving hours in the declared static model. Among its37 attained
+plans, positive-charge counts are1:7,2:27,3:3; the seven UNKNOWN feasible plans
+have2:4,3:3. No four-positive-charge plan was observed. Capacity/distance
+necessity lower bounds are1 or2, so observed three-charge plans are not thereby
+proved to require three charges. The battery remains60kWh, consumption1/6250
+kWh/m, reserve6kWh, and initial energies18/48kWh as predeclared. Charging curves
+remain modeled defaults rather than observed charger power/availability.
+
+### Attribution and remaining bottleneck
+
+All36 pairs where both methods attained an optimum have identical full K and
+attainment status, **identical exact-transition counts and identical leaf-route
+counts**. The median Strong/Scale loaded-time ratio on those36 solved pairs is
+1.036. This conditional one-observation statistic does not establish a
+population or causal hierarchy win; censored pairs remain in the status table.
+This matrix supplies no new bound-versus-batching/order ablation.
+
+For the seven common-timeout pairs, median exact-prefix transition time is
+72.626s Strong /78.323s Scale, or60.4% /65.2% of loaded time. Median selected-leg
+time is15.594 /16.139s and internal seed time1.409 /1.454s. These are existing
+timers, not a fresh profile; nested routing/search timers must not be added.
+Transition timing aggregates C/S/CS and does not isolate a particular operator.
+Cutoff counters describe observed prefixes, not the work required to finish.
+The evidence points to exact continuation work in hard schedule cases as the
+next concern, rather than another broad cache expansion or free routing table.
+It does not yet identify which transition primitive causes the cost.
+
+### Resource accounting and reproduction
+
+Conservative fresh worker charges sum4312.157452CPU seconds, including the
+per-worker1s sampling/startup tail. Development/reporting precharge is300;
+closed cumulative controller charge is461 (raw458.367466, rounded up plus2).
+Thus the stage totals **5073.157452 /12000**; original carry5226.078454329 gives
+**10299.235906329 /28800**, leaving18500.764093671 in the original envelope.
+Unused stage allocation is6926.842548 and is not a new experiment authorization.
+No further worker/pair reservation remains after terminal completion.
+
+The controller310s allowance is a conservative admission reservation, not an
+independent controller kernel hardlimit. Its live cumulative CPU was observed,
+included in admission, and preserved across invocations. The completed-stage
+total plus a full corrected1240s pair reservation is6313.157452, still below
+12000; no completed pair depended on omitted overhead to obtain eligibility.
+This is accounting verification, not a prediction of runtime or optimality
+from an offline work sketch. The original raw ledger remains intact.
+
+Fresh-worker index initialization median is9.615 /9.608s Strong /Scale, reported
+separately from loaded timing and charged in worker CPU. Maximum query-extra
+RSS is1.036 /1.062GiB; maximum sampled total process-group RSS is2.243 /2.269GiB.
+Graph/index residency is separately recorded (up to about1.209GiB).
+No query memory/host-headroom limit occurred. Preprocessing is independently
+**651.638454976 /900CPU seconds**; no new map build or acquisition ran.
+
+`tools/report_n64_coverage_stage.py` regenerates the JSON, full table and
+censoring-aware descriptive statistics from existing receipts, without any
+numeric worker:
+
+```sh
+python tools/report_n64_coverage_stage.py \
+  --input-root /path/to/n64-dev-stage-artifacts-v3 \
+  --output-root /tmp/n64-report
+```
+
+The frozen scientific matrix is `configs/charging_coverage_dev_matrix.json`;
+`configs/n64_coverage_stage.json` supplies the corrected bounded execution
+policy. Original raw preparation/source and accounting-only revision remain
+separate in the result JSON. Numerical-source CI41301895004 and accounting-source
+CI41305520911 passed. Final delivery CI is tracked on draft PR32. The completed
+cohort is not re-executed to regenerate a report.
+
+### Unmet goals and bounded next decision
+
+This limited DEV stage fails both the95%/60s and median10s goals even on the
+prospective44-cell supported population; missing input coverage alone does not
+explain the performance failure. It does establish real N64 optima on many
+declared domains and rapid feasible plans on all supported cells. It does not
+establish additional exact-expansion exclusion from hierarchy, full-province
+optimality, N128/N256 population performance or project completion.
+
+Energy N128 remains unavailable on the frozen60km corridor policy; energy
+N256 lacks256 qualified anchors even across the available172-anchor provincial
+C catalog. Complete qualified-domain checks, outcome-independent representative
+controls, a common-model independent comparator, trip-value baselines and
+four-positive-charge evidence remain incomplete. All12 OD groups are now DEV;
+none can be relabeled as the future independent >=8-group holdout. Main
+experiments and holdout have not started.
+
+A bounded next candidate is a **shared pending-activity deadline feasibility
+relaxation before exact transitions**, with the same information in Strong and
+Scale. A necessary condition is that the physical-family time infimum plus a
+safe directed time lower bound to any still-allowed service Site does not
+exceed the model's latest service-start time. Future nonnegative driving,
+charging and waiting cannot repair a strictly late arrival. Equality and open
+infima must be retained, and summaries must avoid member scans. Audit existing
+Core window support first: this candidate may be redundant or too weak.
+Admissibility/coverage and energy/temporal/full-key tests must precede any
+separately authorized minimal paired check. No speedup is predicted here,
+and no such algorithm change or extra run was performed. If it adds no value,
+reevaluate the hierarchy/novelty claim rather than tune indefinitely or advance
+to a broad main matrix without a decision.
+
+### All48 declared N64 cells
+
+`A` denotes an attained optimum's positive-charge count; `F` denotes only the
+physically verified feasible plan on UNKNOWN. Capacity LB is an independent
+necessary count lower bound, not proof that the displayed count is necessary.
+Qualified counts precede N64 truncation; geographic truncation is a workload
+restriction, not a safe full-province filter. Four unavailable query cells
+remain in this table and in the result JSON.
+
+| Query | Initial kWh | Scenario | Qualified | Strong status / loaded s | Scale status / loaded s | Scale positive charges / capacity LB |
+| --- | ---: | --- | ---: | --- | --- | --- |
+| WD01 | 18 | energy_only | 84 | attained_optimum / 40.422 (reused) | attained_optimum / 38.329 (reused) | A3 / >=2 |
+| WD01 | 18 | schedule | 650 | time_limit / 120.111 | time_limit / 120.081 | F3 / >=2 |
+| WD01 | 48 | energy_only | 84 | attained_optimum / 21.412 | attained_optimum / 21.518 | A2 / >=2 |
+| WD01 | 48 | schedule | 650 | time_limit / 120.074 | time_limit / 120.086 | F2 / >=2 |
+| WD02 | 18 | energy_only | 94 | attained_optimum / 56.806 | attained_optimum / 52.928 | A3 / >=2 |
+| WD02 | 18 | schedule | 622 | time_limit / 120.158 | time_limit / 120.076 | F3 / >=2 |
+| WD02 | 48 | energy_only | 94 | attained_optimum / 30.086 | attained_optimum / 28.987 | A2 / >=2 |
+| WD02 | 48 | schedule | 622 | time_limit / 120.073 | time_limit / 120.082 | F2 / >=2 |
+| WD03 | 18 | energy_only | 87 | attained_optimum / 21.559 | attained_optimum / 21.408 | A2 / >=2 |
+| WD03 | 18 | schedule | 518 | time_limit / 120.087 | time_limit / 120.079 | F3 / >=2 |
+| WD03 | 48 | energy_only | 87 | attained_optimum / 16.788 | attained_optimum / 16.706 | A2 / >=2 |
+| WD03 | 48 | schedule | 518 | time_limit / 120.045 | attained_optimum / 112.669 | A2 / >=2 |
+| WD04 | 18 | energy_only | 108 | attained_optimum / 33.531 | attained_optimum / 32.153 | A2 / >=2 |
+| WD04 | 18 | schedule | 966 | time_limit / 120.064 | time_limit / 120.072 | F2 / >=2 |
+| WD04 | 48 | energy_only | 108 | attained_optimum / 5.087 | attained_optimum / 4.829 | A1 / >=1 |
+| WD04 | 48 | schedule | 966 | attained_optimum / 24.309 | attained_optimum / 23.201 | A2 / >=1 |
+| WD05 | 18 | energy_only | 104 | attained_optimum / 37.045 | attained_optimum / 33.661 | A2 / >=2 |
+| WD05 | 18 | schedule | 962 | attained_optimum / 58.771 | attained_optimum / 48.736 | A2 / >=2 |
+| WD05 | 48 | energy_only | 104 | attained_optimum / 7.239 | attained_optimum / 7.041 | A1 / >=1 |
+| WD05 | 48 | schedule | 962 | attained_optimum / 27.389 | attained_optimum / 23.272 | A2 / >=1 |
+| WD06 | 18 | energy_only | 97 | attained_optimum / 23.185 | attained_optimum / 22.089 | A2 / >=2 |
+| WD06 | 18 | schedule | 907 | attained_optimum / 61.404 | attained_optimum / 55.118 | A2 / >=2 |
+| WD06 | 48 | energy_only | 97 | attained_optimum / 4.546 | attained_optimum / 4.749 | A1 / >=1 |
+| WD06 | 48 | schedule | 907 | attained_optimum / 8.413 | attained_optimum / 8.308 | A1 / >=1 |
+| WD07 | 18 | energy_only | 67 | attained_optimum / 7.099 | attained_optimum / 7.253 | A2 / >=2 |
+| WD07 | 18 | schedule | 371 | attained_optimum / 9.971 | attained_optimum / 9.085 | A2 / >=2 |
+| WD07 | 48 | energy_only | 67 | attained_optimum / 4.783 | attained_optimum / 4.613 | A1 / >=1 |
+| WD07 | 48 | schedule | 371 | attained_optimum / 21.393 | attained_optimum / 19.318 | A2 / >=1 |
+| WD08 | 18 | energy_only | 45 | input_domain_unavailable | input_domain_unavailable | — / — |
+| WD08 | 18 | schedule | 260 | attained_optimum / 32.204 | attained_optimum / 30.689 | A3 / >=2 |
+| WD08 | 48 | energy_only | 45 | input_domain_unavailable | input_domain_unavailable | — / — |
+| WD08 | 48 | schedule | 260 | attained_optimum / 10.829 | attained_optimum / 10.641 | A2 / >=1 |
+| WD09 | 18 | energy_only | 39 | input_domain_unavailable | input_domain_unavailable | — / — |
+| WD09 | 18 | schedule | 207 | attained_optimum / 5.898 | attained_optimum / 5.753 | A2 / >=2 |
+| WD09 | 48 | energy_only | 39 | input_domain_unavailable | input_domain_unavailable | — / — |
+| WD09 | 48 | schedule | 207 | attained_optimum / 4.224 | attained_optimum / 4.142 | A1 / >=1 |
+| WD10 | 18 | energy_only | 92 | attained_optimum / 20.656 | attained_optimum / 20.314 | A2 / >=2 |
+| WD10 | 18 | schedule | 641 | time_limit / 120.068 | time_limit / 120.056 | F2 / >=2 |
+| WD10 | 48 | energy_only | 92 | attained_optimum / 28.614 | attained_optimum / 28.213 | A2 / >=1 |
+| WD10 | 48 | schedule | 641 | attained_optimum / 25.799 | attained_optimum / 24.770 | A2 / >=1 |
+| WD11 | 18 | energy_only | 89 | attained_optimum / 30.259 | attained_optimum / 29.250 | A2 / >=2 |
+| WD11 | 18 | schedule | 576 | attained_optimum / 26.133 | attained_optimum / 25.271 | A2 / >=2 |
+| WD11 | 48 | energy_only | 89 | attained_optimum / 41.749 | attained_optimum / 41.438 | A2 / >=1 |
+| WD11 | 48 | schedule | 576 | attained_optimum / 26.547 | attained_optimum / 25.866 | A2 / >=1 |
+| WD12 | 18 | energy_only | 83 | attained_optimum / 18.156 | attained_optimum / 17.668 | A2 / >=2 |
+| WD12 | 18 | schedule | 549 | attained_optimum / 33.408 | attained_optimum / 31.395 | A2 / >=2 |
+| WD12 | 48 | energy_only | 83 | attained_optimum / 5.241 | attained_optimum / 4.985 | A1 / >=1 |
+| WD12 | 48 | schedule | 549 | attained_optimum / 6.983 | attained_optimum / 6.767 | A2 / >=1 |
