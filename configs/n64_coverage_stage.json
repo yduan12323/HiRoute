@@ -7,9 +7,11 @@
   "carried_cpu_s": 5226.078454329,
   "stage_cap_cpu_s": 12000,
   "original_cap_cpu_s": 28800,
-  "development_and_reporting_precharge_cpu_s": 180,
+  "development_and_reporting_precharge_cpu_s": 300,
+  "accounting_revision_additional_precharge_cpu_s": 120,
   "worker_reservation_cpu_s": 310,
-  "pair_reservation_cpu_s": 620,
+  "controller_reservation_cpu_s": 310,
+  "pair_reservation_cpu_s": 1240,
   "worker_enforced_cpu_s": 300,
   "cold_allowance_s": 180,
   "loaded_limit_s": 120,
@@ -20,6 +22,6 @@
   "prior_preparation_note": "Data-only preflights at27ef12f and c5b7388; external n64-dev-stage-artifacts-v1/v2 contain no numerical attempts. Second source revision fixes an optional Darwin monitor mock in Linux CI, without solver/input/profile changes. Both preparation costs carried.",
   "preparation_cap_cpu_s": 900,
   "order": "Frozen matrix N64 cell order, Strong then Scale; exact WD01 energy18 pair reuse only",
-  "stop_policy": "Reserve620 before each fresh pair, including10 seconds enforcement/accounting margin per worker. Charge actual worker CPU plus supervisor overhead conservatively. Budget stop marks all remaining fresh cells; unexpected failure pauses without rerun.180 seconds is charged before rows for development/report verification; preprocessing is separate.",
+  "stop_policy": "Live admission includes cumulative controller CPU across invocations. Reserve1240 before each fresh pair: each method has310 worker and310 controller CPU reservation, bounding the unchanged300-second guarded wall/CPU window plus cleanup.300 seconds development/report precharge includes the original180 plus120 for the accounting-only correction/CI. Preserve old worker ledger and numerical source; no solved row rerun. Preprocessing remains separate.",
   "reuse": {"query_id": "WD01", "initial_energy_kwh": "18", "scenario": "energy_only", "N": 64, "domain_id": "D01", "file": "docs/existing_domain_transfer_results.json"}
 }

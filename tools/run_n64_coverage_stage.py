@@ -81,8 +81,11 @@ def validate_spec(spec, matrix):
             spec['cold_allowance_s'] != 180 or spec['worker_enforced_cpu_s'] != 300 or
             spec['stage_cap_cpu_s'] != 12000 or spec['original_cap_cpu_s'] != 28800 or
             spec['carried_cpu_s'] != 5226.078454329 or
+            not math.isfinite(spec['development_and_reporting_precharge_cpu_s']) or
+            spec['development_and_reporting_precharge_cpu_s'] < 300 or
             spec['worker_reservation_cpu_s'] < 310 or
-            spec['pair_reservation_cpu_s'] != 2*spec['worker_reservation_cpu_s']):
+            spec.get('controller_reservation_cpu_s',0) < 310 or
+            spec['pair_reservation_cpu_s'] != 2*(spec['worker_reservation_cpu_s']+spec['controller_reservation_cpu_s'])):
         raise ValueError('stage authorization/resource mismatch')
     if matrix['resources']['query_loaded_limit_s'] != spec['loaded_limit_s']:
         raise ValueError('matrix limit mismatch')
@@ -158,6 +161,91 @@ def controller_lock(out):
         except BlockingIOError:
             raise RuntimeError('another stage controller owns the lock') from None
         yield
+
+
+def numerical_paths_unchanged(paths):
+    """Per-run compatibility for this frozen matrix, not a publication gate.
+
+    A new run may use normally evolved code. Resuming this already-timed run
+    only admits an accounting-controller revision, with numerical sources intact.
+    """
+    return all(not p.startswith(('src/','reference/','tools/')) or
+               p=='tools/run_n64_coverage_stage.py' for p in paths)
+
+
+def active_pid(pid):
+    import psutil
+    try:
+        process=psutil.Process(pid)
+        return process.is_running() and process.status()!=psutil.STATUS_ZOMBIE
+    except psutil.NoSuchProcess:
+        return False
+
+
+def closed_controller_cost(status):
+    """Carry all earlier sessions; round up plus2s for terminal serialization."""
+    value=status.get('total_controller_cpu_s',status.get('controller_cpu_s',0))
+    if not math.isfinite(value) or value<0:
+        raise ValueError('invalid cumulative controller CPU')
+    return math.ceil(value)+2
+
+
+def reconcile(args):
+    """Authorize one inspected accounting-only resume at a closed pair boundary."""
+    out=Path(args.output_root).resolve()
+    with controller_lock(out):
+        if (out/'accounting-resume.json').exists():
+            raise RuntimeError('accounting revision already recorded; inspect its state before resume')
+        prepared=load(out/'preparation.json'); previous=load(out/'status.json')
+        if previous['state']!='paused' or active_pid(previous['controller_pid']):
+            raise RuntimeError('old controller must be terminal at the admission gate')
+        current=source_identity(); original=prepared['source']
+        if {k:v for k,v in current.items() if k!='commit'}!={k:v for k,v in original.items() if k!='commit'}:
+            raise ValueError('numerical environment changed')
+        changed=subprocess.check_output(['git','diff','--name-only',original['commit'],current['commit']],cwd=ROOT,text=True).splitlines()
+        if not numerical_paths_unchanged(changed):
+            raise ValueError('accounting resume changes numerical implementation')
+        spec=load(args.config); matrix=load(ROOT/spec['matrix']);validate_spec(spec,matrix)
+        allowed={'development_and_reporting_precharge_cpu_s','accounting_revision_additional_precharge_cpu_s',
+                 'controller_reservation_cpu_s','pair_reservation_cpu_s','stop_policy'}
+        if {k:v for k,v in spec.items() if k not in allowed}!={k:v for k,v in prepared['spec'].items() if k not in allowed}:
+            raise ValueError('accounting resume changes frozen non-accounting configuration')
+        pairs={}
+        for start in (out/'attempts').glob('*/*/started.json'):
+            row=terminal_row(start.parent)
+            if row is None:raise RuntimeError('attempt lacks terminal result')
+            validate_row(row)
+            pairs.setdefault(start.parent.parent.name,[]).append(row)
+            receipts=list(start.parent.glob('*.supervisor.json'))
+            if len(receipts)!=1:raise RuntimeError('attempt lacks unique supervisor receipt')
+            receipt=load(receipts[0])
+            if not receipt.get('finished_at') or receipt['status']=='running':
+                raise RuntimeError('uncertain supervisor outcome; no automatic resume')
+            if active_pid(receipt['pid']):
+                raise RuntimeError('worker PID still active; inspect identity before resume')
+        for pair in pairs.values():
+            if {r['method'] for r in pair}!=set(METHODS) or len(pair)!=2:
+                raise RuntimeError('accounting revision requires a completed pair boundary')
+            compare_pair(sorted(pair,key=lambda r:METHODS.index(r['method'])))
+        pause=load(out/'admission-pause.json');gate=Path(pause['gate_path'])
+        if pause.get('schema')!='hiroute.stage.admission_pause.v1' or gate.is_symlink() or not gate.is_file() or load(gate)!=pause:
+            raise ValueError('admission gate identity changed')
+        directory=out/'accounting-revisions'/'001';directory.mkdir(parents=True,exist_ok=False)
+        for name in ('status.json','results.json','preparation.json','admission-pause.json'):
+            shutil.copyfile(out/name,directory/name)
+        cost=closed_controller_cost(previous)
+        revision=dict(schema='hiroute.stage.accounting_resume.v1',revision_id='001',
+            numerical_source=original,execution_source=current,changed_paths=changed,spec=spec,
+            controller_cpu_carried_s=cost,previous_raw_stage_charged_cpu_s=previous['stage_charged_cpu_s'],
+            previous_raw_status=str(directory/'status.json'),created_at=time.time(),
+            raw_row_sha256={str(p.relative_to(out)):digest(p) for p in (out/'attempts').glob('*/*/final.json')},
+            no_active_workers=True,no_uncertain_attempts=True,
+            gate_archive=str(directory/'admission-gate.json'),
+            note='Accounting only. Original preparation/raw per-method rows and numerical profile unchanged; all completed rows reused exactly once.')
+        pilot.atomic(out/'accounting-resume.json',revision)
+        pilot.atomic(directory/'revision.json',revision)
+        os.replace(gate,directory/'admission-gate.json')
+        print(json.dumps(revision,sort_keys=True),flush=True)
 
 
 def terminal_row(directory):
@@ -248,7 +336,8 @@ def run_worker(out,prepared,cell,method,total):
         output=str(directory/'aggregate.jsonl'),preflight_only=False,domains='64',queries=cell['query_id'],
         scenarios=cell['scenario'],methods=method,diagnostic=False,ablation=False,no_bound=False,
         solve_limit_seconds=None,development_cpu_s=total,cold_load_allowance_s=180,process_memory_gib=8,
-        receipt_directory=str(directory),run_identity=dict(cell_id=cell_id(cell),method=method,**prepared['source']))
+        receipt_directory=str(directory),run_identity=dict(cell_id=cell_id(cell),method=method,
+            accounting_execution_source=prepared.get('accounting_execution_source'),**prepared['source']))
     pilot.main(args)
     row=terminal_row(directory)
     if row is None:
@@ -257,12 +346,20 @@ def run_worker(out,prepared,cell,method,total):
 
 
 def execute(args):
+    stage_started=time.process_time()
     out=Path(args.output_root).resolve()
     with controller_lock(out):
-        prepared=load(out/'preparation.json'); spec=prepared['spec']; matrix=load(ROOT/spec['matrix'])
+        prepared=load(out/'preparation.json')
+        revision=load(out/'accounting-resume.json') if (out/'accounting-resume.json').exists() else None
+        spec=revision['spec'] if revision else prepared['spec']; matrix=load(ROOT/spec['matrix'])
         validate_spec(spec,matrix)
-        if prepared['source']!=source_identity() or prepared['matrix_sha256']!=digest(ROOT/spec['matrix']):
+        expected=revision['execution_source'] if revision else prepared['source']
+        if expected!=source_identity() or prepared['matrix_sha256']!=digest(ROOT/spec['matrix']):
             raise ValueError('run source/environment/matrix identity changed')
+        for path,expected_hash in (revision or {}).get('raw_row_sha256',{}).items():
+            if digest(out/path)!=expected_hash:
+                raise ValueError('preserved historical worker row changed')
+        prepared['accounting_execution_source']=expected
         for cfg in prepared['configs'].values():
             if digest(cfg['config'])!=cfg['config_sha256'] or digest(cfg['preflight'])!=cfg['preflight_sha256']:
                 raise ValueError('prepared input identity changed')
@@ -270,17 +367,45 @@ def execute(args):
             path=Path(prepared['inputs'][name])
             if dict(size=path.stat().st_size,mtime_ns=path.stat().st_mtime_ns)!=record:
                 raise ValueError('scientific input changed after preparation')
-        charged=spec['development_and_reporting_precharge_cpu_s']; rows=[]; stopped=False
-        stage_started=time.process_time()
+        previous=load(out/'status.json') if (out/'status.json').exists() else None
+        revision_id=revision['revision_id'] if revision else 'initial'
+        controller_carried=revision['controller_cpu_carried_s'] if revision else 0
+        if previous and previous.get('accounting_revision')==revision_id:
+            if previous['state']=='running':
+                raise RuntimeError('uncertain controller session; inspect receipts before accounting resume')
+            controller_carried=closed_controller_cost(previous)
+        if not math.isfinite(controller_carried) or controller_carried<0:
+            raise ValueError('invalid carried controller CPU')
+        # Reconstruct every known terminal cost before publishing/admitting.
+        # A resume never temporarily forgets later completed rows or charges a
+        # saved worker twice. Uncertain starts raise before any fresh launch.
+        saved_cache={}
+        for cell in cells(matrix):
+            if cell['input_status']!='available' or same_reuse_cell(cell,spec['reuse']):continue
+            for method in METHODS:
+                directory=out/'attempts'/cell_id(cell)/method
+                saved=terminal_row(directory) if directory.exists() else None
+                if saved is not None:saved_cache[cell_id(cell),method]=saved
+        charged=spec['development_and_reporting_precharge_cpu_s']+sum(
+            max(r.get('worker_cpu_s',0),r.get('supervisor_cpu_s',0))+1 for r in saved_cache.values())
+        rows=[]; stopped=False
+        def controller_cpu():return controller_carried+time.process_time()-stage_started
+        def all_charged():return charged+controller_cpu()
         def publish(state,error=None):
             pilot.atomic(out/'results.json',dict(rows=rows,denominator_cells=cells(matrix)))
             uncertain=[str(p.parent) for p in (out/'attempts').glob('*/*/started.json')
                        if not (p.parent/'final.json').exists() and not list(p.parent.glob('*.row.json'))]
+            session_cpu=time.process_time()-stage_started
+            total_controller=controller_carried+session_cpu
+            inclusive=charged+total_controller
             pilot.atomic(out/'status.json',dict(state=state,error=error,controller_pid=os.getpid(),
-                stage_charged_cpu_s=charged,total_charged_cpu_s=spec['carried_cpu_s']+charged,
+                accounting_revision=revision_id,worker_and_development_cpu_s=charged,
+                stage_charged_cpu_s=inclusive,total_charged_cpu_s=spec['carried_cpu_s']+inclusive,
                 uncertain_attempts=uncertain,uncertain_reserved_cpu_s=len(uncertain)*spec['worker_reservation_cpu_s'],
                 stage_cap_cpu_s=spec['stage_cap_cpu_s'],original_cap_cpu_s=spec['original_cap_cpu_s'],
-                method_rows=len(rows),controller_cpu_s=time.process_time()-stage_started))
+                method_rows=len(rows),controller_cpu_s=session_cpu,
+                controller_cpu_carried_s=controller_carried,total_controller_cpu_s=total_controller,
+                numerical_source=prepared['source'],accounting_execution_source=expected))
         try:
             for cell in cells(matrix):
                 if cell['input_status']!='available':
@@ -288,27 +413,31 @@ def execute(args):
                 reuse=reused_rows(cell,spec,matrix)
                 if reuse is not None:
                     rows.extend(reuse);publish('running');continue
-                directories=[out/'attempts'/cell_id(cell)/m for m in METHODS]
-                saved=[terminal_row(d) if d.exists() else None for d in directories]
+                saved=[saved_cache.get((cell_id(cell),m)) for m in METHODS]
                 # A partially completed pair already holds its original reservation.
-                needed=sum(r is None for r in saved)*spec['worker_reservation_cpu_s']
-                observed=sum(max(r.get('worker_cpu_s',0),r.get('supervisor_cpu_s',0))+1 for r in saved if r)
-                if stopped or (not any(saved) and not reserve_pair(spec,charged)):
+                needed=sum(r is None for r in saved)*(spec['worker_reservation_cpu_s']+spec['controller_reservation_cpu_s'])
+                if not any(saved) and (out/'pause-request.json').exists():
+                    publish('paused_requested','persistent between-pair pause request');return
+                if not any(saved) and (stopped or not reserve_pair(spec,all_charged())):
                     stopped=True;rows.extend(unavailable_rows(cell,'not_run_cpu_budget'));publish('running');continue
-                if charged+observed+needed > spec['stage_cap_cpu_s'] or spec['carried_cpu_s']+charged+observed+needed > spec['original_cap_cpu_s']:
+                if all_charged()+needed > spec['stage_cap_cpu_s'] or spec['carried_cpu_s']+all_charged()+needed > spec['original_cap_cpu_s']:
                     raise RuntimeError('pending pair reservation cannot be honored')
                 pair=[]
                 for method,saved_row in zip(METHODS,saved):
-                    row=saved_row or run_worker(out,prepared,cell,method,spec['carried_cpu_s']+charged)
+                    row=copy.deepcopy(saved_row) if saved_row is not None else run_worker(out,prepared,cell,method,spec['carried_cpu_s']+all_charged())
                     cost=max(row.get('worker_cpu_s',0),row.get('supervisor_cpu_s',0))+1
-                    charged+=cost
+                    if saved_row is None:charged+=cost
+                    snapshot_total=all_charged()
                     row.update(initial_energy_kwh=cell['initial_energy_kwh'],execution='fresh',
                         candidate_domain_sha256=cell['candidate_domain_sha256'],stage_charged_cpu_s=cost,
-                        stage_cumulative_cpu_s=charged,total_cumulative_cpu_s=spec['carried_cpu_s']+charged)
+                        accounting_stage_total_cpu_s=snapshot_total,
+                        accounting_original_total_cpu_s=spec['carried_cpu_s']+snapshot_total)
                     # Charge/persist before validating, so a failing row is never free.
-                    pilot.atomic(out/'attempts'/cell_id(cell)/method/'final.json',row)
+                    if saved_row is None:
+                        row.update(accounting_execution_source=expected,numerical_source=prepared['source'])
+                        pilot.atomic(out/'attempts'/cell_id(cell)/method/'final.json',row)
                     rows.append(row);publish('running')
-                    if cost>spec['worker_reservation_cpu_s'] or charged>spec['stage_cap_cpu_s'] or spec['carried_cpu_s']+charged>spec['original_cap_cpu_s']:
+                    if cost>spec['worker_reservation_cpu_s'] or all_charged()>spec['stage_cap_cpu_s'] or spec['carried_cpu_s']+all_charged()>spec['original_cap_cpu_s']:
                         raise RuntimeError('enforcement/accounting reserve exceeded')
                     validate_row(row);pair.append(row)
                 compare_pair(pair)
@@ -322,8 +451,8 @@ def execute(args):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('action',choices=('prepare','execute'))
+    p.add_argument('action',choices=('prepare','execute','reconcile'))
     p.add_argument('--config',default=str(ROOT/'configs/n64_coverage_stage.json'))
     p.add_argument('--catalog');p.add_argument('--graph-tsv');p.add_argument('--output-root',required=True)
     a=p.parse_args()
-    prepare(a) if a.action=='prepare' else execute(a)
+    {'prepare':prepare,'execute':execute,'reconcile':reconcile}[a.action](a)

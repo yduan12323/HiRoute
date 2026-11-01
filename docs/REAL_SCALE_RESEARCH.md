@@ -1561,3 +1561,53 @@ The fixture now supplies its own fake monitor module; the declared-OD assertions
 and production guard remain unchanged. No numerical row had started. Both
 data-only preflights (0.478035+0.460177CPU seconds) are retained and charged;
 the next final-source preflight carries651.161762976/900CPU seconds.
+
+### Accounting-only admission correction during the frozen N64 stage
+
+The numerical stage began at source `fb6989f34c34f1c2c23cacba0dd96ae79d38f63f`,
+whose full CI41301895004 passed. Inspection found that its live admission
+ledger omitted controller runtime CPU and reset that counter on invocation.
+Raw worker/development fields are preserved as historical fields, not treated
+as the all-inclusive total. This is a controller accounting defect; no solver,
+road, seed, model, profile, candidate or query-limit change is involved.
+
+At12:05:32UTC a marked regular file at the unstarted next pair-directory path
+`attempts/WD04-E48-energy_only-N64` blocked directory creation before any start
+receipt or child launch. It was an explicit admission gate, not a worker result.
+The existing WD04 energy18/schedule18 work retained all original guards and
+limits. The conservative bound at gate installation was3769.8290594 stage CPU
+seconds, including a full remaining pair and120 seconds for correction/reporting;
+it was below both authorized caps. An earlier exclusive-create attempt found
+an already-started directory and wrote nothing; no result was overwritten.
+
+PID77006 then stopped naturally at the gate after28 method slots:26 fresh
+terminal rows plus2 historical reused rows. There were26 start records,
+26 final rows, no nonterminal supervisor receipt, no active worker/controller
+PID and no uncertain attempt. Its raw stage ledger2461.822796CPU seconds
+(including the original180 development precharge) and controller227.836286CPU
+seconds remain archived. The closed controller is conservatively carried as
+230CPU seconds (round up plus2 for terminal overhead). No valid row is rerun.
+
+The corrected controller includes every known worker cost and cumulative
+controller CPU before admission, preserves those costs across invocations and
+never rewrites existing per-method final rows. It reserves1240CPU seconds before
+each new pair:310 worker plus310 controller CPU for each method. The latter
+bounds a single-thread controller during the unchanged300-second guarded worker
+wall window plus cleanup. Loaded limits remain120 seconds, with60-second
+evaluation threshold. The development/report precharge is now300 (old180 plus
+120 for this accounting-only correction and CI), within the same12000 stage
+and28800 original caps. Preprocessing remains651.638454976/900CPU seconds.
+
+An explicit `reconcile` action requires the old controller lock to be free,
+all attempted pairs complete with terminal supervisor receipts, no active PIDs
+or uncertain starts, unchanged numerical sources/environment and unchanged
+non-accounting configuration. It records the original numerical source and a
+separate accounting execution source; it does not broadly bypass source/input
+checks. The original preparation/raw ledger and gate are archived before a
+resume. Ordinary later runs can use evolved code; this compatibility condition
+applies only to continuing this already-timed frozen matrix. A persistent
+`pause-request.json` hook now stops at a fresh-pair boundary, without interrupting
+an active worker. Focused regressions cover live CPU admission, cumulative CPU
+over repeated resumes, immutable raw rows, pause hooks, numerical-source changes,
+partial pairs and uncertain receipts. The gate's source-file edit was not
+assumed to hot-patch PID77006; only the subsequent new controller uses this fix.

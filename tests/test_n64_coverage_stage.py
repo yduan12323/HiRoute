@@ -12,6 +12,13 @@ sys.path.insert(0,str(ROOT/'tools'))
 import run_n64_coverage_stage as stage
 
 
+@pytest.fixture(autouse=True)
+def deterministic_controller_cpu():
+    # Accounting tests advance this clock explicitly where live CPU matters.
+    with patch.object(stage.time,'process_time',return_value=0):
+        yield
+
+
 def spec():
     return stage.load(ROOT/'configs/n64_coverage_stage.json')
 
@@ -39,11 +46,11 @@ def test_denominator_order_and_only_exact_SOC_reuse():
 
 def test_pair_reservation_includes_cold_and_margin_and_both_ledgers():
     s=spec()
-    assert stage.reserve_pair(s,12000-620)
-    assert not stage.reserve_pair(s,12000-620+.001)
-    s['original_cap_cpu_s']=s['carried_cpu_s']+1000
-    assert stage.reserve_pair(s,380)
-    assert not stage.reserve_pair(s,380.001)
+    assert stage.reserve_pair(s,12000-1240)
+    assert not stage.reserve_pair(s,12000-1240+.001)
+    s['original_cap_cpu_s']=s['carried_cpu_s']+1500
+    assert stage.reserve_pair(s,260)
+    assert not stage.reserve_pair(s,260.001)
 
 
 def test_completed_receipt_recovery_and_uncertain_attempt_never_restart(tmp_path):
@@ -143,7 +150,7 @@ def test_budget_stop_keeps_all_cells_and_resume_charges_once(tmp_path):
     s,m=spec(),matrix()
     # Tiny test-only stage allowance: no worker can start. Reuse/unavailable
     # classification still happens after the budget stop in frozen order.
-    s['stage_cap_cpu_s']=180
+    s['stage_cap_cpu_s']=300
     prepared=dict(spec=s,source={},matrix_sha256='matrix',configs={})
     stage.pilot.atomic(tmp_path/'preparation.json',prepared)
     def fake_load(path):
@@ -161,7 +168,8 @@ def test_budget_stop_keeps_all_cells_and_resume_charges_once(tmp_path):
         assert sum(r['execution']=='reused' for r in first['rows'])==2
         stage.execute(SimpleNamespace(output_root=str(tmp_path)))
         assert stage.load(tmp_path/'results.json')==first
-        assert stage.load(tmp_path/'status.json')['stage_charged_cpu_s']==180
+        assert stage.load(tmp_path/'status.json')['worker_and_development_cpu_s']==300
+        assert stage.load(tmp_path/'status.json')['stage_charged_cpu_s']==302  # cumulative terminal CPU pad
 
 
 def test_partial_pair_resume_finishes_only_missing_method_and_accounts_saved_CPU(tmp_path):
@@ -191,7 +199,7 @@ def test_partial_pair_resume_finishes_only_missing_method_and_accounts_saved_CPU
         with pytest.raises(RuntimeError,match='denominator lost'):
             stage.execute(SimpleNamespace(output_root=str(tmp_path)))
         assert run.call_count==1 and run.call_args.args[3]=='scale'
-        assert stage.load(tmp_path/'status.json')['stage_charged_cpu_s']==180+122+120
+        assert stage.load(tmp_path/'status.json')['stage_charged_cpu_s']==300+122+120
 
 
 def test_complete_mock_stage_resume_does_not_reexecute_or_double_charge(tmp_path):
@@ -210,9 +218,123 @@ def test_complete_mock_stage_resume_does_not_reexecute_or_double_charge(tmp_path
         assert worker.call_count==86
         first=stage.load(tmp_path/'results.json')
         assert len(first['rows'])==96
-        assert stage.load(tmp_path/'status.json')['stage_charged_cpu_s']==180+86*4
+        assert stage.load(tmp_path/'status.json')['stage_charged_cpu_s']==300+86*4
+        raw_before={str(p):p.read_bytes() for p in tmp_path.glob('attempts/*/*/final.json')}
         worker.reset_mock();worker.side_effect=AssertionError('duplicate numerical work')
         stage.execute(SimpleNamespace(output_root=str(tmp_path)))
         assert worker.call_count==0
-        assert stage.load(tmp_path/'results.json')==first
-        assert stage.load(tmp_path/'status.json')['stage_charged_cpu_s']==180+86*4
+        def science(value):
+            return [{k:v for k,v in row.items() if not k.startswith('accounting_')} for row in value['rows']]
+        assert science(stage.load(tmp_path/'results.json'))==science(first)
+        assert {str(p):p.read_bytes() for p in tmp_path.glob('attempts/*/*/final.json')}==raw_before
+        assert stage.load(tmp_path/'status.json')['worker_and_development_cpu_s']==300+86*4
+        assert stage.load(tmp_path/'status.json')['stage_charged_cpu_s']==302+86*4
+
+
+def test_live_controller_CPU_blocks_admission_before_worker(tmp_path):
+    s,m=spec(),matrix();s['stage_cap_cpu_s']=1700
+    prepared=dict(spec=s,source={},matrix_sha256='matrix',configs={})
+    stage.pilot.atomic(tmp_path/'preparation.json',prepared)
+    original_load,original_reuse=stage.load,stage.reused_rows
+    def fake_load(path):return m if Path(path)==ROOT/s['matrix'] else original_load(path)
+    clock=[0]
+    def reuse(*args):
+        result=original_reuse(*args)
+        if result is not None:clock[0]=250
+        return result
+    with patch.object(stage,'validate_spec'),patch.object(stage,'source_identity',return_value={}),\
+         patch.object(stage,'digest',return_value='matrix'),patch.object(stage,'load',side_effect=fake_load),\
+         patch.object(stage,'reused_rows',side_effect=reuse),\
+         patch.object(stage.time,'process_time',side_effect=lambda:clock[0]),\
+         patch.object(stage,'run_worker',side_effect=AssertionError('controller CPU omitted')):
+        stage.execute(SimpleNamespace(output_root=str(tmp_path)))
+        status=stage.load(tmp_path/'status.json')
+        assert status['stage_charged_cpu_s']==550
+        assert status['total_controller_cpu_s']==250
+        assert status['state']=='budget_stopped'
+
+
+def test_prior_controller_CPU_persists_across_repeated_resumes(tmp_path):
+    s,m=spec(),matrix();s['stage_cap_cpu_s']=1650
+    prepared=dict(spec=s,source={},matrix_sha256='matrix',configs={})
+    stage.pilot.atomic(tmp_path/'preparation.json',prepared)
+    stage.pilot.atomic(tmp_path/'accounting-resume.json',dict(spec=s,execution_source={},revision_id='001',controller_cpu_carried_s=200))
+    original_load=stage.load
+    def fake_load(path):return m if Path(path)==ROOT/s['matrix'] else original_load(path)
+    with patch.object(stage,'validate_spec'),patch.object(stage,'source_identity',return_value={}),\
+         patch.object(stage,'digest',return_value='matrix'),patch.object(stage,'load',side_effect=fake_load),\
+         patch.object(stage,'run_worker',side_effect=AssertionError('prior controller forgotten')):
+        stage.execute(SimpleNamespace(output_root=str(tmp_path)))
+        assert stage.load(tmp_path/'status.json')['stage_charged_cpu_s']==500
+        stage.execute(SimpleNamespace(output_root=str(tmp_path)))
+        assert stage.load(tmp_path/'status.json')['stage_charged_cpu_s']==502
+        assert stage.load(tmp_path/'status.json')['total_controller_cpu_s']==202
+
+
+def test_persistent_pause_hook_stops_only_before_fresh_pair(tmp_path):
+    s,m=spec(),matrix();original_load=stage.load
+    stage.pilot.atomic(tmp_path/'preparation.json',dict(spec=s,source={},matrix_sha256='matrix',configs={}))
+    stage.pilot.atomic(tmp_path/'pause-request.json',{'reason':'operator budget inspection'})
+    def fake_load(path):return m if Path(path)==ROOT/s['matrix'] else original_load(path)
+    with patch.object(stage,'source_identity',return_value={}),patch.object(stage,'digest',return_value='matrix'),\
+         patch.object(stage,'load',side_effect=fake_load),\
+         patch.object(stage,'run_worker',side_effect=AssertionError('ignored admission pause')):
+        stage.execute(SimpleNamespace(output_root=str(tmp_path)))
+        assert stage.load(tmp_path/'status.json')['state']=='paused_requested'
+        assert len(stage.load(tmp_path/'results.json')['denominator_cells'])==48
+        assert len(stage.load(tmp_path/'results.json')['rows'])==2
+
+
+def test_accounting_compatibility_does_not_allow_numerical_change_or_lost_CPU():
+    assert stage.numerical_paths_unchanged(['tools/run_n64_coverage_stage.py','configs/n64_coverage_stage.json','docs/REAL_SCALE_RESEARCH.md'])
+    for path in ('src/hiroute/exact/scale.py','tools/run_real_scale_pilot.py','tools/real_scale_inputs.py','reference/src/hiroute_ref/solver.py'):
+        assert not stage.numerical_paths_unchanged([path])
+    assert stage.closed_controller_cost({'controller_cpu_s':12.2})==15
+    assert stage.closed_controller_cost({'controller_cpu_s':3,'total_controller_cpu_s':100.2})==103
+    with pytest.raises(ValueError):stage.closed_controller_cost({'controller_cpu_s':float('nan')})
+
+
+@pytest.mark.parametrize('defect',[None,'numerical_source','uncertain_receipt','partial_pair'])
+def test_reconcile_inspects_closed_pair_and_preserves_original_records(tmp_path,defect):
+    s=spec();old=copy.deepcopy(s)
+    old['development_and_reporting_precharge_cpu_s']=180;old['pair_reservation_cpu_s']=620
+    for key in ('controller_reservation_cpu_s','accounting_revision_additional_precharge_cpu_s'):old.pop(key)
+    old_source=dict(commit='old',python='same',platform='same',executable='same')
+    new_source={**old_source,'commit':'new'}
+    stage.pilot.atomic(tmp_path/'preparation.json',dict(spec=old,source=old_source))
+    stage.pilot.atomic(tmp_path/'status.json',dict(state='paused',controller_pid=999,
+        controller_cpu_s=3.2,stage_charged_cpu_s=204))
+    stage.pilot.atomic(tmp_path/'results.json',{'rows':[]})
+    pair=tmp_path/'attempts'/'closed-pair'
+    originals={}
+    for i,method in enumerate(stage.METHODS):
+        if defect=='partial_pair' and i:continue
+        d=pair/method;d.mkdir(parents=True)
+        stage.pilot.atomic(d/'started.json',{'method':method})
+        stage.pilot.atomic(d/'final.json',dict(method=method,status='time_limit',
+            mathematical_status='unknown',worker_cpu_s=10,supervisor_cpu_s=11))
+        stage.pilot.atomic(d/'job.supervisor.json',dict(status='running' if defect=='uncertain_receipt' else 'completed',
+            finished_at=None if defect=='uncertain_receipt' else '2026-11-01T12:00:00Z',pid=123+i))
+        originals[d/'final.json']=(d/'final.json').read_bytes()
+    gate=tmp_path/'attempts'/'future-pair'
+    pause=dict(schema='hiroute.stage.admission_pause.v1',gate_path=str(gate))
+    stage.pilot.atomic(gate,pause);stage.pilot.atomic(tmp_path/'admission-pause.json',pause)
+    prepared_bytes=(tmp_path/'preparation.json').read_bytes()
+    changes='src/hiroute/exact/scale.py\n' if defect=='numerical_source' else 'tools/run_n64_coverage_stage.py\n'
+    with patch.object(stage,'source_identity',return_value=new_source),\
+         patch.object(stage,'active_pid',return_value=False),\
+         patch.object(stage.subprocess,'check_output',return_value=changes):
+        args=SimpleNamespace(output_root=str(tmp_path),config=ROOT/'configs/n64_coverage_stage.json')
+        if defect:
+            with pytest.raises((RuntimeError,ValueError)):stage.reconcile(args)
+            assert gate.is_file() and not (tmp_path/'accounting-resume.json').exists()
+        else:
+            stage.reconcile(args)
+            revision=stage.load(tmp_path/'accounting-resume.json')
+            assert revision['numerical_source']==old_source and revision['execution_source']==new_source
+            assert revision['controller_cpu_carried_s']==6
+            assert revision['no_active_workers'] and revision['no_uncertain_attempts']
+            assert not gate.exists() and Path(revision['gate_archive']).is_file()
+            assert stage.load(revision['previous_raw_status'])['stage_charged_cpu_s']==204
+    assert (tmp_path/'preparation.json').read_bytes()==prepared_bytes
+    assert {p:p.read_bytes() for p in originals}==originals
