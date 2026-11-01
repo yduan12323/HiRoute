@@ -140,6 +140,23 @@ class StageAccounting(unittest.TestCase):
         self.assertTrue(stage.admission(constrained,440))
         self.assertFalse(stage.admission(constrained,440.001))
 
+    def test_compiler_only_recovery_preserves_charges_and_rejects_loaded_query(self):
+        with tempfile.TemporaryDirectory() as directory:
+            out=Path(directory)
+            rows=[{**r,'status':'not_run'} for r in self.definition['rows']]
+            rows[0].update(status='worker_error',error='Exact native road index compilation failed: cpp_int.hpp')
+            stage.pilot.atomic(out/'status.json',dict(state='paused',controller_pid=999999,
+                worker_cpu_charged_s=1.3,total_controller_cpu_s=3.1))
+            stage.pilot.atomic(out/'results.json',dict(rows=rows))
+            d=out/'attempts'/stage.row_id(rows[0]);d.mkdir(parents=True)
+            stage.pilot.atomic(d/'worker.outcome.json',dict(returncode=1,timed_out=False))
+            with patch.object(stage.common,'active_pid',return_value=False):
+                self.assertEqual(stage.failed_setup_cost(out),7.3)
+                rows[0]['query_loaded_total_s']=0.01
+                stage.pilot.atomic(out/'results.json',dict(rows=rows))
+                with self.assertRaisesRegex(ValueError,'possible loaded query'):
+                    stage.failed_setup_cost(out)
+
     def prepare_mock(self,out):
         stage.pilot.atomic(out/'preparation.json',dict(spec=self.spec,definition=self.definition,
             source={},configs={},inputs={},input_stat={}))

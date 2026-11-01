@@ -49,9 +49,14 @@ def prepare(args):
     out.mkdir(parents=True, exist_ok=False)
     import psutil
     import shutil
+    psutil.pids()  # monitor permission must succeed before any worker start
     available, free = psutil.virtual_memory().available, shutil.disk_usage(out).free
     if available < 2684354560 or free < 2*1024**3:
         raise ValueError('host memory/disk preflight failed')
+    from hiroute.exact.road_index import _load_native_library
+    _load_native_library(out/'dependency-preflight')  # compiler/headers only; no graph/query
+    previous = getattr(args,'prior_failed_setup_root',None)
+    prior_cost = failed_setup_cost(Path(previous)) if previous else 0
     for name, path in original['inputs'].items():
         if digest(path) != original['input_sha256'][name]:
             raise ValueError('historical real input changed: '+name)
@@ -90,12 +95,43 @@ def prepare(args):
                               for k,v in original['inputs'].items()},
                   configs={e+'|'+p:v for (e,p),v in configs.items()},
                   host_available_bytes=available,disk_free_bytes=free,solver_called=False,
-                  joint_reference_read=False)
+                  joint_reference_read=False,prior_failed_setup_cpu_s=prior_cost,
+                  prior_failed_setup_root=previous,
+                  dependency_environment=dict(CPATH=os.environ.get('CPATH'),compiler=shutil.which('c++'),
+                                              process_inventory_preflight=True,native_compile_preflight=True))
     pilot.atomic(out/'preparation.json',record)
 
 
 def row_id(row):
     return f"{row['query_id']}-E{row['initial_energy_kwh']}-schedule-N64-{row['policy']}"
+
+
+def failed_setup_cost(root):
+    """Only a terminal, audited compiler failure before any loaded query.
+
+    This does not recover an uncertain solve, retry a timed row, or overwrite
+    the predecessor's receipts. Its full conservative cost enters new admission.
+    """
+    status=load(root/'status.json')
+    rows=load(root/'results.json')['rows']
+    if (status['state']!='paused' or common.active_pid(status['controller_pid']) or
+            len(rows)!=8 or rows[0]['status']!='worker_error' or
+            any(r['status']!='not_run' for r in rows[1:])):
+        raise ValueError('not a terminal setup-only failure')
+    failed=rows[0]
+    if ('Exact native road index compilation failed' not in failed.get('error','') or
+            'cpp_int.hpp' not in failed['error'] or
+            any(r.get('query_loaded_total_s') is not None or r.get('feasible_key') is not None or
+                r.get('witness') is not None for r in rows)):
+        raise ValueError('possible loaded query; no automatic retry')
+    directory=root/'attempts'/row_id(failed)
+    receipts=list(directory.glob('*.outcome.json'))
+    if len(receipts)!=1:
+        raise ValueError('missing unambiguous cold-worker terminal receipt')
+    terminal=load(receipts[0])
+    if terminal['returncode']!=1 or terminal.get('timed_out'):
+        raise ValueError('unexpected cold-worker terminal state')
+    return status['worker_cpu_charged_s']+common.closed_controller_cost(status)
 
 
 def admission(spec, charged):
@@ -158,7 +194,7 @@ def execute(args):
             raise RuntimeError('terminal, failed or uncertain controller invocation; inspect instead of restarting')
         carried = common.closed_controller_cost(old) if old else 0
         slots = copy.deepcopy(definition['rows'])
-        charged = 0
+        charged = prepared.get('prior_failed_setup_cpu_s',0)
         for slot in slots:
             directory = out/'attempts'/row_id(slot)
             row = common.terminal_row(directory) if directory.exists() else None
@@ -174,6 +210,7 @@ def execute(args):
             pilot.atomic(out/'results.json',dict(rows=slots,query_denominator=4,policy_row_denominator=8))
             pilot.atomic(out/'status.json',dict(state=state,error=error,controller_pid=os.getpid(),
                 total_controller_cpu_s=cpu(),worker_cpu_charged_s=charged,
+                prior_failed_setup_cpu_s=prepared.get('prior_failed_setup_cpu_s',0),
                 stage_charged_cpu_s=total(),stage_cap_cpu_s=spec['stage_cap_cpu_s'],
                 inclusive_gate_charged_cpu_s=spec['nonstage_precharge_cpu_s']+total(),
                 original_total_cpu_s=spec['carried_cpu_s']+spec['nonstage_precharge_cpu_s']+total(),
@@ -237,6 +274,7 @@ if __name__ == '__main__':
     parser.add_argument('action',choices=('prepare','execute'))
     parser.add_argument('--config',default=str(ROOT/'configs/planning_value_dev_gate.json'))
     parser.add_argument('--existing-stage')
+    parser.add_argument('--prior-failed-setup-root')
     parser.add_argument('--output-root',required=True)
     args=parser.parse_args()
     {'prepare':prepare,'execute':execute}[args.action](args)
