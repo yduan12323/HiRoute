@@ -10,7 +10,7 @@ from hiroute.exact import scale,scale_bounds,road_index
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
-from d04_cost_diagnostic import CostProfile,MeasuredProvider,instrument,domain_digest
+from d04_cost_diagnostic import CostProfile,MeasuredProvider,instrument,domain_digest,source_reuse_analysis,summarize_run
 
 
 def snapshot():
@@ -25,6 +25,40 @@ def snapshot():
 
 
 class DiagnosticTests(unittest.TestCase):
+    def test_summary_does_not_invent_a_profile_after_an_early_stop(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as work:
+            root=Path(work)
+            (root/'diagnostic-result.jsonl').write_text(json.dumps(dict(status='not_run_cpu_budget'))+'\n')
+            (root/'preparation.json').write_text('{}')
+            summary=summarize_run(root)
+            self.assertFalse(summary['profile_available'])
+            self.assertEqual(summary['row']['status'],'not_run_cpu_budget')
+            self.assertNotIn('source_reuse',summary)
+            workers=root/'diagnostic-result-workers';workers.mkdir()
+            (root/'diagnostic-result.jsonl').write_text(json.dumps(dict(status='host_headroom_limit'))+'\n')
+            (workers/'query.cost.json').write_text('{}')
+            (workers/'query.cost-events.json').write_text('[]')
+            summary=summarize_run(root)
+            self.assertEqual(summary['row']['status'],'host_headroom_limit')
+            self.assertIn('source_reuse_unavailable_reason',summary)
+            self.assertNotIn('source_reuse',summary)
+
+    def test_offline_source_reuse_proxy_charges_builds_and_respects_lru(self):
+        events=[dict(kind='search_leaf',source=s,target=str(i),settled_vertices=1,
+                     relaxed_edges=w,astar_s=1,path_edges=1,error=None)
+                for i,(s,w) in enumerate([('a',6),('a',5),('a',3),('b',11),
+                                          ('a',4),('c',11),('b',6),('b',5)])]
+        result=source_reuse_analysis(events,100,10)
+        self.assertFalse(result['algorithm_executed'])
+        self.assertIsNone(result['runtime_saving_estimate'])
+        one,two=result['sketches']
+        self.assertEqual((one['forward_tree_builds'],one['covered_later_pairs']),(4,1))
+        self.assertEqual((two['forward_tree_builds'],two['covered_later_pairs']),(4,2))
+        self.assertEqual(two['full_tree_edges_upper_work'],40)
+        self.assertEqual(two['observed_covered_relaxed_edges'],7)
+        self.assertEqual(two['canonical_path_vertices_lower_work'],4)
+
     def test_profile_parity_flow_accounting_and_patch_restoration(self):
         snap=snapshot();original=scale.solve_scale;original_bound=scale_bounds.completion_bound
         original_native=road_index.NativeRoadIndex

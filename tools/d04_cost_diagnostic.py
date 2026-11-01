@@ -1,7 +1,7 @@
 """One frozen, instrumented D04 worker; no solver or routing policy changes."""
 from __future__ import annotations
 import argparse
-from collections import defaultdict
+from collections import defaultdict,OrderedDict
 from contextlib import ExitStack, contextmanager
 import hashlib
 import json
@@ -18,6 +18,45 @@ def domain_digest(query,n,scenario):
     value=dict(endpoints=query['endpoints'],
         candidates=query['scenario_candidate_domains'][scenario][str(n)])
     return hashlib.sha256(json.dumps(value,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+
+
+def source_reuse_analysis(events,node_count,edge_count):
+    """Offline fixed-trace work proxy, never a routing or runtime experiment.
+
+    A build is charged a whole-graph upper bound. Covered future A* work is
+    merely identified: perfect-potential reverse-DAG work is NOT assumed zero.
+    """
+    leaves=[e for e in events if e['kind']=='search_leaf' and e['settled_vertices']>0 and not e.get('error')]
+    groups=defaultdict(list)
+    for event in leaves:groups[event['source']].append(event)
+    sources=[dict(source=s,misses=len(xs),distinct_targets=len({x['target'] for x in xs}),
+        astar_s=sum(x['astar_s'] for x in xs),settled_vertices=sum(x['settled_vertices'] for x in xs),
+        relaxed_edges=sum(x['relaxed_edges'] for x in xs)) for s,xs in groups.items()]
+    sources.sort(key=lambda x:x['astar_s'],reverse=True)
+    sketches=[]
+    for capacity in (1,2):
+        resident=OrderedDict();spent=defaultdict(int);builds=0;covered=[]
+        for event in leaves:
+            source=event['source']
+            if source in resident:
+                resident.move_to_end(source);covered.append(event);continue
+            spent[source]+=event['relaxed_edges']
+            if spent[source]>=edge_count:
+                builds+=1;resident[source]=True;spent[source]=0
+                while len(resident)>capacity:resident.popitem(last=False)
+        sketches.append(dict(capacity=capacity,forward_tree_builds=builds,
+            covered_later_pairs=len(covered),observed_covered_astar_s=sum(x['astar_s'] for x in covered),
+            observed_covered_vertices=sum(x['settled_vertices'] for x in covered),
+            observed_covered_relaxed_edges=sum(x['relaxed_edges'] for x in covered),
+            full_tree_vertices_upper_work=builds*node_count,
+            full_tree_edges_upper_work=builds*edge_count,
+            canonical_path_vertices_lower_work=sum(x['path_edges']+1 if x['path_edges'] else 0 for x in covered)))
+    return dict(offline_only=True,algorithm_executed=False,runtime_saving_estimate=None,
+        completed_leaf_pairs=len(leaves),distinct_sources=len(groups),
+        distinct_targets=len({e['target'] for e in leaves}),
+        trigger='cumulative noncached A* edge relaxations for a source >= whole-graph edge count',
+        incomplete_queries_excluded=True,sources=sources,sketches=sketches,
+        caveat='Fixed interrupted trace only. Full-tree costs, equality-DAG work, queue costs, memory and future search remain unmeasured; no net runtime or optimality claim.')
 
 
 class CostProfile:
@@ -235,6 +274,27 @@ def instrumented_worker(args,worker):
         pilot.atomic(Path(args.output).with_suffix('.cost-events.json'),profile.events)
 
 
+def summarize_run(output):
+    """Read persisted evidence only, including truthful early resource stops."""
+    output=Path(output)
+    rows=[json.loads(line) for line in (output/'diagnostic-result.jsonl').read_text().splitlines()]
+    if len(rows)!=1:raise ValueError('one diagnostic result required')
+    summary=dict(diagnostic_only=True,fresh_performance_evidence=False,row=rows[0],
+                 preparation=json.loads((output/'preparation.json').read_text()))
+    profiles=list(output.glob('*workers/*.cost.json'))
+    if len(profiles)>1:raise ValueError('one diagnostic profile required')
+    summary['profile_available']=bool(profiles)
+    if profiles:
+        profile=json.loads(profiles[0].read_text())
+        events=json.loads(profiles[0].with_suffix('').with_suffix('.cost-events.json').read_text())
+        metrics=rows[0].get('routing_metrics',{})
+        summary['profile']=profile
+        if 'nodes' in metrics and 'edges' in metrics:
+            summary['source_reuse']=source_reuse_analysis(events,metrics['nodes'],metrics['edges'])
+        else:summary['source_reuse_unavailable_reason']='road index metrics unavailable after early stop'
+    return summary
+
+
 def main(args):
     import run_real_scale_pilot as pilot
     from real_scale_inputs import select_domains
@@ -263,6 +323,7 @@ def main(args):
         solve_limit_seconds=spec['solve_limit_s'],development_cpu_s=spec['carried_cpu_s']+spec['development_cpu_allowance_s'],
         cold_load_allowance_s=spec['cold_load_allowance_s'],process_memory_gib=spec['process_memory_gib'])
     pilot.main(run)
+    if not args.preflight_only:pilot.atomic(output/'summary.json',summarize_run(output))
 
 
 if __name__=='__main__':
