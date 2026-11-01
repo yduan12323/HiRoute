@@ -194,3 +194,68 @@ def singleton_region(site, capabilities, features, identifier=0):
     region = build_region_tree((site,), {site: capabilities}, {site: features})
     return SummaryRegion(identifier, region.site, region.children,
                          region.summaries, region.effect_masks)
+
+
+def service_summary(capabilities, features):
+    """One static union of S/CS Sites, built once for either search method.
+
+    Repeated visits are allowed in exact search, so pending service has no
+    history-dependent exclusion mask. A Site supporting both effects is counted
+    once. Proven unreachable Sites have already been removed from features.
+    """
+    rows = [features[site] for site, effects in capabilities.items()
+            if site in features and set(effects) & {'S', 'CS'}]
+    return _summarize(rows) if rows else None
+
+
+def pending_service_travel_bound(anchor, service, next_summary, effect, overhead,
+                                 *, inbound_time=None):
+    """Lower bound on elapsed time before arrival at the pending service.
+
+    Reads static extrema only. For C, one stop overhead is unavoidable before
+    a later service; charging time and all other intermediate stops are relaxed.
+    The one-sided destination landmark bound between Regions is deliberately
+    weak: min d(next,z)-max d(service,z). No selected-path length is used.
+    None means there is no allowed service Site, not graph unreachability.
+    """
+    if effect not in ('C', 'S', 'CS'):
+        raise ValueError('invalid next effect')
+    overhead = exact(overhead)
+    if overhead < 0:
+        raise ValueError('overhead must be nonnegative')
+    if inbound_time is not None:
+        inbound_time = exact(inbound_time)
+        if inbound_time < 0:
+            raise ValueError('inbound_time must be nonnegative')
+    if service is None:
+        return None
+    direct = max(Fraction(0), service.min_from_origin_time-anchor.from_origin_time,
+                 anchor.to_destination_time-service.max_to_destination_time)
+    inbound = (max(Fraction(0), next_summary.min_from_origin_time-anchor.from_origin_time,
+                   anchor.to_destination_time-next_summary.max_to_destination_time)
+               if inbound_time is None else inbound_time)
+    if effect == 'C':
+        onward = max(Fraction(0), next_summary.min_to_destination_time
+                     - service.max_to_destination_time)
+        inbound += overhead + onward
+    return max(direct, inbound)
+
+
+def pending_activity_possible(pieces, *, latest_arrival, service_travel_time):
+    """Necessary condition only; retain equality and every open infimum.
+
+    This tests a whole physical family without clipping it or creating a
+    witness. A completed-service piece needs no test. It scans family pieces,
+    never candidate members, masks, features or histories.
+    """
+    latest_arrival = exact(latest_arrival)
+    if service_travel_time is not None:
+        service_travel_time = exact(service_travel_time)
+        if service_travel_time < 0:
+            raise ValueError('service_travel_time must be nonnegative')
+    for piece in pieces:
+        if piece.state_key[1] == 0:
+            return True
+        if service_travel_time is not None and piece.infimum()[0] + service_travel_time <= latest_arrival:
+            return True
+    return False

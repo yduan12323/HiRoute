@@ -1,0 +1,46 @@
+{
+  "schema": "hiroute.pending_activity_screen.validation_proposal.v1",
+  "state": "proposal_only_not_authorized_for_execution",
+  "query_id": "WD01",
+  "N": 64,
+  "initial_energy_kwh": "18",
+  "scenario": "schedule",
+  "candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+  "frozen_matrix": "configs/charging_coverage_dev_matrix.json",
+  "historical_control_results": "docs/n64_coverage_stage_results.json",
+  "control_numerical_commit": "fb6989f34c34f1c2c23cacba0dd96ae79d38f63f",
+  "methods": ["flat_bb_strong", "scale"],
+  "new_rows_if_authorized": 2,
+  "reuse_control_rows": 2,
+  "control_repetitions": 0,
+  "control_status": "time_limit_UNKNOWN",
+  "shared_implementation": {
+    "pair_query_mode": "landmark_astar",
+    "source_tree_reuse": true,
+    "seed_beam_pruning": true,
+    "inbound_energy_bound": true,
+    "eager_incumbent_pruning": true,
+    "pending_activity_screen": true
+  },
+  "limits": {
+    "numeric_workers": 1,
+    "numeric_threads": 1,
+    "loaded_query_seconds": 120,
+    "evaluation_target_seconds": 60,
+    "fresh_worker_limit_seconds": 300,
+    "query_extra_bytes": 8589934592,
+    "pair_cpu_reservation_seconds": 1240,
+    "reporting_cpu_reservation_seconds": 120,
+    "original_cpu_cap_seconds": 28800
+  },
+  "requirements": [
+    "verify current source and frozen input identities before any execution",
+    "same routing, seed, kernels, physical model and information for both methods",
+    "preserve cumulative worker, controller and development accounting",
+    "no restart until durable starts, outcomes and live PIDs are reconciled",
+    "check physical replay and full K whenever attained; keep UNKNOWN controls UNKNOWN",
+    "report pre-route and post-route rejections separately",
+    "historical comparison is descriptive, not a causal timing experiment",
+    "no parameter grid, new domain, main experiment or holdout"
+  ]
+}
