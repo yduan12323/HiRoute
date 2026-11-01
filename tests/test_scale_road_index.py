@@ -121,8 +121,8 @@ class RoadIndexTests(unittest.TestCase):
 class NativeRoadIndexTests(unittest.TestCase):
     """Run when the optional native compiler/header dependency is available.
 
-    This is a normal passing test on minimal installations, while native-capable
-    CI and the real pilot execute the exact same assertions below.
+    Minimal installations may omit it; the isolated wheel CI explicitly requires
+    native execution so this change cannot pass CI without exercising A*.
     """
     def test_native_contract_when_dependency_available(self):
         import os
@@ -133,6 +133,8 @@ class NativeRoadIndexTests(unittest.TestCase):
         header_roots = [Path('/usr/include'), Path('/usr/local/include'), Path('/opt/homebrew/include')]
         header_roots += [Path(p) for p in os.environ.get('CPLUS_INCLUDE_PATH', '').split(os.pathsep) if p]
         if compiler is None or not any((p / 'boost/multiprecision/cpp_int.hpp').exists() for p in header_roots):
+            if os.environ.get('HIROUTE_REQUIRE_NATIVE_ROADS') == '1':
+                self.fail('Native road CI requires C++17 and Boost.Multiprecision headers')
             return
         rng = random.Random(421)
         nodes = ('a', 'b', 'c', 'd', 'e', 'f', 'g')

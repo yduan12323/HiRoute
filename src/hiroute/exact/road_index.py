@@ -379,6 +379,10 @@ class NativeRoadIndex:
     are absent. ``lower_bound`` also accepts a source outside that exposed set.
     The graph and up to ``distance_cache_size`` scalar workspaces remain native;
     their residency and build time are reported separately from query deltas.
+    Opt-in ``pair_query_mode='landmark_astar'`` requires charged
+    ``prepare_landmarks(O,D)`` before nontrivial pairs. It additionally pins two
+    complete directed time trees and reuses a separate pair workspace. Its
+    consistent reverse potential and equality contour preserve every path tie.
     """
 
     def __init__(self, graph_tsv, exposed_nodes, *, cache_directory,

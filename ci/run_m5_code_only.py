@@ -135,6 +135,7 @@ def main() -> None:
     if sys.version_info[:2] != (3, 11) or sys.prefix == sys.base_prefix:
         raise RuntimeError("Use a fresh Python 3.11 virtual environment")
     env = dict(os.environ, OPENBLAS_NUM_THREADS="1", OMP_NUM_THREADS="1",
+               HIROUTE_REQUIRE_NATIVE_ROADS="1",
                MKL_NUM_THREADS="1", PYTHONDONTWRITEBYTECODE="1",
                PYTHONNOUSERSITE="1", PYTEST_DISABLE_PLUGIN_AUTOLOAD="1",
                PIP_DISABLE_PIP_VERSION_CHECK="1", PIP_NO_CACHE_DIR="1")

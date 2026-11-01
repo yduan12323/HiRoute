@@ -1,6 +1,11 @@
-# Real-scale DEV search: segment-one result
+# Real-scale DEV research: two limited segments
 
-## Existing facts
+Latest status: the authorized second-segment limited DEV is complete; overall
+research success and the 60s/95% target remain unestablished. The segment-one
+sections below are retained as historical evidence. The later second-segment
+section records the new domains, results and current decision boundary.
+
+## Existing facts (segment one, historical)
 
 This is delivery segment one of `HIROUTE_REAL_SCALE_DECISION_AND_PLAN.md`
 (2026-10-31), starting from origin/main `0d02b2bfadd5be937b8fb2f355b2d4728dd61ee2`
@@ -298,3 +303,133 @@ cold index/compiler. This remains within the original 28800 CPU-second envelope.
 No budget extension, extra matrix, real-graph simple-path REF or failed-row
 replacement is permitted by this configuration. No segment-one result supplies
 an incumbent or selection criterion.
+
+### Second-segment results and attribution
+
+The frozen ten rows ran once on the same local M3/16 GiB host at numerical source
+checkpoint `b912391`. [The result table](road_seed_dev_results.jsonl) retains all
+rows, exact keys, seed keys, physical-ledger summaries, timers, work and resource
+counters. Its four candidate-domain digests were checked against the saved
+manifests: every profile/method within a domain has identical candidates and
+endpoints. All seed keys agree within their domain. Every attained Strong/Scale
+pair has the same full optimum key. There were **7 attained rows and 3 time-limit
+UNKNOWN rows**; all ten have independently physically replayed feasible witnesses.
+No timed-out result is labelled optimal, and no valid segment-one row was repeated.
+
+| Domain/profile | Strong status / loaded seconds | Scale status / loaded seconds | First feasible Strong / Scale | Qualified / road-reachable N |
+|---|---|---|---|---|
+| D01 legacy | UNKNOWN / 120.01 | not declared | 39.90 / — | 64 / 64 |
+| D01 route-only | attained / 97.77 | not declared | 5.85 / — | 64 / 64 |
+| D01 optimized | attained / 95.35 | attained / 91.79 | 4.13 / 4.17 | 64 / 64 |
+| D02 optimized | attained / 9.38 | attained / 9.22 | 3.75 / 3.76 | 64 / 63 |
+| D03 optimized | attained / 49.13 | attained / 46.05 | 4.67 / 4.65 | 128 / 127 |
+| D04 optimized | UNKNOWN / 120.07 | UNKNOWN / 120.06 | 4.24 / 4.31 | 128 / 125 |
+
+Loaded times include routing preparation, seed, search and independent witness
+checks; small time-limit overruns are exception cleanup, not extended search.
+Cold index/compiler wall and CPU are separately recorded in every row. Native
+routing, landmark and phase timers overlap and **must not be added**. Counts of
+qualified Sites precede safe directed reachability exclusion. For D02, all 64
+qualified corridor Sites were admitted, and exactly one was safely unreachable;
+this is a complete corridor-domain result, not a province-domain result.
+The preflight also describes undeclared OD/scenario combinations at each N;
+its availability notices for those combinations are not extra solver rows.
+
+For the two optimized methods, each attains **3/4 domains within 120s and 2/4
+within 60s**. All eight optimized rows find a verified feasible plan within 4.68s.
+The independent shortest-road-distance energy screen requires at least two
+positive charges in all four domains. Actual best witnesses are D01 three
+charges / 784.871 km, D02 two / 616.734 km, D03 two / 627.620 km and D04 two /
+640.819 km (D04 only best known). The charging amounts are positive in the table.
+D01 already has a feasible two-charge plan: its third optimal charge improves
+the objective and is **not** physically necessary for feasibility. Exact search
+visits depth five on D01 and four on D03, but this is not evidence for a real
+four-charge optimal witness. Derived relevant depth remains 38/31/32/31 for
+D01/D02/D03/D04, with no imposed depth truncation.
+
+The controlled D01 road-only profile preserves the original 84 seed attempts and
+identical seed key. Seed phase time falls from 34.99 to 2.26 seconds; including
+all loaded preparation and physical replay, first feasibility falls from 39.90
+to 5.85 seconds. The road profile includes pinned landmark reuse, elimination of
+repeated scalar-tree eviction and exact A*, so these observations do not isolate
+the heuristic from caching. The legacy row is censored at 120s; it is not an
+exact total-runtime comparator. It settles 368.12 million scalar vertices while
+reaching 173 transitions. Road-only completes 3525 transitions, with 11.76 million
+scalar plus 117.59 million A* vertices settled. This shows a useful routing-cost
+change, not a fixed-work wall-speed ratio or a new lower bound.
+
+With the same new routing profile, rank-lazy seed reduces D01 seed attempts
+84->20 and skips 64 strictly losing candidate routes, preserving the seed key.
+Seed phase becomes 0.727 seconds and first feasibility 4.13 seconds. Full Strong
+runtime changes 97.77->95.35 seconds: most of the end-to-end gain is routing,
+and many skipped seed pairs are later needed by exact search. No separate
+seed-only or full-factorial ablation was added.
+
+On the three completed optimized domains, Strong and Scale have identical
+exact transitions, terminal attempts and leaf routes: 3525/1254/7809 on D01,
+106/33/152 on D02, and 518/214/1432 on D03. OPEN peaks are 72515->25176,
+1930->478 and 24535->3883. Bound queries are 80256 singleton vs 64586 grouped,
+2079 vs 1221, and 25937 vs 11123. This is batching/queue reduction with modest
+single-run timing differences, **not stronger lower-bound or exact-expansion
+pruning evidence**. Scale's RSS is not consistently lower. On timed-out D04,
+Scale advances 1575 transitions vs Strong's 1514, with different ordering/work;
+both retain the same best feasible full key. No hierarchy-win claim is supported.
+Old/new geographic selections need not be supersets after deterministic N
+truncation; segment-one timings are not same-domain performance controls.
+
+Numerical worker CPU, conservatively including cold graph/compiler work, totals
+**846.521758 seconds**. With carried 3200.991448329 and the predeclared 60-second
+local-development allowance, charged solve/limited-REF accounting is
+**4107.513206329 / 28800 CPU seconds**; **24692.486793671** remain. Selection and
+manifest construction took **0.4011 wall / 0.3994 CPU seconds**, separately
+reported; the existing TSV was reused without a new export/download. Maximum
+observed process RSS was **2.327 GiB**, query-extra RSS **1.122 GiB**, and minimum
+observed host available memory **3.059 GiB**, above the 2 GiB headroom guard.
+There were no host/process memory stops, lost supervisors or substituted rows.
+
+Local focused validation passed **108 tests** with actual native execution,
+including 20 random tiny directed graphs checked against independent simple-path
+enumeration, Unicode/parallel ties, exact rational weights, incomplete landmark
+components, interrupted A* recovery, unchanged seed/full-key parity, equality,
+unattainment, relevant depth, bound admissibility, and workload/resource guards.
+The isolated wheel CI now requires native roads rather than allowing that test
+to silently omit execution on a machine without C++17/Boost. This verification
+is separate from a main research experiment; the real graph never enters REF
+simple-path enumeration. Final CI status is tracked on the draft PR.
+
+Reproduce from a clean checkout with Python 3.11, C++17 and Boost.Multiprecision:
+
+```sh
+PYTHONPATH=src:tools python tools/run_road_seed_dev.py \
+  --config configs/real_scale_road_seed_dev.json \
+  --input-root /path/to/existing/real-scale-dev \
+  --output-root data/road-seed-fresh
+```
+
+`input-root` must contain the existing exact `real-scale-road.tsv`,
+`shared-sites.json` and `site-bindings.json`. `--preflight-only` checks availability
+and host guards without solving; use a distinct output directory for the actual
+run. The runner refuses an existing output directory, freezes the declared ten
+jobs and uses the existing OS supervisor with one numerical worker/thread.
+No graph source or solver source is uploaded to the previously denied server
+location (`dy@202.112.148.131:/home/dy/HiRoute/real-scale-pilot-20261031/native-smoke`).
+That prior source-disclosure denial was not retried or bypassed; the authorized
+local path provided the results above.
+
+### Remaining research boundary
+
+This segment completes the approved road/seed implementation and limited DEV,
+**not the entire taskbook**. The 60s/95% criterion is not met; energy N128 remains
+UNKNOWN, and a real four-charge optimal case, larger/full-province domains,
+external exact baselines, application-value comparisons, novelty validation,
+main-scale matrix and independent frozen holdout remain unestablished. Wider
+corridor feasibility does not validate a province-wide candidate policy.
+
+Keep Strong Flat-BB as the mandatory fair baseline; keep Scale as the optional
+batching comparison. The new road profile materially improves early feasibility
+and makes this N128 schedule workload exactly runnable, but D01 still exceeds
+60s and D04 still cannot finish within 120s. The next decision is whether these
+limits justify a fixed, explicitly scoped main experiment and what novelty or
+additional algorithmic evidence it must test. The current branch stops at a
+draft PR with CI; no main experiment, holdout, further architecture, automatic
+merge or resource purchase is started.
