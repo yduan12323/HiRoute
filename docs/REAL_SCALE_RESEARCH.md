@@ -447,3 +447,70 @@ limits justify a fixed, explicitly scoped main experiment and what novelty or
 additional algorithmic evidence it must test. The current branch stops at a
 draft PR with CI; no main experiment, holdout, further architecture, automatic
 merge or resource purchase is started.
+
+## D04 limited cost diagnosis (after PR #25)
+
+PR #25 was squash merged at `2495ba5f41768747973f92571b8eb2011d319535`.
+This continuation diagnoses the existing D04 / SD02 energy N128 timeout only;
+it does not authorize an architecture, optimization campaign, main experiment,
+holdout, new geography, changed physics or server source upload. Main merge CI
+is monitored separately. Historical rows and their `b912391` provenance remain
+unchanged.
+
+### Existing evidence, before any new diagnostic
+
+| Existing D04 120s row | Strong | Scale |
+|---|---:|---:|
+| Native A* seconds (inside native selected-leg seconds) | 69.454 | 72.568 |
+| Native selected-leg seconds | 88.677 | 93.274 |
+| Scalar-tree preparation seconds, disjoint in this profile | 3.368 | 3.427 |
+| Remaining loaded time outside those native categories | 28.023 | 23.362 |
+| A* pair requests / settled vertices | 1417 / 200531101 | 1539 / 209934551 |
+| Selected-leg requests / Python cache hits / entries | 3096 / 1598 / 1497 | 3531 / 1902 / 1628 |
+| Leaf requests / transitions / nonempty children | 2492 / 1514 / 1019 | 2852 / 1575 / 1078 |
+| Late exact-leg bound rejections / empty children | 977 / 495 | 1276 / 497 |
+
+The selected-leg timer includes A*, road witness reconstruction/JSON and native
+resource callbacks; these nested timers cannot be added. Cached legs never reach
+the 4096-entry capacity, and that cache is not cleared on timeout: there is no
+leg-cache thrashing evidence. Mean A* settled work is about 141518/136410 vertices
+per pair, compared with 150305 on completed D01 and 89744 on completed D03.
+The D04 aggregate cost comes from many costly pairs, not just the seed (0.79s)
+or C/CS propagation (5.64/6.15s). A* alone already exceeds 60s on the unfinished
+120s trace, so eliminating Python overhead alone cannot meet the target on that
+same work. This does not measure how much work remains for an exact proof.
+
+About 59.1%/62.2% of requested leaves do not create a nonempty child, through late
+bound rejection or an empty exact family. Counts alone do not reveal whether
+those leaves consume most routing time. The logs also lack per-target reuse,
+route-work tails, geometry association and the Python decode/bound split. These
+are the specific remaining attribution questions; no algorithm change is made
+from aggregate timings alone.
+
+### Predeclared minimal diagnostic
+
+`configs/d04_cost_diagnostic.json` freezes exactly **one** instrumented Strong
+Flat-BB run on the identical D04 candidate-domain digest
+`2196503277068b59652e84ab54729c25e8aa8f1705b329e09df451a5e2b0e4e0`, with the same
+optimized routing/seed profile and unchanged model. The loaded hard limit is
+**60s**, cold allowance 180s, one numerical worker/thread, 8 GiB process/query
+extra caps and the existing 2 GiB host-headroom guard. Carry 4107.513206329 CPU
+seconds and precharge a conservative **30 CPU seconds** for diagnostic development
+and microchecks; add the actual fresh worker CPU including compiler/cold load.
+There is no retry, second method/query, extra time or new performance-matrix row.
+
+The optional worker hook observes existing calls only. It measures selected-leg
+wall time plus native counter deltas, pre/late completion-bound work, region
+travel relaxation, prefix propagation, terminal work excluding selected legs,
+scalar/landmark preparation and incumbent callback. Per-request records associate
+cost with cache hit, late rejection, empty/nonempty child, target reuse and static
+geometry. Counter-poll/adapter overhead is separately measured. The profile does
+not alter keys, bounds, cache policy, provider checks, search order or physical
+transitions. A strict `>` late-cutoff classification preserves equality. Tiny
+end-to-end regressions check complete keys, seeds, metrics, leaf-flow accounting,
+patch restoration and native callback propagation.
+
+The profiled, interrupted trace is diagnostic evidence only. Its wall time and
+throughput cannot be compared with an uninstrumented method as performance
+results. The unprofiled 120s Strong/Scale rows remain the paired evidence; any
+proposal derived from the sampled prefix must state that limitation.

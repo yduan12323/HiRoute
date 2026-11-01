@@ -523,4 +523,8 @@ if __name__ == '__main__':
     p.add_argument('--cold-load-allowance-s',type=int,default=180)
     p.add_argument('--process-memory-gib',type=int,default=16)
     a=p.parse_args()
-    worker(a) if a.worker else main(a)
+    if a.worker and json.loads(Path(a.config).read_text()).get('cost_diagnostic'):
+        from d04_cost_diagnostic import instrumented_worker
+        instrumented_worker(a,worker)
+    else:
+        worker(a) if a.worker else main(a)

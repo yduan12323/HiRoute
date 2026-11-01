@@ -1,0 +1,29 @@
+{
+  "schema": "hiroute.d04_cost_diagnostic.v1",
+  "scope": "One instrumented cost diagnostic only; not a new performance row or a method comparison. No algorithm change, main experiment, holdout or expansion.",
+  "base_config": "configs/real_scale_dev.json",
+  "domain": {
+    "id": "D04",
+    "query_id": "SD02",
+    "scenario": "energy_only",
+    "N": 128,
+    "corridor_km": 126,
+    "candidate_domain_sha256": "2196503277068b59652e84ab54729c25e8aa8f1705b329e09df451a5e2b0e4e0"
+  },
+  "implementation": {
+    "pair_query_mode": "landmark_astar",
+    "seed_beam_pruning": true
+  },
+  "diagnostic": {
+    "method": "flat_bb_strong",
+    "solve_limit_s": 60,
+    "cold_load_allowance_s": 180,
+    "numeric_workers": 1,
+    "numeric_threads": 1,
+    "carried_cpu_s": 4107.513206329,
+    "development_cpu_allowance_s": 30,
+    "process_memory_gib": 8,
+    "purpose": "Measure disjoint Python cost buckets and per-selected-leg work/outcomes to choose routing-cost vs pre-route-bound work. Existing full 120s Strong/Scale rows remain the performance evidence.",
+    "restrictions": "Exactly one profiled worker; no automatic retries, method expansion, time-limit extension or solver-informed domain changes."
+  }
+}
