@@ -1464,6 +1464,13 @@ N64 does not waive those acceptance gaps. Running all 180 available rows would
 leave only about 234–414s of the current remaining budget under the illustrative
 cold estimate, before those other needs. This staged option is a design for
 the next scope/budget decision, not an added authorization in this segment.
+The current supervisor reserves 180s cold allowance plus 120s query, or 300s
+per fresh worker, before launch. At that worst-case reservation even 88 fresh
+rows would require 26,400s, exceeding the remaining budget. Thus the first stage
+also needs a deterministic row order, explicit budget-stop records and reserved
+space for later deliverables; observed 9–10s cold loads do not guarantee that the
+whole proposed stage fits. Existing identical rows can be reused, but no
+optimistic cold estimate or reduced allowance is silently adopted here.
 
 Freeze a primary method and report both fair methods by N/scenario/SOC, including
 all declared failures, resource stops, infeasibility and unattainment. Report
