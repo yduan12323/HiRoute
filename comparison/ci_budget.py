@@ -14,8 +14,9 @@ import time
 
 out=Path(os.environ['RUNNER_TEMP'])/'independent-comparator-gate'
 out.mkdir(parents=True,exist_ok=True)
-# Current900-second design gate reserves360 total for one PR and one subsequent
-# merged-main comparator CI. Any further invocation needs admission against the
+# Current900-second design gate reserves452 total: original PR charged91.791824,
+# audit-correction PR reserved180, and subsequent merged-main reserved180.
+# Any further invocation needs admission against the
 # remaining shared allocation; this per-invocation cap is not a fresh budget.
 CAP=180
 budget,charged,FIXED=CAP-60,0,60

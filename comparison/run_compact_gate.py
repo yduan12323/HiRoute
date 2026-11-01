@@ -6,12 +6,15 @@ from pathlib import Path
 from compact_smt import solve
 from run_gate import pack, semantics
 from tiny_smt import Unknown
+from parity_receipts import atomic_json, run_parity
 
 ROOT=Path(__file__).resolve().parents[1]
 
 
 def run(output):
     output=Path(output);output.mkdir(parents=True,exist_ok=True)
+    if any((output/name).exists() for name in ('independent.json','results.json')):
+        raise FileExistsError('preserve existing gate receipts; use a fresh output directory')
     source=ROOT/'comparison/compact_cases.json';cases=json.loads(source.read_text())['cases']
     rows=[];stopped=False
     for case in cases:
@@ -25,20 +28,16 @@ def run(output):
             except Exception as exc:
                 row.update(status='unknown_backend' if isinstance(exc,Unknown) else 'GATE_ERROR',error=repr(exc));stopped=True
         rows.append(row)
-        (output/'independent.json').write_text(json.dumps(rows,indent=2)+'\n')
+        atomic_json(output/'independent.json',rows)
     # The independent phase is now complete, including every error/unrun cell.
-    if not stopped:
+    def solve_core(case,method):
+        # Import failures also occur inside a pre-recorded Core slot.
         from hiroute.contracts import ProblemSnapshot
         from hiroute.exact.scale import solve_scale
-        for case,row in zip(cases,rows):
-            row['core']=[]
-            for method in ('flat_bb_strong','scale'):
-                core=solve_scale(ProblemSnapshot.from_dict(case['snapshot']),method=method,time_limit_s=5)
-                row['core'].append(dict(method=method,semantic=semantics(core),match=semantics(core)==row['semantic']))
-    passed=not stopped and all(all(c['match'] for c in row['core']) for row in rows)
-    result=dict(schema='hiroute.compact_gate.v1',passed=passed,new_real_rows=0,
-        case_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),rows=rows)
-    (output/'results.json').write_text(json.dumps(result,indent=2)+'\n')
+        return solve_scale(ProblemSnapshot.from_dict(case['snapshot']),method=method,time_limit_s=5)
+    result=run_parity(cases,rows,output,solve_core,semantics,
+        case_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),independent_ok=not stopped)
+    passed=result['passed']
     print(json.dumps(dict(passed=passed,cases=len(rows),outcomes=[(r['id'],r.get('semantic'),r.get('error')) for r in rows])))
     return passed
 

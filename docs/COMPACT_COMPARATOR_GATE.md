@@ -164,7 +164,8 @@ skipping the second leaves insufficient energy after service. Both unrestricted
 Core methods agree with the independently solved/replayed H3 key. This adds two
 focused comparisons without changing the frozen13-case cohort or any real row.
 
-Twenty focused tests pass in normal and `-OO` Python, including the old gate,
+At numerical source `23204b5a8731e9adcacfb60956d3f1855c349f10`, twenty focused
+tests pass in normal and `-OO` Python, including the old gate,
 compact proof cases and policy-definition tests. An additional waiting-plateau
 fixture has complete H_U=2: one-stop CS and two-stop C-then-S both attain
 J12/5,Q1, and H selects CS. Tests reject invalid upper witnesses, unsupported
@@ -173,6 +174,23 @@ seed with excessive waiting derives H_U>6 and returns unsupported without an
 optimal key. Missing a seed remains UNKNOWN. There were no failed semantic
 cases in this gate. All raw runs, including any future failures, retain their
 denominator and error/unrun states.
+
+The subsequent audit-only correction persists all26 Core slots before the
+first parity call, then atomically checkpoints before and after each call.
+Caught exceptions (including interrupts and SystemExit(0)) finalize a failed
+gate with explicit error and remaining-unrun cells. Abrupt process termination
+leaves the current slot running/uncertain, prior completed receipts and future
+unrun cells, with passed=false and finalized=false. Checkpoint I/O failures
+propagate; pre-existing output receipts require a fresh directory. Five mocked
+regressions pass normally and under `-OO`: mid-phase exception, abrupt child
+exit, mismatch/interrupt, all-slot completion and atomic replace failure.
+These local correction checks import neither Core nor a numerical solver.
+
+The original13-case results,196 SMT inputs per mode and original CI artifact
+remain evidence for source23204b5a; they are not relabeled as produced by the
+delivery correction. The solver, frozen cases and published numerical summary
+are unchanged. Standard bounded CI on the corrected head checks integration in
+fresh artifact directories, separately from those historical records.
 
 Observed local CPU is a resource receipt, not a runtime benchmark. No real
 graph/N64 or baseline policy solve ran. A compact encoding does not establish
@@ -183,10 +201,16 @@ that external real-domain selected-leg preparation or optimization fits120s.
 The entire **900CPU-second gate** is conservatively charged, including setup,
 tiny validation, control, reporting and verification. Carry becomes
 **12805.649970329 /28800**, leaving15994.350029671. Preprocessing remains
-**652.040677976 /900**. Reservations are240 local CPU,360 for dedicated PR and
-subsequent merged-main comparator CI (180 each),180 development/control/report/
-verification and120 for cancelling the unrelated automatic PR legacy workflow
-at startup. No unused reservation authorizes extra measurements.
+**652.040677976 /900**. The initial allocation was240 local CPU,360 for PR/main
+CI,180 development/control/report/verification and120 automatic PR legacy
+startup cancellation. For the audit correction,92 unused local seconds move
+to CI: reservations are now148 local,452 shared dedicated CI,180 control/report
+and120 startup cancellation, still900 total. Original PR CI conservatively
+charged91.791824; corrected-head PR CI reserves180 and future merged-main CI
+retains180 (451.791824 <=452). Local correction verification adds only the five
+mocked tests in each Python mode. Both allocation versions and original raw
+receipts are retained externally. No unused reservation authorizes extra
+measurements.
 
 The pre-existing merged-main legacy M5 workflow was already admitted by the
 parent's merge before this gate. It is tracked as inherited infrastructure,
