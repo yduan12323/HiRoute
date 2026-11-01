@@ -150,12 +150,19 @@ class StageAccounting(unittest.TestCase):
             stage.pilot.atomic(out/'results.json',dict(rows=rows))
             d=out/'attempts'/stage.row_id(rows[0]);d.mkdir(parents=True)
             stage.pilot.atomic(d/'worker.outcome.json',dict(returncode=1,timed_out=False))
+            stage.pilot.atomic(d/'started.json',dict(controller_pid=999999))
+            stage.pilot.atomic(d/'worker.supervisor.json',dict(status='completed',returncode=1,pid=999998))
             with patch.object(stage.common,'active_pid',return_value=False):
                 self.assertEqual(stage.failed_setup_cost(out),7.3)
                 rows[0]['query_loaded_total_s']=0.01
                 stage.pilot.atomic(out/'results.json',dict(rows=rows))
                 with self.assertRaisesRegex(ValueError,'possible loaded query'):
                     stage.failed_setup_cost(out)
+
+    def test_changed_dependency_environment_stops_before_process_monitor_or_worker(self):
+        with patch.dict(stage.os.environ,{'CPATH':'different'},clear=True):
+            with self.assertRaisesRegex(ValueError,'compiler/header environment changed'):
+                stage.dependency_preflight(dict(dependency_environment=dict(CPATH='frozen',compiler='/usr/bin/c++')))
 
     def prepare_mock(self,out):
         stage.pilot.atomic(out/'preparation.json',dict(spec=self.spec,definition=self.definition,

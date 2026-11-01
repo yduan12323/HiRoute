@@ -1,3 +1,24 @@
+# Planning-value DEV update
+
+The frozen two-policy application gate has delivered six once-only loaded rows
+and two budget-unrun slots, retaining the full4-query/8-slot denominator. One
+policy optimum, five timeouts and four original-model-verified feasible plans
+were observed. Historical joint controls were joined only after terminal policy
+receipts. WD07/E18 fixed-site matches the attained joint full key; the separated
+feasible plan is4010.576s higher in J but remains policy-UNKNOWN. WD01/E48's
+separated plan matches its UNKNOWN joint reference, so no universal gain is
+claimed. No new joint run or four-positive-charge witness was produced.
+
+See [PLANNING_VALUE_DEV.md](PLANNING_VALUE_DEV.md) and
+[planning_value_dev_results.json](planning_value_dev_results.json) for all rows,
+physical metrics, setup failures and source identities. Inclusive gate charge is
+**1662.630577412 /3000 CPU seconds**, original cumulative
+**14468.280547741 /28800**; preprocessing stays **652.040677976 /900**.
+The final pair was not admitted under the frozen1240+120 reservation rule.
+Original timing/scale, wider independent comparisons and frozen holdout remain
+unmet. The original taskbook remains incomplete. PR37 main dedicated CI passed;
+its separate full legacy M5 mock CI failed and remains explicitly unresolved.
+
 # Real-scale DEV research
 
 The [compact comparator design gate](COMPACT_COMPARATOR_GATE.md) implements a

@@ -126,12 +126,31 @@ def failed_setup_cost(root):
         raise ValueError('possible loaded query; no automatic retry')
     directory=root/'attempts'/row_id(failed)
     receipts=list(directory.glob('*.outcome.json'))
-    if len(receipts)!=1:
+    starts=list((root/'attempts').glob('*/started.json'))
+    supervisors=list((root/'attempts').glob('*/*.supervisor.json'))
+    outcomes=list((root/'attempts').glob('*/*.outcome.json'))
+    if (len(receipts)!=1 or len(starts)!=1 or len(supervisors)!=1 or len(outcomes)!=1 or
+            starts[0].parent!=directory or supervisors[0].parent!=directory):
         raise ValueError('missing unambiguous cold-worker terminal receipt')
     terminal=load(receipts[0])
-    if terminal['returncode']!=1 or terminal.get('timed_out'):
+    supervisor=load(supervisors[0])
+    if (terminal['returncode']!=1 or terminal.get('timed_out') or
+            supervisor['status']!='completed' or supervisor['returncode']!=1 or
+            common.active_pid(supervisor['pid'])):
         raise ValueError('unexpected cold-worker terminal state')
     return status['worker_cpu_charged_s']+common.closed_controller_cost(status)
+
+
+def dependency_preflight(prepared):
+    """Recheck the prepared compiler environment and monitoring before starts."""
+    import shutil
+    dependency=prepared.get('dependency_environment')
+    if not dependency:return
+    if (os.environ.get('CPATH')!=dependency['CPATH'] or
+            shutil.which('c++')!=dependency['compiler']):
+        raise ValueError('prepared compiler/header environment changed')
+    import psutil
+    psutil.pids()
 
 
 def admission(spec, charged):
@@ -181,6 +200,7 @@ def execute(args):
         spec, definition, _ = recipe(args.config)
         if spec != prepared['spec'] or common.source_identity() != prepared['source']:
             raise ValueError('per-run source/environment/spec changed')
+        dependency_preflight(prepared)
         for record in prepared['configs'].values():
             for name in ('config','preflight'):
                 if digest(record[name]) != record[name+'_sha256']:
