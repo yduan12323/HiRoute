@@ -1214,3 +1214,38 @@ and repeatedly used Shandong cases are DEV. Neither main experiments nor holdout
 were run here. Preserve the best actual method if broader evidence favors Strong;
 queue engineering and one positive Scale pair do not by themselves complete the
 research project or establish the paper's main claim.
+
+## Existing-domain transfer gate: frozen declaration
+
+Verified merged base is `1473eab6e1b169fb130d9fe183e5c33bdf5e26ff` (PR #29);
+push CI is monitored separately. This segment changes no solver, bounds,
+queue/seed/road/cache policy, physics or depth semantics. The current complete
+profile is frozen in `configs/existing_domain_transfer_dev.json`:
+
+| Domain | Frozen query | Scenario | Qualified N | Corridor | Methods |
+| --- | --- | --- | ---: | ---: | --- |
+| D01 | SD01 Heze–Rongcheng | energy-only | 64 | 60 km | Strong, then Scale |
+| D03 | SD03 Dezhou–Rongcheng | schedule | 128 | 60 km | Strong, then Scale |
+
+The input fingerprints are respectively
+`40fa518268b851f14fa61ed6a987c9d4e9c9fe0c7fb373af636fa7a9c8589b7a` and
+`710d2e1c4f8a456ca8bf7a5777defcd164221c64aff7b914e406d7ac4daa4c14`.
+Both methods enable the same landmark A*, two-slot adaptive source reuse,
+rank-lazy deterministic seed, inbound-energy bound and strict enqueue policy.
+D01's historical optimized witness charges three times (independent necessity
+lower bound two); D03's historical schedule witness charges twice. These are
+comparisons to be verified, not initial incumbents supplied to the new workers.
+Old valid rows and the D04 rows are not rerun or relabeled.
+
+Exactly four new method-rows are authorized: one run per domain/method. Preflight
+must pass for all four before solving. Keep the original 120s loaded query cap,
+60s target, single numerical worker/thread, 8 GiB process/query guards and 2 GiB
+host headroom. Carry **4965.164126329 / 28800 CPU seconds**, conservatively
+precharge **60s** for configuration/verification/documentation and read-only data
+assessment, then charge all actual fresh worker CPU including compiler/cold
+loads. Selection/manifest preparation remains separately reported. No algorithm
+tuning, grid, baseline or D04 repeat, wider solver run, main experiment, holdout
+or denied server upload is included. A wider-design assessment may read the
+existing data and historical records, but cannot claim a new route, seed,
+charging count or optimum without a solve. Broader scope and budget remain a
+separate decision after this bounded delivery.
