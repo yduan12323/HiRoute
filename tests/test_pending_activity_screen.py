@@ -192,6 +192,19 @@ class PendingActivityScreenTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'pending_activity_screen'):
                     scale.solve_scale(snapshot, pending_activity_screen=flag)
 
+    def test_live_diagnostics_survive_a_late_external_resource_exception(self):
+        snapshot=ProblemSnapshot.from_dict(baseline_search.raw())
+        class LateLimit(RoadIndex):
+            def metrics(self):raise scale.ResourceLimit('time_limit')
+        for method in baseline_search.METHODS:
+            diagnostics={}
+            with self.assertRaises(scale.ResourceLimit):
+                scale.solve_scale(snapshot,method=method,provider=LateLimit(snapshot.directed_edges),
+                                  diagnostics=diagnostics)
+            self.assertGreater(diagnostics['metrics']['terminal_attempts'],0)
+            self.assertIn('search',diagnostics['seconds'])
+            self.assertNotIn('key',diagnostics)
+
 
 if __name__ == '__main__':
     unittest.main()

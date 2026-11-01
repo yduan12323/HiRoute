@@ -53,6 +53,61 @@ def test_pair_reservation_includes_cold_and_margin_and_both_ledgers():
     assert not stage.reserve_pair(s,260.001)
 
 
+def test_authorized_single_pair_keeps_exact_domain_and_only_one_profile_override():
+    s=stage.load(ROOT/'configs/pending_activity_dev_check.json');m=matrix()
+    stage.validate_spec(s,m)
+    selected=stage.stage_cells(s,m)
+    assert [stage.cell_id(c) for c in selected]==['WD01-E18-schedule-N64']
+    assert stage.reused_rows(selected[0],s,m) is None
+    assert stage.reserve_pair(s,120)
+    assert not stage.reserve_pair(s,120.001)
+    for field,value in [('stage_cap_cpu_s',1361),('selected_cell_ids',['WD02-E18-schedule-N64']),
+                        ('implementation_overrides',{'pending_activity_screen':False})]:
+        with pytest.raises(ValueError):stage.validate_spec({**s,field:value},m)
+
+
+def test_partial_diagnostic_merge_does_not_invent_completion_or_zero_counters():
+    row={'status':'time_limit','mathematical_status':'unknown'}
+    stage.pilot.preserve_live_diagnostics(row,{})
+    assert 'metrics' not in row
+    counters={'transitions':7};diag={'metrics':counters,'seconds':{'transitions':1}}
+    stage.pilot.preserve_live_diagnostics(row,diag)
+    assert row['metrics'] is counters and row['seconds_are_partial']
+    assert row['status']=='time_limit' and 'key' not in row and 'depth_contract' not in row
+    stage.pilot.preserve_live_diagnostics(row,{'metrics':{'transitions':999}})
+    assert row['metrics']['transitions']==7
+
+
+def test_single_pair_live_guard_two_rows_and_resume_never_duplicates(tmp_path):
+    s=stage.load(ROOT/'configs/pending_activity_dev_check.json');m=matrix()
+    prepared=dict(spec=s,source={},matrix_sha256='matrix',configs={})
+    stage.pilot.atomic(tmp_path/'preparation.json',prepared)
+    original=stage.load
+    def fake_load(path):return m if Path(path)==ROOT/s['matrix'] else original(path)
+    def fake_worker(out,p,cell,method,total,*,cpu_budget_guard):
+        previous=0 if method=='flat_bb_strong' else 3
+        assert cpu_budget_guard(1219-previous) is True  #110+1219+30=1359
+        assert cpu_budget_guard(1220-previous) is False
+        with patch.object(stage.time,'process_time',return_value=5):
+            assert cpu_budget_guard(1214-previous) is True
+            assert cpu_budget_guard(1215-previous) is False
+        target=out/'attempts'/stage.cell_id(cell)/method;target.mkdir(parents=True)
+        return dict(method=method,status='infeasible',worker_cpu_s=2,supervisor_cpu_s=1,
+                    depth_contract={'mode':'unrestricted'})
+    with patch.object(stage,'source_identity',return_value={}),patch.object(stage,'digest',return_value='matrix'),\
+         patch.object(stage,'load',side_effect=fake_load),patch.object(stage,'run_worker',side_effect=fake_worker) as run:
+        stage.execute(SimpleNamespace(output_root=str(tmp_path)))
+        assert run.call_count==2
+        assert stage.load(tmp_path/'status.json')['state']=='complete'
+        assert len(stage.load(tmp_path/'results.json')['rows'])==2
+        raw={str(p):p.read_bytes() for p in tmp_path.glob('attempts/*/*/final.json')}
+        run.reset_mock();run.side_effect=AssertionError('duplicate')
+        stage.execute(SimpleNamespace(output_root=str(tmp_path)))
+        run.assert_not_called()
+        assert {str(p):p.read_bytes() for p in tmp_path.glob('attempts/*/*/final.json')}==raw
+        assert stage.load(tmp_path/'status.json')['stage_charged_cpu_s']==118
+
+
 def test_completed_receipt_recovery_and_uncertain_attempt_never_restart(tmp_path):
     d=tmp_path/'attempt';d.mkdir()
     assert stage.terminal_row(d) is None

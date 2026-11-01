@@ -1,5 +1,21 @@
 # Real-scale DEV research
 
+The subsequent [single pending-activity DEV check](PENDING_ACTIVITY_DEV_CHECK.md)
+is terminal: two fresh WD01/E18/schedule/N64 screen-on rows both timed out at120s,
+preserving the same physically verified three-charge feasible full K as reused
+historical controls. No runtime benefit or new optimum was established. Scale
+recorded screen rejections but essentially the same censored transition count;
+Strong's solver diagnostics were unavailable after an enclosing resource limit.
+A post-run diagnostic-only correction is tested without rerunning either row.
+The recommendation is a research go/no-go decision on the hierarchy hypothesis,
+not another tuning loop or a main/holdout launch. Overall taskbook completion
+remains unestablished. Latest conservative accounting is
+**11005.649970329 /28800 CPU seconds**, with this check **406.414064 /1360**;
+preprocessing is separately **652.040677976 /900**. See the report for missing
+fields, attribution limits, exact provenance and remaining acceptance gaps.
+
+### Completed N64 cohort (historical)
+
 The frozen **N64 DEV stage is terminal**, with all48 query cells /96 method
 slots retained:86 fresh workers,2 authorized historical rows and8 input-unavailable
 slots. Strong /Scale attained36 /37 optima and timed out8 /7 times. Within60s,
@@ -10,7 +26,7 @@ Both methods produced physically replayed feasible routes for all44 supported
 cells. The95%/60s and median10s goals failed; no four-positive-charge case was
 observed. Overall taskbook completion and research success remain unestablished.
 
-Inclusive conservative solve/development/controller accounting is now
+Inclusive conservative solve/development/controller accounting at cohort closure was
 **10299.235906329 /28800 CPU seconds**, of which this stage charged
 **5073.157452 /12000**. Preprocessing is separately651.638454976 /900CPU seconds.
 See [final N64 results, all96 slots](n64_coverage_stage_results.json) and

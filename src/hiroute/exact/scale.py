@@ -264,7 +264,7 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
                 seed_beam_width=4, _clock=time.monotonic, c_backend='analytic',
                 memory_baseline_bytes=None, seed_beam_pruning=False,
                 inbound_energy_bound=False, eager_incumbent_pruning=False,
-                pending_activity_screen=False):
+                pending_activity_screen=False, diagnostics=None):
     """Solve the full declared candidate domain, with resource-limited UNKNOWN.
 
     flat_bb_strong and scale share the exact kernel, singleton relaxation,
@@ -282,6 +282,9 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
     time relaxation in either method to reject strictly late next actions.
     Core S/CS window clipping remains exact; C stays physically unchanged.
     Equality/open infima are retained. use_bound=False disables this screen.
+    diagnostics is an optional caller-owned dict retaining live counters if an
+    enclosing watchdog interrupts final result construction. Its timers can be
+    partial and it never supplies a mathematical result or an incumbent.
     seed_beam_width must be a strictly positive integer; zero does not disable
     the seed. Invalid widths are rejected before constructing a road index.
     """
@@ -296,6 +299,8 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
         raise ValueError('eager_incumbent_pruning must be boolean')
     if type(pending_activity_screen) is not bool:
         raise ValueError('pending_activity_screen must be boolean')
+    if diagnostics is not None and not isinstance(diagnostics, dict):
+        raise ValueError('diagnostics must be a dict')
     if type(inbound_energy_bound) is not bool:
         raise ValueError('inbound_energy_bound must be boolean')
     if type(seed_beam_pruning) is not bool:
@@ -338,6 +343,8 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
         enqueue_pruned_states=0, enqueue_pruned_actions=0,
         heap_pushes=0, heap_pops=0)
     seconds = dict(preparation=0., seed=0., search=0., transitions=0., terminals=0.)
+    if diagnostics is not None:
+        diagnostics.update(metrics=metrics, seconds=seconds)
     incumbent = None
     seed = None
     face = OptimalFace()

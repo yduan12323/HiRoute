@@ -1,0 +1,978 @@
+{
+  "UNKNOWN_timeouts": 2,
+  "actual_new_method_rows": 2,
+  "all_physical_replay_passed": true,
+  "completed_optima": 0,
+  "diagnostic_availability": {
+    "flat_bb_strong": "solver counters/timers/seed/depth result unavailable after enclosing resource limit; missing is not zero",
+    "scale": "solver counters/timers/seed/depth present"
+  },
+  "historical_control_rows_reused": 2,
+  "historical_numerical_source_commit": "fb6989f34c34f1c2c23cacba0dd96ae79d38f63f",
+  "interpretation": "Both new rows still exceed60s and remain UNKNOWN at120s. Scale prune counters overlap other bounds and do not establish incremental transition or runtime savings. Strong counter loss prevents symmetric attribution.",
+  "numerical_source_commit": "9cbfe42aa0394c10103269c4b78027923c3c18c6",
+  "post_run_diagnostic_fix": "Optional live counter sink added after these runs; no historical or fresh row is backfilled and no rerun performed",
+  "preparation": {
+    "configs": {
+      "18": {
+        "config": "/Users/dy/Documents/Codex/2026-10-31/task-4/pending-activity-dev-artifacts-v1/E18.config.json",
+        "config_sha256": "2429f4a15ca90dcae621e230e1d74ab52605237e5b89a3f8227a6d04c836e139",
+        "preflight": "/Users/dy/Documents/Codex/2026-10-31/task-4/pending-activity-dev-artifacts-v1/E18.preflight.json",
+        "preflight_sha256": "1ba9a9070a15e6966959abd23395e7018820984201acb9a30f54e731bdd8d583"
+      }
+    },
+    "disk_free_bytes": 46226903040,
+    "host_available_bytes": 4859396096,
+    "input_sha256": {
+      "bindings": "c981bbf5d529f61e0385b4424b5145c44b6afd7dbb35b90fd625792b1e28bf42",
+      "catalog": "a71e0a645fd21a2f415b4b079033cfe631dfb2292a1a41ce43b439304805a1a9",
+      "graph": "8076e850b096c5cf74f307ae7ad34c2aebd1f1e53c3c4d092234d40078a4c54d"
+    },
+    "input_stat": {
+      "bindings": {
+        "mtime_ns": 1793527274238265968,
+        "size": 163709
+      },
+      "catalog": {
+        "mtime_ns": 1793527274236007014,
+        "size": 1785880
+      },
+      "graph": {
+        "mtime_ns": 1793438510874922536,
+        "size": 530374281
+      }
+    },
+    "inputs": {
+      "bindings": "/Users/dy/Documents/Codex/2026-10-31/task-4/charging-coverage-artifacts-v1/audit-v1/site-bindings.json",
+      "catalog": "/Users/dy/Documents/Codex/2026-10-31/task-4/charging-coverage-artifacts-v1/audit-v1/shared-sites.json",
+      "graph": "/Users/dy/Documents/Codex/2026-10-31/task-4/hiroute-real-scale/data/real-scale-dev/real-scale-road.tsv"
+    },
+    "matrix_sha256": "963adb1615c1460710b261b698a65a13030b6253c501518037a3c5fd85f00adb",
+    "preparation_cpu_s": 0.402223,
+    "preparation_wall_s": 0.5509971250139643,
+    "road_query_called": false,
+    "schema": "hiroute.n64.preparation.v1",
+    "solver_called": false,
+    "source": {
+      "commit": "9cbfe42aa0394c10103269c4b78027923c3c18c6",
+      "executable": "/tmp/hiroute-c-venv/bin/python",
+      "platform": "macOS-27.2-arm64-arm-64bit",
+      "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+    },
+    "spec": {
+      "base_config": "configs/real_scale_dev.json",
+      "carried_cpu_s": 10599.235906329,
+      "cold_allowance_s": 180,
+      "controller_reservation_cpu_s": 310,
+      "development_and_reporting_precharge_cpu_s": 110,
+      "implementation_overrides": {
+        "pending_activity_screen": true
+      },
+      "loaded_limit_s": 120,
+      "matrix": "configs/charging_coverage_dev_matrix.json",
+      "methods": [
+        "flat_bb_strong",
+        "scale"
+      ],
+      "original_cap_cpu_s": 28800,
+      "pair_reservation_cpu_s": 1240,
+      "preparation_cap_cpu_s": 900,
+      "preparation_carried_cpu_s": 651.638454976,
+      "process_memory_gib": 8,
+      "report_controller_startup_headroom_cpu_s": 10,
+      "reuse": null,
+      "schema": "hiroute.pending_activity_dev_check.v1",
+      "scope": "Authorized single WD01/E18/schedule/N64 DEV pair; no grid/main/holdout",
+      "selected_cell_ids": [
+        "WD01-E18-schedule-N64"
+      ],
+      "stage_cap_cpu_s": 1360,
+      "stop_policy": "Reserve1240 plus actual controller CPU before the pair;110 development/report precharge and10 startup headroom fit the120 non-pair allocation. Live guard combines previous workers, development, cumulative controller and active worker peak, stopping30 CPU seconds before either cap. Historical controls are read-only, not fresh rows. Never restart an uncertain attempt.",
+      "target_loaded_s": 60,
+      "worker_enforced_cpu_s": 300,
+      "worker_reservation_cpu_s": 310
+    },
+    "spec_sha256": "9cd897fd4567d4cb2c141572edcb84a7b32561a5da140be739900275b0af58cb",
+    "total_preparation_cpu_s": 652.0406779760001
+  },
+  "records": [
+    {
+      "role": "historical_screen_off_control",
+      "row": {
+        "N": 64,
+        "accounting_original_total_cpu_s": 8037.912465329,
+        "accounting_stage_total_cpu_s": 2811.8340109999995,
+        "bound_enabled": true,
+        "candidate_and_input_preparation_s": 2.9489292909856886,
+        "candidate_domain_claim": "Explicit truncated geographic candidate domains only; neither safe filtering nor province/full-domain optimality",
+        "candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+        "cold_index_cpu_s": 10.532119,
+        "cold_index_wall_s": 11.837885832996108,
+        "depth_contract": {
+          "declared_limit": null,
+          "incumbent_derived_limit": 51,
+          "mode": "unrestricted",
+          "rule": "floor(U_J/(h_min+lambda_stop))"
+        },
+        "direct_selected_length_m": "96283519/125",
+        "direct_selected_time_s": "495771923331/19250000",
+        "eligible_unique_anchors": 650,
+        "execution": "fresh",
+        "feasible_key": [
+          "4495362171241/96250000",
+          "355450183/3125000",
+          3,
+          [
+            [
+              "node/13098561677",
+              "CS"
+            ],
+            [
+              "node/13353329772",
+              "C"
+            ],
+            [
+              "node/12996141012",
+              "C"
+            ]
+          ]
+        ],
+        "graph_index_resident_bytes": 1297678336,
+        "great_circle_m": 663975.0405656813,
+        "host_available_min_bytes": 5180325888,
+        "implementation": {
+          "eager_incumbent_pruning": true,
+          "inbound_energy_bound": true,
+          "pair_query_mode": "landmark_astar",
+          "seed_beam_pruning": true,
+          "source_tree_reuse": true
+        },
+        "initial_energy_kwh": "18",
+        "mathematical_status": "unknown",
+        "method": "flat_bb_strong",
+        "metrics": {
+          "empty_prefixes": 180,
+          "enqueue_attempts": 105293,
+          "enqueue_pruned_actions": 2164,
+          "enqueue_pruned_nodes": 2164,
+          "enqueue_pruned_regions": 2164,
+          "enqueue_pruned_states": 0,
+          "equality_retained": 0,
+          "heap_pops": 9215,
+          "heap_pushes": 103129,
+          "inbound_energy_late_empty_actions": 12,
+          "inbound_energy_pruned_actions": 64142,
+          "inbound_energy_pruned_regions": 64142,
+          "leaf_routes": 5994,
+          "max_depth": 6,
+          "peak_open": 93916,
+          "pruned_actions": 0,
+          "pruned_regions": 0,
+          "safe_unreachable_sites": 1,
+          "seed_attempts": 33,
+          "seed_rank_pruned_effects": 109,
+          "seed_rank_pruned_routes": 106,
+          "singleton_queries": 163633,
+          "summary_queries": 0,
+          "terminal_attempts": 3221,
+          "terminal_infeasible_prefixes": 3221,
+          "terminal_records_peak": 1,
+          "transition_input_pieces": 83437,
+          "transition_output_pieces": 93855,
+          "transitions": 5981
+        },
+        "necessary_charge_count_lower_bound": 2,
+        "new_total_cpu_s": 5535.881676329,
+        "open_remaining": 93914,
+        "process_group_peak_rss_bytes": 2063777792,
+        "query_cpu_s": 119.27106899999998,
+        "query_extra_peak_bytes": 766099456,
+        "query_id": "WD01",
+        "query_loaded_total_s": 120.11075191598502,
+        "query_memory_baseline_bytes": 1297678336,
+        "routing_metrics": {
+          "astar_queries": 384,
+          "astar_relaxed_edges": 26445939,
+          "astar_settled_vertices": 14577545,
+          "astar_time_s": 5.09992,
+          "backend": "exact_integer_scaled_cpp",
+          "build_time_s": 9.36967,
+          "cached_path_edges": 460733,
+          "compile_load_time_s": 2.460518083011266,
+          "constructor_time_s": 11.830620875000022,
+          "distance_cache_entries": 0,
+          "distance_cache_values": 0,
+          "edges": 5900232,
+          "index_builds": 1,
+          "index_rss_increment_bytes": 1262108672,
+          "landmark_preparation_s": 2.01347,
+          "leg_cache_entries": 434,
+          "length_scale": "100000000000000000000000",
+          "nodes": 2986695,
+          "pair_query_mode": "landmark_astar",
+          "pair_workspace_values": 0,
+          "pinned_landmark_count": 0,
+          "process_current_rss_bytes": 1963442176,
+          "queued_labels": 0,
+          "scalar_cache_hits": 3,
+          "scalar_queries": 7,
+          "scalar_relaxed_edges": 23257460,
+          "scalar_settled_vertices": 11761830,
+          "scalar_time_s": 3.62529,
+          "selected_leg_cache_hits": 8814,
+          "selected_leg_queries": 9249,
+          "selected_leg_time_s": 9.48126,
+          "source_tree_build_attempts": 0,
+          "source_tree_build_relaxed_edges": 0,
+          "source_tree_build_settled_vertices": 0,
+          "source_tree_build_time_s": 0,
+          "source_tree_builds": 0,
+          "source_tree_cache_entries": 0,
+          "source_tree_cache_hits": 0,
+          "source_tree_evictions": 0,
+          "source_tree_reuse_enabled": true,
+          "source_tree_uses": 0,
+          "source_tree_work_sources": 0,
+          "time_scale": "770000000000000000000000000"
+        },
+        "scenario": "schedule",
+        "scenario_eligible_sites": 650,
+        "seconds": {
+          "preparation": 0.8007094170025084,
+          "search": 115.37747224999475,
+          "seed": 0.9035601250070613,
+          "terminals": 1.2886327523738146,
+          "transitions": 77.39264627016382
+        },
+        "seed_key": [
+          "4495362171241/96250000",
+          "355450183/3125000",
+          3,
+          [
+            [
+              "node/13098561677",
+              "CS"
+            ],
+            [
+              "node/13353329772",
+              "C"
+            ],
+            [
+              "node/12996141012",
+              "C"
+            ]
+          ]
+        ],
+        "shortest_road_distance_m": "741402097/1000",
+        "solve_limit_s": 120,
+        "source_kind": "real_shandong_dev",
+        "stage_charged_cpu_s": 130.803222,
+        "stage_cumulative_cpu_s": 310.803222,
+        "status": "time_limit",
+        "supervisor_cpu_s": 128.519990272,
+        "supervisor_total_s": 132.27635858298163,
+        "time_to_first_feasible_s": 4.648314999998547,
+        "total_cumulative_cpu_s": 5536.881676329,
+        "witness": {
+          "charges_kwh": [
+            "33210401/781250",
+            "341754551/6250000",
+            "103462607/6250000"
+          ],
+          "driving_time_s": "532164917513/19250000",
+          "elapsed_time_s": "4322112171241/96250000",
+          "independent_key": [
+            "4495362171241/96250000",
+            "355450183/3125000",
+            3,
+            [
+              [
+                "node/13098561677",
+                "CS"
+              ],
+              [
+                "node/13353329772",
+                "C"
+              ],
+              [
+                "node/12996141012",
+                "C"
+              ]
+            ]
+          ],
+          "initial_wait_s": "82211658339/17187500",
+          "physical_verified": true,
+          "positive_charge_count": 3,
+          "terminal_energy_kwh": "6",
+          "total_distance_m": "392950183/500"
+        },
+        "worker_cpu_s": 129.803222,
+        "worker_peak_rss_bytes": 2063777792,
+        "worker_total_s": 131.948688665987,
+        "workload_mode": "pilot"
+      }
+    },
+    {
+      "role": "fresh_screen_on",
+      "row": {
+        "N": 64,
+        "accounting_execution_source": {
+          "commit": "9cbfe42aa0394c10103269c4b78027923c3c18c6",
+          "executable": "/tmp/hiroute-c-venv/bin/python",
+          "platform": "macOS-27.2-arm64-arm-64bit",
+          "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+        },
+        "accounting_original_total_cpu_s": 10856.310279329,
+        "accounting_stage_total_cpu_s": 257.074373,
+        "bound_enabled": true,
+        "candidate_and_input_preparation_s": 2.712381541990908,
+        "candidate_domain_claim": "Explicit truncated geographic candidate domains only; neither safe filtering nor province/full-domain optimality",
+        "candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+        "cold_index_cpu_s": 8.870783,
+        "cold_index_wall_s": 10.849843000003602,
+        "direct_selected_length_m": "96283519/125",
+        "direct_selected_time_s": "495771923331/19250000",
+        "eligible_unique_anchors": 650,
+        "execution": "fresh",
+        "feasible_key": [
+          "4495362171241/96250000",
+          "355450183/3125000",
+          3,
+          [
+            [
+              "node/13098561677",
+              "CS"
+            ],
+            [
+              "node/13353329772",
+              "C"
+            ],
+            [
+              "node/12996141012",
+              "C"
+            ]
+          ]
+        ],
+        "graph_index_resident_bytes": 1278377984,
+        "great_circle_m": 663975.0405656813,
+        "host_available_min_bytes": 5064736768,
+        "implementation": {
+          "eager_incumbent_pruning": true,
+          "inbound_energy_bound": true,
+          "pair_query_mode": "landmark_astar",
+          "pending_activity_screen": true,
+          "seed_beam_pruning": true,
+          "source_tree_reuse": true
+        },
+        "initial_energy_kwh": "18",
+        "mathematical_status": "unknown",
+        "method": "flat_bb_strong",
+        "necessary_charge_count_lower_bound": 2,
+        "new_total_cpu_s": 10837.812346329001,
+        "numerical_source": {
+          "commit": "9cbfe42aa0394c10103269c4b78027923c3c18c6",
+          "executable": "/tmp/hiroute-c-venv/bin/python",
+          "platform": "macOS-27.2-arm64-arm-64bit",
+          "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+        },
+        "process_group_peak_rss_bytes": 2180513792,
+        "query_cpu_s": 119.699434,
+        "query_extra_peak_bytes": 902217728,
+        "query_id": "WD01",
+        "query_loaded_total_s": 120.07679112500045,
+        "query_memory_baseline_bytes": 1278377984,
+        "routing_metrics": {
+          "astar_queries": 352,
+          "astar_relaxed_edges": 22164657,
+          "astar_settled_vertices": 12147542,
+          "astar_time_s": 3.96131,
+          "backend": "exact_integer_scaled_cpp",
+          "build_time_s": 7.44104,
+          "cached_path_edges": 419069,
+          "compile_load_time_s": 3.399077042005956,
+          "constructor_time_s": 10.841260624991264,
+          "distance_cache_entries": 2,
+          "distance_cache_values": 5973390,
+          "edges": 5900232,
+          "index_builds": 1,
+          "index_rss_increment_bytes": 1242218496,
+          "landmark_preparation_s": 1.79032,
+          "leg_cache_entries": 400,
+          "length_scale": "100000000000000000000000",
+          "nodes": 2986695,
+          "pair_query_mode": "landmark_astar",
+          "pair_workspace_values": 2986695,
+          "pinned_landmark_count": 2,
+          "process_current_rss_bytes": 2180579328,
+          "queued_labels": 0,
+          "scalar_cache_hits": 3,
+          "scalar_queries": 7,
+          "scalar_relaxed_edges": 23257460,
+          "scalar_settled_vertices": 11761830,
+          "scalar_time_s": 3.33604,
+          "selected_leg_cache_hits": 9151,
+          "selected_leg_queries": 9551,
+          "selected_leg_time_s": 8.38314,
+          "source_tree_build_attempts": 0,
+          "source_tree_build_relaxed_edges": 0,
+          "source_tree_build_settled_vertices": 0,
+          "source_tree_build_time_s": 0,
+          "source_tree_builds": 0,
+          "source_tree_cache_entries": 0,
+          "source_tree_cache_hits": 0,
+          "source_tree_evictions": 0,
+          "source_tree_reuse_enabled": true,
+          "source_tree_uses": 0,
+          "source_tree_work_sources": 16,
+          "time_scale": "770000000000000000000000000"
+        },
+        "scenario": "schedule",
+        "scenario_eligible_sites": 650,
+        "shortest_road_distance_m": "741402097/1000",
+        "solve_limit_s": 120,
+        "source_kind": "real_shandong_dev",
+        "stage_charged_cpu_s": 129.57025,
+        "status": "time_limit",
+        "supervisor_cpu_s": 127.320558592,
+        "supervisor_total_s": 131.21282479199,
+        "time_to_first_feasible_s": 4.451559874985833,
+        "witness": {
+          "charges_kwh": [
+            "33210401/781250",
+            "341754551/6250000",
+            "103462607/6250000"
+          ],
+          "driving_time_s": "532164917513/19250000",
+          "elapsed_time_s": "4322112171241/96250000",
+          "independent_key": [
+            "4495362171241/96250000",
+            "355450183/3125000",
+            3,
+            [
+              [
+                "node/13098561677",
+                "CS"
+              ],
+              [
+                "node/13353329772",
+                "C"
+              ],
+              [
+                "node/12996141012",
+                "C"
+              ]
+            ]
+          ],
+          "initial_wait_s": "82211658339/17187500",
+          "physical_verified": true,
+          "positive_charge_count": 3,
+          "terminal_energy_kwh": "6",
+          "total_distance_m": "392950183/500"
+        },
+        "worker_cpu_s": 128.57025,
+        "worker_peak_rss_bytes": 2180595712,
+        "worker_total_s": 130.9266888749844,
+        "workload_mode": "pilot"
+      }
+    },
+    {
+      "role": "historical_screen_off_control",
+      "row": {
+        "N": 64,
+        "accounting_original_total_cpu_s": 8037.913649329,
+        "accounting_stage_total_cpu_s": 2811.8351949999997,
+        "bound_enabled": true,
+        "candidate_and_input_preparation_s": 2.732971624995116,
+        "candidate_domain_claim": "Explicit truncated geographic candidate domains only; neither safe filtering nor province/full-domain optimality",
+        "candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+        "cold_index_cpu_s": 9.064176,
+        "cold_index_wall_s": 9.723706374992616,
+        "depth_contract": {
+          "declared_limit": null,
+          "incumbent_derived_limit": 51,
+          "mode": "unrestricted",
+          "rule": "floor(U_J/(h_min+lambda_stop))"
+        },
+        "direct_selected_length_m": "96283519/125",
+        "direct_selected_time_s": "495771923331/19250000",
+        "eligible_unique_anchors": 650,
+        "execution": "fresh",
+        "feasible_key": [
+          "4495362171241/96250000",
+          "355450183/3125000",
+          3,
+          [
+            [
+              "node/13098561677",
+              "CS"
+            ],
+            [
+              "node/13353329772",
+              "C"
+            ],
+            [
+              "node/12996141012",
+              "C"
+            ]
+          ]
+        ],
+        "graph_index_resident_bytes": 1295908864,
+        "great_circle_m": 663975.0405656813,
+        "host_available_min_bytes": 5409669120,
+        "implementation": {
+          "eager_incumbent_pruning": true,
+          "inbound_energy_bound": true,
+          "pair_query_mode": "landmark_astar",
+          "seed_beam_pruning": true,
+          "source_tree_reuse": true
+        },
+        "initial_energy_kwh": "18",
+        "mathematical_status": "unknown",
+        "method": "scale",
+        "metrics": {
+          "empty_prefixes": 205,
+          "enqueue_attempts": 106917,
+          "enqueue_pruned_actions": 0,
+          "enqueue_pruned_nodes": 0,
+          "enqueue_pruned_regions": 0,
+          "enqueue_pruned_states": 0,
+          "equality_retained": 0,
+          "heap_pops": 64896,
+          "heap_pushes": 106917,
+          "inbound_energy_late_empty_actions": 20,
+          "inbound_energy_pruned_actions": 68801,
+          "inbound_energy_pruned_regions": 10429,
+          "leaf_routes": 6710,
+          "max_depth": 6,
+          "peak_open": 42022,
+          "pruned_actions": 0,
+          "pruned_regions": 0,
+          "safe_unreachable_sites": 1,
+          "seed_attempts": 33,
+          "seed_rank_pruned_effects": 109,
+          "seed_rank_pruned_routes": 106,
+          "singleton_queries": 0,
+          "summary_queries": 110861,
+          "terminal_attempts": 3594,
+          "terminal_infeasible_prefixes": 3594,
+          "terminal_records_peak": 1,
+          "transition_input_pieces": 93311,
+          "transition_output_pieces": 104256,
+          "transitions": 6689
+        },
+        "necessary_charge_count_lower_bound": 2,
+        "new_total_cpu_s": 5665.455566328999,
+        "open_remaining": 42021,
+        "process_group_peak_rss_bytes": 2315599872,
+        "query_cpu_s": 119.50968900000001,
+        "query_extra_peak_bytes": 1019691008,
+        "query_id": "WD01",
+        "query_loaded_total_s": 120.08145570801571,
+        "query_memory_baseline_bytes": 1295908864,
+        "routing_metrics": {
+          "astar_queries": 398,
+          "astar_relaxed_edges": 28277421,
+          "astar_settled_vertices": 15602602,
+          "astar_time_s": 5.1909,
+          "backend": "exact_integer_scaled_cpp",
+          "build_time_s": 7.64777,
+          "cached_path_edges": 479812,
+          "compile_load_time_s": 2.065776250005001,
+          "constructor_time_s": 9.71367550001014,
+          "distance_cache_entries": 2,
+          "distance_cache_values": 5973390,
+          "edges": 5900232,
+          "index_builds": 1,
+          "index_rss_increment_bytes": 1262108672,
+          "landmark_preparation_s": 1.83363,
+          "leg_cache_entries": 449,
+          "length_scale": "100000000000000000000000",
+          "nodes": 2986695,
+          "pair_query_mode": "landmark_astar",
+          "pair_workspace_values": 2986695,
+          "pinned_landmark_count": 2,
+          "process_current_rss_bytes": 2315599872,
+          "queued_labels": 0,
+          "scalar_cache_hits": 3,
+          "scalar_queries": 7,
+          "scalar_relaxed_edges": 23257460,
+          "scalar_settled_vertices": 11761830,
+          "scalar_time_s": 3.45066,
+          "selected_leg_cache_hits": 9889,
+          "selected_leg_queries": 10338,
+          "selected_leg_time_s": 9.75203,
+          "source_tree_build_attempts": 0,
+          "source_tree_build_relaxed_edges": 0,
+          "source_tree_build_settled_vertices": 0,
+          "source_tree_build_time_s": 0,
+          "source_tree_builds": 0,
+          "source_tree_cache_entries": 0,
+          "source_tree_cache_hits": 0,
+          "source_tree_evictions": 0,
+          "source_tree_reuse_enabled": true,
+          "source_tree_uses": 0,
+          "source_tree_work_sources": 16,
+          "time_scale": "770000000000000000000000000"
+        },
+        "scenario": "schedule",
+        "scenario_eligible_sites": 650,
+        "seconds": {
+          "preparation": 0.8106892080104444,
+          "search": 115.54157404199941,
+          "seed": 0.9144425000122283,
+          "terminals": 1.2941614469746128,
+          "transitions": 82.17404289270053
+        },
+        "seed_key": [
+          "4495362171241/96250000",
+          "355450183/3125000",
+          3,
+          [
+            [
+              "node/13098561677",
+              "CS"
+            ],
+            [
+              "node/13353329772",
+              "C"
+            ],
+            [
+              "node/12996141012",
+              "C"
+            ]
+          ]
+        ],
+        "shortest_road_distance_m": "741402097/1000",
+        "solve_limit_s": 120,
+        "source_kind": "real_shandong_dev",
+        "stage_charged_cpu_s": 129.57389000000003,
+        "stage_cumulative_cpu_s": 440.377112,
+        "status": "time_limit",
+        "supervisor_cpu_s": 127.410026496,
+        "supervisor_total_s": 130.11770516700926,
+        "time_to_first_feasible_s": 4.45212545801769,
+        "total_cumulative_cpu_s": 5666.455566329,
+        "witness": {
+          "charges_kwh": [
+            "33210401/781250",
+            "341754551/6250000",
+            "103462607/6250000"
+          ],
+          "driving_time_s": "532164917513/19250000",
+          "elapsed_time_s": "4322112171241/96250000",
+          "independent_key": [
+            "4495362171241/96250000",
+            "355450183/3125000",
+            3,
+            [
+              [
+                "node/13098561677",
+                "CS"
+              ],
+              [
+                "node/13353329772",
+                "C"
+              ],
+              [
+                "node/12996141012",
+                "C"
+              ]
+            ]
+          ],
+          "initial_wait_s": "82211658339/17187500",
+          "physical_verified": true,
+          "positive_charge_count": 3,
+          "terminal_energy_kwh": "6",
+          "total_distance_m": "392950183/500"
+        },
+        "worker_cpu_s": 128.57389000000003,
+        "worker_peak_rss_bytes": 2315599872,
+        "worker_total_s": 129.8051987910003,
+        "workload_mode": "pilot"
+      }
+    },
+    {
+      "role": "fresh_screen_on",
+      "row": {
+        "N": 64,
+        "accounting_execution_source": {
+          "commit": "9cbfe42aa0394c10103269c4b78027923c3c18c6",
+          "executable": "/tmp/hiroute-c-venv/bin/python",
+          "platform": "macOS-27.2-arm64-arm-64bit",
+          "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+        },
+        "accounting_original_total_cpu_s": 11003.037338329,
+        "accounting_stage_total_cpu_s": 403.801432,
+        "bound_enabled": true,
+        "candidate_and_input_preparation_s": 2.7191882909974083,
+        "candidate_domain_claim": "Explicit truncated geographic candidate domains only; neither safe filtering nor province/full-domain optimality",
+        "candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+        "cold_index_cpu_s": 8.827110000000001,
+        "cold_index_wall_s": 9.476136249984847,
+        "depth_contract": {
+          "declared_limit": null,
+          "incumbent_derived_limit": 51,
+          "mode": "unrestricted",
+          "rule": "floor(U_J/(h_min+lambda_stop))"
+        },
+        "direct_selected_length_m": "96283519/125",
+        "direct_selected_time_s": "495771923331/19250000",
+        "eligible_unique_anchors": 650,
+        "execution": "fresh",
+        "feasible_key": [
+          "4495362171241/96250000",
+          "355450183/3125000",
+          3,
+          [
+            [
+              "node/13098561677",
+              "CS"
+            ],
+            [
+              "node/13353329772",
+              "C"
+            ],
+            [
+              "node/12996141012",
+              "C"
+            ]
+          ]
+        ],
+        "graph_index_resident_bytes": 1298006016,
+        "great_circle_m": 663975.0405656813,
+        "host_available_min_bytes": 5120229376,
+        "implementation": {
+          "eager_incumbent_pruning": true,
+          "inbound_energy_bound": true,
+          "pair_query_mode": "landmark_astar",
+          "pending_activity_screen": true,
+          "seed_beam_pruning": true,
+          "source_tree_reuse": true
+        },
+        "initial_energy_kwh": "18",
+        "mathematical_status": "unknown",
+        "method": "scale",
+        "metrics": {
+          "empty_prefixes": 32,
+          "enqueue_attempts": 93203,
+          "enqueue_pruned_actions": 0,
+          "enqueue_pruned_nodes": 0,
+          "enqueue_pruned_regions": 0,
+          "enqueue_pruned_states": 0,
+          "equality_retained": 0,
+          "heap_pops": 59127,
+          "heap_pushes": 93203,
+          "inbound_energy_late_empty_actions": 21,
+          "inbound_energy_pruned_actions": 39729,
+          "inbound_energy_pruned_regions": 3985,
+          "leaf_routes": 6846,
+          "max_depth": 6,
+          "peak_open": 34077,
+          "pending_activity_late_empty_actions": 144,
+          "pending_activity_pruned_actions": 50824,
+          "pending_activity_pruned_regions": 8534,
+          "pruned_actions": 0,
+          "pruned_regions": 0,
+          "safe_unreachable_sites": 1,
+          "seed_attempts": 33,
+          "seed_rank_pruned_effects": 109,
+          "seed_rank_pruned_routes": 106,
+          "singleton_queries": 0,
+          "summary_queries": 99073,
+          "terminal_attempts": 3750,
+          "terminal_infeasible_prefixes": 3750,
+          "terminal_records_peak": 1,
+          "transition_input_pieces": 94265,
+          "transition_output_pieces": 107675,
+          "transitions": 6680
+        },
+        "necessary_charge_count_lower_bound": 2,
+        "new_total_cpu_s": 10985.154863329,
+        "numerical_source": {
+          "commit": "9cbfe42aa0394c10103269c4b78027923c3c18c6",
+          "executable": "/tmp/hiroute-c-venv/bin/python",
+          "platform": "macOS-27.2-arm64-arm-64bit",
+          "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+        },
+        "open_remaining": 34076,
+        "process_group_peak_rss_bytes": 2285568000,
+        "query_cpu_s": 120.016674,
+        "query_extra_peak_bytes": 987611136,
+        "query_id": "WD01",
+        "query_loaded_total_s": 120.07915779098403,
+        "query_memory_baseline_bytes": 1298006016,
+        "routing_metrics": {
+          "astar_queries": 357,
+          "astar_relaxed_edges": 22955455,
+          "astar_settled_vertices": 12587252,
+          "astar_time_s": 4.08769,
+          "backend": "exact_integer_scaled_cpp",
+          "build_time_s": 7.46269,
+          "cached_path_edges": 426233,
+          "compile_load_time_s": 2.002115750015946,
+          "constructor_time_s": 9.464959959004773,
+          "distance_cache_entries": 2,
+          "distance_cache_values": 5973390,
+          "edges": 5900232,
+          "index_builds": 1,
+          "index_rss_increment_bytes": 1262125056,
+          "landmark_preparation_s": 1.80382,
+          "leg_cache_entries": 405,
+          "length_scale": "100000000000000000000000",
+          "nodes": 2986695,
+          "pair_query_mode": "landmark_astar",
+          "pair_workspace_values": 2986695,
+          "pinned_landmark_count": 2,
+          "process_current_rss_bytes": 2285617152,
+          "queued_labels": 0,
+          "scalar_cache_hits": 3,
+          "scalar_queries": 7,
+          "scalar_relaxed_edges": 23257460,
+          "scalar_settled_vertices": 11761830,
+          "scalar_time_s": 3.42801,
+          "selected_leg_cache_hits": 10225,
+          "selected_leg_queries": 10630,
+          "selected_leg_time_s": 8.556,
+          "source_tree_build_attempts": 0,
+          "source_tree_build_relaxed_edges": 0,
+          "source_tree_build_settled_vertices": 0,
+          "source_tree_build_time_s": 0,
+          "source_tree_builds": 0,
+          "source_tree_cache_entries": 0,
+          "source_tree_cache_hits": 0,
+          "source_tree_evictions": 0,
+          "source_tree_reuse_enabled": true,
+          "source_tree_uses": 0,
+          "source_tree_work_sources": 16,
+          "time_scale": "770000000000000000000000000"
+        },
+        "scenario": "schedule",
+        "scenario_eligible_sites": 650,
+        "seconds": {
+          "preparation": 0.7996634579903912,
+          "search": 115.50547858400387,
+          "seed": 0.9764199170167558,
+          "terminals": 1.3219662732153665,
+          "transitions": 83.76403823075816
+        },
+        "seed_key": [
+          "4495362171241/96250000",
+          "355450183/3125000",
+          3,
+          [
+            [
+              "node/13098561677",
+              "CS"
+            ],
+            [
+              "node/13353329772",
+              "C"
+            ],
+            [
+              "node/12996141012",
+              "C"
+            ]
+          ]
+        ],
+        "shortest_road_distance_m": "741402097/1000",
+        "solve_limit_s": 120,
+        "source_kind": "real_shandong_dev",
+        "stage_charged_cpu_s": 129.843814,
+        "status": "time_limit",
+        "supervisor_cpu_s": 127.700672,
+        "supervisor_total_s": 129.8661927920184,
+        "time_to_first_feasible_s": 4.490052915993147,
+        "witness": {
+          "charges_kwh": [
+            "33210401/781250",
+            "341754551/6250000",
+            "103462607/6250000"
+          ],
+          "driving_time_s": "532164917513/19250000",
+          "elapsed_time_s": "4322112171241/96250000",
+          "independent_key": [
+            "4495362171241/96250000",
+            "355450183/3125000",
+            3,
+            [
+              [
+                "node/13098561677",
+                "CS"
+              ],
+              [
+                "node/13353329772",
+                "C"
+              ],
+              [
+                "node/12996141012",
+                "C"
+              ]
+            ]
+          ],
+          "initial_wait_s": "82211658339/17187500",
+          "physical_verified": true,
+          "positive_charge_count": 3,
+          "terminal_energy_kwh": "6",
+          "total_distance_m": "392950183/500"
+        },
+        "worker_cpu_s": 128.843814,
+        "worker_peak_rss_bytes": 2285617152,
+        "worker_total_s": 129.55533412500517,
+        "workload_mode": "pilot"
+      }
+    }
+  ],
+  "same_feasible_full_key": true,
+  "schema": "hiroute.pending_activity_dev_check.results.v1",
+  "scope": "One frozen DEV pair; no repeated controls, main experiment or holdout",
+  "verification": {
+    "active_worker_pids": [],
+    "controller_active": false,
+    "controller_closed_charge_cpu_s": 37,
+    "controller_raw_cpu_s": 34.388504,
+    "original_final_conservative_cpu_s": 11005.649970329001,
+    "preprocessing_cpu_s": 652.040677976,
+    "raw_terminal_status": {
+      "accounting_execution_source": {
+        "commit": "9cbfe42aa0394c10103269c4b78027923c3c18c6",
+        "executable": "/tmp/hiroute-c-venv/bin/python",
+        "platform": "macOS-27.2-arm64-arm-64bit",
+        "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+      },
+      "accounting_revision": "initial",
+      "controller_cpu_carried_s": 0,
+      "controller_cpu_s": 34.388504,
+      "controller_pid": 81000,
+      "error": null,
+      "method_rows": 2,
+      "numerical_source": {
+        "commit": "9cbfe42aa0394c10103269c4b78027923c3c18c6",
+        "executable": "/tmp/hiroute-c-venv/bin/python",
+        "platform": "macOS-27.2-arm64-arm-64bit",
+        "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+      },
+      "original_cap_cpu_s": 28800,
+      "stage_cap_cpu_s": 1360,
+      "stage_charged_cpu_s": 403.802568,
+      "state": "complete",
+      "total_charged_cpu_s": 11003.038474329,
+      "total_controller_cpu_s": 34.388504,
+      "uncertain_attempts": [],
+      "uncertain_reserved_cpu_s": 0,
+      "worker_and_development_cpu_s": 369.414064
+    },
+    "remaining_original_cpu_s": 17794.350029671,
+    "remaining_stage_cpu_s": 953.585936,
+    "source": {
+      "commit": "9cbfe42aa0394c10103269c4b78027923c3c18c6",
+      "executable": "/tmp/hiroute-c-venv/bin/python",
+      "platform": "macOS-27.2-arm64-arm-64bit",
+      "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+    },
+    "stage_final_conservative_cpu_s": 406.414064,
+    "state": "complete",
+    "unique_finals": 2,
+    "unique_starts": 2,
+    "verified_at": 1793543293.1203158
+  }
+}
