@@ -223,6 +223,7 @@ def worker(args):
                     memory_baseline_bytes=query_memory_baseline)
             row.update(status=result['status'], mathematical_status=result.get('mathematical_status', result['status']),
                 key=result.get('key'), primary_infimum=result.get('primary_infimum'),
+                primary_value=result.get('primary_value'),
                 secondary_infimum=result.get('secondary_infimum'), metrics=result['metrics'],
                 seconds=result['seconds'], depth_contract=result['depth_contract'],
                 seed_key=None if result['seed'] is None else result['seed']['key'],

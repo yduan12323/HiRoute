@@ -130,6 +130,11 @@ def test_unknown_is_not_optimal_and_full_key_and_seed_parity_are_checked():
     with pytest.raises(RuntimeError,match='seed'):
         stage.compare_pair([a,{**b,'seed_key':['6']}])
     stage.compare_pair([a,{**b,'status':'time_limit','key':None}])
+    secondary=[dict(method=method,status='secondary_unattained',primary_value='7',secondary_infimum='2')
+               for method in stage.METHODS]
+    stage.compare_pair(secondary)
+    with pytest.raises(RuntimeError,match='full-key'):
+        stage.compare_pair([secondary[0],{**secondary[1],'primary_value':'8'}])
 
 
 def test_budget_stop_keeps_all_cells_and_resume_charges_once(tmp_path):
@@ -195,7 +200,7 @@ def test_complete_mock_stage_resume_does_not_reexecute_or_double_charge(tmp_path
     def fake_worker(out,p,cell,method,total):
         target=out/'attempts'/stage.cell_id(cell)/method;target.mkdir(parents=True)
         return dict(method=method,status='infeasible',mathematical_status='infeasible',
-                    worker_cpu_s=2.5,supervisor_cpu_s=3)
+                    worker_cpu_s=2.5,supervisor_cpu_s=3,depth_contract={'mode':'unrestricted'})
     with patch.object(stage,'source_identity',return_value={}),\
          patch.object(stage,'digest',return_value='matrix'),patch.object(stage,'load',side_effect=fake_load),\
          patch.object(stage,'run_worker',side_effect=fake_worker) as worker:

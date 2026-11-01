@@ -185,7 +185,8 @@ def validate_row(row):
             raise RuntimeError('feasible result without physical replay')
     if row['status']=='attained_optimum' and (row.get('key') is None or row.get('key')!=row.get('feasible_key')):
         raise RuntimeError('attained result missing full key')
-    if row.get('depth_contract') and row['depth_contract']['mode']!='unrestricted':
+    if ((row['status'] in COMPLETE and not row.get('depth_contract')) or
+            (row.get('depth_contract') and row['depth_contract']['mode']!='unrestricted')):
         raise RuntimeError('incomplete depth contract')
     values=[row.get('worker_cpu_s',0),row.get('supervisor_cpu_s',0)]
     if any(not math.isfinite(v) or v<0 for v in values):
@@ -196,7 +197,7 @@ def compare_pair(rows):
     if [r['method'] for r in rows] != list(METHODS):
         raise RuntimeError('incomplete method pair')
     if all(r['status'] in COMPLETE for r in rows):
-        fields=('status','key','primary_infimum','secondary_infimum')
+        fields=('status','key','primary_value','primary_infimum','secondary_infimum')
         if tuple(rows[0].get(k) for k in fields)!=tuple(rows[1].get(k) for k in fields):
             raise RuntimeError('completed pair full-key/attainment mismatch')
     if all(r.get('seed_key') is not None for r in rows) and rows[0]['seed_key']!=rows[1]['seed_key']:
