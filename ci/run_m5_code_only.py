@@ -89,6 +89,7 @@ HIROUTE_TESTS = (
     "tests/test_source_tree_reuse.py",
     "tests/test_inbound_energy_bound.py",
     "tests/test_enqueue_pruning.py",
+    "tests/test_pending_activity_screen.py",
     "tests/test_charging_coverage.py",
     "tests/test_n64_coverage_stage.py",
     "tests/test_c_operator.py",

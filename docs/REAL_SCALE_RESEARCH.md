@@ -1816,6 +1816,28 @@ and no such algorithm change or extra run was performed. If it adds no value,
 reevaluate the hierarchy/novelty claim rather than tune indefinitely or advance
 to a broad main matrix without a decision.
 
+### Proof-only pending-activity audit after N64
+
+The subsequent proof-only audit of the proposed deadline screen is recorded in
+[PENDING_ACTIVITY_SCREEN.md](PENDING_ACTIVITY_SCREEN.md). Core S/CS already
+enforces the exact window, whereas C and the completion relaxation do not
+precheck a future window. The new optional shared screen is therefore logically
+nonredundant in a tiny directed fixture, but its real-data effect remains
+unmeasured. It is disabled by default; no historical N64 row is replaced.
+The 57 focused bound/search/window regressions pass normal and `-OO`, including
+an independent finite REF/full-key check and physical replay. The first local
+run's two fixture-interface failures (noncandidate origin/destination features
+passed to the service-union builder) are retained externally; the builder now
+iterates candidate capabilities and ignores noncandidate landmarks.
+
+This proof/development turn precharges 300 CPU seconds conservatively, including
+7.146668 measured local test CPU seconds across the failed and successful runs.
+The original carry becomes10599.235906329/28800, remaining18200.764093671.
+The completed N64 stage and preprocessing ledgers remain unchanged. A proposed
+two-row WD01 schedule check is frozen separately in
+`configs/pending_activity_screen_validation.json`; it has not been launched
+or charged as an experiment and requires the next execution decision.
+
 ### All48 declared N64 cells
 
 `A` denotes an attained optimum's positive-charge count; `F` denotes only the

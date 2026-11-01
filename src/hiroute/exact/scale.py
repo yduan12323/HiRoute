@@ -263,7 +263,8 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
                 memory_limit_bytes=8*1024**3, on_incumbent=None, use_bound=True,
                 seed_beam_width=4, _clock=time.monotonic, c_backend='analytic',
                 memory_baseline_bytes=None, seed_beam_pruning=False,
-                inbound_energy_bound=False, eager_incumbent_pruning=False):
+                inbound_energy_bound=False, eager_incumbent_pruning=False,
+                pending_activity_screen=False):
     """Solve the full declared candidate domain, with resource-limited UNKNOWN.
 
     flat_bb_strong and scale share the exact kernel, singleton relaxation,
@@ -277,16 +278,24 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
     above the attained incumbent before insertion. Existing pop pruning remains
     for entries whose incumbent improves later. Equality and the relative serial
     order of retained entries are preserved; open infima never supply this U.
+    pending_activity_screen=True uses the same static service union and directed
+    time relaxation in either method to reject strictly late next actions.
+    Core S/CS window clipping remains exact; C stays physically unchanged.
+    Equality/open infima are retained. use_bound=False disables this screen.
     seed_beam_width must be a strictly positive integer; zero does not disable
     the seed. Invalid widths are rejected before constructing a road index.
     """
     from .road_index import RoadIndex
     from .scale_bounds import (SiteFeatures, build_region_tree, completion_bound,
-                               region_travel_lower_bounds, singleton_region)
+                               region_travel_lower_bounds, singleton_region,
+                               service_summary, pending_service_travel_bound,
+                               pending_activity_possible)
     if method not in ('scale', 'flat_bb_strong'):
         raise ValueError('method must be scale or flat_bb_strong')
     if type(eager_incumbent_pruning) is not bool:
         raise ValueError('eager_incumbent_pruning must be boolean')
+    if type(pending_activity_screen) is not bool:
+        raise ValueError('pending_activity_screen must be boolean')
     if type(inbound_energy_bound) is not bool:
         raise ValueError('inbound_energy_bound must be boolean')
     if type(seed_beam_pruning) is not bool:
@@ -323,6 +332,8 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
         peak_open=0, safe_unreachable_sites=0, seed_attempts=0, terminal_records_peak=1,
         inbound_energy_pruned_regions=0, inbound_energy_pruned_actions=0,
         inbound_energy_late_empty_actions=0, enqueue_attempts=0,
+        pending_activity_pruned_regions=0, pending_activity_pruned_actions=0,
+        pending_activity_late_empty_actions=0,
         enqueue_pruned_nodes=0, enqueue_pruned_regions=0,
         enqueue_pruned_states=0, enqueue_pruned_actions=0,
         heap_pushes=0, heap_pops=0)
@@ -399,6 +410,11 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
                 continue
             features[site] = SiteFeatures(from_t[site], to_t[site], from_d[site], to_d[site])
         origin_features = SiteFeatures(0, to_t.get(snapshot.origin, 0), 0, to_d.get(snapshot.origin, 0))
+        screen_pending = bool(use_bound and pending_activity_screen and snapshot.schedule
+                              and snapshot.initial_remaining_schedule)
+        service = service_summary(snapshot.site_capabilities, features) if screen_pending else None
+        latest_arrival = (exact(snapshot.schedule['b'])-exact(snapshot.stop_overhead_s)
+                          if screen_pending else None)
         # At most O(N) static records, built once, no per-prefix coverage scans.
         if method == 'scale':
             tree = build_region_tree(tuple(features),
@@ -432,6 +448,13 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
             else:
                 metrics['singleton_queries'] += 1
             anchor = origin_features if not state.plan else features[state.anchor]
+            if screen_pending and not pending_activity_possible(state.family,
+                    latest_arrival=latest_arrival,
+                    service_travel_time=pending_service_travel_bound(anchor, service,
+                        region.summaries[effect], effect, exact(snapshot.stop_overhead_s))):
+                metrics['pending_activity_pruned_regions'] += 1
+                metrics['pending_activity_pruned_actions'] += region.summaries[effect].count
+                return None
             travel, distance = region_travel_lower_bounds(region, effect, anchor)
             # Remaining length is L_in + the static minimum onward length.
             # Recover L_in in constant time, with no Region member/mask scan.
@@ -498,6 +521,16 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
                 leg = provider.selected_leg(state.anchor, site)
                 if leg is None:
                     continue
+                if screen_pending:
+                    anchor = origin_features if not state.plan else features[state.anchor]
+                    if not pending_activity_possible(state.family, latest_arrival=latest_arrival,
+                            service_travel_time=pending_service_travel_bound(anchor, service,
+                                region.summaries[effect], effect, exact(snapshot.stop_overhead_s),
+                                inbound_time=leg.time_s)):
+                        # Exact inbound data is already paid for; report this
+                        # separately from pre-route Region exclusions.
+                        metrics['pending_activity_late_empty_actions'] += 1
+                        continue
                 # Exact selected inbound data strengthens both methods equally;
                 # onward distance is a directed road relaxation, never a
                 # selected-fastest length treated as a metric.
@@ -560,5 +593,6 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
         open_remaining=len(queue), routing_metrics=(provider.metrics() if provider is not None else {}),
         candidate_count=len(snapshot.candidate_order), active_candidates=len(features),
         method=method, lower_bound_enabled=use_bound,
+        pending_activity_screen_enabled=bool(use_bound and pending_activity_screen),
         enumeration_backend='incremental_exact_summary_search' if method == 'scale' else 'incremental_exact_singleton_search')
     return result
