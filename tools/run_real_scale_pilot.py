@@ -218,6 +218,7 @@ def worker(args):
                     time_limit_s=remaining, memory_limit_bytes=resources['query_extra_memory_bytes'],
                     on_incumbent=keep, use_bound=not args.no_bound,
                     seed_beam_pruning=implementation.get('seed_beam_pruning', False),
+                    inbound_energy_bound=implementation.get('inbound_energy_bound', False),
                     memory_baseline_bytes=query_memory_baseline)
             row.update(status=result['status'], mathematical_status=result.get('mathematical_status', result['status']),
                 key=result.get('key'), primary_infimum=result.get('primary_infimum'),
