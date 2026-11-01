@@ -1,0 +1,134 @@
+{
+  "schema": "hiroute.planning_value_dev_contract.v1",
+  "execution_authorized": false,
+  "scope": "Frozen proposal only; no real-data solver work in the compact proof gate",
+  "policies": [
+    "separated_no_overlap",
+    "activity_first_fixed_site"
+  ],
+  "query_cells": 4,
+  "policy_row_denominator": 8,
+  "rows": [
+    {
+      "query_id": "WD01",
+      "initial_energy_kwh": "18",
+      "scenario": "schedule",
+      "N": 64,
+      "policy": "separated_no_overlap",
+      "original_candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+      "status": "not_started_definition_only"
+    },
+    {
+      "query_id": "WD01",
+      "initial_energy_kwh": "18",
+      "scenario": "schedule",
+      "N": 64,
+      "policy": "activity_first_fixed_site",
+      "original_candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+      "status": "not_started_definition_only"
+    },
+    {
+      "query_id": "WD07",
+      "initial_energy_kwh": "18",
+      "scenario": "schedule",
+      "N": 64,
+      "policy": "activity_first_fixed_site",
+      "original_candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+      "status": "not_started_definition_only"
+    },
+    {
+      "query_id": "WD07",
+      "initial_energy_kwh": "18",
+      "scenario": "schedule",
+      "N": 64,
+      "policy": "separated_no_overlap",
+      "original_candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+      "status": "not_started_definition_only"
+    },
+    {
+      "query_id": "WD01",
+      "initial_energy_kwh": "48",
+      "scenario": "schedule",
+      "N": 64,
+      "policy": "separated_no_overlap",
+      "original_candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+      "status": "not_started_definition_only"
+    },
+    {
+      "query_id": "WD01",
+      "initial_energy_kwh": "48",
+      "scenario": "schedule",
+      "N": 64,
+      "policy": "activity_first_fixed_site",
+      "original_candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+      "status": "not_started_definition_only"
+    },
+    {
+      "query_id": "WD07",
+      "initial_energy_kwh": "48",
+      "scenario": "schedule",
+      "N": 64,
+      "policy": "activity_first_fixed_site",
+      "original_candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+      "status": "not_started_definition_only"
+    },
+    {
+      "query_id": "WD07",
+      "initial_energy_kwh": "48",
+      "scenario": "schedule",
+      "N": 64,
+      "policy": "separated_no_overlap",
+      "original_candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+      "status": "not_started_definition_only"
+    }
+  ],
+  "ordering": "SOC ascending, OD ID ascending; alternate policy order by query ordinal",
+  "engine": "Current shared Strong Flat-BB kernels/routing/seed algorithm, restricted to each declared policy action mask",
+  "joint_report_join_only": {
+    "file": "docs/n64_coverage_stage_results.json",
+    "sha256": "cecab6da2fd47df131106025688cc5b70cbd558c13c6cfa74cbf804ac66a7d2c",
+    "method": "scale",
+    "protocol": "Read controls only after baseline terminal receipts; no joint key/plan/seed is passed to baseline ranking or search",
+    "value_only": "Historical same-model values/statuses, not contemporary runtime speedup controls"
+  },
+  "matrix": {
+    "file": "configs/charging_coverage_dev_matrix.json",
+    "sha256": "963adb1615c1460710b261b698a65a13030b6253c501518037a3c5fd85f00adb"
+  },
+  "proposal_limits": {
+    "stage_inclusive_cpu_s": 1800,
+    "loaded_limit_s": 120,
+    "target_s": 60,
+    "workers": 1,
+    "threads": 1,
+    "query_extra_gib": 8,
+    "pre_pair_reservation_cpu_s": 1240,
+    "controller_report_reservation_cpu_s": 120,
+    "admission": "Live all-inclusive cumulative accounting; budget-stopped/unrun rows remain in denominator; no cap expansion"
+  },
+  "physical_policy": "No battery, consumption, charging curve, service window, overhead or objective changes; no invented C/S capabilities; no CS under separated_no_overlap",
+  "seed_contract": "Same deterministic seed procedure under each mask, all costs charged; joint reference plans/keys prohibited as seeds. Missing seed is UNKNOWN, not infeasible.",
+  "domain_contract": "Original N64 workload fingerprint retained; removed actions/empty effective Sites are policy restrictions, not missing source data or safe reductions of the joint domain",
+  "failure_contract": [
+    "attained_policy_optimum",
+    "primary_unattained_policy",
+    "secondary_unattained_policy",
+    "policy_infeasible_proved",
+    "time_limit_feasible_only",
+    "time_limit_no_feasible",
+    "policy_no_eligible_activity",
+    "input_unavailable",
+    "budget_unrun",
+    "verification_error"
+  ],
+  "metric_contract": [
+    "independent physical replay",
+    "actual feasible J/Q/H/Pi only; open infima never trip values",
+    "elapsed time and charging duration",
+    "stop count and total drive time/distance",
+    "signed distance delta from canonical direct fastest leg",
+    "CS interval-intersection overlap, not min(charge_duration,service_duration)",
+    "optimality gap only against an attained joint control; otherwise compare observed feasible plans with explicit UNKNOWN status",
+    "positive C/CS charge count separately from total H"
+  ]
+}

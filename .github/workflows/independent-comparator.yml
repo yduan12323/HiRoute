@@ -6,6 +6,19 @@ on:
       - 'comparison/**'
       - 'docs/INDEPENDENT_COMPARATOR_GATE.md'
       - 'docs/independent_comparator_gate_results.json'
+      - 'docs/COMPACT_COMPARATOR_GATE.md'
+      - 'docs/compact_comparator_gate_results.json'
+      - 'docs/PLANNING_VALUE_BASELINES.md'
+      - 'configs/planning_value_baselines_dev.json'
+      - '.github/workflows/independent-comparator.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'comparison/**'
+      - 'docs/COMPACT_COMPARATOR_GATE.md'
+      - 'docs/compact_comparator_gate_results.json'
+      - 'docs/PLANNING_VALUE_BASELINES.md'
+      - 'configs/planning_value_baselines_dev.json'
       - '.github/workflows/independent-comparator.yml'
 permissions:
   contents: read
@@ -35,6 +48,8 @@ jobs:
             ${{ runner.temp }}/independent-comparator-gate/started.json
             ${{ runner.temp }}/independent-comparator-gate/normal/
             ${{ runner.temp }}/independent-comparator-gate/optimized/
+            ${{ runner.temp }}/independent-comparator-gate/compact-normal/
+            ${{ runner.temp }}/independent-comparator-gate/compact-optimized/
           compression-level: 0
           retention-days: 30
           if-no-files-found: error
