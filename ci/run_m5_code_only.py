@@ -88,6 +88,7 @@ HIROUTE_TESTS = (
     "tests/test_d04_cost_diagnostic.py",
     "tests/test_source_tree_reuse.py",
     "tests/test_inbound_energy_bound.py",
+    "tests/test_enqueue_pruning.py",
     "tests/test_c_operator.py",
     "tests/test_exact_pipeline.py",
     "tests/test_exact_terminal.py",
@@ -203,7 +204,8 @@ def main() -> None:
                          "configs/real_scale_dev.json", "tools/run_real_scale_pilot.py",
                          "configs/real_scale_road_seed_dev.json", "tools/run_road_seed_dev.py",
                          "configs/d04_cost_diagnostic.json", "tools/d04_cost_diagnostic.py",
-                         "configs/source_time_reuse_dev.json", "configs/inbound_energy_dev.json"):
+                         "configs/source_time_reuse_dev.json", "configs/inbound_energy_dev.json",
+                         "configs/enqueue_pruning_dev.json"):
             copy_file(relative, tooling)
         for script in ("m5d_aggregate_screen.py", "prepare_regional_data.py", "m5d_charge_gate.py", "m5d_build_main_queries.py",
                        "m5d_freeze_main_phase.py", "m5d_main_batch.py",
