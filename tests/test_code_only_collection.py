@@ -68,10 +68,16 @@ def test_explicit_known_code_gate_directory_is_collected():
     assert module.pytest_ignore_collect(directory / 'test_energy.py', config) is False
 
 
-def test_charging_coverage_gates_are_registered_and_explicitly_collectable():
+def test_charging_coverage_gates_are_registered_and_explicitly_collectable(tmp_path):
     module = policy()
+    # The optional native fixture runs in its own dependency-complete job and
+    # need not be staged into the core wheel cohort. Exercise collection policy
+    # with actual independent files instead of assuming that staging layout.
+    module.ROOT=tmp_path
+    (tmp_path/'tests').mkdir()
     for name in ('test_charging_coverage.py','test_charging_coverage_extract.py'):
         path=module.ROOT/'tests'/name
+        path.write_text('pass\n')
         config=SimpleNamespace(getoption=lambda name:False,args=[str(path)])
         assert module._code_only_path(path)
         assert module.pytest_ignore_collect(path,config) is False

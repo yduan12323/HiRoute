@@ -127,6 +127,13 @@ and an explicit collection regression protects the registration. No existing
 assertion or resource limit was relaxed, and the real data audit is not rerun.
 The independent native-data CI41296196750 had already passed six tests normally
 and six with `-OO` on that head. Final-head CI is reported with delivery.
+The next M5 run41296733553 at6cf2023 exposed a fixture error in that new
+collection regression: it assumed the optional native test file was staged
+inside the installed-wheel cohort. The assertion remains unchanged; the test
+now creates its own registered-path files under a temporary root, so collection
+semantics do not depend on the cohort's staging layout. The second native-data
+CI41296733380 passed. Both failures and their distinct diagnosed causes remain
+recorded; neither is attributed to solver mathematics or hidden by a data rerun.
 
 Preparation guard: one worker/thread,1.5GiB RSS,2GiB host headroom,8GiB disk
 headroom,900 CPU/1,800 wall seconds overall, no reset after failures. Setup,
