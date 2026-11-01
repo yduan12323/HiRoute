@@ -51,22 +51,68 @@ class EnqueuePruningTests(unittest.TestCase):
                 self.assertEqual(new['depth_contract'],old['depth_contract'])
 
     def test_final_rejection_cannot_hide_a_crossed_resource_deadline(self):
-        snap=ProblemSnapshot.from_dict(self.source())
+        import ast,inspect,textwrap
+        # One candidate leaves exactly C,S,CS checks after the terminal. All C
+        # nodes are rejected at enqueue. Cross the deadline inside the final
+        # (illegal CS) check's memory sample, AFTER its clock test. Thus no next
+        # action/queue check can catch it: only the completion guard remains.
+        source=dict(self.source(),candidate_order=['c0'],site_capabilities={'c0':['C']})
+        snap=ProblemSnapshot.from_dict(source)
         original=scale_bounds.completion_bound
-        for method in helpers.METHODS:
-            clock={'now':0}
-            def delayed(*a,**kw):
-                value=original(*a,**kw);clock['now']=2;return value
-            with patch.object(scale,'deterministic_seed',return_value=(None,0)),patch.object(
-                    scale_bounds,'completion_bound',side_effect=delayed):
-                row=scale.solve_scale(snap,method=method,time_limit_s=1,
-                    _clock=lambda:clock['now'],inbound_energy_bound=True,eager_incumbent_pruning=True)
+
+        def without_final_check():
+            tree=ast.parse(textwrap.dedent(inspect.getsource(scale.solve_scale)))
+            class RemoveFinalCheck(ast.NodeTransformer):
+                removed=0
+                def visit_Try(self,node):
+                    for index,statement in enumerate(node.body):
+                        if (index and isinstance(node.body[index-1],ast.While)
+                            and isinstance(statement,ast.Expr)
+                            and isinstance(statement.value,ast.Call)
+                            and isinstance(statement.value.func,ast.Name)
+                            and statement.value.func.id=='check'):
+                            del node.body[index];self.removed+=1;break
+                    return self.generic_visit(node)
+            mutation=RemoveFinalCheck();tree=mutation.visit(tree)
+            self.assertEqual(mutation.removed,1)
+            namespace=dict(vars(scale))
+            exec(compile(ast.fix_missing_locations(tree),'<isolated-final-check-mutation>','exec'),namespace)
+            return namespace['solve_scale']
+
+        def assert_deadline(row):
             self.assertEqual(row['status'],'time_limit')
             self.assertEqual(row['mathematical_status'],'unknown')
             self.assertEqual(row['incumbent']['key'],(20,0,0,()))
             self.assertEqual(row['open_remaining'],0)
             self.accounting(row)
 
+        for method in helpers.METHODS:
+            for remove_check in (False,True):
+                clock={'now':0,'armed':False,'samples_after_bound':0}
+                def bound(*a,**kw):
+                    value=original(*a,**kw);clock['armed']=True;return value
+                def memory():
+                    if clock['armed']:
+                        clock['samples_after_bound']+=1
+                        if clock['samples_after_bound']==2:clock['now']=2
+                    return 1024
+                with patch.object(scale,'deterministic_seed',return_value=(None,0)),patch.object(
+                        scale_bounds,'completion_bound',side_effect=bound),patch.object(
+                        scale,'_resident_bytes',side_effect=memory):
+                    solve=without_final_check() if remove_check else scale.solve_scale
+                    row=solve(snap,method=method,time_limit_s=1,_clock=lambda:clock['now'],
+                              inbound_energy_bound=True,eager_incumbent_pruning=True)
+                self.assertEqual(clock['samples_after_bound'],2)
+                self.assertEqual(row['metrics']['enqueue_pruned_nodes'],1)
+                self.assertEqual(row['metrics']['heap_pops'],1)
+                if remove_check:
+                    self.assertEqual(row['status'],'attained_optimum')
+                    self.assertEqual(row['open_remaining'],0)
+                    # The identical regression oracle must reject this isolated
+                    # function copy; the module and production file stay intact.
+                    with self.assertRaises(AssertionError):assert_deadline(row)
+                else:
+                    assert_deadline(row)
 
     def accounting(self,row):
         m=row['metrics']

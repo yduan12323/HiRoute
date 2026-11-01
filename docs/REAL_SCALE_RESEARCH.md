@@ -1052,7 +1052,11 @@ improvement requiring later pop pruning, and identical relative push/pop and
 physical call order among retained entries. They also cover inbound-empty None
 actions, unrestricted six-charge depth, strict flag validation, and exact
 queue-counter identities. Crossing the deadline at the final rejected node
-still returns UNKNOWN even when OPEN becomes empty. Draft fixtures were corrected
+still returns UNKNOWN even when OPEN becomes empty. The focused case crosses the
+deadline after the last action check's clock test; an isolated in-memory function
+copy with only the final completion guard removed returns attained optimum and
+fails the same regression oracle. The production function/file is never mutated.
+This mutation check passes in both normal and `-OO` modes. Draft fixtures were corrected
 to exercise the intended existing depth bound and positive-edge input contract;
 no solver semantics or input requirements were relaxed.
 
