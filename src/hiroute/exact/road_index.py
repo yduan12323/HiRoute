@@ -382,8 +382,12 @@ class NativeRoadIndex:
     """
 
     def __init__(self, graph_tsv, exposed_nodes, *, cache_directory,
-                 distance_cache_size=2, leg_cache_size=4096, check=None):
+                 distance_cache_size=2, leg_cache_size=4096, check=None,
+                 pair_query_mode='reverse_tree'):
         import ctypes
+        if pair_query_mode not in ('reverse_tree', 'landmark_astar'):
+            raise ValueError('unknown exact pair query mode')
+        self.pair_query_mode = pair_query_mode
         if type(distance_cache_size) is not int or not 0 <= distance_cache_size <= 2**31 - 1:
             raise ValueError('distance_cache_size must be a nonnegative integer')
         if type(leg_cache_size) is not int or leg_cache_size < 0:
@@ -453,7 +457,7 @@ class NativeRoadIndex:
             self._python_hits += 1
             self._leg_cache.move_to_end(pair)
             return self._leg_cache[pair]
-        raw = self._query('leg', source, target)
+        raw = self._query('leg_astar' if self.pair_query_mode == 'landmark_astar' else 'leg', source, target)
         leg = None if raw is None else IndexedLeg(source, target, exact(raw['time_s']),
             exact(raw['length_m']), tuple(MappingProxyType({**row,
                 'time_s': exact(row['time_s']), 'length_m': exact(row['length_m'])}) for row in raw['edges']))
@@ -462,6 +466,16 @@ class NativeRoadIndex:
             while len(self._leg_cache) > self.leg_cache_size:
                 self._leg_cache.popitem(last=False)
         return leg
+
+    def prepare_landmarks(self, origin, destination):
+        """Charged query preparation; pin two complete directed time trees.
+
+        The optional pair optimization changes neither the graph nor its
+        selected-leg contract. Call again after an interrupted native query.
+        """
+        _identifier(origin, 'origin')
+        _identifier(destination, 'destination')
+        self._query('landmarks', origin, destination)
 
     def _distances(self, anchor, weight, reverse):
         _identifier(anchor, 'anchor')
@@ -498,6 +512,7 @@ class NativeRoadIndex:
     def metrics(self):
         native = self._query('metrics')
         return {**native, 'backend': 'exact_integer_scaled_cpp',
+                'pair_query_mode': self.pair_query_mode,
                 'constructor_time_s': self._constructor_seconds,
                 'compile_load_time_s': self._compile_load_seconds,
                 'index_rss_increment_bytes': self._index_rss_increment,

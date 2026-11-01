@@ -178,6 +178,39 @@ class NativeRoadIndexTests(unittest.TestCase):
                 native.check = None
             with self.assertRaises(ValueError):
                 native.selected_leg('a', 'z')
+            # All directed pairs, including anchors outside the O->D component,
+            # must retain the exact canonical node/edge tie and actual length.
+            for origin, destination in (('o','z'), ('d','e')):
+                with NativeRoadIndex(tsv,nodes,cache_directory=work,leg_cache_size=0,
+                                     pair_query_mode='landmark_astar') as guided:
+                    guided.prepare_landmarks(origin,destination)
+                    guided.prepare_landmarks(origin,destination)  # pins survive LRU eviction
+                    for a,b in itertools.product(nodes,repeat=2):
+                        expected,actual=reference.selected_leg(a,b),guided.selected_leg(a,b)
+                        self.assertEqual(actual,expected,(origin,destination,a,b))
+                    self.assertGreater(guided.metrics()['astar_queries'],0)
+                    self.assertEqual(guided.metrics()['pinned_landmark_count'],2)
+            # Many tiny graphs exercise incomplete landmark components and
+            # equality contours; the oracle enumerates only these tiny inputs.
+            for trial in range(20):
+                names=('z','a','b','0','é','中')
+                tiny=[row(a,b,Fraction(rng.randint(1,4),3),rng.randint(1,20),f'{i}')
+                      for i,(a,b) in enumerate(itertools.permutations(names,2)) if rng.random()<.45]
+                tiny+=[row('z','a',1,9,'parallel-a'),row('z','a',1,1,'parallel-z')]
+                tsv.write_text(''.join('\t'.join(str(e[k]) for k in
+                    ('source','target','edge_id','time_s','length_m'))+'\n' for e in tiny))
+                with NativeRoadIndex(tsv,names,cache_directory=work,pair_query_mode='landmark_astar',
+                                     leg_cache_size=0,distance_cache_size=0) as guided:
+                    guided.prepare_landmarks('z','a')
+                    for a,b in itertools.product(names,repeat=2):
+                        expected=independent_paths(tiny,a,b)
+                        actual=guided.selected_leg(a,b)
+                        if expected is None:
+                            self.assertIsNone(actual)
+                        else:
+                            self.assertEqual(tuple(e['edge_id'] for e in actual.edges),
+                                             tuple(e['edge_id'] for e in expected),(trial,a,b))
+                            self.assertEqual(actual.length_m,sum(Fraction(e['length_m']) for e in expected))
             duplicate = Path(work) / 'duplicate.tsv'
             duplicate.write_text('a\tb\tx\t1\t2\nb\tc\tx\t2\t3\n')
             with self.assertRaisesRegex(RuntimeError, 'edge IDs must be unique'):
@@ -210,6 +243,17 @@ class NativeRoadIndexTests(unittest.TestCase):
                 self.assertEqual(actual.length_m, expected.length_m)
                 self.assertEqual(tuple(e['edge_id'] for e in actual.edges),
                                  tuple(e['edge_id'] for e in expected.edges))
+            with NativeRoadIndex(long_tsv,('0','500','999','1000'),cache_directory=work,
+                                 pair_query_mode='landmark_astar',leg_cache_size=0) as guided:
+                guided.prepare_landmarks('0','1000')
+                calls=0
+                guided.check=interrupt
+                with self.assertRaises(Stop):
+                    guided.selected_leg('0','999')
+                guided.check=None
+                guided.prepare_landmarks('0','1000')
+                self.assertEqual(guided.selected_leg('0','999'),
+                                 RoadIndex(long_edges).selected_leg('0','999'))
 
 
 if __name__ == "__main__":

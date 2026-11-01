@@ -44,6 +44,26 @@ def supervised(**updates):
 
 
 class PilotControlTests(unittest.TestCase):
+    def test_second_segment_reuses_guarded_runner_and_rejects_model_drift(self):
+        import run_road_seed_dev as dev
+        frozen=json.loads((ROOT/'configs/real_scale_road_seed_dev.json').read_text())
+        self.assertEqual(len(dev.jobs(frozen)),10)
+        with tempfile.TemporaryDirectory() as work:
+            root=Path(work);cfg=root/'config.json'
+            changed=json.loads(json.dumps(frozen))
+            changed['model']['capacity_kwh']='2'
+            cfg.write_text(json.dumps(changed))
+            with self.assertRaisesRegex(ValueError,'physical model'):
+                dev.prepare(cfg,root,root)
+            changed=json.loads(json.dumps(frozen))
+            changed['resources']['pilot_method_query_wall_s']=300
+            cfg.write_text(json.dumps(changed))
+            with self.assertRaisesRegex(ValueError,'resource limits'):
+                dev.prepare(cfg,root,root)
+            frozen['domains'][0]['profiles']['optimized'].append('scale')
+            with self.assertRaisesRegex(ValueError,'duplicate DEV jobs'):
+                dev.jobs(frozen)
+
     def test_default_and_filtered_workload_never_expand_declared_matrix(self):
         rows = pilot.selected_workload(config(),args())
         self.assertEqual(len(rows),10)

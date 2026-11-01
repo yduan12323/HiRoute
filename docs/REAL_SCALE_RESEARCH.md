@@ -218,3 +218,83 @@ The runner defaults to the declared `pilot_matrix`; `--domains 64`, `--ablation`
 and `--diagnostic` select its scoped workloads.
 Use fresh output paths and the same config. These are reproduction instructions,
 not a request to repeat valid rows. The deliverable remains a draft PR for review.
+
+## Authorized second segment: road queries and feasible seed
+
+This segment starts from merged main `0b61d1ff3d9715627e1a56fd8af7c886b9837b80`
+(PR #24; main CI 41195558122 passed). Segment-one rows above remain historical
+and are not rerun. The approved scope is exact road/seed cost, wider Shandong
+workloads, limited DEV, then a draft PR and a main-experiment decision. No main
+experiment or holdout is authorized here. The prior server source-upload denial
+remains in force; all new work executes locally, with the existing OS supervisor.
+
+The optional `landmark_astar` profile reuses the same arbitrary-precision,
+integer-scaled directed graph, four scalar feature maps and selected-leg rule.
+It pins two **complete** time trees `a(u)=d(O,u)` and `b(u)=d(u,D)`, sharing them
+with the scalar LRU where possible. Pair work has a separate reusable workspace;
+its residency, pinned trees, queues, query allocation and cold index are counted.
+This is a memory/work tradeoff, not a free pair table. Precomputation remains
+O(V+E) per landmark, with actual Dijkstra cost included in loaded query time.
+Length relaxations remain independent shortest-distance metrics.
+
+For the reverse search from pair target t toward source s, use
+`h(u)=max(0, a(u)-a(s), b(s)-b(u))`. The a term is enabled only when a(s) is finite;
+then a-unknown vertices can safely be excluded because s cannot reach them.
+The b term is enabled only when both b(s) and b(t) are finite; every reverse
+reachable u then reaches t and D, so b(u) is finite. Disabled terms are zero.
+For an original edge v->u of time w, directed triangle inequalities give
+`a(u)-a(s) <= w+a(v)-a(s)` and
+`b(s)-b(u) <= w+b(s)-b(v)`. Zero is also consistent. Thus their maximum is a
+consistent reverse potential and lower-bounds every u->...->s reverse path.
+All arithmetic remains exact. Search continues through **equality** after s
+settles, stopping only above its exact distance. Every vertex on an optimal
+s->t suffix is therefore settled. Greedy reconstruction on tight edges then
+preserves the original `(time, node tuple, edge-ID tuple)` rule, including
+parallel edges and actual selected length. Positive times prevent tight cycles.
+Queries to the pinned D reuse its complete tree. Missing paths remain missing;
+frozen selected legs are never rerouted as a graph. Interrupted native work is
+discarded; preparation can be repeated explicitly, without using partial trees.
+
+The optional rank-lazy seed retains only the original best four next states
+while generating them. Its unchanged rank is `(pending service, to-D time,
+earliest tau, full plan)`. The first two coordinates are known before an exact
+route or transition. Once four states exist, an action can be skipped only when
+those two coordinates are **strictly greater** than the current fourth state's.
+That cutoff can only improve as candidates arrive. A skipped state can never
+enter the final beam; equality still runs exact transitions and compares the
+remaining coordinates. Induction over depths therefore preserves the full beam
+order and first executable seed of the original scan. This pruning is confined
+to seed generation. Exact search, histories, lower bounds, attainment/full key,
+relevant-depth proof and the absence of a seed-as-infeasibility inference are
+unchanged. Strong Flat-BB and Scale receive identical profile and inputs.
+
+### Frozen limited validation, before numerical execution
+
+`configs/real_scale_road_seed_dev.json` declares ten new method/profile rows:
+
+| Domain | OD / scenario | Corridor half-width | Candidate domain | Profiles/methods |
+|---|---|---:|---|---|
+| D01 | SD01 energy | 60 km | first 64 of 83 eligible C anchors | legacy Strong; route-only Strong; optimized Strong and Scale |
+| D02 | SD03 energy | 60 km | all 64 eligible C anchors | optimized Strong and Scale |
+| D03 | SD03 schedule | 60 km | first 128 of 368 eligible anchors | optimized Strong and Scale |
+| D04 | SD02 energy | 126 km | first 128 of 143 eligible C anchors | optimized Strong and Scale |
+
+The unchanged geometric/capability policy gives eligible energy/schedule counts
+at 60 km of SD01 83/649, SD02 101/959, SD03 64/368 and SD04 84/515; at 126 km,
+154/1453, 143/1311, 128/1064 and 156/1469. Widths were selected from static
+availability, before solver outcomes. Wider corridor and N truncation are
+workload definitions, not safe reductions or province-wide optimality claims.
+D02 removes N truncation only **inside its declared corridor**. The physical
+model is unchanged; no smaller battery or larger consumption is used.
+
+The runner measures selection/manifest construction as preprocessing, reuses the
+existing exact TSV and launches fresh guarded workers sequentially. Loaded query
+preparation, landmarks, seed, search and witness replay share a 120s hard limit;
+60s remains the main threshold. One numerical worker/thread, 8 GiB process cap,
+8 GiB query-extra cap and 2 GiB host headroom apply. Carry 3200.991448329 CPU
+seconds, add a conservative 60 CPU seconds for second-segment local development
+microchecks before these runs, then charge every observed worker CPU including
+cold index/compiler. This remains within the original 28800 CPU-second envelope.
+No budget extension, extra matrix, real-graph simple-path REF or failed-row
+replacement is permitted by this configuration. No segment-one result supplies
+an incumbent or selection criterion.

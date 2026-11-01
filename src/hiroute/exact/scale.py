@@ -172,13 +172,15 @@ class OptimalFace:
 
 
 def deterministic_seed(snapshot, root, provider, features, check, *, beam_width=4,
-                       max_depth=None, c_backend='analytic'):
+                       max_depth=None, c_backend='analytic', prune_beam=False, metrics=None):
     """A bounded, deterministic feasibility heuristic; never an optimality oracle.
 
     Prefer progress toward destination, trying C/CS/S with exact transitions.
     A beam discards heuristic states only here. Exact search starts from root.
     """
     frontier = [root]
+    metrics = {} if metrics is None else metrics
+    metrics.update(seed_rank_pruned_effects=0, seed_rank_pruned_routes=0)
     attempts = 0
     # This is a seed-effort bound, not a bound on the exact search domain.
     max_depth = len(snapshot.candidate_order) if max_depth is None else max_depth
@@ -220,6 +222,19 @@ def deterministic_seed(snapshot, root, provider, features, check, *, beam_width=
                         +exact(snapshot.minimum_energy_kwh)
                         > max(p.domain.hi for p in state.family)):
                     continue
+                if prune_beam and len(following) >= beam_width:
+                    # The first two coordinates of the unchanged child rank
+                    # are known before routing. Retain equality: earliest tau
+                    # and the full plan still decide those candidates.
+                    cutoff = following[-1][0][:2]
+                    kept = tuple(effect for effect in effects
+                        if (pending if effect == 'C' else 0,
+                            features[site].to_destination_time) <= cutoff)
+                    metrics['seed_rank_pruned_effects'] += len(effects)-len(kept)
+                    if not kept:
+                        metrics['seed_rank_pruned_routes'] += 1
+                        continue
+                    effects = kept
                 leg = provider.selected_leg(state.anchor, site)
                 if leg is None:
                     continue
@@ -232,6 +247,9 @@ def deterministic_seed(snapshot, root, provider, features, check, *, beam_width=
                         rank = (child.family[0].state_key[1], features[site].to_destination_time,
                                 earliest, child.plan)
                         following.append((rank, child))
+                        if prune_beam:
+                            following.sort(key=lambda item: item[0])
+                            del following[beam_width:]
         frontier = [item[1] for item in sorted(following, key=lambda item: item[0])[:beam_width]]
         if not frontier:
             break
@@ -241,7 +259,7 @@ def deterministic_seed(snapshot, root, provider, features, check, *, beam_width=
 def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
                 memory_limit_bytes=8*1024**3, on_incumbent=None, use_bound=True,
                 seed_beam_width=4, _clock=time.monotonic, c_backend='analytic',
-                memory_baseline_bytes=None):
+                memory_baseline_bytes=None, seed_beam_pruning=False):
     """Solve the full declared candidate domain, with resource-limited UNKNOWN.
 
     flat_bb_strong and scale share the exact kernel, singleton relaxation,
@@ -253,6 +271,8 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
                                region_travel_lower_bounds, singleton_region)
     if method not in ('scale', 'flat_bb_strong'):
         raise ValueError('method must be scale or flat_bb_strong')
+    if type(seed_beam_pruning) is not bool:
+        raise ValueError('seed_beam_pruning must be boolean')
     try:
         valid_time = (not isinstance(time_limit_s, bool)
                       and isinstance(time_limit_s, Real)
@@ -359,7 +379,7 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
         seed, metrics['seed_attempts'] = deterministic_seed(snapshot, root, provider, features, check,
             beam_width=seed_beam_width,
             max_depth=snapshot.depth_limit if snapshot.depth_mode == 'diagnostic_cap' else None,
-            c_backend=c_backend)
+            c_backend=c_backend, prune_beam=seed_beam_pruning, metrics=metrics)
         update_incumbent(seed)
         seconds[phase] = _clock()-phase_started
         phase, phase_started = 'search', _clock()
@@ -470,7 +490,8 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
     depth = None if incumbent is None else incumbent['key'][0] // (
         exact(snapshot.stop_overhead_s)+exact(snapshot.stop_penalty_s))
     result.update(domains=domains, elapsed_s=_clock()-started, metrics=metrics, seconds=seconds,
-        incumbent=incumbent, seed=seed, seed_policy='deterministic_exact_feasibility_beam',
+        incumbent=incumbent, seed=seed, seed_policy=('deterministic_exact_feasibility_beam_rank_lazy'
+            if seed_beam_pruning else 'deterministic_exact_feasibility_beam'),
         depth_contract=dict(mode=snapshot.depth_mode,
             declared_limit=snapshot.depth_limit if snapshot.depth_mode == 'diagnostic_cap' else None,
             incumbent_derived_limit=depth, rule='floor(U_J/(h_min+lambda_stop))'),

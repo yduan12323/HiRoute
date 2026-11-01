@@ -196,7 +196,8 @@ def main() -> None:
                          "tests/conftest.py", "tests/code_only_manifest.py",
                          "tools/check_code_publication.py", "tools/verify_artifacts.py",
                          "tools/profile_small_cases.py", "tools/real_scale_inputs.py",
-                         "configs/real_scale_dev.json", "tools/run_real_scale_pilot.py"):
+                         "configs/real_scale_dev.json", "tools/run_real_scale_pilot.py",
+                         "configs/real_scale_road_seed_dev.json", "tools/run_road_seed_dev.py"):
             copy_file(relative, tooling)
         for script in ("m5d_aggregate_screen.py", "prepare_regional_data.py", "m5d_charge_gate.py", "m5d_build_main_queries.py",
                        "m5d_freeze_main_phase.py", "m5d_main_batch.py",

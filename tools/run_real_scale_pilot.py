@@ -87,6 +87,7 @@ def worker(args):
             str(args.n):domain_rows(query,16,args.scenario)[:args.n]}
         query = {**query,'scenario_candidate_domains':scenario_domains}
     resources = config['resources']
+    implementation = config.get('implementation', {})
     initial_cpu = worker_cpu()
     entered = time.monotonic()
     def host_guard():
@@ -101,6 +102,7 @@ def worker(args):
         runtime.system_mem_available_bytes = lambda: psutil.virtual_memory().available
     row = dict(query_id=args.query, N=args.n, scenario=args.scenario, method=args.method,
         bound_enabled=not args.no_bound, source_kind='real_shandong_dev',
+        implementation=implementation,
         candidate_domain_claim=config['selection']['domain_claim'],
         great_circle_m=query['great_circle_m'], eligible_unique_anchors=query['eligible_unique_anchors'],
         scenario_eligible_sites=query['scenario_eligible_counts'][args.scenario],
@@ -119,7 +121,8 @@ def worker(args):
     # an absolute process+host guard throughout construction and solving.
     try:
         native = NativeRoadIndex(args.graph_tsv, origin_aliases.values(),
-            cache_directory=args.native_cache, check=host_guard)
+            cache_directory=args.native_cache, check=host_guard,
+            pair_query_mode=implementation.get('pair_query_mode', 'reverse_tree'))
     except (ResourceLimit, MemoryError) as exc:
         row.update(status=exc.status if isinstance(exc, ResourceLimit) else 'memory_limit',
             failed_phase='cold_graph_index', cold_index_wall_s=time.monotonic()-entered,
@@ -170,6 +173,9 @@ def worker(args):
     try:
         # Covers kernels, replay and callback I/O that do not route/check.
         with loaded_query_watchdog(loaded,limit):
+            if implementation.get('pair_query_mode') == 'landmark_astar':
+                native.prepare_landmarks(*(origin_aliases[query['endpoints'][end]['site_id']]
+                    for end in ('origin','destination')))
             snapshot = bind_snapshot(config, query, args.n, args.scenario, provider)
             if args.diagnostic:
                 from dataclasses import replace
@@ -210,6 +216,7 @@ def worker(args):
                 result = solve_scale(snapshot, method=args.method, provider=provider,
                     time_limit_s=remaining, memory_limit_bytes=resources['query_extra_memory_bytes'],
                     on_incumbent=keep, use_bound=not args.no_bound,
+                    seed_beam_pruning=implementation.get('seed_beam_pruning', False),
                     memory_baseline_bytes=query_memory_baseline)
             row.update(status=result['status'], mathematical_status=result.get('mathematical_status', result['status']),
                 key=result.get('key'), primary_infimum=result.get('primary_infimum'),
@@ -237,6 +244,7 @@ def worker(args):
             row.pop(key,None)
         raise
     finally:
+        row['routing_metrics'] = native.metrics()
         # If an alarm interrupted atomic checkpoint I/O, persist only the already
         # independently verified payload during final output; never re-solve it.
         if last_verified_payload is not None:
