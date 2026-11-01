@@ -177,7 +177,10 @@ def deterministic_seed(snapshot, root, provider, features, check, *, beam_width=
 
     Prefer progress toward destination, trying C/CS/S with exact transitions.
     A beam discards heuristic states only here. Exact search starts from root.
+    beam_width must be a strictly positive integer, in either pruning mode.
     """
+    if type(beam_width) is not int or beam_width <= 0:
+        raise ValueError('beam_width must be a positive integer')
     frontier = [root]
     metrics = {} if metrics is None else metrics
     metrics.update(seed_rank_pruned_effects=0, seed_rank_pruned_routes=0)
@@ -265,6 +268,8 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
     flat_bb_strong and scale share the exact kernel, singleton relaxation,
     preprocessing, feasible seed and limits. Their difference is Region batching
     and associated leaf order. use_bound=False is the declared bound ablation.
+    seed_beam_width must be a strictly positive integer; zero does not disable
+    the seed. Invalid widths are rejected before constructing a road index.
     """
     from .road_index import RoadIndex
     from .scale_bounds import (SiteFeatures, build_region_tree, completion_bound,
@@ -273,6 +278,8 @@ def solve_scale(snapshot, *, method='scale', provider=None, time_limit_s=60,
         raise ValueError('method must be scale or flat_bb_strong')
     if type(seed_beam_pruning) is not bool:
         raise ValueError('seed_beam_pruning must be boolean')
+    if type(seed_beam_width) is not int or seed_beam_width <= 0:
+        raise ValueError('seed_beam_width must be a positive integer')
     try:
         valid_time = (not isinstance(time_limit_s, bool)
                       and isinstance(time_limit_s, Real)

@@ -272,6 +272,10 @@ order and first executable seed of the original scan. This pruning is confined
 to seed generation. Exact search, histories, lower bounds, attainment/full key,
 relevant-depth proof and the absence of a seed-as-infeasibility inference are
 unchanged. Strong Flat-BB and Scale receive identical profile and inputs.
+The seed beam width has an explicit strictly-positive-integer API contract in
+both modes: zero, negatives, booleans and nonintegers are rejected before index
+construction and by the direct seed helper. The declared width four is unchanged;
+a focused regression covers both modes and width one. No DEV rerun is needed.
 
 ### Frozen limited validation, before numerical execution
 
@@ -393,7 +397,7 @@ observed process RSS was **2.327 GiB**, query-extra RSS **1.122 GiB**, and minim
 observed host available memory **3.059 GiB**, above the 2 GiB headroom guard.
 There were no host/process memory stops, lost supervisors or substituted rows.
 
-Local focused validation passed **108 tests** with actual native execution,
+Local focused validation passed **109 tests** with actual native execution,
 including 20 random tiny directed graphs checked against independent simple-path
 enumeration, Unicode/parallel ties, exact rational weights, incomplete landmark
 components, interrupted A* recovery, unchanged seed/full-key parity, equality,

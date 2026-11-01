@@ -64,6 +64,23 @@ def semantics(result):
 
 
 class ScaleSearchTests(unittest.TestCase):
+    def test_seed_width_contract_rejects_zero_before_routing_in_both_modes(self):
+        snapshot=ProblemSnapshot.from_dict(raw())
+        with patch('hiroute.exact.road_index.RoadIndex',
+                   side_effect=AssertionError('invalid width constructed an index')) as index:
+            for width in (0,-1,True,False,1.5,None,'4'):
+                for pruning in (False,True):
+                    with self.subTest(width=width,pruning=pruning):
+                        with self.assertRaisesRegex(ValueError,'beam_width'):
+                            scale.solve_scale(snapshot,seed_beam_width=width,
+                                              seed_beam_pruning=pruning)
+                        with self.assertRaisesRegex(ValueError,'beam_width'):
+                            scale.deterministic_seed(snapshot,None,None,None,lambda:None,
+                                                     beam_width=width,prune_beam=pruning)
+            index.assert_not_called()
+        result=scale.solve_scale(snapshot,seed_beam_width=1,seed_beam_pruning=True)
+        self.assertEqual(result['status'],'attained_optimum')
+
     def test_invalid_resource_limits_are_rejected_before_index_construction(self):
         snapshot = ProblemSnapshot.from_dict(raw())
         invalid_times = (None, True, False, 0, -1, float('nan'), float('inf'),
