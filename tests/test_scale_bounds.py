@@ -193,5 +193,77 @@ class SummaryRegionTests(unittest.TestCase):
             singleton_region("a", ("C",), self.features["a"]), "CS", self.features["o"]))
 
 
+class HierarchyRouteAuditTests(unittest.TestCase):
+    def test_region_relaxation_cannot_strengthen_its_same_information_singletons(self):
+        from hiroute.exact.scale_bounds import service_summary, pending_service_travel_bound
+        fixture=SummaryRegionTests();fixture.setUp()
+        service=service_summary(fixture.capabilities,fixture.features)
+        for node in fixture.walk(fixture.root):
+            for effect,mask in node.effect_masks.items():
+                for anchor,slope,remaining in itertools.product(('o','b'),(-1,1),(0,1)):
+                    af=fixture.features[anchor]
+                    prefix=() if anchor=='o' else ((anchor,'C'),)
+                    piece=AffineCutPiece(Interval(0,10,False,False),F(slope),F(20),False,
+                        prefix=prefix,state_key=(anchor,remaining,len(prefix)))
+                    rt,rd=region_travel_lower_bounds(node,effect,af)
+                    need_r=rd-node.summaries[effect].min_to_destination_distance
+                    for i,site in enumerate(fixture.sites):
+                        if not mask & (1<<i):continue
+                        single=singleton_region(site,fixture.capabilities[site],fixture.features[site])
+                        st,sd=region_travel_lower_bounds(single,effect,af)
+                        need_s=sd-single.summaries[effect].min_to_destination_distance
+                        self.assertLessEqual(rt,st);self.assertLessEqual(rd,sd)
+                        self.assertLessEqual(need_r,need_s)
+                        for inbound in (False,True):
+                            options=dict(start_time=0,reserve=1,overhead=1,stop_penalty=2,
+                                         charge_slope=2,service_duration=4)
+                            rb=completion_bound((piece,),travel_time=rt,drive_energy=rd,
+                                inbound_energy=need_r if inbound else None,**options)
+                            sb=completion_bound((piece,),travel_time=st,drive_energy=sd,
+                                inbound_energy=need_s if inbound else None,**options)
+                            if rb is None:self.assertIsNone(sb)
+                            elif sb is not None:self.assertLessEqual(rb,sb)
+                        self.assertLessEqual(pending_service_travel_bound(af,service,
+                            node.summaries[effect],effect,1),pending_service_travel_bound(
+                            af,service,single.summaries[effect],effect,1))
+
+    def test_batching_can_save_bound_queries_or_add_them_without_changing_exact_work(self):
+        import test_scale_search as cases
+        from hiroute.contracts import ProblemSnapshot
+        from hiroute.exact.scale import solve_scale
+        sites=[f'c{i:02}' for i in range(64)]
+        sources=[cases.raw(candidate_order=sites,site_capabilities={s:['C'] for s in sites},
+            charging_curve=[['0','10','1','0']],depth_mode='unrestricted',depth_limit=0,
+            directed_edges=[cases.edge('o','z',time=20)]+[
+                e for s in sites for e in (cases.edge('o',s,time=100),cases.edge(s,'z',time=100))]),
+            cases.raw(initial_energy_kwh='20',capacity_kwh='20',candidate_order=['a','b'],
+                site_capabilities={'a':['C'],'b':['C']},charging_curve=[['0','20','1','0']],
+                depth_mode='unrestricted',depth_limit=0,directed_edges=[cases.edge('o','a',2,2),
+                    cases.edge('a','b',6,6),cases.edge('b','z',2,2),cases.edge('o','z',10,10)])]
+        for source,expected in zip(sources,((64,1),(2,3))):
+            snapshot=ProblemSnapshot.from_dict(source)
+            a,b=[solve_scale(snapshot,method=m,eager_incumbent_pruning=True) for m in cases.METHODS]
+            self.assertEqual(cases.semantics(a),cases.semantics(b))
+            self.assertEqual(a['status'],'attained_optimum')
+            self.assertEqual((a['metrics']['singleton_queries'],b['metrics']['summary_queries']),expected)
+            self.assertEqual(a['metrics']['transitions'],0);self.assertEqual(b['metrics']['transitions'],0)
+            self.assertEqual(a['metrics']['leaf_routes'],0);self.assertEqual(b['metrics']['leaf_routes'],0)
+
+    def test_closed_cs_shortcut_admits_an_empty_strict_branch(self):
+        # Common-model comparator design guard, not a Core counterexample.
+        root=initial_piece(Interval(1,1),anchor='o',remaining_schedule=1,rho=-1)
+        steps=(DriveStep('s',F(1),F(0)),StopStep('CS','s',F(1),
+            ((F(0),F(1),F(1),F(0)),),F(0),F(10),F(1)),DriveStep('z',F(1),F(0)))
+        self.assertEqual(execute_exact_plan((root,),steps),())
+        # Replacing q>0 by q>=0 admits this closed point, although no positive
+        # charge at a full battery exists anywhere in that fixed branch.
+        q=F(0);arrival=F(1);output_energy=F(1)+q
+        self.assertLessEqual(output_energy,1)
+        self.assertLessEqual(arrival,10-1)
+        closed_finish=max(F(0)+1,arrival+1+max(q,F(1)))+1
+        self.assertEqual(closed_finish,4)
+        self.assertEqual(closed_finish+1,5)  #J with one stop penalty.
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,675 @@
+{
+  "bottlenecks": {
+    "common_exact": {
+      "flat_bb_strong": {
+        "meaning": "Nested timers, not additive exclusive shares; no C/S/CS split",
+        "median_selected_leg_share": 0.42150972776282364,
+        "median_transition_share": 0.06894430193992512,
+        "n": 36
+      },
+      "scale": {
+        "meaning": "Nested timers, not additive exclusive shares; no C/S/CS split",
+        "median_selected_leg_share": 0.45126596261697827,
+        "median_transition_share": 0.06766452362702013,
+        "n": 36
+      }
+    },
+    "common_timeouts": {
+      "flat_bb_strong": {
+        "meaning": "Nested timers, not additive exclusive shares; no C/S/CS split",
+        "median_selected_leg_share": 0.12988360987197028,
+        "median_transition_share": 0.6044199781573228,
+        "n": 7
+      },
+      "scale": {
+        "meaning": "Nested timers, not additive exclusive shares; no C/S/CS split",
+        "median_selected_leg_share": 0.1344090350331317,
+        "median_transition_share": 0.6522602481079599,
+        "n": 7
+      }
+    }
+  },
+  "candidate_availability": {
+    "128": {
+      "energy_only": {
+        "candidate_available": 0,
+        "denominator": 24
+      },
+      "schedule": {
+        "candidate_available": 24,
+        "denominator": 24
+      }
+    },
+    "256": {
+      "energy_only": {
+        "candidate_available": 0,
+        "denominator": 24
+      },
+      "schedule": {
+        "candidate_available": 22,
+        "denominator": 24
+      }
+    },
+    "64": {
+      "energy_only": {
+        "candidate_available": 20,
+        "denominator": 24
+      },
+      "schedule": {
+        "candidate_available": 24,
+        "denominator": 24
+      }
+    }
+  },
+  "caveats": [
+    "One observation per method/cell, Strong first; no balanced-order or repeated-run timing inference",
+    "Common-exact subset is conditional; retain full48 and supported44 population outcomes",
+    "Equal aggregate work counters do not establish identical histories or incumbent trajectories",
+    "OPEN entries are not bytes; query-extra RSS is not OPEN-only memory",
+    "Censored work prefixes are not complete-work or time-to-optimum comparisons"
+  ],
+  "common_exact_metric_equality": {
+    "leaf_routes": 36,
+    "max_depth": 36,
+    "terminal_attempts": 36,
+    "transition_input_pieces": 36,
+    "transition_output_pieces": 36,
+    "transitions": 36
+  },
+  "common_exact_pairs": [
+    {
+      "bound_queries_scale": 36160,
+      "bound_queries_strong": 67328,
+      "heap_pushes_scale": 22635,
+      "heap_pushes_strong": 6991,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 3883,
+      "peak_open_strong": 5374,
+      "query_id": "WD01",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 8615,
+      "bound_queries_strong": 14784,
+      "heap_pushes_scale": 5581,
+      "heap_pushes_strong": 2062,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 1157,
+      "peak_open_strong": 1672,
+      "query_id": "WD01",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 49098,
+      "bound_queries_strong": 96256,
+      "heap_pushes_scale": 30974,
+      "heap_pushes_strong": 9254,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 5812,
+      "peak_open_strong": 6951,
+      "query_id": "WD02",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 11322,
+      "bound_queries_strong": 20352,
+      "heap_pushes_scale": 7311,
+      "heap_pushes_strong": 2754,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 1589,
+      "peak_open_strong": 2190,
+      "query_id": "WD02",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 20192,
+      "bound_queries_strong": 31104,
+      "heap_pushes_scale": 11900,
+      "heap_pushes_strong": 2275,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 1710,
+      "peak_open_strong": 1582,
+      "query_id": "WD03",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 7158,
+      "bound_queries_strong": 11136,
+      "heap_pushes_scale": 4425,
+      "heap_pushes_strong": 1207,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 793,
+      "peak_open_strong": 954,
+      "query_id": "WD03",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 13341,
+      "bound_queries_strong": 22720,
+      "heap_pushes_scale": 7940,
+      "heap_pushes_strong": 1621,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 889,
+      "peak_open_strong": 1160,
+      "query_id": "WD04",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 1245,
+      "bound_queries_strong": 2496,
+      "heap_pushes_scale": 694,
+      "heap_pushes_strong": 91,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 66,
+      "peak_open_strong": 46,
+      "query_id": "WD04",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 8356,
+      "bound_queries_strong": 16152,
+      "heap_pushes_scale": 6239,
+      "heap_pushes_strong": 4219,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 1601,
+      "peak_open_strong": 3689,
+      "query_id": "WD04",
+      "scenario": "schedule"
+    },
+    {
+      "bound_queries_scale": 23054,
+      "bound_queries_strong": 38304,
+      "heap_pushes_scale": 13322,
+      "heap_pushes_strong": 2303,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 1464,
+      "peak_open_strong": 1592,
+      "query_id": "WD05",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 40982,
+      "bound_queries_strong": 82430,
+      "heap_pushes_scale": 31336,
+      "heap_pushes_strong": 27098,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 9467,
+      "peak_open_strong": 24559,
+      "query_id": "WD05",
+      "scenario": "schedule"
+    },
+    {
+      "bound_queries_scale": 2121,
+      "bound_queries_strong": 3339,
+      "heap_pushes_scale": 1243,
+      "heap_pushes_strong": 209,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 151,
+      "peak_open_strong": 144,
+      "query_id": "WD05",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 18287,
+      "bound_queries_strong": 39665,
+      "heap_pushes_scale": 13351,
+      "heap_pushes_strong": 10543,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 3680,
+      "peak_open_strong": 9517,
+      "query_id": "WD05",
+      "scenario": "schedule"
+    },
+    {
+      "bound_queries_scale": 8742,
+      "bound_queries_strong": 16002,
+      "heap_pushes_scale": 5091,
+      "heap_pushes_strong": 936,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 510,
+      "peak_open_strong": 631,
+      "query_id": "WD06",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 47095,
+      "bound_queries_strong": 76911,
+      "heap_pushes_scale": 32930,
+      "heap_pushes_strong": 24946,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 6759,
+      "peak_open_strong": 22743,
+      "query_id": "WD06",
+      "scenario": "schedule"
+    },
+    {
+      "bound_queries_scale": 941,
+      "bound_queries_strong": 1827,
+      "heap_pushes_scale": 517,
+      "heap_pushes_strong": 70,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 50,
+      "peak_open_strong": 37,
+      "query_id": "WD06",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 3193,
+      "bound_queries_strong": 5792,
+      "heap_pushes_scale": 1975,
+      "heap_pushes_strong": 369,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 184,
+      "peak_open_strong": 229,
+      "query_id": "WD06",
+      "scenario": "schedule"
+    },
+    {
+      "bound_queries_scale": 794,
+      "bound_queries_strong": 1638,
+      "heap_pushes_scale": 503,
+      "heap_pushes_strong": 120,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 72,
+      "peak_open_strong": 80,
+      "query_id": "WD07",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 5137,
+      "bound_queries_strong": 9348,
+      "heap_pushes_scale": 2925,
+      "heap_pushes_strong": 377,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 263,
+      "peak_open_strong": 210,
+      "query_id": "WD07",
+      "scenario": "schedule"
+    },
+    {
+      "bound_queries_scale": 1161,
+      "bound_queries_strong": 1827,
+      "heap_pushes_scale": 636,
+      "heap_pushes_strong": 70,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 85,
+      "peak_open_strong": 35,
+      "query_id": "WD07",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 15702,
+      "bound_queries_strong": 28730,
+      "heap_pushes_scale": 9106,
+      "heap_pushes_strong": 1340,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 688,
+      "peak_open_strong": 827,
+      "query_id": "WD07",
+      "scenario": "schedule"
+    },
+    {
+      "bound_queries_scale": 13462,
+      "bound_queries_strong": 27113,
+      "heap_pushes_scale": 9002,
+      "heap_pushes_strong": 1640,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 1150,
+      "peak_open_strong": 849,
+      "query_id": "WD08",
+      "scenario": "schedule"
+    },
+    {
+      "bound_queries_scale": 4688,
+      "bound_queries_strong": 7503,
+      "heap_pushes_scale": 2794,
+      "heap_pushes_strong": 434,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 454,
+      "peak_open_strong": 268,
+      "query_id": "WD08",
+      "scenario": "schedule"
+    },
+    {
+      "bound_queries_scale": 1405,
+      "bound_queries_strong": 2403,
+      "heap_pushes_scale": 876,
+      "heap_pushes_strong": 179,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 92,
+      "peak_open_strong": 98,
+      "query_id": "WD09",
+      "scenario": "schedule"
+    },
+    {
+      "bound_queries_scale": 464,
+      "bound_queries_strong": 966,
+      "heap_pushes_scale": 262,
+      "heap_pushes_strong": 42,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 21,
+      "peak_open_strong": 21,
+      "query_id": "WD09",
+      "scenario": "schedule"
+    },
+    {
+      "bound_queries_scale": 4457,
+      "bound_queries_strong": 7488,
+      "heap_pushes_scale": 2938,
+      "heap_pushes_strong": 1096,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 526,
+      "peak_open_strong": 863,
+      "query_id": "WD10",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 3513,
+      "bound_queries_strong": 6080,
+      "heap_pushes_scale": 2438,
+      "heap_pushes_strong": 1109,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 552,
+      "peak_open_strong": 902,
+      "query_id": "WD10",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 6909,
+      "bound_queries_strong": 12159,
+      "heap_pushes_scale": 5589,
+      "heap_pushes_strong": 2248,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 1365,
+      "peak_open_strong": 1547,
+      "query_id": "WD10",
+      "scenario": "schedule"
+    },
+    {
+      "bound_queries_scale": 9561,
+      "bound_queries_strong": 14912,
+      "heap_pushes_scale": 6074,
+      "heap_pushes_strong": 1544,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 879,
+      "peak_open_strong": 1152,
+      "query_id": "WD11",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 12586,
+      "bound_queries_strong": 18334,
+      "heap_pushes_scale": 9216,
+      "heap_pushes_strong": 7139,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 2316,
+      "peak_open_strong": 6417,
+      "query_id": "WD11",
+      "scenario": "schedule"
+    },
+    {
+      "bound_queries_scale": 11044,
+      "bound_queries_strong": 17280,
+      "heap_pushes_scale": 6830,
+      "heap_pushes_strong": 1485,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 883,
+      "peak_open_strong": 1043,
+      "query_id": "WD11",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 7426,
+      "bound_queries_strong": 10646,
+      "heap_pushes_scale": 5119,
+      "heap_pushes_strong": 2064,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 1008,
+      "peak_open_strong": 1597,
+      "query_id": "WD11",
+      "scenario": "schedule"
+    },
+    {
+      "bound_queries_scale": 2426,
+      "bound_queries_strong": 3780,
+      "heap_pushes_scale": 1701,
+      "heap_pushes_strong": 639,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 368,
+      "peak_open_strong": 496,
+      "query_id": "WD12",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 18410,
+      "bound_queries_strong": 23067,
+      "heap_pushes_scale": 14037,
+      "heap_pushes_strong": 10586,
+      "initial_energy_kwh": "18",
+      "peak_open_scale": 3670,
+      "peak_open_strong": 9599,
+      "query_id": "WD12",
+      "scenario": "schedule"
+    },
+    {
+      "bound_queries_scale": 946,
+      "bound_queries_strong": 1638,
+      "heap_pushes_scale": 539,
+      "heap_pushes_strong": 79,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 72,
+      "peak_open_strong": 48,
+      "query_id": "WD12",
+      "scenario": "energy_only"
+    },
+    {
+      "bound_queries_scale": 2039,
+      "bound_queries_strong": 2785,
+      "heap_pushes_scale": 1254,
+      "heap_pushes_strong": 203,
+      "initial_energy_kwh": "48",
+      "peak_open_scale": 119,
+      "peak_open_strong": 116,
+      "query_id": "WD12",
+      "scenario": "schedule"
+    }
+  ],
+  "global_qualified_C_anchors": 172,
+  "input_sha256": {
+    "configs/charging_coverage_dev_matrix.json": "963adb1615c1460710b261b698a65a13030b6253c501518037a3c5fd85f00adb",
+    "docs/n64_coverage_stage_results.json": "cecab6da2fd47df131106025688cc5b70cbd558c13c6cfa74cbf804ac66a7d2c",
+    "docs/shandong_charging_coverage_results.json": "15d76a8bd8dad771c7bf1678808b4d3fbca1eb6cdf02d7cb526e811b10f42355"
+  },
+  "new_real_solver_rows": 0,
+  "outcomes": {
+    "flat_bb_strong": {
+      "exact_within60": 35,
+      "full_denominator": 48,
+      "status_counts": {
+        "attained_optimum": 36,
+        "input_domain_unavailable": 4,
+        "time_limit": 8
+      },
+      "supported_denominator": 44
+    },
+    "scale": {
+      "exact_within60": 36,
+      "full_denominator": 48,
+      "status_counts": {
+        "attained_optimum": 37,
+        "input_domain_unavailable": 4,
+        "time_limit": 7
+      },
+      "supported_denominator": 44
+    }
+  },
+  "populations": {
+    "common_exact": {
+      "bound_queries": {
+        "equal": 0,
+        "median_scale_over_strong": 0.580260309865573,
+        "n": 36,
+        "scale_less": 36,
+        "scale_more": 0,
+        "scale_sum": 422032,
+        "strong_sum": 744295
+      },
+      "heap_pushes": {
+        "equal": 0,
+        "median_scale_over_strong": 4.3954966329966325,
+        "n": 36,
+        "scale_less": 0,
+        "scale_more": 36,
+        "scale_sum": 279303,
+        "strong_sum": 129342
+      },
+      "loaded_s": {
+        "equal": 0,
+        "median_scale_over_strong": 0.9655682351843009,
+        "n": 36,
+        "scale_less": 33,
+        "scale_more": 3,
+        "scale_sum": 790.4640299589955,
+        "strong_sum": 837.9363785020541
+      },
+      "peak_open": {
+        "equal": 1,
+        "median_scale_over_strong": 0.8315797545623468,
+        "n": 36,
+        "scale_less": 25,
+        "scale_more": 10,
+        "scale_sum": 54348,
+        "strong_sum": 109238
+      },
+      "query_extra_bytes": {
+        "equal": 1,
+        "median_scale_over_strong": 1.0002363465746777,
+        "n": 36,
+        "scale_less": 13,
+        "scale_more": 22,
+        "scale_sum": 25603293184,
+        "strong_sum": 25199214592
+      }
+    },
+    "common_timeouts": {
+      "bound_queries": {
+        "equal": 0,
+        "median_scale_over_strong": 0.6774978152328687,
+        "n": 7,
+        "scale_less": 7,
+        "scale_more": 0,
+        "scale_sum": 770366,
+        "strong_sum": 1146166
+      },
+      "heap_pushes": {
+        "equal": 0,
+        "median_scale_over_strong": 1.0056423875658496,
+        "n": 7,
+        "scale_less": 3,
+        "scale_more": 4,
+        "scale_sum": 743650,
+        "strong_sum": 707870
+      },
+      "loaded_s": {
+        "equal": 0,
+        "median_scale_over_strong": 0.9999268192937513,
+        "n": 7,
+        "scale_less": 4,
+        "scale_more": 3,
+        "scale_sum": 840.5320861660293,
+        "strong_sum": 840.6366056240222
+      },
+      "peak_open": {
+        "equal": 0,
+        "median_scale_over_strong": 0.43327488612323467,
+        "n": 7,
+        "scale_less": 7,
+        "scale_more": 0,
+        "scale_sum": 289057,
+        "strong_sum": 643802
+      },
+      "query_extra_bytes": {
+        "equal": 0,
+        "median_scale_over_strong": 1.0246900335637328,
+        "n": 7,
+        "scale_less": 3,
+        "scale_more": 4,
+        "scale_sum": 6904233984,
+        "strong_sum": 6567034880
+      }
+    },
+    "supported44": {
+      "bound_queries": {
+        "equal": 0,
+        "median_scale_over_strong": 0.5985441367842683,
+        "n": 44,
+        "scale_less": 44,
+        "scale_more": 0,
+        "scale_sum": 1348709,
+        "strong_sum": 2116286
+      },
+      "heap_pushes": {
+        "equal": 0,
+        "median_scale_over_strong": 3.2924136893162554,
+        "n": 44,
+        "scale_less": 3,
+        "scale_more": 41,
+        "scale_sum": 1134155,
+        "strong_sum": 897840
+      },
+      "loaded_s": {
+        "equal": 0,
+        "median_scale_over_strong": 0.9708237999404568,
+        "n": 44,
+        "scale_less": 38,
+        "scale_more": 6,
+        "scale_sum": 1743.665187000006,
+        "strong_sum": 1798.6183428340591
+      },
+      "peak_open": {
+        "equal": 1,
+        "median_scale_over_strong": 0.7647000718390804,
+        "n": 44,
+        "scale_less": 33,
+        "scale_more": 10,
+        "scale_sum": 368854,
+        "strong_sum": 805442
+      },
+      "query_extra_bytes": {
+        "equal": 1,
+        "median_scale_over_strong": 1.0002438047222864,
+        "n": 44,
+        "scale_less": 16,
+        "scale_more": 27,
+        "scale_sum": 33575829504,
+        "strong_sum": 32711442432
+      }
+    }
+  },
+  "schema": "hiroute.research_route_reassessment.v1",
+  "seed_quality": {
+    "flat_bb_strong": {
+      "exact_primary_improved_over_seed": 26,
+      "exact_rows": 36,
+      "exact_seed_missing": [
+        "WD12-E18-schedule"
+      ],
+      "exact_with_seed": 35,
+      "max_seed_relative_primary_gap": 0.37514460137109834,
+      "meaning": "Seed-quality diagnostic on attained subset, not a separated-planning or overlap-value baseline",
+      "median_seed_relative_primary_gap": 0.020241699649710208
+    },
+    "scale": {
+      "exact_primary_improved_over_seed": 27,
+      "exact_rows": 37,
+      "exact_seed_missing": [
+        "WD12-E18-schedule"
+      ],
+      "exact_with_seed": 36,
+      "max_seed_relative_primary_gap": 0.37514460137109834,
+      "meaning": "Seed-quality diagnostic on attained subset, not a separated-planning or overlap-value baseline",
+      "median_seed_relative_primary_gap": 0.020694147169999514
+    }
+  },
+  "solver_or_road_provider_imported": false
+}
