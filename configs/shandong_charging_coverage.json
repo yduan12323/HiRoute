@@ -1,0 +1,54 @@
+{
+  "schema": "hiroute.shandong_charging_coverage.v1",
+  "scope": "Authorized provincial charging-coverage audit/supplement only. No solver, main experiment or holdout. Preserve historical inputs and the existing road graph/model. Raw/generated datasets stay outside Git.",
+  "base_main": "9f53054ac14b6156831ff200b304b50c4460d3e4",
+  "solve_and_finite_ref_accounting": {
+    "carried_cpu_s": 5166.078454329,
+    "verification_cpu_precharge_s": 60,
+    "total_after_verification_cpu_s": 5226.078454329,
+    "original_budget_cpu_s": 28800,
+    "policy": "Conservatively charge mandatory clean CI tiny-REF/regression verification before delivery. No new research solve/DEV/REF experiment is launched by this data task. Preprocessing ledger remains separate."
+  },
+  "historical": {
+    "raw_url": "https://download.geofabrik.de/asia/china/shandong-261016.osm.pbf",
+    "raw_sha256": "844f1de519e56f341b62e3d8f4c2db6984e32f1a8a5ca2a851e9ccdd35fc7464",
+    "raw_availability": "Absent in local/server inventories; dated public URL returned HTTP404 on2026-11-01. Exact historical extraction-loss parity is therefore not established.",
+    "graph_sha256": "49c2f9fc5edf2e8c3da08198c4a1e03a796f72197003145b80d343abc7cfd3a3",
+    "graph_bytes": 3320685254,
+    "sites_sha256": "2812b463293d4cfb65d4ed7b89ce5b9148f2c030bbead15dff92b9a244631b59",
+    "boundary_sha256": "cbba0cf1e5fe764bde8614477e9c027d7a7ace1e564b6bd3e42e7d32d1eb9166"
+  },
+  "fallback_source": {
+    "url": "https://download.geofabrik.de/asia/china/shandong-261031.osm.pbf",
+    "source_page": "https://download.geofabrik.de/asia/china/shandong.html",
+    "head_content_length": 71913523,
+    "acquired_sha256": "408677f47a78230fb14678a716c1dee999f3acff39589b922d847f12026e5c95",
+    "license": "ODbL-1.0",
+    "license_url": "https://www.openstreetmap.org/copyright",
+    "attribution": "OpenStreetMap contributors; extracts by Geofabrik",
+    "policy": "Acquire only this dated provincial PBF if historical raw cannot be recovered. Record actual bytes/hash/header timestamp. Do not call temporal changes extraction fixes. Never download national data."
+  },
+  "resources": {
+    "workers": 1,
+    "threads": 1,
+    "preprocessing_cpu_cap_s": 900,
+    "preprocessing_wall_cap_s": 1800,
+    "preprocessing_process_rss_cap_bytes": 1610612736,
+    "host_headroom_bytes": 2147483648,
+    "disk_headroom_bytes": 8589934592,
+    "incoming_bytes_cap": 4294967296,
+    "setup_acquisition_cpu_precharge_s": 600,
+    "processing_worker_cpu_cap_s": 300,
+    "accounting": "Measure preparation separately, including failures/cold loads/dependencies. This bounded reservation adds no solve authorization or compute purchase; stop at caps, do not reset them on retries. Solve/limited-REF carry remains5166.078454329/28800CPU seconds."
+  },
+  "audit": {
+    "first": "Compare historical producer/input identities and C classification/attachment counts; raw loss remains uncertain without historical source.",
+    "raw_candidates": "Record station and individual charge-point tags separately, including lifecycle/access/motorcar/socket/power evidence and unknowns. Do not inflate station counts with sockets or child charge points.",
+    "capabilities": "Source charging tags support modeled C only when declared eligibility passes. Preserve observed and unknown fields. Do not invent operational availability, connector compatibility, per-station charging curves or CS support.",
+    "geometry": "Retain source node/way/relation identity and geometry; require the frozen province boundary before candidate admission. Preserve coordinate-reference and representative-point method.",
+    "attachment": "Existing graph only; permitted-class incoming AND outgoing edge,250m threshold, four nearest unit-sphere chord candidates with numeric/lexical node-ID tie, then WGS84 geodesic distance and same ID tie.",
+    "deduplication": "Keep station-to-connector/charge-point relationships and cross-source aliases. Count distinct eligible road anchors, not raw objects. No threshold relaxation to fill N.",
+    "model": "Existing battery/consumption and common charging curve remain modeled defaults, distinct from source observations. No road rebuild."
+  },
+  "next_gate": "After actual coverage audit, freeze a deterministic staged wider DEV design with unsupported cells and complete per-worker query+cold reservations. Do not launch it here."
+}

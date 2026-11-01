@@ -1,14 +1,17 @@
 # Real-scale DEV research
 
-Latest bounded continuation: strict incumbent pruning at enqueue completed the
-same explicit D04 energy N128 domain in **76.573s Strong / 64.075s Scale**, with
-attained identical full keys and physical replay. The **60s target is still
-unmet**. The current profile has only this paired real-domain measurement;
-population 95%/median goals and overall research success remain unestablished.
-Charged solve/limited-REF accounting is **4965.164126329 / 28800 CPU seconds**.
-See [current queue results and next decision](#strict-incumbent-pruning-before-queue-insertion)
-and [the complete small table](enqueue_pruning_results.json). Earlier sections
-and their original states are retained as chronological historical evidence.
+Latest continuation audits provincial charging coverage: the versioned static
+catalog grows from **168 to172 distinct qualified C road anchors**, so energy
+N256 remains input-unavailable. The previous four-row D01/D03 transfer gate
+attained historical full keys within60s; D04 remains **76.573s Strong /64.075s
+Scale**. Population95%/median10s goals and overall research success remain
+unestablished. No new real solve, main experiment or holdout ran in this data
+continuation. Solve/limited-REF accounting is **5226.078454329 /28800 CPU seconds**,
+including60s conservative mandatory-CI verification; data preparation is separate.
+See [provincial data audit](SHANDONG_CHARGING_COVERAGE.md),
+[data results](shandong_charging_coverage_results.json), and
+[transfer results](existing_domain_transfer_results.json). Earlier sections and
+their original states remain chronological historical evidence.
 
 ## Existing facts (segment one, historical)
 

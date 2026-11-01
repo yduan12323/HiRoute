@@ -113,6 +113,8 @@ CODE_GATE_MODULES = CODE_GATE_MODULES + (
     "tests/test_shandong_pbf.py",
     "tests/test_shandong_spatial.py",
     "tests/test_shandong_spatial_parallel.py",
+    "tests/test_charging_coverage.py",
+    "tests/test_charging_coverage_extract.py",
 )
 
 

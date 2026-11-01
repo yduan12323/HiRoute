@@ -1,0 +1,168 @@
+{
+  "schema": "hiroute.shandong_charging_coverage_delivery.v1",
+  "numerical_solver_called": false,
+  "data_worker_source_commit": "21ae698b6cca7d22b8b580ae622ea50ee841dc2f",
+  "base_main_commit": "9f53054ac14b6156831ff200b304b50c4460d3e4",
+  "acquisition": {
+    "schema": "hiroute.charging_coverage_acquisition.v1",
+    "raw_url": "https://download.geofabrik.de/asia/china/shandong-261031.osm.pbf",
+    "raw_bytes": 71913523,
+    "raw_sha256": "408677f47a78230fb14678a716c1dee999f3acff39589b922d847f12026e5c95",
+    "raw_etag": "4495033-65f2bc4e7936d",
+    "historical_url_status": 404,
+    "download_attempts": [
+      {
+        "timeout_s": 180,
+        "exit_code": 28,
+        "bytes_received": 39382550
+      },
+      {
+        "timeout_s": 180,
+        "exit_code": 28,
+        "bytes_received": 30105600,
+        "http_status": 206
+      },
+      {
+        "timeout_s": 45,
+        "exit_code": 0,
+        "http_range_resume": true
+      }
+    ],
+    "acquisition_elapsed_wall_s": 481.85142755508423,
+    "setup_acquisition_cpu_precharge_s": 600,
+    "boundary_sha256": "cbba0cf1e5fe764bde8614477e9c027d7a7ace1e564b6bd3e42e7d32d1eb9166",
+    "graph_sha256": "49c2f9fc5edf2e8c3da08198c4a1e03a796f72197003145b80d343abc7cfd3a3",
+    "license": "ODbL-1.0",
+    "source_observations_are_not_live_availability": true,
+    "preparation_started_unix_s": 1793526602.4997432
+  },
+  "summary": {
+    "additional_raw_station_sites": 4,
+    "additional_unattached_sites": [],
+    "cautions": [
+      "Mixed-date add-only static research catalog, not a live operational registry.",
+      "Temporal changes are not proven historical extraction fixes.",
+      "Charging curve is the existing common modeled default, not source-observed station performance.",
+      "No new CS support, connector compatibility, four-charge feasibility or timing claim.",
+      "Candidate restrictions/alias handling are declared workloads, not full-province safe reductions."
+    ],
+    "energy_N256_global_shortfall": 84,
+    "exclusion_counts": {
+      "explicit_access_exclusion": 17,
+      "not_a_station_tag": 22
+    },
+    "geometry_errors": [],
+    "historical_attachment_parity": true,
+    "modeled_eligible_station_records": 227,
+    "old_C_absent_from_current_records": [],
+    "old_C_currently_contradicted": [],
+    "old_attached_C_sites": 171,
+    "old_raw_station_count": 223,
+    "old_unique_C_anchors": 168,
+    "peak_rss_platform_units": 777093120,
+    "preparation_cpu_s": 49.222366,
+    "preparation_wall_s": 49.25334954200662,
+    "raw_bytes": 71913523,
+    "raw_charge_points": 22,
+    "raw_current_station_tags": 244,
+    "raw_sha256": "408677f47a78230fb14678a716c1dee999f3acff39589b922d847f12026e5c95",
+    "raw_signal_records": 266,
+    "road_queries_called": false,
+    "schema": "hiroute.shandong_charging_coverage_result.v1",
+    "solver_called": false,
+    "source_header": {
+      "replication_timestamp": "2026-10-31T21:23:06Z"
+    },
+    "source_object_records": 266,
+    "station_aliases": {},
+    "supplemented_C_sites": 227,
+    "supplemented_attached_C_sites": 175,
+    "supplemented_unique_C_anchors": 172
+  },
+  "supervision": {
+    "status": "complete",
+    "returncode": 0,
+    "conservative_processing_cpu_charge_s": 50.223550976000006,
+    "prior_processing_cpu_charge_s": 0.0,
+    "setup_acquisition_cpu_precharge_s": 600,
+    "conservative_preparation_cpu_charge_s": 650.223550976,
+    "remaining_preparation_cpu_s": 249.776449024,
+    "supervisor": {
+      "returncode": 0,
+      "timed_out": false,
+      "term_sent": false,
+      "kill_sent": false,
+      "process_group_id": 72712,
+      "elapsed_s": 49.370456625008956,
+      "memory_limited": false,
+      "rss_peak_bytes": 772292608,
+      "cpu_limited": false,
+      "cpu_peak_s": 49.223550976000006,
+      "vm_size_peak_bytes": 501353922560,
+      "host_headroom_limited": false,
+      "host_available_min_bytes": 3246555136,
+      "host_monitor_error": null
+    }
+  },
+  "additional_station_source_ids": [
+    "node/14309830319",
+    "node/14309830325",
+    "node/14320814764",
+    "node/14330420259"
+  ],
+  "catalog_files": {
+    "shared-sites.json": {
+      "bytes": 1785880,
+      "sha256": "a71e0a645fd21a2f415b4b079033cfe631dfb2292a1a41ce43b439304805a1a9"
+    },
+    "site-bindings.json": {
+      "bytes": 163709,
+      "sha256": "c981bbf5d529f61e0385b4424b5145c44b6afd7dbb35b90fd625792b1e28bf42"
+    },
+    "source-evidence.json": {
+      "bytes": 310026,
+      "sha256": "73870bba310066106a2615bdc4fa23e7c472444601d472ade3cd0a4fcea010fa"
+    },
+    "historical-attachment-parity.json": {
+      "bytes": 166,
+      "sha256": "4f2dc21c6db1ac022d63a65bf683487474526e349f3aa626986e75b77868a243"
+    }
+  },
+  "external_storage": "charging-coverage-artifacts-v1/audit-v1 (outside Git)",
+  "solve_accounting": {
+    "carried_cpu_s": 5166.078454329,
+    "mandatory_CI_tiny_REF_verification_precharge_s": 60,
+    "total_cpu_s": 5226.078454329,
+    "budget_cpu_s": 28800,
+    "remaining_cpu_s": 23573.921545671
+  },
+  "local_validation": {
+    "native_focused_tests": 6,
+    "passed": true,
+    "old_sites": 4725,
+    "old_attachment_mismatches": 0
+  },
+  "main_push_ci": {
+    "run_id": 41294416733,
+    "head": "9f53054ac14b6156831ff200b304b50c4460d3e4",
+    "conclusion": "success"
+  },
+  "data_environment": {
+    "python": "3.11.15",
+    "platform": "macOS arm64 Apple M3 16GiB",
+    "packages": [
+      "certifi==2026.10.23",
+      "charset-normalizer==3.5.2",
+      "idna==3.20",
+      "numpy==2.4.6",
+      "osmium==4.3.2",
+      "pip==24.0",
+      "pyproj==3.7.2",
+      "requests==2.34.2",
+      "scipy==1.17.1",
+      "setuptools==79.0.1",
+      "shapely==2.1.2",
+      "urllib3==2.8.0"
+    ]
+  }
+}
