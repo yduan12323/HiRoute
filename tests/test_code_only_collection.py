@@ -68,6 +68,15 @@ def test_explicit_known_code_gate_directory_is_collected():
     assert module.pytest_ignore_collect(directory / 'test_energy.py', config) is False
 
 
+def test_charging_coverage_gates_are_registered_and_explicitly_collectable():
+    module = policy()
+    for name in ('test_charging_coverage.py','test_charging_coverage_extract.py'):
+        path=module.ROOT/'tests'/name
+        config=SimpleNamespace(getoption=lambda name:False,args=[str(path)])
+        assert module._code_only_path(path)
+        assert module.pytest_ignore_collect(path,config) is False
+
+
 def test_artifact_collection_switch_is_independent():
     module = policy()
     config = SimpleNamespace(getoption=lambda name: True, args=[str(module.ROOT / 'tests')])

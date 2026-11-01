@@ -118,6 +118,16 @@ input legality, and actual native XML node/way/relation/missing-geometry handlin
 The additional clean data CI requires Pyosmium/Shapely/Pyproj and runs those
 fixtures normally and with `-OO`; the unchanged full M5 workflow also runs.
 
+The first full M5 run41296196700 at head312de2f failed before independent REF
+collection because the two new test modules were not registered in the existing
+test-cohort manifest. This integration omission is diagnosed by its exact
+`Unclassified test module` error. Both are now registered as isolated code gates,
+the dependency-light coverage tests are staged into installed-wheel regressions,
+and an explicit collection regression protects the registration. No existing
+assertion or resource limit was relaxed, and the real data audit is not rerun.
+The independent native-data CI41296196750 had already passed six tests normally
+and six with `-OO` on that head. Final-head CI is reported with delivery.
+
 Preparation guard: one worker/thread,1.5GiB RSS,2GiB host headroom,8GiB disk
 headroom,900 CPU/1,800 wall seconds overall, no reset after failures. Setup,
 acquisition, dependency/test/documentation work is conservatively precharged600
