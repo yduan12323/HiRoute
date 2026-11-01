@@ -122,6 +122,7 @@ class PilotControlTests(unittest.TestCase):
                 pass
         model = config()
         model['selection']['domain_claim']='explicit test domain'
+        model.setdefault('implementation',{})['pending_activity_screen']=True
         model['resources'].update(host_headroom_bytes=0,query_extra_memory_bytes=10000)
         query = dict(query_id='SD01',great_circle_m=1,eligible_unique_anchors=1,
             scenario_candidate_domains={'energy_only':{'16':[dict(site_id=str(i),access_node=str(i),
@@ -141,7 +142,7 @@ class PilotControlTests(unittest.TestCase):
                 n=16,scenario='energy_only',method='scale',graph_tsv='unused',native_cache=work,
                 output=work/'row.json')
             with patch.object(road_index,'NativeRoadIndex',FakeNative), \
-                 patch.object(scale,'solve_scale',return_value=result), \
+                 patch.object(scale,'solve_scale',return_value=result) as solve, \
                  patch.object(scale,'validate_scale_input'), \
                  patch.object(scale,'_resident_bytes',return_value=100), \
                  patch.object(scale_replay,'verify_scale_witness',side_effect=ValueError('bad physical replay')), \
@@ -149,6 +150,7 @@ class PilotControlTests(unittest.TestCase):
                  patch.object(pilot,'bind_snapshot',return_value=snapshot):
                 with self.assertRaisesRegex(ValueError,'bad physical replay'):
                     pilot.worker(worker_args)
+            self.assertIs(solve.call_args.kwargs['pending_activity_screen'],True)
             row=json.loads((work/'row.json').read_text())
             self.assertEqual(row['status'],'worker_error')
             self.assertEqual(row['mathematical_status'],'unknown')

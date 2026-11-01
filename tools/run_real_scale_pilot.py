@@ -220,6 +220,7 @@ def worker(args):
                     seed_beam_pruning=implementation.get('seed_beam_pruning', False),
                     inbound_energy_bound=implementation.get('inbound_energy_bound', False),
                     eager_incumbent_pruning=implementation.get('eager_incumbent_pruning', False),
+                    pending_activity_screen=implementation.get('pending_activity_screen', False),
                     memory_baseline_bytes=query_memory_baseline)
             row.update(status=result['status'], mathematical_status=result.get('mathematical_status', result['status']),
                 key=result.get('key'), primary_infimum=result.get('primary_infimum'),
@@ -483,6 +484,7 @@ def supervised_main(args):
             receipt_dir = getattr(args,'receipt_directory',None)
             receipt = Path(receipt_dir)/identity if receipt_dir else None
             supervised = run_supervised(argv,timeout_s=reserve_cpu,cpu_limit_s=reserve_cpu,
+                cpu_budget_guard=getattr(args,'cpu_budget_guard',None),
                 memory_limit_bytes=args.process_memory_gib*1024**3,
                 host_min_available_bytes=resources['host_headroom_bytes'],
                 memory_poll_s=.1,cwd=str(ROOT),env=env,

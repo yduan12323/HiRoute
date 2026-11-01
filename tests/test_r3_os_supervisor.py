@@ -4,6 +4,8 @@ from hiroute.contracts import ProblemSnapshot
 from hiroute.runtime import (ReceiptError, load_incumbent_receipt,
                              run_supervised, save_incumbent_receipt)
 ROOT = Path(__file__).resolve().parents[1]
+
+
 C01 = ROOT / "tests/r0/c01_zero_stop_snapshot.json"
 import importlib.util
 _ref_spec = importlib.util.spec_from_file_location("hiroute_ref5_model", ROOT / "validation/reference5/model.py")
@@ -364,5 +366,50 @@ time.sleep(60)
         self.assertFalse(result.kill_sent)
         self.assertEqual(result.returncode, 0)
         self.assertEqual(result.stdout.strip(), b"ok")
+
+class TestInclusiveBudgetGuard(unittest.TestCase):
+    def setUp(self):
+        from contextlib import ExitStack
+        self.monitors=ExitStack()
+        if sys.platform=='darwin':
+            sys.path.insert(0,str(ROOT/'tools'))
+            from profile_small_cases import mac_monitors
+            mac_monitors(self.monitors)
+
+    def tearDown(self):
+        self.monitors.close()
+
+    def test_guard_receives_current_peak_and_cleans_up_on_rejection(self):
+        from unittest.mock import patch
+        observed=[]
+        with tempfile.TemporaryDirectory() as tmp:
+            receipt=Path(tmp)/'supervisor.json'
+            with patch('hiroute.runtime._group_cpu_seconds',return_value=7):
+                result=run_supervised([sys.executable,'-c','import time; time.sleep(20)'],
+                    timeout_s=30,term_grace_s=.1,receipt_path=receipt,
+                    cpu_budget_guard=lambda cpu: observed.append(cpu) or False)
+            self.assertEqual(observed,[7])
+            self.assertTrue(result.cpu_limited)
+            record=json.loads(receipt.read_text())
+            self.assertTrue(record['cpu_budget_guard_tripped'])
+            self.assertTrue(record['finished_at'])
+            with self.assertRaises(ProcessLookupError):os.kill(record['pid'],0)
+
+    def test_guard_error_is_terminal_and_does_not_orphan_worker(self):
+        def broken(_cpu):raise ArithmeticError('guard failed')
+        with tempfile.TemporaryDirectory() as tmp:
+            receipt=Path(tmp)/'supervisor.json'
+            with self.assertRaisesRegex(ArithmeticError,'guard failed'):
+                run_supervised([sys.executable,'-c','import time; time.sleep(20)'],
+                    timeout_s=30,term_grace_s=.1,receipt_path=receipt,cpu_budget_guard=broken)
+            record=json.loads(receipt.read_text())
+            self.assertEqual(record['status'],'budget_guard_error')
+            self.assertTrue(record['finished_at'])
+            with self.assertRaises(ProcessLookupError):os.kill(record['pid'],0)
+
+    def test_guard_must_be_callable_before_launch(self):
+        with self.assertRaisesRegex(ValueError,'cpu_budget_guard'):
+            run_supervised(['unused'],timeout_s=1,cpu_budget_guard=1)
+
 
 if __name__ == "__main__": unittest.main()

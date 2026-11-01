@@ -61,7 +61,15 @@ def cells(matrix):
 
 
 def same_reuse_cell(cell, spec):
+    if spec is None:
+        return False
     return all(cell[k]==spec[k] for k in ('query_id','initial_energy_kwh','scenario','N'))
+
+
+def stage_cells(spec, matrix):
+    cohort = cells(matrix)
+    selected = spec.get('selected_cell_ids')
+    return cohort if selected is None else [c for c in cohort if cell_id(c) in selected]
 
 
 def reserve_pair(spec, charged):
@@ -77,7 +85,25 @@ def source_identity():
 
 
 def validate_spec(spec, matrix):
-    if (spec['methods'] != list(METHODS) or spec['loaded_limit_s'] != 120 or
+    if spec.get('schema') == 'hiroute.pending_activity_dev_check.v1':
+        if (spec['methods'] != list(METHODS) or spec['loaded_limit_s'] != 120 or
+                spec['cold_allowance_s'] != 180 or spec['worker_enforced_cpu_s'] != 300 or
+                spec['stage_cap_cpu_s'] != 1360 or spec['original_cap_cpu_s'] != 28800 or
+                spec['carried_cpu_s'] != 10599.235906329 or
+                spec['development_and_reporting_precharge_cpu_s'] != 110 or
+                spec['report_controller_startup_headroom_cpu_s'] != 10 or spec['process_memory_gib'] != 8 or
+                spec['worker_reservation_cpu_s'] != 310 or spec['controller_reservation_cpu_s'] != 310 or
+                spec['pair_reservation_cpu_s'] != 1240 or spec['reuse'] is not None or
+                spec['selected_cell_ids'] != ['WD01-E18-schedule-N64'] or
+                spec['implementation_overrides'] != {'pending_activity_screen': True} or
+                matrix['resources']['query_loaded_limit_s'] != 120):
+            raise ValueError('single-pair authorization/resource mismatch')
+        cells(matrix)
+        if len(stage_cells(spec,matrix)) != 1:
+            raise ValueError('single-pair denominator lost')
+        return
+    if (spec.get('selected_cell_ids') is not None or spec.get('implementation_overrides') or
+            spec['methods'] != list(METHODS) or spec['loaded_limit_s'] != 120 or
             spec['cold_allowance_s'] != 180 or spec['worker_enforced_cpu_s'] != 300 or
             spec['stage_cap_cpu_s'] != 12000 or spec['original_cap_cpu_s'] != 28800 or
             spec['carried_cpu_s'] != 5226.078454329 or
@@ -116,18 +142,19 @@ def prepare(args):
     if base['model'] != matrix['model']:
         raise ValueError('frozen physical model changed')
     configs = {}
-    for energy in ('18','48'):
+    selected = stage_cells(spec,matrix)
+    for energy in dict.fromkeys(c['initial_energy_kwh'] for c in selected):
         cfg = copy.deepcopy(base)
         cfg['model']['initial_energy_kwh'] = energy
         cfg['selection'] = copy.deepcopy(matrix['endpoint_and_selection_policy'])
         cfg['selection']['candidate_counts'] = [64]
-        cfg['implementation'] = matrix['implementation_profile']
+        cfg['implementation'] = {**matrix['implementation_profile'],**spec.get('implementation_overrides',{})}
         cfg['pilot_matrix'] = [dict(N=64,query_ids=[c['query_id']],scenarios=[c['scenario']])
-                               for c in cells(matrix) if c['initial_energy_kwh']==energy]
+                               for c in selected if c['initial_energy_kwh']==energy]
         manifest = select_domains(cfg,sites,bindings)
         if {q['query_id']:q['endpoints'] for q in manifest['queries']} != matrix['endpoints']:
             raise ValueError('frozen endpoints changed')
-        for cell in cells(matrix):
+        for cell in selected:
             if cell['initial_energy_kwh'] != energy:
                 continue
             q = next(q for q in manifest['queries'] if q['query_id']==cell['query_id'])
@@ -322,7 +349,7 @@ def unavailable_rows(cell,status):
              'execution':'not_attempted','stage_charged_cpu_s':0} for method in METHODS]
 
 
-def run_worker(out,prepared,cell,method,total):
+def run_worker(out,prepared,cell,method,total,*,cpu_budget_guard=None):
     directory=out/'attempts'/cell_id(cell)/method
     directory.mkdir(parents=True,exist_ok=True)
     recovered=terminal_row(directory)
@@ -338,6 +365,7 @@ def run_worker(out,prepared,cell,method,total):
         solve_limit_seconds=None,development_cpu_s=total,cold_load_allowance_s=180,process_memory_gib=8,
         receipt_directory=str(directory),run_identity=dict(cell_id=cell_id(cell),method=method,
             accounting_execution_source=prepared.get('accounting_execution_source'),**prepared['source']))
+    args.cpu_budget_guard = cpu_budget_guard
     pilot.main(args)
     row=terminal_row(directory)
     if row is None:
@@ -380,7 +408,8 @@ def execute(args):
         # A resume never temporarily forgets later completed rows or charges a
         # saved worker twice. Uncertain starts raise before any fresh launch.
         saved_cache={}
-        for cell in cells(matrix):
+        cohort = stage_cells(spec,matrix)
+        for cell in cohort:
             if cell['input_status']!='available' or same_reuse_cell(cell,spec['reuse']):continue
             for method in METHODS:
                 directory=out/'attempts'/cell_id(cell)/method
@@ -392,7 +421,7 @@ def execute(args):
         def controller_cpu():return controller_carried+time.process_time()-stage_started
         def all_charged():return charged+controller_cpu()
         def publish(state,error=None):
-            pilot.atomic(out/'results.json',dict(rows=rows,denominator_cells=cells(matrix)))
+            pilot.atomic(out/'results.json',dict(rows=rows,denominator_cells=cohort))
             uncertain=[str(p.parent) for p in (out/'attempts').glob('*/*/started.json')
                        if not (p.parent/'final.json').exists() and not list(p.parent.glob('*.row.json'))]
             session_cpu=time.process_time()-stage_started
@@ -407,7 +436,7 @@ def execute(args):
                 controller_cpu_carried_s=controller_carried,total_controller_cpu_s=total_controller,
                 numerical_source=prepared['source'],accounting_execution_source=expected))
         try:
-            for cell in cells(matrix):
+            for cell in cohort:
                 if cell['input_status']!='available':
                     rows.extend(unavailable_rows(cell,'input_domain_unavailable'));publish('running');continue
                 reuse=reused_rows(cell,spec,matrix)
@@ -424,7 +453,34 @@ def execute(args):
                     raise RuntimeError('pending pair reservation cannot be honored')
                 pair=[]
                 for method,saved_row in zip(METHODS,saved):
-                    row=copy.deepcopy(saved_row) if saved_row is not None else run_worker(out,prepared,cell,method,spec['carried_cpu_s']+all_charged())
+                    if saved_row is not None:
+                        row=copy.deepcopy(saved_row)
+                    elif spec.get('schema') == 'hiroute.pending_activity_dev_check.v1':
+                        # Actual cumulative controller CPU is included during
+                        # the active worker too. Leave30s for polling/cleanup,
+                        # completed compiler CPU and durable final serialization.
+                        last_sample=[-1.]
+                        def guard(active_worker_cpu):
+                            actual=all_charged()+active_worker_cpu
+                            inclusive=actual+30
+                            allowed=(inclusive < spec['stage_cap_cpu_s'] and
+                                spec['carried_cpu_s']+inclusive < spec['original_cap_cpu_s'])
+                            now=time.monotonic()
+                            if not allowed or now-last_sample[0]>=1:
+                                pilot.atomic(out/'budget-live.json',dict(method=method,
+                                    controller_pid=os.getpid(),sampled_at=time.time(),
+                                    previous_worker_and_development_cpu_s=charged,
+                                    cumulative_controller_cpu_s=controller_cpu(),
+                                    active_worker_cpu_peak_s=active_worker_cpu,
+                                    inclusive_cpu_s=actual,cleanup_margin_cpu_s=30,
+                                    stage_cap_cpu_s=spec['stage_cap_cpu_s'],allowed=allowed))
+                                last_sample[0]=now
+                            return allowed
+                        if all_charged()+spec['worker_reservation_cpu_s']+spec['controller_reservation_cpu_s'] > spec['stage_cap_cpu_s']:
+                            raise RuntimeError('next method reservation cannot be honored')
+                        row=run_worker(out,prepared,cell,method,spec['carried_cpu_s']+all_charged(),cpu_budget_guard=guard)
+                    else:
+                        row=run_worker(out,prepared,cell,method,spec['carried_cpu_s']+all_charged())
                     cost=max(row.get('worker_cpu_s',0),row.get('supervisor_cpu_s',0))+1
                     if saved_row is None:charged+=cost
                     snapshot_total=all_charged()
@@ -442,7 +498,7 @@ def execute(args):
                     validate_row(row);pair.append(row)
                 compare_pair(pair)
                 print(cell_id(cell),'pair recorded',charged,flush=True)
-            if len(rows)!=96:
+            if len(rows)!=(2 if spec.get('schema')=='hiroute.pending_activity_dev_check.v1' else 96):
                 raise RuntimeError('N64 denominator lost')
             publish('budget_stopped' if stopped else 'complete')
         except BaseException as exc:

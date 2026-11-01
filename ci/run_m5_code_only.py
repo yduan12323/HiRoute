@@ -210,6 +210,7 @@ def main() -> None:
                          "configs/source_time_reuse_dev.json", "configs/inbound_energy_dev.json",
                          "configs/enqueue_pruning_dev.json", "tools/run_n64_coverage_stage.py",
                          "configs/n64_coverage_stage.json", "tools/report_n64_coverage_stage.py",
+                         "configs/pending_activity_dev_check.json",
                          "configs/charging_coverage_dev_matrix.json",
                          "configs/existing_domain_transfer_dev.json", "docs/existing_domain_transfer_results.json"):
             copy_file(relative, tooling)

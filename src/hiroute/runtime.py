@@ -13,7 +13,7 @@ import time
 from datetime import datetime, timezone
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Mapping, Sequence
+from typing import Any, Callable, Mapping, Sequence
 
 RECEIPT_SCHEMA = "hiroute.incumbent_receipt.v1"
 
@@ -238,7 +238,8 @@ def run_supervised(argv: Sequence[str], *, timeout_s: float, term_grace_s: float
                    host_min_available_bytes: int | None = None,
                    memory_poll_s: float = 0.02,
                    receipt_path: str | os.PathLike[str] | None = None,
-                   run_identity: Mapping[str, Any] | None = None) -> SupervisedRun:
+                   run_identity: Mapping[str, Any] | None = None,
+                   cpu_budget_guard: Callable[[float], bool] | None = None) -> SupervisedRun:
     """Supervise one process group with wall, aggregate-RSS, and CPU limits.
 
     Group RSS/CPU and host MemAvailable are sampled monitors, not aggregate
@@ -247,6 +248,9 @@ def run_supervised(argv: Sequence[str], *, timeout_s: float, term_grace_s: float
     attempt and terminal enforcement state, not solver correctness. On normal
     leader exit, any remaining descendants in the owned process group are also
     terminated so supervised commands cannot leave background workers behind.
+    An optional parent budget guard receives the observed active-worker CPU
+    peak. False uses the same resource-limit cleanup; caller must include its
+    cumulative controller/previous-worker costs and a sampling/cleanup margin.
     """
     if (not argv or isinstance(argv, (str, bytes))
             or not isinstance(timeout_s, (int, float)) or not math.isfinite(timeout_s) or timeout_s <= 0
@@ -258,6 +262,8 @@ def run_supervised(argv: Sequence[str], *, timeout_s: float, term_grace_s: float
         raise ValueError("cpu_limit_s must be positive and finite")
     if run_identity is not None and not isinstance(run_identity, Mapping):
         raise TypeError("run_identity must be a mapping")
+    if cpu_budget_guard is not None and not callable(cpu_budget_guard):
+        raise ValueError('cpu_budget_guard must be callable')
     if memory_limit_bytes is not None and (type(memory_limit_bytes) is not int or memory_limit_bytes < 1):
         raise ValueError("memory_limit_bytes must be a positive integer")
     if process_address_space_limit_bytes is not None and (type(process_address_space_limit_bytes) is not int or process_address_space_limit_bytes < 1):
@@ -343,10 +349,38 @@ def run_supervised(argv: Sequence[str], *, timeout_s: float, term_grace_s: float
     while True:
         rss = _group_rss_bytes(child.pid) if memory_limit_bytes is not None else 0
         vm_size = _group_vmsize_bytes(child.pid)
-        cpu = _group_cpu_seconds(child.pid) if cpu_limit_s is not None else 0.0
+        cpu = _group_cpu_seconds(child.pid) if cpu_limit_s is not None or cpu_budget_guard is not None else 0.0
         rss_peak = max(rss_peak, rss)
         vm_size_peak = max(vm_size_peak, vm_size)
         cpu_peak = max(cpu_peak, cpu)
+        if cpu_budget_guard is not None:
+            try:
+                budget_allowed = cpu_budget_guard(cpu_peak)
+            except BaseException as exc:
+                try:
+                    os.killpg(child.pid, signal.SIGTERM)
+                except ProcessLookupError:
+                    pass
+                try:
+                    child.communicate(timeout=term_grace_s)
+                except subprocess.TimeoutExpired:
+                    try:
+                        os.killpg(child.pid, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
+                    child.communicate()
+                _terminate_remaining_process_group(child.pid, term_grace_s)
+                if audit is not None:
+                    audit.update(status='budget_guard_error', execution_status='budget_guard_error',
+                        mathematical_status='unknown', budget_guard_error=repr(exc),
+                        finished_at=datetime.now(timezone.utc).isoformat())
+                    _atomic_run_receipt(receipt_path, audit)
+                raise
+            if not budget_allowed:
+                cpu_limited = True
+                if audit is not None:
+                    audit['cpu_budget_guard_tripped'] = True
+                break
         if host_min_available_bytes is not None:
             try:
                 host_available = system_mem_available_bytes()
