@@ -85,7 +85,8 @@ conservative research/gate ledger, not a certified globally all-inclusive CI tot
 That public repository's job used the standard ubuntu-24.04 runner, starting
 17:43:55Z and ending18:04:25Z:1230s wall. GitHub documents4 CPUs for this public
 standard runner ([official hardware reference](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)).
-Hence4*1230=4920CPU seconds is a conservative capacity upper bound, **not a CPU
+The reported-window capacity product is4*1230=4920CPU seconds; allowing2s
+timestamp granularity gives4928. This is a capacity bound, **not a CPU
 measurement**. A separate5000s exposure reserve is now disclosed for this run;
 no previous reservation is silently reused or double-counted. With this known
 exposure and the diagnostic240, the provisional conservative total is
@@ -96,9 +97,52 @@ Global research-versus-engineering CI scope and prior unmetered exposures need
 an explicit project accounting decision before promising further scale/holdout
 capacity. No such decision or budget expansion is assumed here.
 
-## Observed diagnostic status
+## Observed diagnostic result
 
-Three deterministic admission checks passed locally in each Python mode without
-launching the Linux process harness. The one original Linux retry is not yet
-claimed by this pre-run version; its retained receipts and result will be reported
-separately, preserving any failure. The original full main37 M5 remains failed.
+The single admitted diagnostic run is41336411503, job124937079608, source
+ff07b4f1086c9caaf00cda6b69496081e3bae6df. The two deterministic Linux phases each
+pass all3 checks, normally and under `-OO`, without importing numerical packages.
+The original old test was then run exactly once under `-OO`, with its unmodified
+bytes (SHA25613d68260b6e02ca13767b1890a776eabd2837794eb34a590c570f3fa5f385faf).
+
+The retained original-process queue shows preparation SUCCESS, then drift search
+supervisor SUCCESS/exit0, explicit identity-drift rejection INTEGRITY_FAILED,
+and all24 later slots BLOCKED_INTEGRITY_FAILED; both launched workers have
+cleanup_verified=true. Thus both original assertion conditions are satisfied
+in the captured queue. The old failure was **not reproduced** by this one
+isolated attempt. Preceding full-suite load/state was not recreated, and the
+original failed-slot receipts were deleted, so this does not confirm timing as
+the cause of the old run or certify its whole CI.
+
+The diagnostic CI itself remains **failure**. Its collector recursively read
+an auxiliary supervisor ledger.json without a stages key and raised KeyError
+*after* the original test had completed and its entire raw directory was retained.
+The in-memory unittest result had not yet been serialized; no new synthetic
+unittest pass record is invented. Existing raw receipts were recovered offline,
+without executing the test or workers again. The artifact13095202832 and failed
+CI state are preserved. A focused parser fix now reads only the queue's known
+root/run/ledger.json and saves the unittest result before collection. Three
+parser-only regressions pass locally in both modes, including an auxiliary-ledger
+fixture and missing-main-ledger rejection. No second CI/process retry ran.
+
+The proposed resolution is the deterministic admission fixture correction:
+keep the original queue-stop assertions, separately verify correct pre-delivery
+resource handling, retain existing real-supervisor tests and preserve original
+failure evidence. No actual production identity-rejection regression was found.
+This addresses the test's unsupported guarantee of delivery within a resource
+budget; it does not claim all scheduling-sensitive process tests can never fail.
+Full M5 has not been rerun or declared green. The default full workflow definition
+is restored unchanged in the delivery branch; the diagnostic-only workflow at
+ff07b4f is a historical one-off invocation, not a replacement for main CI.
+
+CI conservatively charged **63.990695 /180CPU seconds**, including60 setup/
+controller allowance. The whole diagnostic's **240** remains precharged, including
+all failed collection, local checks, report/control and any final-PR startup
+cancellation. The unmetered full-main exposure reserve5000 is separate and is
+not measured CPU. The policy ledger and its already included future merge-CI180
+are unchanged. See [m5_drift_diagnostic_results.json](m5_drift_diagnostic_results.json)
+for the distinct statuses, source identities and reconciliation.
+
+No new real policy row, repeated policy solve, data acquisition, main experiment
+or holdout ran. PR38 remains held for parent review and project budget-scope
+reconciliation; this report does not assume additional experiment capacity.

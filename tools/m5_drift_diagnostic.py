@@ -26,6 +26,50 @@ LOGICAL=('test_drift_stops_whole_queue',
          'test_full_identity_and_replay')
 
 
+def collect_ledgers(captures):
+    """Read the queue ledger, not per-supervisor auxiliary ledger.json files."""
+    ledgers=[]
+    for directory in captures:
+        path=Path(directory)/'run/ledger.json'
+        ledger=json.loads(path.read_text())
+        if not isinstance(ledger.get('stages'),list):
+            raise ValueError('captured queue ledger lacks stages')
+        ledgers.append(dict(path=str(path),status=ledger['status'],
+            stages=[dict(id=r['id'],status=r['status'],error=r.get('error'),
+                receipt_status=r.get('receipt',{}).get('status'),
+                reason=r.get('receipt',{}).get('reason'),
+                returncode=r.get('receipt',{}).get('returncode'),
+                cleanup_verified=r.get('receipt',{}).get('cleanup_verified'),
+                phase_entered_monotonic=r.get('receipt',{}).get('phase_entered_monotonic'))
+                for r in ledger['stages']]))
+    return ledgers
+
+
+def original_assertion_conditions(ledger):
+    return (ledger['status']=='INTEGRITY_FAILED' and
+            all(s['status']=='BLOCKED_INTEGRITY_FAILED' for s in ledger['stages'][2:]))
+
+
+def recover_existing(source_root,output):
+    """Offline receipt recovery only; never executes a test or a worker."""
+    root=Path(source_root);out=Path(output);out.mkdir(parents=True,exist_ok=False)
+    captures=sorted(str(p) for p in root.glob('retained-*'))
+    ledgers=collect_ledgers(captures)
+    if len(ledgers)!=1:raise ValueError('ambiguous original retry capture')
+    source=(root/'test_source.py').read_bytes()
+    expected=subprocess.check_output(['git','show',FAILED+':'+TEST],cwd=ROOT)
+    if source!=expected:raise ValueError('captured original test bytes differ')
+    raw=json.loads((Path(captures[0])/'run/ledger.json').read_text())
+    report=dict(mode='offline_receipts_only_no_test_execution',failed_source=FAILED,
+        original_source_bytes_match=True,test_source_sha256=hashlib.sha256(source).hexdigest(),
+        original_assertion_conditions_satisfied=original_assertion_conditions(raw),
+        unittest_result_was_not_saved_before_collector_error=True,
+        diagnostic_CI_status='failure',collector_error="KeyError: 'stages'",ledgers=ledgers)
+    (out/'recovered.json').write_text(json.dumps(report,indent=2)+'\n')
+    print(json.dumps(report,indent=2))
+    return True
+
+
 def run(output,original=False):
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
     if original and (sys.platform!='linux' or sys.flags.optimize!=2):
@@ -55,18 +99,11 @@ def run(output,original=False):
     stream=io.StringIO()
     with patch.object(module.tempfile,'TemporaryDirectory',RetainedTemporary):
         result=unittest.TextTestRunner(stream=stream,verbosity=2).run(suite)
-    ledgers=[]
-    for directory in captures:
-        for ledger_path in Path(directory).rglob('ledger.json'):
-            ledger=json.loads(ledger_path.read_text())
-            ledgers.append(dict(path=str(ledger_path),status=ledger['status'],
-                stages=[dict(id=r['id'],status=r['status'],error=r.get('error'),
-                    receipt_status=r.get('receipt',{}).get('status'),
-                    reason=r.get('receipt',{}).get('reason'),
-                    returncode=r.get('receipt',{}).get('returncode'),
-                    cleanup_verified=r.get('receipt',{}).get('cleanup_verified'),
-                    phase_entered_monotonic=r.get('receipt',{}).get('phase_entered_monotonic'))
-                    for r in ledger['stages']]))
+    # A later collector error must not erase the actual unittest outcome.
+    (output/'unittest-result.json').write_text(json.dumps(dict(tests_run=result.testsRun,
+        failures=len(result.failures),errors=len(result.errors),passed=result.wasSuccessful(),
+        output=stream.getvalue()),indent=2)+'\n')
+    ledgers=collect_ledgers(captures)
     summary=dict(mode='original_process_retry_once' if original else 'deterministic_admission_only',
         failed_source=FAILED,execution_source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         test_source_sha256=hashlib.sha256(source).hexdigest(),original_test_bytes_used=original,
@@ -88,5 +125,10 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output',required=True)
     parser.add_argument('--original-process-retry',action='store_true')
+    parser.add_argument('--summarize-existing')
     args=parser.parse_args()
-    raise SystemExit(0 if run(args.output,args.original_process_retry) else 1)
+    if args.summarize_existing and args.original_process_retry:
+        parser.error('offline recovery cannot launch a retry')
+    success=(recover_existing(args.summarize_existing,args.output) if args.summarize_existing
+             else run(args.output,args.original_process_retry))
+    raise SystemExit(0 if success else 1)
