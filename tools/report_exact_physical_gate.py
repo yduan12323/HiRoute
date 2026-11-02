@@ -60,7 +60,10 @@ def report(root):
                     host_available_min_bytes=command['host_available_min_bytes'])
         elif attempts or (path/'started.json').exists():row['status']='started_without_terminal_receipt'
         rows.append(row)
-    fee=Decimal(str(budget['charged_commands_CPU_s'])).quantize(Decimal('.000001'),rounding=ROUND_CEILING)+Decimal(300)
+    micro=Decimal('.000001')
+    metered=max(Decimal(str(budget['charged_commands_CPU_s'])).quantize(micro,rounding=ROUND_CEILING),
+        sum((Decimal(str(r.get('charged_CPU_s',0))).quantize(micro,rounding=ROUND_CEILING) for r in records),Decimal(0)))
+    fee=metered+Decimal(300)
     original=Decimal(budget['carried_research_CPU_s'])+fee
     required=('admission_semantics_normal','admission_semantics_optimized','frozen_tiny_preparation',
               'final_report_semantics_normal','final_report_semantics_optimized')

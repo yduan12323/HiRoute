@@ -196,6 +196,11 @@ class PhysicalTests(unittest.TestCase):
             budget=dict(active=None,records=records,charged_commands_CPU_s=0,carried_research_CPU_s='15308.219957741')
             bp=root/'budget.json';bp.write_text(json.dumps(budget))
             self.assertEqual(report(root)['gate_status'],'PASS_TINY_CONDITIONAL_MODEL')
+            records[0]['charged_CPU_s']=.0000001;records[1]['charged_CPU_s']=.0000001
+            budget['charged_commands_CPU_s']=.0000002;bp.write_text(json.dumps(budget))
+            self.assertEqual(report(root)['accounting']['stage_conservative_CPU_s'],'300.000002')
+            records[0]['charged_CPU_s']=0;records[1]['charged_CPU_s']=0;budget['charged_commands_CPU_s']=0
+            bp.write_text(json.dumps(budget))
             for mode in ('empty','missing','duplicate'):
                 bad=copy.deepcopy(ready)
                 if mode=='empty':bad['cells']=[]
