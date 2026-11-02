@@ -113,6 +113,13 @@ class ExactLegTests(unittest.TestCase):
         leg=lookup.at(s,d)
         for source,target in [(-1,0),(len(lookup.source_index),0),(0,-1),(0,lookup.width)]:
             self.assertTrue(z3.is_false(z3.simplify(z3.substitute(leg.guard,(s,z3.IntVal(source)),(d,z3.IntVal(target))))))
+        trace=lookup.trace(2,0)
+        # Out-of-domain action ranks would otherwise select a default table
+        # entry. An inactive gap must not create a later active visit either.
+        for values in ((len(lookup.actions)+1,0),(-1,0),(0,1)):
+            substitutions=tuple((c,z3.IntVal(v)) for c,v in zip(trace.choices,values))
+            grounded=[z3.simplify(z3.substitute(c,*substitutions)) for c in trace.constraints]
+            self.assertTrue(any(z3.is_false(c) for c in grounded))
 
     def test_boolean_real_and_fractional_indices_are_rejected_not_coerced(self):
         lookup=GroundedLookup(ExactLegTable.from_dict(small()))

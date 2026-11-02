@@ -1,4 +1,32 @@
-# Current independent-comparator input audit
+# Current exact-leg input construction gate
+
+The [exact-leg input/lookup component](EXACT_LEG_INPUT_CONSTRUCTION.md) passes
+its bounded synthetic construction gate:64 literal Sites,110 actions and51
+slots are retained in both unique-anchor and alias-heavy profiles. Final
+expression DAG counts are26943 /8191; process-group RSS peaks are95092736 /
+63619072 bytes. These are input/discrete-trace measurements, **not** a complete
+physical model, query timing or real benchmark. No real road table, optimizer
+integration, real routing/comparison solve or holdout was performed.
+
+Exact rational parsing, complete directed/source/terminal/alias-zero coverage,
+integer index guards, pending activity and repeated literal visits are checked.
+Selected actual length is preserved without a distance-triangle assumption.
+Eleven tiny tests pass in both modes; a new bounded independent tiny road
+fixture checks node/edge ties and directionality without optimization. Earlier
+setup errors and the first source's two profiles remain in the joined results;
+the final API correction was verified on the same two shapes, without a speed
+claim. The real comparator's continuous/attainment integration and certified
+real-road input are still absent, so real-N64 benchmark readiness is **NO-GO**.
+
+New conservative charge is **159.355568 /400 CPU seconds**. Prior132.202735 and
+its full120 precharge remain: combined stage **291.558303 /600**, global
+**15299.057305741 /28800**, remaining13500.942694259. Ordinary software CI is
+separately reserved; preprocessing remains652.040677976 /900. Source/receipt
+details are in [exact_leg_construction_results.json](exact_leg_construction_results.json).
+All earlier original taskbook acceptance gaps remain. **Entries below are
+historical and retain their then-current state and accounting.**
+
+# Independent-comparator input audit (historical)
 
 The [full-N64 input/proof audit](COMPARATOR_INPUT_AUDIT.md) is **NO-GO for a
 benchmark with the current comparator**, not a proof that N64 is impossible.
