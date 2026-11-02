@@ -1,4 +1,37 @@
-# Current streaming full-graph representation gate
+# Current single-source certificate generation gate
+
+The [one-source gate](ONE_SOURCE_CERTIFICATE_GATE.md) preserves the complete
+WD01/E18/schedule/N64 domain:64literal Sites,65sources,65targets and4225pairs.
+The only admitted real attempt, original source3797700636, ended at the120wall
+guard with **UNKNOWN_UNCERTIFIED**. Last untrusted progress was2613248settled
+nodes/5127339edge visits. No path/certificate file was issued; independent
+checking is unrun because generation was incomplete. Counts remain1UNKNOWN/
+64UNRUN sources and65UNKNOWN/4160UNRUN pairs, zero independently certified.
+No physical solve, upper replay, holdout or retry occurred.
+
+An exact disk-backed untrusted producer and a separate SourceUnit/SourceSession
+API now preserve full literal domains and cannot issue whole-table Checked.
+Eight source-interface regressions passed both modes before admission, and a
+ninth reporting regression passed afterward. Existing21streaming and24previous
+certificate/preflight methods also pass both modes; no real claim follows from
+tiny parity. Peak sampled/native child RSS70369280bytes and minimum host
+availability5151178752bytes stayed within guards, but completed-source/checker
+memory remains unmeasured. Full graph identity success is retained as a distinct
+previous component; the former JSON-loader failure is also retained.
+
+Stage **384.460872/900CPU seconds**, cumulative **16726.757521741/28800**,
+remaining **12073.242478259**. Preprocessing652.040677976/900 unchanged;
+ordinary software CI separately reserved. Prior representation325.696447 remains
+charged, combined setup/current gate710.157319. See the [small terminal report](one_source_certificate_results.json).
+
+No-go for unchanged64-source rollout:64pairs at300CPU reservation need19200,
+above current remaining budget, and first-source completion/check cost is still
+unknown. A bounded producer proof/design/tiny feasibility gate is proposed
+before any new real attempt; neither faster export nor full certification is
+promised. Original taskbook targets and independent real-scale/holdout gaps
+remain unmet. Entries below preserve their historical states and charges.
+
+# Streaming full-graph representation gate (historical)
 
 The [streaming representation gate](STREAMING_ROAD_REPRESENTATION.md) verifies
 the complete original5900232-edge/2986695-node graph through an independent

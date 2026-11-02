@@ -1,0 +1,389 @@
+{
+  "schema": "hiroute.one_source_gate.report.v1",
+  "decision": "UNKNOWN_UNCERTIFIED",
+  "source": "3797700636",
+  "source_denominator": 65,
+  "pair_denominator": 4225,
+  "literal_Sites": 64,
+  "target_count": 65,
+  "source_statuses": [
+    {
+      "source": "10310878816",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "11497374127",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "11703145312",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "11704739881",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "11812245785",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "11878596169",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "12095804962",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "12153688549",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "12155442152",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "12155460602",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "12250360392",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "12250391930",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "12250395386",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "12400109805",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "12464985925",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "12585548117",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "12612854496",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "12791015765",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "12922538692",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "13004381180",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "13013673991",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "13013673995",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "13062996120",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "13536661551",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "13619237686",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "13751659821",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "14134933352",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "2123045218",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "2125936682",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "2139036154",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "2325145319",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "2325145324",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "2640965265",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "2702363864",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "2718262919",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "3251083566",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "3506153391",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "3521124785",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "3789936636",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "3797700636",
+      "status": "UNKNOWN_UNCERTIFIED"
+    },
+    {
+      "source": "3883019960",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "3884340050",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "3896010227",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "3896040928",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "3923233587",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "4211729533",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "4211729575",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "4211729577",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "4267745133",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "4468471077",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "4524356636",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "5123675224",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "5150916163",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "6467786256",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "8686257160",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "8779197061",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "9094330252",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "9588390640",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "9633451214",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "9642816265",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "9726723010",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "9736128947",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "9740828469",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "9740828473",
+      "status": "UNRUN_NOT_ADMITTED"
+    },
+    {
+      "source": "9853383483",
+      "status": "UNRUN_NOT_ADMITTED"
+    }
+  ],
+  "source_status_counts": {
+    "UNKNOWN_UNCERTIFIED": 1,
+    "UNRUN_NOT_ADMITTED": 64
+  },
+  "pair_status_counts": {
+    "UNKNOWN_UNCERTIFIED": 65,
+    "UNRUN_NOT_ADMITTED": 4160
+  },
+  "independently_certified_sources": 0,
+  "independently_certified_pairs": 0,
+  "whole_table_certified": false,
+  "generation_outcome": "wall_guard",
+  "checker_outcome": "UNRUN_INCOMPLETE_GENERATION",
+  "last_untrusted_progress": {
+    "phase": "dijkstra",
+    "settled_nodes": 2613248,
+    "edge_visits": 5127339,
+    "heap_entries": 789,
+    "wall_s": 119.89553483302006
+  },
+  "real_generation_receipt": {
+    "label": "real_origin_generation",
+    "phase": "real_pair",
+    "argv": [
+      "/tmp/hiroute-c-venv/bin/python",
+      "tools/run_one_source_gate.py",
+      "--mode",
+      "generate",
+      "--config",
+      "configs/one_source_certificate_gate.json",
+      "--frozen-domain",
+      "../real-road-certificate-artifacts-v1/frozen-domain.json",
+      "--graph-db",
+      "../streaming-road-certificate-artifacts-v1/build/road.sqlite",
+      "--raw",
+      "../hiroute-real-scale/data/real-scale-dev/real-scale-road.tsv",
+      "--output",
+      "../one-source-certificate-artifacts-v1/generation",
+      "--source-commit",
+      "a38374c93e00b8e079649c07c3886f321c25f692"
+    ],
+    "reserved_CPU_s": 150,
+    "started_at": 1793633024.149905,
+    "controller_pid": 17322,
+    "controller_created_at": 1793633024.082369,
+    "controller_sha256": "07e9bbc5362296dee349e6b1a587f6acbe8610f89f8fa78edb8fbba3c1d82b32",
+    "child_CPU_limit": 120,
+    "controller_soft_CPU_limit": 10,
+    "controller_hard_CPU_limit": 15,
+    "wall_limit": 120,
+    "RSS_limit_bytes": 1073741824,
+    "host_headroom_bytes": 2147483648,
+    "pid": 17328,
+    "process_created_at": 1793633024.15105,
+    "process_tree_CPU_peak_s": 118.10563072000001,
+    "error": "Stop('wall_guard')",
+    "returncode": 125,
+    "charged_CPU_s": 125.398282,
+    "finished_at": 1793633144.169672,
+    "guard_reason": "wall_guard",
+    "actual_child_returncode": -9,
+    "process_tree_peak_RSS_bytes": 70369280,
+    "host_available_min_bytes": 5151178752,
+    "child_maxrss_native": 70369280
+  },
+  "real_checker_receipts": [],
+  "accounting": {
+    "stage_CPU_s": "384.460872",
+    "stage_cap_CPU_s": 900,
+    "carried_research_CPU_s": "16342.296649741",
+    "research_total_CPU_s": "16726.757521741",
+    "remaining_original_CPU_s": "12073.242478259",
+    "phase_CPU_s": {
+      "tiny_validation": "8.000752",
+      "real_pair": "125.398282",
+      "verification_tails": "11.061838"
+    },
+    "fixed_development_controller_CPU_s": 240,
+    "prior_representation_stage_CPU_s": "325.696447",
+    "current_gate_plus_prior_representation_CPU_s": "710.157319",
+    "prior_setup_not_free": true,
+    "ordinary_software_CI": "separate approved scope; prior inclusive charges retained"
+  },
+  "EV_solve": false,
+  "upper_replay": false,
+  "holdout": false,
+  "original_taskbook_complete": false,
+  "producer_commit": "a38374c93e00b8e079649c07c3886f321c25f692",
+  "config_sha256": "f466bc1a6a0c7fd3343ca8e95bbaa6c260bc3a3bcd098bb50fffb08e0bec8db0",
+  "generation_worker_terminal_receipt_absent_due_to_controller_SIGKILL": true,
+  "controller_terminal_receipt_authoritative": true,
+  "all_recorded_processes_terminal": true,
+  "checked_process_identities": 30,
+  "guarded_command_count": 15,
+  "source_certificate_file_present": false,
+  "selected_paths_file_present": false,
+  "partial_producer_DB_bytes": 986685440,
+  "partial_DB_not_revalidated_or_reused": true,
+  "preprocessing_CPU_s": "652.040677976",
+  "preprocessing_cap_CPU_s": 900,
+  "remaining64_pair_reservation_CPU_s": 19200,
+  "remaining64_admission_decision": "NO_GO_UNCHANGED_METHOD_AND_CURRENT_RESERVATIONS",
+  "scaling_reason": "First source incomplete;64x300=19200 exceeds remaining original budget. Remaining actual runtime and checker cost unmeasured; not an impossibility proof for a revised exact producer.",
+  "report_limit_regression": "Mocked successful source-only branch plus wrong checker phase/limits/full-table claims; no real rerun.",
+  "failed_development_runs": [
+    "tiny_initial_normal: fixture mutated historical JSONL rather than retained SQLite input; corrected retained-input fixture passed."
+  ],
+  "nonworker_integration_notes": [
+    "Initial controller launch used a nonexistent relative path: no worker started; fixed240 retained.",
+    "Initial code-only registration edit searched the wrong path spelling: no worker started; corrected before source freeze."
+  ],
+  "controller_versions_sha256": [
+    "579b5f23ca8a0fed01b01ba41287e259738100352a62912a62fbb8e21fc8a337",
+    "e5a595333a2bc9e1865b0e22bacb5c9b0377067b06de0c2534110c4fc258ba00",
+    "07e9bbc5362296dee349e6b1a587f6acbe8610f89f8fa78edb8fbba3c1d82b32"
+  ],
+  "source_unit_ownership_correction": "SourceUnit itself is now frozen; inherited frozen base did not protect extra attributes. All10regressions pass normal/-OO; no complete real unit existed and checker was unrun, so no real attempt repeated.",
+  "final_new_tests_per_mode": 10
+}
