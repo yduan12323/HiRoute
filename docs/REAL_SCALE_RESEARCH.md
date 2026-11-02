@@ -1,4 +1,38 @@
-# Planning-value DEV update
+# Current independent-comparator input audit
+
+The [full-N64 input/proof audit](COMPARATOR_INPUT_AUDIT.md) is **NO-GO for a
+benchmark with the current comparator**, not a proof that N64 is impossible.
+All48 historical cells /96 method slots are retained:44 have input,4 do not.
+Real inputs use64 Sites,64–110 actions and3 charging pieces, beyond the current
+tiny prototype. Conditional complete depths are25–51; a separately derived
+direct-time/activity subtraction gives2–20, still>6 in21 available cells.
+Each full domain needs4225 directed pair records, but selected-leg construction
+is not free and current per-slot table expansion has unmeasured resource cost.
+The old real-REF table has incompatible binary64 and length-tie semantics.
+
+The audit verifies frozen hashes and counts metadata only. No road search,
+SMT check, real solver rerun, table generation or holdout ran. Historical
+feasible U/direct-time values are conditional sizing inputs, not independently
+certified seeds or optimum oracles. A shared finite exact lookup is a concrete
+next implementation direction, with strict-support/full-K/relevant-depth proof
+obligations preserved. No full-instance practicality/performance claim is made.
+
+Gate charge is **132.202735 /600 CPU seconds**, original cumulative
+**15139.701737741 /28800**, remaining13660.298262259. Earlier CI reservations
+remain charged; ordinary software CI is separately reserved under the approved
+scope. Preprocessing stays **652.040677976 /900**. Full results and source/input
+identities are in [comparator_input_audit_results.json](comparator_input_audit_results.json).
+
+The preceding [policy completion](PLANNING_VALUE_COMPLETION.md) closed the
+original two budget-unrun slots without repeating its six older rows:2 policy
+optima,6 timeouts,6 verified feasible plans in the complete selected4/8 cohort.
+Its merged main isbbbb98ff89ff0ea76afe83898a7beb874e899789, with full41392128099
+and dedicated41392128104 successful. Original performance, hierarchy advantage,
+larger/full domains, real four-charge evidence, independent real-scale comparison,
+design freeze and new-OD holdout are still incomplete. **Earlier entries below
+are historical, including their then-current budgets and unrun states.**
+
+# Planning-value DEV update (historical, before the two-slot completion)
 
 The frozen two-policy application gate has delivered six once-only loaded rows
 and two budget-unrun slots, retaining the full4-query/8-slot denominator. One
