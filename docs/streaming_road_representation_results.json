@@ -8,13 +8,13 @@
     "phase_conservative_CPU_s": {
       "conditional_representation": "59.344057",
       "tiny_validation": "9.136399",
-      "verification_tails": "10.647252"
+      "verification_tails": "17.215991"
     },
     "preprocessing_CPU_s": "652.040677976",
     "preprocessing_cap_CPU_s": 900,
-    "remaining_original_CPU_s": "12464.272089259",
-    "research_total_CPU_s": "16335.727910741",
-    "stage_CPU_s": "319.127708",
+    "remaining_original_CPU_s": "12457.703350259",
+    "research_total_CPU_s": "16342.296649741",
+    "stage_CPU_s": "325.696447",
     "stage_cap_CPU_s": 900
   },
   "all_recorded_processes_terminal": true,
@@ -201,9 +201,62 @@
       "pid": 12108,
       "process_tree_peak_RSS_bytes": 36503552,
       "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.619453,
+      "controller_pid": 12734,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5676433408,
+      "label": "literal_lookup_normal",
+      "log_sha256": "1041db29ae7b1b135d0ca67efd533c20bad048d73284eb6dcf1e7335532fc541",
+      "phase": "verification_tails",
+      "pid": 12740,
+      "process_tree_peak_RSS_bytes": 36798464,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.61755,
+      "controller_pid": 12822,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5512118272,
+      "label": "literal_lookup_optimized",
+      "log_sha256": "466c06302ed823614ca3e20ed5704e9c378a08dd6af1da51bdb524da63646ff2",
+      "phase": "verification_tails",
+      "pid": 12828,
+      "process_tree_peak_RSS_bytes": 36356096,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.661095,
+      "controller_pid": 13025,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5572444160,
+      "label": "metadata_bounded_normal",
+      "log_sha256": "30fcda2ad0e9de3080fbd27000a779c830f64d4a72f0cded43ebe2f26e71202a",
+      "phase": "verification_tails",
+      "pid": 13031,
+      "process_tree_peak_RSS_bytes": 61587456,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.6706409999999998,
+      "controller_pid": 13118,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5570494464,
+      "label": "metadata_bounded_optimized",
+      "log_sha256": "80450814abb96e342751632e51b47675b1e9e6e28b65a2058feb74430b43b21f",
+      "phase": "verification_tails",
+      "pid": 13124,
+      "process_tree_peak_RSS_bytes": 61505536,
+      "returncode": 0
     }
   ],
   "config_sha256": "4c9f8ae1a5bb6497be2621744e516dd218dd8387cb096f7b6e25c7e6c49e2337",
+  "controlled_command_count": 18,
   "decision": "PASS_REPRESENTATION_AND_TINY_COMPONENTS_ONLY",
   "failed_attempts_preserved": [
     {
@@ -328,6 +381,9 @@
   "late_disk_owner_fix_commit": "47c724d994943c7cfd6e0e85fb6f39d672a07cf6",
   "legacy_certificate_preflight_tests_in_dedicated_CI_per_mode": 24,
   "original_taskbook_complete": false,
+  "postdraft_literal_lookup": "BINARY forced independently of untrusted NOCASE/RTRIM schema; actual full index alreadyBINARY. Missing headers rejected.",
+  "postreview_metadata_check_sha256": "28ea026957b1f0c5021722e3f8f2e57d5b782f3d37cf6f14ae06a6c6911560d5",
+  "postreview_metadata_reader": "At most7 SQL-projected bounded rows; immediately reject seventh/unknown/duplicate; text key/value capped64/256UTF8bytes before JSON decode; blobs never transferred as payload.",
   "postrun_metadata_check": {
     "actual_representation_sha256": "db363d5b58d3bfe8731f7ff30e3a354c6d6223f276edd407d3c4ee197c60bfc1",
     "metadata_rows": 6,
@@ -355,7 +411,7 @@
   "schema": "hiroute.streaming_representation_delivery.v1",
   "synthetic_accepted_pair_checks": 4268,
   "synthetic_accepted_source_certificates": 76,
-  "tests_per_mode": 17,
+  "tests_per_mode": 21,
   "tiny_case_denominator": 16,
   "tiny_input_file_count": 142,
   "tiny_input_manifest_sha256": "ff118dd74c4a372787bd15983ae8a51277dd69ad2197f3764679fb0c20aaeaa2",

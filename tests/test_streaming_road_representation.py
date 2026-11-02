@@ -5,7 +5,9 @@ from pathlib import Path
 import sqlite3
 import sys
 import tempfile
+import tracemalloc
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
 from road_certificate_fixtures import IDS,fixture,evaluate as old_evaluate,build as tiny_build,graph_payload,edge
@@ -36,6 +38,28 @@ class StreamingTests(unittest.TestCase):
                 self.assertEqual(list(g.nodes()),sorted(gp['nodes']));self.assertEqual(g.edge('01').source,'01')
                 with self.assertRaises(ValueError):g.edge(1)
             finally:g.close()
+
+    def test_untrusted_nocase_or_rtrim_schema_cannot_change_literal_lookup(self):
+        for collation in ('NOCASE','RTRIM'):
+            with self.subTest(collation=collation),tempfile.TemporaryDirectory() as d:
+                root=Path(d);raw=root/'raw';raw.write_text('a\tb\te\t1\t1\n');build(raw,root/'db')
+                db=sqlite3.connect(root/'db');db.executescript('ALTER TABLE nodes RENAME TO old_nodes;CREATE TABLE nodes(node TEXT COLLATE '+collation+' PRIMARY KEY);INSERT INTO nodes SELECT node FROM old_nodes;DROP TABLE old_nodes;');db.commit();db.close()
+                g=validate(raw,root/'db',root/'v')
+                try:
+                    self.assertTrue(g.has_node('a'));self.assertFalse(g.has_node('A'));self.assertFalse(g.has_node('a '))
+                finally:g.close()
+
+    def test_missing_headers_are_rejections_without_partial_certificate(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);b=tiny_build(sites={},destination='o');g=graph_inputs(b['graph_payload'],root)
+            (root/'empty').write_bytes(b'')
+            with self.assertRaisesRegex(ValueError,'missing selected-path header'):read_table(root/'empty',g,root/'bad_table')
+            write_jsonl(root/'t',table_rows(b['table_payload'],g));t=read_table(root/'t',g,root/'tdb');session=Session(g,t)
+            try:
+                with self.assertRaisesRegex(ValueError,'missing source-certificate header'):session.check_source(root/'empty',root/'bad_source')
+                self.assertTrue(session.failed)
+                with self.assertRaises(ValueError):session.finish()
+            finally:t.close();g.close()
 
     def test_missing_extra_swapped_and_changed_edges_fail_independent_join(self):
         for mode in ('missing','extra','weight','identity','ordinal'):
@@ -143,9 +167,55 @@ class StreamingTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);g=graph_inputs(graph_payload(),root);g.close();db=sqlite3.connect(root/'graph.sqlite')
             values=list(db.execute('SELECT key,value FROM meta'));db.execute('DROP TABLE meta');db.execute('CREATE TABLE meta(key TEXT,value TEXT)')
-            db.executemany('INSERT INTO meta VALUES(?,?)',values+[values[0]]);db.commit();db.close()
+            db.executemany('INSERT INTO meta VALUES(?,?)',[values[0],*values]);db.commit();db.close()
             with self.assertRaisesRegex(ValueError,'duplicate representation metadata'):
                 validate(root/'graph.tsv',root/'graph.sqlite',root/'v2',nodes_path=root/'nodes.jsonl')
+
+    def test_untrusted_metadata_never_reads_more_than_seventh_row(self):
+        import streaming_road_graph as module
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);g=graph_inputs(graph_payload(),root);g.close();db=sqlite3.connect(root/'graph.sqlite')
+            db.executemany('INSERT INTO meta VALUES(?,?)',[(f'zzz{i:06d}','0') for i in range(5000)]);db.commit();db.close()
+            real=module.connect;seen=[0]
+            class Cursor:
+                def __init__(self,c):self.cursor=c
+                def __iter__(self):
+                    for row in self.cursor:
+                        seen[0]+=1
+                        if seen[0]>7:raise AssertionError('unbounded metadata consumption')
+                        yield row
+            class Connection:
+                def __init__(self,c):self.db=c
+                def execute(self,sql,*args):
+                    cursor=self.db.execute(sql,*args)
+                    return Cursor(cursor) if 'from meta' in sql.lower() else cursor
+                def close(self):self.db.close()
+            def wrapped(path,**kwargs):
+                c=real(path,**kwargs)
+                return Connection(c) if not kwargs.get('write') else c
+            with patch.object(module,'connect',wrapped),self.assertRaisesRegex(ValueError,'metadata'):
+                validate(root/'graph.tsv',root/'graph.sqlite',root/'v2',nodes_path=root/'nodes.jsonl')
+            self.assertLessEqual(seen[0],7)
+
+    def test_metadata_value_is_bounded_before_JSON_decoding(self):
+        import streaming_road_graph as module
+        for mode in ('text','blob','key'):
+            with self.subTest(mode=mode),tempfile.TemporaryDirectory() as d:
+                root=Path(d);g=graph_inputs(graph_payload(),root);g.close();db=sqlite3.connect(root/'graph.sqlite')
+                if mode=='text':db.execute("UPDATE meta SET value=? WHERE key='raw_sha256'",(' '*20000,))
+                elif mode=='blob':db.execute("UPDATE meta SET value=zeroblob(16777216) WHERE key='raw_sha256'")
+                else:db.execute('INSERT INTO meta VALUES(?,?)',('k'*20000,'0'))
+                db.commit();db.close();original=json.loads
+                def guarded(value,*a,**kw):
+                    if isinstance(value,(str,bytes)) and len(value)>256:raise AssertionError('unbounded metadata decode')
+                    return original(value,*a,**kw)
+                tracemalloc.start()
+                try:
+                    with patch.object(module.json,'loads',guarded),self.assertRaisesRegex(ValueError,'metadata'):
+                        validate(root/'graph.tsv',root/'graph.sqlite',root/'v2',nodes_path=root/'nodes.jsonl')
+                    peak=tracemalloc.get_traced_memory()[1]
+                finally:tracemalloc.stop()
+                self.assertLess(peak,8*1024**2)
 
     def test_issued_certificate_and_cached_finish_reject_changed_disk_inputs(self):
         for mode in ('raw','representation','paths'):

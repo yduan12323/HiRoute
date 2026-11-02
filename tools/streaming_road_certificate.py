@@ -80,7 +80,9 @@ class Table:
 
 def read_table(path,graph,db_path,*,arithmetic=None,max_bytes=4*1024**3,check=lambda:None):
     if not isinstance(graph,Graph) or not graph._validated:raise TypeError('independently validated graph required')
-    A=arithmetic or Arithmetic();h=hashlib.sha256();rows=iter(lines(path,h));header=json_line(next(rows))
+    A=arithmetic or Arithmetic();h=hashlib.sha256();rows=iter(lines(path,h));first=next(rows,None)
+    if first is None:raise ValueError('missing selected-path header')
+    header=json_line(first)
     fields(header,('schema','numerical_contract','selected_leg_contract','graph_identity','origin_anchor','destination_anchor','candidate_order','sites'))
     if (header['schema'],header['numerical_contract'],header['selected_leg_contract'],header['graph_identity'])!=(
         TABLE_SCHEMA,NUMERICAL,SELECTION,'sha256:'+graph.payload_sha256):raise ValueError('actual graph/selection identity mismatch')
@@ -170,7 +172,9 @@ class Session:
         except BaseException:self._failed=True;raise
     def _source(self,path,workspace):
         g,t,A=self._g,self._t,self._A;self._check();folder=Path(workspace);folder.mkdir(exist_ok=False)
-        h=hashlib.sha256();rows=iter(lines(path,h));header=json_line(next(rows))
+        h=hashlib.sha256();rows=iter(lines(path,h));first=next(rows,None)
+        if first is None:raise ValueError('missing source-certificate header')
+        header=json_line(first)
         fields(header,('schema','graph_sha256','table_sha256','source','target_order'))
         if (header['schema'],header['graph_sha256'],header['table_sha256'],header['target_order'])!=(
             SOURCE_SCHEMA,g.payload_sha256,t.payload_sha256,list(t.targets)):raise ValueError('source actual identity/target domain')

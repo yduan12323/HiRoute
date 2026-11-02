@@ -16,7 +16,7 @@ it does not repeat or reattribute the full graph passes. The original failed
 [JSON-loader preflight](REAL_ROAD_CERTIFICATE_PREFLIGHT.md) remains unchanged.
 
 [Small result/receipt summary](streaming_road_representation_results.json) keeps
-all16 formal tiny cells, all14 command outcomes including failures, source/config
+all16 formal tiny cells, all18 command outcomes including failures, source/config
 identity, input/receipt hashes, all65/4225unrun counts and measured resources.
 Bulk graph/index/state/input files remain outside Git.
 
@@ -158,7 +158,7 @@ not real routing. Other fixture path production remains exhaustive only within
 the existing<=6node/12edge/2048prefix tiny guard. Combined4268pair claims and
 76source certificates are synthetic component checks, not real routes.
 
-Seventeen final regression methods pass normally and under-OO. Dedicated clean
+Twenty-one final regression methods pass normally and under-OO. Dedicated clean
 stdlib CI runs these plus the existing24certificate/preflight tests per mode.
 Negative tests cover missing/extra/swapped/duplicate identities, duplicate
 metadata without a trusted schema flag, literal string collisions, parallel
@@ -192,11 +192,30 @@ index or selected-path bytes after certificate issuance invalidates both
 checks;17final tests pass in both modes. No real certificate was issued before
 or after the fix, and the valid full representation passes were not repeated.
 
+Post-draft review found that eager metadata collection could materialize an
+untrusted large table outside SQLite's heap cap. The corrected reader requests
+at most7 SQL-projected rows; key/value prefixes are bounded before transfer,
+blobs are excluded, and the seventh, unknown or duplicate key is rejected
+immediately. Expected text is limited to64/256UTF8bytes before JSON decoding.
+Tests exercise5000extra rows, oversized text/key and a16MiBblob, asserting at
+most7consumed rows, bounded decode input and a bounded Python allocation peak.
+The actual artifact's six metadata keys/values are at most21/66bytes, checked
+with a small readonly query; no full pass is repeated.
+
+Node membership also forces BINARY at the lookup expression, independent of
+untrusted NOCASE/RTRIM table declarations. Missing stream headers reject before
+any partial result. New regressions preserve literal case/trailing-space IDs;
+the actual frozen index schema was already BINARY. The initial draft's CI and
+its21-test corrected delivery are distinct; earlier attempts retain their actual
+recorded states in the software ledger, and a cancellation is never a pass.
+These corrections do not reattribute the real
+construction/validation timings to later code.
+
 Prospective900CPU allocation:240development/controller,180tiny validation,
 360conditional representation and120verification/tails. Conservative actual
-charges are240+9.136399+59.344057+10.647252=**319.127708/900**. All14command
+charges are240+9.136399+59.344057+17.215991=**325.696447/900**. All18command
 receipts, including3failures, remain. Cumulative research is
-**16335.727910741/28800**, remaining**12464.272089259**. Preprocessing remains
+**16342.296649741/28800**, remaining**12457.703350259**. Preprocessing remains
 652.040677976/900. Old charges are not refunded. Ordinary software CI is
 separately prospectively reserved(9000capacity-CPU full M5;120dedicated stdlib
 per invocation), without claiming historical whole-job CPU is measured.

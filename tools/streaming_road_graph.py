@@ -161,7 +161,7 @@ class Graph:
 
     def has_node(self,node):
         identity(node)
-        return self._db.execute('SELECT 1 FROM nodes WHERE node=?',(node,)).fetchone() is not None
+        return self._db.execute('SELECT 1 FROM nodes WHERE node=? COLLATE BINARY',(node,)).fetchone() is not None
 
     def edge(self,eid):
         identity(eid)
@@ -236,11 +236,24 @@ def validate(raw_path,db_path,workspace,*,nodes_path=None,expected_raw_sha=None,
             if N%4096==0:check()
         if needed is not None or not N:raise ValueError('incomplete/empty node domain')
         nh=sha(nodes_path) if nodes_path is not None else None
-        items=list(db.execute('SELECT key,value FROM meta'))
-        if len({k for k,v in items})!=len(items):raise ValueError('duplicate representation metadata identity')
-        meta={k:json.loads(v) for k,v in items}
         required=dict(schema=SCHEMA,numerical_contract=NUMERICAL,selected_leg_contract=SELECTION,
                       raw_sha256=raw_hash,declared_nodes_sha256=nh,graph_identity=graph_identity(raw_hash,nh))
+        meta={}
+        # Never materialize an untrusted metadata table or transfer full
+        # untrusted values to Python just to measure them. CASE excludes blobs;
+        # substr bounds text before transfer. One extra row proves overcoverage.
+        query="""SELECT typeof(key),CASE WHEN typeof(key)='text' THEN substr(key,1,65) ELSE NULL END,
+                 typeof(value),CASE WHEN typeof(value)='text' THEN substr(value,1,257) ELSE NULL END
+                 FROM meta LIMIT 7"""
+        for index,(kt,k,vt,v) in enumerate(db.execute(query)):
+            check()
+            if index>=len(required):raise ValueError('extra representation metadata row')
+            if kt!='text' or type(k) is not str or len(k.encode('utf-8'))>64 or k not in required:
+                raise ValueError('unknown/oversized representation metadata key')
+            if k in meta:raise ValueError('duplicate representation metadata identity')
+            if vt!='text' or type(v) is not str or len(v.encode('utf-8'))>256:
+                raise ValueError('oversized/nontext representation metadata value')
+            meta[k]=json.loads(v)
         if meta!=required:raise ValueError('actual raw/node identity or numerical contract mismatch')
         if db.execute('PRAGMA quick_check').fetchone()!=('ok',):raise ValueError('SQLite structural corruption')
         check()
