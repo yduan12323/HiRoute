@@ -88,3 +88,88 @@ and charges remain recorded; no mathematical counterexample was observed.
 The prospective source/limits above are frozen before real generation. Actual
 terminal outcome, exact producer/delivery identities and receipts are appended
 after the single attempt. This document alone asserts no real source result.
+
+
+## Terminal observed result
+
+**UNKNOWN_UNCERTIFIED**, no retry. Producer commit
+`a38374c93e00b8e079649c07c3886f321c25f692` was clean and committed before
+launch. The preserved source manifest/config identities bind all64literal
+Sites and all65targets to original origin3797700636. Full disk representation
+bytes were streamed and checked before building the extra adjacency index.
+No production router, historical seed or HiRoute optimum was used.
+
+The external120wall guard ended the only real child after120.019767seconds
+from controller start. Controller terminal receipt records childSIGKILL,
+wall_guard and125.398282conservative CPU seconds including controller/tail.
+There is no worker-authored terminal result: interruption was external and
+known, not an uncertain outcome. Its started/progress files and986685440-byte
+partial producer DB are retained; the partial DB was not revalidated or reused.
+The last progress record was Dijkstra,2613248settled nodes,5127339edge visits,
+789heap entries at119.895535wall. These are untrusted progress counts, not
+independently verified distances or evidence that the remaining nodes are
+unreachable. The separate index-ready phase was observed, but full phase CPU
+breakdown was not recorded; do not infer attribution or completion time from
+an extrapolation of these counts.
+
+Measured whole-process-tree sampled peak and native postexit max RSS were both
+70369280bytes. Minimum host availability was5151178752bytes. Memory/storage
+protection was not triggered; this does not establish the memory required by a
+completed source/certificate/checker. No unguarded read-all hash was performed
+in this gate. The earlier representation gate's separately disclosed manual
+hash/RSS limitation remains unchanged.
+
+There is no selected-path JSONL or source-certificate JSONL. The independent
+check is **UNRUN_INCOMPLETE_GENERATION**, not a failed mathematical check.
+No source/pair is independently certified: source counts are1UNKNOWN and
+64UNRUN; pair counts65UNKNOWN and4160UNRUN, retaining65/4225denominators.
+No EV solve, upper-witness replay, complete relevant-H claim or holdout occurred.
+All26recorded process identities are terminal. Worker records and their logs
+remain outside Git in `one-source-certificate-artifacts-v1`; the small
+[terminal report](one_source_certificate_results.json) preserves the denominator,
+real resource receipt and exact accounting.
+
+Conservative final research charge is **382.037191/900CPU seconds**:
+240fixed development/controller +8.000752tiny +125.398282real +8.638157verification.
+This includes the failed fixture, thirteen guarded commands, all controller
+CPU/tails and an extra2CPU conservative small-report/process-check fee (not
+measured CPU). Cumulative **16724.333840741/28800**; remaining
+**12075.666159259**. Preprocessing remains652.040677976/900. The earlier
+representation325.696447charge is retained; its setup plus this gate is
+707.733638CPU seconds, not a free prerequisite in future end-to-end attribution.
+Ordinary software CI is separately reserved; previous inclusive charges stay.
+
+The eight source-interface methods passed normal/-OO before admission; the
+ninth, mocked reporting regression passed afterward in both modes. It rejects
+empty/duplicate attempts, active/hidden phases, accounting drift, changed
+checker limits, incomplete generation and whole-table claims. The existing
+21streaming and24certificate/preflight methods also passed both modes. Their
+scientific/compatibility role is tiny semantic validation, not evidence for a
+completed real source.
+
+## Scaling and next decision
+
+**NO_GO for launching the remaining64sources with this unchanged method and
+current admission policy.** First source did not complete in its fixed limit;
+independent checking cost remains unmeasured. Reserving64generation/check pairs
+at300each needs19200CPU seconds, more than remaining12075.666159259, before
+any further development/cleanup. This is an admission calculation, not an
+impossibility theorem or an estimate that all sources have the same cost.
+Unused allocations are not charged as actual compute, and budgets/limits are
+not retroactively increased.
+
+The next high-value step is a bounded exact-producer feasibility/design audit,
+not another real attempt or64-source rollout: use the retained profile only to
+identify unresolved setup/labeling/serialization costs, assess a compact
+compiled or batched exact export while preserving arbitrary precision and all
+canonical identities, and define a reusable charged representation contract.
+No claim of speed benefit is justified before independent tiny parity and a
+separate prospective real admission. A proposed maximum600CPU proof/tiny gate
+would fit the remaining cap; it is not admitted or run here. Keep the independent
+streaming checker as the verification boundary and first establish a plausible
+complete-source/check cost before any full-table allocation.
+
+Independent full real-table verification, real-scale comparison, physical
+upper/relevant-depth integration, wider/full domains, real four-charge evidence,
+original hierarchy/timing acceptance and holdout all remain open. Overall taskbook
+completion is **not** claimed.

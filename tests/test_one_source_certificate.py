@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
 from road_certificate_fixtures import build as tiny_build,graph_payload,edge
@@ -149,6 +150,40 @@ class OneSourceTests(unittest.TestCase):
                 with self.assertRaises(FileExistsError):generate(g.path,h,root/'partial',expected_graph_sha=g.representation_sha256)
                 with self.assertRaises(ValueError):generate(g.path,h,root/'bad_hash',expected_graph_sha='0'*64)
             finally:g.close()
+
+    def test_report_rejects_empty_duplicate_active_and_incomplete_proof(self):
+        from report_one_source_gate import summarize
+        b=analytic_wide()['bundle'];p=b['table_payload']
+        h=dict(schema=UNIT_SCHEMA,numerical_contract=p['numerical_contract'],selected_leg_contract=p['selected_leg_contract'],
+            graph_identity='sha256:mock',source_unit='o',**{k:p[k] for k in ('origin_anchor','destination_anchor','candidate_order','sites')})
+        generation=dict(label='real_origin_generation',phase='real_pair',child_CPU_limit=120,wall_limit=120,reserved_CPU_s=150,charged_CPU_s=10,finished_at=1,returncode=125,guard_reason='wall_guard')
+        budget=dict(active=None,source='o',source_denominator=65,pair_denominator=4225,records=[generation],fixed_precharge_CPU_s=240,
+            phase_charged_CPU_s=dict(tiny_validation=0,real_pair=10,verification_tails=0),allocations_CPU_s=dict(tiny_validation=180,real_pair=300,verification_tails=180),carried_research_CPU_s='16342.296649741')
+        with patch('report_one_source_gate.frozen_header',return_value=h):
+            result=summarize({'source':'o'},'unused',budget,None)
+            self.assertEqual(result['independently_certified_pairs'],0);self.assertEqual(sum(result['pair_status_counts'].values()),4225)
+            self.assertEqual(len(result['source_statuses']),65)
+            for mode in ('empty','duplicate','active','incomplete_check','hidden_phase','charge_drift'):
+                altered=copy.deepcopy(budget)
+                if mode=='empty':altered['records']=[]
+                elif mode=='duplicate':altered['records'].append(generation)
+                elif mode=='active':altered['active']={'pid':1}
+                elif mode=='incomplete_check':altered['records'].append(dict(generation,label='real_origin_check',charged_CPU_s=0))
+                elif mode=='hidden_phase':altered['records'].append(dict(generation,label='hidden',phase='unaccounted'))
+                else:altered['phase_charged_CPU_s']['real_pair']=9
+                with self.subTest(mode=mode),self.assertRaises(ValueError):summarize({'source':'o'},'unused',altered,None)
+            good=copy.deepcopy(budget);good['records'][0].update(returncode=0,guard_reason=None)
+            good['records'].append(dict(good['records'][0],label='real_origin_check',charged_CPU_s=0))
+            producer=dict(decision='UNTRUSTED_SOURCE_CANDIDATE_COMPLETE')
+            checked=dict(decision='VERIFIED_SINGLE_SOURCE_ONLY',result=dict(source='o',checked_pairs=65,source_denominator=65,pair_denominator=4225,unrun_sources=64,whole_table_certified=False))
+            self.assertEqual(summarize({'source':'o'},'unused',good,None,producer_result=producer,checker_result=checked)['independently_certified_pairs'],65)
+            for mode in ('check_limits','check_phase','whole_claim','missing_pairs'):
+                altered=copy.deepcopy(good);result=copy.deepcopy(checked)
+                if mode=='check_limits':altered['records'][-1]['wall_limit']=121
+                elif mode=='check_phase':altered['records'][-1]['phase']='verification_tails'
+                elif mode=='whole_claim':result['result']['whole_table_certified']=True
+                else:result['result']['checked_pairs']=64
+                with self.subTest(mode=mode),self.assertRaises(ValueError):summarize({'source':'o'},'unused',altered,None,producer_result=producer,checker_result=result)
 
 
 if __name__=='__main__':unittest.main()
