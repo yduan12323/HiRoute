@@ -2,6 +2,8 @@ import builtins
 import copy
 from fractions import Fraction as F
 import importlib.abc
+import hashlib
+import tempfile
 import json
 from pathlib import Path
 import sys
@@ -12,6 +14,8 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT/'tools'),str(ROOT/'comparison')]
 from exact_leg_table import ExactLegTable,GroundedLookup,SCHEMA,NUMERICAL,SELECTION,dag_nodes
 from exact_leg_fixtures import complete_payload,synthetic_payload
+from probe_exact_leg_table import config as read_probe_config,FROZEN_PROFILES
+from report_exact_leg_construction import report
 import z3
 
 
@@ -62,6 +66,20 @@ class ExactLegTests(unittest.TestCase):
                           ('road_selection_certified',True)]:
             p=small();p[key]=value
             with self.subTest(key=key),self.assertRaises(ValueError):ExactLegTable.from_dict(p)
+
+    def test_string_or_object_containers_do_not_rewrite_literal_actions_or_paths(self):
+        p=small();p['sites']['o']['effects']='CS'
+        with self.assertRaises(TypeError):ExactLegTable.from_dict(p)
+        p=complete_payload('o','z',['a','b'],{'a':dict(anchor='p',effects=['C']),
+                                               'b':dict(anchor='q',effects=['S'])})
+        p['candidate_order']='ab'
+        with self.assertRaises(TypeError):ExactLegTable.from_dict(p)
+        for field,value in [('nodes','op'),('edges','x')]:
+            p=small();row=next(r for r in p['pairs'] if (r['source'],r['target'])==('o','p'))
+            row[field]=value
+            with self.subTest(field=field),self.assertRaises(TypeError):ExactLegTable.from_dict(p)
+        p=small();p['sites']['o']['effects']={'C':None,'S':None}
+        with self.assertRaises(TypeError):ExactLegTable.from_dict(p)
 
     def test_missing_duplicate_and_extra_pair_fail_closed(self):
         for mode in ('missing','duplicate','extra'):
@@ -155,6 +173,87 @@ class ExactLegTests(unittest.TestCase):
         lookup=GroundedLookup(t);trace=lookup.trace(0,0)
         other=small();other['graph_identity']='another';different=GroundedLookup(ExactLegTable.from_dict(other))
         with self.assertRaisesRegex(ValueError,'another immutable'):different.resolve(trace,[])
+
+    def test_caller_digest_cannot_override_provenance_or_mix_table_traces(self):
+        a=small();b=small()
+        next(r for r in b['pairs'] if r['source']=='o' and r['target']=='z')['actual_length_m']='999'
+        # This public override used to accept both different payloads as one input.
+        for payload in (a,b):
+            with self.assertRaises(TypeError):ExactLegTable.from_dict(payload,payload_sha256='claimed')
+        ta,tb=ExactLegTable.from_dict(a),ExactLegTable.from_dict(b)
+        self.assertNotEqual(ta.payload_sha256,tb.payload_sha256)
+        la,lb=GroundedLookup(ta),GroundedLookup(tb);trace=la.trace(0,0)
+        with self.assertRaisesRegex(ValueError,'another immutable'):lb.resolve(trace,[])
+        with self.assertRaisesRegex(ValueError,'another immutable'):lb.roots(trace)
+        # Even identical bytes parsed independently do not own A's trace.
+        same=GroundedLookup(ExactLegTable.from_dict(a))
+        self.assertEqual(same.table.payload_sha256,ta.payload_sha256)
+        with self.assertRaisesRegex(ValueError,'another immutable'):same.resolve(trace,[])
+        self.assertEqual(GroundedLookup(ta).resolve(trace,[])['legs'],la.resolve(trace,[])['legs'])
+        raw=(json.dumps(a)+'\n').encode();parsed=ExactLegTable.from_bytes(raw)
+        self.assertEqual(parsed.payload_sha256,hashlib.sha256(raw).hexdigest())
+
+    def _mock_construction_history(self,root):
+        cfg=json.loads((ROOT/'configs/exact_leg_construction_gate.json').read_text())
+        source=dict(commit='mock-construction-source',platform='macOS-mock')
+        records=[]
+        for name in ('final_tiny_semantics_normal','final_tiny_semantics_optimized',
+                     'symbolic_domain_negative_normal','symbolic_domain_negative_optimized',
+                     'review_corrections_normal','review_corrections_optimized'):
+            records.append(dict(label=name,returncode=0,guard_reason=None))
+        for directory,ready,label in [('probes','preflight.json','construct_'),
+                                      ('probes-final','preflight-final.json','final_construct_')]:
+            (root/ready).write_text(json.dumps(dict(config=cfg,source=source)))
+            for profile in FROZEN_PROFILES:
+                path=root/directory/profile['id'];path.mkdir(parents=True)
+                raw=('mock receipt input '+profile['id']).encode()
+                (path/'synthetic-input.json').write_bytes(raw)
+                worker=dict(status='constructed',source=source,profile=profile,
+                    input_sha256=hashlib.sha256(raw).hexdigest(),literal_Sites=profile['sites'],
+                    literal_actions=profile['actions'],slots=profile['slots'],pair_records=profile['pairs'],
+                    physical_sources=profile['physical_anchors']-1,physical_targets=profile['physical_anchors']-1)
+                (path/'receipt.json').write_text(json.dumps(worker))
+                records.append(dict(label=label+profile['id'],returncode=0,guard_reason=None,
+                    child_maxrss_native=0,sampled_process_group_peak_rss_bytes=0,
+                    host_available_min_bytes=4*1024**3,charged_CPU_s=0))
+        budget=dict(records=records,active=None,charged_commands_CPU_s=0,
+                    fixed_development_control_precharge_CPU_s=140,carried_parent_stage_CPU_s='132.202735',
+                    carried_research_CPU_s='15139.701737741')
+        (root/'budget.json').write_text(json.dumps(budget))
+        return cfg
+
+    def test_frozen_cohort_actual_cardinality_identity_and_shape_fail_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);cfg=self._mock_construction_history(root)
+            variants=[[],cfg['probes'][:1],[cfg['probes'][0]]*2,list(reversed(cfg['probes']))]
+            altered=copy.deepcopy(cfg['probes']);altered[1]['slots']=6;variants.append(altered)
+            altered=copy.deepcopy(cfg['probes']);altered[0]['aliases']=0;variants.append(altered)
+            for profiles in variants:
+                changed=dict(cfg,probes=profiles);path=root/'changed-config.json';path.write_text(json.dumps(changed))
+                with self.subTest(profiles=profiles),self.assertRaises(ValueError):read_probe_config(path)
+                ready=root/'preflight-final.json';value=json.loads(ready.read_text());value['config']=changed
+                ready.write_text(json.dumps(value))
+                with self.subTest(report_profiles=profiles),self.assertRaises(ValueError):report(root)
+
+    def test_report_requires_both_rounds_and_matching_receipt_shapes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);self._mock_construction_history(root)
+            self.assertEqual(report(root)['gate_status'],'PASS_COMPONENT_ONLY')
+            receipt=root/'probes'/'aliases64'/'receipt.json';saved=receipt.read_text();receipt.unlink()
+            result=report(root)
+            self.assertEqual(result['gate_status'],'LIMITED_OR_FAILED')
+            self.assertEqual(result['construction_slot_denominator'],4)
+            receipt.write_text(saved)
+            worker=json.loads(saved);worker['slots']=6;receipt.write_text(json.dumps(worker))
+            self.assertEqual(report(root)['gate_status'],'LIMITED_OR_FAILED')
+            receipt.write_text(saved)
+            worker=json.loads(saved);worker['profile']=dict(worker['profile'],pairs=1)
+            receipt.write_text(json.dumps(worker))
+            self.assertEqual(report(root)['gate_status'],'LIMITED_OR_FAILED')
+            receipt.write_text(saved)
+            path=root/'budget.json';budget=json.loads(path.read_text());budget['records'].append(budget['records'][0])
+            path.write_text(json.dumps(budget))
+            with self.assertRaisesRegex(ValueError,'duplicate command'):report(root)
 
     def test_no_internal_optimizer_import_and_two_traces_do_not_share_selectors(self):
         original=builtins.__import__

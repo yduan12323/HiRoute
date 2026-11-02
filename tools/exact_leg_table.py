@@ -27,6 +27,12 @@ def identity(value):
     return value
 
 
+def sequence(value,field):
+    if not isinstance(value,(list,tuple)):
+        raise TypeError(field+' requires an explicit array, never a string/object iteration')
+    return tuple(value)
+
+
 def unique(pairs):
     result={}
     for k,v in pairs:
@@ -60,42 +66,51 @@ class ExactLegTable:
     payload_sha256: str
     road_selection_certified: bool=False
     _validated: bool=False
+    _owner: object=None
 
     @classmethod
     def from_bytes(cls,data,check=None):
         if type(data) is not bytes:raise TypeError('input bytes required')
         payload=json.loads(data,object_pairs_hook=unique,
                            parse_constant=lambda x:(_ for _ in ()).throw(ValueError('nonfinite JSON')))
-        return cls.from_dict(payload,check=check,payload_sha256=hashlib.sha256(data).hexdigest())
+        result=cls.from_dict(payload,check=check)
+        # Raw byte provenance is computed here, never caller-supplied.
+        object.__setattr__(result,'payload_sha256',hashlib.sha256(data).hexdigest())
+        return result
 
     @classmethod
-    def from_dict(cls,payload,check=None,payload_sha256=None):
+    def from_dict(cls,payload,check=None):
+        if not isinstance(payload,dict):raise TypeError('table requires an object')
         if (payload.get('schema')!=SCHEMA or payload.get('numerical_contract')!=NUMERICAL or
                 payload.get('selected_leg_contract')!=SELECTION):
             raise ValueError('incompatible table/numerical/selected-leg contract')
         if payload.get('road_selection_certified') is not False:
             raise ValueError('self-declared certification is not an independent road certificate')
         origin,destination=map(identity,(payload['origin_anchor'],payload['destination_anchor']))
-        graph=identity(payload['graph_identity']);order=tuple(payload['candidate_order'])
+        graph=identity(payload['graph_identity']);order=sequence(payload['candidate_order'],'candidate_order')
         if len(set(order))!=len(order):raise ValueError('duplicate Site identity')
         sites=payload['sites']
+        if not isinstance(sites,dict):raise TypeError('sites requires an object')
         if set(order)!=set(sites):raise ValueError('candidate/capability domain mismatch')
         aliases={};capabilities={}
         for site in order:
-            identity(site);record=sites[site];aliases[site]=identity(record['anchor'])
-            effects=tuple(record['effects'])
+            identity(site);record=sites[site]
+            if not isinstance(record,dict):raise TypeError('Site record requires an object')
+            aliases[site]=identity(record['anchor'])
+            effects=sequence(record['effects'],'effects')
             if not effects or len(set(effects))!=len(effects) or not set(effects)<={'C','S','CS'}:
                 raise ValueError('invalid effect set')
             capabilities[site]=effects
         sources=tuple(sorted({origin,*aliases.values()}));targets=tuple(sorted({destination,*aliases.values()}))
         required={(s,t) for s in sources for t in targets};pairs={};edge_endpoints={}
-        for i,record in enumerate(payload['pairs']):
+        for i,record in enumerate(sequence(payload['pairs'],'pairs')):
             if check is not None and i%128==0:check()
+            if not isinstance(record,dict):raise TypeError('pair record requires an object')
             s,t=identity(record['source']),identity(record['target']);key=(s,t)
             if key not in required or key in pairs:raise ValueError('unexpected/duplicate physical pair')
             reach=record['reachable']
             if type(reach) is not bool:raise TypeError('literal reachable boolean required')
-            nodes=tuple(record['nodes']);edges=tuple(record['edges'])
+            nodes=sequence(record['nodes'],'nodes');edges=sequence(record['edges'],'edges')
             for x in (*nodes,*edges):identity(x)
             if not reach:
                 if record['time_s'] is not None or record['actual_length_m'] is not None or nodes or edges or s==t:
@@ -130,13 +145,12 @@ class ExactLegTable:
                         direct=pairs[s,t]
                         if not direct.reachable or direct.time>first.time+second.time:
                             raise ValueError('inconsistent directed reachability/shortest time')
-        if payload_sha256 is None:
-            payload_sha256=hashlib.sha256(json.dumps(payload,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()
+        payload_sha256=hashlib.sha256(json.dumps(payload,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()
         result=object.__new__(cls)
         values=dict(origin_anchor=origin,destination_anchor=destination,candidate_order=order,
             aliases=MappingProxyType(aliases),capabilities=MappingProxyType(capabilities),
             sources=sources,targets=targets,pairs=MappingProxyType(pairs),graph_identity=graph,
-            payload_sha256=payload_sha256,road_selection_certified=False,_validated=True)
+            payload_sha256=payload_sha256,road_selection_certified=False,_validated=True,_owner=object())
         for name,value in values.items():object.__setattr__(result,name,value)
         return result
 
@@ -171,6 +185,7 @@ class GroundedLeg:
 
 @dataclass(frozen=True)
 class SlotTrace:
+    table_owner: object
     table_sha256: str
     choices: tuple
     constraints: tuple
@@ -240,13 +255,12 @@ class GroundedLookup:
         terminal=self.at(previous,self.target_index[self.table.destination_anchor])
         constraints.extend((z.Not(pending),terminal.guard))
         H=z.Sum([z.If(c>0,1,0) for c in choices]) if choices else z.IntVal(0)
-        return SlotTrace(self.table.payload_sha256,choices,tuple(constraints),tuple(legs),terminal,self.actions,tuple(charging),tuple(service),H)
+        return SlotTrace(self.table._owner,self.table.payload_sha256,choices,tuple(constraints),tuple(legs),terminal,self.actions,tuple(charging),tuple(service),H)
 
     def resolve(self,trace,plan):
         """Ground one literal sequence; no energy/continuous/optimality claim."""
         z=self.z3
-        if trace.table_sha256!=self.table.payload_sha256 or trace.actions!=self.actions:
-            raise ValueError('trace belongs to another immutable input')
+        self._require_own_trace(trace)
         if len(plan)>len(trace.choices):raise ValueError('plan exceeds supplied construction slots')
         ranks={a:i for i,a in enumerate(self.actions,1)}
         try:values=[ranks[tuple(action)] for action in plan]
@@ -262,7 +276,13 @@ class GroundedLookup:
         return dict(plan=tuple(tuple(a) for a in plan),legs=legs,stop_count=len(plan),
                     scope='fixed-input trace only; not physical feasibility or optimality')
 
+    def _require_own_trace(self,trace):
+        if (not isinstance(trace,SlotTrace) or trace.table_owner is not self.table._owner or
+                trace.table_sha256!=self.table.payload_sha256 or trace.actions!=self.actions):
+            raise ValueError('trace belongs to another immutable input')
+
     def roots(self,trace):
+        self._require_own_trace(trace)
         return (self.T,self.L,self.R,self.AS,self.AT,self.C,self.S,*trace.constraints,
                 *(e for leg in (*trace.legs,trace.terminal) for e in (leg.guard,leg.time,leg.length)),
                 *trace.charging,*trace.service,trace.stop_count)

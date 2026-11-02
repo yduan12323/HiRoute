@@ -31,8 +31,27 @@ def source():
         python=platform.python_version(),executable=sys.executable,platform=platform.platform())
 
 
+FROZEN_PROFILES=(
+    dict(id='unique64',sites=64,aliases=False,actions=110,physical_anchors=66,pairs=4225,slots=51),
+    dict(id='aliases64',sites=64,aliases=True,actions=110,physical_anchors=34,pairs=1089,slots=51))
+
+
+def validate_profiles(value):
+    """Validate actual cohort cardinality/order/shapes, never just a denominator."""
+    profiles=value.get('probes')
+    if (type(value.get('probe_denominator')) is not int or value['probe_denominator']!=2 or
+            type(profiles) is not list or len(profiles)!=len(FROZEN_PROFILES)):
+        raise ValueError('frozen profile coverage mismatch')
+    for actual,expected in zip(profiles,FROZEN_PROFILES):
+        if (type(actual) is not dict or actual!=expected or set(actual)!=set(expected) or
+                any(type(actual[k]) is not type(v) for k,v in expected.items())):
+            raise ValueError('frozen profile identity/shape/order mismatch')
+    return profiles
+
+
 def config(path):
     value=json.loads(Path(path).read_text())
+    validate_profiles(value)
     if (value['additional_cap_CPU_s']!=400 or value['parent_stage_cap_CPU_s']!=600 or
             value['workers']!=1 or value['threads']!=1 or not value['execution_authorized'] or
             value['probe_denominator']!=2 or value['solver_check_calls']!=0 or value['optimize_calls']!=0):

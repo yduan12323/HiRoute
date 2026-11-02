@@ -5,6 +5,8 @@ import hashlib
 import json
 from pathlib import Path
 
+from probe_exact_leg_table import validate_profiles
+
 
 def load(path):return json.loads(Path(path).read_text())
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -14,16 +16,23 @@ def report(root):
     root=Path(root);budget=load(root/'budget.json')
     if budget.get('active'):raise RuntimeError('active/uncertain command; inspect before closing')
     commands={r['label']:r for r in budget['records']};rounds=[]
+    if len(commands)!=len(budget['records']):raise ValueError('duplicate command history label')
     for name,directory,ready_name,label_prefix in (
         ('initial','probes','preflight.json','construct_'),
         ('guarded','probes-final','preflight-final.json','final_construct_')):
         ready=load(root/ready_name);rows=[]
-        for profile in ready['config']['probes']:
+        for profile in validate_profiles(ready['config']):
             directory_path=root/directory/profile['id'];receipt=directory_path/'receipt.json'
             command=commands.get(label_prefix+profile['id'])
             row=dict(profile=profile,source=ready['source'],status='unrun')
             if receipt.exists():
                 worker=load(receipt);row.update(worker)
+                expected_counts=dict(literal_Sites=profile['sites'],literal_actions=profile['actions'],
+                    slots=profile['slots'],pair_records=profile['pairs'],
+                    physical_sources=profile['physical_anchors']-1,physical_targets=profile['physical_anchors']-1)
+                if (worker.get('profile')!=profile or
+                        any(type(worker.get(k)) is not int or worker[k]!=v for k,v in expected_counts.items())):
+                    row['status']='verification_error_profile'
                 if worker.get('source',{}).get('commit')!=ready['source']['commit']:
                     row['status']='verification_error_source'
                 if command is None or command['returncode']!=0 or command.get('guard_reason'):
@@ -62,21 +71,26 @@ def report(root):
             item['startup_error']='wrong existing Python environment lacked z3; no completed semantic suite'
         compact_commands.append(item)
     required_tests=('final_tiny_semantics_normal','final_tiny_semantics_optimized',
-                    'symbolic_domain_negative_normal','symbolic_domain_negative_optimized')
+                    'symbolic_domain_negative_normal','symbolic_domain_negative_optimized',
+                    'review_corrections_normal','review_corrections_optimized')
     tests_passed=all(k in commands and commands[k]['returncode']==0 and
                      commands[k].get('guard_reason') is None for k in required_tests)
-    accepted=all(r['status']=='constructed' for r in rounds[-1]['rows']) and within and tests_passed
+    coverage_complete=(len(rounds)==2 and all(len(r['rows'])==2 for r in rounds))
+    accepted=(coverage_complete and all(r['status']=='constructed' for round_ in rounds for r in round_['rows'])
+              and within and tests_passed)
     return dict(schema='hiroute.exact_leg_construction_results.v1',
         scope='Synthetic exact input/discrete-trace component; not full physical model or real benchmark',
         gate_status='PASS_COMPONENT_ONLY' if accepted else 'LIMITED_OR_FAILED',
         final_profile_denominator=2,construction_slot_denominator=sum(len(r['rows']) for r in rounds),
         total_construction_attempts=sum(row['status']!='unrun' for r in rounds for row in r['rows']),
-        initial_profiles_preserved=True,verification_reason=budget.get('verification_amendment'),
+        initial_profiles_preserved=coverage_complete,verification_reason=budget.get('verification_amendment'),
+        parser_ownership_coverage_correction=load(root/'review-correction-verification.json')
+            if (root/'review-correction-verification.json').exists() else None,
         raw_input_preserved_between_rounds=all(a.get('input_sha256')==b.get('input_sha256')
             for a,b in zip(rounds[0]['rows'],rounds[1]['rows'])),
-        local_final_suite_tests_per_mode=11,local_tests_passed=tests_passed,
+        local_final_suite_tests_per_mode=15,local_tests_passed=tests_passed,
         local_extra_symbolic_domain_test_both_modes=True,
-        local_completed_tiny_road_parity_calls=4,
+        local_completed_tiny_road_parity_calls=8,
         real_road_queries=0,real_table_generated=False,SMT_Solver_check_calls=0,SMT_Optimize_calls=0,
         old_optimization_cohorts_repeated=False,physical_continuous_model_constructed=False,
         road_selection_certified=False,independent_real_N64_comparator_ready=False,
@@ -99,7 +113,7 @@ if __name__=='__main__':
     with Path(a.output).open('x') as stream:
         json.dump(result,stream,indent=2,sort_keys=True);stream.write('\n')
     print(json.dumps(dict(status=result['gate_status'],accounting=result['accounting'],
-        final_rows=[{k:r[k] for k in ('status','literal_Sites','literal_actions','slots',
+        final_rows=[{k:r.get(k) for k in ('status','literal_Sites','literal_actions','slots',
                    'pair_records','unique_expression_AST_nodes','cpu_s','wall_s','full_process_group_peak_RSS_bytes')}
                    for r in result['rounds'][-1]['rows']]),indent=2))
     raise SystemExit(0 if result['gate_status']=='PASS_COMPONENT_ONLY' else 1)
