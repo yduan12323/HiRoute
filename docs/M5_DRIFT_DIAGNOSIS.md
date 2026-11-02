@@ -156,3 +156,29 @@ for the distinct statuses, source identities and reconciliation.
 No new real policy row, repeated policy solve, data acquisition, main experiment
 or holdout ran. PR38 remains held for parent review and project budget-scope
 reconciliation; this report does not assume additional experiment capacity.
+
+## November 2 integration and approved budget scope
+
+The user approved retaining the original28800CPU-second cap for new research
+solves and limited REF. The conservative research/gate charge stays
+14708.280547741; earlier inclusive CI reservations, including PR38's future
+dedicated main180, are not refunded. Ordinary software regression CI is recorded
+separately with prospective allowances. Historical unmetered CI remains unknown,
+not measured CPU or confirmed overspend. Earlier19708/9091 figures above were a
+scope scenario with the main37 exposure placeholder, not a globally audited
+project balance. No old receipt or failed/cancelled status is changed.
+
+With a separate9000 capacity-CPU planning allowance, repaired-head full
+regression41337234657 attempt2 ran at3a72c534bc35ca5b3e742e3d7104b12dec67f064.
+Job125065271810 passed the installed-wheel step (233 core and703 legacy tests
+in each Python mode), then failed the independent REF step at collection:
+`tests/test_m5_drift_capture.py` was unclassified in `code_only_manifest.py`.
+Recovery and later steps were skipped; this is not a failed drift-fixture test.
+The parser module is now explicitly registered as an isolated code gate. The
+classification policy, numerical solver, resource limits and original one-off
+process diagnostic are unchanged. The failed run remains failed; verification
+of this integration correction uses the repaired fixture, without another
+original-process retry. Local classification/parser checks reserve60 software
+CPU seconds; a subsequent full regression requires its own separate9000
+capacity-CPU allowance. These are prospective software allowances, not measured
+research charges.
