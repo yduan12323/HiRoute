@@ -18,7 +18,9 @@ commands=[
     [str(python),'-m','unittest','discover','-s','tests','-p','test_streaming_road_representation.py'],
     [str(python),'-OO','-m','unittest','discover','-s','tests','-p','test_streaming_road_representation.py'],
     [str(python),'-m','unittest','discover','-s','tests','-p','test_one_source_certificate.py'],
-    [str(python),'-OO','-m','unittest','discover','-s','tests','-p','test_one_source_certificate.py']]
+    [str(python),'-OO','-m','unittest','discover','-s','tests','-p','test_one_source_certificate.py'],
+    [str(python),'-m','unittest','discover','-s','tests','-p','test_packed_source_prototype.py'],
+    [str(python),'-OO','-m','unittest','discover','-s','tests','-p','test_packed_source_prototype.py']]
 records=[dict(command=i,argv=a,state='unrun') for i,a in enumerate(commands)]
 env={k:v for k,v in os.environ.items() if k in ('PATH','TMPDIR','LANG','LC_ALL')}
 env.update(PYTHONNOUSERSITE='1',PYTHONDONTWRITEBYTECODE='1',OMP_NUM_THREADS='1',
