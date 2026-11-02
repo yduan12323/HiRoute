@@ -73,7 +73,10 @@ class Table:
     def steps(self,s,t):
         for row in self._db.execute('SELECT u,v,eid FROM steps WHERE s=? AND t=? ORDER BY i',(s,t)):yield row
     def choices(self,s,u):
-        for row in self._db.execute('SELECT t,v,eid FROM steps WHERE s=? AND u=? ORDER BY t COLLATE BINARY',(s,u)):yield row
+        # The primary(s,t,i) plan can scan every path of a source for each raw
+        # edge. This owned covering index seeks the vertex as well, preserving
+        # exactly the same target order and mathematical comparison rows.
+        for row in self._db.execute('SELECT t,v,eid FROM steps INDEXED BY steps_choice_lookup WHERE s=? AND u=? ORDER BY t COLLATE BINARY',(s,u)):yield row
     def assert_unchanged(self):
         if sha(self.path)!=self.representation_sha256:raise ValueError('selected-path representation changed')
     def close(self):self._db.close()
@@ -120,6 +123,7 @@ def _read_paths(path,graph,db_path,*,unit,arithmetic=None,max_bytes=4*1024**3,ch
         db.executescript('CREATE TABLE pairs(s TEXT COLLATE BINARY,t TEXT COLLATE BINARY,reach INTEGER,duration TEXT,length TEXT,PRIMARY KEY(s,t)) WITHOUT ROWID;'
           'CREATE TABLE steps(s TEXT COLLATE BINARY,t TEXT COLLATE BINARY,i INTEGER,u TEXT COLLATE BINARY,v TEXT COLLATE BINARY,eid TEXT COLLATE BINARY,'
           'PRIMARY KEY(s,t,i),UNIQUE(s,u,t)) WITHOUT ROWID;'
+          'CREATE INDEX steps_choice_lookup ON steps(s,u,t,v,eid);'
           'CREATE TABLE path_nodes(s TEXT,t TEXT,node TEXT,PRIMARY KEY(s,t,node)) WITHOUT ROWID;')
         for raw in rows:
             check();p=json_line(raw);fields(p,('kind','source','target','reachable','time_s','length_m','first_node'))

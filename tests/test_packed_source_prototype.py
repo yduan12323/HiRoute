@@ -223,5 +223,24 @@ class PackedTests(unittest.TestCase):
                     with self.assertRaises((ValueError,ResourceStop)):decode_certificate(path,root/'bad',p,h,sha(root/'unit/paths.jsonl'))
                 finally:p.close();g.close()
 
+    def test_checker_choice_lookup_does_not_scan_all_paths_of_source(self):
+        from exact_leg_fixtures import complete_payload
+        import sqlite3
+        nodes=['o']+['n'+str(i).zfill(3) for i in range(1,64)];gp=graph_payload();gp.update(nodes=nodes,edges=[edge(nodes[i],nodes[i+1],1,1,str(i)) for i in range(63)])
+        sites={'Site/'+str(i):dict(anchor=nodes[i],effects=['C']) for i in range(1,63)};b=dict(graph_payload=gp,table_payload=complete_payload('o',nodes[-1],list(sites),sites))
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);g=graph_inputs(gp,root);p=Packed.open(build_synthetic(g,root/'pack'))
+            try:
+                generate(p,header(b,g),root/'unit');t=read_source_unit(root/'unit/paths.jsonl',g,root/'table')
+                # A query with zero matching steps must seek by both source
+                # and vertex, even though this source has2016path rows. The
+                # guard counts VM work, not noisy elapsed time or index names.
+                calls=[0]
+                def bounded_work():calls[0]+=1;return calls[0]>256
+                t._db.set_progress_handler(bounded_work,1)
+                try:self.assertEqual(list(t.choices('o',nodes[-1])),[])
+                finally:t._db.set_progress_handler(None,0);t.close()
+            finally:p.close();g.close()
+
 
 if __name__=='__main__':unittest.main()
