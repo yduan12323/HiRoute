@@ -1,0 +1,241 @@
+{
+  "schema": "hiroute.full_graph_packed_identity.results.v1",
+  "decision": "PASS_COMPLETE_REPRESENTATION_IDENTITY_ONLY",
+  "producer_commit": "124b3014fa33c3c010cc4496e043b92ef85edd2d",
+  "configuration": "configs/full_graph_packed_identity.json",
+  "construction": {
+    "mode": "build",
+    "decision": "CONSTRUCTED_UNTRUSTED",
+    "source_search": false,
+    "EV_solve": false,
+    "holdout": false,
+    "real_source_status_counts": {
+      "UNKNOWN": 1,
+      "UNRUN": 64,
+      "independently_certified": 0
+    },
+    "pair_denominator": 4225,
+    "source_commit": "124b3014fa33c3c010cc4496e043b92ef85edd2d",
+    "source_dirty": false,
+    "config_sha256": "12ed1f951b416c0d324c7b87cd3e03760b4ecee7c603a5bdff25acda6c9a6835",
+    "frozen_domain_sha256": "250ff5d84aed3e6fbf86e371f0cabbf135c4cc89034f9ce27fbc5f0bb411db7a",
+    "nodes": 2986695,
+    "edges": 5900232,
+    "packed_bytes": 669640897,
+    "packed_sha256": "2c64f108db4dc97d916e82cc23567ff82e0c7514372c1a3562c965c9c0ffa603",
+    "source_DB_sha256": "db363d5b58d3bfe8731f7ff30e3a354c6d6223f276edd407d3c4ee197c60bfc1",
+    "workspace_bytes": {
+      "arcs.sqlite": 258371584,
+      "manifest.jsonl": 327,
+      "maps.sqlite": 420155392,
+      "graph.csr": 669640897
+    },
+    "query_plans": {
+      "nodes": [
+        "CO-ROUTINE (subquery-2)",
+        "SCAN src.nodes",
+        "SCAN (subquery-2)"
+      ],
+      "edges": [
+        "CO-ROUTINE (subquery-2)",
+        "SCAN src.edges USING COVERING INDEX sqlite_autoindex_edges_1",
+        "SCAN (subquery-2)"
+      ],
+      "join": [
+        "SCAN g",
+        "SEARCH nu USING PRIMARY KEY (name=?)",
+        "SEARCH nv USING PRIMARY KEY (name=?)",
+        "SEARCH em USING PRIMARY KEY (name=?)"
+      ]
+    },
+    "whole_road_table_certified": false,
+    "body_CPU_s": 53.063139,
+    "body_wall_s": 56.60615933302324
+  },
+  "independent_raw_verification": {
+    "mode": "validate",
+    "decision": "PASS_COMPLETE_REPRESENTATION_IDENTITY_ONLY",
+    "source_search": false,
+    "EV_solve": false,
+    "holdout": false,
+    "real_source_status_counts": {
+      "UNKNOWN": 1,
+      "UNRUN": 64,
+      "independently_certified": 0
+    },
+    "pair_denominator": 4225,
+    "source_commit": "124b3014fa33c3c010cc4496e043b92ef85edd2d",
+    "source_dirty": false,
+    "config_sha256": "12ed1f951b416c0d324c7b87cd3e03760b4ecee7c603a5bdff25acda6c9a6835",
+    "frozen_domain_sha256": "250ff5d84aed3e6fbf86e371f0cabbf135c4cc89034f9ce27fbc5f0bb411db7a",
+    "nodes": 2986695,
+    "edges": 5900232,
+    "raw_sha256": "8076e850b096c5cf74f307ae7ad34c2aebd1f1e53c3c4d092234d40078a4c54d",
+    "packed_sha256": "2c64f108db4dc97d916e82cc23567ff82e0c7514372c1a3562c965c9c0ffa603",
+    "graph_identity": "00f983ee3fdcfb04fa1b6dc008b39ab73e30e384c9c264d2f8691ea7224f1601",
+    "literal_node_bijection": true,
+    "literal_edge_bijection": true,
+    "exact_weights": true,
+    "anchors_checked": 66,
+    "max_observed_component_bits": 84,
+    "packed_bytes": 669640897,
+    "tracking_DB_bytes": 1581170688,
+    "query_plans": {
+      "nodes": [
+        "CO-ROUTINE (subquery-2)",
+        "SCAN nodes",
+        "SCAN (subquery-2)"
+      ],
+      "edges": [
+        "CO-ROUTINE (subquery-2)",
+        "SCAN raw USING COVERING INDEX sqlite_autoindex_raw_2",
+        "SCAN (subquery-2)"
+      ],
+      "join": [
+        "SCAN g",
+        "SEARCH nu USING PRIMARY KEY (name=?)",
+        "SEARCH nv USING PRIMARY KEY (name=?)",
+        "SEARCH em USING PRIMARY KEY (name=?)"
+      ]
+    },
+    "source_certified": false,
+    "EV_solved": false,
+    "whole_road_table_certified": false,
+    "body_CPU_s": 74.564378,
+    "body_wall_s": 75.46531104197493
+  },
+  "resource_receipts": {
+    "full_construction": {
+      "label": "full_construction",
+      "phase": "construction",
+      "argv": [
+        "/tmp/hiroute-c-venv/bin/python",
+        "tools/run_full_graph_packing.py",
+        "--mode",
+        "build",
+        "--config",
+        "configs/full_graph_packed_identity.json",
+        "--frozen-domain",
+        "../real-road-certificate-artifacts-v1/frozen-domain.json",
+        "--source-db",
+        "../streaming-road-certificate-artifacts-v1/build/road.sqlite",
+        "--packed",
+        "../same-graph-packing-artifacts-v1/packed/graph.csr",
+        "--output",
+        "../same-graph-packing-artifacts-v1/construction"
+      ],
+      "reserved_CPU_s": 180,
+      "started_at": 1793645463.436251,
+      "controller_pid": 29888,
+      "controller_created_at": 1793645463.38185,
+      "controller_sha256": "800393bea05a414a3753e2f14b66596a47ff02509e953e965a8e6b9b307973c8",
+      "child_CPU_limit": 150,
+      "controller_soft_CPU_limit": 10,
+      "controller_hard_CPU_limit": 15,
+      "wall_limit": 300,
+      "RSS_limit_bytes": 1073741824,
+      "host_headroom_bytes": 2147483648,
+      "pid": 29894,
+      "process_created_at": 1793645463.437365,
+      "process_tree_CPU_peak_s": 53.014846463999994,
+      "returncode": 0,
+      "charged_CPU_s": 57.27845599999999,
+      "finished_at": 1793645520.1064372,
+      "guard_reason": null,
+      "actual_child_returncode": 0,
+      "process_tree_peak_RSS_bytes": 56475648,
+      "host_available_min_bytes": 5424775168,
+      "child_maxrss_native": 56475648,
+      "stage_disk_peak_bytes": 1348218458,
+      "host_disk_free_min_bytes": 44854292480
+    },
+    "full_independent_raw_verification": {
+      "label": "full_independent_raw_verification",
+      "phase": "raw_verification",
+      "argv": [
+        "/tmp/hiroute-c-venv/bin/python",
+        "tools/run_full_graph_packing.py",
+        "--mode",
+        "validate",
+        "--config",
+        "configs/full_graph_packed_identity.json",
+        "--frozen-domain",
+        "../real-road-certificate-artifacts-v1/frozen-domain.json",
+        "--source-db",
+        "../streaming-road-certificate-artifacts-v1/build/road.sqlite",
+        "--packed",
+        "../same-graph-packing-artifacts-v1/packed/graph.csr",
+        "--output",
+        "../same-graph-packing-artifacts-v1/verification"
+      ],
+      "reserved_CPU_s": 240,
+      "started_at": 1793645543.685925,
+      "controller_pid": 29997,
+      "controller_created_at": 1793645543.612805,
+      "controller_sha256": "800393bea05a414a3753e2f14b66596a47ff02509e953e965a8e6b9b307973c8",
+      "child_CPU_limit": 210,
+      "controller_soft_CPU_limit": 10,
+      "controller_hard_CPU_limit": 15,
+      "wall_limit": 300,
+      "RSS_limit_bytes": 1073741824,
+      "host_headroom_bytes": 2147483648,
+      "pid": 30003,
+      "process_created_at": 1793645543.686793,
+      "process_tree_CPU_peak_s": 74.487337984,
+      "returncode": 0,
+      "charged_CPU_s": 79.81097,
+      "finished_at": 1793645619.308492,
+      "guard_reason": null,
+      "actual_child_returncode": 0,
+      "process_tree_peak_RSS_bytes": 101449728,
+      "host_available_min_bytes": 5268373504,
+      "child_maxrss_native": 101580800,
+      "stage_disk_peak_bytes": 2929397414,
+      "host_disk_free_min_bytes": 43256840192
+    }
+  },
+  "accounting": {
+    "stage_CPU_s": "390.316884",
+    "cap_CPU_s": 900,
+    "fixed_development_CPU_s": 240,
+    "phases_CPU_s": {
+      "tiny_validation": 10.200394,
+      "construction": 57.27845599999999,
+      "raw_verification": 79.81097,
+      "close": 3.027064
+    },
+    "carried_CPU_s": "17062.772892741",
+    "original_total_CPU_s": "17453.089776741",
+    "original_cap_CPU_s": 28800,
+    "remaining_CPU_s": "11346.910223259",
+    "preprocessing_CPU_s": "652.040677976",
+    "preprocessing_cap_CPU_s": 900,
+    "ordinary_software_CI": "separate; old inclusive charges retained"
+  },
+  "tiny_contracts_per_mode": 13,
+  "prior_packed_compatibility_per_mode": 16,
+  "failed_attempts_preserved": [
+    "initial supervisor sysctl permission stop; killed/waited child, no real work",
+    "initial SQLite URI attachment implementation error; fixed before all real phases"
+  ],
+  "real_status_unchanged": {
+    "UNKNOWN": 1,
+    "UNRUN": 64,
+    "independently_certified_sources": 0,
+    "sources": 65,
+    "pairs": 4225
+  },
+  "input_passes": {
+    "construction_raw_TSV_parses": 0,
+    "construction_source_DB_streamed_hashes": 2,
+    "verification_raw_TSV_parses": 1,
+    "verification_raw_TSV_final_streamed_hashes": 1,
+    "verification_packed_streamed_hashes": 2
+  },
+  "cold_cache_claim": false,
+  "source_search": false,
+  "EV_solve": false,
+  "holdout": false,
+  "whole_road_table_certified": false,
+  "original_taskbook_complete": false
+}

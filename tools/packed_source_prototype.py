@@ -132,7 +132,7 @@ class Packed:
         finally:rows.close()
         if first is None or extra is not None:raise ValueError('single bounded manifest required')
         m=json_line(first);expected={'schema','graph_identity','nodes','edges','data_bytes','data_sha256','scope'}
-        if type(m) is not dict or set(m)!=expected or m['schema']!='hiroute.synthetic_csr.v1':raise ValueError('manifest shape')
+        if type(m) is not dict or set(m)!=expected or m['schema'] not in ('hiroute.synthetic_csr.v1','hiroute.packed_csr.v1'):raise ValueError('manifest shape')
         if any(type(m[k]) is not str or not re.fullmatch('[0-9a-f]{64}',m[k]) for k in ('graph_identity','data_sha256')):raise ValueError('actual digest shape')
         if type(m['nodes']) is not int or type(m['edges']) is not int or not 0<m['nodes']<SENTINEL or not 0<=m['edges']<SENTINEL:raise ResourceStop('proven index envelope')
         if path.stat().st_size!=m['data_bytes'] or not HEAD.size<=m['data_bytes']<=4*1024**3:raise ValueError('actual packed size')
