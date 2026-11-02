@@ -16,6 +16,7 @@ env.update(PYTHONPATH='src',PYTHONNOUSERSITE='1',PYTHONDONTWRITEBYTECODE='1',
            OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1')
 for flags in ([],['-OO']):
     for directory,pattern in [('tests','test_planning_value_dev.py'),
+                              ('tests','test_planning_value_completion.py'),
                               ('tests','test_planning_value_report.py'),
                               ('tests','test_scale_pilot_control.py'),
                               ('comparison','test_planning_policies.py')]:

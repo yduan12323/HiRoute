@@ -192,12 +192,13 @@ def run_worker(out, prepared, slot, original_cpu, guard):
     return row
 
 
-def execute(args):
+def execute(args, *, recipe_loader=None):
     started = time.process_time()
+    resolve_recipe = recipe if recipe_loader is None else recipe_loader
     out = Path(args.output_root).resolve()
     with common.controller_lock(out):
         prepared = load(out/'preparation.json')
-        spec, definition, _ = recipe(args.config)
+        spec, definition, _ = resolve_recipe(args.config)
         if spec != prepared['spec'] or common.source_identity() != prepared['source']:
             raise ValueError('per-run source/environment/spec changed')
         dependency_preflight(prepared)
@@ -227,7 +228,9 @@ def execute(args):
         def cpu():return carried+time.process_time()-started
         def total():return charged+cpu()
         def publish(state, error=None):
-            pilot.atomic(out/'results.json',dict(rows=slots,query_denominator=4,policy_row_denominator=8))
+            pilot.atomic(out/'results.json',dict(rows=slots,
+                query_denominator=len({(r['query_id'],r['initial_energy_kwh'],r['scenario'],r['N']) for r in slots}),
+                policy_row_denominator=len(slots)))
             pilot.atomic(out/'status.json',dict(state=state,error=error,controller_pid=os.getpid(),
                 total_controller_cpu_s=cpu(),worker_cpu_charged_s=charged,
                 prior_failed_setup_cpu_s=prepared.get('prior_failed_setup_cpu_s',0),
@@ -241,7 +244,7 @@ def execute(args):
         publish('running')
         try:
             budget_stopped = False
-            for index in range(0,8,2):
+            for index in range(0,len(slots),2):
                 pair = slots[index:index+2]
                 fresh = [r for r in pair if r['status'] in ('not_run','budget_unrun')]
                 if not fresh:continue
