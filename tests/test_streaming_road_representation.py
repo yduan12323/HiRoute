@@ -147,6 +147,22 @@ class StreamingTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'duplicate representation metadata'):
                 validate(root/'graph.tsv',root/'graph.sqlite',root/'v2',nodes_path=root/'nodes.jsonl')
 
+    def test_issued_certificate_and_cached_finish_reject_changed_disk_inputs(self):
+        for mode in ('raw','representation','paths'):
+            with self.subTest(mode=mode),tempfile.TemporaryDirectory() as d:
+                root=Path(d);b=tiny_build(sites={},destination='o');g=graph_inputs(b['graph_payload'],root)
+                write_jsonl(root/'t',table_rows(b['table_payload'],g));t=read_table(root/'t',g,root/'tdb');session=Session(g,t)
+                write_jsonl(root/'c',source_rows(b['certificates'][0],g,t));session.check_source(root/'c',root/'state');result=session.finish()
+                self.assertTrue(result.is_for(g,t));self.assertIs(session.finish(),result)
+                if mode=='raw':
+                    with (root/'graph.tsv').open('a') as s:s.write('o\tz\tnew-edge\t1\t1\n')
+                else:
+                    db=sqlite3.connect(root/('graph.sqlite' if mode=='representation' else 'tdb'))
+                    db.execute("UPDATE edges SET l='2' WHERE ordinal=0" if mode=='representation' else "UPDATE pairs SET length='1'");db.commit();db.close()
+                self.assertFalse(result.is_for(g,t))
+                with self.assertRaises(ValueError):session.finish()
+                self.assertTrue(session.failed);t.close();g.close()
+
     def test_large_exact_input_is_TEXT_and_no_decimal_digit_truncation(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);p=root/'raw';p.write_text('a\tb\te\t'+('9'*5000)+'/7\t1\n');build(p,root/'db')

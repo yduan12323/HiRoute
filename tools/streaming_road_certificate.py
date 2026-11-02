@@ -144,9 +144,13 @@ class Checked:
     checked_pairs: int
     _checked: bool=False
     def is_for(self,g,t):
-        return (self._checked and isinstance(g,Graph) and isinstance(t,Table) and
+        owned=(self._checked and isinstance(g,Graph) and isinstance(t,Table) and
                 self._g is g._owner and self._t is t._owner and
                 self.graph_sha256==g.payload_sha256 and self.table_sha256==t.payload_sha256)
+        if not owned:return False
+        try:g.assert_unchanged();t.assert_unchanged()
+        except (ValueError,OSError):return False
+        return True
 
 
 class Session:
@@ -236,10 +240,10 @@ class Session:
         self._receipts.append(receipt);return receipt
     def finish(self):
         if self._failed:raise ValueError('failed source session')
-        if self._result is not None:return self._result
         if len(self._receipts)!=len(self._t.sources):raise ValueError('incomplete source/terminal/alias coverage')
         try:self._g.assert_unchanged();self._t.assert_unchanged();self._check()
         except BaseException:self._failed=True;raise
+        if self._result is not None:return self._result
         result=object.__new__(Checked)
         for k,v in dict(graph_sha256=self._g.payload_sha256,table_sha256=self._t.payload_sha256,
             source_receipts=tuple(self._receipts),checked_pairs=len(self._t.sources)*len(self._t.targets),

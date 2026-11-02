@@ -179,6 +179,7 @@ class Graph:
 
     def assert_unchanged(self):
         if sha(self.path)!=self.representation_sha256:raise ValueError('validated representation changed')
+        if sha(self.raw_path)!=self.raw_sha256:raise ValueError('authoritative raw graph changed')
         if self.nodes_path is not None and sha(self.nodes_path)!=self._nodes_sha:raise ValueError('explicit node input changed')
 
     def close(self):self._db.close()
