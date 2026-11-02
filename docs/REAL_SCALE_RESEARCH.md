@@ -18,9 +18,9 @@ the final API correction was verified on the same two shapes, without a speed
 claim. The real comparator's continuous/attainment integration and certified
 real-road input are still absent, so real-N64 benchmark readiness is **NO-GO**.
 
-New conservative charge is **166.274330 /400 CPU seconds**. Prior132.202735 and
-its full120 precharge remain: combined stage **298.477065 /600**, global
-**15305.976067741 /28800**, remaining13494.023932259. Ordinary software CI is
+New conservative charge is **168.518220 /400 CPU seconds**. Prior132.202735 and
+its full120 precharge remain: combined stage **300.720955 /600**, global
+**15308.219957741 /28800**, remaining13491.780042259. Ordinary software CI is
 separately reserved; preprocessing remains652.040677976 /900. Source/receipt
 details are in [exact_leg_construction_results.json](exact_leg_construction_results.json).
 All earlier original taskbook acceptance gaps remain. **Entries below are
@@ -31,7 +31,8 @@ coercion, caller-controlled provenance and incomplete cohort acceptance.
 Stored inputs were revalidated field by field with unchanged hashes, without
 new Z3 construction, real routing or numerical comparison. Historical measured
 source and all four attempts remain intact; trace ownership is independent of
-caller digests. See the component report for sensitivity and coverage tests.
+caller digests. Report-only follow-up rejects undeclared construction
+history labels/directories as well as missing slots. See the component report for sensitivity and coverage tests.
 
 # Independent-comparator input audit (historical)
 

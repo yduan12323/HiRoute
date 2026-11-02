@@ -3,12 +3,12 @@
   "SMT_Solver_check_calls": 0,
   "accounting": {
     "additional_cap_CPU_s": 400,
-    "additional_conservative_CPU_s": "166.274330",
+    "additional_conservative_CPU_s": "168.518220",
     "additional_fixed_precharge_CPU_s": 140,
     "carried_original_research_CPU_s": "15139.701737741",
-    "conservative_metered_commands_CPU_s": "26.274330",
-    "cumulative_original_research_CPU_s": "15305.976067741",
-    "cumulative_parent_stage_CPU_s": "298.477065",
+    "conservative_metered_commands_CPU_s": "28.518220",
+    "cumulative_original_research_CPU_s": "15308.219957741",
+    "cumulative_parent_stage_CPU_s": "300.720955",
     "ordinary_software_CI": "Separate prospective reservations, no old research/CI charge refunds",
     "original_research_cap_CPU_s": 28800,
     "parent_stage_cap_CPU_s": 600,
@@ -16,7 +16,7 @@
     "preprocessing_cap_CPU_s": 900,
     "prior_fixed120_retained": true,
     "prior_parent_stage_CPU_s": "132.202735",
-    "remaining_original_CPU_s": "13494.023932259",
+    "remaining_original_CPU_s": "13491.780042259",
     "within_caps": true
   },
   "command_receipts": [
@@ -249,6 +249,30 @@
       "returncode": 0,
       "sampled_process_group_peak_rss_bytes": 48234496,
       "stdout_log_sha256": "40fef7938c4e32f6cd73454831217c51806d6f674ae0c623689579cf03b6338f"
+    },
+    {
+      "actual_child_returncode": 0,
+      "charged_CPU_s": 1.128096,
+      "controller_sha256": "97d49eee337ddf4afd1b144a39ac9646417f5a4970503582d5006588e812f0bb",
+      "guard_reason": null,
+      "host_available_min_bytes": 4884922368,
+      "label": "history_cardinality_normal",
+      "pid": 97676,
+      "returncode": 0,
+      "sampled_process_group_peak_rss_bytes": 57622528,
+      "stdout_log_sha256": "183995d1a96cbf019833b387284082d58b336e4acf0fa29a485183d465e05679"
+    },
+    {
+      "actual_child_returncode": 0,
+      "charged_CPU_s": 1.115794,
+      "controller_sha256": "97d49eee337ddf4afd1b144a39ac9646417f5a4970503582d5006588e812f0bb",
+      "guard_reason": null,
+      "host_available_min_bytes": 4889395200,
+      "label": "history_cardinality_optimized",
+      "pid": 97683,
+      "returncode": 0,
+      "sampled_process_group_peak_rss_bytes": 54575104,
+      "stdout_log_sha256": "62acb9885edb56ae7b4856afd37db2bf6ffc90ff139e71fa98c3642795048183"
     }
   ],
   "construction_slot_denominator": 4,
@@ -257,7 +281,7 @@
   "holdout": false,
   "independent_real_N64_comparator_ready": false,
   "initial_profiles_preserved": true,
-  "local_completed_tiny_road_parity_calls": 8,
+  "local_completed_tiny_road_parity_calls": 10,
   "local_extra_symbolic_domain_test_both_modes": true,
   "local_final_suite_tests_per_mode": 15,
   "local_tests_passed": true,

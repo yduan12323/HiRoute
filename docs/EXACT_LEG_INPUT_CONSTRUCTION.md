@@ -110,8 +110,8 @@ the tests; the isolated module import also blocks production optimizers.
 
 The new tiny four-node/five-edge fixture is checked against the existing
 independent exhaustive tiny-road selector. It is not an old optimization
-cohort or a full-real-graph REF. Eight completed local suite invocations perform
-eight such tiny road selections across initial/final/corrected source verification; none
+cohort or a full-real-graph REF. Ten completed local suite invocations perform
+ten such tiny road selections across initial/final/corrected source verification; none
 calls a planning or SMT optimizer. Full-width probes record zero Solver,
 SolverFor and Optimize constructor calls. Real road queries and real comparison
 solves remain zero.
@@ -128,7 +128,11 @@ container coercion, caller-supplied digest provenance and cross-table traces.
 Admission and reporting now require exactly the two frozen profile identities,
 order and shapes; all four historical slots must complete before component
 PASS. Empty, missing, duplicate, reordered or shrunken profiles, missing
-historical receipts and mismatched worker shapes fail closed. These are input
+historical receipts and mismatched worker shapes fail closed. A final
+report-only follow-up also rejects undeclared construction labels/directories,
+so extra attempts cannot disappear behind the frozen four-slot count. Both
+15-test modes pass this additional negative history coverage; no construction
+profile is rerun. These are input
 and reporting repairs, not new construction observations.
 
 A separate data-only sensitivity receipt reproduces old acceptance of all five
@@ -159,7 +163,7 @@ construction requests and unique DAG nodes are different quantities.
 The single worker/thread is supervised with30CPU/55wall seconds per command,
 1GiB RSS,3GiB starting host availability and an unchanged2GiB runtime host
 guard. Final minimum host availability was4828594176 bytes. No guard or profile
-was relaxed. All19 recorded child processes are confirmed terminal.
+was relaxed. All21 recorded child processes are confirmed terminal.
 
 Two setup errors remain charged: default sandbox process monitoring raised
 PermissionError, then the road-only Python environment lacked Z3. The first
@@ -174,11 +178,11 @@ not discarded or relabeled as infeasibility.
 The additional admission is400CPU seconds inside the original600 stage and
 28800 total. It carries132.202735 stage and15139.701737741 global, keeping the
 earlier120 precharge and every old receipt. New fixed development/report/control
-precharge140 is retained. Nineteen commands, including both setup failures,
-initial/final checks, focused symbolic validation and review correction, charge26.274330 with
-controller/tail allowance. Thus new charge is **166.274330 /400**, combined
-stage **298.477065 /600**, global **15305.976067741 /28800**, remaining
-**13494.023932259**. No budget is reset or refunded. Preprocessing remains
+precharge140 is retained. Twenty-one commands, including both setup failures,
+initial/final checks, focused symbolic validation and review correction, charge28.518220 with
+controller/tail allowance. Thus new charge is **168.518220 /400**, combined
+stage **300.720955 /600**, global **15308.219957741 /28800**, remaining
+**13491.780042259**. No budget is reset or refunded. Preprocessing remains
 652.040677976 /900. Ordinary software CI is separately prospectively reserved:
 9000 capacity-CPU for full M5 and180 for the clean component CI, per admitted
 invocation. Those allowances are not measured whole-job CPU.
