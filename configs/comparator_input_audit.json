@@ -1,0 +1,20 @@
+{
+  "schema": "hiroute.comparator_input_audit_plan.v1",
+  "base": "bbbb98ff89ff0ea76afe83898a7beb874e899789",
+  "research_carried_CPU_s": "15007.499002741",
+  "research_gate_cap_CPU_s": 600,
+  "fixed_development_control_precharge_CPU_s": 120,
+  "metered_subprocess_envelope_CPU_s": 480,
+  "research_original_cap_CPU_s": 28800,
+  "real_solver_rows": 0,
+  "road_queries": 0,
+  "graph_inspection": "One streaming identity hash; no parse, routing index or adjacency load",
+  "historical_frame": "Original48 N64 DEV cells /96 method slots, including4 unavailable cells",
+  "upper_protocol": "Historical feasible witness value for conditional sizing only; external replay and exact-time certification not performed by this gate",
+  "inspection": "Hash and inspect existing preparation/configs/manifest/report; count full pair, action and relevant-depth components",
+  "tests": "Eight pure audit tests, normal and-OO, including repeated histories, CS overlap, equality, aliases, no-U and unavailable input",
+  "local_command_limit_CPU_s": 30,
+  "local_command_wall_s": 55,
+  "ordinary_software_CI": "Separate prospective9000 capacity-CPU full M5 plus120 dedicated software reservation; previous research-gate CI charges retained",
+  "not_admitted": ["real SMT solves", "full selected-leg table construction", "earlier row reruns", "new datasets", "main experiment", "holdout"]
+}

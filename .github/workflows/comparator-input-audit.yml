@@ -1,0 +1,50 @@
+name: Comparator input audit contracts
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/audit_comparator_input.py'
+      - 'tests/test_comparator_input_audit.py'
+      - 'configs/comparator_input_audit.json'
+      - 'docs/COMPARATOR_INPUT_AUDIT.md'
+      - 'docs/comparator_input_audit_results.json'
+      - 'ci/run_comparator_input_audit_code.py'
+      - '.github/workflows/comparator-input-audit.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/audit_comparator_input.py'
+      - 'tests/test_comparator_input_audit.py'
+      - 'configs/comparator_input_audit.json'
+      - 'docs/COMPARATOR_INPUT_AUDIT.md'
+      - 'docs/comparator_input_audit_results.json'
+      - 'ci/run_comparator_input_audit_code.py'
+      - '.github/workflows/comparator-input-audit.yml'
+permissions:
+  contents: read
+concurrency:
+  group: comparator-input-audit-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  audit-contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.11.16'
+      - name: Pure audit fixtures in normal and optimized Python
+        run: python ci/run_comparator_input_audit_code.py
+      - name: Preserve accounting and uncertain-start receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: comparator-input-audit-code
+          path: |
+            ${{ runner.temp }}/comparator-input-audit-code/accounting.json
+            ${{ runner.temp }}/comparator-input-audit-code/started.json
+          retention-days: 30
+          if-no-files-found: error
