@@ -16,9 +16,9 @@ conditional-model semantics, not a general Core parity theorem or real N64
 practicality. Real table certification and end-to-end real input ingestion remain
 absent. No real road table, real-scale solve or holdout ran.
 
-New conservative charge is **331.808096/900 CPU seconds**, including the full300
-precharge and31.808096 metered commands/controller/tails. Original cumulative
-charge is **15640.028053741/28800**, remaining13159.971946259. Preprocessing
+New conservative charge is **338.350711/900 CPU seconds**, including the full300
+precharge and38.350711 metered commands/controller/tails. Original cumulative
+charge is **15646.570668741/28800**, remaining13153.429331259. Preprocessing
 remains652.040677976/900. Software CI is separately prospectively reserved.
 The failed initial comparison and unstarted preexec attempt remain in the
 [complete result join](exact_physical_results.json). Existing scientific limits

@@ -2,15 +2,15 @@
   "accounting": {
     "carried_original_research_CPU_s": "15308.219957741",
     "fixed_precharge_CPU_s": 300,
-    "metered_commands_CPU_s": "31.808096",
+    "metered_commands_CPU_s": "38.350711",
     "original_cap_CPU_s": 28800,
-    "original_conservative_CPU_s": "15640.028053741",
-    "original_remaining_CPU_s": "13159.971946259",
+    "original_conservative_CPU_s": "15646.570668741",
+    "original_remaining_CPU_s": "13153.429331259",
     "preprocessing_CPU_s": "652.040677976",
     "preprocessing_cap_CPU_s": 900,
     "software_CI": "Separate prospective reservations; all previous research and CI charges retained",
     "stage_cap_CPU_s": 900,
-    "stage_conservative_CPU_s": "331.808096"
+    "stage_conservative_CPU_s": "338.350711"
   },
   "admission_sha256": "10b652e03e6610bd1b6aa583874518d4d5f8ee268847bbf85ef17d7f3caa7c80",
   "case_denominator": 8,
@@ -203,6 +203,36 @@
       "label": "monotone_accounting_optimized",
       "log_sha256": "9f75add94930d82f86f40553d972627172fa9fcad2415eaa9947d6de3d460011",
       "pid": 923,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 2.180869,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "deadline_terminal_normal",
+      "log_sha256": "5eb5d0bfd673ef2bcc84955c8afe6dcb69b0506d235ffd6cabed3f8f94467033",
+      "pid": 1082,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 2.200353,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "terminal_status_regressions_normal",
+      "log_sha256": "0f1223f1718f8882f1b395f32782b1928986dea083946486b01d7bf0126bf930",
+      "pid": 1101,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 2.161393,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "terminal_status_regressions_optimized",
+      "log_sha256": "83e04ef2d7d0c498b65984fd1445942344ae93257caeca8990b0375a36aebbc5",
+      "pid": 1126,
       "returncode": 0
     }
   ],

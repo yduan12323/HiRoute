@@ -11,9 +11,9 @@ No production optimizer, physical parameter, old result or original compact
 prototype guard is changed. No real road table, real-scale solve or holdout ran.
 
 Numerical gate source is `cc85f5827723c04170cb765248c3e03324b365ef` on verified
-main `c0600d4d12061bceedfed6ec22b3f53d3df9e8c7`. Later changes add fail-closed
-receipt joining, regression coverage and reporting; the eight cells are not
-rerun. [exact_physical_results.json](exact_physical_results.json) preserves the
+main `c0600d4d12061bceedfed6ec22b3f53d3df9e8c7`. Later changes add fail-closed receipt joining, regression coverage and
+reporting, plus resource-only terminal proof guards at
+`59d75cbeae34c74155945fcf9a1fe2d580073aba`; the eight cells are not rerun. [exact_physical_results.json](exact_physical_results.json) preserves the
 full denominator, source/input identities, command failures and check hashes.
 
 ## Physical and input contract
@@ -92,8 +92,11 @@ union of the relevant affine fibers, not plan/simple-path enumeration.
 Z3 Optimize bounds must be equal exact rationals, followed by an UNSAT check for
 a strictly better point and a SAT check of the closed face. Unknown, nonfinite,
 nonrational or contradictory solver results cannot become certified values.
-Every SMT call has a <=2s timeout within the <=8s cell deadline. The final
-attained replay also checks the deadline. These are resource limits, not depth
+Every SMT call has a <=2s timeout within the <=8s cell deadline. Every terminal proof path checks the deadline after solver return/audit,
+and the final attained replay also checks it. A deterministic late-UNSAT
+regression and injected late primary/joint proof returns require UNKNOWN.
+This resource-only correction followed the frozen gate; those original cells
+are all far below8s and remain unchanged, not reattributed to a new source. These are resource limits, not depth
 or domain reductions. A process guard can leave a started call without a terminal
 receipt; reporting keeps that cell incomplete and retains remaining unrun cells.
 
@@ -158,15 +161,15 @@ directory. The outer controller now uses soft10/hard34; the worker CPU30 and
 all memory/time limits remain unchanged. The unstarted failure remains charged
 1.001547 seconds, and the corrected startup has a distinct label. Source and
 inputs for all actual gate workers remain cc85f58. No uncertain worker was
-replayed. All19 recorded commands are terminal (one preexec failure has no
+replayed. All22 recorded commands are terminal (one preexec failure has no
 executed numerical worker); raw old receipts and controller versions remain.
 
 Admission was <=900 research CPU seconds, carrying15308.219957741/28800.
 The full300 development/report/controller precharge remains. Metered command,
 controller and tail charges are conservatively rounded upward per command,
-without reducing an earlier rounded charge:31.808096. Total stage charge is
-**331.808096/900**, cumulative **15640.028053741/28800**, remaining
-**13159.971946259**. Previous charges are retained. Preprocessing stays
+without reducing an earlier rounded charge:38.350711. Total stage charge is
+**338.350711/900**, cumulative **15646.570668741/28800**, remaining
+**13153.429331259**. Previous charges are retained. Preprocessing stays
 652.040677976/900. Ordinary software CI has separate prospective reservations;
 its allowances are not measured whole-job CPU or research refunds.
 
