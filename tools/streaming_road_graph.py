@@ -235,7 +235,9 @@ def validate(raw_path,db_path,workspace,*,nodes_path=None,expected_raw_sha=None,
             if N%4096==0:check()
         if needed is not None or not N:raise ValueError('incomplete/empty node domain')
         nh=sha(nodes_path) if nodes_path is not None else None
-        meta={k:json.loads(v) for k,v in db.execute('SELECT key,value FROM meta')}
+        items=list(db.execute('SELECT key,value FROM meta'))
+        if len({k for k,v in items})!=len(items):raise ValueError('duplicate representation metadata identity')
+        meta={k:json.loads(v) for k,v in items}
         required=dict(schema=SCHEMA,numerical_contract=NUMERICAL,selected_leg_contract=SELECTION,
                       raw_sha256=raw_hash,declared_nodes_sha256=nh,graph_identity=graph_identity(raw_hash,nh))
         if meta!=required:raise ValueError('actual raw/node identity or numerical contract mismatch')

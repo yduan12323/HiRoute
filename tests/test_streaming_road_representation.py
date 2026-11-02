@@ -125,6 +125,28 @@ class StreamingTests(unittest.TestCase):
                 self.assertTrue(session.failed)
             finally:other.close();t.close();g.close()
 
+    def test_converter_does_not_hide_invalid_suffix_extra_labels_or_order(self):
+        for mode in ('path_suffix','extra_label','target_order','forged_hash'):
+            with self.subTest(mode=mode),tempfile.TemporaryDirectory() as d:
+                b=tiny_build();f=dict(bundle=b,expected='rejected')
+                if mode=='path_suffix':
+                    next(r for r in b['table_payload']['pairs'] if r['edges'])['nodes'].append('dead')
+                    from road_certificate_fixtures import raw
+                    import hashlib
+                    for c in b['certificates']:c['table_sha256']=hashlib.sha256(raw(b['table_payload'])).hexdigest()
+                elif mode=='extra_label':b['certificates'][0]['labels']['hidden']='0'
+                elif mode=='target_order':b['certificates'][0]['target_order'].reverse()
+                else:b['certificates'][0]['graph_sha256']='0'*64
+                self.assertEqual(outcome(lambda:evaluate(f,Path(d)/'case')),'rejected')
+
+    def test_duplicate_metadata_rejected_without_an_input_schema_flag(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);g=graph_inputs(graph_payload(),root);g.close();db=sqlite3.connect(root/'graph.sqlite')
+            values=list(db.execute('SELECT key,value FROM meta'));db.execute('DROP TABLE meta');db.execute('CREATE TABLE meta(key TEXT,value TEXT)')
+            db.executemany('INSERT INTO meta VALUES(?,?)',values+[values[0]]);db.commit();db.close()
+            with self.assertRaisesRegex(ValueError,'duplicate representation metadata'):
+                validate(root/'graph.tsv',root/'graph.sqlite',root/'v2',nodes_path=root/'nodes.jsonl')
+
     def test_large_exact_input_is_TEXT_and_no_decimal_digit_truncation(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);p=root/'raw';p.write_text('a\tb\te\t'+('9'*5000)+'/7\t1\n');build(p,root/'db')
@@ -137,7 +159,7 @@ class StreamingTests(unittest.TestCase):
             root=Path(d);g=graph_inputs(dict(nodes=['o'],edges=[]),root)
             p=dict(origin_anchor='o',destination_anchor='o',candidate_order=['Alias'],sites={'Alias':dict(anchor='o',effects=['C','S','CS'])},pairs=[dict(source='o',target='o',reachable=True,time_s='0',actual_length_m='0',nodes=['o'],edges=[])])
             write_jsonl(root/'t',table_rows(p,g));t=read_table(root/'t',g,root/'tdb');s=Session(g,t)
-            c=dict(source='o',labels={'o':'0'},predecessors={},target_masks={'o':1});write_jsonl(root/'c',source_rows(c,g,t));s.check_source(root/'c',root/'state')
+            c=dict(source='o',target_order=list(t.targets),labels={'o':'0'},predecessors={},target_masks={'o':1});write_jsonl(root/'c',source_rows(c,g,t));s.check_source(root/'c',root/'state')
             try:self.assertTrue(s.finish().is_for(g,t));self.assertEqual(t.candidate_order,('Alias',))
             finally:t.close();g.close()
 

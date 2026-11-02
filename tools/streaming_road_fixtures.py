@@ -22,14 +22,18 @@ def table_rows(p,g):
     yield dict(schema=TABLE_SCHEMA,numerical_contract=NUMERICAL,selected_leg_contract=SELECTION,
         graph_identity='sha256:'+g.payload_sha256,**{k:p[k] for k in ('origin_anchor','destination_anchor','candidate_order','sites')})
     for row in p['pairs']:
+        if len(row['edges'])!=max(0,len(row['nodes'])-1):raise ValueError('legacy path suffix cannot be silently dropped')
         yield dict(kind='pair',source=row['source'],target=row['target'],reachable=row['reachable'],time_s=row['time_s'],length_m=row['actual_length_m'],first_node=row['nodes'][0] if row['nodes'] else None)
         for u,v,eid in zip(row['nodes'],row['nodes'][1:],row['edges']):yield dict(kind='step',u=u,v=v,edge_id=eid)
         yield dict(kind='end_pair')
 
 
 def source_rows(c,g,t):
-    yield dict(schema=SOURCE_SCHEMA,graph_sha256=g.payload_sha256,table_sha256=t.payload_sha256,source=c['source'],target_order=list(t.targets))
-    for node in g.nodes():
+    nodes=tuple(g.nodes());R={n for n in nodes if c['labels'].get(n) is not None}
+    if (set(c['labels'])!=set(nodes) or set(c['predecessors'])!=R-{c['source']} or set(c['target_masks'])!=R):
+        raise ValueError('legacy certificate node/pred/mask fields cannot be silently dropped')
+    yield dict(schema=SOURCE_SCHEMA,graph_sha256=g.payload_sha256,table_sha256=t.payload_sha256,source=c['source'],target_order=c['target_order'])
+    for node in nodes:
         yield dict(node=node,label=c['labels'][node],predecessor_edge_id=c['predecessors'].get(node),
                    mask=str(c['target_masks'][node]) if node in c['target_masks'] else None)
 
@@ -39,6 +43,12 @@ def evaluate(f,root):
     try:
         if 'unsupported_graph' in f:graph_inputs(f['unsupported_graph'],root);raise ValueError('unsupported graph was accepted')
         b=f['bundle'];g=graph_inputs(b['graph_payload'],root)
+        from road_certificate_fixtures import raw
+        import hashlib
+        for c in b['certificates']:
+            if (c['graph_sha256']!=hashlib.sha256(raw(b['graph_payload'])).hexdigest() or
+                c['table_sha256']!=hashlib.sha256(raw(b['table_payload'])).hexdigest()):
+                raise ValueError('legacy actual byte identities cannot be rewritten from forged hashes')
         write_jsonl(root/'table.jsonl',table_rows(b['table_payload'],g));t=read_table(root/'table.jsonl',g,root/'table.sqlite')
         session=Session(g,t)
         for i,c in enumerate(b['certificates']):
