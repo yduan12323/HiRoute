@@ -167,6 +167,47 @@ class CertificateTests(unittest.TestCase):
             file.write_bytes(raw(value))
             self.assertEqual(evaluate_saved(path)['status'],'rejected')
 
+    def test_receipt_join_cannot_pass_empty_missing_or_tampered_case_coverage(self):
+        from report_road_certificate_gate import report
+        import hashlib
+        with tempfile.TemporaryDirectory() as root:
+            root=Path(root);gate=root/'gate';gate.mkdir();rows=[]
+            for name in IDS:
+                folder=gate/name;folder.mkdir();graph=b'mock graph';(folder/'graph.json').write_bytes(graph)
+                actual=dict(status='unsupported' if name.startswith('zero_time_') else
+                    'verified' if name.startswith('valid_') or name in ('string_node_tuple','deep_tuple_ties') else 'rejected')
+                hashes={'graph.json':hashlib.sha256(graph).hexdigest()}
+                if actual['status']=='verified':
+                    table=dict(origin_anchor='o',destination_anchor='z',sites={},candidate_order=[],pairs=[dict(source='o',target='z')])
+                    data=raw(table);(folder/'table.json').write_bytes(data);cert=b'mock certificate';(folder/'source-0000.json').write_bytes(cert)
+                    hashes.update({'table.json':hashlib.sha256(data).hexdigest(),'source-0000.json':hashlib.sha256(cert).hexdigest()})
+                    actual.update(checked_pairs=1,literal_sites=0,physical_sources=1,physical_targets=1,owns_exact_inputs=True,
+                        graph_sha256=hashes['graph.json'],table_sha256=hashes['table.json'],
+                        source_receipts=[dict(source='o',checked_pairs=1,certificate_sha256=hashes['source-0000.json'])])
+                rows.append(dict(case=name,status='verified',expected=actual['status'],actual=actual,input_sha256=hashes))
+            result=dict(case_denominator=15,rows=rows,source=dict(commit='mock',dirty=False),config_sha256='mock',
+                real_table_generation=False,real_scale_optimization=False,holdout=False,production_oracle=False)
+            path=gate/'results.json';path.write_bytes(raw(result))
+            commands=[dict(label=x,pid=1,returncode=0,charged_CPU_s=0) for x in
+                ('saved_input_checker_normal','saved_input_checker_optimized','final_receipt_normal','final_receipt_optimized','frozen_certificate_gate')]
+            (root/'budget.json').write_bytes(raw(dict(active=None,records=commands,charged_commands_CPU_s=0,carried_research_CPU_s='15646.570668741')))
+            self.assertEqual(report(root)['gate_status'],'PASS_TINY_CERTIFICATE_CHECKER')
+            for mode in ('empty','missing','duplicate'):
+                bad=copy.deepcopy(result)
+                if mode=='empty':bad['rows']=[]
+                elif mode=='missing':bad['rows'].pop()
+                else:bad['rows'][1]=bad['rows'][0]
+                path.write_bytes(raw(bad))
+                with self.subTest(mode=mode),self.assertRaises(ValueError):report(root)
+            partial=copy.deepcopy(result);partial['rows'][-1]=dict(case=IDS[-1],status='unrun')
+            path.write_bytes(raw(partial));joined=report(root)
+            self.assertEqual(joined['gate_status'],'LIMITED_OR_FAILED');self.assertEqual(joined['rows'][-1]['status'],'unrun')
+            path.write_bytes(raw(result));file=gate/IDS[0]/'source-0000.json';file.write_bytes(b'changed')
+            self.assertEqual(report(root)['gate_status'],'LIMITED_OR_FAILED')
+            budget=json.loads((root/'budget.json').read_text());budget['records'].append(dict(label='frozen_certificate_gate_extra',pid=2,returncode=0))
+            (root/'budget.json').write_bytes(raw(budget))
+            with self.assertRaisesRegex(ValueError,'unexpected formal gate'):report(root)
+
     def test_checker_does_not_call_a_router_optimizer_or_fixture_producer(self):
         b=build()
         import builtins
