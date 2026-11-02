@@ -1,0 +1,177 @@
+{
+  "schema": "hiroute.packed_single_source.results.v1",
+  "decision": "UNKNOWN_UNCERTIFIED",
+  "producer_commit": "5f9d848ac07c2c7536c20f79ce3d356f29dbdb95",
+  "configuration": "configs/packed_single_source.json",
+  "new_attempt": {
+    "schema": "hiroute.packed_source.real_attempt_outcome.v1",
+    "decision": "UNKNOWN_UNCERTIFIED",
+    "reason": "120s wall guard killed/waited worker; no complete generator receipt",
+    "controller_terminal": {
+      "label": "one_packed_generation",
+      "phase": "generation",
+      "argv": [
+        "/tmp/hiroute-c-venv/bin/python",
+        "tools/run_packed_single_source.py",
+        "--mode",
+        "generate",
+        "--config",
+        "configs/packed_single_source.json",
+        "--frozen-domain",
+        "../real-road-certificate-artifacts-v1/frozen-domain.json",
+        "--packed",
+        "../same-graph-packing-artifacts-v1/packed/graph.csr",
+        "--graph-db",
+        "../streaming-road-certificate-artifacts-v1/build/road.sqlite",
+        "--output",
+        "../packed-single-source-artifacts-v1/generation"
+      ],
+      "reserved_CPU_s": 150,
+      "started_at": 1793649672.281641,
+      "controller_pid": 34167,
+      "controller_created_at": 1793649672.210196,
+      "controller_sha256": "ae11f1d1423c604c078f1355eb78af7d8fa7a953cb4249b34fd848b928716cc6",
+      "child_CPU_limit": 120,
+      "controller_soft_CPU_limit": 10,
+      "controller_hard_CPU_limit": 15,
+      "wall_limit": 120,
+      "RSS_limit_bytes": 1073741824,
+      "host_headroom_bytes": 2147483648,
+      "pid": 34173,
+      "process_created_at": 1793649672.28289,
+      "process_tree_CPU_peak_s": 119.941326848,
+      "error": "Stop('wall_guard')",
+      "returncode": 125,
+      "charged_CPU_s": 129.102319,
+      "finished_at": 1793649792.302984,
+      "guard_reason": "wall_guard",
+      "actual_child_returncode": -9,
+      "process_tree_peak_RSS_bytes": 515850240,
+      "host_available_min_bytes": 5394481152,
+      "child_maxrss_native": 515850240,
+      "stage_disk_peak_bytes": 513506,
+      "host_disk_free_min_bytes": 43364495360
+    },
+    "started": {
+      "mode": "generate",
+      "decision": "STARTED_UNCERTIFIED",
+      "source": "3797700636",
+      "source_denominator": 65,
+      "target_count": 65,
+      "pair_denominator": 4225,
+      "whole_table_certified": false,
+      "EV_solve": false,
+      "upper_replay": false,
+      "holdout": false,
+      "old_SQL_attempt": "UNKNOWN, immutable; distinct implementation/attempt",
+      "started_at": 1793649672.3132339,
+      "source_commit": "5f9d848ac07c2c7536c20f79ce3d356f29dbdb95",
+      "source_dirty": false,
+      "config_sha256": "285a34b75c13224097d85e6795056de076968122aa97dc29a2fefda60e0c8cc4",
+      "frozen_domain_sha256": "250ff5d84aed3e6fbf86e371f0cabbf135c4cc89034f9ce27fbc5f0bb411db7a",
+      "packed_sha256": "2c64f108db4dc97d916e82cc23567ff82e0c7514372c1a3562c965c9c0ffa603"
+    },
+    "last_durable_progress": {
+      "phase": "tight_masks",
+      "phase_complete": false,
+      "remaining_nodes": 2000000,
+      "CPU_s": 116.08174,
+      "wall_s": 116.09905295801582,
+      "component_CPU_s": 116.364247,
+      "component_wall_s": 116.43203808303224
+    },
+    "files": {
+      "started.json": 734,
+      "progress.json": 215
+    },
+    "independent_check": "UNRUN_NO_COMPLETE_PRODUCER",
+    "certified_sources": 0,
+    "certified_pairs": 0,
+    "whole_table_certified": false,
+    "no_reachability_or_infeasibility_inferred": true,
+    "old_SQL_UNKNOWN_preserved": true,
+    "new_real_attempts": 1,
+    "retry": false,
+    "other64source_rollout": false,
+    "EV_solve": false,
+    "holdout": false
+  },
+  "label_completion_observation": {
+    "observation_source": {
+      "kind": "read-only progress.json observation during the real attempt",
+      "exec_output_chunk_id": "394832",
+      "later_worker_progress_overwrote_this_snapshot": true,
+      "copied_from_recorded_tool_output_not_recomputed": true
+    },
+    "snapshot": {
+      "phase": "labels",
+      "phase_complete": true,
+      "metrics": {
+        "SQL_execute_calls": 0,
+        "edge_visits": 5814389,
+        "weight_decodes": 5814389,
+        "settled_nodes": 2940463
+      },
+      "CPU_s": 102.439725,
+      "wall_s": 102.45489816600457,
+      "component_CPU_s": 102.722233,
+      "component_wall_s": 102.7878837910248
+    },
+    "timing_scope": "CPU_s and wall_s are cumulative since generator entry, including its initial identity check; not isolated label-kernel times",
+    "uncertified": true
+  },
+  "conditional_independent_check": {
+    "decision": "UNRUN",
+    "reason": "complete producer receipt absent; no selected path/binary/JSON certificate",
+    "charged_CPU_s": 0,
+    "reservation_not_spent_CPU_s": 150,
+    "original_source_denominator": 65,
+    "original_pair_denominator": 4225
+  },
+  "accounting": {
+    "stage_CPU_s": "266.981058",
+    "cap_CPU_s": 600,
+    "fixed_development_CPU_s": 120,
+    "phases_CPU_s": {
+      "tiny_validation": 13.824639999999999,
+      "generation": 129.102319,
+      "independent_check": 0,
+      "close": 4.054099
+    },
+    "carried_CPU_s": "17453.089776741",
+    "original_total_CPU_s": "17720.070834741",
+    "original_cap_CPU_s": 28800,
+    "remaining_CPU_s": "11079.929165259",
+    "preprocessing_CPU_s": "652.040677976",
+    "preprocessing_cap_CPU_s": 900,
+    "ordinary_software_CI": "separate; prior inclusive charges retained"
+  },
+  "tiny_tests_per_mode": {
+    "new_quota_admission": 9,
+    "packed_semantics": 16,
+    "independent_certificate": 24,
+    "graph_storage": 21
+  },
+  "guard_history": [
+    "One graph-storage -OO test safely interrupted by disappearing-temp-file monitor race; old controller and log retained, race-only fix independently tested, full21tests then passed.",
+    "Initial close receipt check mistakenly rejected its own active close supervisor; corrected metadata-only check passed, both fees retained."
+  ],
+  "source_statuses": {
+    "old_SQL_attempt": "UNKNOWN preserved separately",
+    "new_packed_attempt": "UNKNOWN wall120",
+    "distinct_source_current_status": "UNKNOWN, uncertified",
+    "other_sources_UNRUN": 64,
+    "certified_sources": 0,
+    "certified_pairs": 0,
+    "source_denominator": 65,
+    "pair_denominator": 4225
+  },
+  "cold_cache_claim": false,
+  "whole_table_certified": false,
+  "EV_solve": false,
+  "upper_replay": false,
+  "holdout": false,
+  "original_taskbook_complete": false,
+  "research_decision": "NO_GO_current120s_full_source_export_rollout; no further real attempt admitted",
+  "future_real_work": "stopped pending defensible proof/design evidence; no automatic parameter/cache/limit tuning"
+}

@@ -55,3 +55,74 @@ See configs/packed_single_source.json and tools/run_packed_single_source.py.
 The real attempt was UNRUN when these limits were frozen; observed results are
 added separately with their producer identity. Existing taskbook acceptance is
 not satisfied by a representation pass or an untrusted generator completion.
+
+## Observed terminal result
+
+Producer `5f9d848ac07c2c7536c20f79ce3d356f29dbdb95` was clean. The single
+admitted packed attempt ended **UNKNOWN_UNCERTIFIED** at the outer120second
+wall guard (elapsed120.021343seconds). The controller killed/waited its worker;
+actual child return code-9, sampled child-tree CPU119.941326848seconds. Inclusive
+generation charge129.102319CPU seconds includes preparation, supervision and
+tail. No retry or second source ran.
+
+The in-flight labels-completed snapshot reported5,814,389edge visits and
+2,940,463settled nodes at cumulative generator CPU102.439725 /wall102.454898.
+Those counters are untrusted producer state, not independently proven
+reachability. CPU values here include the generator's initial identity check;
+they are not isolated heap/arithmetic/label-kernel measurements. Component CPU
+at that snapshot was102.722233. The snapshot was observed by a read-only tool
+read before progress.json was overwritten; its exact values/provenance are
+archived separately, not presented as a worker append-log or recomputation.
+
+The last durable worker checkpoint was an INCOMPLETE tight-mask scan with
+2,000,000remaining nodes at component wall116.432038 /CPU116.364247seconds.
+The actual remaining count at kill is unknown; do not promote that snapshot
+to a final count. No selected paths, binary source certificate or decoded source
+JSON was emitted, and no complete-generation receipt exists. Therefore the
+independent checker stayed **UNRUN**, charged0CPU. No partial source or target
+pair was certified; neither infeasibility nor unreachability is inferred.
+
+Native/sampled peak RSS515,850,240bytes was below the1GiB guard; host available
+RAM minimum5,394,481,152bytes and free disk minimum43,364,495,360bytes exceeded
+their floors. Sampled generation-stage disk peak513,506bytes contained small
+receipts/tests, not a hidden exported tree. The memory/label/storage guards did
+not issue this stop. Caches were uncontrolled, not flushed; no cold or fair
+cross-implementation speed claim is made. Earlier SQLite UNKNOWN remains a
+separate immutable attempt; the new implementation does not erase that row.
+
+New9quota/admission, prior16packed,24independent-certificate and21graph-storage
+contracts pass normal/-OO. One optimized graph-storage test run was safely
+interrupted by a monitor race with disappearing temporary files; the narrowly
+scoped race fix was tested against the actual controller helper and the full21
+optimized tests then passed. Initial close-receipt bookkeeping rejected its own
+active close supervisor; corrected metadata-only verification passed. All failed
+logs and both fees stay. Fourteen guarded commands /28 PID identities are
+terminal, with no orphaned real worker.
+
+Final charge **266.981058 /600 CPU seconds**: fixed120, tiny13.824640,
+generation129.102319, independent check0, close4.054099 (including2conservative
+bookkeeping seconds). Original total **17,720.070834741 /28,800**, remaining
+**11,079.929165259**. Preprocessing652.040677976/900 remains unchanged. Ordinary
+software CI is separately reserved; previous inclusive reservations/charges stay.
+The unused checker reservation is not a spend, and unused stage headroom is not
+permission for a new real attempt. Small measured receipts are committed in
+`packed_single_source_results.json`; full artifacts remain outside Git.
+
+## Research decision
+
+**NO-GO for rollout of this full-source exporter under the existing120second
+component limits.** This is an observed implementation/resource outcome, not a
+mathematical impossibility claim. The masks, selected paths, reference transcript,
+binary encoding/decoding and independent raw-graph proof have not completed.
+Real coverage remains zero certified sources/pairs,1distinct source UNKNOWN,
+64other sources UNRUN within the65source/4,225pair denominator. Independent
+real-scale optimization, upper-witness replay and taskbook acceptance remain open.
+
+Keep the validated exact system and complete real representation. Do not spend
+the remaining budget on another source, a cache/limit grid or a blind retry.
+Existing counters identify the incomplete phase but cannot separate heap,
+exact-arithmetic and paging costs or predict an optimization's benefit. Any next
+real admission needs new defensible proof/design evidence for a complete
+same-domain certificate pipeline and its checker/storage costs. A read-only
+research-route decision may assess that requirement; no replacement certificate
+format, production algorithm, real attempt or holdout is authorized by this result.

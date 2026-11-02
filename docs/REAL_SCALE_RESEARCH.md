@@ -2275,3 +2275,36 @@ Next proposed <=600CPU single-source generation+independent-check gate is NOT
 admitted here; retain120second component limits, source3797700636/all65targets,
 resource quotas and old attempt. No rollout, real EV comparison or holdout.
 Original taskbook acceptance remains incomplete.
+## Packed single-source end-to-end gate: UNKNOWN, no rollout
+
+One prospectively admitted <=600CPU stage carried17,453.089776741. Producer
+`5f9d848ac07c2c7536c20f79ce3d356f29dbdb95` used the verified full CSR, source
+3797700636/all65targets, unchanged64literal Sites/65sources/4,225pairs, exact
+weights/ties/lengths and original120CPU/120wall component envelopes. No data,
+physics, candidate/depth reduction, EV solve or holdout was introduced.
+
+The new packed attempt hit wall120.021343 and remained UNKNOWN_UNCERTIFIED;
+inclusive charge129.102319, child-tree CPU sample119.941326848, RSS515,850,240bytes,
+generation-stage disk sample513,506bytes. The observed labels-completed snapshot
+at cumulative generator CPU102.439725 reported5,814,389edge visits/2,940,463settled
+nodes; this includes initial generator identity work, is not isolated kernel
+timing and does not independently certify reachability. Last durable progress
+at wall116.432038 had an incomplete tight-mask scan with2,000,000nodes remaining;
+exact remaining count at kill is unknown. No paths/binary/decoded certificate or
+complete producer receipt existed, so independent checking was UNRUN, cost0.
+
+Result:0certified sources/pairs,1distinct sourceUNKNOWN/64UNRUN. Earlier SQLite
+UNKNOWN is preserved separately. Caches were uncontrolled; partial counters do
+not prove a runtime gain or feasibility. Keep the complete real representation
+PASS separate from this failed end-to-end attempt. All28recorded PID identities
+are terminal. Guard-race and close-bookkeeping failures/fees are retained; new9,
+prior16packed/24independent/21storage tests pass normal/-OO after the narrow guard
+fix. See [full scope/limitations](PACKED_SINGLE_SOURCE.md) and [small measured
+receipts](packed_single_source_results.json).
+
+Stage266.981058/600: fixed120,tiny13.824640,generation129.102319,check0,close4.054099.
+Research total17720.070834741/28800, remaining11079.929165259; preprocessing
+652.040677976/900 unchanged, ordinary softwareCI separate, historical charges
+retained. No retry,64source expansion or new real budget is admitted. NO-GO for
+current120second full-source export rollout; further real work requires defensible
+new proof/design evidence, not blind microtuning. Taskbook acceptance incomplete.
