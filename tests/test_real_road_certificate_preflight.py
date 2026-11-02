@@ -4,10 +4,12 @@ import json
 from pathlib import Path
 import sys
 import tempfile
+import tracemalloc
 import unittest
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
 from preflight_real_road_certificate import memory_units,positive_parts,preflight,scan,validate_domain
+from exact_road_certificate import ExactRoadGraph,GRAPH_SCHEMA,NUMERICAL,SELECTION
 
 
 class PreflightTests(unittest.TestCase):
@@ -88,6 +90,25 @@ class PreflightTests(unittest.TestCase):
         rows=json.loads('[{"x":"same-value"},{"x":"same-value"}]')
         self.assertIsNot(rows[0]['x'],rows[1]['x'])
         units=memory_units();self.assertGreater(units['fractions'],0)
+
+    def test_loader_lower_bound_below_actual_tiny_loader_peak(self):
+        # Exercise the existing loader itself: the floor omits raw bytes,
+        # numeric strings/ints, maps and adjacency rather than claiming an RSS
+        # prediction from a sampled object average.
+        nodes=['vertex-'+str(i) for i in range(101)]
+        edges=[dict(source=nodes[i%101],target=nodes[(i+1)%101],edge_id='literal-edge-'+str(i),
+                    time_s='1/3',length_m='7/5') for i in range(1000)]
+        payload=dict(schema=GRAPH_SCHEMA,numerical_contract=NUMERICAL,selected_leg_contract=SELECTION,nodes=nodes,edges=edges)
+        raw=json.dumps(payload,separators=(',',':')).encode()
+        with tempfile.TemporaryDirectory() as d:
+            path=Path(d)/'g';path.write_text(''.join('\t'.join(e[k] for k in ('source','target','edge_id','time_s','length_m'))+'\n' for e in edges))
+            bound=scan(path,set(),memory_units())['current_JSON_loader_lower_bound_bytes']
+            tracemalloc.start()
+            try:
+                graph=ExactRoadGraph.from_bytes(raw);peak=tracemalloc.get_traced_memory()[1]
+            finally:tracemalloc.stop()
+            self.assertEqual(len(graph.edges),1000)
+            self.assertGreater(peak,bound)
 
 
 if __name__=='__main__':unittest.main()

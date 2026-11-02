@@ -1,4 +1,32 @@
-# Current independent road-certificate checker gate
+# Current complete real N64 certificate preflight
+
+The [single frozen real-table preflight](REAL_ROAD_CERTIFICATE_PREFLIGHT.md)
+completed once on WD01/E18/schedule/N64. All5900232 edge rows are positive exact
+rationals, the full graph/catalog/bindings/config hashes match and all66 required
+anchors occur. The existing JSON/Python-object loader has a3512791054-byte
+conservative storage floor, above this run's2452291584-byte additional admission
+allowance after preserving2GiB host headroom. This is a representation/host
+obstruction, not a measured full-loader peak or physical infeasibility.
+
+No source work was released:65sources/4225pairs remain explicitly preflight-
+blocked and the whole table uncertified. Global edge-ID/node validation, exact
+selected paths, independent upper-witness replay and complete relevant-depth
+admission remain open. No real optimizer or holdout ran; candidates, physical
+parameters and old evidence are unchanged. The [complete small report](real_road_certificate_preflight_results.json)
+hashes the retained full raw result and all command receipts.
+
+This stage charges140.228686/240preflight (within3600overall), including full120
+development/controller/report precharge. Cumulative16016.600202741/28800CPU
+seconds, remaining12783.399797259; preprocessing652.040677976/900 unchanged.
+Source/replay allocations were never released or charged. Ordinary software CI
+is separately prospectively reserved. Twenty-four regression methods pass in
+both normal and-OO modes. The next proposed step is a bounded compact/streamed
+input-certificate representation gate, not another real solve. Overall taskbook
+acceptance remains incomplete.
+
+Entries below retain their historical source, state and accounting.
+
+# Independent road-certificate checker gate (historical)
 
 The [independent checker](ROAD_CERTIFICATE_CHECKER.md) verifies supplied exact
 shortest-time lower/attainment certificates, reachable cuts, tight-DAG suffix
