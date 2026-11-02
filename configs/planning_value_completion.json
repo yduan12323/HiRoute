@@ -1,0 +1,33 @@
+{
+  "schema": "hiroute.planning_value_completion.v1",
+  "scope": "Only the frozen WD07/E48 schedule/N64 pair previously budget-unrun; old gate remains closed",
+  "proposal_sha256": "d4ae037302aa4ef2b93a397ed703762da6417faf74c551f88a10458880c93f59",
+  "prior_summary_sha256": "98d2ae1235267c60e3988ec928801f7100f775c096be8171075a32ce1819d33c",
+  "predecessor_sha256": {
+    "preparation.json": "2cde0ff7f29b68c7e9fc46597d8e3439a1e7c986911b6bc1b1291284644abca0",
+    "results.json": "a43cf487d415264277236f9cdbd6e41bf03b2f7716c9cfc0775a40bdf9eed335",
+    "status.json": "f0eb94a18a18024dd51026e85b121df51db75770255cec4c7f53fc834d693ba2"
+  },
+  "carried_cpu_s": 14708.280547741,
+  "original_cap_cpu_s": 28800,
+  "gate_cap_cpu_s": 1600,
+  "nonstage_precharge_cpu_s": 120,
+  "stage_cap_cpu_s": 1480,
+  "pair_reservation_cpu_s": 1240,
+  "cleanup_reserve_cpu_s": 120,
+  "loaded_limit_s": 120,
+  "cold_allowance_s": 180,
+  "worker_enforced_cpu_s": 300,
+  "worker_reservation_cpu_s": 310,
+  "controller_reservation_cpu_s": 310,
+  "process_memory_gib": 8,
+  "threads": 1,
+  "workers": 1,
+  "execution_authorized": true,
+  "preflight_min_available_bytes": 2684354560,
+  "preprocessing_cpu_s": 652.040677976,
+  "ordinary_software_CI": "Separate prospective records; preserve all earlier research-gate CI precharges without refund",
+  "PR_full_CI_reserved_capacity_CPU_s": 9000,
+  "PR_dedicated_CI_reserved_CPU_s": 180,
+  "stop_policy": "Require1240pair+120cleanup and live cumulative worker/controller admission; no old terminal resume or uncertain-start replay; no repeated six rows, joint solve, tuning, main experiment or holdout"
+}

@@ -1,0 +1,2537 @@
+{
+  "accounting": {
+    "carried_conservative_CPU_s": 14708.280547741,
+    "new_gate_cap_CPU_s": 1600,
+    "new_gate_conservative_CPU_s": 299.21845499999995,
+    "new_stage_final_conservative_CPU_s": 179.21845499999998,
+    "nonstage_precharged_CPU_s": 120,
+    "ordinary_software_CI": "separate prospective records; old CI reservations not refunded",
+    "original_cap_CPU_s": 28800,
+    "original_conservative_total_CPU_s": 15007.499002741,
+    "preprocessing_CPU_s": 652.040677976,
+    "raw_terminal_status": {
+      "controller_pid": 93216,
+      "error": null,
+      "inclusive_gate_charged_cpu_s": 296.66515499999997,
+      "joint_reference_read": false,
+      "original_total_cpu_s": 15004.945703741,
+      "prior_failed_setup_cpu_s": 0,
+      "source": {
+        "commit": "abc896b3dcd6ae7a5e55fe8046703bf6640cc319",
+        "executable": "/tmp/hiroute-c-venv/bin/python",
+        "platform": "macOS-27.2-arm64-arm-64bit",
+        "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+      },
+      "stage_cap_cpu_s": 1480,
+      "stage_charged_cpu_s": 176.66515399999997,
+      "state": "complete",
+      "total_controller_cpu_s": 25.446699,
+      "worker_cpu_charged_s": 151.21845499999998
+    }
+  },
+  "attempted_fresh_policy_rows": 2,
+  "completion_numerical_source": {
+    "commit": "abc896b3dcd6ae7a5e55fe8046703bf6640cc319",
+    "executable": "/tmp/hiroute-c-venv/bin/python",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+  },
+  "counterexamples": [],
+  "fresh_policy_slots": 2,
+  "historical_joint_report_sha256": "cecab6da2fd47df131106025688cc5b70cbd558c13c6cfa74cbf804ac66a7d2c",
+  "historical_timings_not_speedup_controls": true,
+  "holdout": false,
+  "input_sha256": {
+    "bindings": "c981bbf5d529f61e0385b4424b5145c44b6afd7dbb35b90fd625792b1e28bf42",
+    "catalog": "a71e0a645fd21a2f415b4b079033cfe631dfb2292a1a41ce43b439304805a1a9",
+    "graph": "8076e850b096c5cf74f307ae7ad34c2aebd1f1e53c3c4d092234d40078a4c54d"
+  },
+  "joint_controls_read_after_terminal_stage": true,
+  "main_experiment": false,
+  "new_joint_solves": 0,
+  "policy_row_denominator": 8,
+  "policy_summary": {
+    "activity_first_fixed_site": {
+      "attained_policy_optimum": 2,
+      "time_limit_no_feasible": 2
+    },
+    "separated_no_overlap": {
+      "time_limit_feasible_only": 4
+    }
+  },
+  "predecessor": {
+    "numerical_source": {
+      "commit": "e63f803af86b6e1168763578aaae4387e1a9b430",
+      "executable": "/tmp/hiroute-c-venv/bin/python",
+      "platform": "macOS-27.2-arm64-arm-64bit",
+      "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+    },
+    "prior_setup_cost_already_inside_carried_charge": true,
+    "sha256": {
+      "preparation.json": "2cde0ff7f29b68c7e9fc46597d8e3439a1e7c986911b6bc1b1291284644abca0",
+      "results.json": "a43cf487d415264277236f9cdbd6e41bf03b2f7716c9cfc0775a40bdf9eed335",
+      "status.json": "f0eb94a18a18024dd51026e85b121df51db75770255cec4c7f53fc834d693ba2"
+    },
+    "six_terminal_sha256": {
+      "WD01-E18-schedule-N64-activity_first_fixed_site": "410bae7ce5f87fc799eab9c697d78dc6ab1cb92cfeb11eccddcbd238a529ccca",
+      "WD01-E18-schedule-N64-separated_no_overlap": "d77385095a45439577f3955a65e3bedc3439b879d85f66d37e95cfae891623f9",
+      "WD01-E48-schedule-N64-activity_first_fixed_site": "c5ac1b12d95af316e9cb7fd534fc9195a3a5c7f02ebf0e4f3645d76b8a931608",
+      "WD01-E48-schedule-N64-separated_no_overlap": "9a66e6406dbcdfe17d13193641cfb54935460c0eb44bfac1a9423625a883618d",
+      "WD07-E18-schedule-N64-activity_first_fixed_site": "922847c74c3e01941f17410fab8d64edfddd9cb4575e06c73b2487de93710611",
+      "WD07-E18-schedule-N64-separated_no_overlap": "c4a88f474e64d52f664479b49d994604899cb2ba36805dbad15738436d23d2c1"
+    }
+  },
+  "predecessor_budget_unrun_records": [
+    {
+      "N": 64,
+      "cold_index_wall_s": null,
+      "comparison": {
+        "comparison_type": "no_pair_of_verified_feasible_values",
+        "joint_mathematical_status": "attained_optimum",
+        "policy_mathematical_status": "budget_unrun"
+      },
+      "depth_contract": null,
+      "feasible_key": null,
+      "host_available_min_bytes": null,
+      "initial_energy_kwh": "48",
+      "joint_reference": {
+        "candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+        "feasible_key": [
+          "462672673077/17187500",
+          "371663033/6250000",
+          2,
+          [
+            [
+              "way/486762334",
+              "CS"
+            ],
+            [
+              "node/11146014303",
+              "C"
+            ]
+          ]
+        ],
+        "key": [
+          "462672673077/17187500",
+          "371663033/6250000",
+          2,
+          [
+            [
+              "way/486762334",
+              "CS"
+            ],
+            [
+              "node/11146014303",
+              "C"
+            ]
+          ]
+        ],
+        "mathematical_status": "attained_optimum",
+        "numerical_source": {
+          "commit": "fb6989f34c34f1c2c23cacba0dd96ae79d38f63f",
+          "executable": "/tmp/hiroute-c-venv/bin/python",
+          "platform": "macOS-27.2-arm64-arm-64bit",
+          "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+        },
+        "raw_checkpoint_sha256": "5c30bd708c0c9fea9085337ffbba2a150cbb7a7b3a6dcbf56d348c64d6bcb32e",
+        "status": "attained_optimum",
+        "witness": {
+          "activity_duration_s": "2700",
+          "charges_kwh": [
+            "326939717/6250000",
+            "11180829/1562500"
+          ],
+          "charging_activity_overlap_s": "2700",
+          "charging_duration_s": "2552072241/781250",
+          "driving_time_s": "15023583351/687500",
+          "elapsed_time_s": "442047673077/17187500",
+          "historical_original_model_replayed": true,
+          "independent_key": [
+            "462672673077/17187500",
+            "371663033/6250000",
+            2,
+            [
+              [
+                "way/486762334",
+                "CS"
+              ],
+              [
+                "node/11146014303",
+                "C"
+              ]
+            ]
+          ],
+          "initial_wait_s": "0",
+          "original_joint_model_verified": true,
+          "physical_verified": true,
+          "positive_charge_count": 2,
+          "signed_distance_delta_from_direct_fastest_m": "28368259/1000",
+          "stop_count": 2,
+          "terminal_energy_kwh": "6",
+          "total_distance_m": "634163033/1000"
+        }
+      },
+      "key": null,
+      "mathematical_status": null,
+      "original_candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+      "policy": "activity_first_fixed_site",
+      "policy_info": null,
+      "policy_outcome": "budget_unrun",
+      "primary_infimum": null,
+      "process_group_peak_rss_bytes": null,
+      "query_extra_peak_bytes": null,
+      "query_id": "WD07",
+      "query_loaded_total_s": null,
+      "scenario": "schedule",
+      "secondary_infimum": null,
+      "seed_key": null,
+      "stage_worker_charged_cpu_s": null,
+      "status": "budget_unrun",
+      "supervisor_cpu_s": null,
+      "witness": null,
+      "worker_cpu_s": null
+    },
+    {
+      "N": 64,
+      "cold_index_wall_s": null,
+      "comparison": {
+        "comparison_type": "no_pair_of_verified_feasible_values",
+        "joint_mathematical_status": "attained_optimum",
+        "policy_mathematical_status": "budget_unrun"
+      },
+      "depth_contract": null,
+      "feasible_key": null,
+      "host_available_min_bytes": null,
+      "initial_energy_kwh": "48",
+      "joint_reference": {
+        "candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+        "feasible_key": [
+          "462672673077/17187500",
+          "371663033/6250000",
+          2,
+          [
+            [
+              "way/486762334",
+              "CS"
+            ],
+            [
+              "node/11146014303",
+              "C"
+            ]
+          ]
+        ],
+        "key": [
+          "462672673077/17187500",
+          "371663033/6250000",
+          2,
+          [
+            [
+              "way/486762334",
+              "CS"
+            ],
+            [
+              "node/11146014303",
+              "C"
+            ]
+          ]
+        ],
+        "mathematical_status": "attained_optimum",
+        "numerical_source": {
+          "commit": "fb6989f34c34f1c2c23cacba0dd96ae79d38f63f",
+          "executable": "/tmp/hiroute-c-venv/bin/python",
+          "platform": "macOS-27.2-arm64-arm-64bit",
+          "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+        },
+        "raw_checkpoint_sha256": "5c30bd708c0c9fea9085337ffbba2a150cbb7a7b3a6dcbf56d348c64d6bcb32e",
+        "status": "attained_optimum",
+        "witness": {
+          "activity_duration_s": "2700",
+          "charges_kwh": [
+            "326939717/6250000",
+            "11180829/1562500"
+          ],
+          "charging_activity_overlap_s": "2700",
+          "charging_duration_s": "2552072241/781250",
+          "driving_time_s": "15023583351/687500",
+          "elapsed_time_s": "442047673077/17187500",
+          "historical_original_model_replayed": true,
+          "independent_key": [
+            "462672673077/17187500",
+            "371663033/6250000",
+            2,
+            [
+              [
+                "way/486762334",
+                "CS"
+              ],
+              [
+                "node/11146014303",
+                "C"
+              ]
+            ]
+          ],
+          "initial_wait_s": "0",
+          "original_joint_model_verified": true,
+          "physical_verified": true,
+          "positive_charge_count": 2,
+          "signed_distance_delta_from_direct_fastest_m": "28368259/1000",
+          "stop_count": 2,
+          "terminal_energy_kwh": "6",
+          "total_distance_m": "634163033/1000"
+        }
+      },
+      "key": null,
+      "mathematical_status": null,
+      "original_candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+      "policy": "separated_no_overlap",
+      "policy_info": null,
+      "policy_outcome": "budget_unrun",
+      "primary_infimum": null,
+      "process_group_peak_rss_bytes": null,
+      "query_extra_peak_bytes": null,
+      "query_id": "WD07",
+      "query_loaded_total_s": null,
+      "scenario": "schedule",
+      "secondary_infimum": null,
+      "seed_key": null,
+      "stage_worker_charged_cpu_s": null,
+      "status": "budget_unrun",
+      "supervisor_cpu_s": null,
+      "witness": null,
+      "worker_cpu_s": null
+    }
+  ],
+  "predecessor_summary_sha256": "98d2ae1235267c60e3988ec928801f7100f775c096be8171075a32ce1819d33c",
+  "publication_note": "Local predecessor directory omitted; full raw report and receipts retained outside Git. Scientific payloads unchanged.",
+  "query_denominator": 4,
+  "reporting_source": {
+    "commit": "abc896b3dcd6ae7a5e55fe8046703bf6640cc319",
+    "executable": "/tmp/hiroute-c-venv/bin/python",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+  },
+  "reused_policy_rows": 6,
+  "rows": [
+    {
+      "N": 64,
+      "cold_index_wall_s": 9.15412962497794,
+      "comparison": {
+        "comparison_type": "observed_feasible_plans_only_UNKNOWN_joint",
+        "delta_J_s": "135659049937/34375000",
+        "delta_charge_kwh": "26544447/6250000",
+        "delta_charging_activity_overlap_s": "0",
+        "delta_charging_duration_s": "78270099/1562500",
+        "delta_driving_time_s": "20570488129/19250000",
+        "delta_elapsed_time_s": "115034049937/34375000",
+        "delta_positive_charge_count": "0",
+        "delta_stops": 1,
+        "delta_total_distance_m": "26544447/1000",
+        "joint_mathematical_status": "time_limit",
+        "policy_mathematical_status": "time_limit"
+      },
+      "depth_contract": {
+        "declared_limit": null,
+        "incumbent_derived_limit": 56,
+        "mode": "unrestricted",
+        "rule": "floor(U_J/(h_min+lambda_stop))"
+      },
+      "feasible_key": [
+        "24376037555323/481250000",
+        "737444813/6250000",
+        4,
+        [
+          [
+            "way/948458718",
+            "S"
+          ],
+          [
+            "node/13277805448",
+            "C"
+          ],
+          [
+            "node/13437936201",
+            "C"
+          ],
+          [
+            "node/11146014303",
+            "C"
+          ]
+        ]
+      ],
+      "host_available_min_bytes": 5411225600,
+      "initial_energy_kwh": "18",
+      "joint_reference": {
+        "candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+        "feasible_key": [
+          "4495362171241/96250000",
+          "355450183/3125000",
+          3,
+          [
+            [
+              "node/13098561677",
+              "CS"
+            ],
+            [
+              "node/13353329772",
+              "C"
+            ],
+            [
+              "node/12996141012",
+              "C"
+            ]
+          ]
+        ],
+        "key": null,
+        "mathematical_status": "unknown",
+        "numerical_source": null,
+        "raw_checkpoint_sha256": "116da4f71c66958d513f1e6311038b5d5b230bc4f6051892f80c50b9d2f67f57",
+        "status": "time_limit",
+        "witness": {
+          "activity_duration_s": "2700",
+          "charges_kwh": [
+            "33210401/781250",
+            "341754551/6250000",
+            "103462607/6250000"
+          ],
+          "charging_activity_overlap_s": "0",
+          "charging_duration_s": "10615130037/1562500",
+          "driving_time_s": "532164917513/19250000",
+          "elapsed_time_s": "4322112171241/96250000",
+          "historical_original_model_replayed": true,
+          "independent_key": [
+            "4495362171241/96250000",
+            "355450183/3125000",
+            3,
+            [
+              [
+                "node/13098561677",
+                "CS"
+              ],
+              [
+                "node/13353329772",
+                "C"
+              ],
+              [
+                "node/12996141012",
+                "C"
+              ]
+            ]
+          ],
+          "initial_wait_s": "82211658339/17187500",
+          "original_joint_model_verified": true,
+          "physical_verified": true,
+          "positive_charge_count": 3,
+          "signed_distance_delta_from_direct_fastest_m": "7816107/500",
+          "stop_count": 3,
+          "terminal_energy_kwh": "6",
+          "total_distance_m": "392950183/500"
+        }
+      },
+      "key": null,
+      "mathematical_status": "unknown",
+      "numerical_source": {
+        "commit": "e63f803af86b6e1168763578aaae4387e1a9b430",
+        "executable": "/tmp/hiroute-c-venv/bin/python",
+        "platform": "macOS-27.2-arm64-arm-64bit",
+        "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+      },
+      "original_candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+      "policy": "separated_no_overlap",
+      "policy_info": {
+        "effective_action_count": 71,
+        "effective_candidate_count": 64,
+        "original_action_count": 78,
+        "original_candidate_count": 64,
+        "original_semantic_problem_id": "66e155b7d93ee10d484c524ede6f2ac6dd711881dda44b6b1a47326724a36ba6",
+        "policy": "separated_no_overlap",
+        "policy_semantic_problem_id": "28bb033f70ae52f0a5e40a6d44d729c39490b66d76b223df09320ef9846163e7",
+        "selected_activity_site": null,
+        "selection_uses_energy_or_solver_results": false,
+        "time_features": {}
+      },
+      "policy_outcome": "time_limit_feasible_only",
+      "primary_infimum": null,
+      "process_group_peak_rss_bytes": 2382643200,
+      "query_extra_peak_bytes": 1102839808,
+      "query_id": "WD01",
+      "query_loaded_total_s": 120.09990404199925,
+      "raw_witness_checkpoint_sha256": "d6fcaacb6d3525228f27426ded8472b5900006cd8af1c5381f1b4cf368f122c6",
+      "scenario": "schedule",
+      "secondary_infimum": null,
+      "seed_key": [
+        "24376037555323/481250000",
+        "737444813/6250000",
+        4,
+        [
+          [
+            "way/948458718",
+            "S"
+          ],
+          [
+            "node/13277805448",
+            "C"
+          ],
+          [
+            "node/13437936201",
+            "C"
+          ],
+          [
+            "node/11146014303",
+            "C"
+          ]
+        ]
+      ],
+      "stage_worker_charged_cpu_s": 129.620869,
+      "status": "time_limit",
+      "supervisor_cpu_s": 127.5810304,
+      "terminal_receipt_sha256": "d77385095a45439577f3955a65e3bedc3439b879d85f66d37e95cfae891623f9",
+      "witness": {
+        "activity_duration_s": "2700",
+        "charges_kwh": [
+          "337626093/6250000",
+          "88773851/1562500",
+          "11180829/1562500"
+        ],
+        "charging_activity_overlap_s": "0",
+        "charging_duration_s": "2673350034/390625",
+        "driving_time_s": "39481100403/1375000",
+        "elapsed_time_s": "23221037555323/481250000",
+        "independent_key": [
+          "24376037555323/481250000",
+          "737444813/6250000",
+          4,
+          [
+            [
+              "way/948458718",
+              "S"
+            ],
+            [
+              "node/13277805448",
+              "C"
+            ],
+            [
+              "node/13437936201",
+              "C"
+            ],
+            [
+              "node/11146014303",
+              "C"
+            ]
+          ]
+        ],
+        "initial_wait_s": "0",
+        "original_joint_model_verified": true,
+        "physical_verified": true,
+        "policy_verified": true,
+        "positive_charge_count": 3,
+        "signed_distance_delta_from_direct_fastest_m": "42176661/1000",
+        "stop_count": 4,
+        "terminal_energy_kwh": "6",
+        "total_distance_m": "812444813/1000"
+      },
+      "worker_cpu_s": 128.620869
+    },
+    {
+      "N": 64,
+      "cold_index_wall_s": 9.637677417020313,
+      "comparison": {
+        "comparison_type": "no_pair_of_verified_feasible_values",
+        "joint_mathematical_status": "time_limit",
+        "policy_mathematical_status": "time_limit"
+      },
+      "depth_contract": null,
+      "feasible_key": null,
+      "host_available_min_bytes": 5488721920,
+      "initial_energy_kwh": "18",
+      "joint_reference": {
+        "candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+        "feasible_key": [
+          "4495362171241/96250000",
+          "355450183/3125000",
+          3,
+          [
+            [
+              "node/13098561677",
+              "CS"
+            ],
+            [
+              "node/13353329772",
+              "C"
+            ],
+            [
+              "node/12996141012",
+              "C"
+            ]
+          ]
+        ],
+        "key": null,
+        "mathematical_status": "unknown",
+        "numerical_source": null,
+        "raw_checkpoint_sha256": "116da4f71c66958d513f1e6311038b5d5b230bc4f6051892f80c50b9d2f67f57",
+        "status": "time_limit",
+        "witness": {
+          "activity_duration_s": "2700",
+          "charges_kwh": [
+            "33210401/781250",
+            "341754551/6250000",
+            "103462607/6250000"
+          ],
+          "charging_activity_overlap_s": "0",
+          "charging_duration_s": "10615130037/1562500",
+          "driving_time_s": "532164917513/19250000",
+          "elapsed_time_s": "4322112171241/96250000",
+          "historical_original_model_replayed": true,
+          "independent_key": [
+            "4495362171241/96250000",
+            "355450183/3125000",
+            3,
+            [
+              [
+                "node/13098561677",
+                "CS"
+              ],
+              [
+                "node/13353329772",
+                "C"
+              ],
+              [
+                "node/12996141012",
+                "C"
+              ]
+            ]
+          ],
+          "initial_wait_s": "82211658339/17187500",
+          "original_joint_model_verified": true,
+          "physical_verified": true,
+          "positive_charge_count": 3,
+          "signed_distance_delta_from_direct_fastest_m": "7816107/500",
+          "stop_count": 3,
+          "terminal_energy_kwh": "6",
+          "total_distance_m": "392950183/500"
+        }
+      },
+      "key": null,
+      "mathematical_status": "unknown",
+      "numerical_source": {
+        "commit": "e63f803af86b6e1168763578aaae4387e1a9b430",
+        "executable": "/tmp/hiroute-c-venv/bin/python",
+        "platform": "macOS-27.2-arm64-arm-64bit",
+        "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+      },
+      "original_candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+      "policy": "activity_first_fixed_site",
+      "policy_info": {
+        "effective_action_count": 30,
+        "effective_candidate_count": 30,
+        "original_action_count": 78,
+        "original_candidate_count": 64,
+        "original_semantic_problem_id": "66e155b7d93ee10d484c524ede6f2ac6dd711881dda44b6b1a47326724a36ba6",
+        "policy": "activity_first_fixed_site",
+        "policy_semantic_problem_id": "b117f0de7cff739f8dc30f94916fd5e06624427c17daf045cf543282fa00a204",
+        "selected_activity_site": "way/1425020410",
+        "selection_uses_energy_or_solver_results": false,
+        "time_features": {
+          "node/12889149817": [
+            "924697304397/38500000",
+            "103510638417/38500000"
+          ],
+          "node/13026933441": [
+            "23636346873/1375000",
+            "5443502499/550000"
+          ],
+          "node/13098561677": [
+            "5774001/35000",
+            "31059812646/1203125"
+          ],
+          "node/13108209205": [
+            "230824222887/9625000",
+            "54109055753/19250000"
+          ],
+          "node/13564693546": [
+            "10907849549/1203125",
+            "349219982443/19250000"
+          ],
+          "node/13619261092": [
+            "42287097/175000",
+            "62133215187/2406250"
+          ],
+          "way/1127757996": [
+            "228596041173/38500000",
+            "118700280661/5500000"
+          ],
+          "way/1237794995": [
+            "37235136471/2406250",
+            "215035857087/19250000"
+          ],
+          "way/1313025284": [
+            "9245788679/770000",
+            "3816861243/250000"
+          ],
+          "way/1313221555": [
+            "59976041519/4812500",
+            "301029408261/19250000"
+          ],
+          "way/1313254094": [
+            "119745759613/9625000",
+            "300616761411/19250000"
+          ],
+          "way/1343461622": [
+            "18513375261/770000",
+            "107046373389/38500000"
+          ],
+          "way/1343461623": [
+            "463224809409/19250000",
+            "107827229157/38500000"
+          ],
+          "way/1343462083": [
+            "92718834573/3850000",
+            "54205393071/19250000"
+          ],
+          "way/1355611944": [
+            "91214910363/19250000",
+            "82994819399/3850000"
+          ],
+          "way/1359653933": [
+            "115182375163/9625000",
+            "150274767/10000"
+          ],
+          "way/1359653936": [
+            "115127822203/9625000",
+            "751090443/50000"
+          ],
+          "way/1363827679": [
+            "57830381019/2406250",
+            "52931058009/19250000"
+          ],
+          "way/1363827680": [
+            "462106154949/19250000",
+            "105589920237/38500000"
+          ],
+          "way/1415087523": [
+            "68792302197/3850000",
+            "1098985047/125000"
+          ],
+          "way/1425020410": [
+            "17010575877/962500",
+            "15448487667/1750000"
+          ],
+          "way/1425020411": [
+            "33984528783/1925000",
+            "15481781277/1750000"
+          ],
+          "way/1463721474": [
+            "32640980049/1750000",
+            "29772060257/3850000"
+          ],
+          "way/1502412324": [
+            "64502469/175000",
+            "493011809821/19250000"
+          ],
+          "way/1553616057": [
+            "106462462773/19250000",
+            "406989881979/19250000"
+          ],
+          "way/1557882179": [
+            "69631515379/3850000",
+            "160546291999/19250000"
+          ],
+          "way/372563543": [
+            "165405361/87500",
+            "18619974817/700000"
+          ],
+          "way/386756510": [
+            "9317267/21875",
+            "495406967971/19250000"
+          ],
+          "way/386756511": [
+            null,
+            null
+          ],
+          "way/435803302": [
+            "105379487121/19250000",
+            "406231773837/19250000"
+          ],
+          "way/435803581": [
+            "10864325289/1925000",
+            "410871785433/19250000"
+          ],
+          "way/445612105": [
+            "74693582127/4812500",
+            "215634237507/19250000"
+          ],
+          "way/445612107": [
+            "149529777879/9625000",
+            "215866457187/19250000"
+          ],
+          "way/445612108": [
+            "74687776239/4812500",
+            "215756691729/19250000"
+          ],
+          "way/649777797": [
+            "6834173673/1203125",
+            "51314159487/2406250"
+          ],
+          "way/689447128": [
+            "232238947737/9625000",
+            "51062716611/19250000"
+          ],
+          "way/948458718": [
+            "2113214767/1750000",
+            "242491114423/9625000"
+          ],
+          "way/968446496": [
+            "23052607343/2406250",
+            "1920420357/110000"
+          ],
+          "way/968446497": [
+            "46148406109/4812500",
+            "336061123719/19250000"
+          ],
+          "way/968446519": [
+            "46165792093/4812500",
+            "67226133531/3850000"
+          ],
+          "way/968446520": [
+            "92688336527/9625000",
+            "336041813571/19250000"
+          ],
+          "way/968446531": [
+            "23090105221/2406250",
+            "192127069/11000"
+          ]
+        }
+      },
+      "policy_outcome": "time_limit_no_feasible",
+      "primary_infimum": null,
+      "process_group_peak_rss_bytes": 2110930944,
+      "query_extra_peak_bytes": 812498944,
+      "query_id": "WD01",
+      "query_loaded_total_s": 120.04080683400389,
+      "scenario": "schedule",
+      "secondary_infimum": null,
+      "seed_key": null,
+      "stage_worker_charged_cpu_s": 130.036826,
+      "status": "time_limit",
+      "supervisor_cpu_s": 127.836897792,
+      "terminal_receipt_sha256": "410bae7ce5f87fc799eab9c697d78dc6ab1cb92cfeb11eccddcbd238a529ccca",
+      "witness": null,
+      "worker_cpu_s": 129.036826
+    },
+    {
+      "N": 64,
+      "cold_index_wall_s": 9.442144583998015,
+      "comparison": {
+        "comparison_type": "feasible_plan_gap_to_attained_joint_optimum",
+        "delta_J_s": "0",
+        "delta_charge_kwh": "0",
+        "delta_charging_activity_overlap_s": "0",
+        "delta_charging_duration_s": "0",
+        "delta_driving_time_s": "0",
+        "delta_elapsed_time_s": "0",
+        "delta_positive_charge_count": "0",
+        "delta_stops": 0,
+        "delta_total_distance_m": "0",
+        "joint_mathematical_status": "attained_optimum",
+        "policy_mathematical_status": "attained_optimum"
+      },
+      "depth_contract": {
+        "declared_limit": null,
+        "incumbent_derived_limit": 32,
+        "mode": "unrestricted",
+        "rule": "floor(U_J/(h_min+lambda_stop))"
+      },
+      "feasible_key": [
+        "1989615465443/68750000",
+        "69077459/781250",
+        2,
+        [
+          [
+            "node/11192805305",
+            "C"
+          ],
+          [
+            "node/13784956865",
+            "CS"
+          ]
+        ]
+      ],
+      "host_available_min_bytes": 5476646912,
+      "initial_energy_kwh": "18",
+      "joint_reference": {
+        "candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+        "feasible_key": [
+          "1989615465443/68750000",
+          "69077459/781250",
+          2,
+          [
+            [
+              "node/11192805305",
+              "C"
+            ],
+            [
+              "node/13784956865",
+              "CS"
+            ]
+          ]
+        ],
+        "key": [
+          "1989615465443/68750000",
+          "69077459/781250",
+          2,
+          [
+            [
+              "node/11192805305",
+              "C"
+            ],
+            [
+              "node/13784956865",
+              "CS"
+            ]
+          ]
+        ],
+        "mathematical_status": "attained_optimum",
+        "numerical_source": {
+          "commit": "fb6989f34c34f1c2c23cacba0dd96ae79d38f63f",
+          "executable": "/tmp/hiroute-c-venv/bin/python",
+          "platform": "macOS-27.2-arm64-arm-64bit",
+          "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+        },
+        "raw_checkpoint_sha256": "de81add6a7182fb29109c5854c8d22e5215477166ad7972dedc1c4028c07350a",
+        "status": "attained_optimum",
+        "witness": {
+          "activity_duration_s": "2700",
+          "charges_kwh": [
+            "8297833/250000",
+            "345173847/6250000"
+          ],
+          "charging_activity_overlap_s": "2700",
+          "charging_duration_s": "6920363547/1562500",
+          "driving_time_s": "2498191151/110000",
+          "elapsed_time_s": "1907115465443/68750000",
+          "historical_original_model_replayed": true,
+          "independent_key": [
+            "1989615465443/68750000",
+            "69077459/781250",
+            2,
+            [
+              [
+                "node/11192805305",
+                "C"
+              ],
+              [
+                "node/13784956865",
+                "CS"
+              ]
+            ]
+          ],
+          "initial_wait_s": "0",
+          "original_joint_model_verified": true,
+          "physical_verified": true,
+          "positive_charge_count": 2,
+          "signed_distance_delta_from_direct_fastest_m": "10912449/500",
+          "stop_count": 2,
+          "terminal_energy_kwh": "6",
+          "total_distance_m": "78452459/125"
+        }
+      },
+      "key": [
+        "1989615465443/68750000",
+        "69077459/781250",
+        2,
+        [
+          [
+            "node/11192805305",
+            "C"
+          ],
+          [
+            "node/13784956865",
+            "CS"
+          ]
+        ]
+      ],
+      "mathematical_status": "attained_optimum",
+      "numerical_source": {
+        "commit": "e63f803af86b6e1168763578aaae4387e1a9b430",
+        "executable": "/tmp/hiroute-c-venv/bin/python",
+        "platform": "macOS-27.2-arm64-arm-64bit",
+        "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+      },
+      "original_candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+      "policy": "activity_first_fixed_site",
+      "policy_info": {
+        "effective_action_count": 42,
+        "effective_candidate_count": 40,
+        "original_action_count": 110,
+        "original_candidate_count": 64,
+        "original_semantic_problem_id": "b5e47947e020ada4c27d7583936b286c80d12760c450a16e5039c8953ccf671f",
+        "policy": "activity_first_fixed_site",
+        "policy_semantic_problem_id": "d4629c558310eaa8832adad8db67bae37cb89be8fca94c6bd88df26c0b23ec15",
+        "selected_activity_site": "node/13784956865",
+        "selection_uses_energy_or_solver_results": false,
+        "time_features": {
+          "node/11496560959": [
+            "17493976901/2750000",
+            "285356554997/19250000"
+          ],
+          "node/11546060555": [
+            "122844240917/19250000",
+            "285791681381/19250000"
+          ],
+          "node/12518356933": [
+            "4389305289/240625",
+            "37528593617/7700000"
+          ],
+          "node/12518356934": [
+            "349334663091/19250000",
+            "190322703187/38500000"
+          ],
+          "node/12518356935": [
+            "701826596067/38500000",
+            "94677280011/19250000"
+          ],
+          "node/12889149817": [
+            "181406392261/9625000",
+            "103510638417/38500000"
+          ],
+          "node/12974114484": [
+            "65012511691/7700000",
+            "278190147297/19250000"
+          ],
+          "node/13043238600": [
+            "37486177279/7700000",
+            "335913000001/19250000"
+          ],
+          "node/13056615958": [
+            "37437207433/7700000",
+            "335021019637/19250000"
+          ],
+          "node/13103716103": [
+            "58597811647/5500000",
+            "37833602777/3500000"
+          ],
+          "node/13518591492": [
+            "8948164377/1375000",
+            "292535981489/19250000"
+          ],
+          "node/13525756814": [
+            "322741930211/38500000",
+            "137219086629/9625000"
+          ],
+          "node/13784956865": [
+            "208414973237/19250000",
+            "18564483271/1750000"
+          ],
+          "node/13902072700": [
+            "4268672291/2750000",
+            "384386082221/19250000"
+          ],
+          "node/14172792071": [
+            "53579063831/2750000",
+            "180735671/87500"
+          ],
+          "node/14172792072": [
+            "26788865233/1375000",
+            "7235747/3500"
+          ],
+          "node/14246246152": [
+            "53613734357/2750000",
+            "455445749/218750"
+          ],
+          "node/8104078559": [
+            "26176385749/2406250",
+            "4635118519/437500"
+          ],
+          "node/8308544503": [
+            "29556210569/2750000",
+            "1069307263/100000"
+          ],
+          "node/8308544508": [
+            "16747637209/1540000",
+            "2646412111/250000"
+          ],
+          "node/8308544509": [
+            "417721590469/38500000",
+            "18539876191/1750000"
+          ],
+          "node/8308544510": [
+            "41948274691/3850000",
+            "3691018871/350000"
+          ],
+          "way/1026697394": [
+            "479428526413/38500000",
+            "1136293803/110000"
+          ],
+          "way/1027488748": [
+            "237489531989/19250000",
+            "393612630111/38500000"
+          ],
+          "way/1028561710": [
+            "118798729327/9625000",
+            "39395109867/3850000"
+          ],
+          "way/1028583761": [
+            "355298914519/19250000",
+            "4180736739/875000"
+          ],
+          "way/1028642580": [
+            "48158465563/3850000",
+            "99224453443/9625000"
+          ],
+          "way/1028642581": [
+            "48119810023/3850000",
+            "99127814593/9625000"
+          ],
+          "way/1213297281": [
+            "239344300289/19250000",
+            "5684862999/550000"
+          ],
+          "way/1237542204": [
+            "17570651807/2750000",
+            "57184969067/3850000"
+          ],
+          "way/1237716686": [
+            "24607436641/3850000",
+            "284971744571/19250000"
+          ],
+          "way/1244864892": [
+            "121989695687/19250000",
+            "285927351047/19250000"
+          ],
+          "way/1343462083": [
+            "365247850001/19250000",
+            "54205393071/19250000"
+          ],
+          "way/1363827679": [
+            "364621086941/19250000",
+            "52931058009/19250000"
+          ],
+          "way/1363827680": [
+            "72751966417/3850000",
+            "105589920237/38500000"
+          ],
+          "way/1535116134": [
+            "356123534623/19250000",
+            "4218219471/875000"
+          ],
+          "way/1535124864": [
+            "356919628691/19250000",
+            "1684992683/350000"
+          ],
+          "way/1535138548": [
+            "71375265321/3850000",
+            "2128435143/437500"
+          ],
+          "way/1535138567": [
+            "14232741903/770000",
+            "4260584241/875000"
+          ],
+          "way/1535138568": [
+            "14233108731/770000",
+            "4279641111/875000"
+          ],
+          "way/397894337": [
+            "59177925907/5500000",
+            "1172688526/109375"
+          ],
+          "way/448954681": [
+            "59026527187/5500000",
+            "18820847371/1750000"
+          ],
+          "way/486762334": [
+            "16503702451/1750000",
+            "9381592509/770000"
+          ],
+          "way/689447128": [
+            "182471907613/9625000",
+            "51062716611/19250000"
+          ],
+          "way/909353759": [
+            "41336812543/3850000",
+            "18863660449/1750000"
+          ],
+          "way/909353768": [
+            "206579164691/19250000",
+            "18873196633/1750000"
+          ],
+          "way/978143421": [
+            "64978872151/7700000",
+            "278104136361/19250000"
+          ]
+        }
+      },
+      "policy_outcome": "attained_policy_optimum",
+      "primary_infimum": null,
+      "process_group_peak_rss_bytes": 1855373312,
+      "query_extra_peak_bytes": 560168960,
+      "query_id": "WD07",
+      "query_loaded_total_s": 5.967138541978784,
+      "raw_witness_checkpoint_sha256": "a580782782b4fcb102c9faf44c294373bbdb9364f3c1e411dab61eec5fb5273b",
+      "scenario": "schedule",
+      "secondary_infimum": null,
+      "seed_key": [
+        "1989615465443/68750000",
+        "69077459/781250",
+        2,
+        [
+          [
+            "node/11192805305",
+            "C"
+          ],
+          [
+            "node/13784956865",
+            "CS"
+          ]
+        ]
+      ],
+      "stage_worker_charged_cpu_s": 15.816789,
+      "status": "attained_optimum",
+      "supervisor_cpu_s": 13.687911424,
+      "terminal_receipt_sha256": "922847c74c3e01941f17410fab8d64edfddd9cb4575e06c73b2487de93710611",
+      "witness": {
+        "activity_duration_s": "2700",
+        "charges_kwh": [
+          "8297833/250000",
+          "345173847/6250000"
+        ],
+        "charging_activity_overlap_s": "2700",
+        "charging_duration_s": "6920363547/1562500",
+        "driving_time_s": "2498191151/110000",
+        "elapsed_time_s": "1907115465443/68750000",
+        "independent_key": [
+          "1989615465443/68750000",
+          "69077459/781250",
+          2,
+          [
+            [
+              "node/11192805305",
+              "C"
+            ],
+            [
+              "node/13784956865",
+              "CS"
+            ]
+          ]
+        ],
+        "initial_wait_s": "0",
+        "original_joint_model_verified": true,
+        "physical_verified": true,
+        "policy_verified": true,
+        "positive_charge_count": 2,
+        "signed_distance_delta_from_direct_fastest_m": "10912449/500",
+        "stop_count": 2,
+        "terminal_energy_kwh": "6",
+        "total_distance_m": "78452459/125"
+      },
+      "worker_cpu_s": 14.816789
+    },
+    {
+      "N": 64,
+      "cold_index_wall_s": 9.346714875020552,
+      "comparison": {
+        "comparison_type": "feasible_plan_gap_to_attained_joint_optimum",
+        "delta_J_s": "386017964531/96250000",
+        "delta_charge_kwh": "561886/390625",
+        "delta_charging_activity_overlap_s": "-2700",
+        "delta_charging_duration_s": "7084443/78125",
+        "delta_driving_time_s": "6157986151/19250000",
+        "delta_elapsed_time_s": "328267964531/96250000",
+        "delta_positive_charge_count": "0",
+        "delta_stops": 1,
+        "delta_total_distance_m": "1123772/125",
+        "joint_mathematical_status": "attained_optimum",
+        "policy_mathematical_status": "time_limit"
+      },
+      "depth_contract": {
+        "declared_limit": null,
+        "incumbent_derived_limit": 36,
+        "mode": "unrestricted",
+        "rule": "floor(U_J/(h_min+lambda_stop))"
+      },
+      "feasible_key": [
+        "3964349520189/120312500",
+        "70201231/781250",
+        3,
+        [
+          [
+            "node/11192805305",
+            "C"
+          ],
+          [
+            "node/8308544503",
+            "S"
+          ],
+          [
+            "node/8308544513",
+            "C"
+          ]
+        ]
+      ],
+      "host_available_min_bytes": 5118132224,
+      "initial_energy_kwh": "18",
+      "joint_reference": {
+        "candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+        "feasible_key": [
+          "1989615465443/68750000",
+          "69077459/781250",
+          2,
+          [
+            [
+              "node/11192805305",
+              "C"
+            ],
+            [
+              "node/13784956865",
+              "CS"
+            ]
+          ]
+        ],
+        "key": [
+          "1989615465443/68750000",
+          "69077459/781250",
+          2,
+          [
+            [
+              "node/11192805305",
+              "C"
+            ],
+            [
+              "node/13784956865",
+              "CS"
+            ]
+          ]
+        ],
+        "mathematical_status": "attained_optimum",
+        "numerical_source": {
+          "commit": "fb6989f34c34f1c2c23cacba0dd96ae79d38f63f",
+          "executable": "/tmp/hiroute-c-venv/bin/python",
+          "platform": "macOS-27.2-arm64-arm-64bit",
+          "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+        },
+        "raw_checkpoint_sha256": "de81add6a7182fb29109c5854c8d22e5215477166ad7972dedc1c4028c07350a",
+        "status": "attained_optimum",
+        "witness": {
+          "activity_duration_s": "2700",
+          "charges_kwh": [
+            "8297833/250000",
+            "345173847/6250000"
+          ],
+          "charging_activity_overlap_s": "2700",
+          "charging_duration_s": "6920363547/1562500",
+          "driving_time_s": "2498191151/110000",
+          "elapsed_time_s": "1907115465443/68750000",
+          "historical_original_model_replayed": true,
+          "independent_key": [
+            "1989615465443/68750000",
+            "69077459/781250",
+            2,
+            [
+              [
+                "node/11192805305",
+                "C"
+              ],
+              [
+                "node/13784956865",
+                "CS"
+              ]
+            ]
+          ],
+          "initial_wait_s": "0",
+          "original_joint_model_verified": true,
+          "physical_verified": true,
+          "positive_charge_count": 2,
+          "signed_distance_delta_from_direct_fastest_m": "10912449/500",
+          "stop_count": 2,
+          "terminal_energy_kwh": "6",
+          "total_distance_m": "78452459/125"
+        }
+      },
+      "key": null,
+      "mathematical_status": "unknown",
+      "numerical_source": {
+        "commit": "e63f803af86b6e1168763578aaae4387e1a9b430",
+        "executable": "/tmp/hiroute-c-venv/bin/python",
+        "platform": "macOS-27.2-arm64-arm-64bit",
+        "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+      },
+      "original_candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+      "policy": "separated_no_overlap",
+      "policy_info": {
+        "effective_action_count": 87,
+        "effective_candidate_count": 64,
+        "original_action_count": 110,
+        "original_candidate_count": 64,
+        "original_semantic_problem_id": "b5e47947e020ada4c27d7583936b286c80d12760c450a16e5039c8953ccf671f",
+        "policy": "separated_no_overlap",
+        "policy_semantic_problem_id": "8c7ecb13f7eb8632677fe2827b8d556c54b11b7c5ea076242b831539cac69f7d",
+        "selected_activity_site": null,
+        "selection_uses_energy_or_solver_results": false,
+        "time_features": {}
+      },
+      "policy_outcome": "time_limit_feasible_only",
+      "primary_infimum": null,
+      "process_group_peak_rss_bytes": 2087436288,
+      "query_extra_peak_bytes": 789381120,
+      "query_id": "WD07",
+      "query_loaded_total_s": 120.04246241599321,
+      "raw_witness_checkpoint_sha256": "0f5409bb17e2a9805427726aa0ad0e8bce37604a9e9bde680132056212a4f410",
+      "scenario": "schedule",
+      "secondary_infimum": null,
+      "seed_key": [
+        "3964349520189/120312500",
+        "70201231/781250",
+        3,
+        [
+          [
+            "node/11192805305",
+            "C"
+          ],
+          [
+            "node/8308544503",
+            "S"
+          ],
+          [
+            "node/8308544513",
+            "C"
+          ]
+        ]
+      ],
+      "stage_worker_charged_cpu_s": 129.94276700000003,
+      "status": "time_limit",
+      "supervisor_cpu_s": 127.770810368,
+      "terminal_receipt_sha256": "c4a88f474e64d52f664479b49d994604899cb2ba36805dbad15738436d23d2c1",
+      "witness": {
+        "activity_duration_s": "2700",
+        "charges_kwh": [
+          "215980253/6250000",
+          "69125919/1250000"
+        ],
+        "charging_activity_overlap_s": "0",
+        "charging_duration_s": "7062052407/1562500",
+        "driving_time_s": "55417679697/2406250",
+        "elapsed_time_s": "3747787020189/120312500",
+        "independent_key": [
+          "3964349520189/120312500",
+          "70201231/781250",
+          3,
+          [
+            [
+              "node/11192805305",
+              "C"
+            ],
+            [
+              "node/8308544503",
+              "S"
+            ],
+            [
+              "node/8308544513",
+              "C"
+            ]
+          ]
+        ],
+        "initial_wait_s": "0",
+        "original_joint_model_verified": true,
+        "physical_verified": true,
+        "policy_verified": true,
+        "positive_charge_count": 2,
+        "signed_distance_delta_from_direct_fastest_m": "15407537/500",
+        "stop_count": 3,
+        "terminal_energy_kwh": "6",
+        "total_distance_m": "79576231/125"
+      },
+      "worker_cpu_s": 128.94276700000003
+    },
+    {
+      "N": 64,
+      "cold_index_wall_s": 9.518596790992888,
+      "comparison": {
+        "comparison_type": "observed_feasible_plans_only_UNKNOWN_joint",
+        "delta_J_s": "0",
+        "delta_charge_kwh": "0",
+        "delta_charging_activity_overlap_s": "0",
+        "delta_charging_duration_s": "0",
+        "delta_driving_time_s": "0",
+        "delta_elapsed_time_s": "0",
+        "delta_positive_charge_count": "0",
+        "delta_stops": 0,
+        "delta_total_distance_m": "0",
+        "joint_mathematical_status": "time_limit",
+        "policy_mathematical_status": "time_limit"
+      },
+      "depth_contract": null,
+      "feasible_key": [
+        "9352794951041/240625000",
+        "113969397/1250000",
+        3,
+        [
+          [
+            "way/968446496",
+            "S"
+          ],
+          [
+            "node/13098595045",
+            "C"
+          ],
+          [
+            "node/10063875433",
+            "C"
+          ]
+        ]
+      ],
+      "host_available_min_bytes": 5340479488,
+      "initial_energy_kwh": "48",
+      "joint_reference": {
+        "candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+        "feasible_key": [
+          "9352794951041/240625000",
+          "113969397/1250000",
+          3,
+          [
+            [
+              "way/968446496",
+              "S"
+            ],
+            [
+              "node/13098595045",
+              "C"
+            ],
+            [
+              "node/10063875433",
+              "C"
+            ]
+          ]
+        ],
+        "key": null,
+        "mathematical_status": "unknown",
+        "numerical_source": null,
+        "raw_checkpoint_sha256": "aed5a707498e44071361932b7b20c26bc01cca5a2ce7e4239a0beea50bef6362",
+        "status": "time_limit",
+        "witness": {
+          "activity_duration_s": "2700",
+          "charges_kwh": [
+            "4033928/78125",
+            "49426549/1250000"
+          ],
+          "charging_activity_overlap_s": "0",
+          "charging_duration_s": "1661703696/390625",
+          "driving_time_s": "19795425977/687500",
+          "elapsed_time_s": "8919669951041/240625000",
+          "historical_original_model_replayed": true,
+          "independent_key": [
+            "9352794951041/240625000",
+            "113969397/1250000",
+            3,
+            [
+              [
+                "way/968446496",
+                "S"
+              ],
+              [
+                "node/13098595045",
+                "C"
+              ],
+              [
+                "node/10063875433",
+                "C"
+              ]
+            ]
+          ],
+          "initial_wait_s": "0",
+          "original_joint_model_verified": true,
+          "physical_verified": true,
+          "positive_charge_count": 2,
+          "signed_distance_delta_from_direct_fastest_m": "62078833/1000",
+          "stop_count": 3,
+          "terminal_energy_kwh": "6",
+          "total_distance_m": "166469397/200"
+        }
+      },
+      "key": null,
+      "mathematical_status": "unknown",
+      "numerical_source": {
+        "commit": "e63f803af86b6e1168763578aaae4387e1a9b430",
+        "executable": "/tmp/hiroute-c-venv/bin/python",
+        "platform": "macOS-27.2-arm64-arm-64bit",
+        "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+      },
+      "original_candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+      "policy": "separated_no_overlap",
+      "policy_info": {
+        "effective_action_count": 71,
+        "effective_candidate_count": 64,
+        "original_action_count": 78,
+        "original_candidate_count": 64,
+        "original_semantic_problem_id": "20d0418803133f0862789a4fa8e31e224f49a14a8a99d6273ff664dc7f505be1",
+        "policy": "separated_no_overlap",
+        "policy_semantic_problem_id": "1c53fdcccc4f9a5555f5a42c4054115e3711ef6e1f60d663b5f56b48536edc89",
+        "selected_activity_site": null,
+        "selection_uses_energy_or_solver_results": false,
+        "time_features": {}
+      },
+      "policy_outcome": "time_limit_feasible_only",
+      "primary_infimum": null,
+      "process_group_peak_rss_bytes": 2450079744,
+      "query_extra_peak_bytes": 1152024576,
+      "query_id": "WD01",
+      "query_loaded_total_s": 120.09461512498092,
+      "raw_witness_checkpoint_sha256": "e2b9ca16cb13deb102092233d4044fc63b0528fe650a414069404e75f2725ba8",
+      "scenario": "schedule",
+      "secondary_infimum": null,
+      "seed_key": null,
+      "stage_worker_charged_cpu_s": 129.98494,
+      "status": "time_limit",
+      "supervisor_cpu_s": 127.849084928,
+      "terminal_receipt_sha256": "9a66e6406dbcdfe17d13193641cfb54935460c0eb44bfac1a9423625a883618d",
+      "witness": {
+        "activity_duration_s": "2700",
+        "charges_kwh": [
+          "4033928/78125",
+          "49426549/1250000"
+        ],
+        "charging_activity_overlap_s": "0",
+        "charging_duration_s": "1661703696/390625",
+        "driving_time_s": "19795425977/687500",
+        "elapsed_time_s": "8919669951041/240625000",
+        "independent_key": [
+          "9352794951041/240625000",
+          "113969397/1250000",
+          3,
+          [
+            [
+              "way/968446496",
+              "S"
+            ],
+            [
+              "node/13098595045",
+              "C"
+            ],
+            [
+              "node/10063875433",
+              "C"
+            ]
+          ]
+        ],
+        "initial_wait_s": "0",
+        "original_joint_model_verified": true,
+        "physical_verified": true,
+        "policy_verified": true,
+        "positive_charge_count": 2,
+        "signed_distance_delta_from_direct_fastest_m": "62078833/1000",
+        "stop_count": 3,
+        "terminal_energy_kwh": "6",
+        "total_distance_m": "166469397/200"
+      },
+      "worker_cpu_s": 128.98494
+    },
+    {
+      "N": 64,
+      "cold_index_wall_s": 9.479752417013515,
+      "comparison": {
+        "comparison_type": "no_pair_of_verified_feasible_values",
+        "joint_mathematical_status": "time_limit",
+        "policy_mathematical_status": "time_limit"
+      },
+      "depth_contract": null,
+      "feasible_key": null,
+      "host_available_min_bytes": 5301944320,
+      "initial_energy_kwh": "48",
+      "joint_reference": {
+        "candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+        "feasible_key": [
+          "9352794951041/240625000",
+          "113969397/1250000",
+          3,
+          [
+            [
+              "way/968446496",
+              "S"
+            ],
+            [
+              "node/13098595045",
+              "C"
+            ],
+            [
+              "node/10063875433",
+              "C"
+            ]
+          ]
+        ],
+        "key": null,
+        "mathematical_status": "unknown",
+        "numerical_source": null,
+        "raw_checkpoint_sha256": "aed5a707498e44071361932b7b20c26bc01cca5a2ce7e4239a0beea50bef6362",
+        "status": "time_limit",
+        "witness": {
+          "activity_duration_s": "2700",
+          "charges_kwh": [
+            "4033928/78125",
+            "49426549/1250000"
+          ],
+          "charging_activity_overlap_s": "0",
+          "charging_duration_s": "1661703696/390625",
+          "driving_time_s": "19795425977/687500",
+          "elapsed_time_s": "8919669951041/240625000",
+          "historical_original_model_replayed": true,
+          "independent_key": [
+            "9352794951041/240625000",
+            "113969397/1250000",
+            3,
+            [
+              [
+                "way/968446496",
+                "S"
+              ],
+              [
+                "node/13098595045",
+                "C"
+              ],
+              [
+                "node/10063875433",
+                "C"
+              ]
+            ]
+          ],
+          "initial_wait_s": "0",
+          "original_joint_model_verified": true,
+          "physical_verified": true,
+          "positive_charge_count": 2,
+          "signed_distance_delta_from_direct_fastest_m": "62078833/1000",
+          "stop_count": 3,
+          "terminal_energy_kwh": "6",
+          "total_distance_m": "166469397/200"
+        }
+      },
+      "key": null,
+      "mathematical_status": "unknown",
+      "numerical_source": {
+        "commit": "e63f803af86b6e1168763578aaae4387e1a9b430",
+        "executable": "/tmp/hiroute-c-venv/bin/python",
+        "platform": "macOS-27.2-arm64-arm-64bit",
+        "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+      },
+      "original_candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+      "policy": "activity_first_fixed_site",
+      "policy_info": {
+        "effective_action_count": 30,
+        "effective_candidate_count": 30,
+        "original_action_count": 78,
+        "original_candidate_count": 64,
+        "original_semantic_problem_id": "20d0418803133f0862789a4fa8e31e224f49a14a8a99d6273ff664dc7f505be1",
+        "policy": "activity_first_fixed_site",
+        "policy_semantic_problem_id": "67454dd9d3b9e37f09079b86e2a689fe5747587a6986c59947bd608b050aa096",
+        "selected_activity_site": "way/1425020410",
+        "selection_uses_energy_or_solver_results": false,
+        "time_features": {
+          "node/12889149817": [
+            "924697304397/38500000",
+            "103510638417/38500000"
+          ],
+          "node/13026933441": [
+            "23636346873/1375000",
+            "5443502499/550000"
+          ],
+          "node/13098561677": [
+            "5774001/35000",
+            "31059812646/1203125"
+          ],
+          "node/13108209205": [
+            "230824222887/9625000",
+            "54109055753/19250000"
+          ],
+          "node/13564693546": [
+            "10907849549/1203125",
+            "349219982443/19250000"
+          ],
+          "node/13619261092": [
+            "42287097/175000",
+            "62133215187/2406250"
+          ],
+          "way/1127757996": [
+            "228596041173/38500000",
+            "118700280661/5500000"
+          ],
+          "way/1237794995": [
+            "37235136471/2406250",
+            "215035857087/19250000"
+          ],
+          "way/1313025284": [
+            "9245788679/770000",
+            "3816861243/250000"
+          ],
+          "way/1313221555": [
+            "59976041519/4812500",
+            "301029408261/19250000"
+          ],
+          "way/1313254094": [
+            "119745759613/9625000",
+            "300616761411/19250000"
+          ],
+          "way/1343461622": [
+            "18513375261/770000",
+            "107046373389/38500000"
+          ],
+          "way/1343461623": [
+            "463224809409/19250000",
+            "107827229157/38500000"
+          ],
+          "way/1343462083": [
+            "92718834573/3850000",
+            "54205393071/19250000"
+          ],
+          "way/1355611944": [
+            "91214910363/19250000",
+            "82994819399/3850000"
+          ],
+          "way/1359653933": [
+            "115182375163/9625000",
+            "150274767/10000"
+          ],
+          "way/1359653936": [
+            "115127822203/9625000",
+            "751090443/50000"
+          ],
+          "way/1363827679": [
+            "57830381019/2406250",
+            "52931058009/19250000"
+          ],
+          "way/1363827680": [
+            "462106154949/19250000",
+            "105589920237/38500000"
+          ],
+          "way/1415087523": [
+            "68792302197/3850000",
+            "1098985047/125000"
+          ],
+          "way/1425020410": [
+            "17010575877/962500",
+            "15448487667/1750000"
+          ],
+          "way/1425020411": [
+            "33984528783/1925000",
+            "15481781277/1750000"
+          ],
+          "way/1463721474": [
+            "32640980049/1750000",
+            "29772060257/3850000"
+          ],
+          "way/1502412324": [
+            "64502469/175000",
+            "493011809821/19250000"
+          ],
+          "way/1553616057": [
+            "106462462773/19250000",
+            "406989881979/19250000"
+          ],
+          "way/1557882179": [
+            "69631515379/3850000",
+            "160546291999/19250000"
+          ],
+          "way/372563543": [
+            "165405361/87500",
+            "18619974817/700000"
+          ],
+          "way/386756510": [
+            "9317267/21875",
+            "495406967971/19250000"
+          ],
+          "way/386756511": [
+            null,
+            null
+          ],
+          "way/435803302": [
+            "105379487121/19250000",
+            "406231773837/19250000"
+          ],
+          "way/435803581": [
+            "10864325289/1925000",
+            "410871785433/19250000"
+          ],
+          "way/445612105": [
+            "74693582127/4812500",
+            "215634237507/19250000"
+          ],
+          "way/445612107": [
+            "149529777879/9625000",
+            "215866457187/19250000"
+          ],
+          "way/445612108": [
+            "74687776239/4812500",
+            "215756691729/19250000"
+          ],
+          "way/649777797": [
+            "6834173673/1203125",
+            "51314159487/2406250"
+          ],
+          "way/689447128": [
+            "232238947737/9625000",
+            "51062716611/19250000"
+          ],
+          "way/948458718": [
+            "2113214767/1750000",
+            "242491114423/9625000"
+          ],
+          "way/968446496": [
+            "23052607343/2406250",
+            "1920420357/110000"
+          ],
+          "way/968446497": [
+            "46148406109/4812500",
+            "336061123719/19250000"
+          ],
+          "way/968446519": [
+            "46165792093/4812500",
+            "67226133531/3850000"
+          ],
+          "way/968446520": [
+            "92688336527/9625000",
+            "336041813571/19250000"
+          ],
+          "way/968446531": [
+            "23090105221/2406250",
+            "192127069/11000"
+          ]
+        }
+      },
+      "policy_outcome": "time_limit_no_feasible",
+      "primary_infimum": null,
+      "process_group_peak_rss_bytes": 2171633664,
+      "query_extra_peak_bytes": 873611264,
+      "query_id": "WD01",
+      "query_loaded_total_s": 120.0620499170036,
+      "scenario": "schedule",
+      "secondary_infimum": null,
+      "seed_key": null,
+      "stage_worker_charged_cpu_s": 129.915553,
+      "status": "time_limit",
+      "supervisor_cpu_s": 127.814312448,
+      "terminal_receipt_sha256": "c5ac1b12d95af316e9cb7fd534fc9195a3a5c7f02ebf0e4f3645d76b8a931608",
+      "witness": null,
+      "worker_cpu_s": 128.915553
+    },
+    {
+      "N": 64,
+      "cold_index_wall_s": 9.436450582987163,
+      "comparison": {
+        "comparison_type": "feasible_plan_gap_to_attained_joint_optimum",
+        "delta_J_s": "26511276227/240625000",
+        "delta_charge_kwh": "-1698949/1562500",
+        "delta_charging_activity_overlap_s": "0",
+        "delta_charging_duration_s": "-98344281/781250",
+        "delta_driving_time_s": "2272052591/9625000",
+        "delta_elapsed_time_s": "26511276227/240625000",
+        "delta_positive_charge_count": "0",
+        "delta_stops": 0,
+        "delta_total_distance_m": "-1698949/250",
+        "joint_mathematical_status": "attained_optimum",
+        "policy_mathematical_status": "attained_optimum"
+      },
+      "depth_contract": {
+        "declared_limit": null,
+        "incumbent_derived_limit": 30,
+        "mode": "unrestricted",
+        "rule": "floor(U_J/(h_min+lambda_stop))"
+      },
+      "feasible_key": [
+        "1300785739861/48125000",
+        "364867237/6250000",
+        2,
+        [
+          [
+            "node/13721049507",
+            "C"
+          ],
+          [
+            "node/13784956865",
+            "CS"
+          ]
+        ]
+      ],
+      "host_available_min_bytes": 4377526272,
+      "initial_energy_kwh": "48",
+      "joint_reference": {
+        "candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+        "feasible_key": [
+          "462672673077/17187500",
+          "371663033/6250000",
+          2,
+          [
+            [
+              "way/486762334",
+              "CS"
+            ],
+            [
+              "node/11146014303",
+              "C"
+            ]
+          ]
+        ],
+        "key": [
+          "462672673077/17187500",
+          "371663033/6250000",
+          2,
+          [
+            [
+              "way/486762334",
+              "CS"
+            ],
+            [
+              "node/11146014303",
+              "C"
+            ]
+          ]
+        ],
+        "mathematical_status": "attained_optimum",
+        "numerical_source": {
+          "commit": "fb6989f34c34f1c2c23cacba0dd96ae79d38f63f",
+          "executable": "/tmp/hiroute-c-venv/bin/python",
+          "platform": "macOS-27.2-arm64-arm-64bit",
+          "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+        },
+        "raw_checkpoint_sha256": "5c30bd708c0c9fea9085337ffbba2a150cbb7a7b3a6dcbf56d348c64d6bcb32e",
+        "status": "attained_optimum",
+        "witness": {
+          "activity_duration_s": "2700",
+          "charges_kwh": [
+            "326939717/6250000",
+            "11180829/1562500"
+          ],
+          "charging_activity_overlap_s": "2700",
+          "charging_duration_s": "2552072241/781250",
+          "driving_time_s": "15023583351/687500",
+          "elapsed_time_s": "442047673077/17187500",
+          "historical_original_model_replayed": true,
+          "independent_key": [
+            "462672673077/17187500",
+            "371663033/6250000",
+            2,
+            [
+              [
+                "way/486762334",
+                "CS"
+              ],
+              [
+                "node/11146014303",
+                "C"
+              ]
+            ]
+          ],
+          "initial_wait_s": "0",
+          "original_joint_model_verified": true,
+          "physical_verified": true,
+          "positive_charge_count": 2,
+          "signed_distance_delta_from_direct_fastest_m": "28368259/1000",
+          "stop_count": 2,
+          "terminal_energy_kwh": "6",
+          "total_distance_m": "634163033/1000"
+        }
+      },
+      "key": [
+        "1300785739861/48125000",
+        "364867237/6250000",
+        2,
+        [
+          [
+            "node/13721049507",
+            "C"
+          ],
+          [
+            "node/13784956865",
+            "CS"
+          ]
+        ]
+      ],
+      "mathematical_status": "attained_optimum",
+      "numerical_source": {
+        "commit": "abc896b3dcd6ae7a5e55fe8046703bf6640cc319",
+        "executable": "/tmp/hiroute-c-venv/bin/python",
+        "platform": "macOS-27.2-arm64-arm-64bit",
+        "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+      },
+      "original_candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+      "policy": "activity_first_fixed_site",
+      "policy_info": {
+        "effective_action_count": 42,
+        "effective_candidate_count": 40,
+        "original_action_count": 110,
+        "original_candidate_count": 64,
+        "original_semantic_problem_id": "bfe336ff5d911c2c6b2072dd0975673f5aaa9a7e6094557eddad4d9a1b17c9a6",
+        "policy": "activity_first_fixed_site",
+        "policy_semantic_problem_id": "6cefdf31bd1375362e3274fe332777220bccddd102b357fe9e8c940587dbf789",
+        "selected_activity_site": "node/13784956865",
+        "selection_uses_energy_or_solver_results": false,
+        "time_features": {
+          "node/11496560959": [
+            "17493976901/2750000",
+            "285356554997/19250000"
+          ],
+          "node/11546060555": [
+            "122844240917/19250000",
+            "285791681381/19250000"
+          ],
+          "node/12518356933": [
+            "4389305289/240625",
+            "37528593617/7700000"
+          ],
+          "node/12518356934": [
+            "349334663091/19250000",
+            "190322703187/38500000"
+          ],
+          "node/12518356935": [
+            "701826596067/38500000",
+            "94677280011/19250000"
+          ],
+          "node/12889149817": [
+            "181406392261/9625000",
+            "103510638417/38500000"
+          ],
+          "node/12974114484": [
+            "65012511691/7700000",
+            "278190147297/19250000"
+          ],
+          "node/13043238600": [
+            "37486177279/7700000",
+            "335913000001/19250000"
+          ],
+          "node/13056615958": [
+            "37437207433/7700000",
+            "335021019637/19250000"
+          ],
+          "node/13103716103": [
+            "58597811647/5500000",
+            "37833602777/3500000"
+          ],
+          "node/13518591492": [
+            "8948164377/1375000",
+            "292535981489/19250000"
+          ],
+          "node/13525756814": [
+            "322741930211/38500000",
+            "137219086629/9625000"
+          ],
+          "node/13784956865": [
+            "208414973237/19250000",
+            "18564483271/1750000"
+          ],
+          "node/13902072700": [
+            "4268672291/2750000",
+            "384386082221/19250000"
+          ],
+          "node/14172792071": [
+            "53579063831/2750000",
+            "180735671/87500"
+          ],
+          "node/14172792072": [
+            "26788865233/1375000",
+            "7235747/3500"
+          ],
+          "node/14246246152": [
+            "53613734357/2750000",
+            "455445749/218750"
+          ],
+          "node/8104078559": [
+            "26176385749/2406250",
+            "4635118519/437500"
+          ],
+          "node/8308544503": [
+            "29556210569/2750000",
+            "1069307263/100000"
+          ],
+          "node/8308544508": [
+            "16747637209/1540000",
+            "2646412111/250000"
+          ],
+          "node/8308544509": [
+            "417721590469/38500000",
+            "18539876191/1750000"
+          ],
+          "node/8308544510": [
+            "41948274691/3850000",
+            "3691018871/350000"
+          ],
+          "way/1026697394": [
+            "479428526413/38500000",
+            "1136293803/110000"
+          ],
+          "way/1027488748": [
+            "237489531989/19250000",
+            "393612630111/38500000"
+          ],
+          "way/1028561710": [
+            "118798729327/9625000",
+            "39395109867/3850000"
+          ],
+          "way/1028583761": [
+            "355298914519/19250000",
+            "4180736739/875000"
+          ],
+          "way/1028642580": [
+            "48158465563/3850000",
+            "99224453443/9625000"
+          ],
+          "way/1028642581": [
+            "48119810023/3850000",
+            "99127814593/9625000"
+          ],
+          "way/1213297281": [
+            "239344300289/19250000",
+            "5684862999/550000"
+          ],
+          "way/1237542204": [
+            "17570651807/2750000",
+            "57184969067/3850000"
+          ],
+          "way/1237716686": [
+            "24607436641/3850000",
+            "284971744571/19250000"
+          ],
+          "way/1244864892": [
+            "121989695687/19250000",
+            "285927351047/19250000"
+          ],
+          "way/1343462083": [
+            "365247850001/19250000",
+            "54205393071/19250000"
+          ],
+          "way/1363827679": [
+            "364621086941/19250000",
+            "52931058009/19250000"
+          ],
+          "way/1363827680": [
+            "72751966417/3850000",
+            "105589920237/38500000"
+          ],
+          "way/1535116134": [
+            "356123534623/19250000",
+            "4218219471/875000"
+          ],
+          "way/1535124864": [
+            "356919628691/19250000",
+            "1684992683/350000"
+          ],
+          "way/1535138548": [
+            "71375265321/3850000",
+            "2128435143/437500"
+          ],
+          "way/1535138567": [
+            "14232741903/770000",
+            "4260584241/875000"
+          ],
+          "way/1535138568": [
+            "14233108731/770000",
+            "4279641111/875000"
+          ],
+          "way/397894337": [
+            "59177925907/5500000",
+            "1172688526/109375"
+          ],
+          "way/448954681": [
+            "59026527187/5500000",
+            "18820847371/1750000"
+          ],
+          "way/486762334": [
+            "16503702451/1750000",
+            "9381592509/770000"
+          ],
+          "way/689447128": [
+            "182471907613/9625000",
+            "51062716611/19250000"
+          ],
+          "way/909353759": [
+            "41336812543/3850000",
+            "18863660449/1750000"
+          ],
+          "way/909353768": [
+            "206579164691/19250000",
+            "18873196633/1750000"
+          ],
+          "way/978143421": [
+            "64978872151/7700000",
+            "278104136361/19250000"
+          ]
+        }
+      },
+      "policy_outcome": "attained_policy_optimum",
+      "primary_infimum": null,
+      "process_group_peak_rss_bytes": 1939062784,
+      "query_extra_peak_bytes": 654065664,
+      "query_id": "WD07",
+      "query_loaded_total_s": 11.703137666976545,
+      "raw_witness_checkpoint_sha256": "827b12ffee4f6804839d221c86dfeee24317f9a843c16571cc38c066380fc175",
+      "scenario": "schedule",
+      "secondary_infimum": null,
+      "seed_key": [
+        "1300785739861/48125000",
+        "364867237/6250000",
+        2,
+        [
+          [
+            "node/13721049507",
+            "C"
+          ],
+          [
+            "node/13784956865",
+            "CS"
+          ]
+        ]
+      ],
+      "stage_worker_charged_cpu_s": 21.419425,
+      "status": "attained_optimum",
+      "supervisor_cpu_s": 19.250125312,
+      "terminal_receipt_sha256": "f4c7792d626183346ec78e648056e09eb8cfef61360ee5e5740eb46e19371237",
+      "witness": {
+        "activity_duration_s": "2700",
+        "charges_kwh": [
+          "1969339/625000",
+          "345173847/6250000"
+        ],
+        "charging_activity_overlap_s": "2700",
+        "charging_duration_s": "245372796/78125",
+        "driving_time_s": "42520443901/1925000",
+        "elapsed_time_s": "1243035739861/48125000",
+        "independent_key": [
+          "1300785739861/48125000",
+          "364867237/6250000",
+          2,
+          [
+            [
+              "node/13721049507",
+              "C"
+            ],
+            [
+              "node/13784956865",
+              "CS"
+            ]
+          ]
+        ],
+        "initial_wait_s": "0",
+        "original_joint_model_verified": true,
+        "physical_verified": true,
+        "policy_verified": true,
+        "positive_charge_count": 2,
+        "signed_distance_delta_from_direct_fastest_m": "21572463/1000",
+        "stop_count": 2,
+        "terminal_energy_kwh": "6",
+        "total_distance_m": "627367237/1000"
+      },
+      "worker_cpu_s": 20.419425
+    },
+    {
+      "N": 64,
+      "cold_index_wall_s": 9.273722625017399,
+      "comparison": {
+        "comparison_type": "feasible_plan_gap_to_attained_joint_optimum",
+        "delta_J_s": "143802270123/34375000",
+        "delta_charge_kwh": "2554269/3125000",
+        "delta_charging_activity_overlap_s": "-2700",
+        "delta_charging_duration_s": "-196020291/1562500",
+        "delta_driving_time_s": "974588661/1375000",
+        "delta_elapsed_time_s": "123177270123/34375000",
+        "delta_positive_charge_count": "0",
+        "delta_stops": 1,
+        "delta_total_distance_m": "2554269/500",
+        "joint_mathematical_status": "attained_optimum",
+        "policy_mathematical_status": "time_limit"
+      },
+      "depth_contract": {
+        "declared_limit": null,
+        "incumbent_derived_limit": 34,
+        "mode": "unrestricted",
+        "rule": "floor(U_J/(h_min+lambda_stop))"
+      },
+      "feasible_key": [
+        "1069147616277/34375000",
+        "376771571/6250000",
+        3,
+        [
+          [
+            "way/486762334",
+            "S"
+          ],
+          [
+            "way/486695380",
+            "C"
+          ],
+          [
+            "node/11146014303",
+            "C"
+          ]
+        ]
+      ],
+      "host_available_min_bytes": 4485791744,
+      "initial_energy_kwh": "48",
+      "joint_reference": {
+        "candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+        "feasible_key": [
+          "462672673077/17187500",
+          "371663033/6250000",
+          2,
+          [
+            [
+              "way/486762334",
+              "CS"
+            ],
+            [
+              "node/11146014303",
+              "C"
+            ]
+          ]
+        ],
+        "key": [
+          "462672673077/17187500",
+          "371663033/6250000",
+          2,
+          [
+            [
+              "way/486762334",
+              "CS"
+            ],
+            [
+              "node/11146014303",
+              "C"
+            ]
+          ]
+        ],
+        "mathematical_status": "attained_optimum",
+        "numerical_source": {
+          "commit": "fb6989f34c34f1c2c23cacba0dd96ae79d38f63f",
+          "executable": "/tmp/hiroute-c-venv/bin/python",
+          "platform": "macOS-27.2-arm64-arm-64bit",
+          "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+        },
+        "raw_checkpoint_sha256": "5c30bd708c0c9fea9085337ffbba2a150cbb7a7b3a6dcbf56d348c64d6bcb32e",
+        "status": "attained_optimum",
+        "witness": {
+          "activity_duration_s": "2700",
+          "charges_kwh": [
+            "326939717/6250000",
+            "11180829/1562500"
+          ],
+          "charging_activity_overlap_s": "2700",
+          "charging_duration_s": "2552072241/781250",
+          "driving_time_s": "15023583351/687500",
+          "elapsed_time_s": "442047673077/17187500",
+          "historical_original_model_replayed": true,
+          "independent_key": [
+            "462672673077/17187500",
+            "371663033/6250000",
+            2,
+            [
+              [
+                "way/486762334",
+                "CS"
+              ],
+              [
+                "node/11146014303",
+                "C"
+              ]
+            ]
+          ],
+          "initial_wait_s": "0",
+          "original_joint_model_verified": true,
+          "physical_verified": true,
+          "positive_charge_count": 2,
+          "signed_distance_delta_from_direct_fastest_m": "28368259/1000",
+          "stop_count": 2,
+          "terminal_energy_kwh": "6",
+          "total_distance_m": "634163033/1000"
+        }
+      },
+      "key": null,
+      "mathematical_status": "unknown",
+      "numerical_source": {
+        "commit": "abc896b3dcd6ae7a5e55fe8046703bf6640cc319",
+        "executable": "/tmp/hiroute-c-venv/bin/python",
+        "platform": "macOS-27.2-arm64-arm-64bit",
+        "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+      },
+      "original_candidate_domain_sha256": "becb49918bb220397c35910876a65b077817cf428bea9611a9c5e210ad07d496",
+      "policy": "separated_no_overlap",
+      "policy_info": {
+        "effective_action_count": 87,
+        "effective_candidate_count": 64,
+        "original_action_count": 110,
+        "original_candidate_count": 64,
+        "original_semantic_problem_id": "bfe336ff5d911c2c6b2072dd0975673f5aaa9a7e6094557eddad4d9a1b17c9a6",
+        "policy": "separated_no_overlap",
+        "policy_semantic_problem_id": "580cbffcc00ea78d5f11310f7840136a724e271263d0b65a9823983187cdc383",
+        "selected_activity_site": null,
+        "selection_uses_energy_or_solver_results": false,
+        "time_features": {}
+      },
+      "policy_outcome": "time_limit_feasible_only",
+      "primary_infimum": null,
+      "process_group_peak_rss_bytes": 2310602752,
+      "query_extra_peak_bytes": 1012219904,
+      "query_id": "WD07",
+      "query_loaded_total_s": 120.07517933397321,
+      "raw_witness_checkpoint_sha256": "8d49af11d2e0be1c59d3e115c2ba509c6925f2c7ca73d0a476cd62edbe1bc133",
+      "scenario": "schedule",
+      "secondary_infimum": null,
+      "seed_key": [
+        "1069147616277/34375000",
+        "376771571/6250000",
+        3,
+        [
+          [
+            "way/486762334",
+            "S"
+          ],
+          [
+            "way/486695380",
+            "C"
+          ],
+          [
+            "node/11146014303",
+            "C"
+          ]
+        ]
+      ],
+      "stage_worker_charged_cpu_s": 129.79903,
+      "status": "time_limit",
+      "supervisor_cpu_s": 127.665659904,
+      "terminal_receipt_sha256": "e00a9ee361769ca6cc28750a2b43da8ee46b1d1d55d7a6707918d71dd8dc5966",
+      "witness": {
+        "activity_duration_s": "2700",
+        "charges_kwh": [
+          "66409651/1250000",
+          "11180829/1562500"
+        ],
+        "charging_activity_overlap_s": "0",
+        "charging_duration_s": "4908124191/1562500",
+        "driving_time_s": "31021755363/1375000",
+        "elapsed_time_s": "1007272616277/34375000",
+        "independent_key": [
+          "1069147616277/34375000",
+          "376771571/6250000",
+          3,
+          [
+            [
+              "way/486762334",
+              "S"
+            ],
+            [
+              "way/486695380",
+              "C"
+            ],
+            [
+              "node/11146014303",
+              "C"
+            ]
+          ]
+        ],
+        "initial_wait_s": "0",
+        "original_joint_model_verified": true,
+        "physical_verified": true,
+        "policy_verified": true,
+        "positive_charge_count": 2,
+        "signed_distance_delta_from_direct_fastest_m": "33476797/1000",
+        "stop_count": 3,
+        "terminal_energy_kwh": "6",
+        "total_distance_m": "639271571/1000"
+      },
+      "worker_cpu_s": 128.79903
+    }
+  ],
+  "schema": "hiroute.planning_value_completion_results.v1",
+  "scope": "Four existing selected DEV cells completed prospectively; not main experiment or holdout",
+  "started_slots_have_terminal_receipts_and_unrun_slots_have_no_start": true
+}

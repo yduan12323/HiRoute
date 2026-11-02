@@ -1969,3 +1969,27 @@ remain in this table and in the result JSON.
 | WD12 | 18 | schedule | 549 | attained_optimum / 33.408 | attained_optimum / 31.395 | A2 / >=2 |
 | WD12 | 48 | energy_only | 83 | attained_optimum / 5.241 | attained_optimum / 4.985 | A1 / >=1 |
 | WD12 | 48 | schedule | 549 | attained_optimum / 6.983 | attained_optimum / 6.767 | A2 / >=1 |
+
+
+## Prospective closeout of the two unrun policy slots
+
+The separate1600CPU allocation completes the original four selected schedule/N64
+query cells/eight policy slots by running only WD07/E48 B then A once. Six older
+rows and their source remain unchanged. New B attains its restricted optimum at
+J27029.314,110.177s above the attained joint optimum; new A times out with a
+verified feasible J31102.476, an observed4183.339s gap with policy optimum unknown.
+The completed sample has2 attained policy optima,6 time limits and6 feasible
+plans. Equal-value cases and no-feasible timeouts remain. This shows mixed
+planning value within modeled domains, not a universal gain, pure overlap effect
+or hierarchy advantage. No four-positive-charge plan is added.
+
+See [PLANNING_VALUE_COMPLETION.md](PLANNING_VALUE_COMPLETION.md) and the linked
+current result table for exact sources, preserved unrun history, prelaunch
+start-memory amendment, physical replay and costs. The new gate conservatively
+charges299.218455 /1600, carrying original total15007.499002741 /28800; map
+preprocessing stays652.040677976 /900. Approved ordinary-software CI accounting
+is separate and does not refund earlier reservations. Main39 and main38 CI
+passed. Original timing goals remain failed; larger/full domains, real four
+charges, independent real-scale comparison, design freeze and new-OD holdout
+remain incomplete. The proposed next action is a bounded independent comparator
+input/proof gate, without more blind timing batches or a new main architecture.
