@@ -190,6 +190,7 @@ class Engine:
         if result==z3.unknown:item['reason']=solver.reason_unknown()
         if self.directory:atomic(self.directory/'checks.json',self.audit)
         if result==z3.unknown:raise Unknown(item['reason'])
+        self.remaining()  # Includes solver return/audit time on every terminal proof path.
         return result
     def feasible(self,constraints,kind):
         solver=z3.Solver();solver.add(*constraints);result=self.check(solver,kind)
@@ -223,12 +224,15 @@ def solve(table,parameters,upper_witness=None,audit_dir=None,time_limit_s=8):
         if engine.feasible(base,'supported-disjunction') is None:raise Unknown('replayed attained bound missing from model')
         j=engine.minimum(base,x['J'],'supported-J')
         actual=m.G+x['P']+x['strict']+[x['J']==real(j)]
-        if engine.feasible(actual,'primary-attainment') is None:return dict(status='primary_unattained',primary_infimum=j,**metadata)
+        if engine.feasible(actual,'primary-attainment') is None:
+            engine.remaining()
+            return dict(status='primary_unattained',primary_infimum=j,**metadata)
         primary_supported=base+[x['J']==real(j),y['J']==real(j)]
         Q=engine.minimum(primary_supported,x['Q'],'supported-primary-face-Q')
         joint=actual+[x['Q']==real(Q)]
-        if engine.feasible(joint,'joint-attainment') is None:return dict(status='secondary_unattained',primary_value=j,
-            primary_infimum=j,secondary_infimum=Q,**metadata)
+        if engine.feasible(joint,'joint-attainment') is None:
+            engine.remaining()
+            return dict(status='secondary_unattained',primary_value=j,primary_infimum=j,secondary_infimum=Q,**metadata)
         H=engine.minimum(joint,m.H,'attained-H')
         if H.denominator!=1:raise Unknown('nonintegral H')
         joint.append(m.H==int(H))

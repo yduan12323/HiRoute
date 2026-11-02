@@ -66,7 +66,8 @@ def report(root):
     fee=metered+Decimal(300)
     original=Decimal(budget['carried_research_CPU_s'])+fee
     required=('admission_semantics_normal','admission_semantics_optimized','frozen_tiny_preparation',
-              'final_report_semantics_normal','final_report_semantics_optimized')
+              'final_report_semantics_normal','final_report_semantics_optimized',
+              'terminal_status_regressions_normal','terminal_status_regressions_optimized')
     tested=all(any(r['label']==name and r['returncode']==0 and not r.get('guard_reason') for r in records) for name in required)
     passed=all(r['status']=='verified' for r in rows) and tested and fee<=900 and original<=28800
     commands=[]

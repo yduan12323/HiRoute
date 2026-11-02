@@ -137,6 +137,14 @@ class PhysicalTests(unittest.TestCase):
             r=solve(t,f['physics'],f['upper_witness'])
         self.assertEqual(r['status'],'unknown_resource_or_solver');self.assertNotIn('key',r)
         with self.assertRaises(Unknown):Engine(time.monotonic()-1).remaining()
+        for terminal_kind in ('primary-attainment','joint-attainment'):
+            def stop_late(engine,constraints,kind):
+                if kind==terminal_kind:engine.deadline=time.monotonic()-1;return None
+                return object()
+            with patch.object(Engine,'feasible',autospec=True,side_effect=stop_late),patch.object(Engine,'minimum',return_value=F(0)):
+                r=solve(t,f['physics'],f['upper_witness'])
+            self.assertEqual(r['status'],'unknown_resource_or_solver')
+            self.assertNotIn('primary_infimum',r)
 
     def test_unknown_SMT_receipt_is_retained(self):
         class Fake:
@@ -149,6 +157,13 @@ class PhysicalTests(unittest.TestCase):
             with self.assertRaises(Unknown):e.check(Fake(),'mocked-unknown')
             rows=json.loads((path/'checks.json').read_text());self.assertEqual(rows[0]['result'],'unknown')
             self.assertEqual(len(list(path.glob('*.smt2'))),1)
+            clock=[9]
+            class Late(Fake):
+                def check(self):clock[0]=11;return z3.unsat
+            with patch('exact_physical_adapter.time.monotonic',side_effect=lambda:clock[0]):
+                late=Engine(10,Path(root)/'late')
+                with self.assertRaisesRegex(Unknown,'deadline'):late.check(Late(),'late-unsat')
+                self.assertEqual(late.audit[0]['result'],'unsat')
 
     def test_prepared_eight_cell_admission_fails_closed_on_missing_or_changed_identity(self):
         from run_exact_physical_gate import validate_ready
@@ -191,7 +206,8 @@ class PhysicalTests(unittest.TestCase):
             ready=dict(state='prepared',case_denominator=8,case_ids=list(IDS),cells=cells,source=src,config_sha256='cfg')
             admission=root/'admission.json';admission.write_text(json.dumps(ready))
             for label in ('admission_semantics_normal','admission_semantics_optimized','frozen_tiny_preparation',
-                          'final_report_semantics_normal','final_report_semantics_optimized'):
+                          'final_report_semantics_normal','final_report_semantics_optimized',
+                          'terminal_status_regressions_normal','terminal_status_regressions_optimized'):
                 records.append(dict(label=label,returncode=0))
             budget=dict(active=None,records=records,charged_commands_CPU_s=0,carried_research_CPU_s='15308.219957741')
             bp=root/'budget.json';bp.write_text(json.dumps(budget))
