@@ -72,6 +72,11 @@ directories; these fixture failures and their CPU charge are retained. Creating
 the fixture directories fixed them without changing controller behavior or
 assertions. Both Python modes then pass all35 related tests. This is software
 correctness evidence, not new real-query performance evidence.
+The startup guard also rejects nonempty prior attempts when the controller
+ledger is missing, before any history read, status rewrite or worker admission.
+The focused test simulates that loss and checks that original results remain
+unchanged. Such an uncertain state is inspected instead of automatically reused
+with zero carried controller cost.
 
 ## Scientific interpretation boundary
 

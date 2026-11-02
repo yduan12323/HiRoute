@@ -47,6 +47,13 @@ class Completion(unittest.TestCase):
             self.assertEqual(stage.load(out/'status.json')['worker_cpu_charged_s'],6)
             with self.assertRaisesRegex(RuntimeError,'inspect instead'):
                 self.execute(out,lambda *_:self.fail('duplicate solve'))
+            saved=stage.digest(out/'results.json')
+            (out/'status.json').unlink()  # simulate a lost controller ledger
+            with patch.object(completion,'predecessor',side_effect=AssertionError('must stop before history reads')):
+                with self.assertRaisesRegex(RuntimeError,'without controller ledger'):
+                    completion.execute(SimpleNamespace(output_root=str(out),config='mock'))
+            self.assertFalse((out/'status.json').exists())
+            self.assertEqual(stage.digest(out/'results.json'),saved)
 
     def test_pair_admission_includes_controller_cleanup_and_global_cap(self):
         self.assertTrue(stage.admission(self.spec,120))

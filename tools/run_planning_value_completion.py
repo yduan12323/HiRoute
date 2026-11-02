@@ -122,7 +122,11 @@ def prepare(args):
 
 
 def execute(args):
-    prepared = stage.load(Path(args.output_root)/'preparation.json')
+    out = Path(args.output_root)
+    attempts = out/'attempts'
+    if not (out/'status.json').is_file() and attempts.exists() and any(attempts.iterdir()):
+        raise RuntimeError('prior attempts without controller ledger; inspect, never restart')
+    prepared = stage.load(out/'preparation.json')
     _,prior = predecessor(prepared['predecessor']['root'],prepared['spec'])
     if prior != prepared['predecessor']:
         raise ValueError('historical predecessor changed since completion preflight')
