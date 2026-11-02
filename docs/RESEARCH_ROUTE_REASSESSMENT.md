@@ -1,5 +1,13 @@
 # Research-route reassessment
 
+Current evidence/claim status, including later independent-model work, completed
+policy slots and both stopped real source attempts, is consolidated in
+[EVIDENCE_CLAIMS_MATRIX.md](EVIDENCE_CLAIMS_MATRIX.md). The taskbook's permitted
+shared selected-leg input and independent formulation are clarified in
+[INDEPENDENT_MODEL_STRUCTURAL_COMPARISON.md](INDEPENDENT_MODEL_STRUCTURAL_COMPARISON.md).
+This document retains its original stage evidence, proposals and unfulfilled
+items as history; its older pending checklist is not the current execution ledger.
+
 ## Decision and scope
 
 **Retain the exact system and both fair search methods. Keep hierarchy as an
