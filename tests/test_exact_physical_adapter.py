@@ -166,6 +166,52 @@ class PhysicalTests(unittest.TestCase):
             else:altered['cells'][0]['status']='unprepared'
             with self.subTest(mode=mode),self.assertRaises(ValueError):validate_ready(altered,'mock-config',src)
 
+    def test_receipt_join_requires_all_cells_and_consistent_semantics_and_SMT_files(self):
+        import hashlib
+        from report_exact_physical_gate import report
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);src=dict(commit='mock',dirty=False);cells=[];records=[]
+            for name in IDS:
+                folder=root/'cases'/name;folder.mkdir(parents=True);(folder/'SMT').mkdir()
+                raw=('mock tiny table '+name).encode();(folder/'tiny-table.json').write_bytes(raw)
+                expected=dict(status='attained_optimum',key=['1','0',0,[]]);fixture=dict(expected=expected)
+                (folder/'input.json').write_text(json.dumps(fixture))
+                cells.append(dict(case=name,status='prepared_unrun',derived_depth=1,
+                    table_sha256=hashlib.sha256(raw).hexdigest(),
+                    fixture_sha256=hashlib.sha256(json.dumps(fixture,sort_keys=True,separators=(',',':')).encode()).hexdigest()))
+                worker=dict(case=name,source=src,config_sha256='cfg',derived_depth=1,status='verified',
+                    expected=expected,actual=expected,result=expected,production_optimizer_called=False,
+                    real_road_generation=False,real_scale_solve=False,holdout=False)
+                (folder/'receipt.json').write_text(json.dumps(worker))
+                text='(assert true)';(folder/'SMT'/'0001-mock.smt2').write_text(text+'\n(check-sat)\n')
+                checks=[dict(kind='mock',status='completed',result='sat',sha256=hashlib.sha256(text.encode()).hexdigest())]
+                (folder/'SMT'/'checks.json').write_text(json.dumps(checks))
+                records.append(dict(label='gate_'+name,pid=100,returncode=0,charged_CPU_s=0,
+                    sampled_process_group_peak_rss_bytes=0,host_available_min_bytes=4*1024**3))
+            ready=dict(state='prepared',case_denominator=8,case_ids=list(IDS),cells=cells,source=src,config_sha256='cfg')
+            admission=root/'admission.json';admission.write_text(json.dumps(ready))
+            for label in ('admission_semantics_normal','admission_semantics_optimized','frozen_tiny_preparation',
+                          'final_report_semantics_normal','final_report_semantics_optimized'):
+                records.append(dict(label=label,returncode=0))
+            budget=dict(active=None,records=records,charged_commands_CPU_s=0,carried_research_CPU_s='15308.219957741')
+            bp=root/'budget.json';bp.write_text(json.dumps(budget))
+            self.assertEqual(report(root)['gate_status'],'PASS_TINY_CONDITIONAL_MODEL')
+            for mode in ('empty','missing','duplicate'):
+                bad=copy.deepcopy(ready)
+                if mode=='empty':bad['cells']=[]
+                elif mode=='missing':bad['cells'].pop()
+                else:bad['cells'][1]=bad['cells'][0]
+                admission.write_text(json.dumps(bad))
+                with self.subTest(mode=mode),self.assertRaises(ValueError):report(root)
+            admission.write_text(json.dumps(ready));folder=root/'cases'/IDS[0];rp=folder/'receipt.json';saved=rp.read_text()
+            rp.unlink();self.assertEqual(report(root)['gate_status'],'LIMITED_OR_FAILED');rp.write_text(saved)
+            bad=json.loads(saved);bad['actual']=dict(status='infeasible');rp.write_text(json.dumps(bad))
+            self.assertEqual(report(root)['gate_status'],'LIMITED_OR_FAILED');rp.write_text(saved)
+            file=folder/'SMT'/'0001-mock.smt2';old=file.read_text();file.write_text('(changed)')
+            self.assertEqual(report(root)['gate_status'],'LIMITED_OR_FAILED');file.write_text(old)
+            budget['records'].append(dict(label='gate_outside',pid=101,returncode=0));bp.write_text(json.dumps(budget))
+            with self.assertRaisesRegex(ValueError,'unexpected numerical'):report(root)
+
     def test_independent_model_does_not_import_production_optimizers(self):
         class Block(importlib.abc.MetaPathFinder):
             def find_spec(self,fullname,path=None,target=None):
