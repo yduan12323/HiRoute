@@ -38,7 +38,8 @@ def fixture(root):
             method=method,N=64,status='input_domain_unavailable' if scenario=='schedule' else 'time_limit',
             candidate_domain_sha256=domain,feasible_key=['100','1',1,[['c0','C']]],
             witness={'physical_verified':True},direct_selected_time_s='10'))
-    result=dict(preparation={'input_sha256':prep['input_sha256']},rows=records)
+    result=dict(preparation={'input_sha256':prep['input_sha256'],
+                            'configs':copy.deepcopy(prep['configs'])},rows=records)
     return write('preparation',prep),write('results',result),prep,result
 
 
@@ -125,6 +126,21 @@ class AuditTests(unittest.TestCase):
             result['rows'].pop();Path(r).write_text(json.dumps(result))
             Path(prep['inputs']['graph']).write_text('changed')
             with self.assertRaisesRegex(ValueError,'physical input changed'):audit(p,r)
+
+    def test_internally_consistent_new_config_cannot_be_joined_to_old_results(self):
+        with tempfile.TemporaryDirectory() as t:
+            p,r,prep,_=fixture(Path(t));record=prep['configs']['18']
+            cfg=json.loads(Path(record['config']).read_text())
+            cfg['model']['stop_overhead_s']='2'
+            Path(record['config']).write_text(json.dumps(cfg))
+            manifest=json.loads(Path(record['preflight']).read_text());manifest['config']=cfg
+            Path(record['preflight']).write_text(json.dumps(manifest))
+            for key in ('config','preflight'):record[key+'_sha256']=digest(record[key])
+            Path(p).write_text(json.dumps(prep))
+            # Every new file is consistent with the new preparation. Only the
+            # join to the historical result's original config identity fails.
+            with self.assertRaisesRegex(ValueError,'historical configuration identity mismatch'):
+                audit(p,r)
 
 
 if __name__=='__main__':unittest.main()

@@ -87,6 +87,11 @@ def audit(preparation_path, results_path):
     prep,results=load(preparation_path),load(results_path)
     if prep['input_sha256']!=results['preparation']['input_sha256']:
         raise ValueError('historical input identity mismatch')
+    def configurations(value):
+        return {energy:{key:record[key] for key in ('config_sha256','preflight_sha256')}
+                for energy,record in value['configs'].items()}
+    if configurations(prep)!=configurations(results['preparation']):
+        raise ValueError('historical configuration identity mismatch')
     for name,path in prep['inputs'].items():
         if digest(path)!=prep['input_sha256'][name]:
             raise ValueError('frozen physical input changed: '+name)
