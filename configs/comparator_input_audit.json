@@ -12,9 +12,17 @@
   "historical_frame": "Original48 N64 DEV cells /96 method slots, including4 unavailable cells",
   "upper_protocol": "Historical feasible witness value for conditional sizing only; external replay and exact-time certification not performed by this gate",
   "inspection": "Hash and inspect existing preparation/configs/manifest/report; count full pair, action and relevant-depth components",
-  "tests": "Eight pure audit tests, normal and-OO, including repeated histories, CS overlap, equality, aliases, no-U and unavailable input",
+  "tests": "Nine pure audit tests normal and-OO, including a cross-file configuration-join regression; isolated pre-fix fixture sensitivity and read-only actual-data impact checks",
   "local_command_limit_CPU_s": 30,
   "local_command_wall_s": 55,
   "ordinary_software_CI": "Separate prospective9000 capacity-CPU full M5 plus120 dedicated software reservation; previous research-gate CI charges retained",
-  "not_admitted": ["real SMT solves", "full selected-leg table construction", "earlier row reruns", "new datasets", "main experiment", "holdout"]
+  "not_admitted": [
+    "real SMT solves",
+    "full selected-leg table construction",
+    "earlier row reruns",
+    "new datasets",
+    "main experiment",
+    "holdout"
+  ],
+  "focused_amendment": "Within the same600 cap, add historical configuration identity consistency; retain the original raw audit and counts, no real solver or audit rerun"
 }

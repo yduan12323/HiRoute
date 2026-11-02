@@ -20,7 +20,9 @@ All48 historical query cells /96 method slots remain in the denominator.
 
 Base main is `bbbb98ff89ff0ea76afe83898a7beb874e899789`. The inspection producer
 is `91fcd7cc8d4d4f1d9a501e30c82653e54ff03adc`; subsequent delivery changes add
-the actual report and documentation. Input/config/manifest hashes, the original
+the actual report and documentation. A later focused configuration-join correction
+was verified at `6297e8fd88c044e0afb280ea3f3653effb911117`; it does not repeat
+the raw audit or change any cell. Input/config/manifest hashes, the original
 domain fingerprints and the complete conditional per-cell counts are in
 [comparator_input_audit_results.json](comparator_input_audit_results.json).
 The historical results SHA is
@@ -43,7 +45,10 @@ derived min/max summaries; the raw audit remains outside Git.
 | Directed physical pair records per domain | 4225 |
 | Of those, zero diagonal / nontrivial directed pairs | 64 /4161 |
 
-Every available cell has a historical physically verified feasible witness.
+Every available cell has a historical physically verified final feasible witness.
+These are historical final incumbents, not free newly generated initial seeds.
+Their generation and independent replay must be charged/disclosed in any later
+comparison; the sizing below is conditional on those supplied witness values.
 Those values are used **only for conditional sizing**, not as optimum oracles.
 This audit does not independently replay those upper witnesses or certify the
 historical direct-time observations. It therefore makes no new feasibility,
@@ -172,9 +177,11 @@ open infimum as an incumbent.
 With N Sites, A legal actions, K curve pieces and H complete slots, current
 `Encoding.__init__` builds H*(N+1)*A movement-pair predicates and at most twice
 that many numeric movement ITE requests, plus4*K*H curve ITE requests across
-the two state copies. These are syntactic construction components, **not**
+the two state copies. This is an algebraic projection of the current nested
+loops if their guards were lifted; actual N64 AST construction did not run.
+These are syntactic construction components, **not**
 unique AST-node counts or measured solve/memory cost. Unreachable cells can
-reduce the numeric ITE count. Actual full-frame ranges are:
+reduce the numeric ITE count. Conditional full-frame projections are:
 
 | Conditional depth used | Movement predicates | Numeric movement ITE upper count |
 | --- | ---: | ---: |
@@ -197,20 +204,27 @@ or solver benchmark of this proposed lookup was performed here.
 
 ## Verification, resources and reproduction
 
-Eight focused tests pass normally and under-OO: equality/empty prefix, no-U,
+Nine focused tests pass normally and under-OO: equality/empty prefix, no-U,
 exact inputs, repeated visits without an N cap, alias/direction/terminal pair
 coverage,196 tiny time-history inequalities including CS overlap, unavailable
-denominator, duplicate cells and changed inputs. An import blocker verifies
+denominator, duplicate cells, changed inputs and cross-file physical-config
+identity. The added regression changes a config/manifest consistently within
+its new preparation but pairs it with old results: prior code accepts that
+fixture, corrected code rejects it. A separate read-only check confirms that
+the actual frozen config hashes agree, raw/published cells are identical and
+no real input audit needs repeating. An import blocker verifies
 the auditor calls neither internal nor external solvers. The dedicated CI
 wrapper is also locally exercised. No existing tiny or real solver cohort is
 rerun to manufacture a parity result.
 
 The prospective research cap is600 inside28800, starting15007.499002741.
-Eight metered commands including inspection, hashing, tests and reporting cost
-8.873910 conservatively (child/controller samples plus per-command tails).
+Eleven metered commands including inspection, hashing, tests, reporting and
+the focused correction verification cost 12.202735 conservatively (child/controller samples plus per-command tails).
 The full120 development/control/documentation precharge is retained. Thus
-this gate charges **128.873910 /600**, cumulative **15136.372912741 /28800**,
-remaining **13663.627087259**. The command ledger and raw logs remain in
+this gate charges **132.202735 /600**, cumulative **15139.701737741 /28800**,
+remaining **13660.298262259**. The earlier delivery
+2062838c81a86713bab975560fb2f201375d80de recorded128.873910 before this
+3.328825 correction cost; its ledger closure and CI receipts remain preserved. The command ledger and raw logs remain in
 `comparator-input-audit-artifacts-v1` outside Git. Future ordinary software CI
 is separately prospectively reserved:9000 capacity-CPU for full M5 and120 for
 the pure audit CI. These are not whole-job measured CPU. Prior CI charges are
@@ -235,8 +249,10 @@ uncertified quantity rather than presenting a conditional floor as a certificate
 The concrete next step is an exact selected-leg input/alias validator plus a
 shared finite lookup implementation, with tiny directed tie, unreachable,
 repeated C-S-C, equality, open primary/joint-face and full-K regressions. Verify
-complete N64-width/H<=51 construction under a declared resource guard before
-any real optimizer run. The current600 gate has471.126090 unspent; that is
+complete N64-width construction through the observed conditional depths (up to51)
+under a declared resource guard before any real optimizer run. This test range
+is not an API depth cap; a different verified U may require more slots.
+The current600 gate has467.797265 unspent; that is
 headroom, not a new solver-row authorization or a budget reset. Any continuation
 must carry its existing ledger and source identities and reserve before work.
 Real complete-table generation/certification and a fair real comparison need

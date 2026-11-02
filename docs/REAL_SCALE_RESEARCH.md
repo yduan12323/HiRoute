@@ -17,8 +17,8 @@ certified seeds or optimum oracles. A shared finite exact lookup is a concrete
 next implementation direction, with strict-support/full-K/relevant-depth proof
 obligations preserved. No full-instance practicality/performance claim is made.
 
-Gate charge is **128.873910 /600 CPU seconds**, original cumulative
-**15136.372912741 /28800**, remaining13663.627087259. Earlier CI reservations
+Gate charge is **132.202735 /600 CPU seconds**, original cumulative
+**15139.701737741 /28800**, remaining13660.298262259. Earlier CI reservations
 remain charged; ordinary software CI is separately reserved under the approved
 scope. Preprocessing stays **652.040677976 /900**. Full results and source/input
 identities are in [comparator_input_audit_results.json](comparator_input_audit_results.json).

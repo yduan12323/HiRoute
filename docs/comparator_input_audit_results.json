@@ -2,17 +2,17 @@
   "SMT_calls": 0,
   "accounting": {
     "carried_research_CPU_s": "15007.499002741",
-    "conservative_metered_commands_CPU_s": "8.873910",
+    "conservative_metered_commands_CPU_s": "12.202735",
     "fixed_development_control_precharge_CPU_s": 120,
     "gate_cap_CPU_s": 600,
-    "gate_conservative_CPU_s": "128.873910",
-    "metered_command_records": 8,
+    "gate_conservative_CPU_s": "132.202735",
+    "metered_command_records": 11,
     "ordinary_software_CI": "separate prospective9000 full M5 plus120 audit CI; no historical charge refund",
     "original_cap_CPU_s": 28800,
-    "original_conservative_total_CPU_s": "15136.372912741",
+    "original_conservative_total_CPU_s": "15139.701737741",
     "preprocessing_CPU_s": "652.040677976",
     "preprocessing_cap_CPU_s": 900,
-    "remaining_original_CPU_s": "13663.627087259"
+    "remaining_original_CPU_s": "13660.298262259"
   },
   "audit_source_commit": "91fcd7cc8d4d4f1d9a501e30c82653e54ff03adc",
   "cells": [
@@ -3423,6 +3423,17 @@
       "preflight_sha256": "01f045d030830564eaa9bf4686f84b2abf47997ce980cc56e9cff6a470818418"
     }
   },
+  "configuration_join_correction": {
+    "SMT_calls": 0,
+    "actual_cells_unchanged": true,
+    "actual_frozen_configuration_hashes_equal": true,
+    "mixed_fixture_accepted_by_prior_code": true,
+    "mixed_fixture_rejected_by_fix": true,
+    "pre_fix_source": "91fcd7cc8d4d4f1d9a501e30c82653e54ff03adc",
+    "raw_audit_repeated": false,
+    "road_queries": 0,
+    "verified_fix_source": "6297e8fd88c044e0afb280ea3f3653effb911117"
+  },
   "curve_segment_counts": [
     3
   ],
@@ -3440,6 +3451,20 @@
   },
   "input_unavailable_cells": 4,
   "preparation_sha256": "83bb71a462a91c764c4e571938ac2c4897db7ed1449a39f86c14416dd33e1629",
+  "prior_delivery_accounting": {
+    "carried_research_CPU_s": "15007.499002741",
+    "conservative_metered_commands_CPU_s": "8.873910",
+    "fixed_development_control_precharge_CPU_s": 120,
+    "gate_cap_CPU_s": 600,
+    "gate_conservative_CPU_s": "128.873910",
+    "metered_command_records": 8,
+    "ordinary_software_CI": "separate prospective9000 full M5 plus120 audit CI; no historical charge refund",
+    "original_cap_CPU_s": 28800,
+    "original_conservative_total_CPU_s": "15136.372912741",
+    "preprocessing_CPU_s": "652.040677976",
+    "preprocessing_cap_CPU_s": 900,
+    "remaining_original_CPU_s": "13663.627087259"
+  },
   "publication_structural_summary": {
     "SMT_benchmark_performed": false,
     "current_movement_numeric_ITE_builds_upper": {
