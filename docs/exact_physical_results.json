@@ -1,0 +1,2254 @@
+{
+  "accounting": {
+    "carried_original_research_CPU_s": "15308.219957741",
+    "fixed_precharge_CPU_s": 300,
+    "metered_commands_CPU_s": "31.808096",
+    "original_cap_CPU_s": 28800,
+    "original_conservative_CPU_s": "15640.028053741",
+    "original_remaining_CPU_s": "13159.971946259",
+    "preprocessing_CPU_s": "652.040677976",
+    "preprocessing_cap_CPU_s": 900,
+    "software_CI": "Separate prospective reservations; all previous research and CI charges retained",
+    "stage_cap_CPU_s": 900,
+    "stage_conservative_CPU_s": "331.808096"
+  },
+  "admission_sha256": "10b652e03e6610bd1b6aa583874518d4d5f8ee268847bbf85ef17d7f3caa7c80",
+  "case_denominator": 8,
+  "commands": [
+    {
+      "charged_CPU_s": 2.189196,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "development_semantics_normal",
+      "log_sha256": "e3497f7718c31c0e83ebcccfeb7b95867bbb17aae0638cacf49cbc76c2ef0cb3",
+      "pid": 378,
+      "returncode": 1
+    },
+    {
+      "charged_CPU_s": 2.178172,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "corrected_semantics_normal",
+      "log_sha256": "44af8bcfc7b0a757920866f69547cdde3ef63a0152cff267b03ee6af8666a417",
+      "pid": 406,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 2.156932,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "corrected_semantics_optimized",
+      "log_sha256": "bdffcf52e2d58a05e3c6a1c3917e2db778693ebb082773e6265cb3c685b18334",
+      "pid": 428,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 2.178191,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "admission_semantics_normal",
+      "log_sha256": "442cf734c9b2e3703e5312f3ed651aea731000df8193bc200f931d1ed88852fe",
+      "pid": 479,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 2.157152,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "admission_semantics_optimized",
+      "log_sha256": "d61fc98853ccfb776674d107adc723b295a5df34aa4815510931c7e57cd992ac",
+      "pid": 491,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.096172,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "frozen_tiny_preparation",
+      "log_sha256": "c578d842f31177847bf848d125a208bfc90f54d75782cd1a33560c0794d8b017",
+      "pid": 515,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.001547,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": "SubprocessError('Exception occurred in preexec_fn.')",
+      "guard_reason": "controller_exception",
+      "label": "gate_empty_prefix_terminal",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pid": null,
+      "returncode": 125
+    },
+    {
+      "charged_CPU_s": 1.147356,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "gate_empty_prefix_terminal_after_preexec_fix",
+      "log_sha256": "b86261d1afc92722937a624f7b47937e36a2ad405fd151d99f90078ed5adad22",
+      "pid": 571,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.75677,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "gate_alias_positive_charge",
+      "log_sha256": "e842c88a6bf0f099c95caadcd778df6d4d7a793576c1b728e27a472810ff1223",
+      "pid": 603,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 2.5138809999999996,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "gate_repeated_C_S_C",
+      "log_sha256": "206c691235edc14439bae06ca7fbec2c98a023d129dfdae86a803bb45a394dc5",
+      "pid": 632,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.517676,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "gate_CS_overlap",
+      "log_sha256": "898ff3a3830029957d4f1ee7cbf7870d8faffa45988c8dc9c4d8078d151dec35",
+      "pid": 641,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.281699,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "gate_directed_unreachable",
+      "log_sha256": "dec5994fb37073ffdf7503f4f9315f3c479e1d7e3662b70121dbf8bbd999892d",
+      "pid": 649,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.655937,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "gate_equality_attained",
+      "log_sha256": "81c7dafafaf267f6b175baddebe0734cfa9451be810b10f3889661789c7db798",
+      "pid": 656,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.189058,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "gate_primary_unattained",
+      "log_sha256": "cfa9614210f61522985dfc26f76ef26f40587e9d478cf8696818417b8ebec8f5",
+      "pid": 669,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.236353,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "gate_secondary_unattained",
+      "log_sha256": "1b8237ff1a816c343b66029d9e0a466720e0fc0cc5d00256a943a5405aade8e8",
+      "pid": 677,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 2.213099,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "final_report_semantics_normal",
+      "log_sha256": "6df39144a18ed445febceaee2265918568f5f3b3faa59b0bc0c445a6f1252721",
+      "pid": 809,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 2.1608460000000003,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "final_report_semantics_optimized",
+      "log_sha256": "c58869c8ca53f0cc15763d3fa17fffb3f0f16a10ada02d7ca515ec655b58f9fb",
+      "pid": 833,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.08798,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "monotone_accounting_normal",
+      "log_sha256": "9f75add94930d82f86f40553d972627172fa9fcad2415eaa9947d6de3d460011",
+      "pid": 908,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.090078,
+      "controller_sha256": "4547df7f199129ed7bb40a99b68eb62afa088993426f7497e1c16e521ae1cb91",
+      "error": null,
+      "guard_reason": null,
+      "label": "monotone_accounting_optimized",
+      "log_sha256": "9f75add94930d82f86f40553d972627172fa9fcad2415eaa9947d6de3d460011",
+      "pid": 923,
+      "returncode": 0
+    }
+  ],
+  "controller_correction": {
+    "at": 1793611210.800155,
+    "corrected_outer_sha256": "732d7769e026d50df91b960372c1ee27aa6481a61b79f75d66e9ba5169c60875",
+    "initial_outer_sha256": "2efb2758969848a68530af4b56200b6ff5ef6ee63b1c2fd7c59babfdceb05791",
+    "new_outer_hard_CPU_s": 34,
+    "new_outer_soft_CPU_s": 10,
+    "numeric_worker_not_execed": true,
+    "numerical_source_unchanged": "cc85f5827723c04170cb765248c3e03324b365ef",
+    "original_failed_label": "gate_empty_prefix_terminal",
+    "reason": "outer hard CPU10 prevented worker preexec setting CPU30",
+    "worker_CPU_s_unchanged": 30
+  },
+  "final_tests_per_mode": 15,
+  "focused_unit_SMT_calls": "Additional actual tiny SMT calls in focused regression processes; per-call count not instrumented there; complete process CPU charged",
+  "gate_SMT_checks": 116,
+  "gate_source": {
+    "commit": "cc85f5827723c04170cb765248c3e03324b365ef",
+    "dirty": false
+  },
+  "gate_status": "PASS_TINY_CONDITIONAL_MODEL",
+  "holdout": false,
+  "normal_and_optimized_passed": true,
+  "old_optimization_cohorts_repeated": false,
+  "original_taskbook_complete": false,
+  "production_optimizer_oracle": false,
+  "real_road_generation": false,
+  "real_scale_solve": false,
+  "rows": [
+    {
+      "SMT_artifact_files": 13,
+      "SMT_check_count": 13,
+      "SMT_checks_sha256": "446f44dce82d25ad1d707f497b84624873da3d5b90d9c7a0560cb5ec29d47aa1",
+      "actual": {
+        "key": [
+          "2",
+          "0",
+          0,
+          []
+        ],
+        "status": "attained_optimum"
+      },
+      "case": "empty_prefix_terminal",
+      "certificate": {
+        "graph_identity": "SYNTHETIC_TINY:62455a89dabaa240ac593b96ef27c5b5bab3194367b109ecb590bf984cfceaf9",
+        "method": "independent exhaustive simple paths with positive weights",
+        "not_inferred_from_schema": true,
+        "real_graph": false,
+        "scope": "synthetic tiny graph only",
+        "table_sha256": "7c08ae4b4d5e3877ba955bc16109ee0b7afc16353e98f4f3abf85e81291a8201",
+        "verified_pairs": 1
+      },
+      "config_sha256": "6b9481994abdec0803c90b063c650ad50a3b2a2fe547cdddacab07a372b05ae7",
+      "cpu_s": 0.030111,
+      "derived_depth": 0,
+      "expected": {
+        "key": [
+          "2",
+          "0",
+          0,
+          []
+        ],
+        "status": "attained_optimum"
+      },
+      "holdout": false,
+      "host_available_min_bytes": 4707614720,
+      "numerical_worker_attempts": 1,
+      "prepared": {
+        "case": "empty_prefix_terminal",
+        "certificate": {
+          "graph_identity": "SYNTHETIC_TINY:62455a89dabaa240ac593b96ef27c5b5bab3194367b109ecb590bf984cfceaf9",
+          "method": "independent exhaustive simple paths with positive weights",
+          "not_inferred_from_schema": true,
+          "real_graph": false,
+          "scope": "synthetic tiny graph only",
+          "table_sha256": "7c08ae4b4d5e3877ba955bc16109ee0b7afc16353e98f4f3abf85e81291a8201",
+          "verified_pairs": 1
+        },
+        "derived_depth": 0,
+        "fixture_sha256": "7f956efe011f65ebdb7fb77ff34eeea9f9b683c35903a4371dc621d7b598f3b0",
+        "status": "prepared_unrun",
+        "table_sha256": "7c08ae4b4d5e3877ba955bc16109ee0b7afc16353e98f4f3abf85e81291a8201",
+        "upper_key": [
+          "2",
+          "0",
+          0,
+          []
+        ]
+      },
+      "production_optimizer_called": false,
+      "raw_receipt_sha256": "5c01146cf3cf88e2629c5bd57a29aa84eaf1d1d29e8c250c173d075ccfb0265b",
+      "real_road_generation": false,
+      "real_scale_solve": false,
+      "result": {
+        "charging_pieces": 0,
+        "checks": [
+          {
+            "kind": "supported-disjunction",
+            "result": "sat",
+            "sha256": "2afde4d6fbe6b79eaa4dbdc772c9697aeaf34fbbd731e769bad8aad72cf01e0e",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J",
+            "result": "sat",
+            "sha256": "139d46f016cf2d432562ea1551961b598d99fb87b8b5ea5f784993d47a64c351",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J-better",
+            "result": "unsat",
+            "sha256": "ab3381d6cdc47573ba110b5892d44866e05a22be0cbad74cb97654a1073c3cd8",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J-face",
+            "result": "sat",
+            "sha256": "56fadefc9226e9ae34e5b5590f8adc968f5e3cd1c523231c8a8e5da3649da4f4",
+            "status": "completed"
+          },
+          {
+            "kind": "primary-attainment",
+            "result": "sat",
+            "sha256": "096aabc3f26be3343f61ee4a9f0edd202c00a25006692f9c655584875ed43e53",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q",
+            "result": "sat",
+            "sha256": "e607d27e280092abde24a511db3a0d90d3da2eccb96988036c944713ef66fbcc",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q-better",
+            "result": "unsat",
+            "sha256": "4c76026c023b08c025f92d9db9202e1fe0288a828d9266295fcc3d4855816f4a",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q-face",
+            "result": "sat",
+            "sha256": "47c3c780d8a015e87b6cf12ee0b2b6f442231d114d5ab24c1643f4d9867afd7f",
+            "status": "completed"
+          },
+          {
+            "kind": "joint-attainment",
+            "result": "sat",
+            "sha256": "8afd601e6e9d04197ad5cd27d33393d2f9c7482d527f58b3f280c3a0f318e160",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H",
+            "result": "sat",
+            "sha256": "49cb5760c5a56f2c6d84cfab9fcde496493b8b3c09cb777358675c1720684ccf",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H-better",
+            "result": "unsat",
+            "sha256": "689e65469ca53007e01565c9fee466d6970d06caeb5ae937ee1fb145a1fab983",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H-face",
+            "result": "sat",
+            "sha256": "766d70e50138574b7496472bf7b00a5eebe3032de92b095c584eca9c67224cd9",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-full-key",
+            "result": "sat",
+            "sha256": "ff20a77aea5184a85283f88d81f676cac1ffb3c2fcb5fd8db0fdec4a01e42c1e",
+            "status": "completed"
+          }
+        ],
+        "constraints": 8,
+        "continuous_copies": 2,
+        "depth_contract": "complete floor(U_J/(h+lambda)); no H/N or prototype slot cap",
+        "derived_depth": 0,
+        "explicit_plan_enumerations": 0,
+        "external_solver": "Z3 4.13.4",
+        "independent_replay": {
+          "final_energy": "4",
+          "key": [
+            "2",
+            "0",
+            0,
+            []
+          ],
+          "trace": []
+        },
+        "key": [
+          "2",
+          "0",
+          0,
+          []
+        ],
+        "physics_sha256": "0b0fba72c292d6f1f6638b608f97b24f0f9a91e71249d8c4d61208bad17ae2e0",
+        "road_selection_certified": false,
+        "scope": "Exact optimum/infimum conditional on the supplied leg table and physical contract",
+        "selector_count": 0,
+        "status": "attained_optimum",
+        "table_sha256": "7c08ae4b4d5e3877ba955bc16109ee0b7afc16353e98f4f3abf85e81291a8201",
+        "upper_key": [
+          "2",
+          "0",
+          0,
+          []
+        ],
+        "upper_witness_independently_replayed": true,
+        "witness": {
+          "charges": [],
+          "initial_wait": "0",
+          "plan": []
+        }
+      },
+      "sampled_process_group_peak_RSS_bytes": 56786944,
+      "separate_final_replay": true,
+      "separate_seed_replay": true,
+      "source": {
+        "commit": "cc85f5827723c04170cb765248c3e03324b365ef",
+        "dirty": false
+      },
+      "status": "verified",
+      "supervised_CPU_s": 1.147356,
+      "wall_s": 0.08966412500012666
+    },
+    {
+      "SMT_artifact_files": 16,
+      "SMT_check_count": 16,
+      "SMT_checks_sha256": "bd4a6212f98d756fa6afd68ff43dc717a25ae146a8507a7d903acbe5cf9aaa25",
+      "actual": {
+        "key": [
+          "18",
+          "6",
+          1,
+          [
+            [
+              "alpha",
+              "C"
+            ]
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "case": "alias_positive_charge",
+      "certificate": {
+        "graph_identity": "SYNTHETIC_TINY:0fe1bb63c8891ce6c13dee51d89fb4beb1c8b211ad4456b5846a28b519855976",
+        "method": "independent exhaustive simple paths with positive weights",
+        "not_inferred_from_schema": true,
+        "real_graph": false,
+        "scope": "synthetic tiny graph only",
+        "table_sha256": "bc68d7fbda92fdebfcb6ec349794067c80981d482429ba77e45af9abf67c56ed",
+        "verified_pairs": 2
+      },
+      "config_sha256": "6b9481994abdec0803c90b063c650ad50a3b2a2fe547cdddacab07a372b05ae7",
+      "cpu_s": 0.5895940000000001,
+      "derived_depth": 3,
+      "expected": {
+        "key": [
+          "18",
+          "6",
+          1,
+          [
+            [
+              "alpha",
+              "C"
+            ]
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "holdout": false,
+      "host_available_min_bytes": 4687216640,
+      "numerical_worker_attempts": 1,
+      "prepared": {
+        "case": "alias_positive_charge",
+        "certificate": {
+          "graph_identity": "SYNTHETIC_TINY:0fe1bb63c8891ce6c13dee51d89fb4beb1c8b211ad4456b5846a28b519855976",
+          "method": "independent exhaustive simple paths with positive weights",
+          "not_inferred_from_schema": true,
+          "real_graph": false,
+          "scope": "synthetic tiny graph only",
+          "table_sha256": "bc68d7fbda92fdebfcb6ec349794067c80981d482429ba77e45af9abf67c56ed",
+          "verified_pairs": 2
+        },
+        "derived_depth": 3,
+        "fixture_sha256": "cee1a6eee13e4288a9c3d6a643970504709d941d180a8a3113a93f31d0b3f3bd",
+        "status": "prepared_unrun",
+        "table_sha256": "bc68d7fbda92fdebfcb6ec349794067c80981d482429ba77e45af9abf67c56ed",
+        "upper_key": [
+          "18",
+          "6",
+          1,
+          [
+            [
+              "omega",
+              "C"
+            ]
+          ]
+        ]
+      },
+      "production_optimizer_called": false,
+      "raw_receipt_sha256": "51675fbb96e98b97daab17e1a7b94c6e7721d53a78257d62ad5a99aebaf862cf",
+      "real_road_generation": false,
+      "real_scale_solve": false,
+      "result": {
+        "charging_pieces": 3,
+        "checks": [
+          {
+            "kind": "supported-disjunction",
+            "result": "sat",
+            "sha256": "21addcadaf4eebbfa4da3a4eaf6940e235475873cf9f31d0d11871067c8c7994",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J",
+            "result": "sat",
+            "sha256": "838921b27268369ee07fa082d17128782cb7709372e9b07344a0a5965ca4ea3e",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J-better",
+            "result": "unsat",
+            "sha256": "8c96da17f452b0d5a3f7f51fab2b0836e6d2bea0776eecafc674e3d33726a1c2",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J-face",
+            "result": "sat",
+            "sha256": "5b64ebecf6731ca0ac0238b51731adea32e34e4cbc39ebc11855c53ed5c1cf90",
+            "status": "completed"
+          },
+          {
+            "kind": "primary-attainment",
+            "result": "sat",
+            "sha256": "c0bcfebd662a3ba335e9af8046ed8701b3ca58929e476a42e1e7e78f4ad57b55",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q",
+            "result": "sat",
+            "sha256": "243cce3d732ccd2667579ffabc5547605b1092369b4715cdd6db3accf8ea5e70",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q-better",
+            "result": "unsat",
+            "sha256": "137b79467a585db9f52fb6bc2435f111e76d9ecaa62796c8a1b294e547fc9bf4",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q-face",
+            "result": "sat",
+            "sha256": "f9077ca13c826d4be38bcea9609a6b81ae14ebd0d79cbdb65d567e447f0366e5",
+            "status": "completed"
+          },
+          {
+            "kind": "joint-attainment",
+            "result": "sat",
+            "sha256": "c25ceccc0c1cd4ee50bdbd38903f153fc391f8083eca55f6c3ba15e3860a34f4",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H",
+            "result": "sat",
+            "sha256": "28d45fa85905aa69a1621875f33cda5e33f77e4f2fe66a4a59b82a92bdb97faf",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H-better",
+            "result": "unsat",
+            "sha256": "cb3eba1dce2bc9ccade832fe3c1ae3358ac5fb7d879e845a9fb64c40c594ecdf",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H-face",
+            "result": "sat",
+            "sha256": "f8ef59c7ce6c02f194f0d9e827284c0841135b9a033e3f3ef5ab32bc169fa4b1",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-0",
+            "result": "sat",
+            "sha256": "0aa4cb6628617cde840a1f20ef85aea0086135c8e0fb9de09e195bb48d0428db",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-0-better",
+            "result": "unsat",
+            "sha256": "edc94ddbba491adf0ad69c8d61e151effe5b46aa3fff05092c4652f492f5aacb",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-0-face",
+            "result": "sat",
+            "sha256": "1a2323475516c1c20637e32eaf6a4e3b785c693c01983bb0f83f16376f7ccafe",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-full-key",
+            "result": "sat",
+            "sha256": "40e34d081242177686d611b5963bf9f5f63ee3751a12760c76c977a98cbe80b9",
+            "status": "completed"
+          }
+        ],
+        "constraints": 166,
+        "continuous_copies": 2,
+        "depth_contract": "complete floor(U_J/(h+lambda)); no H/N or prototype slot cap",
+        "derived_depth": 3,
+        "explicit_plan_enumerations": 0,
+        "external_solver": "Z3 4.13.4",
+        "independent_replay": {
+          "final_energy": "0",
+          "key": [
+            "18",
+            "6",
+            1,
+            [
+              [
+                "alpha",
+                "C"
+              ]
+            ]
+          ],
+          "trace": [
+            {
+              "arrival": "0",
+              "effect": "C",
+              "finish": "13",
+              "incoming": "0",
+              "outgoing": "6",
+              "selected_edges": [],
+              "selected_nodes": [
+                "o"
+              ],
+              "site": "alpha"
+            }
+          ]
+        },
+        "key": [
+          "18",
+          "6",
+          1,
+          [
+            [
+              "alpha",
+              "C"
+            ]
+          ]
+        ],
+        "physics_sha256": "1c62170b14fdc8fbb4e0994ea4bc507ae214be5f9e9bed9eea993d91c89c0d27",
+        "road_selection_certified": false,
+        "scope": "Exact optimum/infimum conditional on the supplied leg table and physical contract",
+        "selector_count": 12,
+        "status": "attained_optimum",
+        "table_sha256": "bc68d7fbda92fdebfcb6ec349794067c80981d482429ba77e45af9abf67c56ed",
+        "upper_key": [
+          "18",
+          "6",
+          1,
+          [
+            [
+              "omega",
+              "C"
+            ]
+          ]
+        ],
+        "upper_witness_independently_replayed": true,
+        "witness": {
+          "charges": [
+            "6"
+          ],
+          "initial_wait": "0",
+          "plan": [
+            [
+              "alpha",
+              "C"
+            ]
+          ]
+        }
+      },
+      "sampled_process_group_peak_RSS_bytes": 62111744,
+      "separate_final_replay": false,
+      "separate_seed_replay": false,
+      "source": {
+        "commit": "cc85f5827723c04170cb765248c3e03324b365ef",
+        "dirty": false
+      },
+      "status": "verified",
+      "supervised_CPU_s": 1.75677,
+      "wall_s": 0.6156899579800665
+    },
+    {
+      "SMT_artifact_files": 22,
+      "SMT_check_count": 22,
+      "SMT_checks_sha256": "0e5fda70d3ca2bcf6977d9ecaee7269e29752f700484a86a521228e9c102ae29",
+      "actual": {
+        "key": [
+          "44",
+          "4",
+          3,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ],
+            [
+              "c",
+              "C"
+            ]
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "case": "repeated_C_S_C",
+      "certificate": {
+        "graph_identity": "SYNTHETIC_TINY:f312430952ec7963b65d385c97569ccebffc16f2a8be26337202f8411bbe04d4",
+        "method": "independent exhaustive simple paths with positive weights",
+        "not_inferred_from_schema": true,
+        "real_graph": false,
+        "scope": "synthetic tiny graph only",
+        "table_sha256": "eafaebf6a409060daa8b65fd2ab6bd299cede7eb97093f05084e32210cb442cf",
+        "verified_pairs": 9
+      },
+      "config_sha256": "6b9481994abdec0803c90b063c650ad50a3b2a2fe547cdddacab07a372b05ae7",
+      "cpu_s": 1.282905,
+      "derived_depth": 4,
+      "expected": {
+        "key": [
+          "44",
+          "4",
+          3,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ],
+            [
+              "c",
+              "C"
+            ]
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "holdout": false,
+      "host_available_min_bytes": 4687216640,
+      "numerical_worker_attempts": 1,
+      "prepared": {
+        "case": "repeated_C_S_C",
+        "certificate": {
+          "graph_identity": "SYNTHETIC_TINY:f312430952ec7963b65d385c97569ccebffc16f2a8be26337202f8411bbe04d4",
+          "method": "independent exhaustive simple paths with positive weights",
+          "not_inferred_from_schema": true,
+          "real_graph": false,
+          "scope": "synthetic tiny graph only",
+          "table_sha256": "eafaebf6a409060daa8b65fd2ab6bd299cede7eb97093f05084e32210cb442cf",
+          "verified_pairs": 9
+        },
+        "derived_depth": 4,
+        "fixture_sha256": "0c6f19b3ccc366864a5d9335d223085399b3ddcfd76bbe7e23e17fc0cd45be55",
+        "status": "prepared_unrun",
+        "table_sha256": "eafaebf6a409060daa8b65fd2ab6bd299cede7eb97093f05084e32210cb442cf",
+        "upper_key": [
+          "44",
+          "4",
+          3,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ],
+            [
+              "c",
+              "C"
+            ]
+          ]
+        ]
+      },
+      "production_optimizer_called": false,
+      "raw_receipt_sha256": "d83df1b9e19009fce432b008e896c122a0291f56d4b32dcbfdab5484af61d585",
+      "real_road_generation": false,
+      "real_scale_solve": false,
+      "result": {
+        "charging_pieces": 3,
+        "checks": [
+          {
+            "kind": "supported-disjunction",
+            "result": "sat",
+            "sha256": "b9f1b08566783e916984747218e4651d88da16388a3d0ff785d0685f23d6f6e1",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J",
+            "result": "sat",
+            "sha256": "33c36d6ebc4a21b0b4944d21495c99dfb57d6f4f150ad76b22792c048c4880c8",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J-better",
+            "result": "unsat",
+            "sha256": "be2f356916293206ee89c90a9fce7569d76370c711265491652f7d2e929fb93a",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J-face",
+            "result": "sat",
+            "sha256": "cfe3dd6969be756a7482910d9c6a60ee2ad5bf832c768f074808a0e09d49df78",
+            "status": "completed"
+          },
+          {
+            "kind": "primary-attainment",
+            "result": "sat",
+            "sha256": "e778d495272ab3463ad8279442a2c7028de85a5ece70bde34c065965f4e9c8c1",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q",
+            "result": "sat",
+            "sha256": "2a1396f52a3c01f141dc2a73abe9681ccd292be69014a9e4d6f506b349dbb3c1",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q-better",
+            "result": "unsat",
+            "sha256": "dac92ee106bad2afa4e9178cbf252bff592d0f00283ea9a0fceb4ec1bc805a4d",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q-face",
+            "result": "sat",
+            "sha256": "f9c2c63c23394a8e8b44cfce48e71bc32565442da6331fe119d02b630b4d70a6",
+            "status": "completed"
+          },
+          {
+            "kind": "joint-attainment",
+            "result": "sat",
+            "sha256": "a0d98396d57a2d7a3aa5e85b74ec0175a6c80f000e79c2c62b3d1e458d9f06f4",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H",
+            "result": "sat",
+            "sha256": "3b2c04f6958609b9d3f9033684b480ede388a6044335c2b933dbe95c4edb4aba",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H-better",
+            "result": "unsat",
+            "sha256": "2cc9d9808d748c72ce7bc890ac707fb6d276084396dfd05731eca83d5754a6b2",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H-face",
+            "result": "sat",
+            "sha256": "db67ae575e676cc18bf9af07d9bd356f92506f6942cd6f5af2d03d999c533f4b",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-0",
+            "result": "sat",
+            "sha256": "a935f10291bd36c5e072916ff9c742ce337a87e56528ba270e2c570a98c2e80d",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-0-better",
+            "result": "unsat",
+            "sha256": "89e8fcef99bc808ca51038eb76f3d5ab42980135370aed465204790b8144aa07",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-0-face",
+            "result": "sat",
+            "sha256": "41ce5c5e721b7b8a95086538ca8521865c3ada607697d7573975c9c27b3e8a62",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-1",
+            "result": "sat",
+            "sha256": "d7473cf3580e6cf4ae930380fcad1ca857bca4a1cd434aa223c119bd20fa79ea",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-1-better",
+            "result": "unsat",
+            "sha256": "7198deb4f4c58e7b16d7ba159dfc565b6a6d791f4bc6acb755b372d37a98d3ff",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-1-face",
+            "result": "sat",
+            "sha256": "2fb216801ec9be32d91157d1f6913752beb622f4c20408659ebff01c3be145c3",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-2",
+            "result": "sat",
+            "sha256": "3c56e88de65965bedb6569a1234fc6f11afdd3a17cd9fc3c1bc630fe5427d621",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-2-better",
+            "result": "unsat",
+            "sha256": "0999bb7abc9522c10293aa09ce13c6da0e9b7c344d13d82f2adbb2cc6bb5844d",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-2-face",
+            "result": "sat",
+            "sha256": "290870b9640431bd9c37d63b0fa8d76ef3b688ce817739ea7b77a3a19a8eb175",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-full-key",
+            "result": "sat",
+            "sha256": "e31ed6a7dcd982db9da6af25bf27c68aa22d1388ae9acc7577f26c2b8d706386",
+            "status": "completed"
+          }
+        ],
+        "constraints": 219,
+        "continuous_copies": 2,
+        "depth_contract": "complete floor(U_J/(h+lambda)); no H/N or prototype slot cap",
+        "derived_depth": 4,
+        "explicit_plan_enumerations": 0,
+        "external_solver": "Z3 4.13.4",
+        "independent_replay": {
+          "final_energy": "0",
+          "key": [
+            "44",
+            "4",
+            3,
+            [
+              [
+                "c",
+                "C"
+              ],
+              [
+                "s",
+                "S"
+              ],
+              [
+                "c",
+                "C"
+              ]
+            ]
+          ],
+          "trace": [
+            {
+              "arrival": "1",
+              "effect": "C",
+              "finish": "5",
+              "incoming": "0",
+              "outgoing": "2",
+              "selected_edges": [
+                "o>c"
+              ],
+              "selected_nodes": [
+                "o",
+                "c"
+              ],
+              "site": "c"
+            },
+            {
+              "arrival": "6",
+              "effect": "S",
+              "finish": "8",
+              "incoming": "1",
+              "outgoing": "1",
+              "selected_edges": [
+                "c>s"
+              ],
+              "selected_nodes": [
+                "c",
+                "s"
+              ],
+              "site": "s"
+            },
+            {
+              "arrival": "9",
+              "effect": "C",
+              "finish": "13",
+              "incoming": "0",
+              "outgoing": "2",
+              "selected_edges": [
+                "s>c"
+              ],
+              "selected_nodes": [
+                "s",
+                "c"
+              ],
+              "site": "c"
+            }
+          ]
+        },
+        "key": [
+          "44",
+          "4",
+          3,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ],
+            [
+              "c",
+              "C"
+            ]
+          ]
+        ],
+        "physics_sha256": "1a58fcbb927c99f24f709ad06e0262b7f8e8e4260e5e732f6c5102bade80a620",
+        "road_selection_certified": false,
+        "scope": "Exact optimum/infimum conditional on the supplied leg table and physical contract",
+        "selector_count": 16,
+        "status": "attained_optimum",
+        "table_sha256": "eafaebf6a409060daa8b65fd2ab6bd299cede7eb97093f05084e32210cb442cf",
+        "upper_key": [
+          "44",
+          "4",
+          3,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ],
+            [
+              "c",
+              "C"
+            ]
+          ]
+        ],
+        "upper_witness_independently_replayed": true,
+        "witness": {
+          "charges": [
+            "2",
+            "2"
+          ],
+          "initial_wait": "0",
+          "plan": [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ],
+            [
+              "c",
+              "C"
+            ]
+          ]
+        }
+      },
+      "sampled_process_group_peak_RSS_bytes": 66600960,
+      "separate_final_replay": true,
+      "separate_seed_replay": true,
+      "source": {
+        "commit": "cc85f5827723c04170cb765248c3e03324b365ef",
+        "dirty": false
+      },
+      "status": "verified",
+      "supervised_CPU_s": 2.5138809999999996,
+      "wall_s": 1.3037510410067625
+    },
+    {
+      "SMT_artifact_files": 16,
+      "SMT_check_count": 16,
+      "SMT_checks_sha256": "f4441113065bf0fecbffbd150fc529e04af8846c686515e953988e0e9a60c05e",
+      "actual": {
+        "key": [
+          "16",
+          "3",
+          1,
+          [
+            [
+              "p",
+              "CS"
+            ]
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "case": "CS_overlap",
+      "certificate": {
+        "graph_identity": "SYNTHETIC_TINY:74626b77a96264cfb83cd0d2978775f6f83d57ba7f29a5f981e506d0876c76ce",
+        "method": "independent exhaustive simple paths with positive weights",
+        "not_inferred_from_schema": true,
+        "real_graph": false,
+        "scope": "synthetic tiny graph only",
+        "table_sha256": "c659e553f67209852e361887538f440d25023f96040a297b5abbecbc2539fac2",
+        "verified_pairs": 4
+      },
+      "config_sha256": "6b9481994abdec0803c90b063c650ad50a3b2a2fe547cdddacab07a372b05ae7",
+      "cpu_s": 0.375712,
+      "derived_depth": 2,
+      "expected": {
+        "key": [
+          "16",
+          "3",
+          1,
+          [
+            [
+              "p",
+              "CS"
+            ]
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "holdout": false,
+      "host_available_min_bytes": 4716969984,
+      "numerical_worker_attempts": 1,
+      "prepared": {
+        "case": "CS_overlap",
+        "certificate": {
+          "graph_identity": "SYNTHETIC_TINY:74626b77a96264cfb83cd0d2978775f6f83d57ba7f29a5f981e506d0876c76ce",
+          "method": "independent exhaustive simple paths with positive weights",
+          "not_inferred_from_schema": true,
+          "real_graph": false,
+          "scope": "synthetic tiny graph only",
+          "table_sha256": "c659e553f67209852e361887538f440d25023f96040a297b5abbecbc2539fac2",
+          "verified_pairs": 4
+        },
+        "derived_depth": 2,
+        "fixture_sha256": "0ab75fc3c24c3d85b9d927bb88dcba228215fc91c5bed60f180ec1a55f6c7363",
+        "status": "prepared_unrun",
+        "table_sha256": "c659e553f67209852e361887538f440d25023f96040a297b5abbecbc2539fac2",
+        "upper_key": [
+          "16",
+          "3",
+          1,
+          [
+            [
+              "p",
+              "CS"
+            ]
+          ]
+        ]
+      },
+      "production_optimizer_called": false,
+      "raw_receipt_sha256": "43888f4a14a0be009d729ccae053df77ec1827a00b7f19535cefd8f3f4533d3f",
+      "real_road_generation": false,
+      "real_scale_solve": false,
+      "result": {
+        "charging_pieces": 3,
+        "checks": [
+          {
+            "kind": "supported-disjunction",
+            "result": "sat",
+            "sha256": "e03b3af0fa691740f2210cb43d06ed6003c83dd01b1320df124d5c0879d67c45",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J",
+            "result": "sat",
+            "sha256": "b3a9c1b9a924ad9a45c6e0e51fba8e9683d8aede912bc1c1cf080750ecaf5c30",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J-better",
+            "result": "unsat",
+            "sha256": "a6c950c95c2618849e0959cd80afccb022ac5b33db6e5302e70416d81ff9839b",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J-face",
+            "result": "sat",
+            "sha256": "2611898e99db75b5340d5b60ce8eede70ac8d6e784427f49021b15138c98184f",
+            "status": "completed"
+          },
+          {
+            "kind": "primary-attainment",
+            "result": "sat",
+            "sha256": "040784584b5754fd810f114825881c9ab8b48bb7afc36c271c307c56590af7b6",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q",
+            "result": "sat",
+            "sha256": "01931b88b759db519cb00812581ff0c7c58cc2f19f4e5bbd6b23029525c41202",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q-better",
+            "result": "unsat",
+            "sha256": "8117d869bbb3a51d62a89ea5bc5b5cec30fc598ce48c5e6a4048289c4191272e",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q-face",
+            "result": "sat",
+            "sha256": "53f2b50108d7def0ee69bd41ea27f4302e129d0e8a931e5d96965a88978e429e",
+            "status": "completed"
+          },
+          {
+            "kind": "joint-attainment",
+            "result": "sat",
+            "sha256": "295028aad29df3dee58bbedacda33f5a6d9f72014bfbf64609e2d703b09fecb3",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H",
+            "result": "sat",
+            "sha256": "70e8965271c14b1f47af80da13a038e62e41201573514c3270fd9d90579ef04b",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H-better",
+            "result": "unsat",
+            "sha256": "c7b7872b985d63581cfd1aff9521e6fdb59db95de61bca4252a17a0d83abb5fe",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H-face",
+            "result": "sat",
+            "sha256": "cba388fcac5a905882dd5edea20b879bb7cab71b61ba0cad32e883224590b49d",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-0",
+            "result": "sat",
+            "sha256": "dbf759427433da9d8a8d46a5271dac8bce171ec9fca38a979ed71674e7a4af76",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-0-better",
+            "result": "unsat",
+            "sha256": "5e4a68d2cb31b8626c8a95cfccc3d0dfefa56fc3da46c3c69fcdb8989b165dec",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-0-face",
+            "result": "sat",
+            "sha256": "be6fa0cc5864bbe90e17eea72c51a01f4184fd9419a73b0e80a55d0676a358e2",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-full-key",
+            "result": "sat",
+            "sha256": "ca852a74030236b83f6887e5241952f49d5c1164b414292bf24d8a1a50ccc244",
+            "status": "completed"
+          }
+        ],
+        "constraints": 113,
+        "continuous_copies": 2,
+        "depth_contract": "complete floor(U_J/(h+lambda)); no H/N or prototype slot cap",
+        "derived_depth": 2,
+        "explicit_plan_enumerations": 0,
+        "external_solver": "Z3 4.13.4",
+        "independent_replay": {
+          "final_energy": "0",
+          "key": [
+            "16",
+            "3",
+            1,
+            [
+              [
+                "p",
+                "CS"
+              ]
+            ]
+          ],
+          "trace": [
+            {
+              "arrival": "1",
+              "effect": "CS",
+              "finish": "10",
+              "incoming": "0",
+              "outgoing": "3",
+              "selected_edges": [
+                "o>p"
+              ],
+              "selected_nodes": [
+                "o",
+                "p"
+              ],
+              "site": "p"
+            }
+          ]
+        },
+        "key": [
+          "16",
+          "3",
+          1,
+          [
+            [
+              "p",
+              "CS"
+            ]
+          ]
+        ],
+        "physics_sha256": "f1a28563efc20566cd15deb96c07341f76790f0963908e272c210872ead2d355",
+        "road_selection_certified": false,
+        "scope": "Exact optimum/infimum conditional on the supplied leg table and physical contract",
+        "selector_count": 8,
+        "status": "attained_optimum",
+        "table_sha256": "c659e553f67209852e361887538f440d25023f96040a297b5abbecbc2539fac2",
+        "upper_key": [
+          "16",
+          "3",
+          1,
+          [
+            [
+              "p",
+              "CS"
+            ]
+          ]
+        ],
+        "upper_witness_independently_replayed": true,
+        "witness": {
+          "charges": [
+            "3"
+          ],
+          "initial_wait": "0",
+          "plan": [
+            [
+              "p",
+              "CS"
+            ]
+          ]
+        }
+      },
+      "sampled_process_group_peak_RSS_bytes": 61489152,
+      "separate_final_replay": true,
+      "separate_seed_replay": true,
+      "source": {
+        "commit": "cc85f5827723c04170cb765248c3e03324b365ef",
+        "dirty": false
+      },
+      "status": "verified",
+      "supervised_CPU_s": 1.517676,
+      "wall_s": 0.39579433301696554
+    },
+    {
+      "SMT_artifact_files": 16,
+      "SMT_check_count": 16,
+      "SMT_checks_sha256": "27a341215291413055848ce861285776d03fc2ad2cc47b4b8e9c8d8d42bbda2d",
+      "actual": {
+        "key": [
+          "8",
+          "0",
+          1,
+          [
+            [
+              "a",
+              "S"
+            ]
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "case": "directed_unreachable",
+      "certificate": {
+        "graph_identity": "SYNTHETIC_TINY:b9edf3501862d3d9b8caa2f673ff3ecc797f095247801a2697b46da2b6a707f6",
+        "method": "independent exhaustive simple paths with positive weights",
+        "not_inferred_from_schema": true,
+        "real_graph": false,
+        "scope": "synthetic tiny graph only",
+        "table_sha256": "e6400c88a87f0ac6e14a05736ccfeee346955e9473bd656fb773ec19af2fc60c",
+        "verified_pairs": 9
+      },
+      "config_sha256": "6b9481994abdec0803c90b063c650ad50a3b2a2fe547cdddacab07a372b05ae7",
+      "cpu_s": 0.160346,
+      "derived_depth": 1,
+      "expected": {
+        "key": [
+          "8",
+          "0",
+          1,
+          [
+            [
+              "a",
+              "S"
+            ]
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "holdout": false,
+      "host_available_min_bytes": 4709515264,
+      "numerical_worker_attempts": 1,
+      "prepared": {
+        "case": "directed_unreachable",
+        "certificate": {
+          "graph_identity": "SYNTHETIC_TINY:b9edf3501862d3d9b8caa2f673ff3ecc797f095247801a2697b46da2b6a707f6",
+          "method": "independent exhaustive simple paths with positive weights",
+          "not_inferred_from_schema": true,
+          "real_graph": false,
+          "scope": "synthetic tiny graph only",
+          "table_sha256": "e6400c88a87f0ac6e14a05736ccfeee346955e9473bd656fb773ec19af2fc60c",
+          "verified_pairs": 9
+        },
+        "derived_depth": 1,
+        "fixture_sha256": "7c44abed64370c631fd32629ce984b12d1e9c3028a7174bb5fc32bcbaec5a790",
+        "status": "prepared_unrun",
+        "table_sha256": "e6400c88a87f0ac6e14a05736ccfeee346955e9473bd656fb773ec19af2fc60c",
+        "upper_key": [
+          "8",
+          "0",
+          1,
+          [
+            [
+              "a",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "production_optimizer_called": false,
+      "raw_receipt_sha256": "18c810b358ea6c47d1fb470159b5c55dd0dd7ee9601d71ca8dd42b3678810fe0",
+      "real_road_generation": false,
+      "real_scale_solve": false,
+      "result": {
+        "charging_pieces": 0,
+        "checks": [
+          {
+            "kind": "supported-disjunction",
+            "result": "sat",
+            "sha256": "c22787791452f1acb6cba6fd651a0be26f454c285a2dc7f09126eca349412d87",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J",
+            "result": "sat",
+            "sha256": "2c9cec7780b33a915418b40950a01a9ab37a3a91c4b965b085e24bba9f738854",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J-better",
+            "result": "unsat",
+            "sha256": "275bb5a7c41185f0bf8ac252ba8666ec9e31fb7294f49a9fd7bc60c9e31d265c",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J-face",
+            "result": "sat",
+            "sha256": "db7809f0c4590d4092e780851d2d0abedefea4e29f58b958a4128e7844516c88",
+            "status": "completed"
+          },
+          {
+            "kind": "primary-attainment",
+            "result": "sat",
+            "sha256": "ab89a58ce89e4a7a30fb58534d28dc7873f288c24c3071646044fda9534a4178",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q",
+            "result": "sat",
+            "sha256": "943a55a44dc48da5052cd726502d839fb4c7b268d1c04664fc57388e6dbe26ae",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q-better",
+            "result": "unsat",
+            "sha256": "0b185b380e7915d8ae8e3478963916922d7d9512159c05670a466f834195dba4",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q-face",
+            "result": "sat",
+            "sha256": "f87cd8894efab668f3d5f8916a889081455c25cc6a9f3864f089a133659dfc78",
+            "status": "completed"
+          },
+          {
+            "kind": "joint-attainment",
+            "result": "sat",
+            "sha256": "01622ff595d9dfe239c21648b499671288fd25a750fe85cacfbad2e5844b8ff1",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H",
+            "result": "sat",
+            "sha256": "c4ec7516af5e39eb82d3550326855e0e97b311f55e10c5c9bbda5480af9e78be",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H-better",
+            "result": "unsat",
+            "sha256": "e44b74fd557c080e10913795dac55acf65763447927bfa29b744e229feb48fae",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H-face",
+            "result": "sat",
+            "sha256": "6a277c23b03d7de855f8d1f1d5793a56590e3c017ed8756303078ebbddc1881c",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-0",
+            "result": "sat",
+            "sha256": "8a645bab2a8460beb55165ad88ce6863b433bd1ad2f6f7faa4884ebc4e148901",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-0-better",
+            "result": "unsat",
+            "sha256": "611b4859404f4f01b303a310f8f93946f8b4868172f7320c128821b44bc15ab7",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-0-face",
+            "result": "sat",
+            "sha256": "c7d473ddbfd6472bc3a2a8d2c3eb715e0feaa06a3be0078887f9fa2d4c63b0c7",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-full-key",
+            "result": "sat",
+            "sha256": "a45494fae8dd5410c327086eab2af073217f8b35d9f987ad5b93311bc0fe848b",
+            "status": "completed"
+          }
+        ],
+        "constraints": 48,
+        "continuous_copies": 2,
+        "depth_contract": "complete floor(U_J/(h+lambda)); no H/N or prototype slot cap",
+        "derived_depth": 1,
+        "explicit_plan_enumerations": 0,
+        "external_solver": "Z3 4.13.4",
+        "independent_replay": {
+          "final_energy": "1",
+          "key": [
+            "8",
+            "0",
+            1,
+            [
+              [
+                "a",
+                "S"
+              ]
+            ]
+          ],
+          "trace": [
+            {
+              "arrival": "1",
+              "effect": "S",
+              "finish": "3",
+              "incoming": "2",
+              "outgoing": "2",
+              "selected_edges": [
+                "o>a"
+              ],
+              "selected_nodes": [
+                "o",
+                "a"
+              ],
+              "site": "a"
+            }
+          ]
+        },
+        "key": [
+          "8",
+          "0",
+          1,
+          [
+            [
+              "a",
+              "S"
+            ]
+          ]
+        ],
+        "physics_sha256": "c4ccc5a6c308834530dcc08c077b176e7d785c771458eec770bd4cb332edb935",
+        "road_selection_certified": false,
+        "scope": "Exact optimum/infimum conditional on the supplied leg table and physical contract",
+        "selector_count": 4,
+        "status": "attained_optimum",
+        "table_sha256": "e6400c88a87f0ac6e14a05736ccfeee346955e9473bd656fb773ec19af2fc60c",
+        "upper_key": [
+          "8",
+          "0",
+          1,
+          [
+            [
+              "a",
+              "S"
+            ]
+          ]
+        ],
+        "upper_witness_independently_replayed": true,
+        "witness": {
+          "charges": [],
+          "initial_wait": "0",
+          "plan": [
+            [
+              "a",
+              "S"
+            ]
+          ]
+        }
+      },
+      "sampled_process_group_peak_RSS_bytes": 60047360,
+      "separate_final_replay": true,
+      "separate_seed_replay": true,
+      "source": {
+        "commit": "cc85f5827723c04170cb765248c3e03324b365ef",
+        "dirty": false
+      },
+      "status": "verified",
+      "supervised_CPU_s": 1.281699,
+      "wall_s": 0.1819520840072073
+    },
+    {
+      "SMT_artifact_files": 19,
+      "SMT_check_count": 19,
+      "SMT_checks_sha256": "e1ebd868abf0f6146008a828e0425fc6de658834c47b5d0a3a88cc561e3d8ff2",
+      "actual": {
+        "key": [
+          "29",
+          "3",
+          2,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ]
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "case": "equality_attained",
+      "certificate": {
+        "graph_identity": "SYNTHETIC_TINY:967fd63020bc195d93a5b7aebb32b141453b8bd7c86c4b3667835e21daa9fe08",
+        "method": "independent exhaustive simple paths with positive weights",
+        "not_inferred_from_schema": true,
+        "real_graph": false,
+        "scope": "synthetic tiny graph only",
+        "table_sha256": "ab7523866a713710554b42a6c31c042bd410718492db9c8eef7bc51aba273fb0",
+        "verified_pairs": 9
+      },
+      "config_sha256": "6b9481994abdec0803c90b063c650ad50a3b2a2fe547cdddacab07a372b05ae7",
+      "cpu_s": 0.49564600000000003,
+      "derived_depth": 2,
+      "expected": {
+        "key": [
+          "29",
+          "3",
+          2,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ]
+          ]
+        ],
+        "status": "attained_optimum"
+      },
+      "holdout": false,
+      "host_available_min_bytes": 4720410624,
+      "numerical_worker_attempts": 1,
+      "prepared": {
+        "case": "equality_attained",
+        "certificate": {
+          "graph_identity": "SYNTHETIC_TINY:967fd63020bc195d93a5b7aebb32b141453b8bd7c86c4b3667835e21daa9fe08",
+          "method": "independent exhaustive simple paths with positive weights",
+          "not_inferred_from_schema": true,
+          "real_graph": false,
+          "scope": "synthetic tiny graph only",
+          "table_sha256": "ab7523866a713710554b42a6c31c042bd410718492db9c8eef7bc51aba273fb0",
+          "verified_pairs": 9
+        },
+        "derived_depth": 2,
+        "fixture_sha256": "9ca4749d0436d733c1c7fac467febac1cf56a28cc82b1d4ba0ce962d07cd4a7d",
+        "status": "prepared_unrun",
+        "table_sha256": "ab7523866a713710554b42a6c31c042bd410718492db9c8eef7bc51aba273fb0",
+        "upper_key": [
+          "29",
+          "3",
+          2,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ]
+          ]
+        ]
+      },
+      "production_optimizer_called": false,
+      "raw_receipt_sha256": "57fca8b29dad78b1a4baa523ddc77201695248cca2e5ba1fe34b2a3069dba603",
+      "real_road_generation": false,
+      "real_scale_solve": false,
+      "result": {
+        "charging_pieces": 3,
+        "checks": [
+          {
+            "kind": "supported-disjunction",
+            "result": "sat",
+            "sha256": "02d701483c5b7de5d37e0bf78311cfa93960a0ed0abef86ee5ba21ee919afcc3",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J",
+            "result": "sat",
+            "sha256": "78b66ec379d0597e2d193ed21c76ae7128768a1799cdfb89686fc7d4c997f307",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J-better",
+            "result": "unsat",
+            "sha256": "a4b7f07efb5db2e55ecbc23de068667c034571db5ddb5c5a20840b2e20df3bc6",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J-face",
+            "result": "sat",
+            "sha256": "40833a7750c27bdb60a78f4baf1cf39336193d1c1b4e7729d0c57a186b048975",
+            "status": "completed"
+          },
+          {
+            "kind": "primary-attainment",
+            "result": "sat",
+            "sha256": "29510a490bff9d04fc7d1dbaa5390cb78c3c016d231133591e9071794af9c0c4",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q",
+            "result": "sat",
+            "sha256": "81b22515639f7c86633188b469255c5c764820ba93b35806be2e9a97eccb4b36",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q-better",
+            "result": "unsat",
+            "sha256": "4baa4bb507458dbad2d0482d74f474ff9fe01ce8d3ce8bb0fd8c02cb9282185f",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q-face",
+            "result": "sat",
+            "sha256": "7478f4e83c0ce9934a9c6dde94719a7a9c814af92a6a572112047bf2aa204070",
+            "status": "completed"
+          },
+          {
+            "kind": "joint-attainment",
+            "result": "sat",
+            "sha256": "ce852ae533ef61f9cba212977504aed264b1e0f1dd6c2c68af354a0fabf5b7f1",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H",
+            "result": "sat",
+            "sha256": "94f21632ffea4eff037e373a59829183f244840498ee5673a6fd265e1213739c",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H-better",
+            "result": "unsat",
+            "sha256": "fd0a1c62fc4d16b9fb361f0004d6a4f5ddc1b006ed6db6f1e1b432a29f4a6140",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-H-face",
+            "result": "sat",
+            "sha256": "339af7aafd54780ab6198440c868385472ee166d064363546a6c15bd2b0716b3",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-0",
+            "result": "sat",
+            "sha256": "acddab90724a479d2e6b2fedd7a31463d2a7f0a4e7594be0ed5fb925090a0329",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-0-better",
+            "result": "unsat",
+            "sha256": "9c5063f7ff32093973fd7b4b88680c680e0bc7e0af659dcb33e79389363e8d5e",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-0-face",
+            "result": "sat",
+            "sha256": "afd86cc57e0a47deb7023ca6732a8744bdd39e52538f4467d09ca08b6d36693c",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-1",
+            "result": "sat",
+            "sha256": "794c28a71cf47a3fe11198378dbe69fb0429d3409a37c7625e80758d0ff74c0d",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-1-better",
+            "result": "unsat",
+            "sha256": "4e20b61d37c53aecb00d8f47f4de406a85191e9da2c2ee404a9da9e76eaec64c",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-Pi-1-face",
+            "result": "sat",
+            "sha256": "263260d7ec0a3103ca63e7798abfa331e48891cad76d3dc05bc50cea6693f126",
+            "status": "completed"
+          },
+          {
+            "kind": "attained-full-key",
+            "result": "sat",
+            "sha256": "e3509b4b7fae8f51988966dece60521222909c8806890f3768d09ff34ea1edd0",
+            "status": "completed"
+          }
+        ],
+        "constraints": 113,
+        "continuous_copies": 2,
+        "depth_contract": "complete floor(U_J/(h+lambda)); no H/N or prototype slot cap",
+        "derived_depth": 2,
+        "explicit_plan_enumerations": 0,
+        "external_solver": "Z3 4.13.4",
+        "independent_replay": {
+          "final_energy": "0",
+          "key": [
+            "29",
+            "3",
+            2,
+            [
+              [
+                "c",
+                "C"
+              ],
+              [
+                "s",
+                "S"
+              ]
+            ]
+          ],
+          "trace": [
+            {
+              "arrival": "101",
+              "effect": "C",
+              "finish": "105",
+              "incoming": "0",
+              "outgoing": "3",
+              "selected_edges": [
+                "o>c"
+              ],
+              "selected_nodes": [
+                "o",
+                "c"
+              ],
+              "site": "c"
+            },
+            {
+              "arrival": "106",
+              "effect": "S",
+              "finish": "108",
+              "incoming": "1",
+              "outgoing": "1",
+              "selected_edges": [
+                "c>s"
+              ],
+              "selected_nodes": [
+                "c",
+                "s"
+              ],
+              "site": "s"
+            }
+          ]
+        },
+        "key": [
+          "29",
+          "3",
+          2,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ]
+          ]
+        ],
+        "physics_sha256": "48cef364cdd38f176a17d1275c86f7fa2e0e3147e1136023501ba5593b8989db",
+        "road_selection_certified": false,
+        "scope": "Exact optimum/infimum conditional on the supplied leg table and physical contract",
+        "selector_count": 8,
+        "status": "attained_optimum",
+        "table_sha256": "ab7523866a713710554b42a6c31c042bd410718492db9c8eef7bc51aba273fb0",
+        "upper_key": [
+          "29",
+          "3",
+          2,
+          [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ]
+          ]
+        ],
+        "upper_witness_independently_replayed": true,
+        "witness": {
+          "charges": [
+            "3"
+          ],
+          "initial_wait": "0",
+          "plan": [
+            [
+              "c",
+              "C"
+            ],
+            [
+              "s",
+              "S"
+            ]
+          ]
+        }
+      },
+      "sampled_process_group_peak_RSS_bytes": 62013440,
+      "separate_final_replay": true,
+      "separate_seed_replay": true,
+      "source": {
+        "commit": "cc85f5827723c04170cb765248c3e03324b365ef",
+        "dirty": false
+      },
+      "status": "verified",
+      "supervised_CPU_s": 1.655937,
+      "wall_s": 0.5173088330193423
+    },
+    {
+      "SMT_artifact_files": 5,
+      "SMT_check_count": 5,
+      "SMT_checks_sha256": "efca725a59e72a39713a60c9a9045845ebebb162e8e229b4270ef48e06458635",
+      "actual": {
+        "primary_infimum": "10",
+        "status": "primary_unattained"
+      },
+      "case": "primary_unattained",
+      "certificate": {
+        "graph_identity": "SYNTHETIC_TINY:6d30b7ca7d0c18d3efd7f3691ddd51d0c77960bc719be980d10a122bdf427f2a",
+        "method": "independent exhaustive simple paths with positive weights",
+        "not_inferred_from_schema": true,
+        "real_graph": false,
+        "scope": "synthetic tiny graph only",
+        "table_sha256": "ff1fc63750ca2090ba833e1658215aa8693544c05dcd7ff57764d3c402afde4d",
+        "verified_pairs": 4
+      },
+      "config_sha256": "6b9481994abdec0803c90b063c650ad50a3b2a2fe547cdddacab07a372b05ae7",
+      "cpu_s": 0.07583200000000001,
+      "derived_depth": 1,
+      "expected": {
+        "primary_infimum": "10",
+        "status": "primary_unattained"
+      },
+      "holdout": false,
+      "host_available_min_bytes": 4725145600,
+      "numerical_worker_attempts": 1,
+      "prepared": {
+        "case": "primary_unattained",
+        "certificate": {
+          "graph_identity": "SYNTHETIC_TINY:6d30b7ca7d0c18d3efd7f3691ddd51d0c77960bc719be980d10a122bdf427f2a",
+          "method": "independent exhaustive simple paths with positive weights",
+          "not_inferred_from_schema": true,
+          "real_graph": false,
+          "scope": "synthetic tiny graph only",
+          "table_sha256": "ff1fc63750ca2090ba833e1658215aa8693544c05dcd7ff57764d3c402afde4d",
+          "verified_pairs": 4
+        },
+        "derived_depth": 1,
+        "fixture_sha256": "bde057c2c8d17b22c1dc521df0e5a231274ee4cc092d241d72a1b60045377a48",
+        "status": "prepared_unrun",
+        "table_sha256": "ff1fc63750ca2090ba833e1658215aa8693544c05dcd7ff57764d3c402afde4d",
+        "upper_key": [
+          "21/2",
+          "1/2",
+          1,
+          [
+            [
+              "c",
+              "C"
+            ]
+          ]
+        ]
+      },
+      "production_optimizer_called": false,
+      "raw_receipt_sha256": "c76a8cd8e17103ac82bb70ce285451a3201de9aa6c18cdc3dc8ff0de969f3aa3",
+      "real_road_generation": false,
+      "real_scale_solve": false,
+      "result": {
+        "charging_pieces": 3,
+        "checks": [
+          {
+            "kind": "supported-disjunction",
+            "result": "sat",
+            "sha256": "29642f1ddee9f7e1d872f0e8437800b1415862dc94cae4b73a7bfbf8370f0bd0",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J",
+            "result": "sat",
+            "sha256": "56e16362cc8e605909ed3543cd8f68567a91d39988fd686eaed3eb492235d208",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J-better",
+            "result": "unsat",
+            "sha256": "ce7902ccdaaabc34575a58fade983cb81ea48d223fd3f740305e56fed20f2ac2",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J-face",
+            "result": "sat",
+            "sha256": "93c8c804e01e1d02d54e0e5f8b2c47c782bd0e85ba36363f6c86c859099dbb13",
+            "status": "completed"
+          },
+          {
+            "kind": "primary-attainment",
+            "result": "unsat",
+            "sha256": "b3ad3f5ad065f2ba2f0ad7d527e5f1b5dddd17f6acf7c3aa43bd967b08048657",
+            "status": "completed"
+          }
+        ],
+        "constraints": 60,
+        "continuous_copies": 2,
+        "depth_contract": "complete floor(U_J/(h+lambda)); no H/N or prototype slot cap",
+        "derived_depth": 1,
+        "explicit_plan_enumerations": 0,
+        "external_solver": "Z3 4.13.4",
+        "physics_sha256": "811e67f79b067792bb2ca03c2fe48353e7e6c8d8da690abca2ded2addf2fcb62",
+        "primary_infimum": "10",
+        "road_selection_certified": false,
+        "scope": "Exact optimum/infimum conditional on the supplied leg table and physical contract",
+        "selector_count": 4,
+        "status": "primary_unattained",
+        "table_sha256": "ff1fc63750ca2090ba833e1658215aa8693544c05dcd7ff57764d3c402afde4d",
+        "upper_key": [
+          "21/2",
+          "1/2",
+          1,
+          [
+            [
+              "c",
+              "C"
+            ]
+          ]
+        ],
+        "upper_witness_independently_replayed": true
+      },
+      "sampled_process_group_peak_RSS_bytes": 59047936,
+      "separate_final_replay": false,
+      "separate_seed_replay": true,
+      "source": {
+        "commit": "cc85f5827723c04170cb765248c3e03324b365ef",
+        "dirty": false
+      },
+      "status": "verified",
+      "supervised_CPU_s": 1.189058,
+      "wall_s": 0.09600716695422307
+    },
+    {
+      "SMT_artifact_files": 9,
+      "SMT_check_count": 9,
+      "SMT_checks_sha256": "7c87b29b66b3a3084d8885884c4e64943f0f7ad1823f79082ae5c84dde456ef9",
+      "actual": {
+        "primary_infimum": "14",
+        "primary_value": "14",
+        "secondary_infimum": "0",
+        "status": "secondary_unattained"
+      },
+      "case": "secondary_unattained",
+      "certificate": {
+        "graph_identity": "SYNTHETIC_TINY:6d30b7ca7d0c18d3efd7f3691ddd51d0c77960bc719be980d10a122bdf427f2a",
+        "method": "independent exhaustive simple paths with positive weights",
+        "not_inferred_from_schema": true,
+        "real_graph": false,
+        "scope": "synthetic tiny graph only",
+        "table_sha256": "c05745c8c771831f296b2feff804af26db471113af53bbe808039653975aa688",
+        "verified_pairs": 4
+      },
+      "config_sha256": "6b9481994abdec0803c90b063c650ad50a3b2a2fe547cdddacab07a372b05ae7",
+      "cpu_s": 0.11968000000000001,
+      "derived_depth": 1,
+      "expected": {
+        "primary_infimum": "14",
+        "primary_value": "14",
+        "secondary_infimum": "0",
+        "status": "secondary_unattained"
+      },
+      "holdout": false,
+      "host_available_min_bytes": 4675354624,
+      "numerical_worker_attempts": 1,
+      "prepared": {
+        "case": "secondary_unattained",
+        "certificate": {
+          "graph_identity": "SYNTHETIC_TINY:6d30b7ca7d0c18d3efd7f3691ddd51d0c77960bc719be980d10a122bdf427f2a",
+          "method": "independent exhaustive simple paths with positive weights",
+          "not_inferred_from_schema": true,
+          "real_graph": false,
+          "scope": "synthetic tiny graph only",
+          "table_sha256": "c05745c8c771831f296b2feff804af26db471113af53bbe808039653975aa688",
+          "verified_pairs": 4
+        },
+        "derived_depth": 1,
+        "fixture_sha256": "8279213c114f3a5bfc5ca869fd63062af5ddb192bbaaf1e63f9ff6f081da5da5",
+        "status": "prepared_unrun",
+        "table_sha256": "c05745c8c771831f296b2feff804af26db471113af53bbe808039653975aa688",
+        "upper_key": [
+          "14",
+          "1/2",
+          1,
+          [
+            [
+              "c",
+              "CS"
+            ]
+          ]
+        ]
+      },
+      "production_optimizer_called": false,
+      "raw_receipt_sha256": "1f798e51d3bf8376a4bd742eb9e8b5efe1a9ba7343a14ea125ac74f6c31c51d8",
+      "real_road_generation": false,
+      "real_scale_solve": false,
+      "result": {
+        "charging_pieces": 3,
+        "checks": [
+          {
+            "kind": "supported-disjunction",
+            "result": "sat",
+            "sha256": "3d382f60ecc7b214fbcc998845393aab43bf0907de96beae3075ef8d7a8e8194",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J",
+            "result": "sat",
+            "sha256": "cececfeb55c0914423d2a6246e9007b8e1b04475dd0e85980146265a0e48e723",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J-better",
+            "result": "unsat",
+            "sha256": "a1195b71d900de9592d43e5d7ab87c39c73b6c735d8235d79136ece9e04af179",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-J-face",
+            "result": "sat",
+            "sha256": "ad0a0e69786a5f37d64861f436120401276d7968560b1d6737f0065c70818739",
+            "status": "completed"
+          },
+          {
+            "kind": "primary-attainment",
+            "result": "sat",
+            "sha256": "2c730f76c90fb4ff0c06e6baab3d3daca6fcc1d71d578cc01ce60c893b1f36d6",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q",
+            "result": "sat",
+            "sha256": "75452123b44c2952745750e4e24254dacc99268a7c903649fe57d8fedece3b95",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q-better",
+            "result": "unsat",
+            "sha256": "a64f5e2302fb750683367bba6a5d82934267efaf45bca3c7f959dc8fe4058197",
+            "status": "completed"
+          },
+          {
+            "kind": "supported-primary-face-Q-face",
+            "result": "sat",
+            "sha256": "bae77e23f71a008fea63e60783c6bb14bbfdf22063bf9e166a278b1f230e7580",
+            "status": "completed"
+          },
+          {
+            "kind": "joint-attainment",
+            "result": "unsat",
+            "sha256": "60359724cba8e9a45aacc05165b86965a17a07ac55172a448ab500f8cb4dfbad",
+            "status": "completed"
+          }
+        ],
+        "constraints": 60,
+        "continuous_copies": 2,
+        "depth_contract": "complete floor(U_J/(h+lambda)); no H/N or prototype slot cap",
+        "derived_depth": 1,
+        "explicit_plan_enumerations": 0,
+        "external_solver": "Z3 4.13.4",
+        "physics_sha256": "6f6429a7ae6223e0e1be9285b37dc3f6fcfa316811c4a348ecefb64a57e9ae70",
+        "primary_infimum": "14",
+        "primary_value": "14",
+        "road_selection_certified": false,
+        "scope": "Exact optimum/infimum conditional on the supplied leg table and physical contract",
+        "secondary_infimum": "0",
+        "selector_count": 4,
+        "status": "secondary_unattained",
+        "table_sha256": "c05745c8c771831f296b2feff804af26db471113af53bbe808039653975aa688",
+        "upper_key": [
+          "14",
+          "1/2",
+          1,
+          [
+            [
+              "c",
+              "CS"
+            ]
+          ]
+        ],
+        "upper_witness_independently_replayed": true
+      },
+      "sampled_process_group_peak_RSS_bytes": 58884096,
+      "separate_final_replay": false,
+      "separate_seed_replay": true,
+      "source": {
+        "commit": "cc85f5827723c04170cb765248c3e03324b365ef",
+        "dirty": false
+      },
+      "status": "verified",
+      "supervised_CPU_s": 1.236353,
+      "wall_s": 0.14061358297476545
+    }
+  ],
+  "schema": "hiroute.exact_physical_results.v1",
+  "scope": "Eight synthetic analytic fixtures, conditional exact supplied-table model; no real-scale or holdout claim",
+  "separate_final_replay_count": 5,
+  "separate_seed_replay_count": 7
+}

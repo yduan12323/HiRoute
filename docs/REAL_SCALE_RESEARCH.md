@@ -1,4 +1,32 @@
-# Current exact-leg input construction gate
+# Current independent physical-model tiny gate
+
+The [exact physical adapter](EXACT_PHYSICAL_ADAPTER.md) connects the existing
+strict-support formulation to the shared exact grounded leg lookup. The frozen
+eight-class tiny gate passes: six attained optima, one primary-unattained and
+one secondary-unattained result match analytic contracts. Fifteen local tests
+pass normally and under-OO, with separate mocked accounting checks. All116 gate
+SMT artifacts are retained; no production optimizer is used as an oracle.
+
+Complete relevant H comes from an independently replayed attained upper witness;
+there is no H<=N/6/51 optimizer cap. Literal aliases/repeated visits, all charging
+pieces, terminal/empty-prefix behavior, primary/joint attainment and full K are
+represented. Seven seed and five final-witness concrete replays agree with the
+older independent checker on its nonalias domain. This establishes tiny
+conditional-model semantics, not a general Core parity theorem or real N64
+practicality. Real table certification and end-to-end real input ingestion remain
+absent. No real road table, real-scale solve or holdout ran.
+
+New conservative charge is **331.808096/900 CPU seconds**, including the full300
+precharge and31.808096 metered commands/controller/tails. Original cumulative
+charge is **15640.028053741/28800**, remaining13159.971946259. Preprocessing
+remains652.040677976/900. Software CI is separately prospectively reserved.
+The failed initial comparison and unstarted preexec attempt remain in the
+[complete result join](exact_physical_results.json). Existing scientific limits
+and negative evidence remain unchanged; original taskbook completion is false.
+
+Entries below retain their historical source, state and accounting.
+
+# Exact-leg input construction gate (historical)
 
 The [exact-leg input/lookup component](EXACT_LEG_INPUT_CONSTRUCTION.md) passes
 its bounded synthetic construction gate:64 literal Sites,110 actions and51
