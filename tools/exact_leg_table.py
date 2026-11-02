@@ -46,7 +46,7 @@ class Pair:
     edges: tuple
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True,init=False)
 class ExactLegTable:
     origin_anchor: str
     destination_anchor: str
@@ -59,6 +59,7 @@ class ExactLegTable:
     graph_identity: str
     payload_sha256: str
     road_selection_certified: bool=False
+    _validated: bool=False
 
     @classmethod
     def from_bytes(cls,data,check=None):
@@ -131,8 +132,13 @@ class ExactLegTable:
                             raise ValueError('inconsistent directed reachability/shortest time')
         if payload_sha256 is None:
             payload_sha256=hashlib.sha256(json.dumps(payload,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()
-        return cls(origin,destination,order,MappingProxyType(aliases),MappingProxyType(capabilities),
-                   sources,targets,MappingProxyType(pairs),graph,payload_sha256)
+        result=object.__new__(cls)
+        values=dict(origin_anchor=origin,destination_anchor=destination,candidate_order=order,
+            aliases=MappingProxyType(aliases),capabilities=MappingProxyType(capabilities),
+            sources=sources,targets=targets,pairs=MappingProxyType(pairs),graph_identity=graph,
+            payload_sha256=payload_sha256,road_selection_certified=False,_validated=True)
+        for name,value in values.items():object.__setattr__(result,name,value)
+        return result
 
     @property
     def actions(self):return tuple(sorted((s,e) for s in self.candidate_order for e in self.capabilities[s]))
@@ -180,6 +186,8 @@ class GroundedLookup:
     """Shared finite arrays. Outside values cannot enter a guarded transition."""
     def __init__(self,table,check=None):
         import z3
+        if not isinstance(table,ExactLegTable) or not getattr(table,'_validated',False):
+            raise TypeError('use the exact table parser before constructing lookups')
         self.z3,self.table=z3,table
         self.source_index={a:i for i,a in enumerate(table.sources)}
         self.target_index={a:i for i,a in enumerate(table.targets)}
@@ -203,7 +211,12 @@ class GroundedLookup:
             self.S=z3.Store(self.S,rank,effect in ('S','CS'))
 
     def at(self,source,target):
-        z=self.z3;key=source*self.width+target
+        z=self.z3
+        for value in (source,target):
+            if type(value) is int:continue
+            if not isinstance(value,z.ArithRef) or value.sort().kind()!=z.Z3_INT_SORT:
+                raise TypeError('lookup indices must be integers, never bool/real/coerced values')
+        key=source*self.width+target
         guard=z.And(source>=0,source<len(self.source_index),target>=0,target<self.width,z.Select(self.R,key))
         return GroundedLeg(guard,z.Select(self.T,key),z.Select(self.L,key))
 

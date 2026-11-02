@@ -114,6 +114,16 @@ class ExactLegTests(unittest.TestCase):
         for source,target in [(-1,0),(len(lookup.source_index),0),(0,-1),(0,lookup.width)]:
             self.assertTrue(z3.is_false(z3.simplify(z3.substitute(leg.guard,(s,z3.IntVal(source)),(d,z3.IntVal(target))))))
 
+    def test_boolean_real_and_fractional_indices_are_rejected_not_coerced(self):
+        lookup=GroundedLookup(ExactLegTable.from_dict(small()))
+        for index in (True,0.5,F(1,2),z3.RealVal('1/2'),z3.Real('accidental_real')):
+            with self.subTest(index=str(index)),self.assertRaises(TypeError):lookup.at(index,0)
+            with self.subTest(index=str(index)),self.assertRaises(TypeError):lookup.at(0,index)
+
+    def test_lookup_requires_parser_validated_input(self):
+        with self.assertRaises(TypeError):GroundedLookup(ExactLegTable())
+        with self.assertRaises(TypeError):GroundedLookup(small())
+
     def test_empty_prefix_repeated_C_S_C_and_inactive_suffix_terminal(self):
         t=ExactLegTable.from_dict(small());lookup=GroundedLookup(t)
         empty=lookup.resolve(lookup.trace(0,0),[])
