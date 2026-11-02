@@ -242,5 +242,16 @@ class PackedTests(unittest.TestCase):
                 finally:t._db.set_progress_handler(None,0);t.close()
             finally:p.close();g.close()
 
+    def test_binary_input_size_is_admitted_before_hash_or_decode(self):
+        from packed_source_certificate_codec import decode_certificate
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);b=tiny_build();g=graph_inputs(b['graph_payload'],root);p=Packed.open(build_synthetic(g,root/'pack'));h=header(b,g)
+            try:
+                generate(p,h,root/'unit')
+                with patch('packed_source_certificate_codec.sha',side_effect=AssertionError('hash before admission')):
+                    with self.assertRaises(ResourceStop):decode_certificate(root/'unit/source.binary',root/'unstarted',p,h,'unused',max_input_bytes=1)
+                self.assertFalse((root/'unstarted').exists())
+            finally:p.close();g.close()
+
 
 if __name__=='__main__':unittest.main()

@@ -130,3 +130,130 @@ serial timed retries. Original taskbook acceptance remains incomplete.
 
 The measured finite result and exact source/receipt identities are appended
 after the single frozen synthetic worker. No real assertion is made here.
+
+
+## Observed finite result
+
+Actual matrix producer was clean commit
+`4acf26de43ba4419059bc07879e8438d0ae7e1c6`. All eight fixed profiles passed
+independent source checking. The analytic full-width star additionally passed
+ordinary Session for all65sources/4225pairs, with an owned full-table Checked.
+This is a synthetic table, never a real Shandong certificate.
+
+| synthetic profile | nodes | edges | scheduled sources | body CPU s |
+|---|---:|---:|---:|---:|
+| base |5|7|1|0.006411|
+| deep tuple tie |5|7|1|0.005396|
+| numeric IDs |4|4|1|0.005176|
+| wide rational |3|2|1|0.005056|
+| empty prefix |5|7|1|0.005274|
+| Unicode |6|6|1|0.005509|
+| full64-Site star |66|65|65|0.905854|
+| scaling chain/chord |4096|16377|1|65.579972|
+
+The4096-node profile's original end-to-end body65.579972CPU/65.588259wall
+includes construction, pack validation, generation, serialization, retained
+path parsing and independent proof. The original source-check section was
+60.889648CPU; generator phases sum approximately4.20CPU (labels0.089470,
+tight masks0.073043, two-pass paths3.944414, reference transcript0.033022,
+binary0.011589, lossless decode0.040437, identities/hashes also included).
+Do not report label time alone as pipeline cost.
+
+The1,035,621-byte scaling pack fits entirely in16MiB cache, with zero new
+pread misses in generation after pack validation. Its labels used at most
+14combined numerator/denominator bits and frontier peaked at4. Its8,191,448-byte
+paths,388,340-byte decoded source and102,350-byte binary source are actual
+synthetic sizes, not estimates of the real graph. A real packed graph is much
+larger than cache, and real path bit growth/retention is unmeasured.
+
+The single matrix command charged70.951740CPU including controller/tail;
+sampled tree peak65,093,632bytes, native postexit max65,241,088, minimum host
+availability5,437,849,600. No guard fired. This does not measure real RSS or
+predict completion of a real source.
+
+## Concrete checker access defect and bounded correction
+
+A read-only EXPLAIN on the preserved synthetic artifact selected
+`SEARCH steps USING PRIMARY KEY (s=?)` for choices at a vertex. Although a
+unique(s,u,t) index existed, this chosen plan scanned all paths of the source
+for each queried vertex. This observation establishes the access mechanism,
+not a separately measured split of arithmetic/I/O time.
+
+A bounded-VM regression on2016synthetic path rows was demonstrated red before
+repair. Commit `097b2cb22d68fa31ab51adf0c28d9a470a09776f` adds a covering
+(s,u,t,v,eid) index and explicitly selects it. SELECT columns, WHERE conditions,
+BINARY target order and every mathematical proof check are unchanged. This is
+an access-path correction, not a new verifier or routing model.
+
+One predeclared check-only diagnostic reused the exact existing scaling paths
+SHA `ce00f2efb257fa057bb3d88ff42d280a1302a5bfcd5eaece596a8f18944f7583`
+and source SHA `1cfa059dd9b2c1499ea574ad9090d4f5e8810ee9465de01fe1a3a873d33a6d4e`.
+No generation, packing or real data was rerun. New plan:
+`SEARCH steps USING COVERING INDEX steps_choice_lookup (s=? AND u=?)`.
+The new source-check section, including creating the extra index, was
+**4.432585CPU/4.433895wall**, and full check-only body4.495064CPU. Its fresh
+compiled path SQLite was17,629,184bytes. All65target pairs again independently
+verified; its metadata still retains all65sources/4225pairs.
+
+The diagnostic charged5.755260CPU, sampled peak50,692,096bytes and host floor
+5,489,573,888. Original60.889648 remains immutable. This is a same-synthetic-input
+check-only comparison, not a new end-to-end row or a real speedup. Do not add
+old generation time to new checking time and call it an observed pipeline.
+The earlier real120second failure was in generation before any checker ran;
+this checker correction does not retrospectively explain that failure.
+
+Fifteen final regressions pass normal/-OO, including the bounded-VM seek,
+corrupt pack/codec, exact arbitrary precision and complete domain/owner cases.
+The21existing streaming regressions also pass both modes, including the full
+synthetic65source/4225pair check. The earlier initial fixture errors (range
+precedence and a false label accidentally made an explicit target) and the
+intentional red access regression are retained, with all costs.
+
+## Terminal accounting and decision
+
+Stage **336.015371/600CPU seconds** =240fixed development/controller +
+78.074499tiny (including the complete matrix) +13.819408verification/report +
+4.121464close (2conservative bookkeeping, not measured CPU, plus
+2.121464focused input-admission verification). Sixteen guarded commands
+and32process identities are terminal. Original cumulative
+**17062.772892741/28800**, remaining **11737.227107259**. Preprocessing remains
+652.040677976/900; ordinary software CI is separately reserved. No prior charge
+or unsuccessful row is deleted/refunded. Raw input/output, failures, matrix and
+check-only receipts remain outside Git; the small
+[delivery report](packed_source_feasibility_results.json) binds their hashes.
+
+Structural frozen-count estimates are873,173,089bytes for a full packed graph
+and827,162,222bytes for the generator admission layout. Neither is measured
+real RSS; arbitrary label growth can still stop at its quota. The conditional
+binary upper is539,857,908bytes/source (35,090,764,020all65), decoded JSON upper
+2,753,295,369bytes for one active source, and prospective full storage/quota
+sum45,159,683,422bytes including free-disk floor. These depend on a valid
+immutable mapping, label-object accounting and valid attaining-predecessor
+structure; untrusted artifacts still need explicit live output/file quotas.
+They are conservative upper bounds under stated conditions, not storage
+requirements or proof the host currently admits them. Temporary construction
+indexes, cleanup, file-size enforcement and live headroom remain prerequisites.
+
+**PASS_SYNTHETIC_COMPONENT_ONLY; NO_GO_REAL_END_TO_END_RELEASE.** There is now
+a concrete exact representation, bounded frontier, lossless transport and a
+verified checker access fix. These provide a defensible development direction,
+not proof of a real120second or budget-feasible complete table. Real external
+packing/independent identity validation, full label growth, paging/serialization,
+checker resource measurements and retention/quota driver are absent. An
+unchanged64source reservation still needs19200CPU, above11737.227107259.
+
+Concrete remaining options are (1) separately implement and admit a bounded
+external packed constructor plus full raw/packed identity validation on the
+same graph, with no source/EV run; only a successful artifact/resource gate
+could justify proposing one separately budgeted real generation/check, or
+(2) retain the exact verified system and record independent real-scale
+comparison as resource-limited within the unchanged cap. Do not fund repeated
+real probes or a64source rollout from these synthetic timings. No further real
+or synthetic matrix is admitted here. Original taskbook acceptance remains open.
+
+
+Final input-bound audit adds byte-size admission before hashing a binary source.
+A16th regression proves a rejected envelope never hashes, decodes or opens output;
+it passes normal/-OO. The15core/21legacy checks above remain valid, the measured
+producer and check-only versions remain distinct, and no matrix was repeated.
+Dedicated CI runs all16current methods per mode alongside the earlier55.

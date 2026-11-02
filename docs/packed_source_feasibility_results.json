@@ -1,0 +1,328 @@
+{
+  "schema": "hiroute.packed_source_feasibility.delivery_summary.v1",
+  "decision": "PASS_SYNTHETIC_COMPONENT_ONLY_NO_GO_REAL_RELEASE",
+  "producer_commit": "4acf26de43ba4419059bc07879e8438d0ae7e1c6",
+  "checker_repair_commit": "097b2cb22d68fa31ab51adf0c28d9a470a09776f",
+  "matrix_sha256": "22a392dcbf9c2b2dec733a99938596753701b578944698a47c4af001021b5f2a",
+  "check_only_sha256": "92f4672799d6bd16235de1c7baaa898a4496ecb12ab1f2fa31df1ece9bc30cba",
+  "profile_denominator": 8,
+  "profile_status_counts": {
+    "INDEPENDENTLY_VERIFIED_SYNTHETIC": 8
+  },
+  "profiles": [
+    {
+      "id": "base",
+      "nodes": 5,
+      "edges": 7,
+      "pack_bytes": 574,
+      "completed_sources": 1,
+      "body_CPU_s": 0.006411,
+      "body_wall_s": 0.006409958994481713,
+      "synthetic_full_table": null
+    },
+    {
+      "id": "deep",
+      "nodes": 5,
+      "edges": 7,
+      "pack_bytes": 558,
+      "completed_sources": 1,
+      "body_CPU_s": 0.005395999999999998,
+      "body_wall_s": 0.005399457993917167,
+      "synthetic_full_table": null
+    },
+    {
+      "id": "numeric",
+      "nodes": 4,
+      "edges": 4,
+      "pack_bytes": 385,
+      "completed_sources": 1,
+      "body_CPU_s": 0.005176,
+      "body_wall_s": 0.005180666979867965,
+      "synthetic_full_table": null
+    },
+    {
+      "id": "wide_rational",
+      "nodes": 3,
+      "edges": 2,
+      "pack_bytes": 284,
+      "completed_sources": 1,
+      "body_CPU_s": 0.005055999999999998,
+      "body_wall_s": 0.0050591250183060765,
+      "synthetic_full_table": null
+    },
+    {
+      "id": "empty_prefix",
+      "nodes": 5,
+      "edges": 7,
+      "pack_bytes": 574,
+      "completed_sources": 1,
+      "body_CPU_s": 0.005274000000000001,
+      "body_wall_s": 0.00527654099278152,
+      "synthetic_full_table": null
+    },
+    {
+      "id": "unicode",
+      "nodes": 6,
+      "edges": 6,
+      "pack_bytes": 515,
+      "completed_sources": 1,
+      "body_CPU_s": 0.005509,
+      "body_wall_s": 0.0055082920007407665,
+      "synthetic_full_table": null
+    },
+    {
+      "id": "full_N64",
+      "nodes": 66,
+      "edges": 65,
+      "pack_bytes": 5998,
+      "completed_sources": 65,
+      "body_CPU_s": 0.905854,
+      "body_wall_s": 0.9249729159637354,
+      "synthetic_full_table": {
+        "checked_pairs": 4225,
+        "checked_sources": 65,
+        "owned": true,
+        "scope": "synthetic full table only",
+        "CPU_s": 0.168709,
+        "wall_s": 0.17490933398948982
+      }
+    },
+    {
+      "id": "scaling_4096",
+      "nodes": 4096,
+      "edges": 16377,
+      "pack_bytes": 1035621,
+      "completed_sources": 1,
+      "body_CPU_s": 65.57997200000001,
+      "body_wall_s": 65.58825900004013,
+      "synthetic_full_table": null
+    }
+  ],
+  "scaling_generator_phases": [
+    {
+      "phase": "identity_and_admission",
+      "CPU_s": 0.001679000000000208,
+      "wall_s": 0.001679459004662931
+    },
+    {
+      "phase": "labels",
+      "CPU_s": 0.08946999999999994,
+      "wall_s": 0.08946970797842368
+    },
+    {
+      "phase": "tight_masks",
+      "CPU_s": 0.07304299999999997,
+      "wall_s": 0.07304712501354516
+    },
+    {
+      "phase": "paths_two_pass_stream",
+      "CPU_s": 3.9444139999999996,
+      "wall_s": 3.945701625023503
+    },
+    {
+      "phase": "source_reference_transcript",
+      "CPU_s": 0.03302200000000077,
+      "wall_s": 0.033039583009667695
+    },
+    {
+      "phase": "binary_certificate",
+      "CPU_s": 0.01158899999999985,
+      "wall_s": 0.011621333949733526
+    },
+    {
+      "phase": "lossless_decode_and_source_file",
+      "CPU_s": 0.040436999999999834,
+      "wall_s": 0.04049983300501481
+    },
+    {
+      "phase": "final_identity",
+      "CPU_s": 0.0004010000000000957,
+      "wall_s": 0.00040020799497142434
+    },
+    {
+      "phase": "output_hashes",
+      "CPU_s": 0.0033440000000002357,
+      "wall_s": 0.0033432500204071403
+    }
+  ],
+  "scaling_generator_metrics": {
+    "SQL_execute_calls": 0,
+    "edge_visits": 16377,
+    "weight_decodes": 708169,
+    "settled_nodes": 4096,
+    "heap_peak": 4,
+    "heap_compares": 12276,
+    "label_peak_accounted_bytes": 425984,
+    "max_label_bits": 14,
+    "cache_peak_bytes": 1035621,
+    "page_hits": 3822972,
+    "page_misses": 0,
+    "pread_bytes": 0,
+    "IO_counter_scope": "pread only; SHA reads excluded; cache can be shared/warm; generator SQL zero does not describe pack/check",
+    "fixed_state_formula_bytes": 139264
+  },
+  "scaling_output_bytes": {
+    "paths": 8191448,
+    "certificate": 388340,
+    "binary": 102350
+  },
+  "original_scaling_check": {
+    "CPU_s": 60.889648,
+    "wall_s": 60.895135750004556
+  },
+  "check_only_repair": {
+    "scope": "synthetic check-only diagnostic, not a new end-to-end measurement",
+    "source_commit": "097b2cb22d68fa31ab51adf0c28d9a470a09776f",
+    "producer_commit": "4acf26de43ba4419059bc07879e8438d0ae7e1c6",
+    "matrix_sha256": "22a392dcbf9c2b2dec733a99938596753701b578944698a47c4af001021b5f2a",
+    "paths_sha256": "ce00f2efb257fa057bb3d88ff42d280a1302a5bfcd5eaece596a8f18944f7583",
+    "source_sha256": "1cfa059dd9b2c1499ea574ad9090d4f5e8810ee9465de01fe1a3a873d33a6d4e",
+    "old_source_check": {
+      "CPU_s": 60.889648,
+      "wall_s": 60.895135750004556
+    },
+    "real_graph_scan": false,
+    "real_source": false,
+    "EV_solve": false,
+    "holdout": false,
+    "status": "INDEPENDENTLY_VERIFIED_SYNTHETIC",
+    "synthetic_graph_revalidation": {
+      "CPU_s": 0.059157999999999995,
+      "wall_s": 0.059159333002753556
+    },
+    "choice_query_plan": [
+      [
+        3,
+        0,
+        56,
+        "SEARCH steps USING COVERING INDEX steps_choice_lookup (s=? AND u=?)"
+      ]
+    ],
+    "independent_receipt": {
+      "scope": "verified single source only",
+      "source": "o",
+      "source_denominator": 65,
+      "pair_denominator": 4225,
+      "checked_sources": 1,
+      "checked_pairs": 65,
+      "unrun_sources": 64,
+      "graph_sha256": "be34b3cb8dd4c1a31bdd0f54d12ac01577c797f2fea2301387f0fe6708a08d1a",
+      "unit_sha256": "ce00f2efb257fa057bb3d88ff42d280a1302a5bfcd5eaece596a8f18944f7583",
+      "certificate_sha256": "1cfa059dd9b2c1499ea574ad9090d4f5e8810ee9465de01fe1a3a873d33a6d4e",
+      "whole_table_certified": false
+    },
+    "source_check": {
+      "CPU_s": 4.432585,
+      "wall_s": 4.4338948329677805
+    },
+    "compiled_path_SQLite_bytes": 17629184,
+    "body_CPU_s": 4.495064,
+    "body_wall_s": 4.4963699170039035
+  },
+  "resource_proof": {
+    "scope": "symbolic frozen-count storage/layout estimates, not measured real RSS or runtime",
+    "nodes": 2986695,
+    "edges": 5900232,
+    "raw_bytes": 530374281,
+    "node_domain": "all raw endpoints, already independently established",
+    "packed_fixed_sections_bytes": 236594632,
+    "packed_arena_conservative_upper_bytes": 636578457,
+    "packed_file_conservative_upper_bytes": 873173089,
+    "index_proof": {
+      "node_and_edge_counts_below_uint32_sentinel": true,
+      "byte_offsets_fit_uint64_under_explicit_4GiB_file_limit": true,
+      "numeric_weights_and_labels": "unbounded Fraction integers; explicit storage stop, never fixed-width rounding"
+    },
+    "generator_fixed_state_formula_bytes": 101547630,
+    "generator_reserves_bytes": {
+      "label_objects_and_integer_payload": 536870912,
+      "page_cache": 16777216,
+      "arithmetic_temporaries": 16777216,
+      "serialization_buffers": 16777216,
+      "interpreter_allocator_reserve": 134217728,
+      "container_header_and_cache_overhead": 4194304
+    },
+    "generator_layout_admission_bytes": 827162222,
+    "generator_external_RSS_limit_bytes": 1073741824,
+    "limitations": [
+      "512MiB exact label quota may resource-stop real input; no path-bit distribution measured",
+      "128MiB interpreter/allocator allowance is an explicit admission reserve, not a universal CPython RSS theorem; external whole-tree guard remains necessary",
+      "Synthetic constructor holds identities/edges in memory and refuses real counts; a bounded external-join real constructor is absent",
+      "Independent checker is unchanged and sequentially separate; its real source cost and SQLite workspace/output sizes are unmeasured"
+    ],
+    "whole_table_counts": {
+      "node_certificate_records": 194135175,
+      "raw_edge_check_visits": 383515080,
+      "pair_denominator": 4225,
+      "sources": 65
+    },
+    "compact_certificate_proof": {
+      "conditional_layout_supported": true,
+      "Fraction_object_bytes": 48,
+      "int_header_bytes": 24,
+      "int_bits_per_digit": 30,
+      "int_sizeof_digit": 4,
+      "label_quota_bytes": 536870912,
+      "one_binary_certificate_upper_bytes": 539857908,
+      "all65_binary_upper_bytes": 35090764020,
+      "one_decoded_JSON_upper_bytes": 2753295369,
+      "prospective_total_storage_with_quotas_bytes": 45159683422,
+      "assumptions": "Exact Fraction/int instances,512MiB summed label accounting,65targets, positive root present; node+attaining-predecessor text bounded by disjoint raw identity fields; JSON escaping<=2x valid raw UTF8. Decimal digits<=ceil(bits/3)+1 since2^3<10.",
+      "not_implemented_or_admitted": "Real external pack builder; lossless-only retention/cleanup driver;3GiB JSON limit;1GiB each active SQL file;2GiB cumulative selected-path quota; stop first incomplete source. Live preflight must reserve total plus other temporary files."
+    },
+    "whole_table_storage": "No full-source byte measurement. Binary/storage bounds are conditional quotas, not measured or required sizes, and do not admit a real batch.",
+    "sequential_memory": "Generator exits before independent checking; generator and checker state must not silently coexist. No real worker is launched here.",
+    "checker_memory": "Existing checker uses bounded SQLite global128MiB heap and streaming records. Completed-real-source checker RSS remains unmeasured; cannot substitute the generator layout for it.",
+    "budget": {
+      "carried_research_CPU_s": "16726.757521741",
+      "gate_cap_CPU_s": 600,
+      "remaining_before_gate_CPU_s": "12073.242478259",
+      "unchanged_remaining64_pair_reservation_CPU_s": 19200
+    },
+    "decision": "NO_GO_REAL_END_TO_END_RELEASE",
+    "reason": "No real packed construction/identity validation or completed source+independent check/storage cost exists; unchanged64source reservation exceeds remaining budget. Synthetic component success cannot close these gaps."
+  },
+  "current_tests_per_mode": 16,
+  "legacy_streaming_tests_per_mode": 21,
+  "all_recorded_processes_terminal": true,
+  "checked_process_identities": 32,
+  "guarded_command_count": 16,
+  "failed_history": [
+    "initial_contracts_normal:two incorrect fixture expectations; corrected bounded-file and non-target false-label fixtures passed",
+    "choice_seek_red_regression:intentionally demonstrates original source-wide scan; bounded-VM regression passes after covering-index repair"
+  ],
+  "nonworker_edit_history": "One quoting error and one atomic apply_patch context failure; no worker/input mutation, fixed240 retained.",
+  "accounting": {
+    "stage_CPU_s": "336.015371",
+    "stage_cap_CPU_s": 600,
+    "phase_CPU_s": {
+      "tiny_validation": "78.074499",
+      "verification_tails": "13.819408",
+      "close": "4.121464"
+    },
+    "fixed_precharge_CPU_s": 240,
+    "carried_research_CPU_s": "16726.757521741",
+    "research_total_CPU_s": "17062.772892741",
+    "remaining_original_CPU_s": "11737.227107259",
+    "preprocessing_CPU_s": "652.040677976",
+    "preprocessing_cap_CPU_s": 900,
+    "ordinary_software_CI": "separate prospective reservation; prior inclusive charges retained"
+  },
+  "real_sources": 65,
+  "real_pairs": 4225,
+  "original_real_status_counts": {
+    "UNKNOWN_UNCERTIFIED": 1,
+    "UNRUN_NOT_ADMITTED": 64
+  },
+  "real_whole_table_certified": false,
+  "real_source_retry": false,
+  "real_graph_scan": false,
+  "EV_solve": false,
+  "holdout": false,
+  "original_taskbook_complete": false,
+  "final_binary_input_guard": "Post-measurement byte-size admission before hashing; one focused normal/-OO regression, no matrix re-execution; actual producer/repair identities unchanged.",
+  "controller_versions_sha256": [
+    "5f65ec5b02c5ff024e796c1145fc81fb5994601f9f5ac44e6bf276d418b98410",
+    "624573a94d23b642f9ddeb87b0f8edf430ec0d1be4fc2318921224ebf1489bb5"
+  ]
+}

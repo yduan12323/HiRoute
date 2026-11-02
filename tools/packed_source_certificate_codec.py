@@ -39,9 +39,16 @@ def write_certificate(path,packed,header,paths_sha,labels,pred,masks,check=lambd
         scope='untrusted lossless candidate transport; not independent certification')
 
 
-def decode_certificate(path,output,packed,header,paths_sha,check=lambda:None):
+def decode_certificate(path,output,packed,header,paths_sha,check=lambda:None,*,max_input_bytes=None):
     from packed_source_prototype import bounded_emit
-    S,T=domain(header);K=len(T);B=(K+7)//8;before=sha(path);A=Arithmetic();consumed=hashlib.sha256()
+    S,T=domain(header);K=len(T);B=(K+7)//8
+    # Admit actual bytes before any whole-file hash. The frozen producer has a
+    #512MiB summed exact-label quota; this looser envelope adds all row fields.
+    envelope=HEAD.size+4*K+packed.N*(1+8+4+B)+512*1024**2
+    limit=envelope if max_input_bytes is None else max_input_bytes
+    if type(limit) is not int or not 0<=limit<=envelope:raise ValueError('binary input admission')
+    if Path(path).stat().st_size>limit:raise ResourceStop('binary source input byte envelope before hashing')
+    before=sha(path);A=Arithmetic();consumed=hashlib.sha256()
     with Path(path).open('rb') as source,Path(output).open('x') as target:
         def read(n):
             if n<0 or n>MAX_LINE:raise ResourceStop('bounded certificate input buffer')
