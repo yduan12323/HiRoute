@@ -12,15 +12,16 @@ import struct
 from streaming_road_graph import ResourceStop,MAX_LINE,sha,flush_file
 from streaming_road_certificate import Arithmetic,SOURCE_SCHEMA
 from generate_exact_source_unit import domain
+from packing_output_limits import LimitedFile
 
 MAGIC=b'HRSCERT1'
 HEAD=struct.Struct('<8sIII32s32s32s')
 SENTINEL=2**32-1
 
 
-def write_certificate(path,packed,header,paths_sha,labels,pred,masks,check=lambda:None):
+def write_certificate(path,packed,header,paths_sha,labels,pred,masks,check=lambda:None,*,max_output_bytes=None):
     S,T=domain(header);N=packed.N;K=len(T);B=(K+7)//8;root=packed.find_node(header['source_unit'])
-    with Path(path).open('xb') as out:
+    with LimitedFile(path,'xb',max_output_bytes) as out:
         out.write(HEAD.pack(MAGIC,N,K,root,bytes.fromhex(packed.graph_identity),bytes.fromhex(paths_sha),bytes.fromhex(packed.data_sha256)))
         for t in T:out.write(struct.pack('<I',packed.find_node(t)))
         for u in range(N):
@@ -39,7 +40,7 @@ def write_certificate(path,packed,header,paths_sha,labels,pred,masks,check=lambd
         scope='untrusted lossless candidate transport; not independent certification')
 
 
-def decode_certificate(path,output,packed,header,paths_sha,check=lambda:None,*,max_input_bytes=None):
+def decode_certificate(path,output,packed,header,paths_sha,check=lambda:None,*,max_input_bytes=None,max_output_bytes=None):
     from packed_source_prototype import bounded_emit
     S,T=domain(header);K=len(T);B=(K+7)//8
     # Admit actual bytes before any whole-file hash. The frozen producer has a
@@ -49,7 +50,7 @@ def decode_certificate(path,output,packed,header,paths_sha,check=lambda:None,*,m
     if type(limit) is not int or not 0<=limit<=envelope:raise ValueError('binary input admission')
     if Path(path).stat().st_size>limit:raise ResourceStop('binary source input byte envelope before hashing')
     before=sha(path);A=Arithmetic();consumed=hashlib.sha256()
-    with Path(path).open('rb') as source,Path(output).open('x') as target:
+    with Path(path).open('rb') as source,LimitedFile(output,'x',max_output_bytes) as target:
         def read(n):
             if n<0 or n>MAX_LINE:raise ResourceStop('bounded certificate input buffer')
             value=source.read(n)

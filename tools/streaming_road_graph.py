@@ -80,7 +80,9 @@ def declared_nodes(path):
 def connect(path,*,write=False,max_bytes=4*1024**3):
     if write:
         if Path(path).exists():raise ValueError('fresh DB path required; inspect uncertain outputs')
-        db=sqlite3.connect(str(path));db.execute('PRAGMA journal_mode=OFF');db.execute('PRAGMA synchronous=OFF')
+        db=sqlite3.connect(str(path));db.execute('PRAGMA page_size=4096')
+        if db.execute('PRAGMA page_size').fetchone()[0]!=4096:db.close();raise ResourceStop('bounded SQLite page-size profile')
+        db.execute('PRAGMA journal_mode=OFF');db.execute('PRAGMA synchronous=OFF')
         db.execute('PRAGMA max_page_count='+str(max(1,max_bytes//4096)))
     else:
         if any(Path(str(path)+s).exists() for s in ('-wal','-journal')):raise ValueError('unresolved SQLite sidecar')
