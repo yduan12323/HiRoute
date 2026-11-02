@@ -5,7 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from probe_exact_leg_table import validate_profiles
+from probe_exact_leg_table import validate_profiles,FROZEN_PROFILES
 
 
 def load(path):return json.loads(Path(path).read_text())
@@ -17,10 +17,18 @@ def report(root):
     if budget.get('active'):raise RuntimeError('active/uncertain command; inspect before closing')
     commands={r['label']:r for r in budget['records']};rounds=[]
     if len(commands)!=len(budget['records']):raise ValueError('duplicate command history label')
+    prefixes=('construct_','final_construct_')
+    allowed={prefix+p['id'] for prefix in prefixes for p in FROZEN_PROFILES}
+    actual={label for label in commands if label.startswith(prefixes)}
+    if not actual<=allowed:raise ValueError('unexpected construction history label')
     for name,directory,ready_name,label_prefix in (
         ('initial','probes','preflight.json','construct_'),
         ('guarded','probes-final','preflight-final.json','final_construct_')):
         ready=load(root/ready_name);rows=[]
+        folder=root/directory
+        if folder.exists() and any(p.is_dir() and p.name not in {r['id'] for r in FROZEN_PROFILES}
+                                   for p in folder.iterdir()):
+            raise ValueError('unexpected construction receipt directory')
         for profile in validate_profiles(ready['config']):
             directory_path=root/directory/profile['id'];receipt=directory_path/'receipt.json'
             command=commands.get(label_prefix+profile['id'])
@@ -72,7 +80,8 @@ def report(root):
         compact_commands.append(item)
     required_tests=('final_tiny_semantics_normal','final_tiny_semantics_optimized',
                     'symbolic_domain_negative_normal','symbolic_domain_negative_optimized',
-                    'review_corrections_normal','review_corrections_optimized')
+                    'review_corrections_normal','review_corrections_optimized',
+                    'history_cardinality_normal','history_cardinality_optimized')
     tests_passed=all(k in commands and commands[k]['returncode']==0 and
                      commands[k].get('guard_reason') is None for k in required_tests)
     coverage_complete=(len(rounds)==2 and all(len(r['rows'])==2 for r in rounds))
@@ -90,7 +99,7 @@ def report(root):
             for a,b in zip(rounds[0]['rows'],rounds[1]['rows'])),
         local_final_suite_tests_per_mode=15,local_tests_passed=tests_passed,
         local_extra_symbolic_domain_test_both_modes=True,
-        local_completed_tiny_road_parity_calls=8,
+        local_completed_tiny_road_parity_calls=10,
         real_road_queries=0,real_table_generated=False,SMT_Solver_check_calls=0,SMT_Optimize_calls=0,
         old_optimization_cohorts_repeated=False,physical_continuous_model_constructed=False,
         road_selection_certified=False,independent_real_N64_comparator_ready=False,

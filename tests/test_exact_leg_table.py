@@ -199,7 +199,8 @@ class ExactLegTests(unittest.TestCase):
         records=[]
         for name in ('final_tiny_semantics_normal','final_tiny_semantics_optimized',
                      'symbolic_domain_negative_normal','symbolic_domain_negative_optimized',
-                     'review_corrections_normal','review_corrections_optimized'):
+                     'review_corrections_normal','review_corrections_optimized',
+                     'history_cardinality_normal','history_cardinality_optimized'):
             records.append(dict(label=name,returncode=0,guard_reason=None))
         for directory,ready,label in [('probes','preflight.json','construct_'),
                                       ('probes-final','preflight-final.json','final_construct_')]:
@@ -254,6 +255,12 @@ class ExactLegTests(unittest.TestCase):
             path=root/'budget.json';budget=json.loads(path.read_text());budget['records'].append(budget['records'][0])
             path.write_text(json.dumps(budget))
             with self.assertRaisesRegex(ValueError,'duplicate command'):report(root)
+            budget['records'].pop();budget['records'].append(dict(label='construct_extra',returncode=0))
+            path.write_text(json.dumps(budget))
+            with self.assertRaisesRegex(ValueError,'unexpected construction history'):report(root)
+            budget['records'].pop();path.write_text(json.dumps(budget))
+            (root/'probes-final'/'extra-profile').mkdir()
+            with self.assertRaisesRegex(ValueError,'unexpected construction receipt'):report(root)
 
     def test_no_internal_optimizer_import_and_two_traces_do_not_share_selectors(self):
         original=builtins.__import__
