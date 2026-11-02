@@ -1,0 +1,582 @@
+{
+  "accepted_case_pair_checks": 43,
+  "accepted_case_source_certificates": 11,
+  "accounting": {
+    "carried_original_CPU_s": "15646.570668741",
+    "fixed_precharge_CPU_s": 220,
+    "metered_CPU_s": "9.800848",
+    "original_CPU_s": "15876.371516741",
+    "original_cap_CPU_s": 28800,
+    "original_remaining_CPU_s": "12923.628483259",
+    "preprocessing_CPU_s": "652.040677976",
+    "preprocessing_cap_CPU_s": 900,
+    "software_CI": "Separately prospectively reserved; previous charges retained",
+    "stage_CPU_s": "229.800848",
+    "stage_cap_CPU_s": 600
+  },
+  "case_denominator": 15,
+  "commands": [
+    {
+      "charged_CPU_s": 1.080344,
+      "controller_sha256": "70a7ca54ef766bd99cca7ab54f341f17e7a58337a6d252686b5a921394347b14",
+      "guard_reason": null,
+      "label": "development_checker_normal",
+      "log_sha256": "591908f8ebbe623a3d3659dcfff3bb80ff781ef8db2ea993f6d24cd4581362b8",
+      "pid": 2537,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.073583,
+      "controller_sha256": "70a7ca54ef766bd99cca7ab54f341f17e7a58337a6d252686b5a921394347b14",
+      "guard_reason": null,
+      "label": "settled_checker_normal",
+      "log_sha256": "591908f8ebbe623a3d3659dcfff3bb80ff781ef8db2ea993f6d24cd4581362b8",
+      "pid": 2596,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.0783019999999999,
+      "controller_sha256": "70a7ca54ef766bd99cca7ab54f341f17e7a58337a6d252686b5a921394347b14",
+      "guard_reason": null,
+      "label": "saved_input_checker_normal",
+      "log_sha256": "83ad79a1e26467e2445a1816751b66d64a11dbbbac25b9002f6e48960864f468",
+      "pid": 2640,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.087802,
+      "controller_sha256": "70a7ca54ef766bd99cca7ab54f341f17e7a58337a6d252686b5a921394347b14",
+      "guard_reason": null,
+      "label": "saved_input_checker_optimized",
+      "log_sha256": "83ad79a1e26467e2445a1816751b66d64a11dbbbac25b9002f6e48960864f468",
+      "pid": 2651,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.12127,
+      "controller_sha256": "70a7ca54ef766bd99cca7ab54f341f17e7a58337a6d252686b5a921394347b14",
+      "guard_reason": null,
+      "label": "frozen_certificate_gate",
+      "log_sha256": "7cf2171aba3a2ce1a98695ec767fd9ca2c2e80b987d95cca9b6e4ccfe39f0695",
+      "pid": 2690,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.086942,
+      "controller_sha256": "70a7ca54ef766bd99cca7ab54f341f17e7a58337a6d252686b5a921394347b14",
+      "guard_reason": null,
+      "label": "final_receipt_normal",
+      "log_sha256": "d76c87d843ef6f4ae3c269be2211c484ab62bfa603d8a794e659dda647c4aad4",
+      "pid": 2823,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.092923,
+      "controller_sha256": "70a7ca54ef766bd99cca7ab54f341f17e7a58337a6d252686b5a921394347b14",
+      "guard_reason": null,
+      "label": "final_receipt_optimized",
+      "log_sha256": "d76c87d843ef6f4ae3c269be2211c484ab62bfa603d8a794e659dda647c4aad4",
+      "pid": 2835,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.086235,
+      "controller_sha256": "70a7ca54ef766bd99cca7ab54f341f17e7a58337a6d252686b5a921394347b14",
+      "guard_reason": null,
+      "label": "receipt_integrity_normal",
+      "log_sha256": "8b519f9cc5c43acbdc83da7450db1dd89992c87ba70c48c0060e46ff81b65c7d",
+      "pid": 2848,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.093447,
+      "controller_sha256": "70a7ca54ef766bd99cca7ab54f341f17e7a58337a6d252686b5a921394347b14",
+      "guard_reason": null,
+      "label": "receipt_integrity_optimized",
+      "log_sha256": "b05156def03dabbff9e1eff6cbf994fdfac2fdcd87bc2f4103d9541de8bebeb2",
+      "pid": 2857,
+      "returncode": 0
+    }
+  ],
+  "config_sha256": "c72d7a6097bbe2f291580e95aa7e2b40a5000ebcd710dc9d232dc8b87f23a70a",
+  "decision_counts": {
+    "rejected": 8,
+    "unsupported": 2,
+    "verified": 5
+  },
+  "gate_status": "PASS_TINY_CERTIFICATE_CHECKER",
+  "holdout": false,
+  "normal_and_optimized_passed": true,
+  "original_taskbook_complete": false,
+  "original_worker_receipt_sha256": "0227f620f0928e03bd9ea408bf2ae98de9c044be9e104b53f3a0699184f5dd93",
+  "real_scale_optimization": false,
+  "real_table_generation": false,
+  "rows": [
+    {
+      "actual": {
+        "checked_pairs": 20,
+        "graph_edges": 7,
+        "graph_nodes": 5,
+        "graph_sha256": "f4bc7c958f9898386bf737e7e2d5edaa29c7c45de189d84d212db761d3db8781",
+        "literal_sites": 5,
+        "owns_exact_inputs": true,
+        "physical_sources": 4,
+        "physical_targets": 5,
+        "scope": "exact supplied synthetic graph/table only",
+        "selected_example": {
+          "actual_length": "20",
+          "edges": [
+            "10",
+            "az"
+          ],
+          "nodes": [
+            "o",
+            "a",
+            "z"
+          ]
+        },
+        "source_receipts": [
+          {
+            "certificate_sha256": "f32e2365355ebb23128f05d18027c29455bb1fb3b513bf87bf03e2648bf967f8",
+            "checked_pairs": 5,
+            "checked_path_steps": 4,
+            "reachable_nodes": 4,
+            "scope": "one physical source only; not a complete-table certificate",
+            "source": "a",
+            "tight_edges": 3,
+            "zero_pairs": 1
+          },
+          {
+            "certificate_sha256": "49f2ad7d7bc27573a1ecc1db9c95dc5e09e4de80ba8f11e851e1675fd3c836fc",
+            "checked_pairs": 5,
+            "checked_path_steps": 1,
+            "reachable_nodes": 2,
+            "scope": "one physical source only; not a complete-table certificate",
+            "source": "b",
+            "tight_edges": 1,
+            "zero_pairs": 1
+          },
+          {
+            "certificate_sha256": "8cf27ed89cd53c800ff07ea535d77979817d0b034150dbf7628fb1902cdeeffb",
+            "checked_pairs": 5,
+            "checked_path_steps": 0,
+            "reachable_nodes": 1,
+            "scope": "one physical source only; not a complete-table certificate",
+            "source": "dead",
+            "tight_edges": 0,
+            "zero_pairs": 1
+          },
+          {
+            "certificate_sha256": "6a4f93f4dfc59cd9e60428151a0564da4007d7bf561e0e48c01dc4dc5b34575f",
+            "checked_pairs": 5,
+            "checked_path_steps": 4,
+            "reachable_nodes": 4,
+            "scope": "one physical source only; not a complete-table certificate",
+            "source": "o",
+            "tight_edges": 6,
+            "zero_pairs": 1
+          }
+        ],
+        "status": "verified",
+        "table_sha256": "f91cc7ffd266cd1a37d5102312283bbfcbc67250aed9b5ef295e202cd54b9eac",
+        "zero_pairs": 4
+      },
+      "case": "valid_full_table",
+      "expected": "verified",
+      "input_sha256": {
+        "graph.json": "f4bc7c958f9898386bf737e7e2d5edaa29c7c45de189d84d212db761d3db8781",
+        "source-0000.json": "f32e2365355ebb23128f05d18027c29455bb1fb3b513bf87bf03e2648bf967f8",
+        "source-0001.json": "49f2ad7d7bc27573a1ecc1db9c95dc5e09e4de80ba8f11e851e1675fd3c836fc",
+        "source-0002.json": "8cf27ed89cd53c800ff07ea535d77979817d0b034150dbf7628fb1902cdeeffb",
+        "source-0003.json": "6a4f93f4dfc59cd9e60428151a0564da4007d7bf561e0e48c01dc4dc5b34575f",
+        "table.json": "f91cc7ffd266cd1a37d5102312283bbfcbc67250aed9b5ef295e202cd54b9eac"
+      },
+      "status": "verified"
+    },
+    {
+      "actual": {
+        "checked_pairs": 20,
+        "graph_edges": 7,
+        "graph_nodes": 5,
+        "graph_sha256": "f4bc7c958f9898386bf737e7e2d5edaa29c7c45de189d84d212db761d3db8781",
+        "literal_sites": 5,
+        "owns_exact_inputs": true,
+        "physical_sources": 4,
+        "physical_targets": 5,
+        "scope": "exact supplied synthetic graph/table only",
+        "selected_example": {
+          "actual_length": "20",
+          "edges": [
+            "10",
+            "az"
+          ],
+          "nodes": [
+            "o",
+            "a",
+            "z"
+          ]
+        },
+        "source_receipts": [
+          {
+            "certificate_sha256": "f32e2365355ebb23128f05d18027c29455bb1fb3b513bf87bf03e2648bf967f8",
+            "checked_pairs": 5,
+            "checked_path_steps": 4,
+            "reachable_nodes": 4,
+            "scope": "one physical source only; not a complete-table certificate",
+            "source": "a",
+            "tight_edges": 3,
+            "zero_pairs": 1
+          },
+          {
+            "certificate_sha256": "49f2ad7d7bc27573a1ecc1db9c95dc5e09e4de80ba8f11e851e1675fd3c836fc",
+            "checked_pairs": 5,
+            "checked_path_steps": 1,
+            "reachable_nodes": 2,
+            "scope": "one physical source only; not a complete-table certificate",
+            "source": "b",
+            "tight_edges": 1,
+            "zero_pairs": 1
+          },
+          {
+            "certificate_sha256": "8cf27ed89cd53c800ff07ea535d77979817d0b034150dbf7628fb1902cdeeffb",
+            "checked_pairs": 5,
+            "checked_path_steps": 0,
+            "reachable_nodes": 1,
+            "scope": "one physical source only; not a complete-table certificate",
+            "source": "dead",
+            "tight_edges": 0,
+            "zero_pairs": 1
+          },
+          {
+            "certificate_sha256": "a864f2bbabbe1cd77100a7466dba76f2a6201bcdd42c59e4f6669519b6335b19",
+            "checked_pairs": 5,
+            "checked_path_steps": 4,
+            "reachable_nodes": 4,
+            "scope": "one physical source only; not a complete-table certificate",
+            "source": "o",
+            "tight_edges": 6,
+            "zero_pairs": 1
+          }
+        ],
+        "status": "verified",
+        "table_sha256": "f91cc7ffd266cd1a37d5102312283bbfcbc67250aed9b5ef295e202cd54b9eac",
+        "zero_pairs": 4
+      },
+      "case": "valid_noncanonical_predecessor",
+      "expected": "verified",
+      "input_sha256": {
+        "graph.json": "f4bc7c958f9898386bf737e7e2d5edaa29c7c45de189d84d212db761d3db8781",
+        "source-0000.json": "f32e2365355ebb23128f05d18027c29455bb1fb3b513bf87bf03e2648bf967f8",
+        "source-0001.json": "49f2ad7d7bc27573a1ecc1db9c95dc5e09e4de80ba8f11e851e1675fd3c836fc",
+        "source-0002.json": "8cf27ed89cd53c800ff07ea535d77979817d0b034150dbf7628fb1902cdeeffb",
+        "source-0003.json": "a864f2bbabbe1cd77100a7466dba76f2a6201bcdd42c59e4f6669519b6335b19",
+        "table.json": "f91cc7ffd266cd1a37d5102312283bbfcbc67250aed9b5ef295e202cd54b9eac"
+      },
+      "status": "verified"
+    },
+    {
+      "actual": {
+        "checked_pairs": 1,
+        "graph_edges": 7,
+        "graph_nodes": 5,
+        "graph_sha256": "f4bc7c958f9898386bf737e7e2d5edaa29c7c45de189d84d212db761d3db8781",
+        "literal_sites": 0,
+        "owns_exact_inputs": true,
+        "physical_sources": 1,
+        "physical_targets": 1,
+        "scope": "exact supplied synthetic graph/table only",
+        "selected_example": {
+          "actual_length": "0",
+          "edges": [],
+          "nodes": [
+            "o"
+          ]
+        },
+        "source_receipts": [
+          {
+            "certificate_sha256": "5e79c9d8bbb3a6fa48ea3f032e8435baa83901845bb88cf3e926790c61d0cead",
+            "checked_pairs": 1,
+            "checked_path_steps": 0,
+            "reachable_nodes": 4,
+            "scope": "one physical source only; not a complete-table certificate",
+            "source": "o",
+            "tight_edges": 6,
+            "zero_pairs": 1
+          }
+        ],
+        "status": "verified",
+        "table_sha256": "012f66c9c3cbd67eaa8823e7ba7e00f822509a5d76c758e9516e515234a90e71",
+        "zero_pairs": 1
+      },
+      "case": "valid_empty_alias_zero",
+      "expected": "verified",
+      "input_sha256": {
+        "graph.json": "f4bc7c958f9898386bf737e7e2d5edaa29c7c45de189d84d212db761d3db8781",
+        "source-0000.json": "5e79c9d8bbb3a6fa48ea3f032e8435baa83901845bb88cf3e926790c61d0cead",
+        "table.json": "012f66c9c3cbd67eaa8823e7ba7e00f822509a5d76c758e9516e515234a90e71"
+      },
+      "status": "verified"
+    },
+    {
+      "actual": {
+        "checked_pairs": 1,
+        "graph_edges": 4,
+        "graph_nodes": 4,
+        "graph_sha256": "7209293bdc6fae04c47ebcd6f021d15e0434e89f212247594200a8f736347057",
+        "literal_sites": 0,
+        "owns_exact_inputs": true,
+        "physical_sources": 1,
+        "physical_targets": 1,
+        "scope": "exact supplied synthetic graph/table only",
+        "selected_example": {
+          "actual_length": "20",
+          "edges": [
+            "z-ten",
+            "ten-z"
+          ],
+          "nodes": [
+            "o",
+            "10",
+            "z"
+          ]
+        },
+        "source_receipts": [
+          {
+            "certificate_sha256": "dcf3c8b2ff9c2424771285d2fc51301cfee6ca2ec04f6ff09922e4754964f5e2",
+            "checked_pairs": 1,
+            "checked_path_steps": 2,
+            "reachable_nodes": 4,
+            "scope": "one physical source only; not a complete-table certificate",
+            "source": "o",
+            "tight_edges": 4,
+            "zero_pairs": 0
+          }
+        ],
+        "status": "verified",
+        "table_sha256": "bfb54f7bc927b9e7aab05fece818ffbdb82feb78758743291f0eac97f7316168",
+        "zero_pairs": 0
+      },
+      "case": "string_node_tuple",
+      "expected": "verified",
+      "input_sha256": {
+        "graph.json": "7209293bdc6fae04c47ebcd6f021d15e0434e89f212247594200a8f736347057",
+        "source-0000.json": "dcf3c8b2ff9c2424771285d2fc51301cfee6ca2ec04f6ff09922e4754964f5e2",
+        "table.json": "bfb54f7bc927b9e7aab05fece818ffbdb82feb78758743291f0eac97f7316168"
+      },
+      "status": "verified"
+    },
+    {
+      "actual": {
+        "checked_pairs": 1,
+        "graph_edges": 7,
+        "graph_nodes": 5,
+        "graph_sha256": "4eab5905c6bc098f5cb1998f681cf61a8a92fffe7363af062444da2c9337824a",
+        "literal_sites": 0,
+        "owns_exact_inputs": true,
+        "physical_sources": 1,
+        "physical_targets": 1,
+        "scope": "exact supplied synthetic graph/table only",
+        "selected_example": {
+          "actual_length": "21",
+          "edges": [
+            "prefix",
+            "10",
+            "az"
+          ],
+          "nodes": [
+            "o",
+            "p",
+            "a",
+            "z"
+          ]
+        },
+        "source_receipts": [
+          {
+            "certificate_sha256": "72374de153c233f45f9b19540933179517003802c477c33559ec72eef2b8bbb1",
+            "checked_pairs": 1,
+            "checked_path_steps": 3,
+            "reachable_nodes": 5,
+            "scope": "one physical source only; not a complete-table certificate",
+            "source": "o",
+            "tight_edges": 7,
+            "zero_pairs": 0
+          }
+        ],
+        "status": "verified",
+        "table_sha256": "75a9d782df3b02ba6a7f468b342bf9ca3c7a221ad26a2ea754abc09c59222c10",
+        "zero_pairs": 0
+      },
+      "case": "deep_tuple_ties",
+      "expected": "verified",
+      "input_sha256": {
+        "graph.json": "4eab5905c6bc098f5cb1998f681cf61a8a92fffe7363af062444da2c9337824a",
+        "source-0000.json": "72374de153c233f45f9b19540933179517003802c477c33559ec72eef2b8bbb1",
+        "table.json": "75a9d782df3b02ba6a7f468b342bf9ca3c7a221ad26a2ea754abc09c59222c10"
+      },
+      "status": "verified"
+    },
+    {
+      "actual": {
+        "reason": "shortest-time lower inequality violated",
+        "status": "rejected"
+      },
+      "case": "wrong_shortest_lower_certificate",
+      "expected": "rejected",
+      "input_sha256": {
+        "graph.json": "e7f4210391a0577a5916ce91433a2959c06bb424fffef97b460d6f5ddfc02aa4",
+        "source-0000.json": "5fd8bed3b890aa51b02dec706cc30d2f6ef041a31e1101f681521f28661087ed",
+        "table.json": "2d3b8eb333e85537874603f942bf597a3ebb80ed7f8b166092ff806091b2f701"
+      },
+      "status": "verified"
+    },
+    {
+      "actual": {
+        "reason": "selected path is not canonical by full node tuple then full string edge-ID tuple",
+        "status": "rejected"
+      },
+      "case": "wrong_node_tuple",
+      "expected": "rejected",
+      "input_sha256": {
+        "graph.json": "f4bc7c958f9898386bf737e7e2d5edaa29c7c45de189d84d212db761d3db8781",
+        "source-0000.json": "f9d29052ee5e56c01d6b7921380eff98a659336a47888329c19f1e4d9da50bee",
+        "source-0001.json": "e805bd4d6076411d20904c1c65dd496f55e23ff1e5b11302a29e8b8fbe1c80ce",
+        "source-0002.json": "00a798fd64dfe25d44d9ad6fa3cdab59684d43aee842443b728e172382be5ff1",
+        "source-0003.json": "0f67399581a4f47769cf13fc70d726ac3c187c8899fb5dab87f288c66871faad",
+        "table.json": "c1c5e519ac36b2d7ba28de68feb76734b9bb367edbab528f6de023b2ed980e10"
+      },
+      "status": "verified"
+    },
+    {
+      "actual": {
+        "reason": "selected path is not canonical by full node tuple then full string edge-ID tuple",
+        "status": "rejected"
+      },
+      "case": "wrong_parallel_string_edge",
+      "expected": "rejected",
+      "input_sha256": {
+        "graph.json": "f4bc7c958f9898386bf737e7e2d5edaa29c7c45de189d84d212db761d3db8781",
+        "source-0000.json": "48208adfbaa3186817cb55099e7b547108f8be03991e675d2507d5067e87afa2",
+        "source-0001.json": "66f81363b7225f79b0ee3937b07bae9592059f91fbd8ee403afc3bd94214bcb9",
+        "source-0002.json": "b5f37552c44225b5a434f293fc602e8f39f09b01540d229842ccbb169224dd6c",
+        "source-0003.json": "83d0ca8854d97b2b0f4a44f6792b2c27c0c44b89f0aad88bc3160de750e8f3af",
+        "table.json": "7a1701f2686911141bcd17adac459ca115286cf4911b26ed8efed3303c322d3f"
+      },
+      "status": "verified"
+    },
+    {
+      "actual": {
+        "reason": "selected path time/actual length sum mismatch",
+        "status": "rejected"
+      },
+      "case": "wrong_selected_length",
+      "expected": "rejected",
+      "input_sha256": {
+        "graph.json": "f4bc7c958f9898386bf737e7e2d5edaa29c7c45de189d84d212db761d3db8781",
+        "source-0000.json": "aedffdb737672a10601fbfd68cd05a1acb379a7d2ce2f303f18bc6b9bf5c38d6",
+        "source-0001.json": "10de7eaf5ff52530fa729008f6e2debb777b0a5e401bacd5491a7ed6435a3666",
+        "source-0002.json": "e6affe715d64c77bc5fbc9ba64cd13ccbac57bedc60d206c737afb91e4bfd076",
+        "source-0003.json": "ca4996477c8d0d1fa7eaaf15eadcb82212a7d69d0c4fe913c5c486afbfbf22c2",
+        "table.json": "3331b69c1c86db7d30f55aba8bb2b93f544928b397a4c1a82aca97ce890175b7"
+      },
+      "status": "verified"
+    },
+    {
+      "actual": {
+        "reason": "unreachable cut has an outgoing edge",
+        "status": "rejected"
+      },
+      "case": "false_unreachable_cut",
+      "expected": "rejected",
+      "input_sha256": {
+        "graph.json": "f4bc7c958f9898386bf737e7e2d5edaa29c7c45de189d84d212db761d3db8781",
+        "source-0000.json": "f32e2365355ebb23128f05d18027c29455bb1fb3b513bf87bf03e2648bf967f8",
+        "source-0001.json": "49f2ad7d7bc27573a1ecc1db9c95dc5e09e4de80ba8f11e851e1675fd3c836fc",
+        "source-0002.json": "8cf27ed89cd53c800ff07ea535d77979817d0b034150dbf7628fb1902cdeeffb",
+        "source-0003.json": "d164da0dae7bed4670b0fa2992925594bfb817e4d83a9429dd3d7c5922839f30",
+        "table.json": "f91cc7ffd266cd1a37d5102312283bbfcbc67250aed9b5ef295e202cd54b9eac"
+      },
+      "status": "verified"
+    },
+    {
+      "actual": {
+        "reason": "tight-DAG target reachability bitset equation violated",
+        "status": "rejected"
+      },
+      "case": "forged_target_masks",
+      "expected": "rejected",
+      "input_sha256": {
+        "graph.json": "f4bc7c958f9898386bf737e7e2d5edaa29c7c45de189d84d212db761d3db8781",
+        "source-0000.json": "f9d29052ee5e56c01d6b7921380eff98a659336a47888329c19f1e4d9da50bee",
+        "source-0001.json": "e805bd4d6076411d20904c1c65dd496f55e23ff1e5b11302a29e8b8fbe1c80ce",
+        "source-0002.json": "00a798fd64dfe25d44d9ad6fa3cdab59684d43aee842443b728e172382be5ff1",
+        "source-0003.json": "f3c76fc8ec33e0ac688d155e2fe082c608cc28a010d261b35850bb5f3933200b",
+        "table.json": "c1c5e519ac36b2d7ba28de68feb76734b9bb367edbab528f6de023b2ed980e10"
+      },
+      "status": "verified"
+    },
+    {
+      "actual": {
+        "reason": "incomplete source/terminal/alias-zero coverage",
+        "status": "rejected"
+      },
+      "case": "missing_source_coverage",
+      "expected": "rejected",
+      "input_sha256": {
+        "graph.json": "f4bc7c958f9898386bf737e7e2d5edaa29c7c45de189d84d212db761d3db8781",
+        "source-0000.json": "f32e2365355ebb23128f05d18027c29455bb1fb3b513bf87bf03e2648bf967f8",
+        "source-0001.json": "49f2ad7d7bc27573a1ecc1db9c95dc5e09e4de80ba8f11e851e1675fd3c836fc",
+        "source-0002.json": "8cf27ed89cd53c800ff07ea535d77979817d0b034150dbf7628fb1902cdeeffb",
+        "table.json": "f91cc7ffd266cd1a37d5102312283bbfcbc67250aed9b5ef295e202cd54b9eac"
+      },
+      "status": "verified"
+    },
+    {
+      "actual": {
+        "reason": "missing physical pair, not implicit unreachable",
+        "status": "rejected"
+      },
+      "case": "missing_terminal_pair",
+      "expected": "rejected",
+      "input_sha256": {
+        "graph.json": "f4bc7c958f9898386bf737e7e2d5edaa29c7c45de189d84d212db761d3db8781",
+        "source-0000.json": "f32e2365355ebb23128f05d18027c29455bb1fb3b513bf87bf03e2648bf967f8",
+        "source-0001.json": "49f2ad7d7bc27573a1ecc1db9c95dc5e09e4de80ba8f11e851e1675fd3c836fc",
+        "source-0002.json": "8cf27ed89cd53c800ff07ea535d77979817d0b034150dbf7628fb1902cdeeffb",
+        "source-0003.json": "6a4f93f4dfc59cd9e60428151a0564da4007d7bf561e0e48c01dc4dc5b34575f",
+        "table.json": "27ca1eae62ecc27fd4ce69a6853cc5e8705663011748022508da6086c40e5d23"
+      },
+      "status": "verified"
+    },
+    {
+      "actual": {
+        "reason": "strictly positive edge times required; zero-time edges/cycles are unsupported",
+        "status": "unsupported"
+      },
+      "case": "zero_time_acyclic",
+      "expected": "unsupported",
+      "input_sha256": {
+        "graph.json": "489190ed27a5992f101111167dc21231092e61ded6191593830a668bed08a61e"
+      },
+      "status": "verified"
+    },
+    {
+      "actual": {
+        "reason": "strictly positive edge times required; zero-time edges/cycles are unsupported",
+        "status": "unsupported"
+      },
+      "case": "zero_time_cycle",
+      "expected": "unsupported",
+      "input_sha256": {
+        "graph.json": "d544a8cdebe4217bbe5e46ab883d7966ffedb74f55d7b81234d9658117182f3d"
+      },
+      "status": "verified"
+    }
+  ],
+  "schema": "hiroute.road_certificate_delivery.v1",
+  "scope": "15 fixed synthetic certificate decisions, not real input certification or EV optimization",
+  "source": {
+    "commit": "bc1f9714dafb4c175298f23b6eb30afbfad768d6",
+    "dirty": false
+  },
+  "tests_per_mode": 16
+}

@@ -1,4 +1,32 @@
-# Current independent physical-model tiny gate
+# Current independent road-certificate checker gate
+
+The [independent checker](ROAD_CERTIFICATE_CHECKER.md) verifies supplied exact
+shortest-time lower/attainment certificates, reachable cuts, tight-DAG suffix
+masks, full node/edge-string canonical ties, actual selected length and complete
+source/terminal/alias-zero coverage. It routes no graph and trusts no schema
+flag. Whole-table checked objects require all sources and bind actual input
+bytes/owners. Strictly positive times are required; zero-time edges/cycles fail
+closed as unsupported.
+
+The frozen15-row synthetic gate matches5accept/8reject/2unsupported decisions;
+16 local tests pass normally and under-OO. Full input bytes and receipts remain.
+No real graph/table generation, real EV solve or holdout ran. This establishes
+an independently checked certificate interface, not real input readiness or
+performance. The complete conditional physical-model gate below remains valid.
+
+New stage cost is **229.800848/600 CPU seconds**, including full220precharge;
+original conservative cumulative **15876.371516741/28800**, remaining
+12923.628483259. Preprocessing stays652.040677976/900; software CI is separately
+prospectively reserved. See the [complete results](road_certificate_results.json).
+The proposed smallest real admission is one full frozen N64 table with all
+4225directed pairs and a strict3600CPU envelope, beginning with exact decoder/
+memory preflight. That proposal is not admitted or run. Historical graph size
+makes compact/streaming memory validation necessary before any real generation.
+All original research acceptance gaps and negative evidence remain.
+
+Entries below retain their historical source, state and accounting.
+
+# Independent physical-model tiny gate (historical)
 
 The [exact physical adapter](EXACT_PHYSICAL_ADAPTER.md) connects the existing
 strict-support formulation to the shared exact grounded leg lookup. The frozen

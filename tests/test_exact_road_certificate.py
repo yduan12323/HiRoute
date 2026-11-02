@@ -189,7 +189,7 @@ class CertificateTests(unittest.TestCase):
                 real_table_generation=False,real_scale_optimization=False,holdout=False,production_oracle=False)
             path=gate/'results.json';path.write_bytes(raw(result))
             commands=[dict(label=x,pid=1,returncode=0,charged_CPU_s=0) for x in
-                ('saved_input_checker_normal','saved_input_checker_optimized','final_receipt_normal','final_receipt_optimized','frozen_certificate_gate')]
+                ('saved_input_checker_normal','saved_input_checker_optimized','final_receipt_normal','final_receipt_optimized','receipt_integrity_normal','receipt_integrity_optimized','frozen_certificate_gate')]
             (root/'budget.json').write_bytes(raw(dict(active=None,records=commands,charged_commands_CPU_s=0,carried_research_CPU_s='15646.570668741')))
             self.assertEqual(report(root)['gate_status'],'PASS_TINY_CERTIFICATE_CHECKER')
             for mode in ('empty','missing','duplicate'):

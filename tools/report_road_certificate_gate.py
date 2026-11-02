@@ -31,7 +31,7 @@ def report(root):
         raise ValueError('unexpected formal gate history')
     if any(p.is_dir() and p.name not in IDS for p in (root/'gate').iterdir()):
         raise ValueError('unexpected gate case directory')
-    required=('saved_input_checker_normal','saved_input_checker_optimized','final_receipt_normal','final_receipt_optimized','frozen_certificate_gate')
+    required=('saved_input_checker_normal','saved_input_checker_optimized','final_receipt_normal','final_receipt_optimized','receipt_integrity_normal','receipt_integrity_optimized','frozen_certificate_gate')
     tested=all(name in commands and commands[name]['returncode']==0 and not commands[name].get('guard_reason') for name in required)
     tested=tested and commands.get('frozen_certificate_gate',{}).get('pid') is not None
     rows=[]
