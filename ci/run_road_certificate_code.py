@@ -13,8 +13,8 @@ resource.setrlimit(resource.RLIMIT_CPU,(20,20))
 python=out/'venv/bin/python';fixed,cap,charged=60,120,0
 commands=[
     [sys.executable,'-m','venv',str(out/'venv')],
-    [str(python),'-m','unittest','discover','-s','tests','-p','test_exact_road_certificate.py'],
-    [str(python),'-OO','-m','unittest','discover','-s','tests','-p','test_exact_road_certificate.py']]
+    [str(python),'-m','unittest','discover','-s','tests','-p','test_*road_certificate*.py'],
+    [str(python),'-OO','-m','unittest','discover','-s','tests','-p','test_*road_certificate*.py']]
 records=[dict(command=i,argv=a,state='unrun') for i,a in enumerate(commands)]
 env={k:v for k,v in os.environ.items() if k in ('PATH','TMPDIR','LANG','LC_ALL')}
 env.update(PYTHONNOUSERSITE='1',PYTHONDONTWRITEBYTECODE='1',OMP_NUM_THREADS='1',

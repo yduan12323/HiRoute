@@ -109,6 +109,7 @@ CODE_GATE_MODULES = CODE_GATE_MODULES + (
     "tests/test_exact_leg_table.py",
     "tests/test_exact_physical_adapter.py",
     "tests/test_exact_road_certificate.py",
+    "tests/test_real_road_certificate_preflight.py",
     "tests/test_d04_cost_diagnostic.py",
     "tests/test_source_tree_reuse.py",
     "tests/test_inbound_energy_bound.py",
