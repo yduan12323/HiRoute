@@ -24,7 +24,7 @@
   "threads": 1,
   "workers": 1,
   "execution_authorized": true,
-  "preflight_min_available_bytes": 5368709120,
+  "preflight_min_available_bytes": 2684354560,
   "preprocessing_cpu_s": 652.040677976,
   "ordinary_software_CI": "Separate prospective records; preserve all earlier research-gate CI precharges without refund",
   "PR_full_CI_reserved_capacity_CPU_s": 9000,

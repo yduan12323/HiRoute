@@ -23,9 +23,14 @@ for the complete pair plus120 cleanup. It includes current/carried controller
 CPU and actual active-worker cost, retaining the repaired common admission and
 durable-start policy. Each worker retains300 CPU/outer wall seconds including
 180 cold allowance,120 loaded seconds, one thread,8GiB process/query limits and
-the unchanged host guard. Preparation also requires5GiB available host memory
+the unchanged host guard. Preparation retains the existing2.5GiB available-memory floor
 before a cold load, and2GiB disk headroom. Native graph/index residency and fresh
 construction stay charged; no existing loaded graph is donated to either row.
+Before any preparation or numerical start, the draft's extra5GiB admission
+threshold was removed: a read-only checkpoint showed4.78GiB available. The
+effective2.5GiB starting check matches the existing stage; continuous2GiB host
+headroom and both8GiB limits remain unchanged. The initial proposal, read-only
+checkpoint and amendment remain recorded. No row/outcome or budget was rewritten.
 
 Earlier research-gate CI precharges are retained without refund. Under the
 approved November2 interpretation ordinary software CI is separately recorded

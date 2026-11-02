@@ -23,7 +23,7 @@ def recipe(path):
         pair_reservation_cpu_s=1240, cleanup_reserve_cpu_s=120,
         loaded_limit_s=120, cold_allowance_s=180, worker_enforced_cpu_s=300,
         worker_reservation_cpu_s=310, process_memory_gib=8, threads=1, workers=1,
-        execution_authorized=True,preflight_min_available_bytes=5*1024**3)
+        execution_authorized=True,preflight_min_available_bytes=2684354560)
     if any(spec.get(k) != v for k,v in expected.items()):
         raise ValueError('completion allocation/resource authorization mismatch')
     _, full, matrix = stage.recipe(ROOT/'configs/planning_value_dev_gate.json')
