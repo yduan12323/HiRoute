@@ -1,0 +1,72 @@
+{
+  "schema": "hiroute.streaming_representation_gate.v1",
+  "stage_cap_CPU_s": 900,
+  "carried_research_CPU_s": "16016.600202741",
+  "original_cap_CPU_s": 28800,
+  "allocations_CPU_s": {
+    "fixed_development_controller": 240,
+    "tiny_validation": 180,
+    "conditional_representation": 360,
+    "verification_tails": 120
+  },
+  "frozen_domain_sha256": "250ff5d84aed3e6fbf86e371f0cabbf135c4cc89034f9ce27fbc5f0bb411db7a",
+  "candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+  "raw_graph_sha256": "8076e850b096c5cf74f307ae7ad34c2aebd1f1e53c3c4d092234d40078a4c54d",
+  "expected_frozen_edge_rows": 5900232,
+  "query": "WD01/E18/schedule/N64",
+  "literal_sites": 64,
+  "source_denominator": 65,
+  "pair_denominator": 4225,
+  "tiny_case_ids": [
+    "valid_full_table",
+    "valid_noncanonical_predecessor",
+    "valid_empty_alias_zero",
+    "string_node_tuple",
+    "deep_tuple_ties",
+    "wrong_shortest_lower_certificate",
+    "wrong_node_tuple",
+    "wrong_parallel_string_edge",
+    "wrong_selected_length",
+    "false_unreachable_cut",
+    "forged_target_masks",
+    "missing_source_coverage",
+    "missing_terminal_pair",
+    "zero_time_acyclic",
+    "zero_time_cycle",
+    "analytic_N64_65bit"
+  ],
+  "tiny_denominator": 16,
+  "full_admission_free_disk_bytes": 12884901888,
+  "max_graph_DB_bytes": 4294967296,
+  "max_tracking_DB_bytes": 2147483648,
+  "process_tree_RSS_bytes": 1073741824,
+  "host_start_available_bytes": 3221225472,
+  "host_runtime_headroom_bytes": 2147483648,
+  "SQLite_heap_bytes": 134217728,
+  "cache_per_connection_bytes": 16777216,
+  "batch_raw_bytes": 4194304,
+  "max_record_bytes": 1048576,
+  "full_commands": [
+    {
+      "mode": "build",
+      "worker_CPU_s": 160,
+      "controller_soft_CPU_s": 10,
+      "controller_hard_CPU_s": 15,
+      "reservation_CPU_s": 180,
+      "wall_s": 300
+    },
+    {
+      "mode": "validate",
+      "worker_CPU_s": 160,
+      "controller_soft_CPU_s": 10,
+      "controller_hard_CPU_s": 15,
+      "reservation_CPU_s": 180,
+      "wall_s": 300
+    }
+  ],
+  "workers": 1,
+  "threads": 1,
+  "source_generation": false,
+  "real_optimizer": false,
+  "holdout": false
+}

@@ -1,0 +1,594 @@
+{
+  "accounting": {
+    "carried_research_CPU_s": "16016.600202741",
+    "extra_verification_precharge_CPU_s": 2,
+    "fixed_precharge_CPU_s": 240,
+    "ordinary_software_CI": "Separately reserved before each invocation; previous charges retained",
+    "original_cap_CPU_s": 28800,
+    "phase_conservative_CPU_s": {
+      "conditional_representation": "59.344057",
+      "tiny_validation": "9.136399",
+      "verification_tails": "17.215991"
+    },
+    "preprocessing_CPU_s": "652.040677976",
+    "preprocessing_cap_CPU_s": 900,
+    "remaining_original_CPU_s": "12457.703350259",
+    "research_total_CPU_s": "16342.296649741",
+    "stage_CPU_s": "325.696447",
+    "stage_cap_CPU_s": 900
+  },
+  "all_recorded_processes_terminal": true,
+  "bookkeeping_memory_limitation": "One post-run metadata integrity hash loaded the985202688-byte DB as a byte buffer outside the recorded process-tree supervisor; its RSS peak was not measured. Controlled full build/validation peaks remain separate measurements. Subsequent repository integrity functions use1MiB chunked hashing. Extra2CPU fee retained; no confirmed memory/headroom overrun.",
+  "commands": [
+    {
+      "charged_CPU_s": 1.129932,
+      "controller_pid": 9747,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5721882624,
+      "label": "development_normal",
+      "log_sha256": "8011312530a6d7e41bf1a06e93e0268794f861d9323a474b25714472d5b8b4c2",
+      "phase": "tiny_validation",
+      "pid": 9753,
+      "process_tree_peak_RSS_bytes": 28622848,
+      "returncode": 1
+    },
+    {
+      "charged_CPU_s": 1.157406,
+      "controller_pid": 9777,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5720719360,
+      "label": "schema_fixed_normal",
+      "log_sha256": "49f588de6cf62b655e376f90e183171dbeb097fac21da86cf682b3479fd9e0e3",
+      "phase": "tiny_validation",
+      "pid": 9783,
+      "process_tree_peak_RSS_bytes": 27951104,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.193185,
+      "controller_pid": 9869,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5760581632,
+      "label": "wide_arithmetic_normal",
+      "log_sha256": "4f8baa4de725d08568a6e7f87af9083a62277d1cd68b7391f6ce52e92ee979ff",
+      "phase": "tiny_validation",
+      "pid": 9875,
+      "process_tree_peak_RSS_bytes": 27918336,
+      "returncode": 1
+    },
+    {
+      "charged_CPU_s": 1.382821,
+      "controller_pid": 9900,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5759352832,
+      "label": "wide_fixture_fixed_normal",
+      "log_sha256": "8f4d9b10ed546d9514699cdcc9214d00b6600be1f046ac09b028cda200a68c15",
+      "phase": "tiny_validation",
+      "pid": 9906,
+      "process_tree_peak_RSS_bytes": 36012032,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.427803,
+      "controller_pid": 10153,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5363712000,
+      "label": "bounded_heap_normal",
+      "log_sha256": "70ff1c1541ef4fd3f54b4094aaca3881b277abb4b366fee6fc296189c675bf38",
+      "phase": "tiny_validation",
+      "pid": 10159,
+      "process_tree_peak_RSS_bytes": 36274176,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.430587,
+      "controller_pid": 10175,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5391007744,
+      "label": "bounded_heap_optimized",
+      "log_sha256": "c0d595db94191b8dd01ecc2ac8f5735711125a58e45e9392bfc9e19bfae9d3da",
+      "phase": "tiny_validation",
+      "pid": 10181,
+      "process_tree_peak_RSS_bytes": 36569088,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.414665,
+      "controller_pid": 10278,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5275254784,
+      "label": "frozen_tiny_gate",
+      "log_sha256": "d810e7082b292c731b8934dd1105d540d12c88885d45f23060cbf7315a8078b7",
+      "phase": "tiny_validation",
+      "pid": 10284,
+      "process_tree_peak_RSS_bytes": 35962880,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 29.224330000000002,
+      "controller_pid": 10376,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 4719230976,
+      "label": "full_build",
+      "log_sha256": "8586bcfcb5dd4b0f4e6a22c2cf74c06e6499dccc1fc7bde3d404d25c21391efc",
+      "phase": "conditional_representation",
+      "pid": 10382,
+      "process_tree_peak_RSS_bytes": 52772864,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 30.119726,
+      "controller_pid": 10715,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5153423360,
+      "label": "full_identity_validation",
+      "log_sha256": "e80937e6bc4550ab8a70f898e4744e81ff793d852e0c1a6283186cb9f13549f1",
+      "phase": "conditional_representation",
+      "pid": 10721,
+      "process_tree_peak_RSS_bytes": 73891840,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 2.14788,
+      "controller_pid": 11018,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5643829248,
+      "label": "final_contracts_normal",
+      "log_sha256": "076eaafeef923d8dabee3e21bfd0c5868c6aea89b289c8f40c58de3c35b4ab64",
+      "phase": "verification_tails",
+      "pid": 11024,
+      "process_tree_peak_RSS_bytes": 94339072,
+      "returncode": 1
+    },
+    {
+      "charged_CPU_s": 1.6158839999999999,
+      "controller_pid": 11081,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5715181568,
+      "label": "settled_normal",
+      "log_sha256": "a3ab1894904054ade879267b3d503fdcfa6621c340283cf66b8e2ced619a0125",
+      "phase": "verification_tails",
+      "pid": 11087,
+      "process_tree_peak_RSS_bytes": 36061184,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.627231,
+      "controller_pid": 11119,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5726093312,
+      "label": "settled_optimized",
+      "log_sha256": "fb37aff4fe98b20c6dbaa887db29c4abc9b7520da447a1fb08629295e32378b8",
+      "phase": "verification_tails",
+      "pid": 11125,
+      "process_tree_peak_RSS_bytes": 35782656,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.6339510000000002,
+      "controller_pid": 12064,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5592940544,
+      "label": "disk_ownership_normal",
+      "log_sha256": "54e871c83fd66c724b430d5ab3372cb0e6c01bceb1637e5e154639c6103c4730",
+      "phase": "verification_tails",
+      "pid": 12070,
+      "process_tree_peak_RSS_bytes": 36487168,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.6223049999999999,
+      "controller_pid": 12102,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5608275968,
+      "label": "disk_ownership_optimized",
+      "log_sha256": "80de63aa77ec96f28c5a9adc27975d0335f4b255ac5a79c8c250590d8488642e",
+      "phase": "verification_tails",
+      "pid": 12108,
+      "process_tree_peak_RSS_bytes": 36503552,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.619453,
+      "controller_pid": 12734,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5676433408,
+      "label": "literal_lookup_normal",
+      "log_sha256": "1041db29ae7b1b135d0ca67efd533c20bad048d73284eb6dcf1e7335532fc541",
+      "phase": "verification_tails",
+      "pid": 12740,
+      "process_tree_peak_RSS_bytes": 36798464,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.61755,
+      "controller_pid": 12822,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5512118272,
+      "label": "literal_lookup_optimized",
+      "log_sha256": "466c06302ed823614ca3e20ed5704e9c378a08dd6af1da51bdb524da63646ff2",
+      "phase": "verification_tails",
+      "pid": 12828,
+      "process_tree_peak_RSS_bytes": 36356096,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.661095,
+      "controller_pid": 13025,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5572444160,
+      "label": "metadata_bounded_normal",
+      "log_sha256": "30fcda2ad0e9de3080fbd27000a779c830f64d4a72f0cded43ebe2f26e71202a",
+      "phase": "verification_tails",
+      "pid": 13031,
+      "process_tree_peak_RSS_bytes": 61587456,
+      "returncode": 0
+    },
+    {
+      "charged_CPU_s": 1.6706409999999998,
+      "controller_pid": 13118,
+      "controller_sha256": "229a752a34e609f8d2bdf4f7f532baf09fac4cbf57bec38ad4909dd3bdcf9049",
+      "guard_reason": null,
+      "host_available_min_bytes": 5570494464,
+      "label": "metadata_bounded_optimized",
+      "log_sha256": "80450814abb96e342751632e51b47675b1e9e6e28b65a2058feb74430b43b21f",
+      "phase": "verification_tails",
+      "pid": 13124,
+      "process_tree_peak_RSS_bytes": 61505536,
+      "returncode": 0
+    }
+  ],
+  "config_sha256": "4c9f8ae1a5bb6497be2621744e516dd218dd8387cb096f7b6e25c7e6c49e2337",
+  "controlled_command_count": 18,
+  "decision": "PASS_REPRESENTATION_AND_TINY_COMPONENTS_ONLY",
+  "failed_attempts_preserved": [
+    {
+      "charged_CPU_s": 1.129932,
+      "label": "development_normal"
+    },
+    {
+      "charged_CPU_s": 1.193185,
+      "label": "wide_arithmetic_normal"
+    },
+    {
+      "charged_CPU_s": 2.14788,
+      "label": "final_contracts_normal"
+    }
+  ],
+  "full_build": {
+    "body_CPU_s": 26.336984,
+    "body_wall_s": 28.639238458010368,
+    "candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+    "construction": {
+      "db_bytes": 985202688,
+      "declared_nodes_sha256": null,
+      "edge_rows": 5900232,
+      "graph_identity": "00f983ee3fdcfb04fa1b6dc008b39ab73e30e384c9c264d2f8691ea7224f1601",
+      "nodes": 2986695,
+      "raw_sha256": "8076e850b096c5cf74f307ae7ad34c2aebd1f1e53c3c4d092234d40078a4c54d",
+      "scope": "untrusted construction only; not a road certificate"
+    },
+    "decision": "CONSTRUCTED_UNTRUSTED_NOT_CERTIFIED",
+    "final_source": {
+      "commit": "4b0df95a8574ef55def0edc31cca1effb961e117",
+      "dirty": false,
+      "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+    },
+    "holdout": false,
+    "literal_sites": 64,
+    "mode": "build",
+    "pair_denominator": 4225,
+    "pair_status_counts": {
+      "unrun_source_generation_not_admitted": 4225
+    },
+    "query": "WD01/E18/schedule/N64",
+    "real_optimizer": false,
+    "source_denominator": 65,
+    "source_generation": false,
+    "source_status_counts": {
+      "unrun_source_generation_not_admitted": 65
+    },
+    "started": {
+      "config_sha256": "4c9f8ae1a5bb6497be2621744e516dd218dd8387cb096f7b6e25c7e6c49e2337",
+      "holdout": false,
+      "mode": "build",
+      "real_optimizer": false,
+      "source": {
+        "commit": "4b0df95a8574ef55def0edc31cca1effb961e117",
+        "dirty": false,
+        "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+      },
+      "source_generation": false,
+      "started_at": 1793626591.614922
+    },
+    "upper_witness_replayed": false,
+    "whole_road_table_certified": false
+  },
+  "full_pair_denominator": 4225,
+  "full_source_denominator": 65,
+  "full_validation": {
+    "SQLite_cache_per_connection_bytes": 16777216,
+    "SQLite_heap_limit_bytes": 134217728,
+    "all_source_terminal_anchors_present": true,
+    "body_CPU_s": 27.427326,
+    "body_wall_s": 27.811059499974363,
+    "candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+    "decision": "PASS_FULL_REPRESENTATION_IDENTITY_ONLY",
+    "edge_identity_bijection_checked": true,
+    "final_source": {
+      "commit": "4b0df95a8574ef55def0edc31cca1effb961e117",
+      "dirty": false,
+      "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+    },
+    "global_edge_ID_uniqueness_checked": true,
+    "graph_DB_bytes": 985202688,
+    "graph_identity": "00f983ee3fdcfb04fa1b6dc008b39ab73e30e384c9c264d2f8691ea7224f1601",
+    "holdout": false,
+    "independently_counted_edges": 5900232,
+    "independently_counted_nodes": 2986695,
+    "integer_weight_or_path_width_assumed": false,
+    "literal_sites": 64,
+    "mmap_bytes": 0,
+    "mode": "validate",
+    "node_identity_bijection_checked": true,
+    "pair_denominator": 4225,
+    "pair_status_counts": {
+      "unrun_source_generation_not_admitted": 4225
+    },
+    "query": "WD01/E18/schedule/N64",
+    "raw_graph_sha256": "8076e850b096c5cf74f307ae7ad34c2aebd1f1e53c3c4d092234d40078a4c54d",
+    "real_optimizer": false,
+    "representation_sha256": "db363d5b58d3bfe8731f7ff30e3a354c6d6223f276edd407d3c4ee197c60bfc1",
+    "source_denominator": 65,
+    "source_generation": false,
+    "source_status_counts": {
+      "unrun_source_generation_not_admitted": 65
+    },
+    "started": {
+      "config_sha256": "4c9f8ae1a5bb6497be2621744e516dd218dd8387cb096f7b6e25c7e6c49e2337",
+      "holdout": false,
+      "mode": "validate",
+      "real_optimizer": false,
+      "source": {
+        "commit": "4b0df95a8574ef55def0edc31cca1effb961e117",
+        "dirty": false,
+        "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+      },
+      "source_generation": false,
+      "started_at": 1793626667.6270552
+    },
+    "upper_witness_replayed": false,
+    "whole_road_table_certified": false
+  },
+  "holdout": false,
+  "late_disk_owner_fix_commit": "47c724d994943c7cfd6e0e85fb6f39d672a07cf6",
+  "legacy_certificate_preflight_tests_in_dedicated_CI_per_mode": 24,
+  "original_taskbook_complete": false,
+  "postdraft_literal_lookup": "BINARY forced independently of untrusted NOCASE/RTRIM schema; actual full index alreadyBINARY. Missing headers rejected.",
+  "postreview_metadata_check_sha256": "28ea026957b1f0c5021722e3f8f2e57d5b782f3d37cf6f14ae06a6c6911560d5",
+  "postreview_metadata_reader": "At most7 SQL-projected bounded rows; immediately reject seventh/unknown/duplicate; text key/value capped64/256UTF8bytes before JSON decode; blobs never transferred as payload.",
+  "postrun_metadata_check": {
+    "actual_representation_sha256": "db363d5b58d3bfe8731f7ff30e3a354c6d6223f276edd407d3c4ee197c60bfc1",
+    "metadata_rows": 6,
+    "original_full_representation_sha256": "db363d5b58d3bfe8731f7ff30e3a354c6d6223f276edd407d3c4ee197c60bfc1",
+    "scope": "Small metadata-only post-run check for stricter duplicate-key guard, not full graph revalidation",
+    "unique_metadata_keys": 6
+  },
+  "producer": {
+    "commit": "4b0df95a8574ef55def0edc31cca1effb961e117",
+    "dirty": false,
+    "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+  },
+  "raw_build_receipt_sha256": "79b7fb542c0913a10518adf5a165ac24978d8cbf5602c67442895c80de97f7c4",
+  "raw_tiny_receipt_sha256": "48be356da8a6974877515de27646f69b9313f3e8c8649a421d27d64b38f734e8",
+  "raw_validation_receipt_sha256": "afd2ac8f15bad44bc1b260a8f5e87c4d801701c242fdae9043e6a4082d2c37c4",
+  "real_optimizer": false,
+  "real_pair_status_counts": {
+    "unrun_source_generation_not_admitted": 4225
+  },
+  "real_selected_leg_table_generated": false,
+  "real_source_generation": false,
+  "real_source_status_counts": {
+    "unrun_source_generation_not_admitted": 65
+  },
+  "schema": "hiroute.streaming_representation_delivery.v1",
+  "synthetic_accepted_pair_checks": 4268,
+  "synthetic_accepted_source_certificates": 76,
+  "tests_per_mode": 21,
+  "tiny_case_denominator": 16,
+  "tiny_input_file_count": 142,
+  "tiny_input_manifest_sha256": "ff118dd74c4a372787bd15983ae8a51277dd69ad2197f3764679fb0c20aaeaa2",
+  "tiny_rows": [
+    {
+      "case": "valid_full_table",
+      "expected": "verified",
+      "reference_status": "verified",
+      "status": "matched",
+      "streaming": {
+        "owned": true,
+        "pairs": 20,
+        "sources": 4,
+        "status": "verified"
+      }
+    },
+    {
+      "case": "valid_noncanonical_predecessor",
+      "expected": "verified",
+      "reference_status": "verified",
+      "status": "matched",
+      "streaming": {
+        "owned": true,
+        "pairs": 20,
+        "sources": 4,
+        "status": "verified"
+      }
+    },
+    {
+      "case": "valid_empty_alias_zero",
+      "expected": "verified",
+      "reference_status": "verified",
+      "status": "matched",
+      "streaming": {
+        "owned": true,
+        "pairs": 1,
+        "sources": 1,
+        "status": "verified"
+      }
+    },
+    {
+      "case": "string_node_tuple",
+      "expected": "verified",
+      "reference_status": "verified",
+      "status": "matched",
+      "streaming": {
+        "owned": true,
+        "pairs": 1,
+        "sources": 1,
+        "status": "verified"
+      }
+    },
+    {
+      "case": "deep_tuple_ties",
+      "expected": "verified",
+      "reference_status": "verified",
+      "status": "matched",
+      "streaming": {
+        "owned": true,
+        "pairs": 1,
+        "sources": 1,
+        "status": "verified"
+      }
+    },
+    {
+      "case": "wrong_shortest_lower_certificate",
+      "expected": "rejected",
+      "reference_status": "rejected",
+      "status": "matched",
+      "streaming": {
+        "reason": "global shortest-time lower inequality violated",
+        "status": "rejected"
+      }
+    },
+    {
+      "case": "wrong_node_tuple",
+      "expected": "rejected",
+      "reference_status": "rejected",
+      "status": "matched",
+      "streaming": {
+        "reason": "noncanonical full node/string-edge tuple",
+        "status": "rejected"
+      }
+    },
+    {
+      "case": "wrong_parallel_string_edge",
+      "expected": "rejected",
+      "reference_status": "rejected",
+      "status": "matched",
+      "streaming": {
+        "reason": "noncanonical full node/string-edge tuple",
+        "status": "rejected"
+      }
+    },
+    {
+      "case": "wrong_selected_length",
+      "expected": "rejected",
+      "reference_status": "rejected",
+      "status": "matched",
+      "streaming": {
+        "reason": "actual path endpoint/time/length mismatch",
+        "status": "rejected"
+      }
+    },
+    {
+      "case": "false_unreachable_cut",
+      "expected": "rejected",
+      "reference_status": "rejected",
+      "status": "matched",
+      "streaming": {
+        "reason": "proven shortest time/reachability differs from pair",
+        "status": "rejected"
+      }
+    },
+    {
+      "case": "forged_target_masks",
+      "expected": "rejected",
+      "reference_status": "rejected",
+      "status": "matched",
+      "streaming": {
+        "reason": "DAG mask equation or attaining predecessor incomplete",
+        "status": "rejected"
+      }
+    },
+    {
+      "case": "missing_source_coverage",
+      "expected": "rejected",
+      "reference_status": "rejected",
+      "status": "matched",
+      "streaming": {
+        "reason": "incomplete source/terminal/alias coverage",
+        "status": "rejected"
+      }
+    },
+    {
+      "case": "missing_terminal_pair",
+      "expected": "rejected",
+      "reference_status": "rejected",
+      "status": "matched",
+      "streaming": {
+        "reason": "missing source/terminal pair coverage",
+        "status": "rejected"
+      }
+    },
+    {
+      "case": "zero_time_acyclic",
+      "expected": "unsupported",
+      "reference_status": "unsupported",
+      "status": "matched",
+      "streaming": {
+        "reason": "positive exact rational road weights required",
+        "status": "unsupported"
+      }
+    },
+    {
+      "case": "zero_time_cycle",
+      "expected": "unsupported",
+      "reference_status": "unsupported",
+      "status": "matched",
+      "streaming": {
+        "reason": "positive exact rational road weights required",
+        "status": "unsupported"
+      }
+    },
+    {
+      "case": "analytic_N64_65bit",
+      "expected": "verified",
+      "reference_status": "verified",
+      "status": "matched",
+      "streaming": {
+        "owned": true,
+        "pairs": 4225,
+        "sources": 65,
+        "status": "verified"
+      }
+    }
+  ],
+  "upper_witness_replayed": false,
+  "whole_real_road_table_certified": false
+}

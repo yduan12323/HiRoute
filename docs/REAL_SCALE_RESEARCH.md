@@ -1,4 +1,32 @@
-# Current complete real N64 certificate preflight
+# Current streaming full-graph representation gate
+
+The [streaming representation gate](STREAMING_ROAD_REPRESENTATION.md) verifies
+the complete original5900232-edge/2986695-node graph through an independent
+raw-to-index identity join, global edge-ID uniqueness and bidirectional node
+coverage. The985202688-byte disk index preserves exact rational text, full
+literal identities and every frozen anchor. Measured process-tree peaks are
+52772864bytes for construction and73891840for validation; host headroom guards
+remain. This is representation identity, not a shortest-path certificate.
+
+Sixteen synthetic parity cells match the earlier checker:6accepted,8rejected,
+2unsupported, including a complete64-Site/65-bit-mask analytic domain. Twenty-one
+final regressions pass normally and under-OO; all failures/receipts remain. No
+real source tree, selected-leg table, upper-witness replay, optimizer or holdout
+ran. All65sources/4225pairs remain explicitly source-generation-unrun. The old
+JSON-loader memory failure remains valid historical evidence.
+
+Actual conservative stage325.696447/900CPU seconds includes full240precharge
+and failed attempts. Cumulative16342.296649741/28800, remaining12457.703350259;
+preprocessing652.040677976/900 unchanged. Ordinary software CI is separately
+reserved. See [complete small results](streaming_road_representation_results.json).
+The next proposed gate is an untrusted source exporter and explicitly partial
+source-unit checker, then one predeclared frozen origin with all65targets; it
+cannot certify the full table or shrink the original denominator. Source work
+remains unadmitted. Overall taskbook acceptance is still incomplete.
+
+Entries below retain their historical source, state and accounting.
+
+# Complete real N64 certificate preflight (historical)
 
 The [single frozen real-table preflight](REAL_ROAD_CERTIFICATE_PREFLIGHT.md)
 completed once on WD01/E18/schedule/N64. All5900232 edge rows are positive exact
