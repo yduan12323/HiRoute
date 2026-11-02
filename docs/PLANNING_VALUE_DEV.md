@@ -231,3 +231,23 @@ The old gate remains closed at1662.630577412 /3000. Its remaining1337.369422588
 still cannot fund a1360-reserved pair. Any later WD07/E48 completion must use a
 new prospective allocation and fresh receipts, preserving these six rows and
 the original two budget-unrun records. This integration launches no solver row.
+
+The integrated head411bf037's dedicated policy run41382324803 passed, while
+full M5 run41382324874 failed two default pilot-control tests during wheel
+isolation: the worker unconditionally imported the optional policy helper,
+which is intentionally absent from that staged default cohort. Its failed log
+is retained. The worker now imports that helper only when a policy is configured;
+default behavior has no optional dependency. Both original default-control
+regressions explicitly make the helper unavailable, retaining their original
+early-input and failed-replay assertions. Policy/no-activity behavior retains
+the same adapter, exception status and replay. No staging boundary, assertion,
+time limit, physical parameter or old numerical value is changed, and no
+original drift-process diagnostic or real policy row is repeated.
+The first local missing-module simulation restored the entire module table and
+left a stale package attribute in the following mocked replay test; that failed
+fixture receipt is retained. Blocking only the optional import avoids changing
+other module identities. All8 pilot-control,11 adapter/control and5 report tests
+then pass normally and under-OO within the same60 software-CPU allowance. The
+next full and dedicated branch checks each have new prospective software
+allowances of9000 capacity-CPU and180 CPU seconds respectively; previous failed
+and passing checks keep their own statuses.

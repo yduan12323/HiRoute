@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import importlib.util
+import builtins
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
@@ -15,6 +16,15 @@ ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location('scale_pilot_control',ROOT/'tools/run_real_scale_pilot.py')
 pilot = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(pilot)
+
+
+def without_policy_module():
+    original = builtins.__import__
+    def importing(name,*args,**kwargs):
+        if name == 'planning_value_policy':
+            raise ModuleNotFoundError('optional policy helper deliberately unavailable')
+        return original(name,*args,**kwargs)
+    return patch('builtins.__import__',side_effect=importing)
 
 
 def args(**updates):
@@ -141,7 +151,8 @@ class PilotControlTests(unittest.TestCase):
             worker_args=args(config=work/'config.json',preflight=work/'preflight.json',query='SD01',
                 n=16,scenario='energy_only',method='scale',graph_tsv='unused',native_cache=work,
                 output=work/'row.json')
-            with patch.object(road_index,'NativeRoadIndex',FakeNative), \
+            with without_policy_module(), \
+                 patch.object(road_index,'NativeRoadIndex',FakeNative), \
                  patch.object(scale,'solve_scale',return_value=result) as solve, \
                  patch.object(scale,'validate_scale_input'), \
                  patch.object(scale,'_resident_bytes',return_value=100), \
@@ -175,7 +186,8 @@ class PilotControlTests(unittest.TestCase):
             worker_args=args(config=work/'config.json',preflight=work/'preflight.json',query='SD01',
                 n=16,scenario='energy_only',method='scale',graph_tsv='unused',native_cache=work,
                 output=work/'row.json')
-            with patch.object(road_index,'NativeRoadIndex') as constructor, \
+            with without_policy_module(), \
+                 patch.object(road_index,'NativeRoadIndex') as constructor, \
                  patch.object(runtime,'system_mem_available_bytes',return_value=100000):
                 pilot.worker(worker_args)
                 constructor.assert_not_called()
