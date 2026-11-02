@@ -1,0 +1,56 @@
+name: Exact leg input contracts
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/exact_leg_table.py'
+      - 'tools/exact_leg_fixtures.py'
+      - 'tools/probe_exact_leg_table.py'
+      - 'tools/report_exact_leg_construction.py'
+      - 'tests/test_exact_leg_table.py'
+      - 'configs/exact_leg_construction_gate.json'
+      - 'docs/EXACT_LEG_INPUT_CONSTRUCTION.md'
+      - 'docs/exact_leg_construction_results.json'
+      - 'ci/run_exact_leg_input_code.py'
+      - '.github/workflows/exact-leg-input.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/exact_leg_table.py'
+      - 'tools/exact_leg_fixtures.py'
+      - 'tools/probe_exact_leg_table.py'
+      - 'tools/report_exact_leg_construction.py'
+      - 'tests/test_exact_leg_table.py'
+      - 'configs/exact_leg_construction_gate.json'
+      - 'docs/EXACT_LEG_INPUT_CONSTRUCTION.md'
+      - 'docs/exact_leg_construction_results.json'
+      - 'ci/run_exact_leg_input_code.py'
+      - '.github/workflows/exact-leg-input.yml'
+permissions:
+  contents: read
+concurrency:
+  group: exact-leg-input-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  input-contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.11.16'
+      - name: Exact input fixtures in a clean pinned environment
+        run: python ci/run_exact_leg_input_code.py
+      - name: Preserve all command slots and budget receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: exact-leg-input-code
+          path: |
+            ${{ runner.temp }}/exact-leg-input-code/accounting.json
+            ${{ runner.temp }}/exact-leg-input-code/started.json
+          retention-days: 30
+          if-no-files-found: error

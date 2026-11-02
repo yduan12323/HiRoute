@@ -1,0 +1,32 @@
+{
+  "schema": "hiroute.exact_leg_construction_gate.v1",
+  "execution_authorized": true,
+  "base_main": "b93e927b250437bfbf51998f384be9f2c3df211d",
+  "additional_cap_CPU_s": 400,
+  "additional_fixed_precharge_CPU_s": 140,
+  "metered_command_envelope_CPU_s": 260,
+  "carried_parent_stage_CPU_s": "132.202735",
+  "parent_stage_cap_CPU_s": 600,
+  "carried_original_research_CPU_s": "15139.701737741",
+  "original_cap_CPU_s": 28800,
+  "workers": 1,
+  "threads": 1,
+  "z3_solver_distribution": "4.13.4.0",
+  "command_CPU_limit_s": 30,
+  "command_wall_limit_s": 55,
+  "process_RSS_guard_GiB": 1,
+  "start_available_host_GiB": 3,
+  "runtime_available_host_guard_GiB": 2,
+  "probe_denominator": 2,
+  "probes": [
+    {"id": "unique64", "sites": 64, "aliases": false, "actions": 110, "physical_anchors": 66, "pairs": 4225, "slots": 51},
+    {"id": "aliases64", "sites": 64, "aliases": true, "actions": 110, "physical_anchors": 34, "pairs": 1089, "slots": 51}
+  ],
+  "data_scope": "Explicit synthetic heterogeneous rational input tables; no real road generation, physical feasibility or optimality claim",
+  "continuous_model_scope": "Only road input and discrete action/activity/terminal trace; charging-curve/energy/time families and optimization are not constructed or certified",
+  "solver_check_calls": 0,
+  "optimize_calls": 0,
+  "tiny_parity": "New bounded directed road fixture via independent exhaustive tiny path selection; no historical optimization cohort rerun",
+  "failure_policy": "Keep resource-stop/error and unrun denominator; inspect receipts/PIDs before any retry; no shrink-to-pass, limit increase or hidden H/N cap",
+  "ordinary_software_CI": "Prospective separate9000 full M5 and180 dedicated component software reservation per invocation; no research charge refund"
+}
