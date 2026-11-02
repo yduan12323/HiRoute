@@ -2241,3 +2241,37 @@ passed. Original timing goals remain failed; larger/full domains, real four
 charges, independent real-scale comparison, design freeze and new-OD holdout
 remain incomplete. The proposed next action is a bounded independent comparator
 input/proof gate, without more blind timing batches or a new main architecture.
+# Complete real-graph packed identity bridge (DEV, representation only)
+
+The PR48 proposal was admitted prospectively with a 900 CPU-second cap from
+17,062.772892741 carried research CPU seconds. Exactly one external construction
+and one independent raw-TSV verification completed on the unchanged frozen
+WD01/E18/schedule/N64 full graph: 2,986,695 nodes, 5,900,232 edges, all 66 required
+anchors, all exact times/actual lengths and literal identities. The 669,640,897
+byte CSR SHA256 is `2c64f108db4dc97d916e82cc23567ff82e0c7514372c1a3562c965c9c0ffa603`.
+No source search, EV solve, candidate/depth reduction, new data or holdout ran.
+
+Construction charged 57.278456 CPU seconds (worker53.063139, wall56.606159,
+native RSS56,475,648 bytes); independent raw validation charged79.810970
+(worker74.564378, wall75.465311, native RSS101,580,800). Sampled new-stage disk
+peaked2,929,397,414 bytes during verification. Input/cache setup is charged;
+caches were not flushed, so no cold/runtime comparison is claimed. The new
+independent validator reconstructs raw literal rank maps and compares every
+arc/rational, not the writer's maps or a schema flag. Component width84bits
+does not bound path arithmetic.
+
+Stage390.316884/900 includes fixed240, tiny10.200394, construction57.278456,
+verification79.810970, close3.027064. All failures remain and24recorded PID
+identities are terminal. Total17453.089776741/28800, remaining11346.910223259;
+preprocessing652.040677976/900 unchanged, ordinary softwareCI separate, old
+inclusive charges retained. Thirteen new and sixteen prior packed contracts
+pass normal/-OO. See [full proof/results](FULL_GRAPH_PACKED_IDENTITY.md) and
+[small receipts](full_graph_packed_identity_results.json).
+
+**PASS_COMPLETE_REPRESENTATION_IDENTITY_ONLY** closes a real input bridge,
+not shortest-path certification or optimization. Real source status remains
+1UNKNOWN/64UNRUN/0certified, complete65source/4225pair denominator unchanged.
+Next proposed <=600CPU single-source generation+independent-check gate is NOT
+admitted here; retain120second component limits, source3797700636/all65targets,
+resource quotas and old attempt. No rollout, real EV comparison or holdout.
+Original taskbook acceptance remains incomplete.
