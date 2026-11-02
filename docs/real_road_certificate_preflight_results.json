@@ -1,0 +1,500 @@
+{
+  "accounting": {
+    "cap_CPU_s": 3600,
+    "carried_CPU_s": "15876.371516741",
+    "fixed_precharge_CPU_s": 120,
+    "metered_CPU_s": "20.228686",
+    "ordinary_software_CI": "Separate prospective9000 full M5 and120 dedicated per invocation; old research precharges retained",
+    "preflight_cap_CPU_s": 240,
+    "preprocessing_CPU_s": "652.040677976",
+    "preprocessing_cap_CPU_s": 900,
+    "remaining_original_CPU_s": "12783.399797259",
+    "replay_CPU_s": 0,
+    "research_total_CPU_s": "16016.600202741",
+    "source_work_CPU_s": 0,
+    "stage_CPU_s": "140.228686"
+  },
+  "admitted_additional_memory_bytes": 2452291584,
+  "body_CPU_s": 13.204434000000001,
+  "body_wall_s": 13.41349641699344,
+  "candidate_domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+  "commands": [
+    {
+      "charged_CPU_s": 1.10373,
+      "controller_sha256": "7e27bc0f4051d26c4745ae70b41c38fc594164089d1257446290859e225ca7ff",
+      "guard_reason": null,
+      "host_available_min_bytes": 4796399616,
+      "label": "preflight_contracts_normal",
+      "log_sha256": "e645665e0938cefc206a362f82747b6a72a1b0dd244f0da0e619948727ecb0d8",
+      "pid": 4358,
+      "returncode": 0,
+      "sampled_process_group_peak_rss_bytes": 29425664
+    },
+    {
+      "charged_CPU_s": 1.094932,
+      "controller_sha256": "7e27bc0f4051d26c4745ae70b41c38fc594164089d1257446290859e225ca7ff",
+      "guard_reason": null,
+      "host_available_min_bytes": 4888985600,
+      "label": "preflight_contracts_optimized",
+      "log_sha256": "8c45607fe2083a267482a6875ad6678741b57e9824267d761dd156c35beaf145",
+      "pid": 4378,
+      "returncode": 0,
+      "sampled_process_group_peak_rss_bytes": 28819456
+    },
+    {
+      "charged_CPU_s": 15.604982000000001,
+      "controller_sha256": "7e27bc0f4051d26c4745ae70b41c38fc594164089d1257446290859e225ca7ff",
+      "guard_reason": null,
+      "host_available_min_bytes": 4421124096,
+      "label": "frozen_real_preflight",
+      "log_sha256": "de97f776c80436b5e1b8cbe3357f407597d9abaefe928cf2d85aa2eef6557231",
+      "pid": 4430,
+      "returncode": 0,
+      "sampled_process_group_peak_rss_bytes": 31064064
+    },
+    {
+      "charged_CPU_s": 1.168764,
+      "controller_sha256": "7e27bc0f4051d26c4745ae70b41c38fc594164089d1257446290859e225ca7ff",
+      "guard_reason": null,
+      "host_available_min_bytes": 4648042496,
+      "label": "delivery_contracts_normal",
+      "log_sha256": "4a835129987117bfde8dddb122e0120b61a2c8263494cb9c853d8c185dd4694b",
+      "pid": 4447,
+      "returncode": 0,
+      "sampled_process_group_peak_rss_bytes": 34717696
+    },
+    {
+      "charged_CPU_s": 1.256277,
+      "controller_sha256": "7e27bc0f4051d26c4745ae70b41c38fc594164089d1257446290859e225ca7ff",
+      "guard_reason": null,
+      "host_available_min_bytes": 4555259904,
+      "label": "delivery_contracts_optimized",
+      "log_sha256": "278d3e44e6908eba1400f25643fab08ec3b9b46720475c6f68e0736f44f0698f",
+      "pid": 4456,
+      "returncode": 0,
+      "sampled_process_group_peak_rss_bytes": 37257216
+    }
+  ],
+  "decision": "NO_GO_CURRENT_LOADER_MEMORY",
+  "frozen_domain_sha256": "250ff5d84aed3e6fbf86e371f0cabbf135c4cc89034f9ce27fbc5f0bb411db7a",
+  "frozen_query": {
+    "N": 64,
+    "initial_energy_kwh": "18",
+    "query_id": "WD01",
+    "scenario": "schedule"
+  },
+  "holdout": false,
+  "host_available_bytes_at_admission": 4599775232,
+  "input_sha256": {
+    "bindings": "c981bbf5d529f61e0385b4424b5145c44b6afd7dbb35b90fd625792b1e28bf42",
+    "catalog": "a71e0a645fd21a2f415b4b079033cfe631dfb2292a1a41ce43b439304805a1a9",
+    "graph": "8076e850b096c5cf74f307ae7ad34c2aebd1f1e53c3c4d092234d40078a4c54d"
+  },
+  "literal_sites": 64,
+  "memory_lower_bound_exceeds_admission": true,
+  "memory_scope": "Lower bound for existing CPython JSON graph-object loader at graph construction; not a compact implementation lower bound or measured real loader peak",
+  "memory_units": {
+    "edge_dictionary_value_slots": 40,
+    "edge_object": 56,
+    "fractions": 96,
+    "json_row": 184,
+    "list_slot": 8,
+    "string_header": 49
+  },
+  "new_preflight_tests_per_mode": 8,
+  "observed": {
+    "all_weights_exact_positive": true,
+    "current_JSON_loader_lower_bound_bytes": 3512791054,
+    "distinct_graph_nodes_counted": false,
+    "full_file_scanned": true,
+    "global_edge_ID_uniqueness_checked": false,
+    "max_weight_component_bits": [
+      78,
+      84,
+      75,
+      77
+    ],
+    "missing_anchors": [],
+    "observed_edge_rows": 5900232,
+    "seen_anchors": [
+      "10310878816",
+      "11497374127",
+      "11703145312",
+      "11704739881",
+      "11812245785",
+      "11878596169",
+      "11898170996",
+      "12095804962",
+      "12153688549",
+      "12155442152",
+      "12155460602",
+      "12250360392",
+      "12250391930",
+      "12250395386",
+      "12400109805",
+      "12464985925",
+      "12585548117",
+      "12612854496",
+      "12791015765",
+      "12922538692",
+      "13004381180",
+      "13013673991",
+      "13013673995",
+      "13062996120",
+      "13536661551",
+      "13619237686",
+      "13751659821",
+      "14134933352",
+      "2123045218",
+      "2125936682",
+      "2139036154",
+      "2325145319",
+      "2325145324",
+      "2640965265",
+      "2702363864",
+      "2718262919",
+      "3251083566",
+      "3506153391",
+      "3521124785",
+      "3789936636",
+      "3797700636",
+      "3883019960",
+      "3884340050",
+      "3896010227",
+      "3896040928",
+      "3923233587",
+      "4211729533",
+      "4211729575",
+      "4211729577",
+      "4267745133",
+      "4468471077",
+      "4524356636",
+      "5123675224",
+      "5150916163",
+      "6467786256",
+      "8686257160",
+      "8779197061",
+      "9094330252",
+      "9588390640",
+      "9633451214",
+      "9642816265",
+      "9726723010",
+      "9736128947",
+      "9740828469",
+      "9740828473",
+      "9853383483"
+    ],
+    "sha256": "8076e850b096c5cf74f307ae7ad34c2aebd1f1e53c3c4d092234d40078a4c54d"
+  },
+  "omitted_memory": "raw JSON and nodes, numeric strings/ints, graph maps/adjacency/sort work, all source certificates, labels/masks, table and paths",
+  "original_taskbook_complete": false,
+  "pair_denominator": 4225,
+  "pair_status_counts": {
+    "unrun_preflight_blocked": 4225
+  },
+  "physical_sources": 65,
+  "physical_targets": 65,
+  "process_extra_limit_bytes": 8589934592,
+  "producer": {
+    "config_sha256": "6eb6aa4e80ab469d3e21ce919eec0edf87ac4c10d79979362b74571959eb332f",
+    "cpu_limit": 80,
+    "dirty": false,
+    "host_available_bytes": 4599775232,
+    "producer_commit": "415d8cddbc8fbb8c403bd6624af36364c436e04f",
+    "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]",
+    "reserved_CPU_s": 84,
+    "source_work_released": false,
+    "wall_limit": 120
+  },
+  "raw_full_pair_statuses_preserved": "real-road-certificate-artifacts-v1/preflight/results.json",
+  "raw_results_sha256": "71651dd4521ab41336024606cc01d07799aee1b917f7c39a12ae09c101e41b9b",
+  "real_EV_optimization": false,
+  "relevant_depth_certified": false,
+  "required_host_headroom_bytes": 2147483648,
+  "schema": "hiroute.real_road_certificate_preflight.v1",
+  "source_identity": "per-run committed producer recorded by external resource supervisor",
+  "source_status_counts": {
+    "unrun_preflight_blocked": 65
+  },
+  "source_statuses": [
+    {
+      "source": "10310878816",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "11497374127",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "11703145312",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "11704739881",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "11812245785",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "11878596169",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "12095804962",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "12153688549",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "12155442152",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "12155460602",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "12250360392",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "12250391930",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "12250395386",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "12400109805",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "12464985925",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "12585548117",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "12612854496",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "12791015765",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "12922538692",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "13004381180",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "13013673991",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "13013673995",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "13062996120",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "13536661551",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "13619237686",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "13751659821",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "14134933352",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "2123045218",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "2125936682",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "2139036154",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "2325145319",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "2325145324",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "2640965265",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "2702363864",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "2718262919",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "3251083566",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "3506153391",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "3521124785",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "3789936636",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "3797700636",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "3883019960",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "3884340050",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "3896010227",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "3896040928",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "3923233587",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "4211729533",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "4211729575",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "4211729577",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "4267745133",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "4468471077",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "4524356636",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "5123675224",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "5150916163",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "6467786256",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "8686257160",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "8779197061",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "9094330252",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "9588390640",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "9633451214",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "9642816265",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "9726723010",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "9736128947",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "9740828469",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "9740828473",
+      "status": "unrun_preflight_blocked"
+    },
+    {
+      "source": "9853383483",
+      "status": "unrun_preflight_blocked"
+    }
+  ],
+  "source_work_released": false,
+  "started": {
+    "frozen_domain_sha256": "250ff5d84aed3e6fbf86e371f0cabbf135c4cc89034f9ce27fbc5f0bb411db7a",
+    "host_available_bytes": 4599775232,
+    "source_work_released": false,
+    "stage": "input/memory preflight only",
+    "started_at": 1793621138.119231
+  },
+  "table_generated": false,
+  "tests_per_mode": 24,
+  "unresolved": [
+    "compact streaming graph/certificate bridge and safe peak upper bound",
+    "independent complete node/edge-identity validation",
+    "all source distances, canonical selected paths and complete table",
+    "independent physical upper-witness replay and complete relevant H"
+  ],
+  "upper_witness_independently_replayed": false,
+  "whole_table_certified": false,
+  "zero_pairs": 64
+}
