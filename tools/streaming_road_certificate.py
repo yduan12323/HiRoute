@@ -178,11 +178,13 @@ class Checked:
 
 
 class Session:
-    __slots__=('_g','_t','_A','_check','_receipts','_failed','_result')
-    def __init__(self,graph,table,*,arithmetic=None,check=lambda:None):
+    __slots__=('_g','_t','_A','_check','_receipts','_failed','_result','_max_state_bytes')
+    def __init__(self,graph,table,*,arithmetic=None,check=lambda:None,max_state_bytes=4*1024**3):
         if (not isinstance(graph,Graph) or not graph._validated or type(table) is not Table or
             not table._validated or table._graph_owner is not graph._owner):raise TypeError('owned validated inputs required')
         self._g,self._t,self._A,self._check=graph,table,arithmetic or Arithmetic(),check
+        if type(max_state_bytes) is not int or not 4096<=max_state_bytes<=4*1024**3:raise ValueError('source state DB byte quota')
+        self._max_state_bytes=max_state_bytes
         self._receipts=[];self._failed=False;self._result=None
     @property
     def receipts(self):return tuple(self._receipts)
@@ -204,7 +206,7 @@ class Session:
         expected_sources=self._expected_sources()
         if len(self._receipts)>=len(expected_sources) or header['source']!=expected_sources[len(self._receipts)]:raise ValueError('source order/coverage')
         source=header['source'];bits={v:1<<i for i,v in enumerate(t.targets)};limit=1<<len(t.targets)
-        db=connect(folder/'state.sqlite',write=True);reachable=0
+        db=connect(folder/'state.sqlite',write=True,max_bytes=self._max_state_bytes);reachable=0
         try:
             db.execute('CREATE TABLE state(node TEXT COLLATE BINARY PRIMARY KEY,d TEXT,pred TEXT,mask TEXT,expected TEXT,seen INTEGER) WITHOUT ROWID')
             for index,(raw_node,node) in enumerate(itertools.zip_longest(rows,g.nodes())):
@@ -282,11 +284,13 @@ class Session:
 
 class SourceSession(Session):
     """Independent source-unit checker; cannot produce a whole-table Checked."""
-    def __init__(self,graph,table,*,arithmetic=None,check=lambda:None):
+    def __init__(self,graph,table,*,arithmetic=None,check=lambda:None,max_state_bytes=4*1024**3):
         if (not isinstance(graph,Graph) or not graph._validated or type(table) is not SourceUnit or
             not table._validated or table._graph_owner is not graph._owner):
             raise TypeError('owned validated source-unit inputs required')
         self._g,self._t,self._A,self._check=graph,table,arithmetic or Arithmetic(),check
+        if type(max_state_bytes) is not int or not 4096<=max_state_bytes<=4*1024**3:raise ValueError('source state DB byte quota')
+        self._max_state_bytes=max_state_bytes
         self._receipts=[];self._failed=False;self._result=None
     def _expected_sources(self):return (self._t.unit_source,)
     def finish(self):

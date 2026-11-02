@@ -21,6 +21,7 @@ from exact_leg_table import identity
 from streaming_road_graph import MAX_LINE,ResourceStop,sha,flush_file,json_line,lines
 from streaming_road_certificate import Arithmetic,SOURCE_SCHEMA
 from generate_exact_source_unit import domain,emit
+from packing_output_limits import LimitedFile,limit_value
 
 MAGIC=b'HRCSR001'
 HEAD=struct.Struct('<8s7Q')
@@ -211,11 +212,13 @@ def validate_synthetic_pack(graph,packed,check=lambda:None):
 
 class Transcript:
     """Hash reference JSON without retaining a duplicate uncompressed file."""
-    def __init__(self):self.hash=hashlib.sha256();self.bytes=0
+    def __init__(self,limit=None):self.hash=hashlib.sha256();self.bytes=0;self.limit=limit_value(limit)
     def __enter__(self):return self
     def __exit__(self,*unused):return False
     def write(self,text):
-        value=text.encode('utf-8');self.hash.update(value);self.bytes+=len(value);return len(text)
+        value=text.encode('utf-8')
+        if self.limit is not None and self.bytes+len(value)>self.limit:raise ResourceStop('source transcript byte quota')
+        self.hash.update(value);self.bytes+=len(value);return len(text)
 
 
 class Labels:
@@ -277,10 +280,13 @@ def bounded_emit(stream,value):
     emit(stream,value)
 
 
-def generate(packed,header,folder,*,label_bytes=512*1024**2,check=lambda:None):
+def generate(packed,header,folder,*,label_bytes=512*1024**2,check=lambda:None,output_limits=None,progress=lambda v:None):
     call_cpu,call_wall=time.process_time(),time.monotonic()
     if struct.calcsize('P')>8:raise ResourceStop('pointer-size resource profile')
     S,T=domain(header)
+    limits={'paths':None,'binary':None,'decoded':None} if output_limits is None else dict(output_limits)
+    if set(limits)!={'paths','binary','decoded'}:raise ValueError('all output quota fields required')
+    for v in limits.values():limit_value(v)
     if header['graph_identity']!='sha256:'+packed.graph_identity:raise ValueError('original graph identity')
     N=packed.N;K=len(T);B=(K+7)//8
     # Structural state allocation admission, independent of a tiny RSS sample.
@@ -294,6 +300,7 @@ def generate(packed,header,folder,*,label_bytes=512*1024**2,check=lambda:None):
     def phase(name):
         nonlocal c0,w0
         check();c,w=time.process_time(),time.monotonic();phases.append(dict(phase=name,CPU_s=c-c0,wall_s=w-w0));c0,w0=c,w
+        progress(dict(phase=name,phase_complete=True,metrics=dict(metrics),CPU_s=c-call_cpu,wall_s=w-call_wall))
     def value(pos):metrics['weight_decodes']+=1;return packed.rational(pos,A)
     def mask(i):return int.from_bytes(masks[i*B:(i+1)*B],'little')
     def setmask(i,v):
@@ -312,6 +319,9 @@ def generate(packed,header,folder,*,label_bytes=512*1024**2,check=lambda:None):
                 labels.put(v,candidate);pred[v]=index;front.changed(v)
             metrics['edge_visits']+=1
             if metrics['edge_visits']%1024==0:check()
+            if metrics['edge_visits']%500000==0:
+                progress(dict(phase='labels',phase_complete=False,edge_visits=metrics['edge_visits'],settled_nodes=count,
+                    label_bytes=labels.bytes,max_label_bits=labels.max_bits,CPU_s=time.process_time()-call_cpu,wall_s=time.monotonic()-call_wall))
     metrics['settled_nodes']=count;phase('labels')
     for k in range(count-1,-1,-1):
         u=order[k];m=bits.get(u,0);du=labels.values[u]
@@ -319,6 +329,7 @@ def generate(packed,header,folder,*,label_bytes=512*1024**2,check=lambda:None):
             if labels.values[v] is not None and A.add(du,value(tp))==labels.values[v]:m|=mask(v)
         setmask(u,m)
         if k%1024==0:check()
+        if k%500000==0:progress(dict(phase='tight_masks',phase_complete=False,remaining_nodes=k,CPU_s=time.process_time()-call_cpu,wall_s=time.monotonic()-call_wall))
     phase('tight_masks')
     def path(target):
         u=source;visited=0
@@ -330,7 +341,7 @@ def generate(packed,header,folder,*,label_bytes=512*1024**2,check=lambda:None):
             index,v,eid,lp=chosen;yield u,v,eid,lp;u=v;visited+=1
             if visited>=N:raise ValueError('positive tight DAG path cannot cycle')
     paths=out/'paths.jsonl'
-    with paths.open('x') as stream:
+    with LimitedFile(paths,'x',limits['paths']) as stream:
         bounded_emit(stream,header)
         for name,target in zip(T,targets):
             dt=labels.values[target];L=Fraction(0)
@@ -345,7 +356,7 @@ def generate(packed,header,folder,*,label_bytes=512*1024**2,check=lambda:None):
             bounded_emit(stream,dict(kind='end_pair'))
     flush_file(paths);phase('paths_two_pass_stream')
     certificate=out/'source.jsonl'
-    reference=Transcript()
+    reference=Transcript(limits['decoded'])
     with reference as stream:
         bounded_emit(stream,dict(schema=SOURCE_SCHEMA,graph_sha256=packed.graph_identity,table_sha256=sha(paths),source=header['source_unit'],target_order=list(T)))
         for u in range(N):
@@ -358,11 +369,12 @@ def generate(packed,header,folder,*,label_bytes=512*1024**2,check=lambda:None):
             bounded_emit(stream,dict(node=node,label=A.text(dt) if dt is not None else None,predecessor_edge_id=eid,mask=str(mask(u)) if dt is not None else None))
     phase('source_reference_transcript')
     from packed_source_certificate_codec import write_certificate,decode_certificate
-    encoded=write_certificate(out/'source.binary',packed,header,sha(paths),labels,pred,masks,check)
+    encoded=write_certificate(out/'source.binary',packed,header,sha(paths),labels,pred,masks,check,max_output_bytes=limits['binary'])
     phase('binary_certificate')
-    decoded=decode_certificate(out/'source.binary',certificate,packed,header,sha(paths),check)
+    decoded=decode_certificate(out/'source.binary',certificate,packed,header,sha(paths),check,
+        max_input_bytes=limits['binary'],max_output_bytes=limits['decoded'])
     if decoded['decoded_sha256']!=reference.hash.hexdigest() or decoded['decoded_bytes']!=reference.bytes:raise ValueError('lossless source transcript mismatch')
     phase('lossless_decode_and_source_file');packed.assert_unchanged();phase('final_identity')
     paths_hash,source_hash=sha(paths),sha(certificate);phase('output_hashes')
-    return dict(scope='untrusted synthetic prototype only',source=header['source_unit'],source_denominator=len(S),pair_denominator=len(S)*len(T),candidate_pairs=K,
+    return dict(scope='untrusted packed source candidate only',source=header['source_unit'],source_denominator=len(S),pair_denominator=len(S)*len(T),candidate_pairs=K,
         paths_sha256=paths_hash,source_sha256=source_hash,whole_table_certified=False,metrics=dict(metrics,heap_peak=front.peak,heap_compares=front.compares,label_peak_accounted_bytes=labels.peak,max_label_bits=labels.max_bits,cache_peak_bytes=packed.pages.peak_bytes,page_hits=packed.pages.hits-io_start[0],page_misses=packed.pages.misses-io_start[1],pread_bytes=packed.pages.read_bytes-io_start[2],IO_counter_scope='pread only; SHA reads excluded; cache can be shared/warm; generator SQL zero does not describe pack/check',fixed_state_formula_bytes=fixed),phases=phases,output_bytes=dict(paths=paths.stat().st_size,certificate=certificate.stat().st_size,binary=encoded['encoded_bytes']),lossless_codec={**encoded,**decoded})
