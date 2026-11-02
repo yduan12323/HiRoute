@@ -1,5 +1,6 @@
 """CPU3, stdlib synthetic contracts/processes only; no graph/native imports."""
 import copy
+import json
 import tempfile
 from pathlib import Path
 import unittest
@@ -87,9 +88,38 @@ class ContractTests(unittest.TestCase):
         self.assertIsNotNone(stage['receipt']['phase_entered_monotonic'])
 
     def test_drift_stops_whole_queue(self):
-        ledger=self.run_plan({'n8-g0-s3_10:search:flat':'drift'})
+        # This tests admission of an actually delivered malformed result.
+        # Real supervisor/timeout integration is covered separately; an OS
+        # timeout before delivery cannot promise an INTEGRITY_FAILED outcome.
+        with patch('experiments.m6h_manifest_v1.runner.run',side_effect=self.admission_receipt):
+            ledger=self.run_plan({'n8-g0-s3_10:search:flat':'drift'})
         self.assertEqual(ledger['status'],'INTEGRITY_FAILED')
         self.assertTrue(all(s['status']=='BLOCKED_INTEGRITY_FAILED' for s in ledger['stages'][2:]))
+
+    def admission_receipt(self,argv,**kwargs):
+        request=json.loads(argv[-1])
+        limits=kwargs['limits']
+        self.assertEqual((limits.wall_seconds,limits.cpu_seconds,limits.cpu),(5,1,3))
+        if request['operation']=='search':
+            self.assertEqual(kwargs['phase_budget'].seconds,.2)
+        bound=c.BoundSyntheticInput.fixture(request['domain'])
+        value=result(bound,request['operation'],request['method'],request['common'],request['scenario'])
+        return dict(status='SUCCESS',cleanup_verified=True,phase_entered_monotonic=1,
+                    worker_receipt=dict(status='SUCCESS',result=value))
+
+    def test_resource_stop_before_drift_delivery_is_not_an_admitted_identity(self):
+        def resource_stop(argv,**kwargs):
+            if json.loads(argv[-1])['scenario']=='drift':
+                return dict(status='TIMEOUT',reason='phase_timeout',cleanup_verified=True,
+                            phase_entered_monotonic=1)
+            return self.admission_receipt(argv,**kwargs)
+        with patch('experiments.m6h_manifest_v1.runner.run',side_effect=resource_stop):
+            ledger=self.run_plan({'n8-g0-s3_10:search:flat':'drift'})
+        self.assertEqual(ledger['status'],'MOCK_FINISHED_WITH_RETAINED_OUTCOMES')
+        self.assertEqual(ledger['stages'][1]['status'],'TIMEOUT')
+        self.assertEqual(ledger['stages'][1]['receipt']['reason'],'phase_timeout')
+        self.assertEqual(ledger['stages'][2]['status'],'BLOCKED_SEARCH_FAILED')
+        self.assertEqual(ledger['methods'][1]['status'],'MOCK_CERTIFIED')
 
     def test_reservation_blocks_without_launch(self):
         with patch('experiments.m6h_manifest_v1.runner.run') as launch:

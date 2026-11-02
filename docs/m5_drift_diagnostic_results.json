@@ -1,0 +1,109 @@
+{
+  "schema": "hiroute.m5_drift_diagnosis_result.v1",
+  "failed_run": 41332956301,
+  "failed_job": 124926707427,
+  "failed_source": "0f486300d931558d072ce05a6fcc4c42d4b70027",
+  "original_failure_preserved": true,
+  "original_failure_cause_confirmed": false,
+  "candidate": "resource/launch preemption before malformed-result admission; original slot receipt was deleted",
+  "production_admission_or_solver_change": false,
+  "assertion_or_limit_change": false,
+  "deterministic_fixture_fix": true,
+  "logical_checks": {
+    "logical-normal": {
+      "passed": true,
+      "tests_run": 3,
+      "sys_optimize": 0,
+      "imported_numeric_packages": [],
+      "test_source_sha256": "aa3e6728f4659dfa0d8d788049253459bdc1dffa08075c361adc8a561acef1ff"
+    },
+    "logical-optimized": {
+      "passed": true,
+      "tests_run": 3,
+      "sys_optimize": 2,
+      "imported_numeric_packages": [],
+      "test_source_sha256": "aa3e6728f4659dfa0d8d788049253459bdc1dffa08075c361adc8a561acef1ff"
+    }
+  },
+  "one_original_retry": {
+    "run_id": 41336411503,
+    "job_id": 124937079608,
+    "execution_source": "ff07b4f1086c9caaf00cda6b69496081e3bae6df",
+    "event": "workflow_dispatch",
+    "CI_conclusion": "failure",
+    "CI_failure": "post-run collector KeyError stages on auxiliary supervisor ledger",
+    "artifact_id": 13095202832,
+    "artifact_GitHub_digest": "sha256:1403631be0b12c5f7dde76d4bbfb657285a6bbc2b8f0358bb5ca3ebdd353c281",
+    "original_test_source_sha256": "13d68260b6e02ca13767b1890a776eabd2837794eb34a590c570f3fa5f385faf",
+    "raw_original_assertion_conditions_satisfied": true,
+    "raw_queue_status": "INTEGRITY_FAILED",
+    "original_drift_supervisor_status": "SUCCESS",
+    "original_drift_returncode": 0,
+    "cleanup_verified": true,
+    "later_slots_blocked": 24,
+    "unittest_summary_missing_before_collector_error": true,
+    "not_relabelled_CI_pass": true,
+    "process_retry_count": 1,
+    "repeat_count": 0
+  },
+  "collector_bug_fixed_locally": {
+    "change": "read only retained root/run/ledger.json; persist unittest result before collection",
+    "parser_tests_each_mode": 3,
+    "extra_process_retry": false
+  },
+  "diagnostic_budget": {
+    "cap_CPU_s": 240,
+    "full_conservative_precharge_CPU_s": 240,
+    "CI_inclusive_reserved_CPU_s": 129.414868,
+    "local_measured_child_CPU_s": 1.8341229999999997,
+    "local_cap_CPU_s": 8,
+    "report_control_reserve_CPU_s": 12,
+    "final_PR_startup_cancellation_reserve_CPU_s": 40,
+    "CI_first_failed_inclusive_reserved_CPU_s": 63.990695,
+    "CI_second_fix_only_inclusive_reserved_CPU_s": 65.424173,
+    "shared_CI_cap_CPU_s": 180
+  },
+  "policy_row_ledger_unchanged": {
+    "policy_gate_CPU_s": "1662.630577412",
+    "original_research_gate_carried_CPU_s": "14468.280547741",
+    "six_rows_preserved": true,
+    "two_budget_unrun_preserved": true,
+    "future_PR38_merge_CI_180_already_inside_policy900": true,
+    "completed_gate_cap_remaining_CPU_s": "1337.369422588",
+    "next_pair_minimum_CPU_s": 1360,
+    "shortfall_CPU_s": "22.630577412"
+  },
+  "unmetered_main37_exposure": {
+    "covered_by_prior_reservation": false,
+    "actual_CPU_s": null,
+    "reported_wall_s": 1230,
+    "public_standard_runner_CPUs": 4,
+    "nominal_reported_window_capacity_CPU_s": 4920,
+    "timestamp_margin_capacity_upper_CPU_s": 4928,
+    "conservative_additional_reserve_CPU_s": 5000,
+    "is_measurement": false,
+    "hardware_source": "https://docs.github.com/en/actions/reference/runners/github-hosted-runners"
+  },
+  "provisional_known_exposure_total_CPU_s": "19708.280547741",
+  "provisional_remaining_CPU_s": "9091.719452259",
+  "all_historical_CI_coverage_certified": false,
+  "prior11500_holdout_reserve_guaranteed": false,
+  "preprocessing_CPU_s": "652.040677976",
+  "new_real_rows": 0,
+  "new_data": false,
+  "holdout": false,
+  "fix_only_verification": {
+    "run_id": 41336930449,
+    "job_id": 124938642347,
+    "source": "74a0330caeff9504936cc97e56445a5394d76a3b",
+    "conclusion": "success",
+    "original_process_retries": 0,
+    "logical_checks_each_mode": 3,
+    "parser_checks_each_mode": 3,
+    "inclusive_reserved_CPU_s": 65.424173,
+    "cap_CPU_s": 116,
+    "artifact_id": 13094749401,
+    "artifact_GitHub_digest": "sha256:3356ce62f294048bbd751c18120ad7526d59f162d753a4acb07953fea0e48969",
+    "pending_start": false
+  }
+}

@@ -205,3 +205,29 @@ pair needs at least1360 conservative CPU headroom plus any additional delivery
 work and an explicit compatible provenance/accounting bridge. This document
 does not launch that pair, new domains, main experiments or holdout. It cannot
 promise all remaining research acceptance items fit the original budget.
+
+## November 2 integration record
+
+This delivery incorporates PR39's repaired admission fixture and explicitly
+registers both new policy test modules as isolated code gates. No policy
+adapter, physical model, solver, original proposal or six numerical results is
+changed; their numerical source remains e63f803af86b6e1168763578aaae4387e1a9b430.
+The old failed and cancelled CI invocations remain historical failures and
+cancellations. Integration checks use the repaired fixture, without repeating
+the one-off original-process diagnostic. Separate dedicated policy CI exercises
+the policy tests; module registration alone does not add them to full M5.
+
+The user approved the original28800CPU-second cap for new research solves and
+limited REF, retaining the conservative14708.280547741 charge after PR39 and
+all earlier inclusive CI reservations. Ordinary software regression CI is now
+separately recorded with prospective allowances; historical unmetered CI is
+unknown, not confirmed overspend. This integration reserves9000 capacity-CPU
+seconds for its full branch regression,180 for a fresh dedicated policy check,
+and60 for local collection/focused checks. These do not refund any old charge.
+The future merged-main dedicated180 remains inside this original gate's900
+nonstage precharge and must not be charged again.
+
+The old gate remains closed at1662.630577412 /3000. Its remaining1337.369422588
+still cannot fund a1360-reserved pair. Any later WD07/E48 completion must use a
+new prospective allocation and fresh receipts, preserving these six rows and
+the original two budget-unrun records. This integration launches no solver row.
