@@ -3,12 +3,12 @@
   "SMT_Solver_check_calls": 0,
   "accounting": {
     "additional_cap_CPU_s": 400,
-    "additional_conservative_CPU_s": "159.355568",
+    "additional_conservative_CPU_s": "166.274330",
     "additional_fixed_precharge_CPU_s": 140,
     "carried_original_research_CPU_s": "15139.701737741",
-    "conservative_metered_commands_CPU_s": "19.355568",
-    "cumulative_original_research_CPU_s": "15299.057305741",
-    "cumulative_parent_stage_CPU_s": "291.558303",
+    "conservative_metered_commands_CPU_s": "26.274330",
+    "cumulative_original_research_CPU_s": "15305.976067741",
+    "cumulative_parent_stage_CPU_s": "298.477065",
     "ordinary_software_CI": "Separate prospective reservations, no old research/CI charge refunds",
     "original_research_cap_CPU_s": 28800,
     "parent_stage_cap_CPU_s": 600,
@@ -16,7 +16,7 @@
     "preprocessing_cap_CPU_s": 900,
     "prior_fixed120_retained": true,
     "prior_parent_stage_CPU_s": "132.202735",
-    "remaining_original_CPU_s": "13500.942694259",
+    "remaining_original_CPU_s": "13494.023932259",
     "within_caps": true
   },
   "command_receipts": [
@@ -189,6 +189,66 @@
       "returncode": 0,
       "sampled_process_group_peak_rss_bytes": 54951936,
       "stdout_log_sha256": "c3dc4ce80790d0a5a68dcff2d3009be59564c24dfe01144e0f6b50051e539cc3"
+    },
+    {
+      "actual_child_returncode": 0,
+      "charged_CPU_s": 1.11452,
+      "controller_sha256": "97d49eee337ddf4afd1b144a39ac9646417f5a4970503582d5006588e812f0bb",
+      "guard_reason": null,
+      "host_available_min_bytes": 4869406720,
+      "label": "container_semantics_normal",
+      "pid": 97309,
+      "returncode": 0,
+      "sampled_process_group_peak_rss_bytes": 51068928,
+      "stdout_log_sha256": "2d5b92bf8fc34f4cbf2a846e0b51b9d8a4553efcc678613cbbfe6c06df7d79e1"
+    },
+    {
+      "actual_child_returncode": 0,
+      "charged_CPU_s": 1.289736,
+      "controller_sha256": "97d49eee337ddf4afd1b144a39ac9646417f5a4970503582d5006588e812f0bb",
+      "guard_reason": null,
+      "host_available_min_bytes": 4940283904,
+      "label": "container_semantics_optimized",
+      "pid": 97316,
+      "returncode": 0,
+      "sampled_process_group_peak_rss_bytes": 79888384,
+      "stdout_log_sha256": "e6200ac859357c16c8cb8510b71eb578ea5a2b0b26026ee7cafd60dc78513c0c"
+    },
+    {
+      "actual_child_returncode": 0,
+      "charged_CPU_s": 1.132826,
+      "controller_sha256": "97d49eee337ddf4afd1b144a39ac9646417f5a4970503582d5006588e812f0bb",
+      "guard_reason": null,
+      "host_available_min_bytes": 4939988992,
+      "label": "review_corrections_normal",
+      "pid": 97435,
+      "returncode": 0,
+      "sampled_process_group_peak_rss_bytes": 57671680,
+      "stdout_log_sha256": "ba4b436e3b65d9563aaad9077f2b4c3721602d30fa3a3957057ece0fe1f49c37"
+    },
+    {
+      "actual_child_returncode": 0,
+      "charged_CPU_s": 1.371834,
+      "controller_sha256": "97d49eee337ddf4afd1b144a39ac9646417f5a4970503582d5006588e812f0bb",
+      "guard_reason": null,
+      "host_available_min_bytes": 4908220416,
+      "label": "review_corrections_optimized",
+      "pid": 97448,
+      "returncode": 0,
+      "sampled_process_group_peak_rss_bytes": 82182144,
+      "stdout_log_sha256": "070c29fedbec4b426d04b07b872fb3cf5f73c1cf93e7129df03b8d3053400363"
+    },
+    {
+      "actual_child_returncode": 0,
+      "charged_CPU_s": 2.0098459999999996,
+      "controller_sha256": "97d49eee337ddf4afd1b144a39ac9646417f5a4970503582d5006588e812f0bb",
+      "guard_reason": null,
+      "host_available_min_bytes": 4921704448,
+      "label": "review_correction_data_only",
+      "pid": 97470,
+      "returncode": 0,
+      "sampled_process_group_peak_rss_bytes": 48234496,
+      "stdout_log_sha256": "40fef7938c4e32f6cd73454831217c51806d6f674ae0c623689579cf03b6338f"
     }
   ],
   "construction_slot_denominator": 4,
@@ -197,13 +257,74 @@
   "holdout": false,
   "independent_real_N64_comparator_ready": false,
   "initial_profiles_preserved": true,
-  "local_completed_tiny_road_parity_calls": 4,
+  "local_completed_tiny_road_parity_calls": 8,
   "local_extra_symbolic_domain_test_both_modes": true,
-  "local_final_suite_tests_per_mode": 11,
+  "local_final_suite_tests_per_mode": 15,
   "local_tests_passed": true,
   "main_experiment": false,
   "old_optimization_cohorts_repeated": false,
   "original_taskbook_complete": false,
+  "parser_ownership_coverage_correction": {
+    "SMT_calls": 0,
+    "Z3_imported": false,
+    "caller_digest_override_old_accepted_corrected_rejected": true,
+    "container_sensitivity": [
+      {
+        "case": "effect_string",
+        "corrected_rejected": true,
+        "old_accepted": true
+      },
+      {
+        "case": "order_string",
+        "corrected_rejected": true,
+        "old_accepted": true
+      },
+      {
+        "case": "effect_object",
+        "corrected_rejected": true,
+        "old_accepted": true
+      },
+      {
+        "case": "nodes_string",
+        "corrected_rejected": true,
+        "old_accepted": true
+      },
+      {
+        "case": "edges_string",
+        "corrected_rejected": true,
+        "old_accepted": true
+      }
+    ],
+    "corrected_source": "8fc1374d7bb1759de445035f5fb34a1561396bb1",
+    "empty_cohort_old_PASS_corrected_rejected": true,
+    "full_width_construction_repeated": false,
+    "measurement_source": "5bf2fdeba8f31807830f8757099367f748c0f7bf",
+    "note": "Data-only sensitivity and stored-input primitive parity; historical construction timings remain at their recorded source.",
+    "prior_delivery": "b846665ac728246475f28f71a06a279970859870",
+    "real_road_queries": 0,
+    "schema": "hiroute.exact_leg_review_correction.v1",
+    "status": "passed",
+    "stored_inputs": [
+      {
+        "every_pair_and_literal_field_unchanged": true,
+        "input_sha256": "f450fe9982f917c3eebd53d019e674b675e0fc857856934c26d188190f041455",
+        "literal_Sites": 64,
+        "literal_actions": 110,
+        "pair_records": 4225,
+        "parsed_only": true,
+        "profile": "unique64"
+      },
+      {
+        "every_pair_and_literal_field_unchanged": true,
+        "input_sha256": "1ed25b8b58119163e341879d6e7f36997947a3ab122f1a5b67f8bf80dd7288bd",
+        "literal_Sites": 64,
+        "literal_actions": 110,
+        "pair_records": 1089,
+        "parsed_only": true,
+        "profile": "aliases64"
+      }
+    ]
+  },
   "physical_continuous_model_constructed": false,
   "raw_input_preserved_between_rounds": true,
   "real_road_queries": 0,

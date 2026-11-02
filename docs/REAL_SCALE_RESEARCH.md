@@ -11,20 +11,27 @@ integration, real routing/comparison solve or holdout was performed.
 Exact rational parsing, complete directed/source/terminal/alias-zero coverage,
 integer index guards, pending activity and repeated literal visits are checked.
 Selected actual length is preserved without a distance-triangle assumption.
-Eleven tiny tests pass in both modes; a new bounded independent tiny road
+Fifteen tiny tests pass in both modes; a new bounded independent tiny road
 fixture checks node/edge ties and directionality without optimization. Earlier
 setup errors and the first source's two profiles remain in the joined results;
 the final API correction was verified on the same two shapes, without a speed
 claim. The real comparator's continuous/attainment integration and certified
 real-road input are still absent, so real-N64 benchmark readiness is **NO-GO**.
 
-New conservative charge is **159.355568 /400 CPU seconds**. Prior132.202735 and
-its full120 precharge remain: combined stage **291.558303 /600**, global
-**15299.057305741 /28800**, remaining13500.942694259. Ordinary software CI is
+New conservative charge is **166.274330 /400 CPU seconds**. Prior132.202735 and
+its full120 precharge remain: combined stage **298.477065 /600**, global
+**15305.976067741 /28800**, remaining13494.023932259. Ordinary software CI is
 separately reserved; preprocessing remains652.040677976 /900. Source/receipt
 details are in [exact_leg_construction_results.json](exact_leg_construction_results.json).
 All earlier original taskbook acceptance gaps remain. **Entries below are
 historical and retain their then-current state and accounting.**
+
+Review source `8fc1374d7bb1759de445035f5fb34a1561396bb1` repairs container
+coercion, caller-controlled provenance and incomplete cohort acceptance.
+Stored inputs were revalidated field by field with unchanged hashes, without
+new Z3 construction, real routing or numerical comparison. Historical measured
+source and all four attempts remain intact; trace ownership is independent of
+caller digests. See the component report for sensitivity and coverage tests.
 
 # Independent-comparator input audit (historical)
 

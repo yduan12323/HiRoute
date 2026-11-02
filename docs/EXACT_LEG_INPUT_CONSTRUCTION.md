@@ -14,8 +14,9 @@ candidate domain, road index, cache, seed or old numerical result is changed.
 contains both source rounds, all four construction attempts, bootstrap errors
 and conservative accounting. Final measurement source is
 `5bf2fdeba8f31807830f8757099367f748c0f7bf`; the first source is
-`5297ac4fdc6a6ab62a0d1ca8876c21d2fd0f5f7f`. Later delivery changes add tests,
-reporting and actual documentation, not different component timings.
+`5297ac4fdc6a6ab62a0d1ca8876c21d2fd0f5f7f`. Later delivery changes add validation guards, ownership/coverage regressions,
+reporting and documentation. Historical timings remain tied to their measured
+source; no full-width construction was repeated for the later guards.
 
 ## Independent input contract
 
@@ -25,7 +26,8 @@ It accepts exact integer/rational fields under the current
 binary64/length-tie declaration. JSON duplicate keys, duplicate/missing/extra
 pairs, invalid exact types, malformed paths, contradictory edge identities,
 invalid zero legs and directed reachability/time inconsistencies fail closed.
-Inputs are copied into immutable Site, capability and Pair records. Lookup
+String/object containers cannot be silently iterated as candidate, effect or
+path arrays. Inputs are copied into immutable Site, capability and Pair records. Lookup
 construction requires a parser-validated object; the validation marker is not
 a road certificate. `road_selection_certified` remains false, and a payload
 cannot certify itself by setting that flag true.
@@ -74,7 +76,11 @@ lookup always starts at the last active source, or origin for an empty prefix.
 All active slots still count toward H even for a zero-length alias leg.
 
 Each trace has fresh selectors; separate traces do not accidentally share them.
-Its immutable-input identity prevents mixing a trace with another table. The
+Its parser-created ownership token prevents mixing a trace with another table,
+even if two independently parsed payloads have identical bytes. Public
+`from_dict` computes its own canonical digest and accepts no digest override;
+`from_bytes` derives raw provenance from those bytes. Digests remain provenance,
+not the authority for trace ownership. The
 compiler applies each guard automatically. The lower-level `at` expression API
 returns its guard together with time/length; consuming the terms without that
 guard is not the compiled-trace contract. The fixed-sequence resolver performs
@@ -93,7 +99,7 @@ bindings are preserved for that later integration; no optimum is asserted.
 
 ## Verification and observed construction
 
-Eleven local tests pass normally and under-OO. They cover current exact types,
+Fifteen local tests pass normally and under-OO. They cover current exact types,
 legacy declarations, complete pair coverage, alias zero, endpoint/Site label
 collision, directed unreachable, node/edge ties and actual length, immutable
 input ownership, typed finite indices, repeated visits, empty prefix, pending
@@ -104,8 +110,8 @@ the tests; the isolated module import also blocks production optimizers.
 
 The new tiny four-node/five-edge fixture is checked against the existing
 independent exhaustive tiny-road selector. It is not an old optimization
-cohort or a full-real-graph REF. Four completed local suite invocations perform
-four such tiny road selections across initial/final source verification; none
+cohort or a full-real-graph REF. Eight completed local suite invocations perform
+eight such tiny road selections across initial/final/corrected source verification; none
 calls a planning or SMT optimizer. Full-width probes record zero Solver,
 SolverFor and Optimize constructor calls. Real road queries and real comparison
 solves remain zero.
@@ -116,6 +122,23 @@ predeclared for final-source verification without changing shape or values.
 Both input hashes and AST counts remain the same; all four raw attempts are
 preserved. They are separate source-version observations, not repetitions for
 an average, a speed claim or a favorable selection.
+
+Review correction source `8fc1374d7bb1759de445035f5fb34a1561396bb1` rejects
+container coercion, caller-supplied digest provenance and cross-table traces.
+Admission and reporting now require exactly the two frozen profile identities,
+order and shapes; all four historical slots must complete before component
+PASS. Empty, missing, duplicate, reordered or shrunken profiles, missing
+historical receipts and mismatched worker shapes fail closed. These are input
+and reporting repairs, not new construction observations.
+
+A separate data-only sensitivity receipt reproduces old acceptance of all five
+malformed containers and of a supplied digest, and the old empty-cohort PASS.
+The corrected interfaces reject each. Both stored final synthetic inputs were
+reparsed: hashes, every exact pair/path field and literal Site/action records
+are unchanged. This check imports no Z3 and creates no lookup or trace. The
+15-test suites additionally reject mixing different-cost tables with the same
+literal actions, and identical-input tables with different owners. No profile,
+real input, routing call or full-width construction was repeated for this fix.
 
 | Final synthetic profile | Literal Sites/actions/slots | Pair records | Expression DAG nodes | Body CPU /wall s | Full-process-group peak RSS bytes |
 | --- | --- | ---: | ---: | ---: | ---: |
@@ -136,7 +159,7 @@ construction requests and unique DAG nodes are different quantities.
 The single worker/thread is supervised with30CPU/55wall seconds per command,
 1GiB RSS,3GiB starting host availability and an unchanged2GiB runtime host
 guard. Final minimum host availability was4828594176 bytes. No guard or profile
-was relaxed. All14 recorded child processes are confirmed terminal.
+was relaxed. All19 recorded child processes are confirmed terminal.
 
 Two setup errors remain charged: default sandbox process monitoring raised
 PermissionError, then the road-only Python environment lacked Z3. The first
@@ -151,11 +174,11 @@ not discarded or relabeled as infeasibility.
 The additional admission is400CPU seconds inside the original600 stage and
 28800 total. It carries132.202735 stage and15139.701737741 global, keeping the
 earlier120 precharge and every old receipt. New fixed development/report/control
-precharge140 is retained. Fourteen commands, including both setup failures,
-initial/final checks and focused symbolic validation, charge19.355568 with
-controller/tail allowance. Thus new charge is **159.355568 /400**, combined
-stage **291.558303 /600**, global **15299.057305741 /28800**, remaining
-**13500.942694259**. No budget is reset or refunded. Preprocessing remains
+precharge140 is retained. Nineteen commands, including both setup failures,
+initial/final checks, focused symbolic validation and review correction, charge26.274330 with
+controller/tail allowance. Thus new charge is **166.274330 /400**, combined
+stage **298.477065 /600**, global **15305.976067741 /28800**, remaining
+**13494.023932259**. No budget is reset or refunded. Preprocessing remains
 652.040677976 /900. Ordinary software CI is separately prospectively reserved:
 9000 capacity-CPU for full M5 and180 for the clean component CI, per admitted
 invocation. Those allowances are not measured whole-job CPU.
