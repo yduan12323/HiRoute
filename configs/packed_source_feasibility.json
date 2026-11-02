@@ -1,0 +1,38 @@
+{
+  "schema": "hiroute.packed_source_feasibility.config.v1",
+  "profiles": [
+    "base",
+    "deep",
+    "numeric",
+    "wide_rational",
+    "empty_prefix",
+    "unicode",
+    "full_N64",
+    "scaling_4096"
+  ],
+  "profile_denominator": 8,
+  "scaling_nodes": 4096,
+  "full_width_sites": 64,
+  "real_sources": 65,
+  "real_pairs": 4225,
+  "real_graph_scan": false,
+  "real_source": false,
+  "EV_solve": false,
+  "holdout": false,
+  "cap_CPU_s": 600,
+  "allocations_CPU_s": {
+    "development_controller": 240,
+    "tiny_validation": 180,
+    "resource_proof_report": 120,
+    "close": 60
+  },
+  "cache_bytes": 16777216,
+  "label_bytes": 536870912,
+  "whole_tree_RSS_bytes": 1073741824,
+  "host_start_bytes": 3221225472,
+  "host_runtime_headroom_bytes": 2147483648,
+  "worker_threads": 1,
+  "synthetic_constructor_max_nodes": 8192,
+  "synthetic_constructor_max_edges": 32768,
+  "scaling_results_are_not_real_predictions": true
+}

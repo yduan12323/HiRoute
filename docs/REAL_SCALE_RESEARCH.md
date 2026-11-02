@@ -1,4 +1,37 @@
-# Current single-source certificate generation gate
+# Current packed-source proof/tiny feasibility gate
+
+The [packed-source gate](PACKED_SOURCE_FEASIBILITY.md) completed eight frozen
+synthetic profiles, including independent full65source/4225pair checking of an
+analytic star. The prototype uses paged immutable CSR, direct arbitrary-precision
+labels, an indexed one-entry-per-vertex frontier and lossless source transport.
+It performs no SQL in the generator; packing and the independent checker still
+use SQL and are charged. No real graph was scanned or source retried.
+
+The4096-node/16377-edge profile measured65.579972CPU end-to-end, including
+60.889648in the original checker. EXPLAIN and a red bounded-VM regression
+identified source-wide path scanning. A covering(s,u,t,v,eid) index preserves
+all proof conditions. One check-only revalidation of identical synthetic bytes
+measured4.432585CPU with the repaired access path; this is not a new end-to-end
+or real speed row. Generator data stayed fixed, and the original matrix is kept.
+Fifteen new and21existing streaming regressions pass normal/-OO; software CI
+also preserves all earlier certificate contracts.
+
+Decision: **PASS_SYNTHETIC_COMPONENT_ONLY / NO_GO_REAL_END_TO_END_RELEASE**.
+The conditional packed graph/storage and label/frontier admission estimates are
+not real RSS/timing evidence. A real external constructor/identity join,
+label-growth and complete checking/retention costs and live quotas are still
+missing. The real denominator remains65sources/4225pairs: prior1UNKNOWN and
+64UNRUN, zero independently certified. No EV solve/upper replay/holdout occurred.
+
+Stage **336.015371/600CPU**, cumulative **17062.772892741/28800**, remaining
+**11737.227107259**. Preprocessing652.040677976/900 unchanged; software CI
+separate. The unchanged64source reservation19200does not fit. Next options
+are a separately bounded same-graph packed-construction/identity gate without
+source solving, or an explicit resource-limited independent-comparison gap;
+no new real work is admitted. See [small results](packed_source_feasibility_results.json).
+Original taskbook completion is not claimed. Entries below preserve prior states.
+
+# Single-source certificate generation gate (historical)
 
 The [one-source gate](ONE_SOURCE_CERTIFICATE_GATE.md) preserves the complete
 WD01/E18/schedule/N64 domain:64literal Sites,65sources,65targets and4225pairs.
