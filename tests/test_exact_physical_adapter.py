@@ -150,6 +150,22 @@ class PhysicalTests(unittest.TestCase):
             rows=json.loads((path/'checks.json').read_text());self.assertEqual(rows[0]['result'],'unknown')
             self.assertEqual(len(list(path.glob('*.smt2'))),1)
 
+    def test_prepared_eight_cell_admission_fails_closed_on_missing_or_changed_identity(self):
+        from run_exact_physical_gate import validate_ready
+        src=dict(commit='mock-source',dirty=False)
+        ready=dict(state='prepared',source=src,config_sha256='mock-config',case_denominator=8,case_ids=list(IDS),
+                   cells=[dict(case=name,status='prepared_unrun') for name in IDS])
+        validate_ready(ready,'mock-config',src)
+        for mode in ('empty','missing','duplicate','source','config','unfinished'):
+            altered=copy.deepcopy(ready)
+            if mode=='empty':altered['cells']=[]
+            elif mode=='missing':altered['cells'].pop()
+            elif mode=='duplicate':altered['cells'][1]=altered['cells'][0]
+            elif mode=='source':altered['source']['commit']='different'
+            elif mode=='config':altered['config_sha256']='different'
+            else:altered['cells'][0]['status']='unprepared'
+            with self.subTest(mode=mode),self.assertRaises(ValueError):validate_ready(altered,'mock-config',src)
+
     def test_independent_model_does_not_import_production_optimizers(self):
         class Block(importlib.abc.MetaPathFinder):
             def find_spec(self,fullname,path=None,target=None):

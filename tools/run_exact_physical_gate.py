@@ -4,6 +4,7 @@ import hashlib
 import importlib.metadata
 import json
 import os
+import shutil
 from pathlib import Path
 import subprocess
 import time
@@ -38,15 +39,44 @@ def config():
     if importlib.metadata.version('z3-solver')!=cfg['z3_solver_distribution']:raise ValueError('pinned Z3 runtime')
     return cfg,hashlib.sha256(p.read_bytes()).hexdigest()
 
-def run(name,output):
+def prepare(output):
+    cfg,cfg_sha=config();src=source();path=Path(output)
+    if src['dirty'] or path.exists():raise ValueError('fresh admission path and committed source required')
+    if shutil.disk_usage(path.parent).free<2*1024**3:raise ValueError('disk headroom')
+    ready=dict(source=src,config_sha256=cfg_sha,case_ids=list(IDS),case_denominator=8,state='preparing',
+        cells=[dict(case=name,status='unprepared') for name in IDS],real_road_generation=False,real_scale_solves=False)
+    atomic(path,ready)
+    for row in ready['cells']:
+        fixture=case(row['case']);table,_,cert=tiny_table(fixture)
+        depth,upper=relevant_depth(table,fixture['physics'],fixture['upper_witness'])
+        row.update(status='prepared_unrun',fixture_sha256=hashlib.sha256(json.dumps(fixture,sort_keys=True,separators=(',',':')).encode()).hexdigest(),
+            table_sha256=table.payload_sha256,derived_depth=depth,upper_key=upper['key'],certificate=cert)
+        atomic(path,ready)
+    ready['state']='prepared';atomic(path,ready)
+    print(json.dumps(dict(state=ready['state'],source=src,case_denominator=8)))
+
+
+def validate_ready(ready,cfg_sha,src):
+    if (ready.get('state')!='prepared' or ready.get('source')!=src or ready.get('config_sha256')!=cfg_sha or
+        ready.get('case_denominator')!=8 or ready.get('case_ids')!=list(IDS) or
+        [r.get('case') for r in ready.get('cells',[])]!=list(IDS) or
+        any(r.get('status')!='prepared_unrun' for r in ready['cells'])):
+        raise ValueError('source/config/input preparation or frozen eight-cell coverage mismatch')
+
+
+def run(name,output,preflight):
     cfg,cfg_sha=config();src=source()
     if src['dirty']:raise ValueError('commit run source before gate')
     if name not in cfg['case_ids']:raise ValueError('outside frozen eight cells')
+    ready=json.loads(Path(preflight).read_text());validate_ready(ready,cfg_sha,src)
+    frozen=ready['cells'][cfg['case_ids'].index(name)]
     out=Path(output);out.mkdir(exist_ok=False,parents=True)
     atomic(out/'started.json',dict(case=name,pid=os.getpid(),source=src,config_sha256=cfg_sha))
     started=time.monotonic();cpu=time.process_time();result=dict(case=name,source=src,config_sha256=cfg_sha,status='error')
     try:
         fixture=case(name);table,raw,cert=tiny_table(fixture)
+        if (hashlib.sha256(json.dumps(fixture,sort_keys=True,separators=(',',':')).encode()).hexdigest()!=frozen['fixture_sha256'] or
+            table.payload_sha256!=frozen['table_sha256']):raise ValueError('frozen physical/table input drift')
         (out/'tiny-table.json').write_bytes(raw);atomic(out/'input.json',fixture);atomic(out/'tiny-road-certificate.json',cert)
         depth,upper=relevant_depth(table,fixture['physics'],fixture['upper_witness'])
         legacy=legacy_snapshot(fixture);seed_cross=False;witness_cross=False
@@ -72,5 +102,7 @@ def run(name,output):
     return 0 if result['status']=='verified' else 1
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--case',choices=IDS,required=True);p.add_argument('--output',required=True)
-    args=p.parse_args();raise SystemExit(run(args.case,args.output))
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('action',choices=('prepare','run'));p.add_argument('--case',choices=IDS);p.add_argument('--output',required=True);p.add_argument('--preflight')
+    args=p.parse_args()
+    if args.action=='prepare':prepare(args.output)
+    else:raise SystemExit(run(args.case,args.output,args.preflight))
