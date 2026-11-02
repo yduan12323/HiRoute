@@ -79,8 +79,10 @@ class Table:
     def close(self):self._db.close()
 
 
+@dataclass(frozen=True,init=False)
 class SourceUnit(Table):
     """One source's paths, with the COMPLETE original source/target domain."""
+    unit_source: str=None
 
 
 def read_table(path,graph,db_path,**kwargs):

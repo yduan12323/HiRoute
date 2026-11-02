@@ -335,19 +335,19 @@
   },
   "real_checker_receipts": [],
   "accounting": {
-    "stage_CPU_s": "382.037191",
+    "stage_CPU_s": "384.460872",
     "stage_cap_CPU_s": 900,
     "carried_research_CPU_s": "16342.296649741",
-    "research_total_CPU_s": "16724.333840741",
-    "remaining_original_CPU_s": "12075.666159259",
+    "research_total_CPU_s": "16726.757521741",
+    "remaining_original_CPU_s": "12073.242478259",
     "phase_CPU_s": {
       "tiny_validation": "8.000752",
       "real_pair": "125.398282",
-      "verification_tails": "8.638157"
+      "verification_tails": "11.061838"
     },
     "fixed_development_controller_CPU_s": 240,
     "prior_representation_stage_CPU_s": "325.696447",
-    "current_gate_plus_prior_representation_CPU_s": "707.733638",
+    "current_gate_plus_prior_representation_CPU_s": "710.157319",
     "prior_setup_not_free": true,
     "ordinary_software_CI": "separate approved scope; prior inclusive charges retained"
   },
@@ -360,8 +360,8 @@
   "generation_worker_terminal_receipt_absent_due_to_controller_SIGKILL": true,
   "controller_terminal_receipt_authoritative": true,
   "all_recorded_processes_terminal": true,
-  "checked_process_identities": 26,
-  "guarded_command_count": 13,
+  "checked_process_identities": 30,
+  "guarded_command_count": 15,
   "source_certificate_file_present": false,
   "selected_paths_file_present": false,
   "partial_producer_DB_bytes": 986685440,
@@ -383,5 +383,7 @@
     "579b5f23ca8a0fed01b01ba41287e259738100352a62912a62fbb8e21fc8a337",
     "e5a595333a2bc9e1865b0e22bacb5c9b0377067b06de0c2534110c4fc258ba00",
     "07e9bbc5362296dee349e6b1a587f6acbe8610f89f8fa78edb8fbba3c1d82b32"
-  ]
+  ],
+  "source_unit_ownership_correction": "SourceUnit itself is now frozen; inherited frozen base did not protect extra attributes. All10regressions pass normal/-OO; no complete real unit existed and checker was unrun, so no real attempt repeated.",
+  "final_new_tests_per_mode": 10
 }

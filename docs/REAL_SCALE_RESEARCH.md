@@ -19,10 +19,10 @@ availability5151178752bytes stayed within guards, but completed-source/checker
 memory remains unmeasured. Full graph identity success is retained as a distinct
 previous component; the former JSON-loader failure is also retained.
 
-Stage **382.037191/900CPU seconds**, cumulative **16724.333840741/28800**,
-remaining **12075.666159259**. Preprocessing652.040677976/900 unchanged;
+Stage **384.460872/900CPU seconds**, cumulative **16726.757521741/28800**,
+remaining **12073.242478259**. Preprocessing652.040677976/900 unchanged;
 ordinary software CI separately reserved. Prior representation325.696447 remains
-charged, combined setup/current gate707.733638. See the [small terminal report](one_source_certificate_results.json).
+charged, combined setup/current gate710.157319. See the [small terminal report](one_source_certificate_results.json).
 
 No-go for unchanged64-source rollout:64pairs at300CPU reservation need19200,
 above current remaining budget, and first-source completion/check cost is still

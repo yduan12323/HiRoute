@@ -124,19 +124,19 @@ check is **UNRUN_INCOMPLETE_GENERATION**, not a failed mathematical check.
 No source/pair is independently certified: source counts are1UNKNOWN and
 64UNRUN; pair counts65UNKNOWN and4160UNRUN, retaining65/4225denominators.
 No EV solve, upper-witness replay, complete relevant-H claim or holdout occurred.
-All26recorded process identities are terminal. Worker records and their logs
+All30recorded process identities are terminal. Worker records and their logs
 remain outside Git in `one-source-certificate-artifacts-v1`; the small
 [terminal report](one_source_certificate_results.json) preserves the denominator,
 real resource receipt and exact accounting.
 
-Conservative final research charge is **382.037191/900CPU seconds**:
-240fixed development/controller +8.000752tiny +125.398282real +8.638157verification.
-This includes the failed fixture, thirteen guarded commands, all controller
+Conservative final research charge is **384.460872/900CPU seconds**:
+240fixed development/controller +8.000752tiny +125.398282real +11.061838verification.
+This includes the failed fixture, fifteen guarded commands, all controller
 CPU/tails and an extra2CPU conservative small-report/process-check fee (not
-measured CPU). Cumulative **16724.333840741/28800**; remaining
-**12075.666159259**. Preprocessing remains652.040677976/900. The earlier
+measured CPU). Cumulative **16726.757521741/28800**; remaining
+**12073.242478259**. Preprocessing remains652.040677976/900. The earlier
 representation325.696447charge is retained; its setup plus this gate is
-707.733638CPU seconds, not a free prerequisite in future end-to-end attribution.
+710.157319CPU seconds, not a free prerequisite in future end-to-end attribution.
 Ordinary software CI is separately reserved; previous inclusive charges stay.
 
 The eight source-interface methods passed normal/-OO before admission; the
@@ -152,7 +152,7 @@ completed real source.
 **NO_GO for launching the remaining64sources with this unchanged method and
 current admission policy.** First source did not complete in its fixed limit;
 independent checking cost remains unmeasured. Reserving64generation/check pairs
-at300each needs19200CPU seconds, more than remaining12075.666159259, before
+at300each needs19200CPU seconds, more than remaining12073.242478259, before
 any further development/cleanup. This is an admission calculation, not an
 impossibility theorem or an estimate that all sources have the same cost.
 Unused allocations are not charged as actual compute, and budgets/limits are
@@ -173,3 +173,14 @@ Independent full real-table verification, real-scale comparison, physical
 upper/relevant-depth integration, wider/full domains, real four-charge evidence,
 original hierarchy/timing acceptance and holdout all remain open. Overall taskbook
 completion is **not** claimed.
+
+
+Post-delivery ownership audit: SourceUnit originally inherited a frozen Table,
+but additional subclass attributes were not frozen. The corrected delivery
+marks SourceUnit itself frozen and tests unit_source, graph-owner, DB,
+validation and injected attributes. Ten final methods pass normal/-OO; the
+original8pre-admission and ninth report tests remain historical. The real
+producer never issued a complete SourceUnit and independent checking was
+unrun, so this API correction requires no real rerun. Producera38374c remains
+the actual measurement source. Prior head5e1c692and its CI attempts are kept;
+only the corrected head can satisfy delivery validation.

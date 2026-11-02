@@ -6,6 +6,7 @@ import sys
 import tempfile
 import unittest
 from unittest.mock import patch
+from dataclasses import FrozenInstanceError
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
 from road_certificate_fixtures import build as tiny_build,graph_payload,edge
@@ -139,6 +140,15 @@ class OneSourceTests(unittest.TestCase):
                 h=header(b,g);h['source_unit']='not-present'
                 with self.assertRaises(ValueError):generate(g.path,h,root/'outside',expected_graph_sha=g.representation_sha256)
             finally:t.close();g.close();g2.close()
+
+    def test_source_unit_extra_fields_and_ownership_are_immutable(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);g,_=self.produce(root,tiny_build());t=read_source_unit(root/'generated/paths.jsonl',g,root/'table')
+            try:
+                for name,value in [('unit_source','a'),('_graph_owner',object()),('_db',None),('_validated',False),('injected',True)]:
+                    with self.subTest(field=name),self.assertRaises(FrozenInstanceError):setattr(t,name,value)
+                s=SourceSession(g,t);s.check_source(root/'generated/source.jsonl',root/'checked');self.assertFalse(s.finish()['whole_table_certified'])
+            finally:t.close();g.close()
 
     def test_generation_resource_stop_and_input_mutation_never_issue_success(self):
         with tempfile.TemporaryDirectory() as d:
