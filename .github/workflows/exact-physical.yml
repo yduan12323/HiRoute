@@ -1,0 +1,58 @@
+name: Exact physical adapter contracts
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/exact_physical_adapter.py'
+      - 'tools/exact_physical_fixtures.py'
+      - 'tools/run_exact_physical_gate.py'
+      - 'tools/report_exact_physical_gate.py'
+      - 'tools/exact_leg_table.py'
+      - 'tests/test_exact_physical_adapter.py'
+      - 'configs/exact_physical_gate.json'
+      - 'docs/EXACT_PHYSICAL_ADAPTER.md'
+      - 'docs/exact_physical_results.json'
+      - 'ci/run_exact_physical_code.py'
+      - '.github/workflows/exact-physical.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/exact_physical_adapter.py'
+      - 'tools/exact_physical_fixtures.py'
+      - 'tools/run_exact_physical_gate.py'
+      - 'tools/report_exact_physical_gate.py'
+      - 'tools/exact_leg_table.py'
+      - 'tests/test_exact_physical_adapter.py'
+      - 'configs/exact_physical_gate.json'
+      - 'docs/EXACT_PHYSICAL_ADAPTER.md'
+      - 'docs/exact_physical_results.json'
+      - 'ci/run_exact_physical_code.py'
+      - '.github/workflows/exact-physical.yml'
+permissions:
+  contents: read
+concurrency:
+  group: exact-physical-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  physical-contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.11.16'
+      - name: Exact physical fixtures in a clean pinned environment
+        run: python ci/run_exact_physical_code.py
+      - name: Preserve all command slots and budget receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: exact-physical-code
+          path: |
+            ${{ runner.temp }}/exact-physical-code/accounting.json
+            ${{ runner.temp }}/exact-physical-code/started.json
+          retention-days: 30
+          if-no-files-found: error
