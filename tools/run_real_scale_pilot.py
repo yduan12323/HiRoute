@@ -84,6 +84,9 @@ def worker(args):
     from hiroute.exact.scale import ResourceLimit, solve_scale, validate_scale_input, _resident_bytes
     from hiroute.exact.scale_replay import verify_scale_witness
     config = json.loads(Path(args.config).read_text())
+    policy_adapter = None
+    if config.get('planning_policy'):
+        import planning_value_policy as policy_adapter
     preflight = json.loads(Path(args.preflight).read_text())
     declared_job = declared_worker_job(config,args)
     query = next(q for q in preflight['queries'] if q['query_id'] == args.query)
@@ -163,13 +166,19 @@ def worker(args):
     checkpoint = output.with_suffix('.incumbent.json')
     first_feasible = None
     snapshot = None
+    original_snapshot = None
     last_verified_payload = None
     checkpoint_pending = False
     diagnostics = {}
+    def verify(record):
+        if original_snapshot is not None:
+            return policy_adapter.verify_policy_witness(original_snapshot, snapshot, record,
+                site_to_road=origin_aliases, direct_length_m=row.get('direct_selected_length_m'))
+        return verify_scale_witness(snapshot, record, site_to_road=origin_aliases)
     def keep(record):
         nonlocal first_feasible, last_verified_payload, checkpoint_pending
         preparing_check()
-        verified = verify_scale_witness(snapshot, record, site_to_road=origin_aliases)
+        verified = verify(record)
         preparing_check()
         if first_feasible is None:
             first_feasible = time.monotonic()-loaded
@@ -188,6 +197,14 @@ def worker(args):
                 native.prepare_landmarks(*(origin_aliases[query['endpoints'][end]['site_id']]
                     for end in ('origin','destination')))
             snapshot = bind_snapshot(config, query, args.n, args.scenario, provider)
+            if config.get('planning_policy'):
+                if args.method != 'flat_bb_strong' or args.diagnostic or args.scenario != 'schedule':
+                    raise ValueError('policy adapter requires declared Strong schedule DEV')
+                original_snapshot = snapshot
+                snapshot, policy_info = policy_adapter.adapt_snapshot(original_snapshot, config['planning_policy'], provider)
+                row['policy_info'] = policy_info
+                if snapshot is None:
+                    raise policy_adapter.PolicyNoEligibleActivity(policy_info['reason'])
             if args.diagnostic:
                 from dataclasses import replace
                 snapshot = replace(snapshot, depth_mode='diagnostic_cap',
@@ -244,7 +261,7 @@ def worker(args):
             preparing_check()
             record = result if result['status']=='attained_optimum' else result.get('incumbent')
             if record is not None:
-                row['witness'] = verify_scale_witness(snapshot, record, site_to_road=origin_aliases)
+                row['witness'] = verify(record)
                 preparing_check()
                 row['feasible_key'] = record['key']
             else:
@@ -255,10 +272,13 @@ def worker(args):
         for key in ('key','primary_value','primary_infimum','secondary_infimum'):
             row.pop(key,None)
     except Exception as exc:
-        row.update(status='worker_error',mathematical_status='unknown',error=repr(exc))
-        for key in ('key','primary_value','primary_infimum','secondary_infimum'):
-            row.pop(key,None)
-        raise
+        if policy_adapter is not None and isinstance(exc, policy_adapter.PolicyNoEligibleActivity):
+            row.update(status='policy_no_eligible_activity', mathematical_status='unknown', reason=str(exc))
+        else:
+            row.update(status='worker_error',mathematical_status='unknown',error=repr(exc))
+            for key in ('key','primary_value','primary_infimum','secondary_infimum'):
+                row.pop(key,None)
+            raise
     finally:
         preserve_live_diagnostics(row, diagnostics)
         row['routing_metrics'] = native.metrics()

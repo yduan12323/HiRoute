@@ -102,6 +102,8 @@ CODE_GATE_MODULES = CODE_GATE_MODULES + (
     "tests/test_scale_search.py",
     "tests/test_real_scale_inputs.py",
     "tests/test_scale_pilot_control.py",
+    "tests/test_planning_value_dev.py",
+    "tests/test_planning_value_report.py",
     "tests/test_d04_cost_diagnostic.py",
     "tests/test_source_tree_reuse.py",
     "tests/test_inbound_energy_bound.py",
