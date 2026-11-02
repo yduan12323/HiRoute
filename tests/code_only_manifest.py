@@ -64,6 +64,7 @@ CODE_GATE_MODULES = (
     "tests/test_partition_normalization.py",
     "tests/test_m6h_reference.py",
     "tests/test_m6h_synthetic_worker.py",
+    "tests/test_m5_drift_capture.py",
     'tests/test_road_policy_amendment.py',
     'tests/test_c01_variant_scope.py',
     'tests/test_c01_d0_bootstrap.py',
