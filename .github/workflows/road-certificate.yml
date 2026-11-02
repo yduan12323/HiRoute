@@ -1,0 +1,56 @@
+name: Independent road certificate contracts
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/exact_road_certificate.py'
+      - 'tools/road_certificate_fixtures.py'
+      - 'tools/run_road_certificate_gate.py'
+      - 'tools/exact_leg_table.py'
+      - 'tests/test_exact_road_certificate.py'
+      - 'configs/road_certificate_gate.json'
+      - 'docs/ROAD_CERTIFICATE_CHECKER.md'
+      - 'docs/road_certificate_results.json'
+      - 'ci/run_road_certificate_code.py'
+      - '.github/workflows/road-certificate.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/exact_road_certificate.py'
+      - 'tools/road_certificate_fixtures.py'
+      - 'tools/run_road_certificate_gate.py'
+      - 'tools/exact_leg_table.py'
+      - 'tests/test_exact_road_certificate.py'
+      - 'configs/road_certificate_gate.json'
+      - 'docs/ROAD_CERTIFICATE_CHECKER.md'
+      - 'docs/road_certificate_results.json'
+      - 'ci/run_road_certificate_code.py'
+      - '.github/workflows/road-certificate.yml'
+permissions:
+  contents: read
+concurrency:
+  group: road-certificate-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  certificate-contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.11.16'
+      - name: Independent stdlib certificate fixtures in a clean pinned environment
+        run: python ci/run_road_certificate_code.py
+      - name: Preserve all command slots and budget receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: road-certificate-code
+          path: |
+            ${{ runner.temp }}/road-certificate-code/accounting.json
+            ${{ runner.temp }}/road-certificate-code/started.json
+          retention-days: 30
+          if-no-files-found: error
