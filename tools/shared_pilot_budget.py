@@ -29,6 +29,8 @@ def total_spent(d):
 def admit(d, phase, reserve, cpu, wall):
     if d.get('active'):raise ValueError('uncertain active work; inspect receipt/PID before continuation')
     if d['state'].startswith('closed'):raise ValueError('stage closed')
+    if d.get('real_work_stopped') and phase not in ('development','close'):
+        raise ValueError('real phase failed; no retry or downstream real admission')
     if phase not in d['allocations_CPU_s']:raise ValueError('unknown phase')
     if not 0<cpu+16<=reserve or not 0<wall<=300:raise ValueError('child/controller/tail envelope')
     used=Decimal(str(d['phase_charged_CPU_s'][phase]))

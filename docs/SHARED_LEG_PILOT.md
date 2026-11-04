@@ -96,4 +96,75 @@ New14 bridge/budget/depth tests and existing15 physical tests pass normal/-OO.
 The first local import failure used a road-only environment lacking Z3; it and
 its cost are retained. The existing comparator environment has Z3 4.13.4.
 
-Results remain pending this source freeze. No taskbook completion claim.
+This section is the pre-result source-freeze plan. The terminal record below
+supersedes its pending state; it does not change the plan or prior failures.
+
+
+## 2026-11-04 terminal outcome: build prerequisite, not a model result
+
+Measurement producer: clean `480945bd7c3eb9bceb65475c98bb4136c4ad471f`.
+Input freeze passed, including original graph/catalog/binding/config/preflight
+and independently raw-joined DB byte identities. The one admitted generator
+then stopped with the compiler diagnostic
+`boost/multiprecision/cpp_int.hpp: file not found`. This occurred inside native
+library compilation, before native graph construction or any selected-leg
+query, and before the table writer opened an output. No table/partial table
+exists. No second generation attempt occurred.
+
+| Declared phase | Terminal outcome |
+|---|---|
+| Frozen64 Site/78 action/4225 pair input | COMPLETE input identity only |
+| One full common-table generation attempt | UNKNOWN, build prerequisite failure;0/4225 complete pairs |
+| Full table/path/independent upper validation | UNRUN, incomplete table |
+| One independent optimization slot | UNRUN, incomplete table; no H or full key certified |
+
+The generator elapsed0.893030042s, with1.747623 conservative CPU seconds
+including controller/tail. Sampled whole-tree RSS was112,705,536bytes against
+a dynamically tightened1,962,147,840byte limit. No memory/CPU/wall guard caused
+the failure. This small build-stage RSS says nothing about native graph,
+complete-table or SMT memory/performance. The existing source-proof UNKNOWNs
+remain separate, and zero raw-road source/pair certifications are unchanged.
+
+Read-after-failure inspection found `CPATH` and `CPLUS_INCLUDE_PATH` unset.
+The historically documented local Boost1.83 header still exists; availability
+of headers is distinct from the compiler's include search path. The old producer
+did not capture that environment in its admission. This is an environmental
+build diagnosis supported by the exact compiler error, not proof that the
+common-input model cannot run, a data-coverage failure, or a mathematical
+counterexample. No independently replayed common-table upper was obtained;
+the earlier conditional H20 estimate was never imposed as a cap.
+
+A syntax-only C++/Boost prerequisite probe and per-run compiler/include-path
+capture/check were added **after** this failed attempt, with mocked positive
+and negative regressions. Post-run failure guards revoke all further real
+phases. New16 bridge/depth/budget tests and existing15 physical-adapter tests
+pass normal/-OO. The new prerequisite probe was not used for another real
+attempt, and no successful repaired native build is claimed. Delivery source
+therefore differs from the measured producer in these explicit post-run guards
+and reports. Raw failure/controller receipts, all PID identities and old budget
+snapshot remain outside Git; small digest-bound evidence is in
+[shared_leg_pilot_results.json](shared_leg_pilot_results.json).
+
+The stage closes at159.787099/1200 conservative CPU seconds:
+120 fixed development precharge,25.042768 controlled development,
+1.914492 input freeze,1.747623 failed generation,0 validation,0 optimization,
+and11.082216 close (10 fixed report-tail precharge plus1.082216 controlled
+verification). The initial account-interrupted120 was retained once, not
+charged again. The wrong-environment Z3 import failure and all later test fees
+remain included. Global research total is17879.857933741/28800, remaining
+10920.142066259; map preparation652.040677976/900 is unchanged. Unspent
+reservations are neither measured spending nor permission to retry. Ordinary
+software CI has separate prospective9000 capacity-CPU full/180 dedicated
+reservations per PR/main delivery; full-job actual CPU remains unmeasured,
+with prior inclusive charges retained.
+
+Next actionable path: restore the already documented compiler include
+configuration, let the new prerequisite probe verify it, and obtain an explicit
+new prospective admission for one same-domain common-table/model attempt.
+That is a build-prerequisite repair, not another architecture or a requirement
+for full-source road proof. This closed single-attempt admission is not reused
+or rewritten to permit the retry. No installation, purchase, new credentials,
+source upload, alternate query, source-proof expansion, main experiment or
+holdout occurred. Historical controls remain UNKNOWN feasible references,
+not contemporaneous timing controls. All original performance/larger-domain/
+four-positive-charge/holdout gaps remain; taskbook completion is not claimed.

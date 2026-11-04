@@ -10,6 +10,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import time
@@ -46,6 +47,22 @@ def sha(path,check=lambda:None):
 def source():
     def git(*args):return subprocess.check_output(['git',*args],cwd=ROOT,text=True).strip()
     return dict(commit=git('rev-parse','HEAD'),dirty=bool(git('status','--porcelain')))
+
+
+def dependency_environment():
+    return dict(compiler=shutil.which('c++') or shutil.which('g++'),
+                CPATH=os.environ.get('CPATH'),CPLUS_INCLUDE_PATH=os.environ.get('CPLUS_INCLUDE_PATH'))
+
+
+def compiler_preflight():
+    """Syntax-only prerequisite before any real graph preparation/query."""
+    env=dependency_environment()
+    if env['compiler'] is None:raise RuntimeError('native C++17 compiler unavailable')
+    probe='#include <boost/multiprecision/cpp_int.hpp>\nint main(){boost::multiprecision::cpp_int x=1;x<<=160;return x==0;}\n'
+    result=subprocess.run([env['compiler'],'-std=c++17','-x','c++','-fsyntax-only','-'],
+        input=probe,capture_output=True,text=True,timeout=15)
+    if result.returncode:raise RuntimeError('native dependency probe failed before road-query admission: '+result.stderr[-2000:])
+    return env
 
 
 def header(frozen):
@@ -142,6 +159,7 @@ def freeze(args,cfg):
     if (len(h['sites']),actions,len(sources),len(targets),len(sources)*len(targets))!=(64,78,65,65,4225):
         raise ValueError('no candidate/action/pair reduction')
     if len(set(sources)&set(targets))!=64:raise ValueError('alias-zero denominator')
+    dependency=compiler_preflight()
     for key,expected in frozen['expected_input_sha256'].items():
         if expected!=cfg['expected_input_sha256'][key] or sha(Path(frozen['input_paths'][key]))!=expected:
             raise ValueError('frozen source input '+key)
@@ -166,6 +184,7 @@ def freeze(args,cfg):
         frozen_domain_sha256=cfg['frozen_domain_sha256'],candidate_domain_sha256=cfg['candidate_domain_sha256'],
         header=h,sources=sources,targets=targets,sample_pairs=sample_pairs(sources,targets,h['origin_anchor'],h['destination_anchor']),
         model=old['model'],schedule_recipe=old['selection']['schedule_recipe'],upper_witness=upper,
+        dependency_environment=dependency,
         graph_tsv=frozen['input_paths']['graph'],graph_db=str(args.graph_db.resolve()),
         graph_db_sha256=cfg['representation_sha256'],graph_sha256=cfg['expected_input_sha256']['graph'],
         historical_reference=dict(path=str(args.historical_row.resolve()),sha256=sha(args.historical_row),
@@ -204,6 +223,7 @@ def main():
             frozen_receipt=receipt(out,'freeze');ad=load(out/'admission.json')
             if sha(out/'admission.json')!=frozen_receipt['admission_sha256']:raise ValueError('frozen admission changed')
             if ad['source']!=source() or ad['config_sha256']!=sha(a.config):raise ValueError('within-run source/config provenance mismatch')
+            if ad['dependency_environment']!=dependency_environment():raise ValueError('within-run compiler/include environment changed')
             if a.mode=='generation':
                 from hiroute.exact.road_index import NativeRoadIndex
                 if sha(Path(ad['graph_tsv']),check)!=ad['graph_sha256']:raise ValueError('road input changed')

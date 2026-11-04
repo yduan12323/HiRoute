@@ -2308,3 +2308,21 @@ Research total17720.070834741/28800, remaining11079.929165259; preprocessing
 retained. No retry,64source expansion or new real budget is admitted. NO-GO for
 current120second full-source export rollout; further real work requires defensible
 new proof/design evidence, not blind microtuning. Taskbook acceptance incomplete.
+
+
+## Common-input independent pilot: incomplete build stage (2026-11-04)
+
+[Shared-leg pilot](SHARED_LEG_PILOT.md) and its
+[small terminal evidence](shared_leg_pilot_results.json) preserve the one
+WD01/E18/schedule/N64 attempt: full64 Sites/78 actions/4225 pair denominator,
+input identity passed, then missing Boost header search-path compilation
+failure before native index construction or road queries. Complete table0,
+validation/independent upper replay/optimization UNRUN. No retry, query
+substitution or full-source proof expansion occurred. This environmental
+failure is not an optimization result or evidence of mathematical infeasibility.
+The post-run prerequisite/environment checks and tiny regressions are explicitly
+separated from the clean measured producer480945bd. Stage159.787099/1200 CPU,
+global17879.857933741/28800; ordinary CI separately reserved as approved.
+The taskbook-permitted common-input route remains available, with no claim of
+independent raw-road selection proof or contemporary historical-baseline speed.
+All earlier UNKNOWNs, negative performance evidence and acceptance gaps stay.

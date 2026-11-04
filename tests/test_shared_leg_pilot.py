@@ -13,7 +13,7 @@ sys.path[:0]=[str(ROOT/'tools'),str(ROOT/'src'),str(ROOT/'comparison')]
 from exact_leg_table import ExactLegTable
 from exact_physical_adapter import solve,solve_real,table_relevant_depth,relevant_depth,Engine
 from exact_physical_fixtures import case,tiny_table,IDS,semantics
-from run_shared_leg_pilot import write_table,sample_pairs,verify_paths,physical,receipt,sha,header,freeze
+from run_shared_leg_pilot import write_table,sample_pairs,verify_paths,physical,receipt,sha,header,freeze,compiler_preflight
 from shared_pilot_budget import admit,total_spent,tree_usage,reap_group
 from hiroute.exact.road_index import RoadIndex
 
@@ -152,6 +152,20 @@ class SharedPilotTests(unittest.TestCase):
         with patch('shared_pilot_budget.os.killpg') as kill:
             reap_group(worker);kill.assert_called_once();self.assertEqual(kill.call_args.args[0],123)
         worker.wait.assert_called_once()
+
+    def test_missing_native_dependency_fails_before_road_query_admission(self):
+        with patch('run_shared_leg_pilot.shutil.which',return_value='/fake/c++'):
+            with patch('run_shared_leg_pilot.subprocess.run',return_value=SimpleNamespace(returncode=1,stderr='missing cpp_int.hpp')):
+                with self.assertRaisesRegex(RuntimeError,'before road-query admission'):compiler_preflight()
+            with patch('run_shared_leg_pilot.subprocess.run',return_value=SimpleNamespace(returncode=0,stderr='')) as run:
+                self.assertEqual(compiler_preflight()['compiler'],'/fake/c++')
+                self.assertIn('-fsyntax-only',run.call_args.args[0])
+                self.assertIn('boost::multiprecision::cpp_int',run.call_args.kwargs['input'])
+
+    def test_failure_stops_all_real_phases_without_spending_unused_reservations(self):
+        d=dict(active=None,state='generation_failed',real_work_stopped=True)
+        for phase in ('freeze','generation','validation','optimization'):
+            with self.subTest(phase=phase),self.assertRaises(ValueError):admit(d,phase,300,120,120)
 
 
 if __name__=='__main__':unittest.main()
