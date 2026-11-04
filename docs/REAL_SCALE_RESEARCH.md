@@ -2326,3 +2326,19 @@ global17879.857933741/28800; ordinary CI separately reserved as approved.
 The taskbook-permitted common-input route remains available, with no claim of
 independent raw-road selection proof or contemporary historical-baseline speed.
 All earlier UNKNOWNs, negative performance evidence and acceptance gaps stay.
+
+
+## Corrected native environment, incomplete common table (2026-11-04)
+
+The [same-domain corrected attempt](SHARED_LEG_CORRECTED_ENV.md) used clean
+producer9d834497 after PR52 integration. A real native compilation/ABI load
+passed with command-scoped existing Boost headers. Full-domain generation then
+hit the predeclared256MiB output quota; last durable checkpoint3216/4225,
+partial268308544bytes. The writer embeds every full path repeatedly in v1.
+Complete table/independent upper/full H/optimizer result remain absent; no
+partial-domain optimum or extrapolated full runtime is claimed. Automatic
+real-stop fired, downstream admissions were blocked, no retry occurred.
+Stage88.806798/900 CPU, global17968.664731741/28800; map preparation unchanged,
+ordinary software CI separate. Both this output-resource UNKNOWN and the
+previous build-prerequisite UNKNOWN stay. Narrow streamed numeric/path-backed
+input completion is proposed only; no source-proof expansion or holdout.

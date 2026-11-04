@@ -13,8 +13,8 @@ sys.path[:0]=[str(ROOT/'tools'),str(ROOT/'src'),str(ROOT/'comparison')]
 from exact_leg_table import ExactLegTable
 from exact_physical_adapter import solve,solve_real,table_relevant_depth,relevant_depth,Engine
 from exact_physical_fixtures import case,tiny_table,IDS,semantics
-from run_shared_leg_pilot import write_table,sample_pairs,verify_paths,physical,receipt,sha,header,freeze,compiler_preflight
-from shared_pilot_budget import admit,total_spent,tree_usage,reap_group
+from run_shared_leg_pilot import write_table,sample_pairs,verify_paths,physical,receipt,sha,header,freeze,compiler_preflight,native_build_preflight,verify_native_build
+from shared_pilot_budget import admit,total_spent,tree_usage,reap_group,record_outcome,terminal_summary
 from hiroute.exact.road_index import RoadIndex
 
 
@@ -166,6 +166,47 @@ class SharedPilotTests(unittest.TestCase):
         d=dict(active=None,state='generation_failed',real_work_stopped=True)
         for phase in ('freeze','generation','validation','optimization'):
             with self.subTest(phase=phase),self.assertRaises(ValueError):admit(d,phase,300,120,120)
+
+    def test_actual_controller_finalizer_stops_failed_real_phase_and_never_clears_stop(self):
+        cases=[('generation',75,None,'UNKNOWN',None),('generation',0,'wall_guard','COMPLETE',None),
+               ('freeze',None,'unstarted_host_resource_guard',None,None),
+               ('validation',0,None,None,None),('optimization',0,None,'COMPLETE','unknown_resource_or_solver')]
+        for phase,code,guard,status,comparison in cases:
+            with self.subTest(phase=phase,guard=guard):
+                d=dict(phase_charged_CPU_s=dict.fromkeys(['freeze','generation','validation','optimization'],0),records=[],active={'x':1},state='running')
+                r=dict(phase=phase,label='failed',charged_CPU_s='1.25',actual_child_returncode=code,
+                    guard_reason=guard,terminal_mode=phase,terminal_status=status,comparison_status=comparison,terminal_read_error=None)
+                record_outcome(d,r)
+                self.assertTrue(d['real_work_stopped']);self.assertIsNone(d['active'])
+                self.assertEqual(d['phase_charged_CPU_s'][phase],'1.25')
+                with self.assertRaises(ValueError):admit(d,'generation',300,270,300)
+                r=dict(r,phase='generation',label='later',actual_child_returncode=0,guard_reason=None,terminal_mode='generation',terminal_status='COMPLETE')
+                record_outcome(d,r);self.assertTrue(d['real_work_stopped'])
+        for status in ('attained_optimum','primary_unattained','secondary_unattained'):
+            d=dict(phase_charged_CPU_s={'optimization':0},records=[],active=True,state='running')
+            record_outcome(d,dict(phase='optimization',label='finished',charged_CPU_s='1',actual_child_returncode=0,
+                guard_reason=None,terminal_mode='optimization',terminal_status='COMPLETE',comparison_status=status,terminal_read_error=None))
+            self.assertFalse(d.get('real_work_stopped',False))
+
+    def test_native_prebuild_uses_full_native_loader_and_binds_generated_artifact(self):
+        with tempfile.TemporaryDirectory() as d:
+            directory=Path(d)/'native'
+            def build(path):
+                path.mkdir();binary=path/'road_index.so';binary.write_bytes(b'unit-test-artifact-not-a-real-build')
+                return SimpleNamespace(_name=str(binary)),None
+            with patch('hiroute.exact.road_index._load_native_library',side_effect=build) as loader:
+                value=native_build_preflight(directory);loader.assert_called_once()
+            verify_native_build(value)
+            with self.assertRaises(ValueError):verify_native_build(dict(value,loaded=False))
+            Path(value['binary']).write_bytes(b'changed')
+            with self.assertRaises(ValueError):verify_native_build(value)
+
+    def test_terminal_summary_cannot_vacuously_complete_missing_or_large_receipt(self):
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)/'x.json';self.assertIsNotNone(terminal_summary(p)[3])
+            p.write_text('{"mode":"generation","status":"COMPLETE"}')
+            self.assertEqual(terminal_summary(p),('generation','COMPLETE',None,None))
+            p.write_bytes(b' '* (4*1024**2+1));self.assertIsNotNone(terminal_summary(p)[3])
 
 
 if __name__=='__main__':unittest.main()

@@ -1,0 +1,102 @@
+{
+  "schema": "hiroute.shared_leg_corrected_env.terminal.v1",
+  "status": "UNKNOWN_INCOMPLETE_TABLE_OUTPUT_RESOURCE_QUOTA",
+  "measurement_producer": {
+    "commit": "9d834497ac0cffe88213b282e82ffa1b678e3f8d",
+    "dirty": false
+  },
+  "query": "WD01/E18/schedule/N64",
+  "literal_sites": 64,
+  "actions": 78,
+  "sources": 65,
+  "targets": 65,
+  "required_pair_denominator": 4225,
+  "zero_alias_pairs": 64,
+  "last_durable_serialized_pair_checkpoint": 3216,
+  "checkpoint_is_lower_bound_not_exact_final_count": true,
+  "complete_table_produced": false,
+  "complete_table_validated": false,
+  "partial_bytes": 268308544,
+  "partial_sha256": "e880a1a826653efb7f82a3e927350972121bfb5097c8dff313b355ff789e8481",
+  "partial_immutable": true,
+  "independent_optimizer_attempts": 0,
+  "independent_upper_replayed": false,
+  "complete_H": null,
+  "full_key": null,
+  "validation_status": "UNRUN_INCOMPLETE_TABLE",
+  "optimization_status": "UNRUN_INCOMPLETE_TABLE",
+  "automatic_real_stop_confirmed": true,
+  "downstream_admission_blocked": true,
+  "no_retry": true,
+  "native_build_proof": {
+    "loaded": true,
+    "scope": "actual compilation and ctypes ABI load only; no graph/index/query",
+    "binary": "native-prebuild/exact-road-native-hthlw2x9/road_index.so",
+    "binary_sha256": "c9d08a5786fe6115f353f09d1f1c4e2fb368cb4d1d546bce74b462ea254a3798",
+    "binary_bytes": 192880,
+    "source_cpp_sha256": "1089ee70e40995bb514ce9fe905ed8f6597027428508404c7d12da3e8936aa5c",
+    "wall_s": 1.8518792500253767,
+    "binary_path_relative_to_external_artifacts": true
+  },
+  "include_environment": {
+    "compiler": "/usr/bin/c++",
+    "CPATH": "/tmp/hiroute-routing-work/boost-extract/usr/include",
+    "CPLUS_INCLUDE_PATH": null
+  },
+  "generation_accounting": {
+    "charged_CPU_s": "69.050660000",
+    "elapsed_wall_s": 65.7881176249939,
+    "measured_waited_child_CPU_s": 64.70169,
+    "sampled_tree_CPU_peak_s": 63.314094656,
+    "process_tree_peak_RSS_bytes": 1600634880,
+    "RSS_limit_bytes": 1804550144,
+    "host_available_min_bytes": 3514023936,
+    "guard_reason": null
+  },
+  "reason": "ResourceStop('output byte quota before write')",
+  "external_CPU_RSS_wall_guard_triggered": false,
+  "raw_generation_receipt_sha256": "b3d99d7880f096c5fc5667e169d537fa0557385b103277d267eb9ba800d0148d",
+  "raw_freeze_receipt_sha256": "3db7392014d4fa6b4514f7f2d5ba21668ad00a7755c0cf08f2917b2295740a9b",
+  "raw_admission_sha256": "deb09a40c68d6d3566b3570efc7fd71b28af2bc9a3a3cc0411020b030c0c98ff",
+  "prior_failed_stage_preserved": true,
+  "independent_raw_road_selection_certified": false,
+  "full_source_certificate_expansion": false,
+  "physical_model_changed": false,
+  "domain_or_depth_truncated": false,
+  "holdout": false,
+  "taskbook_complete": false,
+  "returned_native_paths_not_yet_an_independently_validated_complete_input": true,
+  "historical_controls": "key/statusreferencesonly,nocontemporarytimingcomparison",
+  "runtime_interpretation": "Wholepartialgenerationcostonly; nocertifiedfull-tabletimeorEVoptimizationtiming",
+  "all_recorded_processes_terminal": true,
+  "downstream_admission_checked_without_active_worker": true,
+  "account": {
+    "cap_CPU_s": 900,
+    "carried_research_CPU_s": "17879.857933741",
+    "fixed_setup_report_precharge_CPU_s": 10,
+    "phase_charges_CPU_s": {
+      "development": "3.404931000",
+      "freeze": "3.958496000",
+      "generation": "69.050660000",
+      "validation": 0,
+      "optimization": 0,
+      "close": "2.392711000"
+    },
+    "stage_conservative_CPU_s": "88.806798000",
+    "research_total_CPU_s": "17968.664731741",
+    "remaining_research_CPU_s": "10831.335268259",
+    "map_preparation_CPU_s": "652.040677976",
+    "map_cap_CPU_s": 900,
+    "ordinary_software_CI": "separatelyreserved;fulljobactualCPUunmeasured; priorinclusiveprechargesretained"
+  },
+  "retained_metadata_failures": [
+    "-OOargumentplacedafterunittest;notestsstarted; correctedcommandandbothcostsretained",
+    "closingstat.st_sizetypobeforefinalreport; correctionandbothcostsretained"
+  ],
+  "targeted_tests_before_attempt": {
+    "normal": 3,
+    "optimized": 3,
+    "all_passed": true
+  },
+  "raw_final_budget_sha256": "a58b60286fa6fbc3cbed9e2e8d893b5f9ffb41d19ebba924a7468450d802ee8c"
+}
