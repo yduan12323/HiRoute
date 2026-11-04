@@ -1,0 +1,156 @@
+{
+  "query": "WD01/E18/schedule/N64",
+  "sites": 64,
+  "actions": 78,
+  "pairs": 4225,
+  "alias_zero": 64,
+  "producer": {
+    "commit": "721d3c401aafd937606e7c91046233b30f163388",
+    "dirty": false
+  },
+  "generation_status": "COMPLETE",
+  "validation_status": "COMPLETE",
+  "table_manifest_sha256": "aef97213706c4045760a5c53f1cd4a3d41e25b6961fef4b2f7ce15b7a961c7dd",
+  "files": {
+    "numeric.json": {
+      "bytes": 542632,
+      "sha256": "63e0d7c60c1bc5ff97fb67d2312532fd96931da80cc5bd401916249aa8cbd701"
+    },
+    "paths.index.json": {
+      "bytes": 1335626,
+      "sha256": "54c3be7c65f9130489438949c8cf1cb0d2ce00317a1845e7095774c7ae2082b6"
+    },
+    "paths.bin": {
+      "bytes": 63036250,
+      "sha256": "615033e5790ae3b89707bb59fed6a74d534a6c10055c05ec02ace5e8fe86bcba"
+    }
+  },
+  "full_table_bytes": 64915300,
+  "upper_key": [
+    "4495362171241/96250000",
+    "355450183/3125000",
+    3,
+    [
+      [
+        "node/13098561677",
+        "CS"
+      ],
+      [
+        "node/13353329772",
+        "C"
+      ],
+      [
+        "node/12996141012",
+        "C"
+      ]
+    ]
+  ],
+  "complete_H": 20,
+  "raw_path_checks": 27,
+  "raw_checks_all_pass": true,
+  "all_recorded_processes_terminal": true,
+  "common_provider_assumption": true,
+  "independent_road_selection_certified": false,
+  "holdout": false,
+  "original_failures_preserved": true,
+  "no_old_partial_promoted": true,
+  "taskbook_complete": false,
+  "optimization_receipt_exists": false,
+  "optimization_status": "UNKNOWN_NO_TERMINAL_RECEIPT",
+  "SMT_artifacts": [
+    {
+      "path": "SMT/0001-supported-disjunction.smt2",
+      "bytes": 276348194,
+      "sha256": "addd82349845b73a04f76ea11c98d17d17888ccfeecbe82dadbc6e4d81f183fc"
+    },
+    {
+      "path": "SMT/checks.json",
+      "bytes": 155,
+      "sha256": "790f7c57ab291d1935e3f8e5bc5ad321e14715f4a4aca2761af7dcf8094733f5"
+    }
+  ],
+  "accounting": {
+    "cap_CPU_s": 900,
+    "carried_research_CPU_s": "17968.664731741",
+    "fixed_precharge_CPU_s": 10,
+    "phase_charged_CPU_s": {
+      "development": "10.466626001",
+      "freeze": "4.043662000",
+      "generation": "100.601701000",
+      "validation": "11.995349000",
+      "optimization": "122.802852001",
+      "close": "1.207813000"
+    },
+    "stage_conservative_CPU_s": "261.118003002",
+    "research_total_CPU_s": "18229.782734743",
+    "remaining_research_CPU_s": "10570.217265257"
+  },
+  "checks": [
+    {
+      "kind": "supported-disjunction",
+      "status": "started",
+      "sha256": "b98f453da532f9da84bc207ad4144af213e9664ecd5cd5481d1ef38bfef7c1eb"
+    }
+  ],
+  "status": "FULL_COMMON_INPUT_VALIDATED_OPTIMIZATION_UNKNOWN_120WALL",
+  "receipt_sha256": {
+    "freeze.result.json": "31c94de7a7f94a05d1fb701d045358551cca0249c969c6392c5557706c315251",
+    "generation.result.json": "b68cf852d135fcd1cf39c575e19c453d4613a93eed89cc73edfcbf0338a0d485",
+    "validation.result.json": "3dba8eaaf3c1fcd17acb93cbc7e2ddd814790a232d4825da6a2c2faf4f06ac12"
+  },
+  "final_budget_sha256": "d2b622f757dea356a89e272bb303f818fedc5048f49b65e4db12e024cc502a3f",
+  "phase_resources": {
+    "freeze": {
+      "charged_CPU_s": "4.043662000",
+      "elapsed_wall_s": 3.7430989999556914,
+      "process_tree_peak_RSS_bytes": 283656192,
+      "RSS_limit_bytes": 1073741824,
+      "host_available_min_bytes": 3714105344,
+      "actual_child_returncode": 0,
+      "guard_reason": null
+    },
+    "generation": {
+      "charged_CPU_s": "100.601701000",
+      "elapsed_wall_s": 97.8724697920261,
+      "process_tree_peak_RSS_bytes": 1528676352,
+      "RSS_limit_bytes": 2003812352,
+      "host_available_min_bytes": 3268132864,
+      "actual_child_returncode": 0,
+      "guard_reason": null
+    },
+    "validation": {
+      "charged_CPU_s": "11.995349000",
+      "elapsed_wall_s": 10.696614249958657,
+      "process_tree_peak_RSS_bytes": 66846720,
+      "RSS_limit_bytes": 2330640384,
+      "host_available_min_bytes": 4468523008,
+      "actual_child_returncode": 0,
+      "guard_reason": null
+    },
+    "optimization": {
+      "charged_CPU_s": "122.802852001",
+      "elapsed_wall_s": 120.0897065839963,
+      "process_tree_peak_RSS_bytes": 1370816512,
+      "RSS_limit_bytes": 1989853184,
+      "host_available_min_bytes": 3461251072,
+      "actual_child_returncode": -9,
+      "guard_reason": "wall_guard"
+    },
+    "close": {
+      "charged_CPU_s": "1.207813000",
+      "elapsed_wall_s": 0.21754416596377268,
+      "process_tree_peak_RSS_bytes": 24608768,
+      "RSS_limit_bytes": 1073741824,
+      "host_available_min_bytes": 4546478080,
+      "actual_child_returncode": 0,
+      "guard_reason": null
+    }
+  },
+  "tests": {
+    "methods_per_mode": 56,
+    "split_methods": 7,
+    "prior_initialization_failure_retained": true,
+    "explicitly_permitted_guarded_retry_passed": true
+  },
+  "optimizer_evidence_limit": "First supported-disjunction audit is started, not completed; no solver result or optimization terminal receipt. Cannot partition encoding/serialization/solver time from existing counters."
+}
