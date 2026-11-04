@@ -115,6 +115,7 @@ CODE_GATE_MODULES = CODE_GATE_MODULES + (
     "tests/test_packed_source_prototype.py",
     "tests/test_external_packed_graph.py",
     "tests/test_packed_single_source.py",
+    "tests/test_shared_leg_pilot.py",
     "tests/test_d04_cost_diagnostic.py",
     "tests/test_source_tree_reuse.py",
     "tests/test_inbound_energy_bound.py",

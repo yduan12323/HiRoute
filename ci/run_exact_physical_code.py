@@ -17,7 +17,9 @@ commands=[
      '--index-url','https://pypi.org/simple','--require-hashes','--only-binary=:all:',
      '--no-deps','--no-cache-dir','-r',str(ROOT/'comparison/requirements.txt')],
     [str(python),'-m','unittest','discover','-s','tests','-p','test_exact_physical_adapter.py'],
-    [str(python),'-OO','-m','unittest','discover','-s','tests','-p','test_exact_physical_adapter.py']]
+    [str(python),'-OO','-m','unittest','discover','-s','tests','-p','test_exact_physical_adapter.py'],
+    [str(python),'-m','unittest','discover','-s','tests','-p','test_shared_leg_pilot.py'],
+    [str(python),'-OO','-m','unittest','discover','-s','tests','-p','test_shared_leg_pilot.py']]
 records=[dict(command=i,argv=a,state='unrun') for i,a in enumerate(commands)]
 env={k:v for k,v in os.environ.items() if k in ('PATH','TMPDIR','LANG','LC_ALL')}
 env.update(PYTHONNOUSERSITE='1',PYTHONDONTWRITEBYTECODE='1',OMP_NUM_THREADS='1',

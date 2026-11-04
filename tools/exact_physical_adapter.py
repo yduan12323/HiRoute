@@ -120,6 +120,24 @@ def relevant_depth(table,parameters,witness):
     return int(U//(p.get('stop_overhead_s')+p.get('stop_penalty_s'))),checked
 
 
+def table_relevant_depth(table,parameters,witness):
+    """Complete depth conditional on the validated directed selected-time table.
+
+    Its parser checks T(s,t)<=T(s,m)+T(m,t) at every Site anchor.
+    Induction covers every repeated-Site walk. Exactly one pending S/CS adds
+    at least D, including CS overlap; every stop additionally adds h+lambda.
+    Thus J>=T(O,D)+pending*D+H*(h+lambda), retaining the integer equality.
+    This is not an independent proof of raw-road selection.
+    """
+    checked=replay(table,parameters,witness['plan'],witness['charges'],witness.get('initial_wait',0))
+    p=validate(table,parameters);direct=table.pairs[table.origin_anchor,table.destination_anchor]
+    if not direct.reachable:raise ValueError('feasible upper walk contradicts validated table reachability')
+    duration=p.schedule[2] if p.pending else F(0)
+    depth=int((checked['key'][0]-direct.time-duration)//(p.get('stop_overhead_s')+p.get('stop_penalty_s')))
+    if depth<len(witness['plan']):raise ValueError('depth inequality contradicts replayed upper')
+    return depth,checked
+
+
 class Encoding:
     def __init__(self,table,parameters,depth,upper,check=lambda:None):
         self.p=validate(table,parameters);self.lookup=GroundedLookup(table,check)
@@ -172,13 +190,15 @@ class Encoding:
 
 
 class Engine:
-    def __init__(self,deadline,audit_dir=None):
+    def __init__(self,deadline,audit_dir=None,max_check_ms=2000):
+        if type(max_check_ms) is not int or not 0<max_check_ms<=120000:raise ValueError('bounded per-check timeout')
+        self.max_check_ms=max_check_ms
         self.deadline=deadline;self.audit=[];self.directory=None if audit_dir is None else Path(audit_dir)
         if self.directory:self.directory.mkdir(parents=True,exist_ok=False)
     def remaining(self):
         remain=self.deadline-time.monotonic()
         if remain<=0:raise Unknown('query deadline; no infeasibility/optimality conclusion')
-        return max(1,min(2000,int(remain*1000)))
+        return max(1,min(self.max_check_ms,int(remain*1000)))
     def check(self,solver,kind):
         solver.set(timeout=self.remaining());text=solver.sexpr()
         item=dict(kind=kind,status='started',sha256=hashlib.sha256(text.encode()).hexdigest())
@@ -209,11 +229,24 @@ class Engine:
 
 def solve(table,parameters,upper_witness=None,audit_dir=None,time_limit_s=8):
     if type(time_limit_s) not in (int,float) or not 0<time_limit_s<=8:raise ValueError('explicit <=8s tiny-gate deadline')
+    return _solve(table,parameters,upper_witness,audit_dir,time_limit_s,False)
+
+
+def solve_real(table,parameters,upper_witness=None,audit_dir=None,time_limit_s=120):
+    """Explicit admitted-real profile; same equations, complete table depth."""
+    if type(time_limit_s) not in (int,float) or not 0<time_limit_s<=120:raise ValueError('explicit <=120s real deadline')
+    return _solve(table,parameters,upper_witness,audit_dir,time_limit_s,True)
+
+
+def _solve(table,parameters,upper_witness,audit_dir,time_limit_s,table_depth):
     start=time.monotonic();p=validate(table,parameters)
     if upper_witness is None:return dict(status='unknown_no_attained_bound',reason='no seed is not infeasibility')
-    depth,seed=relevant_depth(table,parameters,upper_witness);engine=Engine(start+time_limit_s,audit_dir)
+    depth,seed=(table_relevant_depth if table_depth else relevant_depth)(table,parameters,upper_witness)
+    engine=Engine(start+time_limit_s,audit_dir,120000 if table_depth else 2000)
     metadata=dict(upper_key=seed['key'],upper_witness_independently_replayed=True,derived_depth=depth,
-        depth_contract='complete floor(U_J/(h+lambda)); no H/N or prototype slot cap',
+        depth_contract=('complete floor((U_J-T_OD-pending*D)/(h+lambda)); validated table triangle proof'
+                        if table_depth else 'complete floor(U_J/(h+lambda)); no H/N or prototype slot cap'),
+        solver_check_timeout_cap_ms=engine.max_check_ms,
         table_sha256=table.payload_sha256,physics_sha256=p.sha256,charging_pieces=len(p.curve),
         road_selection_certified=False,scope='Exact optimum/infimum conditional on the supplied leg table and physical contract',
         continuous_copies=2,explicit_plan_enumerations=0,checks=engine.audit,external_solver='Z3 '+z3.get_version_string())
