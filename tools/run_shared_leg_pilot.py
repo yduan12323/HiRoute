@@ -65,6 +65,27 @@ def compiler_preflight():
     return env
 
 
+def native_build_preflight(directory):
+    """A real fresh C++ build AND ABI load, without graph construction/query."""
+    from hiroute.exact.road_index import _load_native_library
+    directory=Path(directory).resolve()
+    if directory.exists():raise ValueError('inspect existing native prebuild; no uncertain repetition')
+    start=time.monotonic();library,_=_load_native_library(directory)
+    binary=Path(library._name).resolve()
+    if not binary.is_relative_to(directory):raise ValueError('fresh native build provenance')
+    return dict(loaded=True,scope='actual compilation and ctypes ABI load only; no graph/index/query',
+        binary=str(binary),binary_sha256=sha(binary),binary_bytes=binary.stat().st_size,
+        source_cpp_sha256=sha(ROOT/'src/hiroute/exact/road_index_native.cpp'),
+        wall_s=time.monotonic()-start)
+
+
+def verify_native_build(value):
+    if not value or value.get('loaded') is not True:raise ValueError('actual successful native build required')
+    if (sha(Path(value['binary']))!=value['binary_sha256'] or
+        sha(ROOT/'src/hiroute/exact/road_index_native.cpp')!=value['source_cpp_sha256']):
+        raise ValueError('native build artifact/input provenance changed')
+
+
 def header(frozen):
     rows=frozen['domain']['candidates'];ends=frozen['domain']['endpoints']
     result=dict(schema=SCHEMA,numerical_contract=NUMERICAL,selected_leg_contract=SELECTION,
@@ -160,6 +181,9 @@ def freeze(args,cfg):
         raise ValueError('no candidate/action/pair reduction')
     if len(set(sources)&set(targets))!=64:raise ValueError('alias-zero denominator')
     dependency=compiler_preflight()
+    expected=cfg.get('command_scoped_include_environment',{})
+    if any(dependency.get(k)!=v for k,v in expected.items()):raise ValueError('declared include environment')
+    native_build=native_build_preflight(args.output/'native-prebuild')
     for key,expected in frozen['expected_input_sha256'].items():
         if expected!=cfg['expected_input_sha256'][key] or sha(Path(frozen['input_paths'][key]))!=expected:
             raise ValueError('frozen source input '+key)
@@ -185,6 +209,7 @@ def freeze(args,cfg):
         header=h,sources=sources,targets=targets,sample_pairs=sample_pairs(sources,targets,h['origin_anchor'],h['destination_anchor']),
         model=old['model'],schedule_recipe=old['selection']['schedule_recipe'],upper_witness=upper,
         dependency_environment=dependency,
+        native_build_preflight=native_build,
         graph_tsv=frozen['input_paths']['graph'],graph_db=str(args.graph_db.resolve()),
         graph_db_sha256=cfg['representation_sha256'],graph_sha256=cfg['expected_input_sha256']['graph'],
         historical_reference=dict(path=str(args.historical_row.resolve()),sha256=sha(args.historical_row),
@@ -226,6 +251,7 @@ def main():
             if ad['dependency_environment']!=dependency_environment():raise ValueError('within-run compiler/include environment changed')
             if a.mode=='generation':
                 from hiroute.exact.road_index import NativeRoadIndex
+                verify_native_build(ad.get('native_build_preflight'))
                 if sha(Path(ad['graph_tsv']),check)!=ad['graph_sha256']:raise ValueError('road input changed')
                 with NativeRoadIndex(ad['graph_tsv'],sorted(set(ad['sources']+ad['targets'])),cache_directory=out/'native-cache',
                     leg_cache_size=0,distance_cache_size=2,check=check) as provider:

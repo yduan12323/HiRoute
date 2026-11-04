@@ -86,6 +86,34 @@ def reap_group(worker):
     worker.wait()
 
 
+def terminal_summary(path):
+    """Bound metadata decoding; the complete artifact is hashed separately."""
+    if not path.exists():return None,None,None,'missing terminal receipt'
+    try:
+        with path.open('rb') as f:data=f.read(4*1024**2+1)
+        if len(data)>4*1024**2:return None,None,None,'terminal metadata byte quota'
+        value=json.loads(data)
+        return value.get('mode'),value.get('status'),value.get('comparison',{}).get('status'),None
+    except (ValueError,TypeError,AttributeError) as exc:return None,None,None,'invalid terminal metadata: '+str(exc)
+
+
+def record_outcome(d,r):
+    """The actual controller finalization, including automatic real stop."""
+    d['phase_charged_CPU_s'][r['phase']]=str(Decimal(str(d['phase_charged_CPU_s'][r['phase']]))+Decimal(str(r['charged_CPU_s'])))
+    d['records'].append(r);d['active']=None
+    if r['phase'] not in ('freeze','generation','validation','optimization'):return
+    failed=(r.get('actual_child_returncode')!=0 or r.get('guard_reason') is not None
+        or r.get('terminal_read_error') is not None or r.get('terminal_mode')!=r['phase']
+        or r.get('terminal_status')!='COMPLETE')
+    if r['phase']=='optimization' and r.get('comparison_status') not in (
+            'attained_optimum','primary_unattained','secondary_unattained'):failed=True
+    if failed:
+        d['real_work_stopped']=True;d['state']='failed_real_phase_stopped'
+        d['real_work_stopped_reason']=dict(phase=r['phase'],label=r['label'],
+            child_returncode=r.get('actual_child_returncode'),guard=r.get('guard_reason'),
+            terminal_status=r.get('terminal_status'),comparison_status=r.get('comparison_status'))
+
+
 def main():
     import psutil
     a=argparse.ArgumentParser();a.add_argument('--ledger',required=True);a.add_argument('--phase',required=True)
@@ -154,15 +182,16 @@ def main():
     if elapsed>a.wall and reason is None:reason='wall_guard_after_exit'
     terminal=root/(a.phase+'.result.json')
     terminal_digest=file_digest(terminal) if terminal.exists() else None
+    mode,status,comparison,error=terminal_summary(terminal)
     cost=Decimal(str(max(child,cpu_peak)+time.process_time()+1)).quantize(Decimal('.000000001'),rounding=ROUND_CEILING)
     r.update(charged_CPU_s=str(cost),finished_at=time.time(),guard_reason=reason,elapsed_wall_s=elapsed,
              terminal_sha256=terminal_digest,
+             terminal_mode=mode,terminal_status=status,comparison_status=comparison,terminal_read_error=error,
              actual_child_returncode=worker.returncode if worker else None,
              measured_waited_child_CPU_s=child,sampled_tree_CPU_peak_s=cpu_peak,
              process_tree_peak_RSS_bytes=peak,host_available_min_bytes=minimum,
              host_disk_free_min_bytes=free,child_maxrss_native=after.ru_maxrss)
-    d['phase_charged_CPU_s'][a.phase]=str(Decimal(str(d['phase_charged_CPU_s'][a.phase]))+cost)
-    d['records'].append(r);d['active']=None
+    record_outcome(d,r)
     atomic(path,d);print(json.dumps(r),flush=True)
     if log.exists():
         with log.open('rb') as f:
