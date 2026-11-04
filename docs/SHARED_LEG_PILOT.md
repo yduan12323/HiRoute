@@ -168,3 +168,9 @@ source upload, alternate query, source-proof expansion, main experiment or
 holdout occurred. Historical controls remain UNKNOWN feasible references,
 not contemporaneous timing controls. All original performance/larger-domain/
 four-positive-charge/holdout gaps remain; taskbook completion is not claimed.
+
+
+The later [corrected-environment attempt](SHARED_LEG_CORRECTED_ENV.md) verified
+the actual native build and reached a different declared output quota. That
+separate88.806798CPU attempt does not change the original pre-query failure or
+its charges; complete independent optimization remains UNRUN.
