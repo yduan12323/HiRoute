@@ -1,0 +1,109 @@
+{
+  "schema": "hiroute.shared_leg_pilot.closed_evidence.v1",
+  "measurement_producer": {
+    "commit": "480945bd7c3eb9bceb65475c98bb4136c4ad471f",
+    "dirty": false
+  },
+  "query": "WD01/E18/schedule/N64",
+  "domain_sha256": "2a8f28645f781049a73619eb8222dd730261b58318d1f73f295edf08dad4dc64",
+  "literal_sites": 64,
+  "actions": 78,
+  "sources": 65,
+  "targets": 65,
+  "pair_denominator": 4225,
+  "zero_alias_pairs": 64,
+  "generated_complete_pairs": 0,
+  "validated_pairs": 0,
+  "independent_optimizer_attempts": 0,
+  "holdout": false,
+  "status": "UNKNOWN_INCOMPLETE_INPUT_ENVIRONMENT_FAILURE",
+  "failure": "Nativeprovidercompilationcannotfindboost/multiprecision/cpp_int.hpp; noindexbuildorroadquery",
+  "road_query_count": 0,
+  "road_query_count_basis": "CompileexceptionbeforeNativeRoadIndexcreateandwrite_table; nooutputtablefile",
+  "phases": [
+    {
+      "phase": "freeze",
+      "status": "COMPLETE"
+    },
+    {
+      "phase": "generation",
+      "status": "UNKNOWN_BUILD_PREREQUISITE"
+    },
+    {
+      "phase": "validation",
+      "status": "UNRUN_INCOMPLETE_TABLE"
+    },
+    {
+      "phase": "optimization",
+      "status": "UNRUN_INCOMPLETE_TABLE"
+    }
+  ],
+  "raw_freeze_receipt_sha256": "8f5e7c8077f84f4f8d3c40090f199b47a04f26bee9ca140eff1aa1a3430a6b79",
+  "raw_generation_receipt_sha256": "5143446aab29539b0c7f4ea306406a22ebe09087ea43cd390e1eb056813e5839",
+  "raw_admission_sha256": "f98bf66e4aa25de0f7e5f813a4eef71e0c18258fed3f938fc294a19d076a7c1b",
+  "raw_ledger_at_failure_sha256": "34148266b20ce9f73e7c439bcc35709774bcdf62ee9515dfb704afd287cc2252",
+  "generation_guard_reason": null,
+  "generation_CPU_s": "1.747623000",
+  "generation_wall_s": 0.8930300420033745,
+  "generation_peak_RSS_bytes": 112705536,
+  "generation_RSS_limit_bytes": 1962147840,
+  "independent_raw_road_selection_certified": false,
+  "full_source_certificate_expansion": false,
+  "no_real_retry": true,
+  "historical_controls": "UNKNOWNfeasiblewitnessreferencesonly; nottimingcontrols",
+  "complete_H": null,
+  "complete_H_reason": "Noverifiedcommontable/independentupperreplay; conditional20wasnotusedasacap",
+  "tests_per_mode": {
+    "shared_bridge": 16,
+    "physical_adapter": 15
+  },
+  "old_errors_retained": [
+    "initialZ3importfailureinthewrongexistingenvironment",
+    "nativeBoostincludefailure"
+  ],
+  "postrun_fix": "Compiler/header syntaxpreflightandwithinrunincludeenvironmentcaptureadded; notusedfornewrealattempt",
+  "mathematical_counterexample": false,
+  "taskbook_complete": false,
+  "next_step": "ExistingBoost1.83headeravailabilityidentified; anynewrealattemptneedsanexplicitnewprospectiveadmission,notanautomaticretry.",
+  "all_recorded_processes_terminal": true,
+  "query_cell_denominator": 1,
+  "optimizer_slot_denominator": 1,
+  "account": {
+    "stage_cap_CPU_s": 1200,
+    "fixed_development_precharge_CPU_s": 120,
+    "fixed_final_report_tail_CPU_s": 10,
+    "phase_charges_CPU_s": {
+      "development": "25.042768000",
+      "freeze": "1.914492000",
+      "generation": "1.747623000",
+      "validation": "0E-9",
+      "optimization": "0E-9",
+      "close": "11.082216000"
+    },
+    "stage_conservative_CPU_s": "159.787099000",
+    "carried_research_CPU_s": "17720.070834741",
+    "research_total_CPU_s": "17879.857933741",
+    "remaining_research_CPU_s": "10920.142066259",
+    "map_preparation_CPU_s": "652.040677976",
+    "map_cap_CPU_s": 900,
+    "ordinary_software_CI": "separatelyreserved;actualfulljobCPUunmeasured; priorinclusivechargesretained"
+  },
+  "postfailure_observed_include_environment": {
+    "CPATH": null,
+    "CPLUS_INCLUDE_PATH": null
+  },
+  "historical_documented_Boost_1_83_header_still_exists": true,
+  "actual_native_build_after_environment_repair": "UNRUN_no_retry",
+  "independent_upper_replayed_on_common_table": false,
+  "full_key": null,
+  "postrun_focused_tests_per_mode": {
+    "shared_bridge": 16,
+    "physical_adapter": 15
+  },
+  "source_identity_note": "Numericalpreflightandfailedgeneratorusedclean480945bd7c3eb9bceb65475c98bb4136c4ad471f; laterprerequisite/stopguardsandreportarepostrun,withnorealrerun",
+  "raw_final_budget_sha256": "b76b35da3be345b3fff6954443115f932d8697f888d5b30abf82a989051d3a5a",
+  "measurement_source_tests_per_mode": {
+    "shared_bridge": 14,
+    "physical_adapter": 15
+  }
+}
