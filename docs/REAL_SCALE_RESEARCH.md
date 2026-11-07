@@ -2342,3 +2342,27 @@ Stage88.806798/900 CPU, global17968.664731741/28800; map preparation unchanged,
 ordinary software CI separate. Both this output-resource UNKNOWN and the
 previous build-prerequisite UNKNOWN stay. Narrow streamed numeric/path-backed
 input completion is proposed only; no source-proof expansion or holdout.
+
+## Complete common input, first independent entry UNKNOWN (2026-11-04)
+
+The admitted [split transport attempt](SPLIT_SELECTED_LEG_INPUT.md) from clean
+producer721d3c4 generated and validated the full4225 entries on the unchanged
+64-Site/78-action domain. Total64915300bytes, all bounded frames checked,
+27 raw sample/upper-path replays passed. Independent concrete U replay yielded
+complete relevant H20. No old partial table was promoted and no source-road
+certificate, physics, domain or artificial-depth change was introduced.
+
+One independent optimization entry hit the original120wall guard with no
+terminal receipt or completed first `supported-disjunction` audit result.
+The276348194byte SMT artifact and started audit are preserved; existing
+counters do not isolate serialization versus solver time. UNKNOWN is neither
+infeasibility nor a certified objective. Historical Strong/Scale remain only
+key/status references, not current timing controls. No retry followed.
+
+Stage261.118003002/900 CPU including all initialization/test failures,
+controller and close costs; global18229.782734743/28800, remaining10570.217265257.
+Map preparation remains652.040677976/900; ordinary software CI separately
+reserved. The transport obstruction is resolved for this instance; independent
+optimality/performance, production targets, larger/full domains, real four-charge
+coverage and holdout acceptance remain unestablished. Next action requires a
+bounded structural input/formulation review, not another table-generation loop.

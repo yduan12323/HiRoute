@@ -81,6 +81,16 @@ class ExactLegTable:
     @classmethod
     def from_dict(cls,payload,check=None):
         if not isinstance(payload,dict):raise TypeError('table requires an object')
+        def records():yield from sequence(payload['pairs'],'pairs')
+        result=cls._from_records(payload,records(),check=check)
+        digest=hashlib.sha256(json.dumps(payload,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()
+        object.__setattr__(result,'payload_sha256',digest)
+        return result
+
+    @classmethod
+    def _from_records(cls,payload,records,check=None,pair_factory=Pair,edge_endpoints=None):
+        """Internal streaming validation; identity is derived, never supplied."""
+        if not isinstance(payload,dict):raise TypeError('table requires an object')
         if (payload.get('schema')!=SCHEMA or payload.get('numerical_contract')!=NUMERICAL or
                 payload.get('selected_leg_contract')!=SELECTION):
             raise ValueError('incompatible table/numerical/selected-leg contract')
@@ -102,8 +112,11 @@ class ExactLegTable:
                 raise ValueError('invalid effect set')
             capabilities[site]=effects
         sources=tuple(sorted({origin,*aliases.values()}));targets=tuple(sorted({destination,*aliases.values()}))
-        required={(s,t) for s in sources for t in targets};pairs={};edge_endpoints={}
-        for i,record in enumerate(sequence(payload['pairs'],'pairs')):
+        required={(s,t) for s in sources for t in targets};pairs={}
+        if edge_endpoints is None:edge_endpoints={}
+        semantic=hashlib.sha256()
+        semantic.update(json.dumps({k:v for k,v in payload.items() if k!='pairs'},sort_keys=True,separators=(',',':'),allow_nan=False).encode())
+        for i,record in enumerate(records):
             if check is not None and i%128==0:check()
             if not isinstance(record,dict):raise TypeError('pair record requires an object')
             s,t=identity(record['source']),identity(record['target']);key=(s,t)
@@ -125,10 +138,13 @@ class ExactLegTable:
                       or len(edges)!=len(nodes)-1 or len(set(nodes))!=len(nodes)):
                     raise ValueError('invalid positive simple selected path')
                 for edge,u,v in zip(edges,nodes,nodes[1:]):
-                    if edge in edge_endpoints and edge_endpoints[edge]!=(u,v):
+                    prior=edge_endpoints.get(edge)
+                    if prior is not None and prior!=(u,v):
                         raise ValueError('edge identity has inconsistent endpoints')
-                    edge_endpoints[edge]=(u,v)
-            pairs[key]=Pair(s,t,reach,time,length,nodes,edges)
+                    if prior is None:edge_endpoints[edge]=(u,v)
+            pairs[key]=pair_factory(s,t,reach,time,length,nodes,edges)
+            for token in json.JSONEncoder(sort_keys=True,separators=(',',':'),allow_nan=False).iterencode(record):
+                semantic.update(token.encode('utf-8'))
         if set(pairs)!=required:raise ValueError('missing physical pair, not implicit unreachable')
         # Necessary directed reachability/time consistency only. Selected LENGTH
         # need not satisfy a triangle inequality and is never rerouted here.
@@ -145,7 +161,7 @@ class ExactLegTable:
                         direct=pairs[s,t]
                         if not direct.reachable or direct.time>first.time+second.time:
                             raise ValueError('inconsistent directed reachability/shortest time')
-        payload_sha256=hashlib.sha256(json.dumps(payload,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()
+        payload_sha256=semantic.hexdigest()
         result=object.__new__(cls)
         values=dict(origin_anchor=origin,destination_anchor=destination,candidate_order=order,
             aliases=MappingProxyType(aliases),capabilities=MappingProxyType(capabilities),

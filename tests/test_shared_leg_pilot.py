@@ -10,8 +10,9 @@ from unittest.mock import patch,Mock
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT/'tools'),str(ROOT/'src'),str(ROOT/'comparison')]
-from exact_leg_table import ExactLegTable
-from exact_physical_adapter import solve,solve_real,table_relevant_depth,relevant_depth,Engine
+from exact_leg_table import ExactLegTable,GroundedLookup
+from exact_physical_adapter import solve,solve_real,table_relevant_depth,relevant_depth,Engine,replay
+from split_leg_table import write as split_write,read as split_read,close as split_close,digest as split_digest,LIMITS
 from exact_physical_fixtures import case,tiny_table,IDS,semantics
 from run_shared_leg_pilot import write_table,sample_pairs,verify_paths,physical,receipt,sha,header,freeze,compiler_preflight,native_build_preflight,verify_native_build
 from shared_pilot_budget import admit,total_spent,tree_usage,reap_group,record_outcome,terminal_summary
@@ -207,6 +208,114 @@ class SharedPilotTests(unittest.TestCase):
             p.write_text('{"mode":"generation","status":"COMPLETE"}')
             self.assertEqual(terminal_summary(p),('generation','COMPLETE',None,None))
             p.write_bytes(b' '* (4*1024**2+1));self.assertIsNotNone(terminal_summary(p)[3])
+
+
+class SplitInputTests(unittest.TestCase):
+    def payload(self,name='CS_overlap'):
+        fixture=case(name);_,raw,_=tiny_table(fixture)
+        return fixture,json.loads(raw)
+    def write(self,root,payload,**kw):
+        return split_write(root,{k:v for k,v in payload.items() if k!='pairs'},iter(payload['pairs']),dict(test='synthetic'),**kw)
+    def edit(self,root,name,value):
+        path=root/name;path.chmod(0o644);path.write_text(json.dumps(value,separators=(',',':')))
+        if name!='manifest.json':
+            manifest=json.loads((root/'manifest.json').read_text());manifest['files'][name]=dict(bytes=path.stat().st_size,sha256=split_digest(path))
+            self.edit(root,'manifest.json',manifest)
+
+    def test_eight_class_split_inline_replay_depth_and_full_key_parity(self):
+        for name in IDS:
+            with self.subTest(name=name),tempfile.TemporaryDirectory() as d:
+                f,p=self.payload(name);inline=ExactLegTable.from_dict(p);root=Path(d)
+                count,sha=self.write(root,p);table=split_read(root)
+                try:
+                    self.assertEqual(count,len(inline.pairs));self.assertEqual(sha,table.payload_sha256)
+                    self.assertEqual(table.actions,inline.actions);self.assertEqual(table.candidate_order,inline.candidate_order)
+                    for key,x in inline.pairs.items():
+                        y=table.pairs[key]
+                        self.assertEqual((x.time,x.length,x.nodes,x.edges),(y.time,y.length,y.nodes,y.edges))
+                    w=f['upper_witness']
+                    self.assertEqual(replay(table,f['physics'],w['plan'],w['charges'],w['initial_wait']),
+                                     replay(inline,f['physics'],w['plan'],w['charges'],w['initial_wait']))
+                    self.assertEqual(table_relevant_depth(table,f['physics'],w),table_relevant_depth(inline,f['physics'],w))
+                    if name in ('CS_overlap','primary_unattained','secondary_unattained','equality_attained'):
+                        self.assertEqual(semantics(solve_real(table,f['physics'],w,time_limit_s=8)),f['expected'])
+                finally:split_close(table)
+
+    def test_paths_preserve_lexical_edge_tie_selected_length(self):
+        p=RoadIndex([dict(source=u,target=v,edge_id=e,time_s='1',length_m=str(L)) for u,v,e,L in
+                     [('o','a','oa',2),('o','b','ob',1),('a','z','az9',1),('a','z','az1',3),('b','z','bz',1)]])
+        f,payload=self.payload('directed_unreachable');payload['sites']={'literal-a':dict(anchor='a',effects=['C'])};payload['candidate_order']=['literal-a']
+        from run_shared_leg_pilot import record
+        payload['pairs']=[record(p.selected_leg(s,t),s,t) for s in ('a','o') for t in ('a','z')]
+        with tempfile.TemporaryDirectory() as d:
+            self.write(Path(d),payload);table=split_read(Path(d))
+            try:self.assertEqual((table.pairs['o','z'].nodes,table.pairs['o','z'].edges,table.pairs['o','z'].length),(('o','a','z'),('oa','az1'),5))
+            finally:split_close(table)
+
+    def test_missing_extra_duplicate_or_mismatched_pair_index_rejected(self):
+        _,p=self.payload()
+        for kind in ('missing','duplicate','extra','offset','ordinal','numeric','trailing'):
+            with self.subTest(kind=kind),tempfile.TemporaryDirectory() as d:
+                root=Path(d);self.write(root,p);index=json.loads((root/'paths.index.json').read_text())
+                if kind=='missing':index.pop()
+                elif kind in ('duplicate','extra'):index.append(copy.deepcopy(index[-1]))
+                elif kind=='offset':index[-1]['offset']+=1
+                elif kind=='ordinal':index[-1]['ordinal']=True
+                elif kind=='numeric':
+                    numeric=json.loads((root/'numeric.json').read_text());numeric['pairs'][-1]['time_s']='999';self.edit(root,'numeric.json',numeric)
+                elif kind=='trailing':
+                    path=root/'paths.bin';path.chmod(0o644);path.write_bytes(path.read_bytes()+b'x')
+                    m=json.loads((root/'manifest.json').read_text());m['files']['paths.bin']=dict(bytes=path.stat().st_size,sha256=split_digest(path));self.edit(root,'manifest.json',m)
+                self.edit(root,'paths.index.json',index)
+                with self.assertRaises((ValueError,TypeError)):split_read(root)
+
+    def test_frame_corruption_truncation_digest_swap_and_decoded_bounds_rejected(self):
+        _,p=self.payload()
+        for kind in ('corrupt','truncated','hash','decoded','framequota','totalquota','identityquota','manifestquota'):
+            with self.subTest(kind=kind),tempfile.TemporaryDirectory() as d:
+                root=Path(d);self.write(root,p);limits={}
+                if kind in ('corrupt','truncated'):
+                    path=root/'paths.bin';path.chmod(0o644);data=path.read_bytes();path.write_bytes((bytes([data[0]^1])+data[1:]) if kind=='corrupt' else data[:-1])
+                elif kind in ('hash','decoded'):
+                    index=json.loads((root/'paths.index.json').read_text())
+                    if kind=='hash':index[0]['decoded_sha256']='0'*64
+                    else:index[0]['decoded_bytes']=1
+                    self.edit(root,'paths.index.json',index)
+                else:limits[{ 'framequota':'frame','totalquota':'decoded','identityquota':'identity','manifestquota':'manifest'}[kind]]=1
+                with self.assertRaises((ValueError,TypeError)):split_read(root,limits=limits)
+
+    def test_interrupted_output_never_commits_manifest_or_repeats(self):
+        _,p=self.payload()
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)
+            with self.assertRaises(RuntimeError):self.write(root,p,limits={'paths':1})
+            self.assertFalse((root/'manifest.json').exists())
+            with self.assertRaises(FileNotFoundError):split_read(root)
+            with self.assertRaises(ValueError):self.write(root,p)
+
+    def test_lazy_fetch_rechecks_owned_descriptor_and_closed_store(self):
+        _,p=self.payload()
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);self.write(root,p);t=split_read(root);pair=next(iter(t.pairs.values()))
+            path=root/'paths.bin';path.chmod(0o644)
+            with path.open('r+b') as f:f.write(b'X')
+            with self.assertRaises((ValueError,__import__('zlib').error)):pair.nodes
+            split_close(t)
+            with self.assertRaises(ValueError):pair.edges
+
+    def test_distinct_payloads_do_not_share_owned_lookup_traces(self):
+        _,p=self.payload()
+        with tempfile.TemporaryDirectory() as d:
+            aroot,broot=Path(d)/'a',Path(d)/'b';self.write(aroot,p)
+            altered=copy.deepcopy(p)
+            for row in altered['pairs']:
+                if row['reachable']:row['actual_length_m']=str(F(row['actual_length_m'])*2)
+            self.write(broot,altered);a,b=split_read(aroot),split_read(broot)
+            try:
+                self.assertNotEqual(a.payload_sha256,b.payload_sha256)
+                lookup=GroundedLookup(a);trace=lookup.trace(1,1)
+                with self.assertRaises(ValueError):GroundedLookup(b).resolve(trace,[('p','CS')])
+            finally:split_close(a);split_close(b)
 
 
 if __name__=='__main__':unittest.main()

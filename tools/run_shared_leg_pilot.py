@@ -144,6 +144,16 @@ def table_bytes(path,expected,check=lambda:None):
     return ExactLegTable.from_bytes(path.read_bytes(),check=check)
 
 
+def pilot_table(out,generation,cfg,check):
+    if cfg.get('split_input'):
+        from split_leg_table import read
+        table=read(out/'split-table',check)
+        if table.payload_sha256!=generation['table_sha256']:
+            table._path_store.close();raise ValueError('complete split table receipt mismatch')
+        return table
+    return table_bytes(out/'table.json',generation['table_sha256'],check)
+
+
 def physical(model,table,recipe):
     from exact_physical_adapter import SCHEMA as PHYS,FIELDS
     direct=table.pairs[table.origin_anchor,table.destination_anchor]
@@ -258,16 +268,30 @@ def main():
                     dims=provider.metrics()
                     if (dims['nodes'],dims['edges'])!=(cfg['graph_nodes'],cfg['graph_edges']):
                         raise ValueError('full frozen road graph dimensions')
-                    count=write_table(provider,ad['header'],ad['sources'],ad['targets'],out/'table.json',
-                        lambda n:atomic(out/'generation.progress.json',dict(completed_pairs=n,pair_denominator=4225)))
+                    progress=lambda n:atomic(out/'generation.progress.json',dict(completed_pairs=n,pair_denominator=4225)) if n%16==0 else None
+                    if cfg.get('split_input'):
+                        from split_leg_table import write
+                        rows=(record(provider.selected_leg(s,t),s,t) for t in ad['targets'] for s in ad['sources'])
+                        count,table_sha=write(out/'split-table',ad['header'],rows,
+                            dict(source=ad['source'],config_sha256=ad['config_sha256'],
+                                 graph_sha256=ad['graph_sha256'],candidate_domain_sha256=ad['candidate_domain_sha256']),check,progress)
+                    else:
+                        count=write_table(provider,ad['header'],ad['sources'],ad['targets'],out/'table.json',progress)
+                        table_sha=sha(out/'table.json',check)
                     metrics=provider.metrics()
                 if count!=4225:raise ValueError('incomplete table')
-                result.update(status='COMPLETE',completed_pairs=count,table_sha256=sha(out/'table.json',check),
-                    table_bytes=(out/'table.json').stat().st_size,provider_metrics=metrics,independent_road_certified_pairs=0)
+                result.update(status='COMPLETE',completed_pairs=count,table_sha256=table_sha,
+                    table_bytes=sum(p.stat().st_size for p in (out/'split-table').iterdir()) if cfg.get('split_input') else (out/'table.json').stat().st_size,
+                    provider_metrics=metrics,independent_road_certified_pairs=0)
             else:
                 gen=receipt(out,'generation')
                 if gen['source']!=ad['source'] or gen['completed_pairs']!=4225:raise ValueError('complete producer provenance')
-                table=table_bytes(out/'table.json',gen['table_sha256'],check)
+                table=pilot_table(out,gen,cfg,check)
+                if cfg.get('split_input'):
+                    if table._path_store.manifest['provenance']!=dict(source=ad['source'],config_sha256=ad['config_sha256'],
+                        graph_sha256=ad['graph_sha256'],candidate_domain_sha256=ad['candidate_domain_sha256']):raise ValueError('split producer/input provenance')
+                    expected=dict(ad['header']);actual={k:v for k,v in table._path_store.numeric.items() if k!='pairs'}
+                    if actual!=expected:raise ValueError('split frozen literal header mismatch')
                 parameters=physical(ad['model'],table,ad['schedule_recipe'])
                 if a.mode=='validation':
                     from exact_physical_adapter import replay,table_relevant_depth
@@ -314,6 +338,8 @@ def main():
                     check()
         check()
     except Exception as exc:result.update(status='UNKNOWN',reason=repr(exc))
+    finally:
+        if 'table' in locals() and hasattr(table,'_path_store'):table._path_store.close()
     ended_source=source()
     if ended_source!=initial_source:result.update(status='UNKNOWN',reason='within-run source provenance changed')
     result.update(body_CPU_s=time.process_time()-cpu,body_wall_s=time.monotonic()-start,source=ended_source)
