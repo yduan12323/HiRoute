@@ -90,7 +90,7 @@ both failed receipts remain preserved, and runtime fit still requires passing CI
 The reviewed publication head passed all four PR checks before merge. Its physical
 CI completed all 18 slots at 152.381247 inclusive reserved CPU seconds. Post-merge
 run 42452363488 on the identical tree exhausted admission at 171.814933 seconds:
-13 slots passed, five remained UNRUN. The slower-host failure is preserved.
+13 slots passed, five remained UNRUN. The higher-CPU-cost admission failure is preserved.
 A further test-only deduplication retains every finite-mode fixture solve and
 checks its analytic expectation; the independently retained shared-array sweep
 and both support traps check the same expectations, preserving transitive parity.
