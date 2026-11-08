@@ -73,6 +73,13 @@ semantic/support/attainment regressions retain their own source-bound receipts;
 this is not a claim of one combined final-source full research regression.
 Publication CI runs all relevant tiny groups sequentially in normal/-OO modes,
 retaining the existing 15-CPU-second child and 180-CPU-second cumulative limits.
+The first publication CI stopped at the child CPU cap in the DAG-audit group;
+its 114.313584 inclusive reserved CPU accounting remains in GitHub run
+42450523469. Test-only deduplication removes two repeated finite-baseline sweeps
+already covered by finite-vs-original tests, while retaining every actual
+DAG-audit/certificate solve, fixture, analytic expectation and path assertion.
+Imported TestCase rediscovery is removed; its original test module stays selected.
+No failed run is called successful and no research/resource limit is increased.
 
 ## Taskbook gaps and next decision
 

@@ -63,12 +63,16 @@ class IncumbentCertificateTests(unittest.TestCase):
         def feasible(engine,constraints,kind):
             self.assertNotEqual(kind,'supported-disjunction');seen.add(kind)
             return original(engine,constraints,kind)
-        for f,t in [(case(n),None) for n in IDS]+[trap(False),trap(True)]:
+        # The finite baseline is already solved against original/analytic
+        # outcomes in test_finite_leg_lookup. Keep every certificate-mode solve.
+        fixtures=[(case(n),None,case(n)['expected']) for n in IDS]+[
+            (*trap(False),dict(status='attained_optimum',key=['20','0',1,[['b','S']]])),
+            (*trap(True),dict(status='attained_optimum',key=['13','1',1,[['b','CS']]]))]
+        for f,t,expected in fixtures:
             if t is None:t=tiny_table(f)[0]
-            old=_solve(t,f['physics'],f['upper_witness'],None,8,False,finite_lookup=True)
             with patch.object(Engine,'feasible',feasible):
                 new=_solve(t,f['physics'],f['upper_witness'],None,8,False,finite_lookup=True,incumbent_certificate=True)
-            self.assertEqual(semantics(new),semantics(old));self.assertNotIn('unknown',new['status'])
+            self.assertEqual(semantics(new),expected);self.assertNotIn('unknown',new['status'])
             self.assertEqual(new['incumbent_certificate']['status'],'VERIFIED_NONEMPTY_ONLY')
         for name in ('supported-J-better','supported-J-face','primary-attainment','supported-primary-face-Q-better','supported-primary-face-Q-face','joint-attainment','attained-H-better','attained-H-face','attained-Pi-0-better','attained-Pi-0-face','attained-full-key'):self.assertIn(name,seen)
 

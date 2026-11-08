@@ -6,14 +6,14 @@ from finalize_candidate_verification import finalize,canonical
 from import_strict_candidate import verify_candidate
 from run_grounded_lookup_consumer import PRODUCER
 from run_shared_leg_pilot import source
-from tests.test_import_strict_candidate import ImportTests
+from tests import test_import_strict_candidate as import_tests
 
 class FinalizationTests(unittest.TestCase):
     def setUp(self):
         for name in ('Solver','Optimize','Tactic','parse_smt2_file','parse_smt2_string'):
             guard=patch('z3.'+name,side_effect=AssertionError('solver-free'));guard.start();self.addCleanup(guard.stop)
     def fixture(self,root,name='empty_prefix_terminal'):
-        args=ImportTests().setup_case(root,name);audit=root/'verification'
+        args=import_tests.ImportTests().setup_case(root,name);audit=root/'verification'
         comparison=verify_candidate(args[0],args[1],audit,*args[2:])
         ad=dict(expected_import=args[1],bound=str(args[2].upper),consumer_source=source(),producer_source=dict(commit=PRODUCER,dirty=False))
         old={'source':ad['producer_source']}

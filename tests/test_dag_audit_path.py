@@ -36,13 +36,17 @@ class DAGAuditTests(unittest.TestCase):
             self.assertTrue(all(z3.eq(a,b) for a,b in zip(before,solver.assertions())))
             kinds.add(kind);return result
         with tempfile.TemporaryDirectory() as d:
-            for i,(f,t) in enumerate([(case(n),None) for n in IDS]+[trap(False),trap(True)]):
+            # Finite-vs-original baseline parity remains exercised in
+            # test_finite_leg_lookup; do not solve that same baseline again.
+            fixtures=[(case(n),None,case(n)['expected']) for n in IDS]+[
+                (*trap(False),dict(status='attained_optimum',key=['20','0',1,[['b','S']]])),
+                (*trap(True),dict(status='attained_optimum',key=['13','1',1,[['b','CS']]]))]
+            for i,(f,t,expected) in enumerate(fixtures):
                 if t is None:t=tiny_table(f)[0]
-                old=_solve(t,f['physics'],f['upper_witness'],None,8,False,finite_lookup=True)
                 path=Path(d)/str(i)
                 with patch.object(Engine,'check',checked),patch.object(z3.Solver,'sexpr',side_effect=AssertionError('recursive audit forbidden')),patch.object(z3.Optimize,'sexpr',side_effect=AssertionError('recursive audit forbidden')),patch('z3.parse_smt2_file',side_effect=AssertionError('no parsed transport')),patch('z3.parse_smt2_string',side_effect=AssertionError('no parsed transport')):
                     new=_solve(t,f['physics'],f['upper_witness'],path,8,False,finite_lookup=True,dag_audit=True)
-                self.assertEqual(semantics(new),semantics(old));self.assertNotIn('unknown',new['status'])
+                self.assertEqual(semantics(new),expected);self.assertNotIn('unknown',new['status'])
                 for row in json.loads((path/'checks.json').read_text()):
                     p=path/row['file'];meta=verify_export(p)
                     self.assertEqual(meta['payload_sha256'],row['expected_payload_sha256'])
