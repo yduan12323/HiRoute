@@ -50,14 +50,17 @@ class FiniteLookupTests(unittest.TestCase):
         self.assertEqual(m.lookup.resolve(m.ground_trace,f['upper_witness']['plan'])['stop_count'],3)
 
     def test_all_exact_fixture_outcomes_and_strict_support_traps(self):
-        fixtures=[(case(name),None) for name in IDS]+[trap(False),trap(True)]
-        for f,t in fixtures:
+        # Shared-array outcomes and seven-definition preservation are checked
+        # independently in test_exact_physical_adapter. Compare both modes to
+        # the same analytic expectations rather than repeat the shared solves.
+        fixtures=[(case(name),None,case(name)['expected']) for name in IDS]+[
+            (*trap(False),dict(status='attained_optimum',key=['20','0',1,[['b','S']]])),
+            (*trap(True),dict(status='attained_optimum',key=['13','1',1,[['b','CS']]]))]
+        for f,t,expected in fixtures:
             if t is None:t=tiny_table(f)[0]
-            old=_solve(t,f['physics'],f['upper_witness'],None,8,False)
             new=_solve(t,f['physics'],f['upper_witness'],None,8,False,finite_lookup=True)
-            self.assertEqual(semantics(old),semantics(new))
+            self.assertEqual(semantics(new),expected)
             self.assertNotIn('unknown',new['status'])
-            if 'expected' in f:self.assertEqual(semantics(new),f['expected'])
 
     def test_distinct_source_target_spaces_and_owned_trace_rejection(self):
         f=case('directed_unreachable');a=tiny_table(f)[0];b=tiny_table(f)[0]

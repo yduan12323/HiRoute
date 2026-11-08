@@ -20,14 +20,17 @@ commands=[
 # Keep the existing per-child and cumulative caps. Split the expanded tiny suite
 # into sequential groups; an exhausted budget still stops the job, never skips.
 groups=(
-    ('tests.test_exact_physical_adapter',),
-    ('tests.test_grounded_lookup_consumer','tests.test_dag_formula_export'),
+    # Consolidate light modules, preserving every test in both modes. Fewer
+    # processes remove repeated interpreter setup and per-child accounting
+    # overhead; limits and conservative admission remain unchanged.
+    ('tests.test_grounded_lookup_consumer','tests.test_dag_formula_export',
+     'tests.test_import_strict_candidate','tests.test_candidate_finalization',
+     'tests.test_shared_leg_pilot'),
     ('tests.test_finite_leg_lookup','tests.test_folded_lookup','tests.test_cached_dag_audit'),
     ('tests.test_dag_audit_path',),
-    ('tests.test_incumbent_model_certificate',),
     ('tests.test_strict_bound_decision','tests.test_strict_bound_witness','tests.test_strict_witness_integration'),
-    ('tests.test_import_strict_candidate','tests.test_candidate_finalization'),
-    ('tests.test_shared_leg_pilot',),
+    ('tests.test_incumbent_model_certificate',),
+    ('tests.test_exact_physical_adapter',),
 )
 for flags in ([],['-OO']):
     for group in groups:commands.append([str(python),*flags,'-m','unittest',*group])

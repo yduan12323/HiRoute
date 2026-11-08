@@ -86,6 +86,29 @@ The fixture now uses exactly representable mocked clock values, avoiding
 floating-point cancellation at the boundary. Production deadlines are unchanged;
 both failed receipts remain preserved, and runtime fit still requires passing CI.
 
+
+The reviewed publication head passed all four PR checks before merge. Its physical
+CI completed all 18 slots at 152.381247 inclusive reserved CPU seconds. Post-merge
+run 42452363488 on the identical tree exhausted admission at 171.814933 seconds:
+13 slots passed, five remained UNRUN. The higher-CPU-cost admission failure is preserved.
+A further test-only deduplication retains every finite-mode fixture solve and
+checks its analytic expectation; the independently retained shared-array sweep
+and both support traps check the same expectations, preserving transitive parity.
+No cap, production code, fixture or target-mode assertion is removed. Passing
+within the envelope is not assumed from this change and requires new exact-head CI.
+
+
+The follow-up run 42453164512 passed 16 of 18 command slots but could not admit
+the next 16 CPU-second reservation: 166.311873 inclusive CPU seconds were already
+charged/reserved. Both remaining slots stayed UNRUN. All failures are retained.
+The next packaging revision combines three light module groups per mode, retaining
+all modules, tests and actual mode solves while removing four interpreter launches
+and their per-child accounting overhead. Normal and -OO both remain, with unchanged
+15 CPU child caps, 16 CPU reservations and 180 CPU total. Larger groups are ordered
+last to reduce unused final-reservation space, not to claim lower computation.
+The denominator becomes 14 commands; successful fit and cross-module isolation
+still require exact-head CI and are not guaranteed by this packaging change.
+
 ## Taskbook gaps and next decision
 
 M5-D is not completed by this result. Remaining gaps include:
