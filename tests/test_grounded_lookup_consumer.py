@@ -133,7 +133,8 @@ class ConsumerTests(unittest.TestCase):
     def test_deadline_prevents_phase_entry_and_records_interruption(self):
         with tempfile.TemporaryDirectory() as d:
             clock=c.Clock(Path(d))
-            with patch.object(c.time,'monotonic',return_value=clock.start+120),self.assertRaises(TimeoutError):clock.remaining()
+            # Use exactly representable values for the exact deadline boundary.
+            with patch.object(clock,'start',1000.0),patch.object(c.time,'monotonic',return_value=1120.0),self.assertRaises(TimeoutError):clock.remaining()
             with self.assertRaises(TimeoutError):
                 with clock.phase('load'):
                     clock.start-=121

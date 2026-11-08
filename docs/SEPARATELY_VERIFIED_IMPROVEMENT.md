@@ -80,6 +80,11 @@ already covered by finite-vs-original tests, while retaining every actual
 DAG-audit/certificate solve, fixture, analytic expectation and path assertion.
 Imported TestCase rediscovery is removed; its original test module stays selected.
 No failed run is called successful and no research/resource limit is increased.
+The next run, 42450975980, stopped on an exact-deadline fixture assertion
+(78.889895 inclusive reserved CPU seconds), before the deduplicated sweeps.
+The fixture now uses exactly representable mocked clock values, avoiding
+floating-point cancellation at the boundary. Production deadlines are unchanged;
+both failed receipts remain preserved, and runtime fit still requires passing CI.
 
 ## Taskbook gaps and next decision
 
