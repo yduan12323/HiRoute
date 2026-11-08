@@ -16,10 +16,21 @@ commands=[
     [str(python),'-m','pip','--isolated','--disable-pip-version-check','install',
      '--index-url','https://pypi.org/simple','--require-hashes','--only-binary=:all:',
      '--no-deps','--no-cache-dir','-r',str(ROOT/'comparison/requirements.txt')],
-    [str(python),'-m','unittest','discover','-s','tests','-p','test_exact_physical_adapter.py'],
-    [str(python),'-OO','-m','unittest','discover','-s','tests','-p','test_exact_physical_adapter.py'],
-    [str(python),'-m','unittest','discover','-s','tests','-p','test_shared_leg_pilot.py'],
-    [str(python),'-OO','-m','unittest','discover','-s','tests','-p','test_shared_leg_pilot.py']]
+]
+# Keep the existing per-child and cumulative caps. Split the expanded tiny suite
+# into sequential groups; an exhausted budget still stops the job, never skips.
+groups=(
+    ('tests.test_exact_physical_adapter',),
+    ('tests.test_grounded_lookup_consumer','tests.test_dag_formula_export'),
+    ('tests.test_finite_leg_lookup','tests.test_folded_lookup','tests.test_cached_dag_audit'),
+    ('tests.test_dag_audit_path',),
+    ('tests.test_incumbent_model_certificate',),
+    ('tests.test_strict_bound_decision','tests.test_strict_bound_witness','tests.test_strict_witness_integration'),
+    ('tests.test_import_strict_candidate','tests.test_candidate_finalization'),
+    ('tests.test_shared_leg_pilot',),
+)
+for flags in ([],['-OO']):
+    for group in groups:commands.append([str(python),*flags,'-m','unittest',*group])
 records=[dict(command=i,argv=a,state='unrun') for i,a in enumerate(commands)]
 env={k:v for k,v in os.environ.items() if k in ('PATH','TMPDIR','LANG','LC_ALL')}
 env.update(PYTHONNOUSERSITE='1',PYTHONDONTWRITEBYTECODE='1',OMP_NUM_THREADS='1',

@@ -1,5 +1,9 @@
 # Current research status
 
+## Independent comparator checkpoint — 2026-11-08
+
+A [separately verified five-stop improvement](SEPARATELY_VERIFIED_IMPROVEMENT.md) completed on the full frozen N64/H20 common-leg domain. It improves the primary objective by 1.50236%, with no optimality or speedup claim. Its 74.860s verification and all earlier failures are accounted separately; both earlier UNKNOWN records remain unchanged. Full taskbook completion and holdout remain open. This checkpoint supplements, rather than replaces, the historical production comparisons below.
+
 ## Current delivery checkpoint — 2026-10-17 23:17 UTC
 
 **M5D_LIMITED_BY_DATA_OR_SCALE; local evidence consolidated, public delivery pending.** The [stable report](MILESTONE_5D_REPORT.md#current-coverage-and-delivery-checkpoint) separates completed taskbook evidence, empirical limitations and remaining delivery work. This checkpoint supersedes progress statements in dated entries below, without changing their historical evidence.

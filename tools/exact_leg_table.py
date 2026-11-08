@@ -241,6 +241,9 @@ class GroundedLookup:
             self.C=z3.Store(self.C,rank,effect in ('C','CS'))
             self.S=z3.Store(self.S,rank,effect in ('S','CS'))
 
+    def _select(self,array,index):
+        return self.z3.Select(array,index)
+
     def at(self,source,target):
         z=self.z3
         for value in (source,target):
@@ -248,8 +251,8 @@ class GroundedLookup:
             if not isinstance(value,z.ArithRef) or value.sort().kind()!=z.Z3_INT_SORT:
                 raise TypeError('lookup indices must be integers, never bool/real/coerced values')
         key=source*self.width+target
-        guard=z.And(source>=0,source<len(self.source_index),target>=0,target<self.width,z.Select(self.R,key))
-        return GroundedLeg(guard,z.Select(self.T,key),z.Select(self.L,key))
+        guard=z.And(source>=0,source<len(self.source_index),target>=0,target<self.width,self._select(self.R,key))
+        return GroundedLeg(guard,self._select(self.T,key),self._select(self.L,key))
 
     def trace(self,depth,remaining_activity,prefix='input',check=None):
         z=self.z3
@@ -259,15 +262,15 @@ class GroundedLookup:
         previous=z.IntVal(self.source_index[self.table.origin_anchor]);pending=z.BoolVal(bool(remaining_activity))
         for i,choice in enumerate(choices):
             if check is not None:check()
-            active=choice>0;effect_service=z.Select(self.S,choice)
+            active=choice>0;effect_service=self._select(self.S,choice)
             constraints.extend((choice>=0,choice<=len(self.actions),z.Implies(effect_service,pending)))
             if i:constraints.append(z.Implies(choices[i-1]==0,choice==0))
-            leg=self.at(previous,z.Select(self.AT,choice));constraints.append(z.Implies(active,leg.guard))
+            leg=self.at(previous,self._select(self.AT,choice));constraints.append(z.Implies(active,leg.guard))
             legs.append(GroundedLeg(z.Implies(active,leg.guard),z.If(active,leg.time,0),z.If(active,leg.length,0)))
-            charging.append(z.Select(self.C,choice));service.append(effect_service)
+            charging.append(self._select(self.C,choice));service.append(effect_service)
             pending=z.And(pending,z.Not(effect_service))
             # Source and target index spaces differ; never reuse AT as AS.
-            previous=z.If(active,z.Select(self.AS,choice),previous)
+            previous=z.If(active,self._select(self.AS,choice),previous)
         terminal=self.at(previous,self.target_index[self.table.destination_anchor])
         constraints.extend((z.Not(pending),terminal.guard))
         H=z.Sum([z.If(c>0,1,0) for c in choices]) if choices else z.IntVal(0)

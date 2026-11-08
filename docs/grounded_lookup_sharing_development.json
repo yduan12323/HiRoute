@@ -1,0 +1,20 @@
+{
+  "state": "development_verified_real_query_not_admitted",
+  "stage_cap_CPU_s": 600,
+  "stage_charged_CPU_s": "51.940731001",
+  "research_total_CPU_s": "18281.723465744",
+  "remaining_research_CPU_s": "10518.276534256",
+  "prior_optimization_status": "UNKNOWN_NO_TERMINAL_RECEIPT",
+  "real_queries_started": 0,
+  "holdout": false,
+  "final_tests": {
+    "normal": 61,
+    "optimized": 61
+  },
+  "failures_preserved": [
+    "controller import psutil missing before admission",
+    "three test-module imports failed: old temporary venv missing pyvenv.cfg"
+  ],
+  "independent_review": "pending_final_diff",
+  "note": "Includes conservative setup/failure charges and fixed 10 CPU-second setup/report charge; phase telemetry is not budget accounting."
+}
