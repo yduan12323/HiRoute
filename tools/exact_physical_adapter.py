@@ -4,7 +4,8 @@ No production optimizer is imported. Optimality is conditional on this declared
 input table; schema validation does not certify road selection. Finite selectors
 are shared by a closure point and a strict-support point in each affine fiber.
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
+from contextlib import contextmanager
 from fractions import Fraction as F
 import hashlib
 import json
@@ -139,9 +140,35 @@ def table_relevant_depth(table,parameters,witness):
 
 
 class Encoding:
-    def __init__(self,table,parameters,depth,upper,check=lambda:None):
+    def __init__(self,table,parameters,depth,upper,check=lambda:None,share_lookup=True,finite_lookup=False):
         self.p=validate(table,parameters);self.lookup=GroundedLookup(table,check)
         self.trace=self.lookup.trace(depth,self.p.pending,prefix='physical_action',check=check)
+        # Keep the original expression trace for solver-free grounding/replay.
+        self.ground_trace=self.trace
+        self.lookup_definitions=()
+        if finite_lookup:
+            from finite_leg_lookup import FiniteGroundedLookup
+            self.finite_lookup=FiniteGroundedLookup(self.lookup,check)
+            finite=self.finite_lookup.trace(depth,self.p.pending,prefix='finite_action',check=check)
+            bindings=tuple(zip(finite.choices,self.ground_trace.choices))
+            def subst(e):return z3.substitute(e,*bindings) if bindings else e
+            def leg(e):return replace(e,guard=subst(e.guard),time=subst(e.time),length=subst(e.length))
+            self.trace=replace(finite,choices=self.ground_trace.choices,
+                constraints=tuple(subst(e) for e in finite.constraints),
+                legs=tuple(leg(e) for e in finite.legs),terminal=leg(finite.terminal),
+                charging=tuple(subst(e) for e in finite.charging),service=tuple(subst(e) for e in finite.service),
+                stop_count=subst(finite.stop_count))
+        elif share_lookup:
+            originals=tuple(getattr(self.lookup,k) for k in ('T','L','R','AS','AT','C','S'))
+            names=tuple(z3.FreshConst(a.sort(),'leg_'+k) for k,a in zip(('T','L','R','AS','AT','C','S'),originals))
+            bindings=tuple(zip(originals,names))
+            def shared(e):return z3.substitute(e,*bindings)
+            def leg(e):return replace(e,guard=shared(e.guard),time=shared(e.time),length=shared(e.length))
+            self.lookup_definitions=tuple(n==a for n,a in zip(names,originals))
+            self.trace=replace(self.trace,
+                constraints=self.lookup_definitions+tuple(shared(e) for e in self.trace.constraints),
+                legs=tuple(leg(e) for e in self.trace.legs),terminal=leg(self.trace.terminal),
+                charging=tuple(shared(e) for e in self.trace.charging),service=tuple(shared(e) for e in self.trace.service))
         self.choices=self.trace.choices;self.actions=self.lookup.actions;self.H=self.trace.stop_count
         self.G=list(self.trace.constraints);self.active=[c>0 for c in self.choices]
         self.charging=self.trace.charging;self.service=self.trace.service;self.upper=q(upper)
@@ -161,11 +188,12 @@ class Encoding:
 
     def state_copy(self,check=lambda:None):
         t0,e0,B,floor,reserve,h,penalty,rate=self.p.values
-        wait=z3.FreshReal('initial_wait');P=[wait>=0];strict=[];qs=[];energy,time=real(e0),real(t0)+wait
+        wait=z3.FreshReal('initial_wait');P=[wait>=0];strict=[];qs=[];state_symbols=[];energy,time=real(e0),real(t0)+wait
         for i,leg in enumerate(self.trace.legs):
             check();active,C,S=self.active[i],self.charging[i],self.service[i]
             incoming,arrival=energy-real(rate)*leg.length,time+leg.time
             out,finish=z3.FreshReal('energy'),z3.FreshReal('time')
+            state_symbols.append((out,finish))
             P.extend((z3.Implies(z3.Not(active),z3.And(out==energy,finish==time)),
                 z3.Implies(active,z3.And(incoming>=real(floor),incoming<=real(B),out>=real(floor),out<=real(B))),
                 z3.Implies(z3.And(active,z3.Not(C)),out==incoming),z3.Implies(C,out>=incoming)))
@@ -186,38 +214,123 @@ class Encoding:
             energy,time=out,finish
         terminal=self.trace.terminal;P.append(energy-real(rate)*terminal.length>=real(reserve))
         J=time+terminal.time-real(t0)+real(penalty)*self.H;P.append(J<=real(self.upper))
-        return dict(P=P,strict=strict,J=J,Q=total(qs),qs=qs,wait=wait)
+        return dict(P=P,strict=strict,J=J,Q=total(qs),qs=qs,wait=wait,state_symbols=tuple(state_symbols),encoding_owner=self)
 
 
 class Engine:
-    def __init__(self,deadline,audit_dir=None,max_check_ms=2000):
+    def __init__(self,deadline,audit_dir=None,max_check_ms=2000,dag_audit=False):
         if type(max_check_ms) is not int or not 0<max_check_ms<=120000:raise ValueError('bounded per-check timeout')
+        self.dag_audit=dag_audit
+        if dag_audit:
+            from dag_formula_export import AssertionDAGCache
+            self.audit_cache=AssertionDAGCache()
+        if dag_audit and audit_dir is None:raise Unknown('DAG audit requires a persistent output directory')
         self.max_check_ms=max_check_ms
-        self.deadline=deadline;self.audit=[];self.directory=None if audit_dir is None else Path(audit_dir)
+        self.deadline=deadline;self.audit=[];self.phases=[];self.directory=None if audit_dir is None else Path(audit_dir)
         if self.directory:self.directory.mkdir(parents=True,exist_ok=False)
     def remaining(self):
         remain=self.deadline-time.monotonic()
         if remain<=0:raise Unknown('query deadline; no infeasibility/optimality conclusion')
         return max(1,min(self.max_check_ms,int(remain*1000)))
-    def check(self,solver,kind):
-        solver.set(timeout=self.remaining());text=solver.sexpr()
-        item=dict(kind=kind,status='started',sha256=hashlib.sha256(text.encode()).hexdigest())
-        self.audit.append(item)
-        if self.directory:
-            (self.directory/f'{len(self.audit):04}-{kind}.smt2').write_text(text+'\n(check-sat)\n')
-            atomic(self.directory/'checks.json',self.audit)
-        result=solver.check();item.update(status='completed',result=str(result))
+    @staticmethod
+    def memory_sample():
+        """Observational process RSS only; never modifies external guards."""
+        try:
+            import psutil
+            return dict(process_RSS_bytes=psutil.Process().memory_info().rss)
+        except Exception:
+            # Telemetry must not change the mathematical or guard outcome.
+            return dict(process_RSS_bytes=None)
+
+    @contextmanager
+    def phase(self,name):
+        wall,cpu=time.monotonic(),time.process_time()
+        item=dict(name=name,status='started',memory_start=self.memory_sample());self.phases.append(item)
+        if self.directory:atomic(self.directory/'phases.json',self.phases)
+        try:
+            yield
+        except BaseException:
+            item['status']='interrupted'
+            raise
+        else:item['status']='completed'
+        finally:
+            item.update(elapsed_wall_s=time.monotonic()-wall,process_CPU_s=time.process_time()-cpu,
+                        memory_end=self.memory_sample())
+            if self.directory:atomic(self.directory/'phases.json',self.phases)
+
+    def check(self,solver,kind,objectives=()):
+        if self.dag_audit:return self.check_dag(solver,kind,objectives)
+        self.remaining()
+        with self.phase(kind+':serialize'):
+            text=solver.sexpr()
+        with self.phase(kind+':audit-write'):
+            item=dict(kind=kind,status='started',sha256=hashlib.sha256(text.encode()).hexdigest())
+            self.audit.append(item)
+            if self.directory:
+                (self.directory/f'{len(self.audit):04}-{kind}.smt2').write_text(text+'\n(check-sat)\n')
+                atomic(self.directory/'checks.json',self.audit)
+        del text
+        with self.phase(kind+':solver-check'):
+            # Serialization and audit I/O consume the same end-to-end deadline.
+            timeout=self.remaining()
+            item['effective_solver_timeout_ms']=timeout
+            solver.set(timeout=timeout)
+            result=solver.check()
+        item.update(status='completed',result=str(result))
         if result==z3.unknown:item['reason']=solver.reason_unknown()
         if self.directory:atomic(self.directory/'checks.json',self.audit)
         if result==z3.unknown:raise Unknown(item['reason'])
-        self.remaining()  # Includes solver return/audit time on every terminal proof path.
+        self.remaining()
         return result
+    def check_dag(self,solver,kind,objectives=()):
+        """Audit live assertions/objectives; never parse or replace the formula."""
+        from dag_formula_export import export_dag,verify_export
+        self.remaining()
+        item=dict(kind=kind,status='preparing',audit_format='typed-dag-v1',
+                  objective_count=len(objectives))
+        self.audit.append(item)
+        path=self.directory/f'{len(self.audit):04}.dag.smt2'
+        try:
+            atomic(self.directory/'checks.json',self.audit)
+            with self.phase(kind+':dag-export'):
+                metadata=self.audit_cache.export(list(solver.assertions()),path,self.remaining,objectives=objectives)
+            with self.phase(kind+':dag-verification'):
+                item.update(expected_payload_sha256=metadata['payload_sha256'],bytes=metadata['bytes'],file=path.name,cache_hit=metadata['cache_hit'])
+                atomic(self.directory/'checks.json',self.audit)
+                verified=verify_export(path,self.remaining)
+                if verified['payload_sha256']!=item['expected_payload_sha256'] or verified['bytes']!=item['bytes']:
+                    raise Unknown('DAG audit payload mismatch')
+                digest=hashlib.sha256()
+                with path.open('rb') as stream:
+                    for block in iter(lambda:stream.read(1024*1024),b''):
+                        self.remaining();digest.update(block)
+                item['sha256']=digest.hexdigest()
+            with self.phase(kind+':solver-check'):
+                timeout=self.remaining();solver.set(timeout=timeout)
+                item.update(status='started',effective_solver_timeout_ms=timeout)
+                atomic(self.directory/'checks.json',self.audit)
+                self.remaining()  # Receipt I/O is part of the same deadline.
+                result=solver.check()
+            item.update(status='completed',result=str(result))
+            if result==z3.unknown:item['reason']=solver.reason_unknown()
+            atomic(self.directory/'checks.json',self.audit)
+            if result==z3.unknown:raise Unknown(item['reason'])
+            self.remaining();return result
+        except (OSError,ValueError,TypeError,TimeoutError,z3.Z3Exception,Unknown) as exc:
+            if item['status']!='completed':item.update(status='failed',reason=str(exc))
+            try:atomic(self.directory/'checks.json',self.audit)
+            except OSError:pass
+            raise Unknown('DAG audit/check failed: '+str(exc)) from exc
+
     def feasible(self,constraints,kind):
-        solver=z3.Solver();solver.add(*constraints);result=self.check(solver,kind)
+        with self.phase(kind+':assertions'):
+            solver=z3.Solver();solver.add(*constraints)
+        result=self.check(solver,kind)
         return solver.model() if result==z3.sat else None
     def minimum(self,constraints,objective,kind):
-        solver=z3.Optimize();solver.add(*constraints);handle=solver.minimize(objective)
-        if self.check(solver,kind)!=z3.sat:raise Unknown('closed optimization lacks SAT result')
+        with self.phase(kind+':assertions'):
+            solver=z3.Optimize();solver.add(*constraints);handle=solver.minimize(objective)
+        if self.check(solver,kind,objectives=(objective,))!=z3.sat:raise Unknown('closed optimization lacks SAT result')
         lower,upper=fraction(handle.lower()),fraction(handle.upper())
         if lower!=upper:raise Unknown('optimization bounds not certified tight')
         if self.feasible([*constraints,objective<real(lower)],kind+'-better') is not None:
@@ -238,23 +351,38 @@ def solve_real(table,parameters,upper_witness=None,audit_dir=None,time_limit_s=1
     return _solve(table,parameters,upper_witness,audit_dir,time_limit_s,True)
 
 
-def _solve(table,parameters,upper_witness,audit_dir,time_limit_s,table_depth):
-    start=time.monotonic();p=validate(table,parameters)
+def _solve(table,parameters,upper_witness,audit_dir,time_limit_s,table_depth,share_lookup=True,finite_lookup=False,dag_audit=False,incumbent_certificate=False):
+    start=time.monotonic();cpu_start=time.process_time();p=validate(table,parameters)
     if upper_witness is None:return dict(status='unknown_no_attained_bound',reason='no seed is not infeasibility')
     depth,seed=(table_relevant_depth if table_depth else relevant_depth)(table,parameters,upper_witness)
-    engine=Engine(start+time_limit_s,audit_dir,120000 if table_depth else 2000)
+    validated_wall,validated_cpu=time.monotonic()-start,time.process_time()-cpu_start
+    engine=Engine(start+time_limit_s,audit_dir,120000 if table_depth else 2000,dag_audit=dag_audit)
+    # The caller's on-disk loading remains outside this already-loaded-table API.
+    engine.phases.append(dict(name='parameters-upper-and-depth-validation',status='completed',
+        elapsed_wall_s=validated_wall,process_CPU_s=validated_cpu))
     metadata=dict(upper_key=seed['key'],upper_witness_independently_replayed=True,derived_depth=depth,
         depth_contract=('complete floor((U_J-T_OD-pending*D)/(h+lambda)); validated table triangle proof'
                         if table_depth else 'complete floor(U_J/(h+lambda)); no H/N or prototype slot cap'),
         solver_check_timeout_cap_ms=engine.max_check_ms,
         table_sha256=table.payload_sha256,physics_sha256=p.sha256,charging_pieces=len(p.curve),
         road_selection_certified=False,scope='Exact optimum/infimum conditional on the supplied leg table and physical contract',
-        continuous_copies=2,explicit_plan_enumerations=0,checks=engine.audit,external_solver='Z3 '+z3.get_version_string())
+        continuous_copies=2,explicit_plan_enumerations=0,checks=engine.audit,phases=engine.phases,external_solver='Z3 '+z3.get_version_string())
     try:
-        m=Encoding(table,parameters,depth,seed['key'][0],engine.remaining)
-        x,y=m.state_copy(engine.remaining),m.state_copy(engine.remaining)
+        with engine.phase('lookup-and-physical-construction'):
+            m=Encoding(table,parameters,depth,seed['key'][0],engine.remaining,share_lookup=share_lookup,finite_lookup=finite_lookup)
+        with engine.phase('continuous-state-construction'):
+            x,y=m.state_copy(engine.remaining),m.state_copy(engine.remaining)
         base=m.G+x['P']+y['P']+y['strict'];metadata.update(constraints=len(base),selector_count=4*depth)
-        if engine.feasible(base,'supported-disjunction') is None:raise Unknown('replayed attained bound missing from model')
+        if incumbent_certificate:
+            from incumbent_model_certificate import certify
+            try:
+                with engine.phase('exact-incumbent-model-certificate'):
+                    certificate=certify(m,x,y,table,parameters,upper_witness,base,engine.remaining)
+                    if engine.directory:atomic(engine.directory/'incumbent-certificate.json',certificate)
+                metadata['incumbent_certificate']=certificate
+            except (ValueError,TypeError,KeyError,TimeoutError,OSError) as exc:
+                raise Unknown('incumbent certificate rejected: '+str(exc)) from exc
+        elif engine.feasible(base,'supported-disjunction') is None:raise Unknown('replayed attained bound missing from model')
         j=engine.minimum(base,x['J'],'supported-J')
         actual=m.G+x['P']+x['strict']+[x['J']==real(j)]
         if engine.feasible(actual,'primary-attainment') is None:
@@ -277,7 +405,9 @@ def _solve(table,parameters,upper_witness,audit_dir,time_limit_s,table_depth):
         if model is None:raise Unknown('jointly attained face lost')
         plan=tuple(m.actions[model.eval(m.choices[i]).as_long()-1] for i in range(int(H)))
         charges=[fraction(model.eval(x['qs'][i],model_completion=True)) for i,(_,effect) in enumerate(plan) if effect in ('C','CS')]
-        wait=fraction(model.eval(x['wait'],model_completion=True));checked=replay(table,parameters,plan,charges,wait)
+        wait=fraction(model.eval(x['wait'],model_completion=True))
+        with engine.phase('returned-plan-replay'):
+            checked=replay(table,parameters,plan,charges,wait)
         if checked['key']!=(j,Q,int(H),plan):raise Unknown('concrete exact replay disagrees with full K')
         engine.remaining()
         return dict(status='attained_optimum',key=checked['key'],witness=dict(plan=plan,charges=charges,initial_wait=wait),

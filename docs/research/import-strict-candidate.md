@@ -1,0 +1,7 @@
+# Separate candidate verification
+
+No solver, optimizer, tactic or SMT parser is used. This development API cannot revise the original run status: successful output is labeled SEPARATE_POST_RUN_VERIFICATION and retains original UNKNOWN and original_run_completed_in_budget=false.
+
+A new admission must bind the verifier's clean source, original consumer source/input provenance, sealed admission, candidate and audit full hashes, and audit completion payload hash. The helper verifies these before any assignment claim. Typed symbol matching uses proposed fresh-name groups only as a pairing proposal. It regenerates the complete original bound formula with those names and requires byte-identical DAG audit hash and payload hash. A mismatch fails closed; no heuristic mapping is accepted without this exact equality.
+
+Canonical typed bindings must be complete and unique. The original incumbent is independently replayed and bound to b and the rebuilt model's upper. The existing verifier then exactly evaluates every original assertion and strict bound, verifies midpoint/support assumptions and mixed assertions, and independently replays strict improvement. Output is separate, exclusive and conditional on successful new verification terminal/accounting. Original evidence is read-only. Reconstruction, export, evaluation, replay and publication all require the new stage's bounded callback and external guards. No full-size candidate was evaluated during development.

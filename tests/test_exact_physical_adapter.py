@@ -246,4 +246,82 @@ class PhysicalTests(unittest.TestCase):
         finally:sys.meta_path.remove(block)
 
 
+
+
+class LookupSharingTests(unittest.TestCase):
+    def test_definitions_expand_to_original_trace_and_grounding_survives(self):
+        for name in IDS:
+            f=case(name);t,_,_=tiny_table(f)
+            h,u=relevant_depth(t,f['physics'],f['upper_witness'])
+            m=Encoding(t,f['physics'],h,u['key'][0])
+            self.assertEqual(len(m.lookup_definitions),7)
+            reverse=tuple((e.arg(0),e.arg(1)) for e in m.lookup_definitions)
+            def equal(a,b):
+                self.assertTrue(z3.is_true(z3.simplify(z3.substitute(a,*reverse)==b)))
+            for a,b in zip(m.trace.constraints[7:],m.ground_trace.constraints):equal(a,b)
+            for a,b in zip((*m.trace.legs,m.trace.terminal),(*m.ground_trace.legs,m.ground_trace.terminal)):
+                for key in ('guard','time','length'):equal(getattr(a,key),getattr(b,key))
+            for key in ('charging','service'):
+                for a,b in zip(getattr(m.trace,key),getattr(m.ground_trace,key)):equal(a,b)
+            self.assertTrue(all(any(z3.eq(d,g) for g in m.G) for d in m.lookup_definitions))
+            plan=f['upper_witness']['plan']
+            self.assertEqual(m.lookup.resolve(m.ground_trace,plan)['plan'],tuple(tuple(a) for a in plan))
+
+    def test_all_tiny_statuses_keys_and_all_queries_retain_definitions(self):
+        from exact_physical_adapter import _solve
+        original_feasible,original_minimum=Engine.feasible,Engine.minimum
+        seen=[]
+        def verify(constraints):
+            defs=[c for c in constraints if z3.is_eq(c) and c.arg(0).sort().kind()==z3.Z3_ARRAY_SORT]
+            self.assertEqual(len(defs),7)
+            self.assertEqual(len({str(d.arg(0)) for d in defs}),7)
+            seen.append(True)
+        def feasible(engine,constraints,kind):
+            verify(constraints);return original_feasible(engine,constraints,kind)
+        def minimum(engine,constraints,objective,kind):
+            verify(constraints);return original_minimum(engine,constraints,objective,kind)
+        for name in IDS:
+            with self.subTest(name=name):
+                f=case(name);t,_,_=tiny_table(f)
+                old=_solve(t,f['physics'],f['upper_witness'],None,8,False,share_lookup=False)
+                with patch.object(Engine,'feasible',feasible),patch.object(Engine,'minimum',minimum):
+                    new=_solve(t,f['physics'],f['upper_witness'],None,8,False)
+                self.assertEqual(semantics(new),semantics(old))
+                self.assertEqual(semantics(new),f['expected'])
+        self.assertTrue(seen)
+
+    def test_fresh_names_do_not_couple_distinct_tables(self):
+        f=case('empty_prefix_terminal');a,_,_=tiny_table(f)
+        g=case('directed_unreachable');b,_,_=tiny_table(g)
+        x=Encoding(a,f['physics'],0,100);y=Encoding(b,g['physics'],0,100)
+        self.assertTrue(set(str(d.arg(0)) for d in x.lookup_definitions).isdisjoint(
+            str(d.arg(0)) for d in y.lookup_definitions))
+        solver=z3.Solver();solver.set(timeout=1000)
+        solver.add(*(x.lookup_definitions+y.lookup_definitions))
+        self.assertEqual(solver.check(),z3.sat)
+        with patch('z3.Solver',side_effect=AssertionError('grounding must not solve')):
+            self.assertEqual(x.lookup.resolve(x.ground_trace,[])['plan'],())
+
+    def test_phase_audit_and_timeout_refresh_after_serialization(self):
+        from unittest.mock import MagicMock
+        with tempfile.TemporaryDirectory() as directory:
+            engine=Engine(time.monotonic()+5,Path(directory)/'audit')
+            solver=MagicMock();solver.sexpr.return_value='(assert true)';solver.check.return_value=z3.sat
+            remaining=iter((500,200,100))
+            with patch.object(engine,'remaining',side_effect=lambda:next(remaining)):
+                self.assertEqual(engine.check(solver,'test'),z3.sat)
+            solver.set.assert_called_once_with(timeout=200)
+            phases=json.loads((Path(directory)/'audit/phases.json').read_text())
+            self.assertEqual([p['name'] for p in phases],['test:serialize','test:audit-write','test:solver-check'])
+            self.assertTrue(all(p['status']=='completed' and p['process_CPU_s']>=0 for p in phases))
+
+    def test_deadline_after_serialization_does_not_enter_solver(self):
+        from unittest.mock import MagicMock
+        engine=Engine(time.monotonic()+5);solver=MagicMock();solver.sexpr.return_value=''
+        with patch.object(engine,'remaining',side_effect=[100,Unknown('deadline')]):
+            with self.assertRaises(Unknown):engine.check(solver,'deadline')
+        solver.check.assert_not_called()
+        self.assertEqual(engine.phases[-1]['status'],'interrupted')
+
+
 if __name__=='__main__':unittest.main()

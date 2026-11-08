@@ -4,6 +4,8 @@ HiRoute is a Python package for exact bounded electric-vehicle stop-planning on
 explicit directed road graphs. The current runnable core is `hiroute`; it does
 not require the legacy experiment packages or the optional REF implementation.
 
+Latest independent-comparator checkpoint: [separately verified feasible improvement](docs/SEPARATELY_VERIFIED_IMPROVEMENT.md), with explicit timing, costs and unresolved optimality limits.
+
 ## Current capabilities
 
 | Area | Current support |
