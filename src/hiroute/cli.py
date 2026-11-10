@@ -10,8 +10,6 @@ import tempfile
 import uuid
 
 from . import __version__
-from .exact.search import solve_snapshot as solve_native_snapshot
-from .exact.scalar import rational_text
 from .contracts import (ProblemSnapshot, SolverConfig, SolveResult, Witness, canonical_json, content_id)
 
 
@@ -91,6 +89,7 @@ def validate_native_support(snapshot: ProblemSnapshot, config: SolverConfig) -> 
 
 
 def _native_result(snapshot: ProblemSnapshot, config: SolverConfig, solved: dict, observer: str = "off") -> dict:
+    from .exact.scalar import rational_text
     status = solved["status"]
     if status in {"time_limit", "memory_limit"}:
         incumbent = solved.get("incumbent")
@@ -203,6 +202,7 @@ def _leg_dict(leg):
 
 
 def solve_command(args: argparse.Namespace) -> int:
+    from .exact.search import solve_snapshot as solve_native_snapshot
     snapshot_obj = _read_object(Path(args.problem))
     snapshot = ProblemSnapshot.from_dict(snapshot_obj)
     config = SolverConfig.from_dict(_read_object(Path(args.config)))
@@ -302,7 +302,39 @@ def parser() -> argparse.ArgumentParser:
     run.add_argument("--cwd")
     run.add_argument("argv", nargs=argparse.REMAINDER)
     run.set_defaults(run=run_command)
+    prepare = sub.add_parser('prepare', help='verify external inputs and freeze the effective N64 configuration')
+    prepare.add_argument('--config', required=True)
+    prepare.add_argument('--artifact-root', required=True)
+    prepare.add_argument('--manifest', required=True, help='external artifact manifest with path, role, bytes and SHA256')
+    prepare.add_argument('--output', required=True, help='new output directory')
+    prepare.add_argument('--check-only', action='store_true')
+    prepare.set_defaults(run=research_command)
+    benchmark = sub.add_parser('benchmark', help='start a fresh bounded N64 cohort from prepared inputs')
+    benchmark.add_argument('--prepared', required=True)
+    benchmark.add_argument('--output', required=True, help='new run directory; no historical resume')
+    benchmark.set_defaults(run=research_command)
+    summarize = sub.add_parser('summarize', help='verify and reduce closed run receipts without solving')
+    summarize.add_argument('--input', required=True)
+    summarize.add_argument('--output', required=True, help='new summary JSON file')
+    summarize.set_defaults(run=research_command)
     return p
+
+
+def research_command(args):
+    if args.command == 'summarize':
+        from .evaluation.report import summarize
+        result = summarize(args.input)
+        _atomic_new_file(Path(args.output), canonical_json(result))
+        print(json.dumps(dict(output=args.output, common_exact_pairs=result['common_exact_pairs'])))
+        return 0
+    from .execution.cohort import prepare, benchmark
+    if args.command == 'prepare':
+        result = prepare(args.config, args.artifact_root, args.manifest, args.output, check_only=args.check_only)
+        print(json.dumps(dict(output=args.output, verified=True, solver_called=False)))
+    else:
+        result = benchmark(args.prepared, args.output)
+        print(json.dumps(result))
+    return 0
 
 
 def main(argv: list[str] | None = None) -> int:

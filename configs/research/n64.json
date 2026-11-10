@@ -1,0 +1,17 @@
+{
+  "schema": "hiroute.research_run.v1",
+  "profile": "n64_dev",
+  "base_config": "../real_scale_dev.json",
+  "matrix": "../charging_coverage_dev_matrix.json",
+  "matrix_sha256": "963adb1615c1460710b261b698a65a13030b6253c501518037a3c5fd85f00adb",
+  "resources": {
+    "loaded_limit_s": 120,
+    "cold_allowance_s": 180,
+    "process_memory_bytes": 8589934592,
+    "stage_cpu_s": 12000,
+    "worker_reservation_cpu_s": 310,
+    "controller_reservation_cpu_s": 310,
+    "development_reporting_cpu_s": 300
+  },
+  "graph_sha256": "8076e850b096c5cf74f307ae7ad34c2aebd1f1e53c3c4d092234d40078a4c54d"
+}

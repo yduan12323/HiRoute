@@ -156,7 +156,7 @@ class PilotControlTests(unittest.TestCase):
                  patch.object(scale,'_resident_bytes',return_value=100), \
                  patch.object(scale_replay,'verify_scale_witness',side_effect=ValueError('bad physical replay')), \
                  patch.object(runtime,'system_mem_available_bytes',return_value=100000), \
-                 patch.object(pilot,'bind_snapshot',return_value=snapshot):
+                 patch('hiroute.execution.worker.bind_snapshot',return_value=snapshot):
                 with self.assertRaisesRegex(ValueError,'bad physical replay'):
                     pilot.worker(worker_args)
             self.assertIs(solve.call_args.kwargs['pending_activity_screen'],True)
