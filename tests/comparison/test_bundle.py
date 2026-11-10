@@ -81,6 +81,11 @@ def test_cli_requires_successful_new_terminal_and_retains_historical_unknown(tmp
     assert result.returncode == 75
     terminal = json.loads((tmp_path / 'timeout/terminal.json').read_text())
     assert terminal['status'] == 'UNKNOWN' and terminal['reason'] == 'time_limit'
+    command[command.index(str(tmp_path / 'timeout'))] = str(tmp_path / 'cpu-limit')
+    result = subprocess.run(command + ['--cpu-s', '0.001'], cwd=tmp_path, capture_output=True, timeout=10)
+    assert result.returncode == 75
+    terminal = json.loads((tmp_path / 'cpu-limit/terminal.json').read_text())
+    assert terminal['status'] == 'UNKNOWN' and terminal['reason'] == 'cpu_limit'
 
 
 def test_unsealed_required_file_and_truncated_assignment_are_rejected(tmp_path):

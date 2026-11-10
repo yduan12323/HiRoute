@@ -22,6 +22,7 @@ def write_new(path, value):
 
 def supervise(args):
     import psutil
+    import resource
     if any(type(v) not in (int, float) or not math.isfinite(v) or v <= 0 for v in (args.wall_s, args.cpu_s, args.memory_bytes)):
         raise ValueError('positive finite verification limits required')
     if args.host_headroom_bytes < 0:
@@ -31,6 +32,8 @@ def supervise(args):
     write_new(out / 'admission.json', dict(bundle=str(Path(args.bundle).resolve()), artifact_root=str(Path(args.artifact_root).resolve()),
         wall_s=args.wall_s, cpu_s=args.cpu_s, memory_bytes=args.memory_bytes, host_headroom_bytes=args.host_headroom_bytes))
     start = time.monotonic()
+    usage = resource.getrusage(resource.RUSAGE_CHILDREN)
+    before_cpu = usage.ru_utime + usage.ru_stime
     reason, child, peak_cpu, peak_rss = None, None, 0., 0
     code = None
     env = dict(os.environ, **{k: '1' for k in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMEXPR_NUM_THREADS')})
@@ -69,6 +72,10 @@ def supervise(args):
             try: os.killpg(child.pid, signal.SIGKILL)
             except ProcessLookupError: pass
             child.wait()
+    usage = resource.getrusage(resource.RUSAGE_CHILDREN)
+    measured_cpu = usage.ru_utime + usage.ru_stime - before_cpu
+    if reason is None and measured_cpu > args.cpu_s:
+        reason = 'cpu_limit'
     body = out / 'body-result.json'
     result = None
     try:
@@ -91,6 +98,7 @@ def supervise(args):
     terminal = dict(schema='hiroute.compare_terminal.v1', status='COMPLETE' if reason is None else 'UNKNOWN',
                     reason=reason, returncode=code, elapsed_s=time.monotonic() - start,
                     sampled_cpu_peak_s=peak_cpu, sampled_rss_peak_bytes=peak_rss,
+                    waited_child_cpu_s=measured_cpu,
                     body_sha256=sha(body) if body.is_file() else None, original_run_status='UNKNOWN',
                     original_run_completed_in_budget=False, optimality_certified=False,
                     scope='Independent feasible improvement; inspect body and witness receipts together')

@@ -43,7 +43,7 @@ def subgroup_summary(selected):
         supported_p95_completion_s=completion_interval_quantile(supported,.95) if supported else None)
 
 
-def summarize_rows(cells, raw, *, terminal=False):
+def summarize_rows(cells, raw, *, terminal=False, missing_status='not_attempted_stage_paused'):
     """Retain missing, failed and reused slots in the fixed 48/96 denominator."""
     if len(cells)!=48 or len({(c["query_id"],c["initial_energy_kwh"],c["scenario"],c["N"]) for c in cells})!=48:
         raise ValueError("N64 query denominator changed")
@@ -60,7 +60,7 @@ def summarize_rows(cells, raw, *, terminal=False):
             row=indexed.get(identity(stub))
             if row is None:
                 row={**stub,'status':'input_domain_unavailable' if c['input_status']!='available' else
-                     'not_attempted_stage_paused','mathematical_status':'unknown','execution':'not_attempted',
+                     missing_status,'mathematical_status':'unknown','execution':'not_attempted',
                      'stage_charged_cpu_s':0}
             rows.append(row)
     if len(rows)!=96:raise ValueError('denominator changed')

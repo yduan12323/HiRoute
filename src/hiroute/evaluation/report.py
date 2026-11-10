@@ -28,6 +28,7 @@ def summarize(input_root):
     if sorted(verified, key=key) != sorted(results['rows'], key=key):
         raise ValueError('aggregate differs from slot receipts')
     cells = [c for c in prepared['matrix']['cells'] if c['N'] == 64]
-    reduced = summarize_rows(cells, results['rows'], terminal=terminal['state'] != 'failed')
+    reduced = summarize_rows(cells, results['rows'], terminal=terminal['state'] != 'failed',
+                             missing_status='not_attempted_stage_failed')
     return dict(schema='hiroute.research_summary.v1', accounting=terminal, **reduced,
                 scope='Frozen N64 DEV; exact completion does not certify independent full-graph optimality')
