@@ -1,23 +1,12 @@
 name: Shandong charging data regressions
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - 'src/hiroute/data/charging_coverage.py'
-      - 'tools/*charging*coverage*.py'
-      - 'tools/audit_shandong_charging.py'
-      - 'tests/test_charging_coverage*.py'
-      - 'ci/charging-coverage-requirements.txt'
-      - '.github/workflows/shandong-charging-coverage.yml'
-  push:
-    branches: [main]
-    paths:
-      - 'src/hiroute/data/charging_coverage.py'
-      - 'tools/*charging*coverage*.py'
-      - 'tools/audit_shandong_charging.py'
-      - 'tests/test_charging_coverage*.py'
-      - 'ci/charging-coverage-requirements.txt'
-      - '.github/workflows/shandong-charging-coverage.yml'
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Historical source revision to investigate in isolation
+        required: true
+        default: '679239d'
+
 permissions:
   contents: read
 jobs:
@@ -35,6 +24,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
+          ref: ${{ inputs.source_ref }}
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.11.16'

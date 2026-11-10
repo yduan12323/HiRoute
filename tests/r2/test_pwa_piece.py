@@ -4,8 +4,8 @@ from fractions import Fraction as F
 sys.path.insert(0, "tests")
 from hiroute.exact.interval import Interval
 from hiroute.exact.pwa import AffineCutPiece, drive_piece
-from timecut5.probe import AffineFamily, Interval as OldInterval, State
-from timecut5.pwa import CutPiece as OldCutPiece
+from tests.oracles.timecut5.probe import AffineFamily, Interval as OldInterval, State
+from tests.oracles.timecut5.pwa import CutPiece as OldCutPiece
 
 class PwaPieceParityTests(unittest.TestCase):
     def test_piece_values_identity_and_domain_match_legacy(self):
@@ -42,8 +42,8 @@ if __name__ == "__main__":
 class DriveMigrationTests(unittest.TestCase):
     def test_drive_affine_piece_matches_frozen_pwa_operator(self):
         from fractions import Fraction as F
-        from timecut5.probe import AffineFamily, Interval as OldInterval, State
-        from timecut5.pwa import CutPiece as OldPiece, drive_pwa
+        from tests.oracles.timecut5.probe import AffineFamily, Interval as OldInterval, State
+        from tests.oracles.timecut5.pwa import CutPiece as OldPiece, drive_pwa
         old = OldPiece.from_affine(AffineFamily(
             OldInterval(1, 3, False, True), 2, 5, False, 4, (), State("old", 1, 0)))
         migrated = AffineCutPiece(Interval(1, 3, False, True), 2, 5, False, 4,

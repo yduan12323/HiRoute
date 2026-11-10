@@ -6,8 +6,8 @@ import unittest
 from hiroute.exact import (AffineCutPiece, Interval, stop_partition,
                            family_union, restrict_family, TransitionWitness)
 from hiroute.exact.pipeline import InitialWitness, replay_chain
-from timecut5.probe import AffineFamily, FROZEN_CURVE, State
-from timecut5.pwa import CutPiece, charge_pwa, combined_pwa
+from tests.oracles.timecut5.probe import AffineFamily, FROZEN_CURVE, State
+from tests.oracles.timecut5.pwa import CutPiece, charge_pwa, combined_pwa
 
 
 def source_piece(domain, slope, intercept, attained, state, witness_lifter=None):

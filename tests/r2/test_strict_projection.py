@@ -2,7 +2,7 @@ from fractions import Fraction as F
 import unittest
 
 from hiroute.exact import Projection, Row, eliminate, normalize
-from timecut5.pwa import Projection as FrozenProjection, Row as FrozenRow, eliminate as frozen_eliminate
+from tests.oracles.timecut5.pwa import Projection as FrozenProjection, Row as FrozenRow, eliminate as frozen_eliminate
 
 class StrictProjectionTests(unittest.TestCase):
     def test_strict_pair_projects_to_open_boundary_and_lifts(self):

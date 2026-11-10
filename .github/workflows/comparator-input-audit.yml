@@ -1,25 +1,12 @@
 name: Comparator input audit contracts
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - 'tools/audit_comparator_input.py'
-      - 'tests/test_comparator_input_audit.py'
-      - 'configs/comparator_input_audit.json'
-      - 'docs/COMPARATOR_INPUT_AUDIT.md'
-      - 'docs/comparator_input_audit_results.json'
-      - 'ci/run_comparator_input_audit_code.py'
-      - '.github/workflows/comparator-input-audit.yml'
-  push:
-    branches: [main]
-    paths:
-      - 'tools/audit_comparator_input.py'
-      - 'tests/test_comparator_input_audit.py'
-      - 'configs/comparator_input_audit.json'
-      - 'docs/COMPARATOR_INPUT_AUDIT.md'
-      - 'docs/comparator_input_audit_results.json'
-      - 'ci/run_comparator_input_audit_code.py'
-      - '.github/workflows/comparator-input-audit.yml'
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Historical source revision to investigate in isolation
+        required: true
+        default: '679239d'
+
 permissions:
   contents: read
 concurrency:
@@ -33,6 +20,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
+          ref: ${{ inputs.source_ref }}
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.11.16'

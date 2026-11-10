@@ -2,7 +2,7 @@ from fractions import Fraction as F
 import unittest
 
 from hiroute.exact import (TimeCut, UnattainedError, cut_le, exact, fixed_member)
-from timecut5.probe import Cut as FrozenCut, State, Witness as FrozenWitness, cut_le as frozen_cut_le
+from tests.oracles.timecut5.probe import Cut as FrozenCut, State, Witness as FrozenWitness, cut_le as frozen_cut_le
 
 class ExactScalarTests(unittest.TestCase):
     def test_exact_inputs_reject_float_and_bool(self):

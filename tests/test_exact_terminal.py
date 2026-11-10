@@ -2,7 +2,7 @@ from dataclasses import replace
 from fractions import Fraction as Q
 import unittest
 from hiroute.exact import AffineCutPiece, Interval, terminal_optimize
-from timecut5.probe import AffineFamily, Interval as OldInterval, State, terminal
+from tests.oracles.timecut5.probe import AffineFamily, Interval as OldInterval, State, terminal
 
 
 def pair(domain=Interval(0,1), slope=0, intercept=10, attained=True, rho=0, prefix=()):

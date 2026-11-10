@@ -4,9 +4,9 @@ import unittest
 from hiroute.exact import (DriveStep, StopStep, Interval, initial_piece,
                             execute_exact_plan, terminal_optimize, replay_terminal)
 from hiroute.exact.pipeline import replay_chain
-from timecut5.probe import (AffineFamily, FROZEN_CURVE, Interval as OldInterval,
+from tests.oracles.timecut5.probe import (AffineFamily, FROZEN_CURVE, Interval as OldInterval,
                             State, terminal)
-from timecut5.pwa import (CutPiece, drive_pwa, charge_pwa, combined_pwa,
+from tests.oracles.timecut5.pwa import (CutPiece, drive_pwa, charge_pwa, combined_pwa,
                           schedule_pwa)
 
 

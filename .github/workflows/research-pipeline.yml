@@ -1,0 +1,46 @@
+name: Research pipeline wheels
+on:
+  pull_request:
+  push:
+    branches: [main, 'codex/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  installed:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        tier: [core, ref, native, geo, differential, comparator]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.11.16'
+      - name: Create clean tier environment
+        run: |
+          python -m venv "$RUNNER_TEMP/research-env"
+          "$RUNNER_TEMP/research-env/bin/python" -m pip install --require-hashes -r ci/research-requirements.txt
+      - name: Install core wheel
+        if: matrix.tier != 'comparator'
+        run: '"$RUNNER_TEMP/research-env/bin/python" -m pip install --no-build-isolation ".[research]"'
+      - name: Install independent REF wheel
+        if: matrix.tier == 'ref' || matrix.tier == 'native'
+        run: '"$RUNNER_TEMP/research-env/bin/python" -m pip install --no-build-isolation ./reference'
+      - name: Install independent comparator wheel
+        if: matrix.tier == 'comparator' || matrix.tier == 'native'
+        run: '"$RUNNER_TEMP/research-env/bin/python" -m pip install --no-build-isolation ./comparison'
+      - name: Native prerequisites
+        if: matrix.tier == 'native'
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y g++ libboost1.83-dev
+      - name: Optional geospatial dependencies
+        if: matrix.tier == 'geo'
+        run: '"$RUNNER_TEMP/research-env/bin/python" -m pip install --no-build-isolation ".[geo,prepare]"'
+      - name: Normal and optimized installed tests
+        run: '"$RUNNER_TEMP/research-env/bin/python" ci/run_consolidated.py --group "${{ matrix.tier }}"'

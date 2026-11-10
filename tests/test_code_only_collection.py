@@ -58,7 +58,8 @@ def test_root_discovery_excludes_extended_code_gate():
     config = SimpleNamespace(getoption=lambda name: False, args=[str(module.ROOT / 'tests')])
     assert module.pytest_ignore_collect(module.ROOT / 'tests/terminal_energy', config) is True
     assert module.pytest_ignore_collect(module.ROOT / 'tests/test_c01_d0_bootstrap.py', config) is True
-    assert module.pytest_ignore_collect(module.ROOT / 'tests/test_time_cut_v2.py', config) is False
+    assert module.pytest_ignore_collect(module.ROOT / 'tests/test_time_cut_v2.py', config) is True
+    assert module.pytest_ignore_collect(module.ROOT / 'tests/test_exact_search.py', config) is False
 
 
 def test_explicit_known_code_gate_directory_is_collected():

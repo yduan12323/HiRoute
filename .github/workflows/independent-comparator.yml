@@ -1,25 +1,12 @@
 name: Independent tiny comparator
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - 'comparison/**'
-      - 'docs/INDEPENDENT_COMPARATOR_GATE.md'
-      - 'docs/independent_comparator_gate_results.json'
-      - 'docs/COMPACT_COMPARATOR_GATE.md'
-      - 'docs/compact_comparator_gate_results.json'
-      - 'docs/PLANNING_VALUE_BASELINES.md'
-      - 'configs/planning_value_baselines_dev.json'
-      - '.github/workflows/independent-comparator.yml'
-  push:
-    branches: [main]
-    paths:
-      - 'comparison/**'
-      - 'docs/COMPACT_COMPARATOR_GATE.md'
-      - 'docs/compact_comparator_gate_results.json'
-      - 'docs/PLANNING_VALUE_BASELINES.md'
-      - 'configs/planning_value_baselines_dev.json'
-      - '.github/workflows/independent-comparator.yml'
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Historical source revision to investigate in isolation
+        required: true
+        default: '679239d'
+
 permissions:
   contents: read
 concurrency:
@@ -33,6 +20,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
+          ref: ${{ inputs.source_ref }}
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.11.16'

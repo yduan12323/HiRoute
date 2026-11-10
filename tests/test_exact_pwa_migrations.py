@@ -10,8 +10,8 @@ from hiroute.exact.interval import Interval
 from hiroute.exact.pwa import (
     AffineCutPiece, schedule_piece, charge_fixed, combined_fixed, reduce_family_pieces,
 )
-from timecut5.probe import AffineFamily, FROZEN_CURVE, State
-from timecut5.pwa import CutPiece, schedule_pwa, charge_pwa, combined_pwa, reduce_frontier
+from tests.oracles.timecut5.probe import AffineFamily, FROZEN_CURVE, State
+from tests.oracles.timecut5.pwa import CutPiece, schedule_pwa, charge_pwa, combined_pwa, reduce_frontier
 
 
 def exact_piece(domain, slope, intercept, attained, state):

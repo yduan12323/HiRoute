@@ -54,6 +54,7 @@ CODE_ONLY_MODULES = (
     'tests/test_recovered_shared_replay.py',
 )
 CODE_ONLY_DIRECTORIES = (
+    "tests/comparison",
     'tests/m5d_recovery',
     'tests/portable_candidate',
     'tests/target_routing',
@@ -238,3 +239,18 @@ LEGACY_MODULES = (
     'tests/test_suffix_window_runner.py',
     'tests/test_window_face_diagnostic.py',
 )
+
+# Historical synthetic cohorts remain explicitly callable, outside default discovery.
+CODE_GATE_MODULES += CODE_ONLY_MODULES
+CODE_ONLY_MODULES = (
+    "tests/r0/test_contracts.py", "tests/r0/test_cli_supported_matrix.py",
+    "tests/test_data_producer.py", "tests/test_c_operator.py", "tests/test_exact_search.py",
+    "tests/test_real_scale_inputs.py", "tests/test_scale_pilot_control.py",
+    "tests/test_n64_coverage_stage.py", "tests/test_r3_runtime.py", "tests/test_r3_os_supervisor.py",
+    "tests/test_code_only_collection.py", "tests/consolidation/test_research.py",
+)
+CODE_GATE_MODULES = tuple(p for p in dict.fromkeys(CODE_GATE_MODULES) if p not in CODE_ONLY_MODULES)
+
+CODE_GATE_MODULES += ('tests/consolidation/test_worker_installation.py',)
+
+CODE_GATE_MODULES += ('tests/test_c_operator_ref.py',)

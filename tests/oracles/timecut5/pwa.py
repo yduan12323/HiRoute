@@ -1,0 +1,623 @@
+"""Finite rational PWA cut operators via exact strict budget projection.
+
+See docs/authority/milestone-5/MILESTONE_5_TIME_CUT_PWA_DESIGN_V2.md. This is an operator prototype,
+not a route solver or independent REF. A projected time is a budget and is
+always lifted through a constrained predecessor before becoming a witness.
+"""
+from __future__ import annotations
+
+from dataclasses import dataclass, field, replace
+from contextvars import ContextVar
+from fractions import Fraction as R
+from itertools import combinations
+from typing import Callable, Iterable
+
+from . import provenance as prov
+from . import envelope_sweep
+from . import analytic_charge
+
+from .probe import (
+    AffineFamily, ChargingCurve, Cut, Interval, State, Witness, _event,
+    drive, exact, reduce_cuts,
+)
+
+
+_projection_support_prefilter = ContextVar("timecut5_projection_support_prefilter", default=None)
+
+
+@dataclass(frozen=True)
+class ProjectionSupportStatistics:
+    """Detached scalar counts for local C/CS segment pairs, not route pruning."""
+    enabled: bool
+    considered_pairs: int
+    skipped_empty_input: int
+    skipped_strict_energy: int
+    projection_builds: int
+
+
+class ProjectionSupportPrefilter:
+    """Explicit, context-local opt-in to an exact C/CS support preflight.
+
+    No context means the original arithmetic. ``enabled=False`` observes the
+    original builds without adding support arithmetic. Distinct nested contexts
+    have separate counters and restore their predecessor even on exceptions.
+    Each instance is single-use; use a fresh instance per solver invocation.
+    """
+    def __init__(self, *, enabled=False):
+        if type(enabled) is not bool:
+            raise ValueError("Projection support prefilter requires an exact boolean")
+        self._enabled = enabled
+        self._considered_pairs = 0
+        self._skipped_empty_input = 0
+        self._skipped_strict_energy = 0
+        self._projection_builds = 0
+        self._used = False
+        self._token = None
+
+    @property
+    def enabled(self):
+        return self._enabled
+
+    def snapshot(self):
+        return ProjectionSupportStatistics(self.enabled, self._considered_pairs,
+            self._skipped_empty_input, self._skipped_strict_energy,
+            self._projection_builds)
+
+    def __enter__(self):
+        if self._used:
+            raise ValueError("Projection support context is single-use")
+        self._used = True
+        self._token = _projection_support_prefilter.set(self)
+        return self
+
+    def __exit__(self, *exception):
+        _projection_support_prefilter.reset(self._token)
+        self._token = None
+
+
+@dataclass(frozen=True)
+class Row:
+    """coefficients dot variables <= rhs; strict=True changes <= to <."""
+    coefficients: tuple[R, ...]
+    rhs: R
+    strict: bool = False
+
+    def __post_init__(self):
+        object.__setattr__(self, "coefficients", tuple(map(exact, self.coefficients)))
+        object.__setattr__(self, "rhs", exact(self.rhs))
+        if type(self.strict) is not bool:
+            raise TypeError("Strictness must be boolean")
+
+    def holds(self, point: tuple[R, ...]) -> bool:
+        if len(point) != len(self.coefficients):
+            raise ValueError("Wrong point dimension")
+        value = sum((a * exact(x) for a, x in zip(self.coefficients, point)), R(0))
+        return value < self.rhs if self.strict else value <= self.rhs
+
+
+def _normalize(rows: Iterable[Row]) -> tuple[Row, ...] | None:
+    """Positive normalization, exact duplicate removal, constant contradictions."""
+    result = {}
+    dimension = None
+    for row in rows:
+        if dimension is not None and len(row.coefficients) != dimension:
+            raise ValueError("Inconsistent row dimensions")
+        dimension = len(row.coefficients)
+        first = next((a for a in row.coefficients if a), None)
+        if first is None:
+            if row.rhs < 0 or row.rhs == 0 and row.strict:
+                return None
+            continue
+        scale = abs(first)
+        coefficients = tuple(a / scale for a in row.coefficients)
+        rhs = row.rhs / scale
+        key = coefficients, rhs
+        result[key] = result.get(key, False) or row.strict
+    return tuple(Row(c, b, strict) for (c, b), strict in sorted(result.items()))
+
+
+def eliminate(rows: Iterable[Row], variable: int) -> tuple[Row, ...] | None:
+    """Existential strict Fourier–Motzkin step, with no approximation/caps."""
+    rows = _normalize(rows)
+    if rows is None:
+        return None
+    positive, negative, zero = [], [], []
+    for row in rows:
+        coefficient = row.coefficients[variable]
+        (positive if coefficient > 0 else negative if coefficient < 0 else zero).append(row)
+    output = list(zero)
+    for upper in positive:
+        for lower in negative:
+            up, down = upper.coefficients[variable], -lower.coefficients[variable]
+            output.append(Row(
+                tuple(a / up + b / down for a, b in zip(upper.coefficients, lower.coefficients)),
+                upper.rhs / up + lower.rhs / down,
+                upper.strict or lower.strict,
+            ))
+    return _normalize(output)
+
+
+def _choose(bounds: Iterable[tuple[R, R, bool]]) -> R:
+    """Choose from exact a*x <= b rows, preserving tied strict endpoints."""
+    lower = upper = None
+    ls = us = False
+    for a, b, strict in bounds:
+        if a == 0:
+            if b < 0 or b == 0 and strict:
+                raise ValueError("Infeasible zero row in witness fiber")
+            continue
+        value = b / a
+        if a < 0:
+            if lower is None or value > lower:
+                lower, ls = value, strict
+            elif value == lower:
+                ls = ls or strict
+        else:
+            if upper is None or value < upper:
+                upper, us = value, strict
+            elif value == upper:
+                us = us or strict
+    if lower is not None and upper is not None:
+        if lower > upper or lower == upper and (ls or us):
+            raise ValueError("Empty strict witness fiber")
+        return (lower + upper) / 2
+    if lower is not None:
+        return lower + 1 if ls else lower
+    if upper is not None:
+        return upper - 1 if us else upper
+    return R(0)
+
+
+@dataclass(frozen=True)
+class Projection:
+    original: tuple[Row, ...]
+    rows: tuple[Row, ...]
+    history: tuple[tuple[int, tuple[Row, ...]], ...]
+
+    @classmethod
+    def build(cls, rows: Iterable[Row], variables: Iterable[int]) -> Projection | None:
+        original = _normalize(rows)
+        if original is None:
+            return None
+        current, history = original, []
+        variables = tuple(variables)
+        if len(set(variables)) != len(variables):
+            raise ValueError("Cannot eliminate a variable twice")
+        for variable in variables:
+            history.append((variable, current))
+            current = eliminate(current, variable)
+            if current is None:
+                return None
+        return cls(original, current, tuple(history))
+
+    def lift(self, fixed: dict[int, R]) -> tuple[R, ...]:
+        """Back-substitute a projected point and verify every original row."""
+        values = {i: exact(value) for i, value in fixed.items()}
+        for variable, rows in reversed(self.history):
+            if variable in values:
+                raise ValueError("An eliminated variable was already fixed")
+            bounds = []
+            for row in rows:
+                residual = row.rhs
+                for i, coefficient in enumerate(row.coefficients):
+                    if i == variable or not coefficient:
+                        continue
+                    if i not in values:
+                        raise ValueError("Missing retained coordinate during lifting")
+                    residual -= coefficient * values[i]
+                bounds.append((row.coefficients[variable], residual, row.strict))
+            values[variable] = _choose(bounds)
+        dimension = len(self.original[0].coefficients) if self.original else len(values)
+        point = tuple(values[i] for i in range(dimension))
+        if not all(row.holds(point) for row in self.original):
+            raise AssertionError("Lifted point violates its original strict system")
+        return point
+
+
+@dataclass(frozen=True)
+class CutPiece:
+    domain: Interval
+    slope: R
+    intercept: R
+    chi: bool
+    rho: R
+    pi: tuple[tuple[str, str], ...]
+    state: State
+    _point: Callable[[R], Cut] = field(repr=False, compare=False)
+    _family: prov.FamilyRef | None = field(default=None, repr=False, compare=False)
+
+    def __post_init__(self):
+        for name in ("slope", "intercept", "rho"):
+            object.__setattr__(self, name, exact(getattr(self, name)))
+        if type(self.chi) is not bool:
+            raise TypeError("Attainment must be boolean")
+        if len(self.pi) != self.state.stop_count:
+            raise ValueError("Prefix length must equal stop count")
+
+    @classmethod
+    def from_affine(cls, family: AffineFamily) -> CutPiece:
+        return cls(family.domain, family.slope, family.intercept, family.chi,
+                   family.rho, family.pi, family.state, family.at)
+
+    def at(self, energy: R) -> Cut:
+        if self._family is not None:
+            self._family.check_binding(self)
+        energy = exact(energy)
+        if not self.domain.contains(energy):
+            raise ValueError("Energy outside represented predecessor subfamily")
+        cut = self._point(energy)
+        expected = (self.slope * energy + self.intercept, self.chi, energy,
+                    self.rho, self.pi, self.state)
+        actual = cut.tau, cut.chi, cut.energy, cut.rho, cut.pi, cut.state
+        if expected != actual:
+            raise AssertionError("Point witness disagrees with the PWA piece")
+        if self._family is not None:
+            base = cut
+            def observed(epsilon):
+                witness = base.approach(epsilon)
+                prov.observe_witness(self, witness, epsilon, energy)
+                return witness
+            return replace(cut, _approach=observed)
+        return cut
+
+
+def _cells(domain: Interval, knots: Iterable[R]) -> tuple[Interval, ...]:
+    order = sorted({domain.lo, domain.hi} | {e for e in knots if domain.lo < e < domain.hi})
+    cells = []
+    for i, e in enumerate(order):
+        if domain.contains(e):
+            cells.append(Interval(e, e))
+        if i + 1 < len(order):
+            cells.append(Interval(e, order[i + 1], False, False))
+    return tuple(cells)
+
+
+def _point(domain: Interval) -> R:
+    return (domain.lo + domain.hi) / 2
+
+
+def _arrangement(pieces: tuple[CutPiece, ...]) -> tuple[Interval, ...]:
+    if not pieces:
+        return ()
+    knots = {p.domain.lo for p in pieces} | {p.domain.hi for p in pieces}
+    for a, b in combinations(pieces, 2):
+        slope = a.slope - b.slope
+        if slope:
+            e = (b.intercept - a.intercept) / slope
+            if max(a.domain.lo, b.domain.lo) <= e <= min(a.domain.hi, b.domain.hi):
+                knots.add(e)
+    return _cells(Interval(min(knots), max(knots)), knots)
+
+
+def _same_family(pieces: tuple[CutPiece, ...]):
+    if pieces:
+        context = pieces[0].state, pieces[0].rho, pieces[0].pi
+        if any((p.state, p.rho, p.pi) != context for p in pieces):
+            raise ValueError("Operate on each discrete-prefix family separately")
+
+
+def lower_envelope(pieces: Iterable[CutPiece]) -> tuple[CutPiece, ...]:
+    """Exact union of one family's cuts, OR-ing attainment at tied minima."""
+    pieces = tuple(pieces)
+    _same_family(pieces)
+    policy = envelope_sweep._active.get()
+    cells = _arrangement(pieces)
+    if policy is not None:
+        recorded = prov._active.get() is not None
+        policy._begin(len(pieces), len(cells), recorded=policy.enabled and recorded)
+        if policy.enabled and not recorded:
+            return envelope_sweep.select_envelope(pieces, cells, policy)
+    result = []
+    for cell in cells:
+        e = _point(cell)
+        candidates = [p for p in pieces if p.domain.contains(e)]
+        if not candidates:
+            continue
+        minimum = min(p.slope * e + p.intercept for p in candidates)
+        tied = [p for p in candidates if p.slope * e + p.intercept == minimum]
+        chosen = next((p for p in tied if p.chi), tied[0])
+        result.append(prov.select(chosen, pieces, cell, next(i for i, p in enumerate(pieces) if p is chosen), "union"))
+    prov.batch("union", pieces, result)
+    if policy is not None:
+        policy._baseline(len(pieces), len(cells), len(result))
+    return tuple(result)
+
+
+def reduce_frontier(pieces: Iterable[CutPiece]) -> tuple[CutPiece, ...]:
+    """Same-state exact energy arrangement antichain; no scalar time merge."""
+    pieces = tuple(pieces)
+    if pieces and any(p.state != pieces[0].state for p in pieces):
+        raise ValueError("No cross-state reduction")
+    result = []
+    for cell in _arrangement(pieces):
+        e = _point(cell)
+        candidates = [p for p in pieces if p.domain.contains(e)]
+        cuts = [p.at(e) for p in candidates]
+        kept = reduce_cuts(cuts)
+        for p, cut in zip(candidates, cuts):
+            if any(cut is winner for winner in kept):
+                result.append(prov.select(p, pieces, cell, next(i for i, candidate in enumerate(pieces) if candidate is p), "reduction"))
+    prov.batch("reduction", pieces, result)
+    return tuple(result)
+
+
+def _same_state_energy_skyline(cuts: tuple[Cut, ...]) -> tuple[Cut, ...]:
+    """Stable exact point antichain in O(n log n) order comparisons.
+
+    At one state and energy, ``dominates`` is the product of the two total
+    orders ``(tau, not chi)`` and ``(rho, pi)``. Sorting by the first, then
+    the second, places every possible dominator before its candidate. The
+    nondominated points are exactly the strict running minima of the second
+    order. The original index breaks equivalent-point ties, and restoring
+    input order gives the same first-witness policy as ``reduce_cuts``.
+
+    This helper does not compare or discard cuts at different energies.
+    """
+    if cuts and any((cut.state, cut.energy) != (cuts[0].state, cuts[0].energy)
+                    for cut in cuts):
+        raise ValueError("Skyline requires one physical state and energy")
+    ordered = sorted(range(len(cuts)), key=lambda i: (
+        cuts[i].tau, not cuts[i].chi, cuts[i].rho, cuts[i].pi, i))
+    best_secondary = None
+    kept = []
+    for index in ordered:
+        secondary = cuts[index].rho, cuts[index].pi
+        if best_secondary is None or secondary < best_secondary:
+            kept.append(index)
+            best_secondary = secondary
+    return tuple(cuts[index] for index in sorted(kept))
+
+
+def reduce_frontier_skyline(pieces: Iterable[CutPiece]) -> tuple[CutPiece, ...]:
+    """Opt-in exact reducer with the baseline arrangement and witness policy.
+
+    No domain, energy, prefix, attainment or provenance semantics change.
+    All active point callbacks are still validated, including dominated ones.
+    For P input pieces and C arrangement cells, point selection takes
+    O(C * P log P) comparisons rather than the baseline O(C * P**2).
+    The unchanged arrangement can have C=O(P**2); this is not a polynomial
+    bound on the route search, nor an output-size or provenance-storage cap.
+    Existing solver ``reducer=`` hooks select this separately; the baseline
+    ``reduce_frontier`` remains unchanged.
+    """
+    pieces = tuple(pieces)
+    if pieces and any(p.state != pieces[0].state for p in pieces):
+        raise ValueError("No cross-state reduction")
+    # Baseline provenance selects the first occurrence of an identical parent
+    # object, even when that object appears more than once in the input.
+    first_parent = {}
+    for index, piece in enumerate(pieces):
+        first_parent.setdefault(id(piece), index)
+    result = []
+    for cell in _arrangement(pieces):
+        e = _point(cell)
+        candidates = [p for p in pieces if p.domain.contains(e)]
+        cuts = tuple(p.at(e) for p in candidates)
+        kept_ids = {id(cut) for cut in _same_state_energy_skyline(cuts)}
+        # Preserve the baseline identity test, including repeated references
+        # to the same Cut returned by different point callbacks.
+        for piece, cut in zip(candidates, cuts):
+            if id(cut) in kept_ids:
+                result.append(prov.select(piece, pieces, cell,
+                                          first_parent[id(piece)], "reduction"))
+    prov.batch("reduction", pieces, result)
+    return tuple(result)
+
+
+def _interval_rows(domain: Interval, variable: int) -> tuple[Row, Row]:
+    lo, hi = [R(0)] * 4, [R(0)] * 4
+    lo[variable], hi[variable] = R(-1), R(1)
+    return (Row(tuple(lo), -domain.lo, not domain.left_closed),
+            Row(tuple(hi), domain.hi, not domain.right_closed))
+
+
+def _extract(projection: Projection, source: CutPiece, effect: str, site: str,
+             overhead: R, curve: ChargingCurve | None = None,
+             a: R = R(0), b: R = R(0), duration: R = R(0),
+             in_segment=None, out_segment=None) -> tuple[CutPiece, ...]:
+    lower = upper = None
+    lc = rc = True
+    lines = []
+    for row in projection.rows:
+        x, t, energy_coefficient, budget_coefficient = row.coefficients
+        if x or t or budget_coefficient > 0:
+            raise AssertionError("Projection is not a budget epigraph")
+        if budget_coefficient < 0:
+            lines.append((-energy_coefficient / budget_coefficient,
+                          row.rhs / budget_coefficient, row.strict))
+        elif energy_coefficient:
+            bound = row.rhs / energy_coefficient
+            if energy_coefficient < 0:
+                if lower is None or bound > lower:
+                    lower, lc = bound, not row.strict
+                elif bound == lower:
+                    lc = lc and not row.strict
+            else:
+                if upper is None or bound < upper:
+                    upper, rc = bound, not row.strict
+                elif bound == upper:
+                    rc = rc and not row.strict
+        elif not row.holds((R(0),) * 4):
+            return ()
+    if lower is None or upper is None or not lines:
+        raise AssertionError("Expected bounded energy domain and finite lower-time cut")
+    if lower > upper or lower == upper and not (lc and rc):
+        return ()
+    domain = Interval(lower, upper, lc, rc)
+    knots = set()
+    for (m, c, _), (n, d, _) in combinations(lines, 2):
+        if m != n:
+            knots.add((d - c) / (m - n))
+    pi = source.pi + ((site, effect),)
+    state = State(site, source.state.remaining_schedule if effect == "C" else 0,
+                  source.state.stop_count + 1)
+    result = []
+    for cell in _cells(domain, knots):
+        e = _point(cell)
+        tau = max(m * e + c for m, c, _ in lines)
+        active = [(m, c, strict) for m, c, strict in lines if m * e + c == tau]
+        slope, intercept, _ = active[0]
+        chi = not any(strict for _, _, strict in active)
+
+        def at(energy, slope=slope, intercept=intercept, chi=chi):
+            value = slope * energy + intercept
+
+            def approach(epsilon):
+                budget = value if chi else value + epsilon / 2
+                ea, time_budget, ed, _ = projection.lift({2: energy, 3: budget})
+                incoming = source.at(ea).realize_le(time_budget)
+                if effect in ("C", "CS"):
+                    if not ea < ed:
+                        raise AssertionError("Projected witness violates strict charging")
+                    charge_done = incoming.time + overhead + curve.at(ed) - curve.at(ea)
+                if effect in ("S", "CS"):
+                    start = max(a, incoming.time + overhead)
+                    if start > b:
+                        raise AssertionError("Projected witness violates latest schedule start")
+                    schedule_done = start + duration
+                time = (charge_done if effect == "C" else schedule_done if effect == "S"
+                        else max(charge_done, schedule_done))
+                if time > budget:
+                    raise AssertionError("Real action exceeded projected output budget")
+                return _event(incoming, effect, site, time, ed, source.rho, state)
+
+            return Cut(value, chi, energy, source.rho, pi, state, approach)
+
+        output = CutPiece(cell, slope, intercept, chi, source.rho, pi, state, at)
+        result.append(prov.bind(output, "stop", (source,), effect=effect, site=site,
+                                h=overhead, a=a, b=b, D=duration,
+                                curve=curve.segments if curve else [],
+                                in_segment=in_segment, out_segment=out_segment))
+    return tuple(result)
+
+
+def _stop(pieces: Iterable[CutPiece], effect: str, site: str, overhead: R,
+          curve: ChargingCurve | None = None, a: R = R(0), b: R = R(0),
+          duration: R = R(0)) -> tuple[CutPiece, ...]:
+    pieces = tuple(pieces)
+    _same_family(pieces)
+    overhead, a, b, duration = map(exact, (overhead, a, b, duration))
+    if overhead <= 0 or duration < 0:
+        raise ValueError("Require positive overhead and nonnegative service duration")
+    if effect in ("S", "CS"):
+        if any(p.state.remaining_schedule != 1 for p in pieces):
+            raise ValueError("Schedule has already been satisfied")
+        if a > b:
+            prov.batch("stop", pieces, (), effect=effect, site=site, h=overhead,
+                       a=a, b=b, D=duration, curve=curve.segments if curve else [])
+            return ()
+    policy = _projection_support_prefilter.get()
+    analytic = analytic_charge._active.get() if effect == "C" else None
+    recorded = prov._active.get() is not None
+    use_analytic = analytic is not None and analytic.enabled and not recorded
+    if use_analytic and any(source._family is not None for source in pieces):
+        raise ValueError("Continue recorded families inside their Recorder context")
+    result = []
+    for source in pieces:
+        seed = ([] if use_analytic else [*_interval_rows(source.domain, 0),
+                Row((source.slope, -1, 0, 0), -source.intercept, not source.chi)])
+        if effect in ("S", "CS"):
+            seed.extend((Row((0, 1, 0, 0), b - overhead),
+                         Row((0, 0, 0, -1), -a - duration),
+                         Row((0, 1, 0, -1), -overhead - duration)))
+        if effect == "S":
+            rows = seed + [Row((1, 0, -1, 0), 0), Row((-1, 0, 1, 0), 0)]
+            projected = Projection.build(rows, (1, 0))
+            if projected is not None:
+                result.extend(_extract(projected, source, effect, site, overhead,
+                                       a=a, b=b, duration=duration))
+        else:
+            for il, ih, im, ic in curve.segments:
+                support = (source.domain.intersect(Interval(il, ih))
+                           if policy is not None and policy.enabled else None)
+                for ol, oh, om, oc in curve.segments:
+                    if analytic is not None:
+                        analytic._counts["considered_pairs"] += 1
+                    if policy is not None:
+                        policy._considered_pairs += 1
+                        if policy.enabled:
+                            if support is None:
+                                policy._skipped_empty_input += 1
+                                if analytic is not None:
+                                    analytic._counts["support_skipped_pairs"] += 1
+                                continue
+                            # ea >= inf(support) >= oh >= ed contradicts ea < ed.
+                            # If inf(support) < oh, retain even open endpoints;
+                            # all other feasibility remains with the old projector.
+                            if support.lo >= oh:
+                                policy._skipped_strict_energy += 1
+                                if analytic is not None:
+                                    analytic._counts["support_skipped_pairs"] += 1
+                                continue
+                    if use_analytic:
+                        analytic._counts["analytic_builds"] += 1
+                        projected = analytic_charge._build(source, (il, ih, im, ic),
+                                                           (ol, oh, om, oc), overhead)
+                        if projected is not None:
+                            result.extend(_extract(projected, source, effect, site, overhead,
+                                                   curve, a, b, duration,
+                                                   (il, ih, im, ic), (ol, oh, om, oc)))
+                        continue
+                    if analytic is not None:
+                        analytic._counts["generic_projection_builds"] += 1
+                        if analytic.enabled and recorded:
+                            analytic._counts["recorded_fallback_builds"] += 1
+                    rows = seed + [*_interval_rows(Interval(il, ih), 0),
+                                   *_interval_rows(Interval(ol, oh), 2),
+                                   Row((1, 0, -1, 0), 0, True),
+                                   Row((-im, 1, om, -1), -overhead - oc + ic)]
+                    if policy is not None:
+                        policy._projection_builds += 1
+                    projected = Projection.build(rows, (1, 0))
+                    if projected is not None:
+                        result.extend(_extract(projected, source, effect, site, overhead,
+                                               curve, a, b, duration,
+                                               (il, ih, im, ic), (ol, oh, om, oc)))
+    prov.batch("stop", pieces, result, effect=effect, site=site, h=overhead,
+               a=a, b=b, D=duration, curve=curve.segments if curve else [])
+    return lower_envelope(result)
+
+
+def charge_pwa(pieces: Iterable[CutPiece], curve: ChargingCurve,
+               overhead: R, site: str) -> tuple[CutPiece, ...]:
+    return _stop(pieces, "C", site, overhead, curve)
+
+
+def combined_pwa(pieces: Iterable[CutPiece], curve: ChargingCurve, site: str,
+                 a: R, b: R, duration: R, overhead: R) -> tuple[CutPiece, ...]:
+    return _stop(pieces, "CS", site, overhead, curve, a, b, duration)
+
+
+def schedule_pwa(pieces: Iterable[CutPiece], site: str, a: R, b: R,
+                 duration: R, overhead: R) -> tuple[CutPiece, ...]:
+    return _stop(pieces, "S", site, overhead, a=a, b=b, duration=duration)
+
+
+def drive_pwa(pieces: Iterable[CutPiece], anchor: str, duration: R,
+              consumption: R, floor: R = R(0)) -> tuple[CutPiece, ...]:
+    pieces = tuple(pieces)
+    duration, consumption, floor = map(exact, (duration, consumption, floor))
+    if duration < 0 or consumption < 0:
+        raise ValueError("Negative drive duration or consumption")
+    result = []
+    for source in pieces:
+        old = source.domain
+        shifted = Interval(old.lo - consumption, old.hi - consumption,
+                           old.left_closed, old.right_closed)
+        if shifted.hi < floor:
+            continue
+        domain = shifted.intersect(Interval(floor, max(floor, shifted.hi)))
+        if domain is None:
+            continue
+        state = State(anchor, source.state.remaining_schedule, source.state.stop_count)
+        output = CutPiece(
+            domain, source.slope, source.intercept + source.slope * consumption + duration,
+            source.chi, source.rho + consumption, source.pi, state,
+            lambda energy, source=source: drive(source.at(energy + consumption), anchor,
+                                                duration, consumption, floor),
+        )
+        result.append(prov.bind(output, "drive", (source,), site=anchor,
+                                duration=duration, consumption=consumption, floor=floor))
+    prov.batch("drive", pieces, result, site=anchor, duration=duration,
+               consumption=consumption, floor=floor)
+    return tuple(result)

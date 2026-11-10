@@ -2,7 +2,7 @@ import sys
 import unittest
 from fractions import Fraction as F
 sys.path.insert(0, "tests")
-from timecut5.probe import Interval as LegacyInterval
+from tests.oracles.timecut5.probe import Interval as LegacyInterval
 from hiroute.exact.interval import Interval
 
 class ExactIntervalTests(unittest.TestCase):

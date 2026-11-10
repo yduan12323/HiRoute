@@ -6,8 +6,8 @@ from pathlib import Path
 import unittest
 
 from hiroute.exact import AffineCutPiece, Interval, drive_piece, schedule_piece, stop_partition
-from timecut5.probe import AffineFamily, ChargingCurve, State
-from timecut5.pwa import (CutPiece, charge_pwa, combined_pwa, drive_pwa,
+from tests.oracles.timecut5.probe import AffineFamily, ChargingCurve, State
+from tests.oracles.timecut5.pwa import (CutPiece, charge_pwa, combined_pwa, drive_pwa,
                           schedule_pwa)
 
 FIXTURE = Path(__file__).parent / "fixtures/milestone_4r_b2_b21/hand_cases.json"

@@ -1,31 +1,12 @@
 name: Exact leg input contracts
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - 'tools/exact_leg_table.py'
-      - 'tools/exact_leg_fixtures.py'
-      - 'tools/probe_exact_leg_table.py'
-      - 'tools/report_exact_leg_construction.py'
-      - 'tests/test_exact_leg_table.py'
-      - 'configs/exact_leg_construction_gate.json'
-      - 'docs/EXACT_LEG_INPUT_CONSTRUCTION.md'
-      - 'docs/exact_leg_construction_results.json'
-      - 'ci/run_exact_leg_input_code.py'
-      - '.github/workflows/exact-leg-input.yml'
-  push:
-    branches: [main]
-    paths:
-      - 'tools/exact_leg_table.py'
-      - 'tools/exact_leg_fixtures.py'
-      - 'tools/probe_exact_leg_table.py'
-      - 'tools/report_exact_leg_construction.py'
-      - 'tests/test_exact_leg_table.py'
-      - 'configs/exact_leg_construction_gate.json'
-      - 'docs/EXACT_LEG_INPUT_CONSTRUCTION.md'
-      - 'docs/exact_leg_construction_results.json'
-      - 'ci/run_exact_leg_input_code.py'
-      - '.github/workflows/exact-leg-input.yml'
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Historical source revision to investigate in isolation
+        required: true
+        default: '679239d'
+
 permissions:
   contents: read
 concurrency:
@@ -39,6 +20,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
+          ref: ${{ inputs.source_ref }}
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.11.16'

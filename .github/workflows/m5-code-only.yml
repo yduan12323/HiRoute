@@ -2,10 +2,11 @@ name: M5 code-only regression
 
 on:
   workflow_dispatch:
-  pull_request:
-    branches: [main, codex/milestone-4r-b1, dot/m5d-continuation]
-  push:
-    branches: [main, "codex/**", "dot/**"]
+    inputs:
+      source_ref:
+        description: Historical source revision to investigate in isolation
+        required: true
+        default: '679239d'
 
 permissions:
   contents: read
@@ -33,6 +34,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          ref: ${{ inputs.source_ref }}
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:

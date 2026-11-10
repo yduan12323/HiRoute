@@ -1,103 +1,12 @@
 name: Exact physical adapter contracts
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - 'tools/exact_physical_adapter.py'
-      - 'tools/finite_leg_lookup.py'
-      - 'tools/dag_formula_export.py'
-      - 'tests/test_dag_formula_export.py'
-      - 'tests/test_dag_audit_path.py'
-      - 'tests/test_cached_dag_audit.py'
-      - 'tools/incumbent_model_certificate.py'
-      - 'tests/test_incumbent_model_certificate.py'
-      - 'tests/test_folded_lookup.py'
-      - 'tests/test_strict_bound_decision.py'
-      - 'tools/strict_bound_decision.py'
-      - 'tools/strict_bound_witness.py'
-      - 'tests/test_strict_bound_witness.py'
-      - 'tests/test_strict_witness_integration.py'
-      - 'tests/test_import_strict_candidate.py'
-      - 'tools/import_strict_candidate.py'
-      - 'tools/finalize_candidate_verification.py'
-      - 'tools/run_separate_candidate_verification.py'
-      - 'tests/test_candidate_finalization.py'
-      - 'tests/test_finite_leg_lookup.py'
-      - 'tools/run_grounded_lookup_consumer.py'
-      - 'tools/run_source_bound_tests.py'
-      - 'tests/test_grounded_lookup_consumer.py'
-      - 'tools/run_shared_leg_pilot.py'
-      - 'tools/shared_pilot_budget.py'
-      - 'tools/exact_physical_fixtures.py'
-      - 'tools/run_exact_physical_gate.py'
-      - 'tools/report_exact_physical_gate.py'
-      - 'tools/exact_leg_table.py'
-      - 'tools/split_leg_table.py'
-      - 'tests/test_exact_physical_adapter.py'
-      - 'tests/test_shared_leg_pilot.py'
-      - 'configs/exact_physical_gate.json'
-      - 'configs/shared_leg_pilot.json'
-      - 'configs/shared_leg_pilot_corrected_env.json'
-      - 'configs/shared_leg_pilot_split_input.json'
-      - 'docs/SPLIT_SELECTED_LEG_INPUT.md'
-      - 'docs/split_selected_leg_results.json'
-      - 'docs/EXACT_PHYSICAL_ADAPTER.md'
-      - 'docs/SHARED_LEG_PILOT.md'
-      - 'docs/SHARED_LEG_CORRECTED_ENV.md'
-      - 'docs/shared_leg_corrected_env_results.json'
-      - 'docs/shared_leg_pilot_results.json'
-      - 'docs/exact_physical_results.json'
-      - 'ci/run_exact_physical_code.py'
-      - '.github/workflows/exact-physical.yml'
-  push:
-    branches: [main]
-    paths:
-      - 'tools/exact_physical_adapter.py'
-      - 'tools/finite_leg_lookup.py'
-      - 'tools/dag_formula_export.py'
-      - 'tests/test_dag_formula_export.py'
-      - 'tests/test_dag_audit_path.py'
-      - 'tests/test_cached_dag_audit.py'
-      - 'tools/incumbent_model_certificate.py'
-      - 'tests/test_incumbent_model_certificate.py'
-      - 'tests/test_folded_lookup.py'
-      - 'tests/test_strict_bound_decision.py'
-      - 'tools/strict_bound_decision.py'
-      - 'tools/strict_bound_witness.py'
-      - 'tests/test_strict_bound_witness.py'
-      - 'tests/test_strict_witness_integration.py'
-      - 'tests/test_import_strict_candidate.py'
-      - 'tools/import_strict_candidate.py'
-      - 'tools/finalize_candidate_verification.py'
-      - 'tools/run_separate_candidate_verification.py'
-      - 'tests/test_candidate_finalization.py'
-      - 'tests/test_finite_leg_lookup.py'
-      - 'tools/run_grounded_lookup_consumer.py'
-      - 'tools/run_source_bound_tests.py'
-      - 'tests/test_grounded_lookup_consumer.py'
-      - 'tools/run_shared_leg_pilot.py'
-      - 'tools/shared_pilot_budget.py'
-      - 'tools/exact_physical_fixtures.py'
-      - 'tools/run_exact_physical_gate.py'
-      - 'tools/report_exact_physical_gate.py'
-      - 'tools/exact_leg_table.py'
-      - 'tools/split_leg_table.py'
-      - 'tests/test_exact_physical_adapter.py'
-      - 'tests/test_shared_leg_pilot.py'
-      - 'configs/exact_physical_gate.json'
-      - 'configs/shared_leg_pilot.json'
-      - 'configs/shared_leg_pilot_corrected_env.json'
-      - 'configs/shared_leg_pilot_split_input.json'
-      - 'docs/SPLIT_SELECTED_LEG_INPUT.md'
-      - 'docs/split_selected_leg_results.json'
-      - 'docs/EXACT_PHYSICAL_ADAPTER.md'
-      - 'docs/SHARED_LEG_PILOT.md'
-      - 'docs/SHARED_LEG_CORRECTED_ENV.md'
-      - 'docs/shared_leg_corrected_env_results.json'
-      - 'docs/shared_leg_pilot_results.json'
-      - 'docs/exact_physical_results.json'
-      - 'ci/run_exact_physical_code.py'
-      - '.github/workflows/exact-physical.yml'
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Historical source revision to investigate in isolation
+        required: true
+        default: '679239d'
+
 permissions:
   contents: read
 concurrency:
@@ -111,6 +20,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
+          ref: ${{ inputs.source_ref }}
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.11.16'
