@@ -1,0 +1,260 @@
+{
+  "additional_checks": {
+    "historical_statistics": {
+      "passed": 3
+    },
+    "publication_index": "passed; no bulk data/results or tracked files over 1 MiB",
+    "test_collection_policy": {
+      "passed": 13
+    }
+  },
+  "baseline_commit": "a1554ce",
+  "baseline_subtests_per_mode": 228,
+  "baseline_tests_per_mode": 87,
+  "date": "2026-11-10",
+  "exact_behavior_comparison": {
+    "baseline_file": "docs/consolidation-exact-baseline.json",
+    "comparison": "exact equality, including physical replay; no float tolerance",
+    "passed": true,
+    "records": 10
+  },
+  "not_run": [
+    "real historical N64 full matrix",
+    "full-real-graph independent REF",
+    "province data rebuild",
+    "holdout",
+    "performance optimization benchmark"
+  ],
+  "schema": "hiroute.consolidation_validation.v1",
+  "scope": "Installed wheel and small-domain engineering regression; no historical full-artifact reproduction",
+  "tiers": {
+    "comparator": {
+      "dependencies": {
+        "Pygments": "2.21.0",
+        "hiroute-compare": "0.2.0",
+        "iniconfig": "2.3.1",
+        "packaging": "26.3",
+        "pip": "24.0",
+        "pluggy": "1.7.0",
+        "psutil": "7.2.2",
+        "pytest": "9.1.1",
+        "setuptools": "79.0.1",
+        "z3-solver": "4.13.4.0"
+      },
+      "python": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+      "runs": [
+        {
+          "mode": "normal",
+          "pytest_summary": "147 passed, 181 subtests passed in 44.55s",
+          "returncode": 0
+        },
+        {
+          "mode": "-OO",
+          "pytest_summary": "147 passed, 1 warning, 181 subtests passed in 40.26s",
+          "returncode": 0
+        }
+      ]
+    },
+    "core": {
+      "dependencies": {
+        "Pygments": "2.21.0",
+        "hiroute": "0.2.0",
+        "iniconfig": "2.3.1",
+        "packaging": "26.3",
+        "pip": "24.0",
+        "pluggy": "1.7.0",
+        "psutil": "7.2.2",
+        "pytest": "9.1.1",
+        "setuptools": "79.0.1"
+      },
+      "python": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+      "runs": [
+        {
+          "mode": "normal",
+          "pytest_summary": "118 passed, 101 subtests passed in 17.48s",
+          "returncode": 0
+        },
+        {
+          "mode": "-OO",
+          "pytest_summary": "118 passed, 1 warning, 101 subtests passed in 17.50s",
+          "returncode": 0
+        }
+      ]
+    },
+    "differential": {
+      "dependencies": {
+        "Pygments": "2.21.0",
+        "hiroute": "0.2.0",
+        "hiroute-compare": "0.2.0",
+        "hiroute-ref": "0.2.0",
+        "iniconfig": "2.3.1",
+        "numpy": "2.4.6",
+        "packaging": "26.3",
+        "pip": "24.0",
+        "pluggy": "1.7.0",
+        "psutil": "7.2.2",
+        "pytest": "9.1.1",
+        "scipy": "1.17.1",
+        "setuptools": "79.0.1",
+        "z3-solver": "4.13.4.0"
+      },
+      "python": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+      "runs": [
+        {
+          "mode": "normal",
+          "pytest_summary": "37 passed, 15 subtests passed in 1.94s",
+          "returncode": 0
+        },
+        {
+          "mode": "-OO",
+          "pytest_summary": "37 passed, 1 warning, 15 subtests passed in 1.98s",
+          "returncode": 0
+        }
+      ]
+    },
+    "geo": {
+      "dependencies": {
+        "Pygments": "2.21.0",
+        "certifi": "2026.10.23",
+        "charset-normalizer": "3.5.2",
+        "cykhash": "2.0.1",
+        "geopandas": "1.2.0",
+        "hiroute": "0.2.0",
+        "hiroute-compare": "0.2.0",
+        "hiroute-ref": "0.2.0",
+        "idna": "3.20",
+        "iniconfig": "2.3.1",
+        "numpy": "2.4.6",
+        "osmium": "4.3.2",
+        "packaging": "26.3",
+        "pandas": "3.0.6",
+        "pip": "24.0",
+        "pluggy": "1.7.0",
+        "protobuf": "7.36.2",
+        "psutil": "7.2.2",
+        "pyogrio": "0.13.0",
+        "pyproj": "3.7.2",
+        "pyrosm": "0.13.1",
+        "pytest": "9.1.1",
+        "python-dateutil": "4.0.0",
+        "python-rapidjson": "1.26",
+        "requests": "2.34.2",
+        "scipy": "1.17.1",
+        "setuptools": "79.0.1",
+        "shapely": "2.1.2",
+        "tzdata": "2026.6",
+        "urllib3": "2.8.0",
+        "z3-solver": "4.13.4.0"
+      },
+      "python": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+      "runs": [
+        {
+          "mode": "normal",
+          "pytest_summary": "41 passed, 15 subtests passed in 2.26s",
+          "returncode": 0
+        },
+        {
+          "mode": "-OO",
+          "pytest_summary": "41 passed, 1 warning, 15 subtests passed in 3.02s",
+          "returncode": 0
+        }
+      ]
+    },
+    "native": {
+      "dependencies": {
+        "Pygments": "2.21.0",
+        "certifi": "2026.10.23",
+        "charset-normalizer": "3.5.2",
+        "cykhash": "2.0.1",
+        "geopandas": "1.2.0",
+        "hiroute": "0.2.0",
+        "hiroute-compare": "0.2.0",
+        "hiroute-ref": "0.2.0",
+        "idna": "3.20",
+        "iniconfig": "2.3.1",
+        "numpy": "2.4.6",
+        "osmium": "4.3.2",
+        "packaging": "26.3",
+        "pandas": "3.0.6",
+        "pip": "24.0",
+        "pluggy": "1.7.0",
+        "protobuf": "7.36.2",
+        "psutil": "7.2.2",
+        "pyogrio": "0.13.0",
+        "pyproj": "3.7.2",
+        "pyrosm": "0.13.1",
+        "pytest": "9.1.1",
+        "python-dateutil": "4.0.0",
+        "python-rapidjson": "1.26",
+        "requests": "2.34.2",
+        "scipy": "1.17.1",
+        "setuptools": "79.0.1",
+        "shapely": "2.1.2",
+        "tzdata": "2026.6",
+        "urllib3": "2.8.0",
+        "z3-solver": "4.13.4.0"
+      },
+      "python": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+      "runs": [
+        {
+          "mode": "normal",
+          "pytest_summary": "38 passed, 49 subtests passed in 13.92s",
+          "returncode": 0
+        },
+        {
+          "mode": "-OO",
+          "pytest_summary": "38 passed, 1 warning, 49 subtests passed in 14.31s",
+          "returncode": 0
+        }
+      ]
+    },
+    "ref": {
+      "dependencies": {
+        "Pygments": "2.21.0",
+        "certifi": "2026.10.23",
+        "charset-normalizer": "3.5.2",
+        "cykhash": "2.0.1",
+        "geopandas": "1.2.0",
+        "hiroute": "0.2.0",
+        "hiroute-compare": "0.2.0",
+        "hiroute-ref": "0.2.0",
+        "idna": "3.20",
+        "iniconfig": "2.3.1",
+        "numpy": "2.4.6",
+        "osmium": "4.3.2",
+        "packaging": "26.3",
+        "pandas": "3.0.6",
+        "pip": "24.0",
+        "pluggy": "1.7.0",
+        "protobuf": "7.36.2",
+        "psutil": "7.2.2",
+        "pyogrio": "0.13.0",
+        "pyproj": "3.7.2",
+        "pyrosm": "0.13.1",
+        "pytest": "9.1.1",
+        "python-dateutil": "4.0.0",
+        "python-rapidjson": "1.26",
+        "requests": "2.34.2",
+        "scipy": "1.17.1",
+        "setuptools": "79.0.1",
+        "shapely": "2.1.2",
+        "tzdata": "2026.6",
+        "urllib3": "2.8.0",
+        "z3-solver": "4.13.4.0"
+      },
+      "python": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+      "runs": [
+        {
+          "mode": "normal",
+          "pytest_summary": "92 passed, 167 subtests passed in 4.18s",
+          "returncode": 0
+        },
+        {
+          "mode": "-OO",
+          "pytest_summary": "92 passed, 1 warning, 167 subtests passed in 4.58s",
+          "returncode": 0
+        }
+      ]
+    }
+  }
+}

@@ -1,88 +1,132 @@
 # HiRoute
 
-HiRoute is a Python package for exact bounded electric-vehicle stop-planning on
-explicit directed road graphs. The current runnable core is `hiroute`; it does
-not require the legacy experiment packages or the optional REF implementation.
+HiRoute studies exact electric-vehicle stop planning. The maintained research
+pipeline is **N64 Strong/Scale**, with an independently installable physical-model
+verifier. Exact rational arithmetic, ordered candidates, physical replay and
+failure denominators are preserved.
 
-Latest independent-comparator checkpoint: [separately verified feasible improvement](docs/SEPARATELY_VERIFIED_IMPROVEMENT.md), with explicit timing, costs and unresolved optimality limits.
+The current engineering release supports fresh controlled runs. Historical
+end-to-end reproduction still requires external graph, catalog, candidate and
+verification artifacts. The original 2026-10-16 PBF is unavailable here;
+verified historical processed inputs are accepted. A newer map is a different
+input and must not replace it.
 
-## Current capabilities
+## Install
 
-| Area | Current support |
-| --- | --- |
-| Problem input | Versioned JSON `ProblemSnapshot`; exact rational numeric values; directed edges and explicit ordered Sites |
-| Search domain | User-declared candidate order and depth bound; exact search is intended for bounded cases, with no broad-scale or unrestricted-optimality claim |
-| Methods | `flat` and `hier` through the `exact_core_search` backend |
-| Profiles | `reduction=none`, `charging_operator=bounded_time_cut_v2`, `coalescing=none`, `bound=none`; other profiles are rejected |
-| Real input | Shandong PBF producer API with the `geo` extra, routing policy, boundary and projection; it validates input structure and policy without historical admission receipts |
-| Independent REF | Separate package in `reference/`; optional, with a bounded snapshot interface |
-
-The latest recorded project status remains limited: real-map REF confirmation and
-holdout work are incomplete. See [current research status](docs/CURRENT_RESEARCH_STATUS.md)
-for the historical scope. A synthetic CI pass is not research acceptance.
-
-## Install and try
-
-Python 3.11 is required. Build and install a wheel from a checkout:
+Use Python 3.11. Installation builds wheels; an editable checkout is unnecessary.
+From the repository root:
 
 ```sh
 python3.11 -m venv .venv
 . .venv/bin/activate
-python -m pip install build
-python -m build --wheel
-wheel=$(find dist -maxdepth 1 -type f -name 'hiroute-*.whl' -print -quit)
-test -n "$wheel"
-python -m pip install "$wheel"
+python -m pip install ".[research]"
+# Independent packages; install only the validation interfaces you need.
+python -m pip install ./reference
+python -m pip install ./comparison
 ```
 
-Run the included tiny exact example. It writes to a fresh temporary directory:
+Native routing additionally requires a C++17 compiler and Boost.Multiprecision
+headers (Ubuntu: `g++ libboost1.83-dev`). Input preparation from existing catalogs
+uses the standard library. Spatial attachment requires `hiroute[prepare]`;
+new-map PBF production requires `hiroute[geo,prepare]` and the explicit source,
+road policy, boundary and projection described in [the input guide](docs/REPRODUCING.md).
+
+## Research workflow
+
+First obtain the historical artifacts and their independently held manifest.
+Set `artifact_root` to the restored archive and `artifact_manifest` to its trusted
+manifest. Set `run_root` to a new parent directory. Each command below creates a
+new output; the benchmark can consume the full declared DEV budget and is run
+only when that cost is authorized.
 
 ```sh
-run_dir=$(mktemp -d)
+hiroute prepare --config configs/research/n64.json \
+  --artifact-root "$artifact_root" --manifest "$artifact_manifest" \
+  --output "$run_root/prepared"
+
+hiroute benchmark --prepared "$run_root/prepared" --output "$run_root/run"
+
+hiroute summarize --input "$run_root/run" --output "$run_root/summary.json"
+```
+
+`prepare --check-only` verifies the full external manifest and frozen input
+identities without selecting candidates or invoking a solver. Missing/corrupt
+inputs produce an explicit `input-verification.json`; preparation fails closed.
+Preparation records the complete effective configuration, candidate order and
+per-run code/environment provenance. The N64 profile explicitly enables landmark
+A*, source-tree reuse, seed pruning, inbound and eager bounds; pending-activity
+screening remains off.
+
+`benchmark` gives each method a supervised query process, an independent physical
+replay and durable receipts. It creates a fresh budget ledger, preserves all 48
+query cells / 96 method slots, and stops without retrying uncertain work. Historic
+reuse rows remain historical observations; a fresh benchmark runs fresh pairs.
+
+`summarize` verifies terminal and per-slot receipts and reports full and supported
+denominators, failures, completion CDFs and censored median/p95 intervals. It
+imports no solver or worker. A failed/interrupted cohort cannot become an exact
+completion through reporting.
+
+For a sealed independent candidate bundle:
+
+```sh
+hiroute-compare verify --bundle "$comparison_bundle" \
+  --artifact-root "$comparison_root" --output "$run_root/independent-check"
+```
+
+This command verifies the complete assignment, original DAG, strict support,
+physical replay, raw paths and matching receipts under its own resource limits.
+Acceptance requires `terminal.json` with `status=COMPLETE` and its matching body
+and witness receipts. The historical run remains UNKNOWN. The resulting witness
+is a feasible improvement conditional on the supplied leg table, not an optimum.
+
+See [formats, budgets and recovery boundaries](docs/RESEARCH_PIPELINE.md) and the
+[implementation/verification report](docs/CONSOLIDATION_PHASE_B_20261110.md).
+
+## Small exact example
+
+The existing `validate`, `solve` and `run` interfaces and strict v1 `SolverConfig`
+are preserved. `solve` does not automatically select the research N64 profile.
+
+```sh
 hiroute validate --problem tests/r0/c01_zero_stop_snapshot.json
 hiroute solve --problem tests/r0/c01_zero_stop_snapshot.json \
-  --config configs/rebuild/r1_flat.json --output "$run_dir/result.json"
+  --config configs/rebuild/r1_flat.json --output /tmp/hiroute-example-new.json
 ```
 
-For Shandong PBF ingestion, install the wheel with its optional geospatial
-requirements using `python -m pip install "$wheel[geo]"`. Supply the PBF,
-`.poly` boundary, routing policy, query, projection and attachment parameters to
-`hiroute.data.shandong.produce_shandong_snapshot`; no R0–R3 receipt or manually
-computed problem digest is required. Input format, routing policy, endpoint,
-Site and physical-model checks remain active.
+## Maintained structure
 
-## Bounded execution
-
-Use `hiroute run` to supervise either the exact solver CLI or a data-preparation
-command. It requires explicit wall, CPU, sampled process-group RSS, and minimum
-host `MemAvailable` limits, and writes an atomic receipt. Sampled group RSS is
-a monitor and cleanup trigger, not a kernel-enforced aggregate cap; use the
-optional per-process address-space limit when an individual hard ceiling is
-needed. Unlike `hiroute solve --time-limit-s`, which only bounds exact-search
-work, this wrapper applies an OS process-group wall/CPU/RSS guard and samples
-host headroom. The command receives no provenance-hash or budget-ID gate.
-
-```sh
-hiroute run --wall-limit-s 3600 --cpu-limit-s 7200 \
-  --memory-limit-bytes 42949672960 --host-headroom-bytes 17179869184 \
-  --receipt run-receipt.json -- \
-  hiroute solve --problem problem.json --config solver.json --output result.json
+```text
+src/hiroute/
+  contracts.py, cli.py          Public snapshots, solver configuration and commands
+  data/                        Input validation, road policies, attachments, candidates
+  exact/                       Exact optimization and independent physical replay
+  routing/                     Python/native selected-leg providers
+  execution/                   Effective configuration, workload, worker and coordinator
+  runtime.py                   OS resource supervision
+  evaluation/                  Pure receipt statistics and integrity-checked reports
+reference/src/hiroute_ref/      Independent bounded reference optimizer
+comparison/src/hiroute_compare/ Independent physical model and candidate verifier
+configs/research/n64.json       Explicit adaptation of the frozen N64 protocol
+ci/run_consolidated.py          Installed-wheel test tiers
+tests/oracles/timecut5/        Minimal test-only historical differential oracle
 ```
 
-For a PBF producer, put its Python invocation after the same `--`; this wraps
-the producer process group under identical monitoring and cleanup. The wrapper
-also terminates any descendants left in that group after the command leader
-exits successfully, so run only commands whose entire process group belongs to
-this supervised invocation.
+Other historical source and research records remain recoverable and outside the
+production wheel. Legacy script imports forward to the maintained modules for
+one transition cycle. Deletion of unresolved historical dependencies is blocked
+until the external input closure and retained callers are verified.
 
-## Tests and reproduction
+## Verification and evidence
 
-The workflow builds and installs the core wheel, runs focused exact/search,
-contract, CLI and producer regressions from outside the source tree, and runs
-separate synthetic legacy differential and REF-interface checks. Run the same
-workflow locally with the commands in [`ci/README.md`](ci/README.md). For
-installation, input preparation and the scope of reproducible examples, see
-[the usage and reproduction guide](docs/REPRODUCING_HIROUTE.md).
+[CI instructions](ci/README.md) separate core, native, geo, REF, comparator,
+differential and explicit artifact checks. Normal and `-OO` checks use exact
+behavioral assertions, not frozen source hashes or source-file counts. No full
+real N64 cohort, province rebuild or holdout runs in default CI.
 
-Historical reports and protocols remain under `docs/`; they describe their own
-recorded inputs and do not gate ordinary package use.
+The [Phase A audit](docs/PIPELINE_CONSOLIDATION_PHASE_A_20261110.md),
+[baseline](docs/CONSOLIDATION_BASELINE_20261110.md),
+[research status](docs/CURRENT_RESEARCH_STATUS.md) and
+[verified improvement record](docs/SEPARATELY_VERIFIED_IMPROVEMENT.md) retain the
+scope and provenance of past research. Small-domain CI does not establish
+historical real-map reproduction or a performance improvement.
