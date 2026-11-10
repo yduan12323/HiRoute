@@ -14,10 +14,7 @@ from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1]
 
 
-def domain_digest(query,n,scenario):
-    value=dict(endpoints=query['endpoints'],
-        candidates=query['scenario_candidate_domains'][scenario][str(n)])
-    return hashlib.sha256(json.dumps(value,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+from hiroute.data.identity import domain_digest
 
 
 def source_reuse_analysis(events,node_count,edge_count):

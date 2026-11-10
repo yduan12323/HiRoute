@@ -25,7 +25,7 @@ import time
 from types import SimpleNamespace
 
 import run_real_scale_pilot as pilot
-from d04_cost_diagnostic import domain_digest
+from hiroute.data.identity import domain_digest
 from real_scale_inputs import select_domains
 
 ROOT = Path(__file__).resolve().parents[1]

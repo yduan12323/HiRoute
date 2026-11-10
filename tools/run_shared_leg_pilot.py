@@ -75,14 +75,14 @@ def native_build_preflight(directory):
     if not binary.is_relative_to(directory):raise ValueError('fresh native build provenance')
     return dict(loaded=True,scope='actual compilation and ctypes ABI load only; no graph/index/query',
         binary=str(binary),binary_sha256=sha(binary),binary_bytes=binary.stat().st_size,
-        source_cpp_sha256=sha(ROOT/'src/hiroute/exact/road_index_native.cpp'),
+        source_cpp_sha256=sha(ROOT/'src/hiroute/routing/road_index_native.cpp'),
         wall_s=time.monotonic()-start)
 
 
 def verify_native_build(value):
     if not value or value.get('loaded') is not True:raise ValueError('actual successful native build required')
     if (sha(Path(value['binary']))!=value['binary_sha256'] or
-        sha(ROOT/'src/hiroute/exact/road_index_native.cpp')!=value['source_cpp_sha256']):
+        sha(ROOT/'src/hiroute/routing/road_index_native.cpp')!=value['source_cpp_sha256']):
         raise ValueError('native build artifact/input provenance changed')
 
 

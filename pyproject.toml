@@ -10,14 +10,16 @@ requires-python = ">=3.11,<3.12"
 dependencies = []
 
 [project.optional-dependencies]
+research = ["psutil==7.2.2"]
+prepare = ["numpy==2.4.6", "scipy==1.17.1"]
 geo = ["pyrosm==0.13.1", "pyproj==3.7.2", "shapely==2.1.2", "pandas==3.0.6", "osmium==4.3.2"]
 
 [project.scripts]
 hiroute = "hiroute.cli:main"
 
 [tool.setuptools]
-packages = ["hiroute", "hiroute.exact", "hiroute.data"]
+packages = ["hiroute", "hiroute.exact", "hiroute.data", "hiroute.execution", "hiroute.evaluation", "hiroute.routing"]
 package-dir = {"" = "src"}
 
 [tool.setuptools.package-data]
-"hiroute.exact" = ["*.cpp"]
+"hiroute.routing" = ["*.cpp"]

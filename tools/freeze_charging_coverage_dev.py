@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse,copy,hashlib,json,time
 from pathlib import Path
 from real_scale_inputs import select_domains,write_new
-from d04_cost_diagnostic import domain_digest
+from hiroute.data.identity import domain_digest
 
 
 def main(a):

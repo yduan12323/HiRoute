@@ -6,7 +6,6 @@ import runpy
 # Default local collection must not mutate that identity through bytecode writes.
 sys.dont_write_bytecode = True
 
-import pandas as pd
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -25,6 +24,7 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="session")
 def real_data(request):
+    import pandas as pd
     from _common import configs, load_graph
     data, routing = configs()
     required = [ROOT / data["graph_dir"] / "metadata.json", ROOT / data["instances_path"]]
