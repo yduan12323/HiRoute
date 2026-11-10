@@ -32,21 +32,13 @@ def atomic(path,value):
     temp=path.with_suffix('.tmp');temp.write_text(json.dumps(convert(value),indent=2)+'\n');temp.replace(path)
 
 
-def load(path,limit=4*1024**2):
-    if path.stat().st_size>limit:raise ValueError('bounded metadata size')
-    return json.loads(path.read_text(),object_pairs_hook=unique)
+from hiroute_compare.io import load
 
 
-def sha(path,check=lambda:None):
-    h=hashlib.sha256()
-    with path.open('rb') as f:
-        for block in iter(lambda:f.read(1024**2),b''):check();h.update(block)
-    return h.hexdigest()
+from hiroute_compare.io import sha
 
 
-def source():
-    def git(*args):return subprocess.check_output(['git',*args],cwd=ROOT,text=True).strip()
-    return dict(commit=git('rev-parse','HEAD'),dirty=bool(git('status','--porcelain')))
+from hiroute_compare.provenance import source
 
 
 def dependency_environment():
@@ -68,6 +60,7 @@ def compiler_preflight():
 def native_build_preflight(directory):
     """A real fresh C++ build AND ABI load, without graph construction/query."""
     from hiroute.exact.road_index import _load_native_library
+    from hiroute.routing import index
     directory=Path(directory).resolve()
     if directory.exists():raise ValueError('inspect existing native prebuild; no uncertain repetition')
     start=time.monotonic();library,_=_load_native_library(directory)
@@ -75,14 +68,15 @@ def native_build_preflight(directory):
     if not binary.is_relative_to(directory):raise ValueError('fresh native build provenance')
     return dict(loaded=True,scope='actual compilation and ctypes ABI load only; no graph/index/query',
         binary=str(binary),binary_sha256=sha(binary),binary_bytes=binary.stat().st_size,
-        source_cpp_sha256=sha(ROOT/'src/hiroute/routing/road_index_native.cpp'),
+        source_cpp_sha256=sha(Path(index.__file__).with_name('road_index_native.cpp')),
         wall_s=time.monotonic()-start)
 
 
 def verify_native_build(value):
+    from hiroute.routing import index
     if not value or value.get('loaded') is not True:raise ValueError('actual successful native build required')
     if (sha(Path(value['binary']))!=value['binary_sha256'] or
-        sha(ROOT/'src/hiroute/routing/road_index_native.cpp')!=value['source_cpp_sha256']):
+        sha(Path(index.__file__).with_name('road_index_native.cpp'))!=value['source_cpp_sha256']):
         raise ValueError('native build artifact/input provenance changed')
 
 
@@ -163,20 +157,7 @@ def physical(model,table,recipe):
             b=str(direct.time*F(recipe['b_fraction_direct_time'])),D=recipe['duration_s']))
 
 
-def verify_paths(table,pairs,edge,check=lambda:None):
-    result=[]
-    for s,t in sorted(set(map(tuple,pairs))):
-        check();p=table.pairs[s,t]
-        if not p.reachable:
-            result.append(dict(source=s,target=t,status='common_provider_unreachable_not_independent_cut'));continue
-        duration=length=F(0)
-        for eid,u,v in zip(p.edges,p.nodes,p.nodes[1:]):
-            check();a,b,dt,ds=edge(eid)
-            if (a,b)!=(u,v):raise ValueError('raw edge identity/connectivity mismatch')
-            duration+=F(dt);length+=F(ds)
-        if duration!=p.time or length!=p.length:raise ValueError('raw selected path totals mismatch')
-        result.append(dict(source=s,target=t,status='exact_path_replay_pass',edges=len(p.edges)))
-    return result
+from hiroute_compare.io import verify_paths
 
 
 def freeze(args,cfg):
